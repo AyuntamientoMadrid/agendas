@@ -1,40 +1,55 @@
-set :application, 'my_app_name'
-set :repo_url, 'git@example.com:me/my_repo.git'
+# config valid only for current version of Capistrano
+lock '3.4.0'
 
-# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+def deploysecret(key)
+  @deploy_secrets_yml ||= YAML.load_file('config/deploy-secrets.yml')[fetch(:stage).to_s]
+  @deploy_secrets_yml[key.to_s]
+end
 
-# set :deploy_to, '/var/www/my_app'
-# set :scm, :git
+set :rails_env, fetch(:stage)
+set :rvm_ruby_version, '2.2.1'
+set :rvm_type, :user
 
-# set :format, :pretty
-# set :log_level, :debug
-# set :pty, true
+set :application, 'agendas'
+set :server_name, deploysecret(:server_name)
+# If ssh access is restricted, probably you need to use https access
+set :repo_url, 'https://github.com/LextrendIT/agendas.git'
 
-# set :linked_files, %w{config/database.yml}
-# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :scm, :git
+set :revision, `git rev-parse --short #{fetch(:branch)}`.strip
 
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
-# set :keep_releases, 5
+set :log_level, :info
+set :pty, true
+set :use_sudo, false
+
+set :linked_files, %w{config/database.yml config/secrets.yml}
+set :linked_dirs, %w{log tmp public/system public/assets}
+
+set :keep_releases, 10
+
+set :local_user, ENV['USER']
+
+# Run test before deploy
+set :tests, ["spec"]
+
+# Config files should be copied by deploy:setup_config
+set(:config_files, %w(
+  log_rotation
+  database.yml
+  secrets.yml
+  unicorn.rb
+  sidekiq.yml
+))
+
 
 namespace :deploy do
-
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      # execute :touch, release_path.join('tmp/restart.txt')
-    end
-  end
-
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
-  end
-
+  # Check right version of deploy branch
+  before :deploy, "deploy:check_revision"
+  # Run test aund continue only if passed
+  before :deploy, "deploy:run_tests"
+  # Compile assets locally and then rsync
+  after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
   after :finishing, 'deploy:cleanup'
-
+  # Restart unicorn
+  after 'deploy:publishing', 'deploy:restart'
 end
