@@ -1,0 +1,49 @@
+<header class="header" role="banner">
+  <div class="row hide-for-small-only">
+    <div class="small-6 columns">
+      <button data-dropdown="languagesMenu" aria-controls="languagesMenu" aria-expanded="false" class="button transparent dropdown"><%= t('header.page_language') %> <%= t('header.spanish') %></button>
+      <ul id="languagesMenu" data-dropdown-content class="f-dropdown" aria-hidden="true">
+        <li><a href="#"><%= t('header.english') %></a></li>
+        <li><a href="#"><%= t('header.spanish') %></a></li>
+      </ul>
+    </div>
+    <div class="small-6 columns text-right">
+      <ul class="header__menu">
+        <li><a href="#">Participación</a></li>
+        <li><a href="#">Transparencia</a></li>
+        <li><a href="#">Datos abiertos</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns hide-for-small-only">
+      <div class="header__base">
+        <img class="header__imago" src="/assets/madrid.png" alt="¡Madrid">
+        <h1 class="header__title"><strong>Gobierno abierto</strong> Transparencia</h1>
+      </div>
+    </div>
+  </div>
+
+
+  <nav class="top-bar show-for-small-only" data-topbar role="navigation">
+    <div class="header__base">
+      <img class="header__imago" src="/assets/madrid.png" alt="¡Madrid">
+      <h1 class="header__title"><strong>Gobierno abierto</strong> Transparencia</h1>
+    </div>
+    <div class="toggle-topbar menu-icon"><a href="#"><span></span></a></div>
+    <section class="top-bar-section">
+      <ul>
+        <li class="has-dropdown">
+          <a href="#">Idioma de la página: Español</a>
+          <ul class="dropdown">
+            <li><a href="#">English</a></li>
+            <li><a href="#">Español</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Participación</a></li>
+        <li><a href="#">Transparencia</a></li>
+        <li><a href="#">Datos abiertos</a></li>
+      </ul>
+    </section>
+  </nav>
+</header><!-- .header -->

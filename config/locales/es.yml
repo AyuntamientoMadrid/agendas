@@ -1,0 +1,93 @@
+es:
+  header:
+    page_language: "Idioma de la página"
+    spanish: "Español"
+    english: "Inglés"
+  main:
+    form:
+      keyword: "Palabra clave"
+      main_area: "Área de gobierno"
+      child_area: "Dirección general"
+      holder: "Titular de la agenda"
+      date: "Fecha"
+      any: "Todos"
+      search: "Buscar"
+      reset: "Cancelar"
+  number_delimiter: "."
+  number_separator: ","
+  month: "mes"
+  months: "meses"
+  year: "año"
+  day: "día"
+  yes: "Sí"
+  no: "No"
+  none-o: "Ninguno"
+  none-a: "Ninguna"
+  datepicker-format: "dd/mm/yy"
+  size: "Tamaño"
+  time:
+    formats:
+      short: "%d-%m-%Y %H:%M"
+  date:
+    formats:
+      short: "%d/%m/%Y"
+      default: "%d/%m/%Y"
+      long: "%d de %B de %Y"
+      complete: "%d de %B de %Y · %H:%m"
+
+    order:
+      - :day
+      - :month
+      - :year
+
+    day_names:
+      - domingo
+      - lunes
+      - martes
+      - miércoles
+      - jueves
+      - viernes
+      - sábado
+
+    abbr_day_names:
+      - dom
+      - lun
+      - mar
+      - mié
+      - jue
+      - vie
+      - sáb
+
+    month_names:
+      - ~
+      - enero
+      - febrero
+      - marzo
+      - abril
+      - mayo
+      - junio
+      - julio
+      - agosto
+      - septiembre
+      - octubre
+      - noviembre
+      - diciembre
+
+    abbr_month_names:
+      - ~
+      - ene
+      - feb
+      - mar
+      - abr
+      - may
+      - jun
+      - jul
+      - ago
+      - sep
+      - oct
+      - nov
+      - dic
+    order:
+      - :day
+      - :month
+      - :year

@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <h3>Users</h3>
+    <table width="100%">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+        <tr>
+          <%= render user %>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

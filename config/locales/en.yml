@@ -1,0 +1,74 @@
+en:
+  number_delimiter: ","
+  number_separator: "."
+  month: "month"
+  months: "months"
+  year: "year"
+  day: "day"
+  yes: "Yes"
+  no: "No"
+  none-o: "None"
+  none-a: "None"
+  datepicker-format: "yy/mm/dd"
+  size: "Size"
+  time:
+    formats:
+      short: "%Y-%m-%d %H:%M"
+
+  date:
+    formats:
+      short: "%Y/%m/%d"
+      default: "%Y/%m/%d"
+      long: "%B %d, %Y"
+
+    day_names:
+      - sunday
+      - monday
+      - tuesday
+      - wednesday
+      - thursday
+      - friday
+      - saturday
+
+    abbr_day_names:
+      - sun
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+
+    month_names:
+      - ~
+      - january
+      - february
+      - march
+      - april
+      - may
+      - june
+      - july
+      - august
+      - september
+      - october
+      - november
+      - december
+
+    abbr_month_names:
+      - ~
+      - jan
+      - feb
+      - mar
+      - apr
+      - may
+      - jun
+      - jul
+      - aug
+      - sep
+      - oct
+      - nov
+      - dec
+    order:
+      - :day
+      - :month
+      - :year

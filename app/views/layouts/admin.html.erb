@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Agendas" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Agendas" %>">
+    <%= stylesheet_link_tag 'admin', media: 'all' %>
+    <%# Modernizr is required for Zurb Foundation %>
+    <%= javascript_include_tag 'vendor/modernizr' %>
+    <%= javascript_include_tag 'admin' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <header>
+      <%= render 'layouts/admin/navigation' %>
+    </header>
+    <main role="main">
+       <%= render 'layouts/admin/messages' %>
+       <%= yield %>
+    </main>
+  </body>
+</html>

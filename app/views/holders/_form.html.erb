@@ -1,0 +1,17 @@
+<%= form_for(@officer, url: new_admin_officer_path(@officer)) do |f| %>
+  <% if @officer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@officer.errors.count, "error") %> prohibited this officer from being saved:</h2>
+
+      <ul>
+      <% @officer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
