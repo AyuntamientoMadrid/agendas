@@ -5,7 +5,8 @@ class Manage < ActiveRecord::Base
   belongs_to :holder
 
   # Validations
-  validates_presence_of :user, :holder
+  validates :user, presence: true
+  validates :holder, presence: true
   validates :holder, uniqueness: true
 
 end
