@@ -2,7 +2,17 @@ class UsersController < AdminController
   before_action :admin_only, :except => :show
 
   def index
-    @users = User.all
+    search = params[:q]
+    search.downcase! unless search.nil?
+    @users = User.active.user.where("lower(first_name) LIKE ? OR lower(last_name) like ?", "%#{search}%", "%#{search}%").order("last_name asc").paginate(:page => params[:page], :per_page => 5)
+
+
+  end
+
+  def search
+    index
+
+    render :index
   end
 
   def show

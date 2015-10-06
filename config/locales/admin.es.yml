@@ -1,4 +1,6 @@
 es:
-  menu:
-    officers: "Cargos"
-    events: "Eventos"
+  backend:
+    contributors: "Contribuidores"
+    holders: "Titulares"
+    areas: "Áreas"
+    positions: "Cargos"

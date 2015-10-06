@@ -5,7 +5,13 @@ Rails.application.routes.draw do
   resources :visitors
   devise_for :users, controllers: { session: "users/sessions", registration: "users/registration" }
 
-  resources :users
+  resources :users do
+    collection do
+      get :search
+      post :search
+
+    end
+  end
   resources :holders
   resources :events
 
