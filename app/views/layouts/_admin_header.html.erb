@@ -1,0 +1,61 @@
+<header class="results">
+  <section class="top-links">
+    <div class="row">
+      <div class="locale">
+    <span class="inline-block">
+      <i class="icon-language"></i>
+      Idioma:
+    </span>
+        <form class="locale-form">
+          <select class="js-location-changer locale-switcher" name="locale-switcher">
+            <option
+            value="/admin/tags?locale=en">
+              English
+            </option>
+            <option selected
+                    value="/admin/tags?locale=es">
+              Español
+            </option>
+          </select>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="contain-to-grid clear">
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <%= link_to root_path do %>
+              <%= image_tag('header_logo_madrid.png', class: 'left', size: '96x96') %>
+              <%= t("layouts.header.open_gov", open: "<strong>#{t('layouts.header.open')}</strong>").html_safe %> <span>|</span> <span class="logo-site"><%= t("admin.dashboard.index.title") %></span>
+          <% end %>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+      </ul>
+
+      <section class="top-bar-section">
+        <ul class="right">
+          <li>
+            <a href="/account">Mi cuenta</a>
+          </li>
+          <li>
+            <a rel="nofollow" data-method="delete" href="/users/sign_out">Salir</a>
+          </li>
+        </ul>
+
+        <ul class="right">
+          <li>
+            <a href="/admin">Administrar</a>
+          </li>
+
+          <li>
+            <a href="/moderation">Moderar</a>
+          </li>
+        </ul>
+
+      </section>
+    </nav>
+  </div>
+</header>

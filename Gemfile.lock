@@ -145,6 +145,8 @@ GEM
     highline (1.7.7)
     hirb (0.7.3)
     i18n (0.7.0)
+    initialjs-rails (0.2.0.1)
+      railties (>= 3.1, < 5.0)
     jbuilder (2.3.1)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -282,6 +284,9 @@ GEM
       rubyzip (~> 1.0)
       websocket (~> 1.0)
     slop (3.6.0)
+    social-share-button (0.1.8)
+      coffee-rails
+      sass-rails
     spring (1.4.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -310,6 +315,8 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
+    turbolinks (2.5.3)
+      coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
@@ -330,6 +337,8 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
     websocket (1.2.2)
     will_paginate (3.0.7)
+    will_paginate-foundation (5.3.4)
+      will_paginate (>= 3.0.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
     yard (0.8.7.6)
@@ -355,6 +364,7 @@ DEPENDENCIES
   faker
   foundation-rails
   high_voltage
+  initialjs-rails (= 0.2.0.1)
   jazz_hands!
   jbuilder (~> 2.0)
   jquery-rails
@@ -370,15 +380,18 @@ DEPENDENCIES
   rubocop
   sass-rails (~> 5.0)
   selenium-webdriver
+  social-share-button
   spring
   spring-commands-rspec
   sunspot_rails
   sunspot_solr
   thin
+  turbolinks
   uglifier (>= 1.3.0)
   unicorn
   web-console (~> 2.0)
   will_paginate
+  will_paginate-foundation
 
 BUNDLED WITH
    1.10.6

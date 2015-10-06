@@ -20,10 +20,17 @@ gem 'foundation-rails'
 gem 'high_voltage'
 gem 'pg'
 gem 'will_paginate'
+gem 'will_paginate-foundation'
 gem 'paperclip'
 gem 'newrelic_rpm'
 
 gem 'faker'
+
+gem 'turbolinks'
+
+gem 'social-share-button'
+
+gem 'initialjs-rails', '0.2.0.1'
 
 
 group :development do
