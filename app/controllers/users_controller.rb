@@ -1,5 +1,13 @@
 class UsersController < AdminController
-  before_action :admin_only, :except => :show
+  before_action :admin_only
+
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+
+  def new
+    @user = User.new
+
+
+  end
 
   def index
     search = params[:q]
@@ -15,18 +23,23 @@ class UsersController < AdminController
     render :index
   end
 
-  def show
-    @user = User.find(params[:id])
-    unless current_user.admin?
-      unless @user == current_user
-        redirect_to :back, :alert => "Access denied."
-      end
+
+
+  def create
+    @user = User.new(user_params)
+    @user.password = Faker::Internet.password(8)
+    @user.active = true
+    if @user.save
+      @user.user!
+      redirect_to users_path, notice: 'User was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(secure_params)
+    if @user.update_attributes(user_params)
       redirect_to users_path, :notice => "User updated."
     else
       redirect_to users_path, :alert => "Unable to update user."
@@ -41,14 +54,18 @@ class UsersController < AdminController
 
   private
 
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   def admin_only
     unless current_user.admin?
       redirect_to :back, :alert => "Access denied."
     end
   end
 
-  def secure_params
-    params.require(:user).permit(:role)
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :id)
   end
 
 end
