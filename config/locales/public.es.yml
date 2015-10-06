@@ -5,6 +5,7 @@ es:
     english: "Inglés"
   main:
     form:
+      title: "Utiliza estos filtros para buscar la información que más te interesa."
       keyword: "Palabra clave"
       main_area: "Área de gobierno"
       child_area: "Dirección general"

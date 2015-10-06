@@ -32,7 +32,7 @@
 
                 <% @events.each do |event|%>
                   <article class="post">
-                    <h1 class="post__title"><%= link_to event.title, detail_path(event.id) %></h1>
+                    <h1 class="post__title"><%= link_to event.title, show_path(event.id) %></h1>
                     <p><strong>
                       <%= event.position.holder.full_name%> ·
                       <%= event.position.title %> ·
@@ -72,10 +72,4 @@
         </div>
       </div>
 
-      <script>
-        $(document).ready(function(){
-          $('.fdatepicker').fdatepicker({
-            format: "<%= I18n.translate("datepicker-format") %>",
-          });
-        });
-      </script>
+      <%= javascript_include_tag 'search_form'%>

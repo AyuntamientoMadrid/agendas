@@ -1,0 +1,2 @@
+$("#holder").empty().append("<%= escape_javascript(render(partial: @holders)) %>")
+$("#holder").prepend("<option value=''><%= t('main.form.any')%></option>").val('');

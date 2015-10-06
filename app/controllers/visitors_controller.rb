@@ -19,6 +19,14 @@ class VisitorsController < ApplicationController
     @event = Event.find(params[:id]) unless !@event.active
   end
 
+  def update_areas
+    @areas = Area.where(parent_id: params[:id])
+  end
+
+  def update_holders
+    @holders = Position.where(area_id: params[:id])
+  end
+
   private
 
   def search (params)

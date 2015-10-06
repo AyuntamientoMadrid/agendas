@@ -1,26 +1,26 @@
 <div class="small-12 large-4 columns">
-  <p class="mb40">Utiliza estos filtros para buscar la información que más te interesa.</p>
+  <p class="mb40"><%= t('main.form.title')%></p>
   <%= form_tag root_path, method: :get do %>
     <div class="mb20">
-      <%= label_tag :keyword, 'Palabra clave', class: 'title-s' %>
+      <%= label_tag :keyword, t('main.form.keyword'), class: 'title-s' %>
       <%= text_field_tag :keyword, params[:keyword] %>
     </div>
     <div class="mb20">
-      <%= label_tag :area, 'Área de gobierno', class: 'title-s' %>
+      <%= label_tag :area, t('main.form.main_area'), class: 'title-s' %>
       <div class="custom-select">
         <%= select_tag :main_area,options_for_select(Area.main_areas.map{|area| [ area.title, area.id ]},params[:main_area]), prompt: t('main.form.any'), class: 'dropdown' %>
       </div>
     </div>
     <div class="mb20">
-      <%= label_tag :area, 'Dirección general', class: 'title-s' %>
-      <%= select_tag :child_area,options_for_select(Area.children_areas.map{|area| [ area.title, area.id ]},params[:child_area]),prompt: t('main.form.any'), class: 'dropdown' %>
+      <%= label_tag :area, t('main.form.child_area'), class: 'title-s' %>
+      <%= select_tag :child_area,options_for_select(Area.children_areas.filtered(params[:main_area]).map{|area| [ area.title, area.id ]},params[:child_area]),prompt: t('main.form.any'), class: 'dropdown' %>
     </div>
     <div class="mb20">
-      <%= label_tag :holder, 'Titular de la agenda', class: 'title-s' %>
-      <%= select_tag :holder, options_for_select(Position.current.map{|position| [ position.holder.full_name, position.id ]},params[:holder]),prompt: t('main.form.any'), class: 'dropdown'  %>
+      <%= label_tag :holder, t('main.form.holder'), class: 'title-s' %>
+      <%= select_tag :holder, options_for_select(Position.current.area_filtered(params[:child_area]).map{|position| [ position.holder.full_name, position.id ]},params[:holder]),prompt: t('main.form.any'), class: 'dropdown'  %>
     </div>
     <div class="mb20">
-      <%= label_tag :date, 'Fecha', class: 'title-s' %>
+      <%= label_tag :date, t('main.form.date'), class: 'title-s' %>
       <div class="row">
         <div class="small-6 columns">
           <%= text_field_tag :from,params[:from], class: 'fdatepicker'%>
@@ -31,8 +31,8 @@
       </div>
     </div>
     <div class="mb20">
-      <%= button_tag t('main.form.reset'), type: :reset, class: 'button secondary' %>
-      <%= submit_tag t('main.form.search'), class: 'button' %>
+      <%= link_to t('main.form.reset'), root_path, class: 'button secondary' %>
+      <%= submit_tag t('main.form.search'), class: 'button', name: nil %>
     </div>
   <% end %>
 </div>

@@ -1,0 +1,2 @@
+$("#child_area").empty().append("<%= escape_javascript(render(partial: @areas)) %>");
+$("#child_area").prepend("<option value=''><%= t('main.form.any')%></option>").val('');
