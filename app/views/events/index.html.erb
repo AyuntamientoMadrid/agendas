@@ -5,7 +5,7 @@
     </h1>
 </div>
 
-<table id="mis-cojones" class="display" cellpadding="0" width="100%">
+<table id="listing" class="display" cellpadding="0" width="100%">
   <thead>
     <tr>
       <th><%= t('backend.date')%></th>
@@ -39,13 +39,5 @@
   </tbody>
 </table>
 
-
-
-  <script>
-      $(document).ready(function() {
-        $('#mis-cojones').DataTable( {
-            "order": [[ 0, "desc" ]]
-        } );
-    } );
-  </script>
+<%= javascript_include_tag 'admin_listings' %>
 
