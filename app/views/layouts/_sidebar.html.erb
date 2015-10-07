@@ -4,39 +4,34 @@
       <li>
         <a href="/admin">Administración</a>
       </li>
-
-      <li class=active>
+      <li class=<%= active_menu('users') %>>
         <a href=<%= users_path %>>
           <i class="icon-user"></i>
-          <%= t('backend.contributors')%>
-        </a>    </li>
-
-      <li >
-        <a href="<%= events_path %>">
-          <i class="icon-calendar"></i>
-          <%= t('backend.events')%>
+          <%= t("backend.contributors")%>
         </a>
       </li>
 
-      <li >
+      <li class=<%= active_menu('events') %>>
+        <a href="<%= events_path %>">
+          <i class="icon-calendar"></i>
+          <%= t("backend.events")%>
+        </a>
+      </li>
+
+      <li class=<%= active_menu('visitors') %>>
         <a href="/admin/debates">
-          <i class="icon-debates"></i>
-          <%= t('backend.areas')%>
-        </a>    </li>
+          <i class="icon-settings"></i>
+          <%= t("backend.areas")%>
+        </a>
+      </li>
 
-      <li >
+      <li class=<%= active_menu('visitors') %>>
         <a href="/admin/comments">
-          <i class="icon-comments"></i>
-          <%= t('backend.positions')%>
-        </a>    </li>
+          <i class="icon-organizations"></i>
+          <%= t("backend.positions")%>
+        </a>
+      </li>
 
-
-
-      <li >
-        <a href="/admin/stats">
-          <i class="icon-stats"></i>
-          Estadísticas
-        </a>    </li>
     </ul>
   </nav>
 
