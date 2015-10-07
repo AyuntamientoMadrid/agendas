@@ -1,40 +1,33 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Admin</title>
+    <title>Admin</title>
 
+    <%= stylesheet_link_tag    "application_admin" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "application_admin", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
 
-  <%= stylesheet_link_tag    "application_admin" %>
+    <link rel="shortcut icon" type="image/x-icon" href="" />
+  </head>
 
+  <body class="admin">
 
-  <%= javascript_include_tag "vendor/modernizr" %>
-  <%= javascript_include_tag "application_admin", 'data-turbolinks-track' => true %>
+    <%= render 'layouts/admin_header' %>
 
+    <div class="row">
 
+      <%= render  'layouts/sidebar' %>
 
-  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon-44e2af011a46b2db0a7d91b3ccb656b59a1818d46e34fb15218b7c5107525f1e.ico" />
-</head>
+      <div class="admin-content small-12 medium-9 column">
 
-<body class="admin">
+        <%= yield %>
 
-
-<%= render 'layouts/admin_header' %>
-
-
-<div class="row">
-
-  <%= render  'layouts/sidebar' %>
-
-  <div class="admin-content small-12 medium-9 column">
-
-    <%= yield %>
-
-  </div>
-</div>
-</body>
+      </div>
+    </div>
+  </body>
 </html>

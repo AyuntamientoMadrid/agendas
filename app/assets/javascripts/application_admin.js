@@ -26,6 +26,8 @@
 //= require prevent_double_submission
 //= require rem.min
 //= require respond.min
+//= require dependencies/jquery.dataTables.min
+//= require dependencies/dataTables.foundation.min
 
 
 var initialize_modules = function() {

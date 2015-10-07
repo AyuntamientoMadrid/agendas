@@ -7,15 +7,16 @@
 
       <li class=active>
         <a href=<%= users_path %>>
-          <i class="icon-tag"></i>
+          <i class="icon-user"></i>
           <%= t('backend.contributors')%>
         </a>    </li>
 
       <li >
-        <a href="/admin/proposals">
-          <i class="icon-proposals"></i>
-          <%= t('backend.holders')%>
-        </a>    </li>
+        <a href="<%= events_path %>">
+          <i class="icon-calendar"></i>
+          <%= t('backend.events')%>
+        </a>
+      </li>
 
       <li >
         <a href="/admin/debates">

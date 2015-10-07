@@ -4,17 +4,15 @@
       <div class="locale">
     <span class="inline-block">
       <i class="icon-language"></i>
-      Idioma:
+      <%= t("language")%>:
     </span>
         <form class="locale-form">
           <select class="js-location-changer locale-switcher" name="locale-switcher">
-            <option
-            value="/admin/tags?locale=en">
-              English
+            <option value="/admin/tags?locale=en">
+              <%= t("english")%>
             </option>
-            <option selected
-                    value="/admin/tags?locale=es">
-              Español
+            <option selected value="/admin/tags?locale=es">
+              <%= t("spanish")%>
             </option>
           </select>
         </form>
@@ -28,33 +26,21 @@
       <ul class="title-area">
         <li class="name">
           <%= link_to root_path do %>
-              <%= image_tag('header_logo_madrid.png', class: 'left', size: '96x96') %>
-              <%= t("backend_header.open_gov") %> <span>|</span> <span class="logo-site"><%= t("backend_header.administracion") %></span>
+              <%= image_tag('madrid.png', class: 'left', size: '96x96') %>
+              <%= t("open_goverment") %> <span>|</span> <span class="logo-site"><%= t("backend.header.administration") %></span>
           <% end %>
         </li>
         <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
       </ul>
-
       <section class="top-bar-section">
         <ul class="right">
           <li>
-            <a href="/account">Mi cuenta</a>
+            <a href="/account"><%= t("backend.header.account")%></a>
           </li>
           <li>
-            <a rel="nofollow" data-method="delete" href="/users/sign_out">Salir</a>
+            <%= link_to( t("backend.header.exit"), destroy_user_session_path, method: :delete) %>
           </li>
         </ul>
-
-        <ul class="right">
-          <li>
-            <a href="/admin">Administrar</a>
-          </li>
-
-          <li>
-            <a href="/moderation">Moderar</a>
-          </li>
-        </ul>
-
       </section>
     </nav>
   </div>
