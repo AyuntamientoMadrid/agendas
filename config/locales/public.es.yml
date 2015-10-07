@@ -4,6 +4,13 @@ es:
     spanish: "Español"
     english: "Inglés"
   main:
+    title: "Publicación de agendas"
+    any_errors: "¿Hay algún error en esta página?"
+    get_updates: "Recibe actualizaciones de esta lista"
+    share: "Compartir"
+    results: "Resultados"
+    with_keyword: "con la palabra"
+    delete: "Eliminar"
     form:
       title: "Utiliza estos filtros para buscar la información que más te interesa."
       keyword: "Palabra clave"

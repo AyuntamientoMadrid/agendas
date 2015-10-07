@@ -20,6 +20,7 @@ gem 'foundation-rails'
 gem 'high_voltage'
 gem 'pg'
 gem 'will_paginate'
+gem 'will_paginate-foundation'
 gem 'paperclip'
 gem 'newrelic_rpm'
 
