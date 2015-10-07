@@ -10,7 +10,13 @@ Rails.application.routes.draw do
   get "/admin", to: 'users#index', as: 'admin'
   devise_for :users, controllers: { session: "users/sessions", registration: "users/registration" }
 
-  resources :users
+  resources :users do
+    collection do
+      get :search
+      post :search
+
+    end
+  end
   resources :holders
   resources :events
 

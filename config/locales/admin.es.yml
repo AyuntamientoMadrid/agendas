@@ -1,4 +1,15 @@
 es:
-  menu:
-    officers: "Cargos"
-    events: "Eventos"
+  backend:
+    contributors: "Contribuidores"
+    new_contributor: "Nuevo contribuidor"
+
+    holders: "Titulares"
+    areas: "Áreas"
+    positions: "Cargos"
+    new_contributor: "Nuevo contribuidor"
+    edit_contributor: "Editando contribuidor"
+
+  backend_header:
+    open_gov: "Gobierno abierto"
+    administracion: "Administración"
+

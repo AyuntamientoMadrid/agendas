@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
   enum role: [:user, :admin]
   after_initialize :set_default_role, :if => :new_record?
 
+
+  scope :active, -> {where(:active => true)}
+
   def name
     last_name.to_s + ", " + first_name.to_s
   end
@@ -25,6 +28,6 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 end

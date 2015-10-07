@@ -1,22 +1,59 @@
-<div class="container">
-  <div class="row">
-    <h3>Users</h3>
-    <table width="100%">
-      <thead>
-        <tr>
-          <th>User</th>
-          <th>Email</th>
-          <th>Rol</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @users.each do |user| %>
-        <tr>
-          <%= render user %>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
+
+
+
+<h1><%= t('backend.contributors')%></h1>
+
+
+  <!-- Search organizations -->
+    <%= form_tag(search_users_path, :method=>'post') do %>
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= text_field_tag :q, params[:q],:placeholder => "Nombre" %>
+      </div>
+
+      <div class="form-inline small-12 medium-6 column">
+        <input type="submit" name="commit" value="Buscar" class="button radius success"> <%= link_to t('backend.new_contributor'), new_user_path, :class => "button radius warning right" %>
+      </div>
+    </div>
+  <% end %><!-- /. Search organizations -->
+
+
+  <h2>Resultados (<%= @users.total_entries %>)</h2>
+
+
+<%= will_paginate @users, :params => { :q => params[:q] }, renderer: FoundationPagination::Rails %>
+
+
+  <table>
+    <thead>
+    <tr>
+      <th>Nombre</th>
+
+      <th>Contribuye a</th>
+      <th>Acciones</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |u| %>
+    <tr>
+      <td>
+        <p><%= link_to u.name, edit_user_path(u) %><br>
+        <%= u.email %></p>
+      </td>
+      <td>
+        <% u.manages.map{|h| h.holder.full_name}.each do |m| %>
+
+
+        <%= m %><br>
+            <% end %>
+      </td>
+      <td><%= link_to "Edit", edit_user_path(u)  %> · Delete</td>
+    </tr>
+
+    <% end %>
+
+    </tbody>
+  </table>
+
+<%= will_paginate @users, renderer: FoundationPagination::Rails %>
