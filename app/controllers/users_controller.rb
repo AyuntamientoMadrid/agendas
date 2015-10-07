@@ -14,16 +14,11 @@ class UsersController < AdminController
   def index
     search = params[:q]
     search.downcase! unless search.nil?
-    @users = User.active.user.where("lower(first_name) LIKE ? OR lower(last_name) like ?", "%#{search}%", "%#{search}%").order("last_name asc").paginate(:page => params[:page], :per_page => 5)
+    @users = User.includes(:manages => :holder).active.user.where("lower(first_name) LIKE ? OR lower(last_name) like ?", "%#{search}%", "%#{search}%").order("last_name asc")
 
 
   end
 
-  def search
-    index
-
-    render :index
-  end
 
 
 
@@ -72,6 +67,6 @@ class UsersController < AdminController
 
   def load_holders
 
-    @holders =Holder.all
+    @holders =Holder.all.order("last_name asc")
   end
 end

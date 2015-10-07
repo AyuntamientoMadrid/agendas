@@ -4,7 +4,7 @@ class HoldersController < AdminController
   def index
     search = params[:q]
     search.downcase! unless search.nil?
-    @holders = Holder.where("lower(first_name) LIKE ? OR lower(last_name) like ?", "%#{search}%", "%#{search}%").order("last_name asc").paginate(:page => params[:page], :per_page => 5)
+    @holders = Holder.includes(:users).includes(:positions).includes(:manages).where("lower(first_name) LIKE ? OR lower(last_name) like ?", "%#{search}%", "%#{search}%").order("last_name asc")
 
 
   end

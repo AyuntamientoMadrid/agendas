@@ -1,74 +1,61 @@
+<div class="row">
+  <h1>
+    <%= t('backend.holders')%> (<%= @holders.count %>)
+    <%= link_to t('backend.new_holder'), new_holder_path, :class => "button radius warning right" %>
+  </h1>
+</div>
+
+<table id="listing" class="display" cellpadding="0" width="100%">
+  <thead>
+  <tr>
+    <th><%= t('backend.name')%></th>
+    <th><%= t('backend.positions')%></th>
+    <th><%= t('backend.contributd_by')%></th>
+    <th><%= t('actions')%></th>
+  </tr>
+  </thead>
+  <tfoot>
+  <tr>
+    <th><%= t('backend.name')%></th>
+    <th><%= t('backend.positions')%></th>
+    <th><%= t('backend.contributd_by')%></th>
+    <th><%= t('actions')%></th>
+  </tr>
+  </tfoot>
+  <tbody>
+  <% @holders.each do |h| %>
+      <tr>
+        <td>
+          <p><%= link_to h.full_name_comma, edit_holder_path(h) %></p>
+        </td>
 
 
 
-<h1><%= t('backend.holders')%></h1>
+        <td>
+          <% h.positions.current.each do |p| %>
 
 
-  <!-- Search organizations -->
-    <%= form_tag(search_holders_path, :method=>'post') do %>
-    <div class="row">
-      <div class="small-12 medium-6 column">
-        <%= text_field_tag :q, params[:q],:placeholder => "Nombre" %>
-      </div>
+              <%= p.title %> (<%= p.from.strftime(t('backend_general.short_date')) %> )<br>
+          <% end %>
+        </td>
 
-      <div class="form-inline small-12 medium-6 column">
-        <input type="submit" name="commit" value="Buscar" class="button radius success"> <%= link_to t('backend.new_holder'), new_holder_path, :class => "button radius warning right" %>
-      </div>
-    </div>
-  <% end %><!-- /. Search organizations -->
+        <td>
+          <% h.users.each do |u| %>
+
+              <%= link_to u.full_name_comma, edit_user_path(u)  %><br>
 
 
-  <h2>Resultados (<%= @holders.total_entries %>)</h2>
+          <% end %>
 
 
-<%= will_paginate @holders, :params => { :q => params[:q] }, renderer: FoundationPagination::Rails %>
+        </td>
 
+        <td><%= link_to "Edit", edit_holder_path(h)  %> · Delete</td>
 
-  <table>
-    <thead>
-    <tr>
-      <th>Nombre</th>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
 
-      <th>Cargos</th>
-      <th>Contribuido por</th>
-      <th>Acciones</th>
+<%= javascript_include_tag 'admin_listings' %>
 
-    </tr>
-    </thead>
-    <tbody>
-    <% @holders.each do |h| %>
-    <tr>
-      <td>
-        <p><%= link_to h.full_name_comma, edit_holder_path(h) %></p>
-      </td>
-
-
-
-      <td>
-        <% h.positions.current.each do |p| %>
-
-
-            <%= p.title %> (<%= p.from.strftime(t('backend_general.short_date')) %> )<br>
-        <% end %>
-      </td>
-
-      <td>
-        <% h.users.each do |u| %>
-
-            <%= link_to u.full_name_comma, edit_user_path(u)  %>
-
-
-        <% end %>
-
-
-      </td>
-
-      <td><%= link_to "Edit", edit_holder_path(h)  %> · Delete</td>
-    </tr>
-
-    <% end %>
-
-    </tbody>
-  </table>
-
-<%= will_paginate @holders, :params => { :q => params[:q] }, renderer: FoundationPagination::Rails %>
