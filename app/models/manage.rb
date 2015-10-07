@@ -7,6 +7,7 @@ class Manage < ActiveRecord::Base
   # Validations
   validates :user, presence: true
   validates :holder, presence: true
-  validates :holder, uniqueness: true
+  validates_uniqueness_of :user_id, :scope => :holder_id
+
 
 end

@@ -1,17 +1,36 @@
-<%= form_for(@officer, url: new_admin_officer_path(@officer)) do |f| %>
-  <% if @officer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@officer.errors.count, "error") %> prohibited this officer from being saved:</h2>
+<%= form_for(@holder) do |f| %>
 
-      <ul>
-      <% @officer.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+    <% if @holder.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@holder.errors.count, "error") %> prohibited this holder from being saved:</h2>
+
+          <ul>
+            <% @holder.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <fieldset>
+
+      <legend>Datos básicos</legend>
+
+      <label>Nombre</label>
+      <%= f.text_field :first_name %>
+
+      <label>Apellidos</label>
+      <%= f.text_field :last_name %>
+
+
+      <% if @holder.persisted? %>
+      #coocoon
+
+
+
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+      <%= submit_tag "Guardar", :class=> "button radius success right" %>
+    </fieldset>
+
 <% end %>

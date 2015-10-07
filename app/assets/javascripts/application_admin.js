@@ -29,6 +29,10 @@
 //= require dependencies/jquery.dataTables.min
 //= require dependencies/dataTables.foundation.min
 
+//= require cocoon
+
+
+
 
 var initialize_modules = function() {
 

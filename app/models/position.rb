@@ -18,7 +18,7 @@ class Position < ActiveRecord::Base
   private
 
   def date_to_before_date_from
-    errors.add(:to, "to can't be previous to from") if to.present? and from < to
+    errors.add(:to, "to can't be previous to from") if (to.present? && from > to)
   end
 
 

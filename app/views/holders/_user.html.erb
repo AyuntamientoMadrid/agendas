@@ -1,0 +1,16 @@
+<td>
+  <%= link_to user.full_name, user %>
+</td>
+<td>
+  <%= link_to user.email, user %>
+</td>
+<td>
+  <%= form_for(user) do |f| %>
+    <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
+    <%= f.submit 'Change Role', :class => 'button-xs' %>
+  <% end %>
+</td>
+<td>
+  <%= link_to('Borrar (No borra)', user, :data => { :confirm => "Are you sure?" }, class: 'step fi-page-delete size-24') unless user == current_user %>
+  <%= link_to('', edit_user_path(user), class: 'step fi-page-edit size-24') %>
+</td>
