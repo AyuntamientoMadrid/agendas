@@ -1,6 +1,8 @@
 class UsersController < AdminController
   before_action :admin_only
 
+  before_action :load_holders
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def new
@@ -31,7 +33,7 @@ class UsersController < AdminController
     @user.active = true
     if @user.save
       @user.user!
-      redirect_to users_path, notice: 'User was successfully created.'
+      redirect_to edit_user_path(@user), notice: 'User was successfully created.'
     else
       render :new
     end
@@ -65,7 +67,11 @@ class UsersController < AdminController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :id)
+    params.require(:user).permit(:first_name, :last_name, :email, :id, manages_attributes: [:id, :user_id, :holder_id, :_destroy])
   end
 
+  def load_holders
+
+    @holders =Holder.all
+  end
 end

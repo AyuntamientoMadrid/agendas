@@ -24,7 +24,27 @@
       <label>Email</label>
       <%= f.text_field :email %>
 
-      <%= submit_tag "Guardar", :class=> "button radius success right" %>
+
     </fieldset>
+
+      <% if @user.persisted? %>
+        <fieldset>
+
+          <legend><%= t('backend.holders') %></legend>
+
+          <div id="tasks">
+            <%= f.fields_for :manages do |manage| %>
+                <%= render 'manage_fields', f: manage %>
+            <% end %>
+            <div class="left inline">
+              <%= link_to_add_association 'Add holder', f, :manages, :class => "button tiny info alert " %>
+            </div>
+          </div>
+        </fieldset>
+
+      <% end %>
+
+      <%= submit_tag "Guardar", :class=> "button  radius success right" %>
+
 
 <% end %>

@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   has_many :manages, dependent: :destroy
   has_many :holders, through: :manages
 
+  accepts_nested_attributes_for :manages, reject_if: :all_blank, allow_destroy: true
+
+
   # Validations
   validates_presence_of :first_name, :last_name, :email
 
@@ -24,6 +27,10 @@ class User < ActiveRecord::Base
 
   def full_name
     self.first_name+' '+self.last_name
+  end
+
+  def full_name_comma
+    self.last_name.to_s+', '+self.first_name.to_s
   end
 
   # Include default devise modules. Others available are:

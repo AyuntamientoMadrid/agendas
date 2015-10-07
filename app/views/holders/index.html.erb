@@ -1,25 +1,74 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listing Admin Officers</h1>
 
-<table>
-  <thead>
+
+<h1><%= t('backend.holders')%></h1>
+
+
+  <!-- Search organizations -->
+    <%= form_tag(search_holders_path, :method=>'post') do %>
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= text_field_tag :q, params[:q],:placeholder => "Nombre" %>
+      </div>
+
+      <div class="form-inline small-12 medium-6 column">
+        <input type="submit" name="commit" value="Buscar" class="button radius success"> <%= link_to t('backend.new_holder'), new_holder_path, :class => "button radius warning right" %>
+      </div>
+    </div>
+  <% end %><!-- /. Search organizations -->
+
+
+  <h2>Resultados (<%= @holders.total_entries %>)</h2>
+
+
+<%= will_paginate @holders, :params => { :q => params[:q] }, renderer: FoundationPagination::Rails %>
+
+
+  <table>
+    <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>Nombre</th>
+
+      <th>Cargos</th>
+      <th>Contribuido por</th>
+      <th>Acciones</th>
+
     </tr>
-  </thead>
+    </thead>
+    <tbody>
+    <% @holders.each do |h| %>
+    <tr>
+      <td>
+        <p><%= link_to h.full_name_comma, edit_holder_path(h) %></p>
+      </td>
 
-  <tbody>
-    <% @officers.each do |officer| %>
-      <tr>
-        <td><%= link_to 'Show', officer %></td>
-        <td><%= link_to 'Edit', officer %></td>
-        <td><%= link_to 'Destroy', officer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+
+
+      <td>
+        <% h.positions.current.each do |p| %>
+
+
+            <%= p.title %> (<%= p.from.strftime(t('backend_general.short_date')) %> )<br>
+        <% end %>
+      </td>
+
+      <td>
+        <% h.users.each do |u| %>
+
+            <%= link_to u.full_name_comma, edit_user_path(u)  %>
+
+
+        <% end %>
+
+
+      </td>
+
+      <td><%= link_to "Edit", edit_holder_path(h)  %> · Delete</td>
+    </tr>
+
     <% end %>
-  </tbody>
-</table>
 
-<br>
+    </tbody>
+  </table>
 
-<%= link_to 'New Officer', new_officer_path %>
+<%= will_paginate @holders, :params => { :q => params[:q] }, renderer: FoundationPagination::Rails %>

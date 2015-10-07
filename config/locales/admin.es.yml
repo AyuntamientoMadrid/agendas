@@ -2,14 +2,24 @@ es:
   backend:
     contributors: "Contribuidores"
     new_contributor: "Nuevo contribuidor"
+    edit_contributor: "Editando contribuidor"
 
     holders: "Titulares"
+    new_holder: "Nuevo titular"
+    edit_holder: "Editar titular"
+
     areas: "Áreas"
+    new_area: "Nueva Área"
+    edit_area: "Editar Área"
+
     positions: "Cargos"
-    new_contributor: "Nuevo contribuidor"
-    edit_contributor: "Editando contribuidor"
+    new_position: "Nuevo cargo"
+    edit_position: "Editar cargo"
 
   backend_header:
     open_gov: "Gobierno abierto"
     administracion: "Administración"
 
+
+  backend_general:
+    short_date: "%d/%m/%Y"
