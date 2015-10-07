@@ -17,9 +17,20 @@ Rails.application.routes.draw do
 
     end
   end
-  resources :holders
   resources :events
 
 
+
+
+
+
+
+  resources :holders do
+    collection do
+      get :search
+      post :search
+
+    end
+  end
 
 end

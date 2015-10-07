@@ -27,6 +27,10 @@
 //= require rem.min
 //= require respond.min
 
+//= require cocoon
+
+
+
 
 var initialize_modules = function() {
 

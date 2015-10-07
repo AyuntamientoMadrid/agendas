@@ -56,4 +56,4 @@
     </tbody>
   </table>
 
-<%= will_paginate @users, renderer: FoundationPagination::Rails %>
+<%= will_paginate @users, :params => { :q => params[:q] }, renderer: FoundationPagination::Rails %>

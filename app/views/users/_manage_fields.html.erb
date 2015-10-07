@@ -1,0 +1,23 @@
+
+<div class="nested-fields">
+  <div class="small-12 columns">
+    <div class="row">
+
+
+
+
+      <%= f.hidden_field :user_id, :value => @user.id %>
+      <div class="small-3 columns">
+        <label for="right-label" class="right inline">Seleccione</label>
+      </div>
+      <div class="small-6 columns">
+        <%= f.select( :holder_id, @holders.collect {|a| [a.full_name_comma, a.id]}, {} ,{:class => "large-8 columns"}) -%>
+      </div>
+      <div class="small-3 columns">
+        <%= link_to_remove_association "Remove holder", f, :class => "button tiny radius alert right" %>
+      </div>
+    </div>
+  </div>
+
+
+</div>
