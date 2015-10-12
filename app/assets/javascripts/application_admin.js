@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
+//= require dependencies/foundation-datepicker
 //= require turbolinks
 
 //= require social-share-button

@@ -1,6 +1,9 @@
 class HoldersController < AdminController
   before_action :set_holder, only: [:show, :edit, :update, :destroy]
 
+  before_action :load_areas #, only: [:edit]
+
+
   def index
     search = params[:q]
     search.downcase! unless search.nil?
@@ -53,6 +56,10 @@ class HoldersController < AdminController
     end
 
     def holder_params
-      params.require(:holder).permit(:first_name, :last_name, :id)
+      params.require(:holder).permit(:first_name, :last_name, :id, positions_attributes: [:id, :holder_id, :title, :area_id, :from, :to, :_destroy])
     end
+
+  def load_areas
+    @areas = Area.all.order("title asc")
+  end
 end

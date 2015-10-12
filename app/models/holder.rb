@@ -6,6 +6,8 @@ class Holder < ActiveRecord::Base
 
   has_many :positions
 
+  accepts_nested_attributes_for :positions, reject_if: :all_blank, allow_destroy: true
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 
