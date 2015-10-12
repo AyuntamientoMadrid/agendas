@@ -1,7 +1,7 @@
 <div class="row">
   <h1>
     <%= t('backend.contributors')%> (<%= @users.count %>)
-    <%= link_to t('backend.new_contributor'), new_user_path, :class => "button radius warning right" %>
+    <%= link_to t('backend.new_contributor'), new_user_path, :class => "button radius warning right" if can? :create, User %>
   </h1>
 </div>
 
@@ -24,9 +24,7 @@
   <% @users.each do |u| %>
       <tr>
         <td>
-          <p><%= link_to u.full_name_comma, edit_user_path(u) %><br>
-            <%= u.email %></p>
-
+          <%= link_to u.full_name_comma, edit_user_path(u) %><br /><%= u.email %>
         </td>
         <td>
           <% u.manages.map{|h| h.holder.full_name}.each do |m| %>

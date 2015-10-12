@@ -3,18 +3,23 @@ es:
     contributors: "Contribuidores"
     new_contributor: "Nuevo contribuidor"
     edit_contributor: "Editando contribuidor"
+    users: "Usuarios"
 
     holders: "Titulares"
     new_holder: "Nuevo titular"
     edit_holder: "Editar titular"
 
-    areas: "Áreas"
+    areas: "Organigrama"
     new_area: "Nueva Área"
     edit_area: "Editar Área"
 
     positions: "Cargos"
     new_position: "Nuevo cargo"
     edit_position: "Editar cargo"
+
+    events: "Eventos"
+    new_event: "Nuevo evento"
+    edit_event: "Editar evento"
 
   backend_header:
     open_gov: "Gobierno abierto"

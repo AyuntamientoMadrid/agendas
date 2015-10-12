@@ -1,6 +1,4 @@
 class AreasController < AdminController
-  before_action :authenticate_user!
-  before_action :admin_only
   before_action :set_area, only: [:show, :edit, :update, :destroy]
 
   def index

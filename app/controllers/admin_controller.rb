@@ -1,19 +1,8 @@
 class AdminController < ApplicationController
+  load_and_authorize_resource
   layout 'admin'
-  before_action :authenticate_user!
-
-  #skip_authorization_check
-  #before_action :verify_administrator
-
-  private
-
-  #  def verify_administrator
-  #    raise CanCan::AccessDenied unless current_user.try(:administrator?)
-  #  end
-  def admin_only
-    unless current_user.admin?
-      redirect_to :back, :alert => "Access denied."
-    end
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => t('backend.access_denied')
   end
 
 end

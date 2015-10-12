@@ -1,5 +1,4 @@
 class UsersController < AdminController
-  before_action :admin_only
   before_action :load_holders
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
@@ -51,7 +50,7 @@ class UsersController < AdminController
   end
 
   def load_holders
-    @holders =Holder.all.order("last_name asc")
+    @holders = Holder.all.order("last_name asc")
   end
 
 end
