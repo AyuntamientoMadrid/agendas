@@ -30,7 +30,48 @@
       <% end %>
 
 
-      <%= submit_tag "Guardar", :class=> "button radius success right" %>
+
     </fieldset>
 
+    <% if @holder.persisted? %>
+        <fieldset>
+
+          <legend><%= t('backend.positions') %></legend>
+
+          <div class="row">
+            <%= f.hidden_field :holder_id, :value => @holder.id %>
+            <div class="small-2 columns">
+                Desde
+
+            </div>
+            <div class="small-2 columns">
+
+                Hasta
+            </div>
+            <div class="small-2 columns">
+
+                Titulo
+            </div>
+            <div class="small-4 columns">
+                Área
+            </div>
+            <div class="small-2 columns">
+
+            </div>
+          </div>
+
+          <div id="positions">
+            <%= f.fields_for :positions do |position| %>
+                <%= render 'position_fields', f: position %>
+            <% end %>
+            <div class="left inline">
+              <%= link_to_add_association 'Add position', f, :positions, :class => "button tiny info alert " %>
+            </div>
+          </div>
+        </fieldset>
+
+    <% end %>
+
+
+    <%= submit_tag "Guardar", :class=> "button radius success right" %>
 <% end %>
