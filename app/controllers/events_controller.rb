@@ -6,7 +6,7 @@ class EventsController < AdminController
   end
 
   def index
-    @events = Event.all
+    @events = current_user.admin? ? Event.all : user.events
   end
 
   def create

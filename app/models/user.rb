@@ -12,17 +12,14 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name, :last_name, :email
 
   enum role: [:user, :admin]
-  after_initialize :set_default_role, :if => :new_record?
+  after_initialize :set_default_role, if: :new_record?
+  after_initialize :set_active, if: :new_record?
 
 
   scope :active, -> {where(:active => true)}
 
   def name
     last_name.to_s + ", " + first_name.to_s
-  end
-
-  def set_default_role
-    self.role ||= :user
   end
 
   def full_name
@@ -37,4 +34,15 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  private
+
+  def set_active
+    self.active ||= true
+  end
+
+  def set_default_role
+    self.role ||= :user
+  end
+
 end

@@ -7,15 +7,12 @@ class UsersController < AdminController
   end
 
   def index
-    search = params[:q]
-    search.downcase! unless search.nil?
-    @users = User.includes(:manages => :holder).active.user.where("lower(first_name) LIKE ? OR lower(last_name) like ?", "%#{search}%", "%#{search}%").order("last_name asc")
+    @users = User.includes(:manages => :holder).active.user.order("last_name asc")
   end
 
   def create
     @user = User.new(user_params)
     @user.password = Faker::Internet.password(8)
-    @user.active = true
     if @user.save
       @user.user!
       redirect_to edit_user_path(@user), notice: 'User was successfully created.'
@@ -25,7 +22,6 @@ class UsersController < AdminController
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       redirect_to users_path, :notice => "User updated."
     else
@@ -34,8 +30,7 @@ class UsersController < AdminController
   end
 
   def destroy
-    user = User.find(params[:id])
-    user.destroy
+    @user.destroy
     redirect_to users_path, :notice => "User deleted."
   end
 

@@ -8,16 +8,18 @@
 <table id="listing" class="display" cellpadding="0" width="100%">
   <thead>
   <tr>
-    <th><%= t('name')%></th>
-    <th><%= t('contributes to')%></th>
-    <th><%= t('actions')%></th>
+    <th><%= t('backend.name')%></th>
+    <th><%= t('backend.role')%></th>
+    <th><%= t('backend.positions')%></th>
+    <th><%= t('backend.actions')%></th>
   </tr>
   </thead>
   <tfoot>
   <tr>
-    <th><%= t('name')%></th>
-    <th><%= t('contributes to')%></th>
-    <th><%= t('actions')%></th>
+    <th><%= t('backend.name')%></th>
+    <th><%= t('backend.role')%></th>
+    <th><%= t('backend.positions')%></th>
+    <th><%= t('backend.actions')%></th>
   </tr>
   </tfoot>
   <tbody>
@@ -27,12 +29,16 @@
           <%= link_to u.full_name_comma, edit_user_path(u) %><br /><%= u.email %>
         </td>
         <td>
+          <%= u.role %>
+        </td>
+        <td>
           <% u.manages.map{|h| h.holder.full_name}.each do |m| %>
               <%= m %><br />
           <% end %>
         </td>
         <td>
-          <%= link_to "Edit", edit_user_path(u)  %> · Delete
+          <%= link_to "Edit", edit_user_path(u)  %> ·
+          <%= link_to t("backend.delete"), user_path(u), method: :delete, data: { confirm: t("backend.confirm") } if can? :delete, User %>
         </td>
       </tr>
   <% end %>

@@ -6,6 +6,9 @@ class Ability
     if user.admin?
         if Settings.madrid
             can [:index,:update], User
+            can :manage, Event
+            can :index, Area
+            can :index, Holder
         else
             can :manage, :all
         end

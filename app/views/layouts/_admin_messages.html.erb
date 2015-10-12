@@ -1,0 +1,13 @@
+<% if notice %>
+<div data-alert class="alert-box radius success">
+<a href="#" class="close" title="<%= t("backend.close") %>">&times;</a>
+  <%= notice %>
+</div>
+<% end %>
+
+<% if alert %>
+<div data-alert class="alert-box radius alert">
+  <a href="#" class="close" title="<%= t("backend.close") %>">&times;</a>
+  <%= alert %>
+</div>
+<% end %>

@@ -1,9 +1,17 @@
 es:
   backend:
+    close: "Cerrar"
+    access_denied: "No dispone de privilegios suficientes para realizar esta operación"
+    confirm: "¿Está seguro?"
+    delete: "Eliminar"
+    actions: "Acciones"
+
     contributors: "Contribuidores"
     new_contributor: "Nuevo contribuidor"
     edit_contributor: "Editando contribuidor"
     users: "Usuarios"
+    name: "Nombre"
+    role: "Rol"
 
     holders: "Titulares"
     new_holder: "Nuevo titular"
