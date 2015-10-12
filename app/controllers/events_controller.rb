@@ -6,19 +6,11 @@ class EventsController < AdminController
   end
 
   def index
-    search = params[:q]
-    search.downcase! unless search.nil?
-    @events = Event.where("lower(title) LIKE ? OR lower(description) like ?", "%#{search}%", "%#{search}%").order("scheduled asc")
-  end
-
-  def search
-    index
-    render :index
+    @events = Event.all
   end
 
   def create
     @event = Event.new(event_params)
-    @event.password = Faker::Internet.password(8)
     @event.active = true
     if @event.save
       @event.event!
@@ -47,12 +39,6 @@ class EventsController < AdminController
 
   def set_event
     @event = Event.find(params[:id])
-  end
-
-  def admin_only
-    unless current_event.admin?
-      redirect_to :back, :alert => "Access denied."
-    end
   end
 
   def event_params

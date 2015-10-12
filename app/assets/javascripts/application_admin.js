@@ -28,6 +28,7 @@
 //= require respond.min
 //= require dependencies/jquery.dataTables.min
 //= require dependencies/dataTables.foundation.min
+//= require dependencies/jquery.treetable
 
 //= require cocoon
 

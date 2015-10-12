@@ -1,0 +1,45 @@
+<div class="row">
+  <h1>
+    <%= t('backend.areas')%> (<%= @areas.count %>)
+    <%= link_to t('backend.new_area'), new_area_path, :class => "button radius warning right" %>
+    </h1>
+</div>
+
+<table id="listing" class="display" cellpadding="0" width="100%">
+  <thead>
+    <tr>
+      <th><%= t('backend.title')%></th>
+      <th><%= t('backend.descendant')%></th>
+      <th><%= t('backend.actions')%></th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th><%= t('backend.title')%></th>
+      <th><%= t('backend.descendant')%></th>
+      <th><%= t('backend.actions')%></th>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% @areas.each do |area| %>
+    <tr data-tt-id="<%= area.id %>">
+      <td><%= link_to area.title, edit_area_path(area) %></td>
+      <td><%= area.children.count %></td>
+      <td><%= link_to "Edit", edit_area_path(area)  %> · Delete</td>
+    </tr>
+    <% area.children.each do |child|%>
+    <tr data-tt-id="<%= child.id %>" data-tt-parent-id="<%= area.id %>">
+      <td><%= link_to child.title, edit_area_path(child) %></td>
+      <td><%= child.children.count %></td>
+      <td><%= link_to "Edit", edit_area_path(child)  %> · Delete</td>
+    </tr>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+  $(document).ready(function(){
+    $("#listing").treetable({ expandable: true });
+  });
+</script>

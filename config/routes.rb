@@ -14,7 +14,6 @@ Rails.application.routes.draw do
     collection do
       get :search
       post :search
-
     end
   end
 
@@ -32,5 +31,7 @@ Rails.application.routes.draw do
       post :search
     end
   end
+
+  resources :areas
 
 end

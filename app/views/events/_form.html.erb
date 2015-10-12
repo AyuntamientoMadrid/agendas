@@ -1,0 +1,35 @@
+<%= form_for(@event) do |f| %>
+
+    <% if @event.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+          <ul>
+            <% @event.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <fieldset>
+
+      <legend>Datos básicos</legend>
+
+      <label>Nombre</label>
+      <%= f.text_field :first_name %>
+
+      <label>Apellidos</label>
+      <%= f.text_field :last_name %>
+
+
+      <% if @holder.persisted? %>
+      #coocoon
+
+
+
+      <% end %>
+
+
+      <%= submit_tag "Guardar", :class=> "button radius success right" %>
+    </fieldset>
+
+<% end %>
