@@ -3,8 +3,8 @@
   timeout: 5000
   encoding: unicode
   reconnect: false
-  database: <%= "#{fetch(:application)}" %>
+  database: <%= "#{fetch(:db_name)}" %>
   pool: 5
-  username:
-  password:
+  username: <%= "#{fetch(:db_user)}" %>
+  password: <%= "#{fetch(:db_pass)}" %>
   host: <%= fetch(:db_server) %>

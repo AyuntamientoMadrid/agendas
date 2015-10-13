@@ -1,4 +1,38 @@
 es:
-  menu:
-    officers: "Cargos"
+  backend:
+    close: "Cerrar"
+    access_denied: "No dispone de privilegios suficientes para realizar esta operación"
+    confirm: "¿Está seguro?"
+    delete: "Eliminar"
+    actions: "Acciones"
+
+    contributors: "Contribuidores"
+    new_contributor: "Nuevo contribuidor"
+    edit_contributor: "Editando contribuidor"
+    users: "Usuarios"
+    name: "Nombre"
+    role: "Rol"
+
+    holders: "Titulares"
+    new_holder: "Nuevo titular"
+    edit_holder: "Editar titular"
+
+    areas: "Organigrama"
+    new_area: "Nueva Área"
+    edit_area: "Editar Área"
+
+    positions: "Cargos"
+    new_position: "Nuevo cargo"
+    edit_position: "Editar cargo"
+
     events: "Eventos"
+    new_event: "Nuevo evento"
+    edit_event: "Editar evento"
+
+  backend_header:
+    open_gov: "Gobierno abierto"
+    administracion: "Administración"
+
+
+  backend_general:
+    short_date: "%d/%m/%Y"

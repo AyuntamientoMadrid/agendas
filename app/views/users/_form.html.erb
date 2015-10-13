@@ -1,4 +1,5 @@
-<%= form_for @user, html: {class:'smart-form', novalidate: 'novalidate'} do |f| %>
+<%= form_for(@user) do |f| %>
+
     <% if @user.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@user.errors.count, "error") %> prohibited this video from being saved:</h2>
@@ -10,40 +11,40 @@
           </ul>
         </div>
     <% end %>
-
     <fieldset>
-      <section>
-        <label for="name" class="input">
-          <%= f.text_field :name, placeholder: 'Nombre' %>
-        </label>
-      </section>
 
-      <section>
-        <label for="email" class="input">
-          <%= f.text_field :email, placeholder: 'Email' %>
-        </label>
-      </section>
+      <legend>Datos básicos</legend>
 
-      <% if params[:action]=="new" || params[:action]=="create" %>
+      <label>Nombre</label>
+      <%= f.text_field :first_name %>
 
-      <section>
-        <label for="password" class="input">
-          <%= f.password_field :password, placeholder: 'Contraseña' %>
-        </label>
-      </section>
+      <label>Apellidos</label>
+      <%= f.text_field :last_name %>
 
-      <section>
-        <label for="password_confirmation" class="input">
-          <%= f.password_field :password_confirmation, placeholder: 'Repita Contraseña' %>
-        </label>
-      </section>
+      <label>Email</label>
+      <%= f.text_field :email %>
+
+
+    </fieldset>
+
+      <% if @user.persisted? %>
+        <fieldset>
+
+          <legend><%= t('backend.holders') %></legend>
+
+          <div id="tasks">
+            <%= f.fields_for :manages do |manage| %>
+                <%= render 'manage_fields', f: manage %>
+            <% end %>
+            <div class="left inline">
+              <%= link_to_add_association 'Add holder', f, :manages, :class => "button tiny info alert " %>
+            </div>
+          </div>
+        </fieldset>
 
       <% end %>
 
-    </fieldset>
-    <footer>
-    <%= f.submit 'Save', class: 'btn btn-primary' %>
-    <%= link_to 'Cancel', users_path, class: 'btn btn-danger'%>
-    </footer>
+      <%= submit_tag "Guardar", :class=> "button  radius success right" %>
+
 
 <% end %>

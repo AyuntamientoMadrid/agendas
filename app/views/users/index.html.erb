@@ -1,22 +1,49 @@
-<div class="container">
-  <div class="row">
-    <h3>Users</h3>
-    <table width="100%">
-      <thead>
-        <tr>
-          <th>User</th>
-          <th>Email</th>
-          <th>Rol</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @users.each do |user| %>
-        <tr>
-          <%= render user %>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+<div class="row">
+  <h1>
+    <%= t('backend.contributors')%> (<%= @users.count %>)
+    <%= link_to t('backend.new_contributor'), new_user_path, :class => "button radius warning right" if can? :create, User %>
+  </h1>
 </div>
+
+<table id="listing" class="display" cellpadding="0" width="100%">
+  <thead>
+  <tr>
+    <th><%= t('backend.name')%></th>
+    <th><%= t('backend.role')%></th>
+    <th><%= t('backend.positions')%></th>
+    <th><%= t('backend.actions')%></th>
+  </tr>
+  </thead>
+  <tfoot>
+  <tr>
+    <th><%= t('backend.name')%></th>
+    <th><%= t('backend.role')%></th>
+    <th><%= t('backend.positions')%></th>
+    <th><%= t('backend.actions')%></th>
+  </tr>
+  </tfoot>
+  <tbody>
+  <% @users.each do |u| %>
+      <tr>
+        <td>
+          <%= link_to u.full_name_comma, edit_user_path(u) %><br /><%= u.email %>
+        </td>
+        <td>
+          <%= u.role %>
+        </td>
+        <td>
+          <% u.manages.map{|h| h.holder.full_name}.each do |m| %>
+              <%= m %><br />
+          <% end %>
+        </td>
+        <td>
+          <%= link_to "Edit", edit_user_path(u)  %> ·
+          <%= link_to t("backend.delete"), user_path(u), method: :delete, data: { confirm: t("backend.confirm") } if can? :delete, User %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= javascript_include_tag 'admin_listings' %>
+

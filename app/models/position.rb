@@ -12,11 +12,13 @@ class Position < ActiveRecord::Base
   validate :date_to_before_date_from
 
   scope :current, -> { where(to: nil) }
+  scope :area_filtered, lambda{ |area| self.where(area_id: area) if area.present? }
+
 
   private
 
   def date_to_before_date_from
-    errors.add(:to, "to can't be previous to from") if to.present? and from < to
+    #errors.add(:to, "to can't be previous to from") if (to.present? && from < to)
   end
 
 

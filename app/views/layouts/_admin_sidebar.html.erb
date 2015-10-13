@@ -1,0 +1,38 @@
+<div class="small-12 medium-3 column">
+  <nav class="admin-sidebar">
+    <ul id="admin_menu">
+      <li>
+        <a href="/admin">Administración</a>
+      </li>
+      <li class=<%= active_menu('users') %>>
+        <a href=<%= users_path %>>
+          <i class="icon-user"></i>
+          <%= t("backend.users")%>
+        </a>
+      </li>
+
+      <li class=<%= active_menu('events') %>>
+        <a href="<%= events_path %>">
+          <i class="icon-calendar"></i>
+          <%= t("backend.events")%>
+        </a>
+      </li>
+
+      <li class=<%= active_menu('areas') %>>
+        <a href="<%= areas_path %>">
+          <i class="icon-settings"></i>
+          <%= t("backend.areas")%>
+        </a>
+      </li>
+
+      <li class=<%= active_menu('holders') %>>
+        <a href="<%= holders_path %>">
+          <i class="icon-organizations"></i>
+          <%= t("backend.positions")%>
+        </a>
+      </li>
+
+    </ul>
+  </nav>
+
+</div>

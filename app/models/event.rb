@@ -11,6 +11,9 @@ class Event < ActiveRecord::Base
   # Validations
   validates_presence_of :title, :position
 
+  # Nested models
+  accepts_nested_attributes_for :attendees
+
 
   searchable do
 

@@ -5,6 +5,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
+gem 'jquery-datatables-rails', '~> 3.3.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sunspot_solr'
 gem 'sunspot_rails'
@@ -16,15 +17,29 @@ group :development, :test do
 end
 gem 'devise'
 gem 'devise-i18n'
-gem 'foundation-rails'
+gem 'foundation-rails', '= 5.5.1.0'
 gem 'high_voltage'
 gem 'pg'
 gem 'will_paginate'
+gem 'will_paginate-foundation'
 gem 'paperclip'
 gem 'newrelic_rpm'
 
 gem 'faker'
 
+gem 'turbolinks'
+
+gem 'social-share-button'
+
+gem 'initialjs-rails', '0.2.0.1'
+
+gem 'i18n_data'
+
+gem 'rails-i18n', :git => 'https://github.com/svenfuchs/rails-i18n.git', branch: 'master' # For 4.x
+
+gem "cocoon"
+gem 'cancancan'
+gem "config"
 
 group :development do
   gem 'jazz_hands', :git => 'https://github.com/nixme/jazz_hands.git', branch: 'bring-your-own-debugger'

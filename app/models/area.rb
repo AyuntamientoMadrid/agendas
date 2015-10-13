@@ -11,9 +11,10 @@ class Area < ActiveRecord::Base
   after_initialize :set_defaults
   after_save :update_children
 
-
+  # Scopes
   scope :main_areas, -> { where(parent_id: 0) }
   scope :children_areas, -> { where.not(parent_id: 0) }
+  scope :filtered, lambda{ |parent| self.where(parent_id: parent) if parent.present? }
 
   private
 

@@ -1,0 +1,43 @@
+<div class="row">
+  <h1>
+    <%= t('backend.events')%> (<%= @events.count %>)
+    <%= link_to t('backend.new_event'), new_user_path, :class => "button radius warning right" %>
+    </h1>
+</div>
+
+<table id="listing" class="display" cellpadding="0" width="100%">
+  <thead>
+    <tr>
+      <th><%= t('backend.date')%></th>
+      <th><%= t('event')%></th>
+      <th><%= t('holder')%></th>
+      <th><%= t('actions')%></th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th><%= t('backend.date')%></th>
+      <th><%= t('event')%></th>
+      <th><%= t('holder')%></th>
+      <th><%= t('actions')%></th>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% @events.each do |event| %>
+    <tr>
+      <td><%= event.scheduled.strftime(t('date.formats.complete')) %></td>
+      <td>
+        <%= link_to event.title, edit_event_path(event) %>
+      </td>
+      <td>
+        <strong><%= event.position.holder.full_name %></strong><br />
+        <%= event.position.title %>
+      </td>
+      <td><%= link_to "Edit", edit_user_path(event)  %> · Delete</td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= javascript_include_tag 'admin_listings' %>
+

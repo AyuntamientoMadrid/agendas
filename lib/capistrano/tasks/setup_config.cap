@@ -15,13 +15,6 @@ namespace :deploy do
       config_files.each do |file|
         smart_template file
       end
-
-      # symlink stuff which should be... symlinked
-      symlinks = fetch(:symlinks)
-
-      symlinks.each do |symlink|
-        sudo "ln -nfs #{shared_path}/config/#{symlink[:source]} #{sub_strings(symlink[:link])}"
-      end
     end
   end
 end
