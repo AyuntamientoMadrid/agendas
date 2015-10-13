@@ -12,6 +12,7 @@ set :rvm_type, :user
 
 set :application, 'agendas'
 set :server_name, deploysecret(:server_name)
+set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
 # If ssh access is restricted, probably you need to use https access
 set :repo_url, 'https://github.com/LextrendIT/agendas.git'
 

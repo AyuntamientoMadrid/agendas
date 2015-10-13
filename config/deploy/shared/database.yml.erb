@@ -1,6 +1,7 @@
 <%= fetch(:rails_env) %>:
   adapter: postgresql
   timeout: 5000
+  port: <%= "#{fetch(:db_port)}" %>
   encoding: unicode
   reconnect: false
   database: <%= "#{fetch(:db_name)}" %>
