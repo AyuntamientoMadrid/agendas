@@ -29,7 +29,7 @@ gem 'faker'
 group :development do
   gem 'jazz_hands', :git => 'https://github.com/nixme/jazz_hands.git', branch: 'bring-your-own-debugger'
   gem 'better_errors'
-  gem 'capistrano', '~> 3.0.1'
+  gem 'capistrano', '~> 3.4.0'
   gem 'capistrano-bundler'
   gem 'capistrano-rails', '~> 1.1.0'
   gem 'capistrano-rails-console'
