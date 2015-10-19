@@ -24,6 +24,10 @@ class Event < ActiveRecord::Base
       self.position.area.title
     end
 
+    integer :area_id do
+      self.position.area.id
+    end
+
     text :holder_name do
       self.position.holder.full_name
     end
@@ -32,8 +36,8 @@ class Event < ActiveRecord::Base
       self.position.holder.id
     end
 
-    integer :area_id do
-      self.position.area.id
+    text :holder_position do
+      self.position.title
     end
 
     text :attendee_name do

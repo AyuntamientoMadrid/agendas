@@ -1,18 +1,4 @@
 es:
-  header:
-    page_language: "Idioma de la página"
-    spanish: "Español"
-    english: "Inglés"
-  main:
-    form:
-      keyword: "Palabra clave"
-      main_area: "Área de gobierno"
-      child_area: "Dirección general"
-      holder: "Titular de la agenda"
-      date: "Fecha"
-      any: "Todos"
-      search: "Buscar"
-      reset: "Cancelar"
   number_delimiter: "."
   number_separator: ","
   month: "mes"

@@ -1,4 +1,6 @@
 es:
+  site_title: "Transparencia - Agendas"
+  site_description: "Pendiente de definir"
   header:
     page_language: "Idioma de la página"
     spanish: "Español"
@@ -11,6 +13,9 @@ es:
     results: "Resultados"
     with_keyword: "con la palabra"
     delete: "Eliminar"
+    last_events: "Últimos eventos publicados"
+    export: "Exportar"
+    events_for: "Agenda de %{holder}"
     form:
       title: "Utiliza estos filtros para buscar la información que más te interesa."
       keyword: "Palabra clave"
@@ -21,4 +26,5 @@ es:
       any: "Todos"
       search: "Buscar"
       reset: "Cancelar"
+
 
