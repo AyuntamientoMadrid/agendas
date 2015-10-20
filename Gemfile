@@ -40,7 +40,8 @@ gem 'rails-i18n', :git => 'https://github.com/svenfuchs/rails-i18n.git', branch:
 gem "cocoon"
 gem 'cancancan'
 gem "config"
-
+gem "jquery-ui-rails"
+gem 'rails4-autocomplete'
 gem 'friendly_id', '~> 5.1.0'
 
 gem 'ancestry'

@@ -14,7 +14,9 @@ class Ability
         end
     else
         can :manage, Event, user_id: user.id
-        can :delete, Event, scheduled > Time.now
+        can :delete, Event do |event|
+            event.scheduled > Time.now
+        end
     end
   end
 end

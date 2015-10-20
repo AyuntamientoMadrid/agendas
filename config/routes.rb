@@ -9,13 +9,15 @@ Rails.application.routes.draw do
   get '/contact', to: 'visitors#contact', as: 'contact'
 
   # Admin
-  get "/admin", to: 'users#index', as: 'admin'
+  get "/admin", to: 'events#index', as: 'admin'
 
   devise_for :users, controllers: { session: "users/sessions", registration: "users/registration" }
 
   resources :users
 
-  resources :events
+  resources :events do
+    get :autocomplete_holder_first_name, on: :collection
+  end
 
   resources :holders
 

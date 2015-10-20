@@ -59,8 +59,8 @@ ActiveRecord::Schema.define(version: 20151020093602) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "position_id"
-    t.string   "slug"
     t.string   "location"
+    t.string   "slug"
   end
 
   add_index "events", ["position_id"], name: "index_events_on_position_id", using: :btree

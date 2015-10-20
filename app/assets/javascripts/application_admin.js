@@ -30,6 +30,8 @@
 //= require dependencies/jquery.dataTables.min
 //= require dependencies/dataTables.foundation.min
 //= require dependencies/jquery.treetable
+//= require jquery-ui
+//= require autocomplete-rails
 
 //= require cocoon
 
