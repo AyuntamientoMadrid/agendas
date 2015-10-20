@@ -18,7 +18,9 @@ class Event < ActiveRecord::Base
   validates_presence_of :title, :position
 
   # Nested models
-  accepts_nested_attributes_for :attendees
+  accepts_nested_attributes_for :attendees, allow_destroy: true
+  accepts_nested_attributes_for :attachments, allow_destroy: true
+  accepts_nested_attributes_for :participants, allow_destroy: true
 
 
   searchable do
