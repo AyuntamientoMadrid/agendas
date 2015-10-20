@@ -9,6 +9,11 @@ class VisitorsController < ApplicationController
     @tree = area_tree
     @holders = get_holders_by_area(params[:area])
 
+    respond_to do |format|
+      format.html
+      format.csv { send_data @events.as_csv, filename: 'agenda.csv' }
+    end
+
   end
 
   def show

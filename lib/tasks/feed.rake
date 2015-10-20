@@ -110,7 +110,7 @@ namespace :generator do
       holder = Holder.all.shuffle[0]
       position = Position.current.where(:holder => holder)[0]
 
-      e = Event.create(:title => Faker::Lorem.sentence, :description => Faker::Lorem.paragraph(6, false, 2), :scheduled => rand(0..1)==1 ? Faker::Time.forward(60, :day) : Faker::Time.backward(100, :morning), :user => Holder.last.users[0], :position => position)
+      e = Event.create(:location => Faker::Address.street_address, :title => Faker::Lorem.sentence, :description => Faker::Lorem.paragraph(6, false, 2), :scheduled => rand(0..1)==1 ? Faker::Time.forward(60, :day) : Faker::Time.backward(100, :morning), :user => Holder.last.users[0], :position => position)
       p e
 
       rand(0..5).times do

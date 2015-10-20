@@ -23,14 +23,11 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :participants, allow_destroy: true
 
 
-  def self.to_csv
-    attributes = %w{id title }
-
-    CSV.generate(headers: true) do |csv|
-      csv << attributes
-
-      all.each do |user|
-        csv << attributes.map{ |attr| user.send(attr) }
+  def self.as_csv
+    CSV.generate do |csv|
+      csv << ["Title", "Description", "Location","Holder","Date"]
+      all.each do |item|
+        csv << [item.title, item.description, item.location, item.position.holder.full_name_comma, item.scheduled.strftime("%d/%m/%Y %H:%M")]
       end
     end
   end
