@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019164109) do
+# ActiveRecord::Schema.define(version: 20151019164109) do
+ActiveRecord::Schema.define(version: 20151020080629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,11 +58,29 @@ ActiveRecord::Schema.define(version: 20151019164109) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "position_id"
+<<<<<<< HEAD
     t.string   "location"
+=======
+    t.string   "slug"
+>>>>>>> ee5f297a980563598553690fafabc2441d3ddf85
   end
 
   add_index "events", ["position_id"], name: "index_events_on_position_id", using: :btree
+  add_index "events", ["slug"], name: "index_events_on_slug", unique: true, using: :btree
   add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string   "slug",                      null: false
+    t.integer  "sluggable_id",              null: false
+    t.string   "sluggable_type", limit: 50
+    t.string   "scope"
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "holders", force: :cascade do |t|
     t.string   "first_name"

@@ -41,6 +41,9 @@ gem "cocoon"
 gem 'cancancan'
 gem "config"
 
+gem 'friendly_id', '~> 5.1.0'
+
+
 group :development do
   gem 'jazz_hands', :git => 'https://github.com/nixme/jazz_hands.git', branch: 'bring-your-own-debugger'
   gem 'better_errors'

@@ -151,6 +151,8 @@ GEM
     foundation-rails (5.5.1.0)
       railties (>= 3.1.0)
       sass (>= 3.3.0, < 3.5)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     grit (2.5.0)
@@ -389,6 +391,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   foundation-rails (= 5.5.1.0)
+  friendly_id (~> 5.1.0)
   high_voltage
   i18n_data
   initialjs-rails (= 0.2.0.1)
