@@ -8,12 +8,12 @@
     <div class="mb20">
       <%= label_tag :area, t('main.form.main_area'), class: 'title-s' %>
       <div class="custom-select">
-        <%= select_tag :main_area,options_for_select(Area.main_areas.map{|area| [ area.title, area.id ]},params[:main_area]), prompt: t('main.form.any'), class: 'dropdown' %>
+       <%#= select_tag :main_area,options_for_select(Area.main_areas.map{|area| [ area.title, area.id ]},params[:main_area]), prompt: t('main.form.any'), class: 'dropdown' %>
+       <%= select_tag :main_area, options_for_select(@categories, params[:main_area]) %>
       </div>
     </div>
     <div class="mb20">
       <%= label_tag :area, t('main.form.child_area'), class: 'title-s' %>
-      <%= select_tag :child_area,options_for_select(Area.children_areas.filtered(params[:main_area]).map{|area| [ area.title, area.id ]},params[:child_area]),prompt: t('main.form.any'), class: 'dropdown' %>
     </div>
     <div class="mb20">
       <%= label_tag :holder, t('main.form.holder'), class: 'title-s' %>

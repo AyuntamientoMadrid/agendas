@@ -13,9 +13,9 @@ namespace :generator do
 
     Rake::Task['db:reset'].invoke
 
-    Rake::Task['generator:areas_main'].invoke("5")
+    Rake::Task['generator:areas_main'].invoke("2")
 
-    Rake::Task['generator:areas_children'].invoke("7")
+    Rake::Task['generator:areas_children'].invoke("2")
 
     Rake::Task['generator:users'].invoke("30")
 
@@ -45,7 +45,7 @@ namespace :generator do
 
     args[:quantity].to_i.times do
 
-      a = Area.create(:title => "Department of " + Faker::Commerce.department(4, false), :parent_id => 0, :active => 1)
+      a = Area.create(:title => "Department of " + Faker::Commerce.department(4, false), :active => 1)
       p a
     end
 
@@ -55,14 +55,14 @@ namespace :generator do
 
     args[:quantity].to_i.times do
 
-      main_area = Area.main_areas.shuffle[0]
+      main_area = Area.roots.shuffle[0]
 
 
 
-      children = Area.create(:title => "Department of " + Faker::Commerce.department(4, false), :parent_id => main_area.id, :active => 1)
+      children = Area.create(:title => "Department of " + Faker::Commerce.department(4, false), :parent => main_area, :active => 1)
       p children
       args[:quantity].to_i.times do
-        a = Area.create(:title => "Department of " + Faker::Commerce.department(4, false), :parent_id => children.id, :active => 1)
+        a = Area.create(:title => "Department of " + Faker::Commerce.department(4, false), :parent => children, :active => 1)
         p a
       end
 

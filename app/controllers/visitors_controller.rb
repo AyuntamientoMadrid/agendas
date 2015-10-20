@@ -5,6 +5,12 @@ class VisitorsController < ApplicationController
     @total = events.total
     @events1 = events.results
     @events = Event.where(id: events.hits.map(&:primary_key)).order("scheduled desc")
+
+    @categories = Area.all.each { |c| c.ancestry = c.ancestry.to_s + (c.ancestry != nil ? "/" : '') + c.id.to_s
+    }.sort {|x,y| x.ancestry <=> y.ancestry
+    }.map{ |c| ["--"  * (c.depth - 1) + c.title,c.id]
+    }.unshift([t('main.form.any'), ""])
+
   end
 
   def show

@@ -43,6 +43,8 @@ gem "config"
 
 gem 'friendly_id', '~> 5.1.0'
 
+gem 'ancestry'
+
 
 group :development do
   gem 'jazz_hands', :git => 'https://github.com/nixme/jazz_hands.git', branch: 'bring-your-own-debugger'

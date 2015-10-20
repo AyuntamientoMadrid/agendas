@@ -21,6 +21,20 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :attendees
 
 
+  def self.to_csv
+    attributes = %w{id title }
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |user|
+        csv << attributes.map{ |attr| user.send(attr) }
+      end
+    end
+  end
+
+
+
   searchable do
 
     text :title, :description
@@ -32,6 +46,10 @@ class Event < ActiveRecord::Base
 
     integer :area_id do
       self.position.area.id
+    end
+
+    integer :area_root_id do
+      self.position.area.root.id
     end
 
     text :holder_name do
