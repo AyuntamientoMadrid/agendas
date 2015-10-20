@@ -60,6 +60,6 @@ class HoldersController < AdminController
     end
 
   def load_areas
-    @areas = Area.all.order("title asc")
+    @areas = Area.area_tree
   end
 end

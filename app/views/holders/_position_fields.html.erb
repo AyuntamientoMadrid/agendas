@@ -1,26 +1,20 @@
-<div class="nested-fields">
-  <div class="small-12 columns">
+<div class="row">
+  <div class="small-2 columns">
+    <%= f.text_field :from, class: 'fdatepicker'%>
 
-    <div class="row">
-      <%= f.hidden_field :holder_id, :value => @holder.id %>
-      <div class="small-2 columns">
-        <%= f.text_field :from, class: 'fdatepicker'%>
+  </div>
+  <div class="small-2 columns">
 
-      </div>
-      <div class="small-2 columns">
+    <%= f.text_field :to, class: 'fdatepicker'%>
+  </div>
+  <div class="small-2 columns">
 
-        <%= f.text_field :to, class: 'fdatepicker'%>
-      </div>
-      <div class="small-2 columns">
-
-        <%= f.text_field :title%>
-      </div>
-      <div class="small-4 columns">
-        <%= f.select( :area_id, @areas.collect {|a| [a.title, a.id]}, {} ,{:class => "large-8 columns"}) -%>
-      </div>
-      <div class="small-2 columns">
-        <%= link_to_remove_association "Remove holder", f, :class => "button tiny radius alert right" %>
-      </div>
-    </div>
+    <%= f.text_field :title%>
+  </div>
+  <div class="small-4 columns">
+    <%= f.select( :area_id, @areas, {} ,{:class => "large-8 columns"}) -%>
+  </div>
+  <div class="small-2 columns">
+    <%= link_to_remove_association "Remove holder", f, :class => "button tiny radius alert right" %>
   </div>
 </div>

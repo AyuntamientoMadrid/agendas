@@ -8,7 +8,7 @@
     <div class="mb20">
       <%= label_tag :area, t('main.form.main_area'), class: 'title-s' %>
       <div class="custom-select">
-       <%= select_tag :area, options_for_select(@tree, params[:area]) %>
+       <%= select_tag :area, options_for_select(@tree, params[:area]),prompt: t('main.form.any') %>
       </div>
     </div>
     <div class="mb20">

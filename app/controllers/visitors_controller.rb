@@ -6,11 +6,14 @@ class VisitorsController < ApplicationController
     @events1 = events.results
     @events = Event.includes(:position => [:holder,:area]).where(id: events.hits.map(&:primary_key)).order("scheduled desc")
 
-    @tree = area_tree
+    @tree = Area.area_tree
     @holders = get_holders_by_area(params[:area])
 
     respond_to do |format|
       format.html
+      format.json
+      format.atom
+      format.rss
       format.csv { send_data @events.as_csv, filename: 'agenda.csv' }
     end
 
@@ -43,13 +46,6 @@ class VisitorsController < ApplicationController
       order_by :score, :desc
       paginate page: params[:page] || 1, per_page: 10 unless params[:format].present?
     end
-  end
-
-  def area_tree
-    Area.all.each { |c| c.ancestry = c.ancestry.to_s + (c.ancestry != nil ? "/" : '') + c.id.to_s
-    }.sort {|x,y| x.ancestry <=> y.ancestry
-    }.map{ |c| ["--"  * (c.depth - 1) + c.title,c.id]
-    }.unshift([t('main.form.any'), ""])
   end
 
   def get_holders_by_area (area)

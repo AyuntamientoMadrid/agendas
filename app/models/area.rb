@@ -13,10 +13,12 @@ class Area < ActiveRecord::Base
   before_create :set_defaults
   after_save :update_children
 
-  # Scopes
-  #scope :main_areas, -> { where(parent_id: 0) }
-  #scope :children_areas, -> { where.not(parent_id: 0) }
-  #scope :filtered, lambda{ |parent| self.where(parent_id: parent) if parent.present? }
+  def self.area_tree
+    all.each { |c| c.ancestry = c.ancestry.to_s + (c.ancestry != nil ? "/" : '') + c.id.to_s
+    }.sort {|x,y| x.ancestry <=> y.ancestry
+    }.map{ |c| ["--"  * (c.depth - 1) + c.title,c.id]
+    }
+  end
 
   private
 
