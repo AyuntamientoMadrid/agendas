@@ -11,7 +11,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-# ActiveRecord::Schema.define(version: 20151019164109) do
 ActiveRecord::Schema.define(version: 20151020080629) do
 
   # These are extensions that must be enabled in order to support this database
@@ -58,11 +57,8 @@ ActiveRecord::Schema.define(version: 20151020080629) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "position_id"
-<<<<<<< HEAD
     t.string   "location"
-=======
     t.string   "slug"
->>>>>>> ee5f297a980563598553690fafabc2441d3ddf85
   end
 
   add_index "events", ["position_id"], name: "index_events_on_position_id", using: :btree
