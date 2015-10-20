@@ -1,6 +1,6 @@
 class EventsController < AdminController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  autocomplete :holder, :first_name, :extra_data => [positions.last.id]
+  #autocomplete :holder, :first_name, :extra_data => [positions.last.id]
 
   def new
     @event = Event.new

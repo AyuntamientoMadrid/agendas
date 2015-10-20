@@ -10,7 +10,7 @@ class Area < ActiveRecord::Base
   validates_presence_of :title
 
   # Callbacks
-  after_initialize :set_defaults
+  before_create :set_defaults
   after_save :update_children
 
   # Scopes

@@ -11,7 +11,7 @@ class Holder < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
 
-  scope :area_filtered, lambda{ |area| self.where(area_id: area) if area.present? }
+  scope :area_filtered, lambda{ |area| self.where(area_id: [area, Area.find(area).descendant_ids]) if area.present? }
 
   def full_name
     self.first_name.to_s+' '+self.last_name.to_s

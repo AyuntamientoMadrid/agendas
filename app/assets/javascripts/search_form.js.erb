@@ -17,15 +17,15 @@ var Search = {
 $(function () {
 
     $('.fdatepicker').fdatepicker({
-      format: "<%= I18n.translate("datepicker-format") %>",
+      format: "<%= I18n.translate('datepicker-format') %>",
     });
 
-    $('#main_area').change(function(){
-      Search.update_select('update_areas', $("#main_area option:selected").val());
-      Search.update_select('update_holders',$("#main_area option:selected").val());
+    $('#area').change(function(){
+      //Search.update_select('update_areas', $("#main_area option:selected").val());
+      Search.update_select('update_holders',$("#area option:selected").val());
     });
 
-    $('#child_area').change(function(){
-      Search.update_select('update_holders',$("#child_area option:selected").val());
-    });
+    //$('#child_area').change(function(){
+    //  Search.update_select('update_holders',$("#child_area option:selected").val());
+    //});
 });

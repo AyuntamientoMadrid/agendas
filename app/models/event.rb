@@ -50,15 +50,12 @@ class Event < ActiveRecord::Base
       self.position.area.id
     end
 
-    integer :area_root_id do
-      self.position.area.root.id
-    end
-
     text :holder_name do
       self.position.holder.full_name
     end
 
     integer :holder_id do
+      p self.position.holder.id.to_s
       self.position.holder.id
     end
 
