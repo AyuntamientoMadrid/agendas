@@ -1,5 +1,11 @@
 class Event < ActiveRecord::Base
 
+  #friendly-id
+
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
+
   # Relations
   belongs_to :user
   belongs_to :position
