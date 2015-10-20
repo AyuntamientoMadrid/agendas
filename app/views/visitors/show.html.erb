@@ -5,9 +5,9 @@
       <div class="row">
         <div class="small-12 large-8 columns">
 
-          <strong class="post__date">20 de agosto de 2015 · 09:00</strong>
+          <strong class="post__date"><%= @event.scheduled.strftime(t('date.formats.complete')) %></strong>
 
-          <h2 class="post__title-big">Reunión de Seguridad e Infraestructura nueva web</h2>
+          <h2 class="post__title-big"><%= @event.title %></h2>
 
           <div class="row mb40">
             <div class="small-2 large-1 columns"><a href="#"><span class="icon icon__share">Compartir</span></a></div>
@@ -21,36 +21,54 @@
 
       <div class="row mb40">
         <div class="small-12 large-4 columns">
-          <strong class="post__subtitle">Asisten</strong>
+          <strong class="post__subtitle"><%= t('show.holder')%></strong>
         </div>
         <div class="small-12 large-7 end columns">
-          <p class="post__description"><strong>Pablo Soto Bravo · Concejal Ahora Madrid, Manuel Maldonado · CTO, Lextrend, José Luis Cano · Director, IAM</strong></p>
+          <p class="post__description">
+            <strong><%= @event.position.holder.full_name %> - <%= @event.position.title %></strong>
+          </p>
         </div>
       </div>
 
       <div class="row mb40">
         <div class="small-12 large-4 columns">
-          <strong class="post__subtitle">Lugar</strong>
+          <strong class="post__subtitle"><%= t('show.participants')%></strong>
         </div>
         <div class="small-12 large-7 end columns">
-          <p class="post__text">Ayuntamiento de Madrid, Alcalá 45, Sala Planta 1</p>
+          <% @event.attendees.each do |attendee|%>
+          <p class="post__description">
+            <%= attendee.name %> - <%= attendee.company %>
+          </p>
+          <% end %>
         </div>
       </div>
 
       <div class="row mb40">
         <div class="small-12 large-4 columns">
-          <strong class="post__subtitle">Descripción</strong>
+          <strong class="post__subtitle"><%= t('show.location')%></strong>
         </div>
         <div class="small-12 large-7 end columns">
-          <p class="post__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget orci et nulla consequat pharetra. Morbi elementum, elit nec placerat luctus, risus lorem efficitur augue, et ultrices lorem justo vehicula massa. Duis lacinia lacus sit amet purus scelerisque aliquet. Morbi faucibus, mauris quis eleifend tincidunt, magna velit lobortis ante, nec eleifend magna nisl sed metus. Morbi rutrum ex nec arcu iaculis ultrices. Proin pharetra ac risus eu vestibulum. Curabitur consequat nisi et dui blandit feugiat.</p>
+          <p class="post__text"><%= @event.location %></p>
         </div>
       </div>
 
       <div class="row mb40">
         <div class="small-12 large-4 columns">
-          <strong class="post__subtitle">Documentación</strong>
+          <strong class="post__subtitle"><%= t('show.description')%></strong>
         </div>
         <div class="small-12 large-7 end columns">
+          <p class="post__text"><%= @event.description%></p>
+        </div>
+      </div>
+
+      <div class="row mb40">
+        <div class="small-12 large-4 columns">
+          <strong class="post__subtitle"><%= t('show.documentation')%></strong>
+        </div>
+        <div class="small-12 large-7 end columns">
+          <% @event.attachments.each do |file| %>
+            <p class="post__text mb20"><%= link_to file.title, file.path %></p>
+          <% end %>
           <p class="post__text mb20"><a href="#">Acta reunión</a></p>
           <p class="post__text mb80"><a href="#">Resumen conclusiones</a></p>
         </div>
@@ -58,7 +76,7 @@
 
       <div class="row">
         <div class="small-12 columns">
-          <p><a href="#">¿Hay algún error en esta página?</a></p>
+          <p><%= link_to t('main.any_errors'), contact_path %></p>
         </div>
       </div>
 

@@ -26,5 +26,11 @@ es:
       any: "Todos"
       search: "Buscar"
       reset: "Cancelar"
+  show:
+    participants: "Asisten"
+    location: "Lugar"
+    description: "Descripción"
+    documentation: "Documentación"
+    holder: "Organiza"
 
 

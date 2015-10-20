@@ -8,7 +8,7 @@ class VisitorsController < ApplicationController
   end
 
   def show
-    @event = Event.find(params[:id]) unless !@event.active
+    @event = Event.find(params[:id])
   end
 
   def update_areas
