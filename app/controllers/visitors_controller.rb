@@ -11,6 +11,11 @@ class VisitorsController < ApplicationController
     }.map{ |c| ["--"  * (c.depth - 1) + c.title,c.id]
     }.unshift([t('main.form.any'), ""])
 
+    respond_to do |format|
+      format.html
+      format.csv { send_data @events.as_csv, filename: 'agenda.csv' }
+    end
+
   end
 
   def show
