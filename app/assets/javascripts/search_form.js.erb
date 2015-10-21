@@ -28,4 +28,10 @@ $(function () {
     //$('#child_area').change(function(){
     //  Search.update_select('update_holders',$("#child_area option:selected").val());
     //});
+    //
+    $('#delete-keywords').on('click', function(e){
+    e.preventDefault();
+    $('.keywords').text('');
+    $(this).remove();
+  })
 });

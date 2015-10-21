@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require foundation
 //= require dependencies/foundation-datepicker
-//= require all
 $(function() {
   $(document).foundation();
 });
