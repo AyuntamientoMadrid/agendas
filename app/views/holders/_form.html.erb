@@ -1,9 +1,7 @@
-<%= form_for(@holder) do |f| %>
-
+<%= form_for @holder, html: {class: 'admin-form'} do |f| %>
     <% if @holder.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@holder.errors.count, "error") %> prohibited this holder from being saved:</h2>
-
           <ul>
             <% @holder.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
@@ -11,43 +9,35 @@
           </ul>
         </div>
     <% end %>
-    <fieldset>
-
-      <legend>Datos básicos</legend>
-
-      <label>Nombre</label>
-      <%= f.text_field :first_name %>
-
-      <label>Apellidos</label>
+    <fieldset class="admin">
+      <legend><%= t('backend.basic_data') %></legend>
+      <label><%= t('backend.first_name') %><%= f.text_field :first_name %></label>
+      <label><%= t('backend.last_name') %></label>
       <%= f.text_field :last_name %>
     </fieldset>
 
-    <% if @holder.persisted? %>
-        <fieldset>
+    <fieldset>
 
-          <legend><%= t('backend.positions') %></legend>
+      <legend><%= t('backend.positions') %></legend>
+      <div class="row">
+        <%= f.hidden_field :holder_id, :value => @holder.id %>
+        <div class="small-2 columns"><%= t('backend.from') %></div>
+        <div class="small-2 columns"><%= t('backend.to') %></div>
+        <div class="small-3 columns"><%= t('backend.position') %></div>
+        <div class="small-3 columns"><%= t('backend.area') %></div>
+        <div class="small-2 columns"></div>
+      </div>
 
-          <div class="row">
-            <%= f.hidden_field :holder_id, :value => @holder.id %>
-            <div class="small-2 columns">Desde</div>
-            <div class="small-2 columns">Hasta</div>
-            <div class="small-3 columns">Titulo</div>
-            <div class="small-3 columns">Área</div>
-            <div class="small-2 columns"></div>
-          </div>
+      <div id="positions">
+        <%= f.fields_for :positions do |position| %>
+            <%= render 'position_fields', f: position %>
+        <% end %>
 
-          <div id="positions">
-            <%= f.fields_for :positions do |position| %>
-                <%= render 'position_fields', f: position %>
-            <% end %>
-            <div class="left inline">
-              <%= link_to_add_association 'Add position', f, :positions, :class => "button tiny info alert " %>
-            </div>
-          </div>
-        </fieldset>
+        <%= link_to_add_association t('backend.add'), f, :positions, :class => "button radius tiny info right" %>
 
-    <% end %>
-
-    <%= submit_tag "Guardar", :class=> "button radius success right" %>
+      </div>
+    </fieldset>
+    <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
 <% end %>
+
 <%= javascript_include_tag 'holders'%>

@@ -1,62 +1,54 @@
 <div class="row">
-  <div class="small-12">
-    <div class="box">
-
-      <div class="row">
-        <div class="small-12 columns">
-          <h2 class="title-l"><%= t('main.title')%></h2>
-        </div>
-      </div>
-
-      <div class="row">
-
-        <%= render 'form' %>
-
-        <div class="small-12 large-7 large-ofsset-1 columns mb40">
-
-          <div class="row">
-            <%= render 'visitors/headline/holder' if params[:holder] %>
-            <%= render 'visitors/headline/search' if params %>
-            <%= render 'visitors/headline/last' %>
-          </div>
-
-          <div class="tools">
-            <%= t('main.get_updates')%><a href="<%= current_url(:format=>:atom)%>"><span class="icon icon__feed"></span> feed</a>
-            <%= t('main.share')%><a href="#"><span class="icon icon__email"></span> email</a>
-            <a class="right hide-for-small-only" href="#"><span class="icon icon__print"></span> <%= t('main.export')%></a>
-            <%= link_to "JSON of this page", current_url(:format=>:json) %>
-          </div><!-- .tools -->
-
-          <% @events.each do |event|%>
-            <article class="post">
-              <h1 class="post__title"><%= link_to event.title, show_path(event.slug) %></h1>
-              <p><strong>
-                <%= event.position.holder.full_name%> ·
-                <%= event.position.title %> ·
-                <%= event.position.area.title%>
-              </strong></p>
-              <p><%= event.scheduled.strftime(t('date.formats.complete')) %></p>
-            </article>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="small-12 large-7 small-offset-1 columns right mb20">
-          <div class="text-center">
-            <%= will_paginate @events1, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
-          </div>
-        </div>
-
-        <div class="small-12 large-4 columns">
-          <p><%= link_to t('main.any_errors'), contact_path %></p>
-        </div>
-
-      </div>
-
-    </div><!-- .box -->
+  <div class="small-12 columns">
+    <h2 class="title-l"><%= t('main.title')%></h2>
   </div>
 </div>
+
+<div class="row">
+
+  <%= render 'form' %>
+
+  <div class="small-12 large-7 large-ofsset-1 columns mb40">
+
+    <div class="row">
+      <%= render 'visitors/headline/holder' if params[:holder] %>
+      <%= render 'visitors/headline/search' if params %>
+      <%= render 'visitors/headline/last' %>
+    </div>
+
+    <div class="tools">
+      <%= t('main.get_updates')%><a href="<%= current_url(:format=>:atom)%>"><span class="icon icon__feed"></span> feed</a>
+      <%= t('main.share')%><a href="#"><span class="icon icon__email"></span> email</a>
+      <a class="right hide-for-small-only" href="#"><span class="icon icon__print"></span> <%= t('main.export')%></a>
+      <%= link_to "JSON of this page", current_url(:format=>:json) %>
+    </div><!-- .tools -->
+
+    <% @events.each do |event|%>
+      <article class="post">
+        <h1 class="post__title"><%= link_to event.title, show_path(event.slug) %></h1>
+        <p><strong>
+          <%= event.position.holder.full_name%> ·
+          <%= event.position.title %> ·
+          <%= event.position.area.title%>
+        </strong></p>
+        <p><%= event.scheduled.strftime(t('date.formats.complete')) %></p>
+      </article>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 large-7 small-offset-1 columns right mb20">
+    <div class="text-center">
+      <%= will_paginate @events1, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
+    </div>
+  </div>
+
+  <div class="small-12 large-4 columns">
+    <p><%= link_to t('main.any_errors'), contact_path %></p>
+  </div>
+</div>
+
 
 <%= javascript_include_tag 'search_form'%>
 

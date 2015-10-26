@@ -1,85 +1,77 @@
 <div class="row">
-  <div class="small-12">
-    <div class="box">
+  <div class="small-12 large-8 columns">
 
-      <div class="row">
-        <div class="small-12 large-8 columns">
+    <strong class="post__date"><%= @event.scheduled.strftime(t('date.formats.complete')) %></strong>
 
-          <strong class="post__date"><%= @event.scheduled.strftime(t('date.formats.complete')) %></strong>
+    <h2 class="post__title-big"><%= @event.title %></h2>
 
-          <h2 class="post__title-big"><%= @event.title %></h2>
+    <div class="row mb40">
+      <div class="small-2 large-1 columns"><a href="#"><span class="icon icon__share">Compartir</span></a></div>
+      <div class="small-2 large-1 columns"><a href="#"><span class="icon icon__email">Email</span></a></div>
+      <div class="small-2 large-1 columns"><a href="#"><span class="icon icon__feed">RSS</span></a></div>
+      <div class="small-2 large-1 columns end"><a href="#"><span class="icon icon__print">Imprimir</span></a></div>
+    </div>
 
-          <div class="row mb40">
-            <div class="small-2 large-1 columns"><a href="#"><span class="icon icon__share">Compartir</span></a></div>
-            <div class="small-2 large-1 columns"><a href="#"><span class="icon icon__email">Email</span></a></div>
-            <div class="small-2 large-1 columns"><a href="#"><span class="icon icon__feed">RSS</span></a></div>
-            <div class="small-2 large-1 columns end"><a href="#"><span class="icon icon__print">Imprimir</span></a></div>
-          </div>
+  </div>
+</div>
 
-        </div>
-      </div>
+<div class="row mb40">
+  <div class="small-12 large-4 columns">
+    <strong class="post__subtitle"><%= t('show.holder')%></strong>
+  </div>
+  <div class="small-12 large-7 end columns">
+    <p class="post__description">
+      <strong><%= @event.position.holder.full_name %> - <%= @event.position.title %></strong>
+    </p>
+  </div>
+</div>
 
-      <div class="row mb40">
-        <div class="small-12 large-4 columns">
-          <strong class="post__subtitle"><%= t('show.holder')%></strong>
-        </div>
-        <div class="small-12 large-7 end columns">
-          <p class="post__description">
-            <strong><%= @event.position.holder.full_name %> - <%= @event.position.title %></strong>
-          </p>
-        </div>
-      </div>
+<div class="row mb40">
+  <div class="small-12 large-4 columns">
+    <strong class="post__subtitle"><%= t('show.participants')%></strong>
+  </div>
+  <div class="small-12 large-7 end columns">
+    <% @event.attendees.each do |attendee|%>
+    <p class="post__description">
+      <%= attendee.name %> - <%= attendee.company %>
+    </p>
+    <% end %>
+  </div>
+</div>
 
-      <div class="row mb40">
-        <div class="small-12 large-4 columns">
-          <strong class="post__subtitle"><%= t('show.participants')%></strong>
-        </div>
-        <div class="small-12 large-7 end columns">
-          <% @event.attendees.each do |attendee|%>
-          <p class="post__description">
-            <%= attendee.name %> - <%= attendee.company %>
-          </p>
-          <% end %>
-        </div>
-      </div>
+<div class="row mb40">
+  <div class="small-12 large-4 columns">
+    <strong class="post__subtitle"><%= t('show.location')%></strong>
+  </div>
+  <div class="small-12 large-7 end columns">
+    <p class="post__text"><%= @event.location %></p>
+  </div>
+</div>
 
-      <div class="row mb40">
-        <div class="small-12 large-4 columns">
-          <strong class="post__subtitle"><%= t('show.location')%></strong>
-        </div>
-        <div class="small-12 large-7 end columns">
-          <p class="post__text"><%= @event.location %></p>
-        </div>
-      </div>
+<div class="row mb40">
+  <div class="small-12 large-4 columns">
+    <strong class="post__subtitle"><%= t('show.description')%></strong>
+  </div>
+  <div class="small-12 large-7 end columns">
+    <p class="post__text"><%= @event.description%></p>
+  </div>
+</div>
 
-      <div class="row mb40">
-        <div class="small-12 large-4 columns">
-          <strong class="post__subtitle"><%= t('show.description')%></strong>
-        </div>
-        <div class="small-12 large-7 end columns">
-          <p class="post__text"><%= @event.description%></p>
-        </div>
-      </div>
+<div class="row mb40">
+  <div class="small-12 large-4 columns">
+    <strong class="post__subtitle"><%= t('show.documentation')%></strong>
+  </div>
+  <div class="small-12 large-7 end columns">
+    <% @event.attachments.each do |file| %>
+      <p class="post__text mb20"><%= link_to file.title, file.path %></p>
+    <% end %>
+    <p class="post__text mb20"><a href="#">Acta reunión</a></p>
+    <p class="post__text mb80"><a href="#">Resumen conclusiones</a></p>
+  </div>
+</div>
 
-      <div class="row mb40">
-        <div class="small-12 large-4 columns">
-          <strong class="post__subtitle"><%= t('show.documentation')%></strong>
-        </div>
-        <div class="small-12 large-7 end columns">
-          <% @event.attachments.each do |file| %>
-            <p class="post__text mb20"><%= link_to file.title, file.path %></p>
-          <% end %>
-          <p class="post__text mb20"><a href="#">Acta reunión</a></p>
-          <p class="post__text mb80"><a href="#">Resumen conclusiones</a></p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="small-12 columns">
-          <p><%= link_to t('main.any_errors'), contact_path %></p>
-        </div>
-      </div>
-
-    </div><!-- .box -->
+<div class="row">
+  <div class="small-12 columns">
+    <p><%= link_to t('main.any_errors'), contact_path %></p>
   </div>
 </div>

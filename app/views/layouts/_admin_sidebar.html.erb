@@ -1,38 +1,37 @@
-<div class="small-12 medium-3 column">
-  <nav class="admin-sidebar">
-    <ul id="admin_menu">
-      <li>
-        <a href="/admin">Administración</a>
-      </li>
-      <li class=<%= active_menu('users') %>>
-        <a href=<%= users_path %>>
-          <i class="icon-user"></i>
-          <%= t("backend.users")%>
-        </a>
-      </li>
+<nav class="admin-sidebar">
+  <ul id="admin_menu">
+    <li>
+      Administración
+    </li>
+    <li class="<%= active_menu('users') %>">
+      <a href="<%= users_path %>">
+        <i class="fi-results-demographics size-18"> <%= t("backend.users")%></i>
+      </a>
+    </li>
 
-      <li class=<%= active_menu('events') %>>
-        <a href="<%= events_path %>">
-          <i class="icon-calendar"></i>
-          <%= t("backend.events")%>
-        </a>
-      </li>
+    <li class="<%= active_menu('events') %>">
+      <a href="<%= events_path %>">
+        <i class="fi-calendar size-18"> <%= t("backend.events")%></i>
+      </a>
+    </li>
 
-      <li class=<%= active_menu('areas') %>>
-        <a href="<%= areas_path %>">
-          <i class="icon-settings"></i>
-          <%= t("backend.areas")%>
-        </a>
-      </li>
+    <li class="<%= active_menu('areas') %>">
+      <a href="<%= areas_path %>">
+        <i class="fi-web size-18"> <%= t("backend.areas")%></i>
+      </a>
+    </li>
 
-      <li class=<%= active_menu('holders') %>>
-        <a href="<%= holders_path %>">
-          <i class="icon-organizations"></i>
-          <%= t("backend.positions")%>
-        </a>
-      </li>
+    <li class="<%= active_menu('holders') %>">
+      <a href="<%= holders_path %>">
+        <i class="fi-address-book size-18"> <%= t("backend.positions")%></i>
+      </a>
+    </li>
 
-    </ul>
-  </nav>
+    <li>
+      <%= link_to destroy_user_session_path, method: :delete do %>
+          <i class="fi-arrow-right size-18"> <%= t("backend.logout")%></i>
+      <% end %>
+    </li>
 
-</div>
+  </ul>
+</nav>

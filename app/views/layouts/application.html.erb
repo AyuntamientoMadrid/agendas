@@ -23,7 +23,13 @@
   <body class="">
     <%= render 'layouts/header' %>
     <div id="main-content" class="main-content">
-      <%= yield %>
+      <div class="row">
+        <div class="small-12">
+          <div class="box">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
     </div><!-- .main-content -->
     <%= render 'layouts/footer' %>
   </body>

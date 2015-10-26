@@ -18,4 +18,8 @@ class Holder < ActiveRecord::Base
   def full_name_comma
     self.last_name.to_s+', '+self.first_name.to_s
   end
+
+  def current_position
+    self.positions.current.first
+  end
 end

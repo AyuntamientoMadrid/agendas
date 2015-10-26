@@ -1,0 +1,31 @@
+.admin-sidebar ul li {
+  background: #2E343F;
+  border-bottom: 1px solid #292f39;
+  border-top: 1px solid #353c49;
+  padding: 3%;
+  margin: 0;
+  outline: 0;
+}
+
+.admin-sidebar ul li:first-child {
+  background: #2B3139;
+  color: white;
+  text-transform: uppercase;
+}
+
+.admin-sidebar ul li.active {
+  background: #373D47;
+}
+
+.admin-sidebar ul li.active a:not(.button) {
+  color: white;
+}
+
+.admin-sidebar ul li a {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.admin-sidebar ul li a:hover {
+  color: white;
+}
+

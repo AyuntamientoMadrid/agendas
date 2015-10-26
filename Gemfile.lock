@@ -189,6 +189,9 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
+    jquery-validation-rails (1.13.1)
+      railties (>= 3.2, < 5.0)
+      thor (~> 0.14)
     json (1.8.3)
     kgio (2.10.0)
     launchy (2.4.3)
@@ -426,6 +429,7 @@ DEPENDENCIES
   jquery-datatables-rails (~> 3.3.0)
   jquery-rails
   jquery-ui-rails
+  jquery-validation-rails
   launchy
   newrelic_rpm
   paperclip

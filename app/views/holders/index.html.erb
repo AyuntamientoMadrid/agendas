@@ -1,61 +1,57 @@
 <div class="row">
   <h1>
     <%= t('backend.holders')%> (<%= @holders.count %>)
-    <%= link_to t('backend.new_holder'), new_holder_path, :class => "button radius warning right" %>
+    <%= link_to t('backend.new_holder'), new_holder_path, :class => "button radius warning right" if can? :create, Holder %>
   </h1>
 </div>
+<div class="row">
+  <table id="listing" class="display" cellpadding="0" width="100%">
+    <thead>
+    <tr>
+      <th><%= t('backend.name')%></th>
+      <th><%= t('backend.position')%></th>
+      <th><%= t('backend.contributed_by')%></th>
+      <th><%= t('backend.actions')%></th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+      <th><%= t('backend.name')%></th>
+      <th><%= t('backend.position')%></th>
+      <th><%= t('backend.contributed_by')%></th>
+      <th><%= t('backend.actions')%></th>
+    </tr>
+    </tfoot>
+    <tbody>
+    <% @holders.each do |h| %>
+        <tr>
+          <td>
+            <p><%= link_to h.full_name_comma, edit_holder_path(h) %></p>
+          </td>
+          <td>
+            <strong><%= h.current_position.title %></strong><br />
+            <%= h.current_position.area.title %>
+          </td>
+          <td>
+            <% h.users.each do |u| %>
+                <%= link_to u.full_name_comma, edit_user_path(u)  %><br />
+            <% end %>
+          </td>
+          <td>
+            <%= link_to edit_holder_path(h), title: t('backend.edit') do %>
+              <i class="step fi-page-edit size-24"></i>
+            <% end if can? :edit, Holder %>
 
-<table id="listing" class="display" cellpadding="0" width="100%">
-  <thead>
-  <tr>
-    <th><%= t('backend.name')%></th>
-    <th><%= t('backend.positions')%></th>
-    <th><%= t('backend.contributd_by')%></th>
-    <th><%= t('actions')%></th>
-  </tr>
-  </thead>
-  <tfoot>
-  <tr>
-    <th><%= t('backend.name')%></th>
-    <th><%= t('backend.positions')%></th>
-    <th><%= t('backend.contributd_by')%></th>
-    <th><%= t('actions')%></th>
-  </tr>
-  </tfoot>
-  <tbody>
-  <% @holders.each do |h| %>
-      <tr>
-        <td>
-          <p><%= link_to h.full_name_comma, edit_holder_path(h) %></p>
-        </td>
+            <%= link_to holder_path(h), method: :delete, data: { confirm: t("backend.confirm") }, title: t('backend.delete') do%>
+              <i class="step fi-page-delete size-24"></i>
+            <% end if can? :delete, Holder%>
 
-
-
-        <td>
-          <% h.positions.current.each do |p| %>
-
-
-              <%= p.title %> (<%= p.from.strftime(t('backend_general.short_date')) %> )<br>
-          <% end %>
-        </td>
-
-        <td>
-          <% h.users.each do |u| %>
-
-              <%= link_to u.full_name_comma, edit_user_path(u)  %><br>
-
-
-          <% end %>
-
-
-        </td>
-
-        <td><%= link_to "Edit", edit_holder_path(h)  %> · Delete</td>
-
-      </tr>
-  <% end %>
-  </tbody>
-</table>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
 
 <%= javascript_include_tag 'admin_listings' %>
 

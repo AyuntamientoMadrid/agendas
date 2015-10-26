@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   def change_language
     I18n.locale = params[:lang]
-    redirect_to root_path
+    redirect_to request.referer
   end
 
 end
