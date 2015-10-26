@@ -8,7 +8,7 @@ class Position < ActiveRecord::Base
   has_many :events, through: :participants, dependent: :destroy
 
   # Validations
-  validates_presence_of :title, :area
+  validates_presence_of :title, :area, :from
   validate :date_to_before_date_from
 
   scope :current, -> { where(to: nil) }

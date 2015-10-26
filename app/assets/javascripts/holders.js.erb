@@ -1,11 +1,8 @@
 $(function () {
-
-    $('.fdatepicker').fdatepicker({
-      format: "<%= I18n.translate('datepicker-format') %>",
-    });
-
+    setDatePicker();
     var $checkoutForm = $(".admin-form").validate({
         ignore: [],
+        errorElement: "small",
         rules : {
             "holder[first_name]" : {
                 required : true
@@ -28,5 +25,15 @@ $(function () {
             error.insertAfter(element);
         }
     });
+
+    $('#positions').on('cocoon:after-insert', function(e, insertedItem) {
+      setDatePicker();
+    });
+
+    function setDatePicker(){
+      $('.fdatepicker').fdatepicker({
+        format: "<%= I18n.translate('datepicker-format') %>",
+      });
+    }
 
 });

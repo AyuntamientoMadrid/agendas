@@ -1,3 +1,26 @@
-<h3>User</h3>
-<p>Name: <%= @user.name if @user.name %></p>
-<p>Email: <%= @user.email if @user.email %></p>
+<h1><%= @holder.full_name_comma %></h3>
+<fieldset>
+  <legend><%= t('backend.basic_data') %></legend>
+  <p><strong><%= t('backend.first_name') %>:</strong> <%= @holder.first_name %></p>
+  <p><strong><%= t('backend.last_name') %>:</strong> <%= @holder.last_name %></p>
+</fieldset>
+<fieldset>
+  <legend><%= t('backend.positions') %></legend>
+  <div class="row">
+    <div class="small-2 columns"><strong><%= t('backend.from') %></strong></div>
+    <div class="small-2 columns"><strong><%= t('backend.to') %></strong></div>
+    <div class="small-4 columns"><strong><%= t('backend.position') %></strong></div>
+    <div class="small-4 columns"><strong><%= t('backend.area') %></strong></div>
+  </div>
+  <% @holder.positions.each do |position| %>
+  <div class="row">
+    <div class="small-2 columns"><%= position.from.strftime(t('date.formats.short')) if position.from.present? %></div>
+    <div class="small-2 columns"><%= position.to.strftime(t('date.formats.short')) if position.to.present? %></div>
+    <div class="small-4 columns"><%= position.title %></div>
+    <div class="small-4 columns"><%= position.area.title %></div>
+  </div>
+  <% end %>
+</fieldset>
+<%= link_to t('backend.edit'), edit_holder_path(@holder), :class=> "button radius success right" %>
+<%= link_to t('backend.cancel'), holders_path , :class=> "button radius right" %>
+

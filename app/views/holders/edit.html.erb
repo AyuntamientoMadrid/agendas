@@ -1,19 +1,2 @@
 <h1><%= t('backend.edit_holder')%></h1>
-
 <%= render :partial => 'form' %>
-
-<script>
-
-
-    $( document ).ready(function() {
-        $('#positions').on('cocoon:after-insert', function(e, insertedItem) {
-
-            $('.fdatepicker').fdatepicker({
-                format: "<%= I18n.translate("datepicker-format") %>"
-                });
-        });
-
-    });
-
-
-</script>

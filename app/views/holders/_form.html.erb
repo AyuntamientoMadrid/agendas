@@ -1,7 +1,9 @@
 <%= form_for @holder, html: {class: 'admin-form'} do |f| %>
+
     <% if @holder.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@holder.errors.count, "error") %> prohibited this holder from being saved:</h2>
+        <div class="panel callout radius">
+          <strong><%= t('activerecord.errors.template.header',
+  :model => Holder.model_name.human, :count => @holder.errors.count) %></strong>
           <ul>
             <% @holder.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
@@ -9,22 +11,23 @@
           </ul>
         </div>
     <% end %>
-    <fieldset class="admin">
+
+    <fieldset>
       <legend><%= t('backend.basic_data') %></legend>
-      <label><%= t('backend.first_name') %><%= f.text_field :first_name %></label>
-      <label><%= t('backend.last_name') %></label>
+      <%= f.label :first_name, t('backend.first_name') %>
+      <%= f.text_field :first_name %>
+      <%= f.label :last_name, t('backend.last_name') %>
       <%= f.text_field :last_name %>
     </fieldset>
 
     <fieldset>
-
       <legend><%= t('backend.positions') %></legend>
+
       <div class="row">
-        <%= f.hidden_field :holder_id, :value => @holder.id %>
-        <div class="small-2 columns"><%= t('backend.from') %></div>
-        <div class="small-2 columns"><%= t('backend.to') %></div>
-        <div class="small-3 columns"><%= t('backend.position') %></div>
-        <div class="small-3 columns"><%= t('backend.area') %></div>
+        <div class="small-2 columns"><strong><%= t('backend.from') %></strong></div>
+        <div class="small-2 columns"><strong><%= t('backend.to') %></strong></div>
+        <div class="small-3 columns"><strong><%= t('backend.position') %></strong></div>
+        <div class="small-3 columns"><strong><%= t('backend.area') %></strong></div>
         <div class="small-2 columns"></div>
       </div>
 
@@ -34,9 +37,9 @@
         <% end %>
 
         <%= link_to_add_association t('backend.add'), f, :positions, :class => "button radius tiny info right" %>
-
       </div>
     </fieldset>
+
     <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
 <% end %>
 

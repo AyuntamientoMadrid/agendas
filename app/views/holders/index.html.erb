@@ -26,7 +26,7 @@
     <% @holders.each do |h| %>
         <tr>
           <td>
-            <p><%= link_to h.full_name_comma, edit_holder_path(h) %></p>
+            <p><%= link_to h.full_name_comma, holder_path(h) %></p>
           </td>
           <td>
             <strong><%= h.current_position.title %></strong><br />

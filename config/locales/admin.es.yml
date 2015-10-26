@@ -6,10 +6,14 @@ es:
     edit: "Editar"
     delete: "Eliminar"
     save: "Guardar"
+    cancel: "Cancelar"
     actions: "Acciones"
     add: "Añadir"
     basic_data: "Datos básicos"
     mandatory_field: "Este campo es obligatorio"
+    successfully_updated_record: "Registro actualizado correctamente"
+    successfully_destroyed_record: "Registro eliminado correctamente"
+    successfully_created_record: "Registro creado correctmente"
 
     contributors: "Contribuidores"
     new_user: "Nuevo usuario"
@@ -34,6 +38,7 @@ es:
     contributed_by: "Gestionado por"
     new_position: "Nuevo cargo"
     edit_position: "Editar cargo"
+    must_have_position: "Es necesario añadir al menos un cargo"
 
     events: "Eventos"
     new_event: "Nuevo evento"
@@ -42,7 +47,3 @@ es:
   backend_header:
     open_gov: "Gobierno abierto"
     administracion: "Administración"
-
-
-  backend_general:
-    short_date: "%d/%m/%Y"

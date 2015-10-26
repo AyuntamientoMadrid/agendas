@@ -4,12 +4,19 @@ class Holder < ActiveRecord::Base
   has_many :manages
   has_many :users, through: :manages
 
-  has_many :positions
+  has_many :positions, dependent: :delete_all
 
   accepts_nested_attributes_for :positions, reject_if: :all_blank, allow_destroy: true
 
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validate :must_have_position
+
+  def must_have_position
+    if positions.empty? or positions.all? {|child| child.marked_for_destruction? }
+      errors.add(:base, I18n.translate('backend.must_have_position'))
+    end
+  end
 
   def full_name
     self.first_name.to_s+' '+self.last_name.to_s

@@ -3,29 +3,34 @@
     <li>
       Administración
     </li>
+    <% if can? :manage, User %>
     <li class="<%= active_menu('users') %>">
       <a href="<%= users_path %>">
         <i class="fi-results-demographics size-18"> <%= t("backend.users")%></i>
       </a>
     </li>
-
+    <% end %>
+    <% if can? :manage, Event %>
     <li class="<%= active_menu('events') %>">
       <a href="<%= events_path %>">
         <i class="fi-calendar size-18"> <%= t("backend.events")%></i>
       </a>
     </li>
-
+    <% end %>
+    <% if can? :manage, Area %>
     <li class="<%= active_menu('areas') %>">
       <a href="<%= areas_path %>">
         <i class="fi-web size-18"> <%= t("backend.areas")%></i>
       </a>
     </li>
-
+    <% end %>
+    <% if can? :manage, Holder %>
     <li class="<%= active_menu('holders') %>">
       <a href="<%= holders_path %>">
         <i class="fi-address-book size-18"> <%= t("backend.positions")%></i>
       </a>
     </li>
+    <% end %>
 
     <li>
       <%= link_to destroy_user_session_path, method: :delete do %>
