@@ -1,0 +1,17 @@
+$(function(){
+  $("#listing").treetable({
+    expandable: true,
+    indent: 40
+  });
+
+  $('body').on('click','.indenter a',function(){
+    $(this).removeClass();
+    if ($(this).attr('title') === "Expand"){
+      $(this).addClass('fi-plus size-18');
+    }else{
+      $(this).addClass('fi-minus size-18');
+    }
+
+  });
+
+});

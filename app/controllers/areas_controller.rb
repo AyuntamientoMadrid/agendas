@@ -2,7 +2,7 @@ class AreasController < AdminController
   before_action :set_area, only: [:show, :edit, :update, :destroy]
 
   def index
-    @areas = Area.main_areas
+    @areas = Area.roots
   end
 
   def show

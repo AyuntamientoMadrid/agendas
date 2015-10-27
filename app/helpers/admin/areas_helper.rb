@@ -1,19 +1,13 @@
 module Admin::AreasHelper
 
-  def tree_row(area)
-    output = ''
-    if area.children.empty?
-      output += render 'areas/cell', area: area
-    else
-      area.children.each do |child|
-        output += "/#{tree_row(child)}"
-      end
-    end
-    output.html_safe
+  def parent_label(area)
+    'data-tt-parent-id='+area.parent.id.to_s+''.html_safe if area.parent.present?
   end
 
-  def parent_label(area)
-    'data-tt-parent-id="'+area.parent.id.to_s+'"'.html_safe if area.parent.present?
+  def nested_areas(areas)
+    areas.map do |area|
+      render(area) + nested_areas(area.children)
+    end.join.html_safe unless areas.blank?
   end
 
 end

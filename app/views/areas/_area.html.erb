@@ -1,1 +1,18 @@
-<option value="<%= area.id %>"><%= area.title.titleize %></option>
+<tr data-tt-id="<%= area.id %>" <%= parent_label(area) %>>
+  <td>
+    <%= link_to area.title, area_path(area) %>
+  </td>
+  <td>
+    <p><%= area.children.count %></p>
+  </td>
+  <td>
+    <%= link_to edit_area_path(area), title: t('backend.edit') do %>
+      <i class="step fi-page-edit size-24"></i>
+    <% end if can? :edit, Area %>
+
+    <%= link_to area_path(area), method: :delete, data: { confirm: t("backend.confirm") }, title: t('backend.delete') do%>
+      <i class="step fi-page-delete size-24"></i>
+    <% end if can? :delete, Area %>
+
+  </td>
+</tr>
