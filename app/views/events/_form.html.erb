@@ -1,8 +1,9 @@
-<%= form_for(@event) do |f| %>
+<%= form_for @event, html: {class: 'admin-form'} do |f| %>
 
     <% if @event.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+        <div class="panel callout radius">
+          <strong><%= t('activerecord.errors.template.header',
+  :model => Event.model_name.human, :count => @event.errors.count) %></strong>
           <ul>
             <% @event.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
@@ -10,91 +11,71 @@
           </ul>
         </div>
     <% end %>
+
     <fieldset>
-
-      <legend>Datos básicos</legend>
-
-      <label>Title</label>
+      <legend><%= t('backend.basic_data') %></legend>
+      <%= f.label :title, t('backend.title') %>
       <%= f.text_field :title %>
-
-      <label>Location</label>
+      <%= f.label :location, t('backend.location') %>
       <%= f.text_field :location %>
-
-      <label>Description</label>
-      <%= f.text_area :description %>
-
-      <label>Fecha</label>
-      <%= f.text_field :scheduled, class: 'datepicker' %>
-
-      <fieldset><!-- Participants -->
-        <legend><%= t('backend.positions') %></legend>
-        <div class="row">
-          <div class="small-2 columns">
-              Nombre
-          </div>
-          <div class="small-2 columns"></div>
-        </div>
-
-        <div id="participants">
-          <%= f.fields_for :participants do |participant| %>
-              <%= render 'participant_fields', f: participant %>
-          <% end %>
-          <div class="left inline">
-            <%= link_to_add_association 'Add participant', f, :participants, :class => "button tiny info alert " %>
-          </div>
-        </div>
-      </fieldset>
-
-
-      <fieldset><!-- Attendees -->
-        <legend><%= t('backend.positions') %></legend>
-        <div class="row">
-          <div class="small-2 columns">
-              Nombre
-          </div>
-          <div class="small-2 columns">
-              Cargo
-          </div>
-          <div class="small-2 columns">
-              Empresa
-          </div>
-          <div class="small-2 columns"></div>
-        </div>
-
-        <div id="attendees">
-          <%= f.fields_for :attendees do |attendee| %>
-              <%= render 'attendee_fields', f: attendee %>
-          <% end %>
-          <div class="left inline">
-            <%= link_to_add_association 'Add attendee', f, :attendees, :class => "button tiny info alert " %>
-          </div>
-        </div>
-      </fieldset>
-
-      <fieldset><!-- Attachments -->
-        <legend><%= t('backend.attachments') %></legend>
-        <div class="row">
-          <div class="small-2 columns">
-              Nombre
-          </div>
-          <div class="small-2 columns">
-              Cargo
-          </div>
-          <div class="small-2 columns"></div>
-        </div>
-
-        <div id="attachments">
-          <%= f.fields_for :attachments do |attachment| %>
-              <%= render 'attachment_fields', f: attachment %>
-          <% end %>
-          <div class="left inline">
-            <%= link_to_add_association 'Add attendee', f, :attachments, :class => "button tiny info alert " %>
-          </div>
-        </div>
-      </fieldset>
-
-
-      <%= submit_tag "Guardar", :class=> "button radius success right" %>
+      <%= f.label :description, t('backend.description') %>
+      <%= f.text_area :description, class: 'tinymce'%>
+      <%= f.label :scheduled, t('backend.date') %>
+      <%= f.text_field :scheduled, class: 'fdatepicker' %>
+      <%= f.label :position_id, t('backend.position') %>
+      <%= f.select :position_id, current_user.holders.order(:last_name).map{|holder| [holder.full_name_comma, holder.positions.current.first.id]}, prompt: t('backend.select') %>
     </fieldset>
 
+    <fieldset><!-- Participants -->
+      <legend><%= t('backend.positions') %></legend>
+      <div class="row">
+        <div class="small-10 columns"><%= t('backend.name') %></div>
+        <div class="small-2 columns"></div>
+      </div>
+
+      <div id="participants">
+        <%= f.fields_for :participants do |participant| %>
+            <%= render 'participant_fields', f: participant %>
+        <% end %>
+        <%= link_to_add_association t('backend.add'), f, :participants, :class => "button radius tiny info right" %>
+      </div>
+    </fieldset>
+
+
+    <fieldset><!-- Attendees -->
+      <legend><%= t('backend.attendees') %></legend>
+      <div class="row">
+        <div class="small-4 columns"><%= t('backend.name') %></div>
+        <div class="small-3 columns"><%= t('backend.position') %></div>
+        <div class="small-3 columns"><%= t('backend.company') %></div>
+        <div class="small-2 columns"></div>
+      </div>
+
+      <div id="attendees">
+        <%= f.fields_for :attendees do |attendee| %>
+            <%= render 'attendee_fields', f: attendee %>
+        <% end %>
+        <%= link_to_add_association t('backend.add'), f, :attendees, :class => "button radius tiny info right" %>
+      </div>
+    </fieldset>
+
+    <fieldset><!-- Attachments -->
+      <legend><%= t('backend.attachments') %></legend>
+      <div class="row">
+        <div class="small-4 columns"><%= t('backend.title') %></div>
+        <div class="small-6 columns"><%= t('backend.file') %></div>
+        <div class="small-2 columns"></div>
+      </div>
+
+      <div id="attachments">
+        <%= f.fields_for :attachments do |attachment| %>
+            <%= render 'attachment_fields', f: attachment %>
+        <% end %>
+        <%= link_to_add_association t('backend.add'), f, :attachments, :class => "button radius tiny info right" %>
+      </div>
+    </fieldset>
+  <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
+
 <% end %>
+<%= tinymce %>
+<%= javascript_include_tag 'events'%>

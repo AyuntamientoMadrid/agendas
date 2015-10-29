@@ -1,13 +1,18 @@
 module ApplicationHelper
 
   def show_headline(params)
-    render 'headline/last' if params.present?
-    render 'headline' if params[:holder]
-    render 'headline/search' if params[:keyword]
+    return (render 'visitors/headline/holder').to_s unless params[:holder].blank?
+    return (render 'visitors/headline/search').to_s unless params[:keyword].blank?
+    return (render 'visitors/headline/last').to_s
   end
 
   def current_url(new_params)
     url_for params.merge(new_params)
+  end
+
+  def current_urr_kk(new_params)
+    url_for params.merge(new_params)
+    url_for(:only_path => false, :overwrite_params=>nil)
   end
 
   def current_language

@@ -1,0 +1,35 @@
+$(function(){
+  $('.fdatepicker').fdatepicker({
+    format: "<%= I18n.translate('datepicker-format-time') %>",
+    pickTime: true,
+    language: "<%= I18n.locale %>",
+    disableDblClickSelection: true
+  });
+
+  $(".admin-form").validate({
+      ignore: [],
+      errorElement: "small",
+      rules : {
+          "event[title]" : {
+              required : true
+          },
+          "event[scheduled]" : {
+              required : true
+          }
+      },
+
+      messages : {
+          "event[title]" : {
+              required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[scheduled]" : {
+              required : "<%= I18n.translate('backend.mandatory_field')%>"
+          }
+      },
+
+      errorPlacement : function(error, element) {
+          error.insertAfter(element);
+      }
+  });
+
+});

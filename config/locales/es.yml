@@ -10,6 +10,7 @@ es:
   none-o: "Ninguno"
   none-a: "Ninguna"
   datepicker-format: "dd/mm/yyyy"
+  datepicker-format-time: "dd/mm/yyyy hh:ii"
   size: "Tamaño"
   time:
     formats:

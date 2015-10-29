@@ -17,6 +17,8 @@ Rails.application.config.assets.precompile += %w( admin.js )
 
 Rails.application.config.assets.precompile += %w( search_form.js )
 Rails.application.config.assets.precompile += %w( admin_listings.js )
-Rails.application.config.assets.precompile += %w( application_admin.css )
 Rails.application.config.assets.precompile += %w( holders.js )
 Rails.application.config.assets.precompile += %w( areas.js )
+Rails.application.config.assets.precompile += %w( events.js )
+
+

@@ -1,38 +1,38 @@
 class EventsController < AdminController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  #autocomplete :holder, :first_name, :extra_data => [positions.last.id]
-
-  def new
-    @event = Event.new
-  end
 
   def index
     @events = current_user.admin? ? Event.all : user.events
   end
 
+  def new
+    @event = Event.new
+  end
+
+  def show
+  end
+
   def create
     @event = Event.new(event_params)
+    @event.user = current_user
     if @event.save
-      @event.event!
-      redirect_to events_path, notice: 'Event was successfully created.'
+      redirect_to events_path, notice: t('backend.successfully_created_record')
     else
-      render :new
+      render :new, notice: t('backend.review_errors')
     end
   end
 
   def update
-    @event = Event.find(params[:id])
     if @event.update_attributes(event_params)
-      redirect_to events_path, :notice => "Event updated."
+      redirect_to events_path, notice: t('backend.successfully_updated_record')
     else
-      redirect_to events_path, :alert => "Unable to update event."
+      render :edit
     end
   end
 
   def destroy
-    event = Event.find(params[:id])
-    event.destroy
-    redirect_to events_path, :notice => "Event deleted."
+    @event.destroy
+    redirect_to events_path, notice: t('backend.successfully_destroyed_record')
   end
 
   private
@@ -42,7 +42,7 @@ class EventsController < AdminController
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :location, :scheduled)
+    params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, attendees_attributes: [:name, :position, :company, :_destroy])
   end
 
 end

@@ -21,6 +21,7 @@
 //= require jquery.validate
 //= require cocoon
 //= require dependencies/foundation-datepicker
+//= require tinymce
 $(function() {
   $(document).foundation();
 });

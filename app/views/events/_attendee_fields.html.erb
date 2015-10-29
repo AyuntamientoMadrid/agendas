@@ -1,17 +1,10 @@
 <div class="nested-fields">
-  <div class="small-12 columns">
     <div class="row">
+      <div class="small-4 columns"><%= f.text_field :name %></div>
+      <div class="small-3 columns"><%= f.text_field :position %></div>
+      <div class="small-3 columns"><%= f.text_field :company%></div>
       <div class="small-2 columns">
-        <%= f.text_field :name %>
-      </div>
-      <div class="small-2 columns">
-        <%= f.text_field :position %>
-      </div>
-      <div class="small-2 columns">
-        <%= f.text_field :company%>
-      </div>
-      <div class="small-2 columns">
-        <%= link_to_remove_association "Remove holder", f, :class => "button tiny radius alert right" %>
+        <%= link_to_remove_association t('backend.delete'), f, :class => "button tiny radius alert right" %>
       </div>
     </div>
   </div>

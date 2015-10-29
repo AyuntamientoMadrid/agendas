@@ -1,13 +1,11 @@
 <div class="nested-fields">
-  <div class="small-12 columns">
-    <div class="row">
-      <div class="small-2 columns">
-        <%= f.hidden_field, :position_id %>
-        <%= autocomplete_field_tag :holder, '', autocomplete_holder_first_name_events_path, update_elements: { position_id: => '#position_id'} %>
-      </div>
-      <div class="small-2 columns">
-        <%= link_to_remove_association "Remove holder", f, :class => "button tiny radius alert right" %>
-      </div>
+  <div class="row">
+    <div class="small-8 columns">
+      <%= f.hidden_field :event_id, value: @event.id %>
+      <%= autocomplete_field_tag :holder, '', autocomplete_holder_first_name_events_path, update_elements: { position_id:  '#position_id'} %>
+    </div>
+    <div class="small-2 columns">
+      <%= link_to_remove_association t('backend.delete'), f, :class => "button tiny radius alert right" %>
     </div>
   </div>
 </div>

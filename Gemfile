@@ -46,6 +46,7 @@ gem 'rails4-autocomplete'
 gem 'friendly_id', '~> 5.1.0'
 gem 'ancestry'
 gem 'savon'
+gem 'tinymce-rails'
 
 
 group :development do

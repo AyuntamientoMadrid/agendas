@@ -11,9 +11,7 @@
   <div class="small-12 large-7 large-ofsset-1 columns mb40">
 
     <div class="row">
-      <%= render 'visitors/headline/holder' if params[:holder] %>
-      <%= render 'visitors/headline/search' if params %>
-      <%= render 'visitors/headline/last' %>
+      <%= show_headline(params) %>
     </div>
 
     <div class="tools">

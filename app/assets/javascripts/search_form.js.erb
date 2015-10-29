@@ -21,17 +21,14 @@ $(function () {
     });
 
     $('#area').change(function(){
-      //Search.update_select('update_areas', $("#main_area option:selected").val());
       Search.update_select('update_holders',$("#area option:selected").val());
     });
 
-    //$('#child_area').change(function(){
-    //  Search.update_select('update_holders',$("#child_area option:selected").val());
-    //});
-    //
     $('#delete-keywords').on('click', function(e){
-    e.preventDefault();
-    $('.keywords').text('');
-    $(this).remove();
-  })
+      e.preventDefault();
+      $('.keywords').text('');
+      $('#keyword').val('');
+      $('form').submit();
+      $(this).remove();
+    })
 });

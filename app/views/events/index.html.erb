@@ -1,43 +1,53 @@
 <div class="row">
   <h1>
     <%= t('backend.events')%> (<%= @events.count %>)
-    <%= link_to t('backend.new_event'), new_event_path, :class => "button radius warning right" %>
+    <%= link_to t('backend.new_event'), new_event_path, :class => "button radius warning right" if can? :create, Event %>
     </h1>
 </div>
+<div class="row">
+  <table id="listing" class="display" cellpadding="0" width="100%">
+    <thead>
+      <tr>
+        <th><%= t('backend.date')%></th>
+        <th><%= t('backend.event')%></th>
+        <th><%= t('backend.holder')%></th>
+        <th><%= t('backend.actions')%></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th><%= t('backend.date')%></th>
+        <th><%= t('backend.event')%></th>
+        <th><%= t('backend.holder')%></th>
+        <th><%= t('backend.actions')%></th>
+      </tr>
+    </tfoot>
+    <tbody>
+      <% @events.each do |event| %>
+      <tr>
+        <td>
+          <p><%= event.scheduled.strftime(t('time.formats.short')) %></p>
+        </td>
+        <td>
+          <p><%= link_to event.title, event_path(event) %></p>
+        </td>
+        <td>
+          <strong><%= event.position.holder.full_name %></strong><br />
+          <%= event.position.title %>
+        </td>
+        <td>
+          <%= link_to edit_event_path(event), title: t('backend.edit') do %>
+              <i class="step fi-page-edit size-24"></i>
+            <% end if can? :edit, Event %>
 
-<table id="listing" class="display" cellpadding="0" width="100%">
-  <thead>
-    <tr>
-      <th><%= t('backend.date')%></th>
-      <th><%= t('event')%></th>
-      <th><%= t('holder')%></th>
-      <th><%= t('actions')%></th>
-    </tr>
-  </thead>
-  <tfoot>
-    <tr>
-      <th><%= t('backend.date')%></th>
-      <th><%= t('event')%></th>
-      <th><%= t('holder')%></th>
-      <th><%= t('actions')%></th>
-    </tr>
-  </tfoot>
-  <tbody>
-    <% @events.each do |event| %>
-    <tr>
-      <td><%= event.scheduled.strftime(t('date.formats.complete')) %></td>
-      <td>
-        <%= link_to event.title, edit_event_path(event) %>
-      </td>
-      <td>
-        <strong><%= event.position.holder.full_name %></strong><br />
-        <%= event.position.title %>
-      </td>
-      <td><%= link_to "Edit", edit_user_path(event)  %> · Delete</td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-
+            <%= link_to event_path(event), method: :delete, data: { confirm: t("backend.confirm") }, title: t('backend.delete') do%>
+              <i class="step fi-page-delete size-24"></i>
+            <% end if can? :delete, Event %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 <%= javascript_include_tag 'admin_listings' %>
 
