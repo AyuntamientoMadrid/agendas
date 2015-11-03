@@ -16,12 +16,23 @@
 
     <div class="tools">
       <%= t('main.get_updates')%><a href="<%= current_url(:format=>:atom)%>"><span class="icon icon__feed"></span> feed</a>
-      <%= t('main.share')%><a href="#"><span class="icon icon__email"></span> email</a>
-      <a class="right hide-for-small-only" href="#"><span class="icon icon__print"></span> <%= t('main.export')%></a>
-      <%= link_to "JSON of this page", current_url(:format=>:json) %>
+      <a class="right dib dn hide-for-small-only" href="<%= current_url(:format=>:csv)%>"><span class="icon icon__print"></span> <%= t('main.export')%></a>
     </div><!-- .tools -->
 
-    <% @events.each do |event|%>
+    <div class="row">
+    <div class="small-8 columns mb20">
+      <div class="row">
+        <div class="small-3 columns">
+          <label for="right-label" class="inline title-xs"><%= t('main.order_by')%></label>
+        </div>
+        <div class="small-9 columns">
+          <%= select_tag :order, options_for_select([:scheduled, :score],params[:order]), id: 'search-order', class: 'select-sm' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <% @paginated_events.each do |event|%>
       <article class="post">
         <h1 class="post__title"><%= link_to event.title, show_path(event.slug) %></h1>
         <p><strong>
@@ -38,7 +49,7 @@
 <div class="row">
   <div class="small-12 large-7 small-offset-1 columns right mb20">
     <div class="text-center">
-      <%= will_paginate @events1, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
+      <%= will_paginate @events.results, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
     </div>
   </div>
 

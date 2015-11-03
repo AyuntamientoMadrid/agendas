@@ -31,4 +31,9 @@ $(function () {
       $('form').submit();
       $(this).remove();
     })
+
+    $('#search-order').on('change',function(e){
+      $('#order').val($(this).val());
+      $('form').submit();
+    });
 });

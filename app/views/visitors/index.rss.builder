@@ -4,7 +4,7 @@ xml.rss version: "2.0" do
     xml.title t("site_title")
     xml.description t("site_description")
     xml.link root_url
-    @events.each do |event|
+    @events.results.each do |event|
       xml.item do
         xml.title event.title
         xml.description event.description

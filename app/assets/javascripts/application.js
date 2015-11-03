@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require foundation
 //= require dependencies/foundation-datepicker
+//= require social-share-button
 $(function() {
   $(document).foundation();
 });

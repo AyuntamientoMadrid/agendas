@@ -1,5 +1,5 @@
 <%- headers = ['Title', 'Location'] -%>
 <%= CSV.generate_line headers %>
-<%- @events.each do |event| -%>
+<%- @events.results.each do |event| -%>
     <%= CSV.generate_line([event.title, event.location]) %>
 <%- end -%>

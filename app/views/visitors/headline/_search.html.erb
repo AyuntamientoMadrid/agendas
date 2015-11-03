@@ -1,10 +1,4 @@
-<div class="small-4 large-3 columns">
-  <strong class="title-l mb20"><%= @total%></strong>
-</div>
-<div class="small-8 large-9 columns">
-  <p class="mt5">
-    <strong><%= t('main.results')%></strong> <%= t('main.with_keyword')%>
-    <span class="keywords"><strong><%= params[:keyword]%></strong></span>
-    <a id="delete-keywords" href="#"><span class="icon icon__delete"><%= t('main.delete')%></span></a>
-  </p>
+<div class="small-12 columns mb10">
+  <p><strong class="result-l mb20"><%= @events.total%></strong>
+    <strong><%= t('main.results')%></strong> <span class="keywords"><%= t('main.with_keyword')%> <strong><%= params[:keyword]%></strong> <a id="delete-keywords" href="#"><span class="icon icon__delete"><%= t('main.delete')%></span></a></p>
 </div>

@@ -1,8 +1,6 @@
-<div class="small-4 large-3 columns">
-  <strong class="title-l mb20"></strong>
-</div>
-<div class="large-12 columns">
-  <p class="mt10">
-    <%= t('main.events_for') %><strong> <%= link_to Holder.find(params[:holder]).full_name, current_url(params: {:holder => params[:holder]})  %></strong>
+<div class="small-12 columns mb10">
+  <p>
+    <span class="keywords"><%= t('main.events_for') %> </span>
+    <strong class="result-m mb20"><%= link_to Holder.find(params[:holder]).full_name, current_url(params: {:holder => params[:holder]})  %></strong>
   </p>
 </div>
