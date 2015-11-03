@@ -29,4 +29,33 @@ class Holder < ActiveRecord::Base
   def current_position
     self.positions.current.first
   end
+
+  def self.import(profileKey)
+    api = UwebApi.new
+    response = api.client.call(:get_users_profile_application_list, message: api.request({profileKey: profileKey})).body
+    data = response[:get_users_profile_application_list_response][:get_users_profile_application_list_return]
+    Hash.from_xml(data)['USUARIOS']['USUARIO'].each do |mc|
+      create_from_uweb(Hash.from_xml(api.client.call(:get_user_data, message: api.request({userKey: mc['CLAVE_IND']})).body[:get_user_data_response][:get_user_data_return])['USUARIO'])
+    end
+  end
+
+  def self.create_from_uweb(data)
+    p data
+    user = Holder.find_or_initialize_by(user_key: data['CLAVE_IND'])
+    user.first_name = data["NOMBRE_USUARIO"]
+    user.last_name = data["APELLIDO1_USUARIO"]+' '+data["APELLIDO2_USUARIO"]
+    p user
+
+    api = DirectoryApi.new
+    response = api.client.call(:buscar_dependencias, message: api.request({cod_organico: data['COD_UNIDAD']})).body
+    pata = response[:buscar_dependencias_response][:buscar_dependencias_return]
+    p pata
+
+
+    if user.save
+      p 'mc'
+    else
+      p user.errors
+    end
+  end
 end

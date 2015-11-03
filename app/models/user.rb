@@ -30,23 +30,17 @@ class User < ActiveRecord::Base
     self.last_name.to_s+', '+self.first_name.to_s
   end
 
-  def import
-    kk = UwebApi.new
-    pp = kk.client.call(:get_users_application_list, message: kk.request(Rails.application.secrets.uweb_api_user_key)).body
-    tt = pp[:get_users_application_list_response][:get_users_application_list_return]
-    Hash.from_xml(tt)['USUARIOS']['USUARIO'].each do |mc|
-      yy = Hash.from_xml(kk.client.call(:get_user_data, message: kk.request(mc['CLAVE_IND'])).body[:get_user_data_response][:get_user_data_return])['USUARIO']
-      user = User.find_by(user_key: yy['CLAVE_IND'])
-      if user
-        user.update(first_name: yy["NOMBRE_USUARIO"],last_name: yy["APELLIDO1_USUARIO"]+' '+yy["APELLIDO2_USUARIO"],email: yy["MAIL"],user_key: yy['CLAVE_IND'])
-      else
-        #create
-        user = User.new(first_name: yy["NOMBRE_USUARIO"],last_name: yy["APELLIDO1_USUARIO"]+' '+yy["APELLIDO2_USUARIO"],email: yy["MAIL"],user_key: yy['CLAVE_IND'])
-        user.password = SecureRandom.uuid
-        user.save
-      end
+  def self.import(profileKey, role)
+    api = UwebApi.new
+    response = api.client.call(:get_users_profile_application_list, message: api.request({profileKey: profileKey})).body
+    data = response[:get_users_profile_application_list_response][:get_users_profile_application_list_return]
+    Hash.from_xml(data)['USUARIOS']['USUARIO'].each do |mc|
+      create_from_uweb(role,Hash.from_xml(api.client.call(:get_user_data, message: api.request({userKey: mc['CLAVE_IND']})).body[:get_user_data_response][:get_user_data_return])['USUARIO'])
     end
   end
+
+
+
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -61,6 +55,23 @@ class User < ActiveRecord::Base
 
   def set_default_role
     self.role ||= :user
+  end
+
+  def self.create_from_uweb(role, data)
+    p data
+    user = User.find_or_initialize_by(user_key: data['CLAVE_IND'])
+    user.first_name = data["NOMBRE_USUARIO"]
+    user.last_name = data["APELLIDO1_USUARIO"]+' '+data["APELLIDO2_USUARIO"]
+    user.email =  data["MAIL"].blank? ? Faker::Internet.email : data["MAIL"]
+    user.user_key = data['CLAVE_IND']
+    user.password = SecureRandom.uuid
+    user.role = role
+    p user
+    if user.save
+      p 'mc'
+    else
+      user.errors
+    end
   end
 
 end

@@ -10,12 +10,13 @@ class UwebApi
     client.call(method, message: request).body if end_point_available?
   end
 
-  def request(user_key)
-    { request:
-      { appKey: Rails.application.secrets.uweb_api_app_key,
-        userKey: user_key
-      }
-    }
+  def request(params)
+    h=Hash.new
+    h[:appKey] = Rails.application.secrets.uweb_api_app_key
+    params.each do |k,v|
+      h[k] = v
+    end
+    {request: h}
   end
 
   def data(method)
