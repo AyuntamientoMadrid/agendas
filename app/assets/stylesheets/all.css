@@ -6728,7 +6728,7 @@ th.next .fa {
 	HEADER
 */
 .header {
-  background: url("/assets/header.jpg") repeat-y top center;
+  background: url("header.jpg") repeat-y top center;
   padding-bottom: 70px; }
 @media only screen and (max-width: 40em) {
   .header {
