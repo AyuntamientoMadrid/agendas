@@ -6477,55 +6477,55 @@ h1, h2, h3, h4, h5, h6 {
   vertical-align: middle;
   text-align: left; }
 .icon__menu {
-  background-image: url("/assets/icons-s7ee2860222.png");
+  background-image: image-url("icons-s7ee2860222.png");
   background-position: 0 -64px;
   background-repeat: no-repeat;
   height: 19px;
   width: 28px; }
 .icon__calendar-prev {
-  background-image: url("/assets/icons-s7ee2860222.png");
+  background-image: image-url("icons-s7ee2860222.png");
   background-position: -15px 0;
   background-repeat: no-repeat;
   height: 18px;
   width: 11px; }
 .icon__calendar-next {
-  background-image: url("/assets/icons-s7ee2860222.png");
+  background-image: image-url("icons-s7ee2860222.png");
   background-position: -16px -46px;
   background-repeat: no-repeat;
   height: 18px;
   width: 11px; }
 .icon__calendar {
-  background-image: url("/assets/icons-s7ee2860222.png");
+  background-image: image-url("icons-s7ee2860222.png");
   background-position: 0 -83px;
   background-repeat: no-repeat;
   height: 22px;
   width: 21px; }
 .icon__delete {
-  background-image: url("/assets/icons-s7ee2860222.png");
+  background-image: image-url("icons-s7ee2860222.png");
   background-position: -14px -32px;
   background-repeat: no-repeat;
   height: 10px;
   width: 10px; }
 .icon__email {
-  background-image: url("/assets/icons-s7ee2860222.png");
+  background-image: image-url("icons-s7ee2860222.png");
   background-position: 0 -18px;
   background-repeat: no-repeat;
   height: 14px;
   width: 20px; }
 .icon__feed {
-  background-image: url("/assets/icons-s7ee2860222.png");
+  background-image: image-url("icons-s7ee2860222.png");
   background-position: 0 -32px;
   background-repeat: no-repeat;
   height: 14px;
   width: 14px; }
 .icon__print {
-  background-image: url("/assets/icons-s7ee2860222.png");
+  background-image: image-url("icons-s7ee2860222.png");
   background-position: 0 -46px;
   background-repeat: no-repeat;
   height: 18px;
   width: 16px; }
 .icon__share {
-  background-image: url("/assets/icons-s7ee2860222.png");
+  background-image: image-url("icons-s7ee2860222.png");
   background-position: 0 0;
   background-repeat: no-repeat;
   height: 14px;
@@ -6709,7 +6709,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /*# sourceMappingURL=foundation-datepicker.css.map */
 th.prev .fa {
-  background-image: url("/assets/icons-s7ee2860222.png");
+  background-image: image-url("icons-s7ee2860222.png");
   background-position: -15px 0;
   background-repeat: no-repeat;
   height: 18px;
@@ -6717,7 +6717,7 @@ th.prev .fa {
   display: block; }
 
 th.next .fa {
-  background-image: url("/assets/icons-s7ee2860222.png");
+  background-image: image-url("icons-s7ee2860222.png");
   background-position: -16px -46px;
   background-repeat: no-repeat;
   height: 18px;
@@ -6728,7 +6728,7 @@ th.next .fa {
 	HEADER
 */
 .header {
-  background: url("header.jpg") repeat-y top center;
+  background: image-url("header.jpg") repeat-y top center;
   padding-bottom: 70px; }
 @media only screen and (max-width: 40em) {
   .header {
@@ -6930,9 +6930,9 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
   height: 48px;
   background-color: #f8f8f8; }
 input[type="text"].input-search, input[type="password"].input-search, input[type="date"].input-search, input[type="datetime"].input-search, input[type="datetime-local"].input-search, input[type="month"].input-search, input[type="week"].input-search, input[type="email"].input-search, input[type="number"].input-search, input[type="search"].input-search, input[type="tel"].input-search, input[type="time"].input-search, input[type="url"].input-search, input[type="color"].input-search, textarea.input-search {
-  background: url("/assets/search.png") no-repeat 93% center #f8f8f8; }
+  background: image-url("search.png") no-repeat 93% center #f8f8f8; }
 input[type="text"].fdatepicker, input[type="password"].fdatepicker, input[type="date"].fdatepicker, input[type="datetime"].fdatepicker, input[type="datetime-local"].fdatepicker, input[type="month"].fdatepicker, input[type="week"].fdatepicker, input[type="email"].fdatepicker, input[type="number"].fdatepicker, input[type="search"].fdatepicker, input[type="tel"].fdatepicker, input[type="time"].fdatepicker, input[type="url"].fdatepicker, input[type="color"].fdatepicker, textarea.fdatepicker {
-  background: url("/assets/icons/calendar.png") no-repeat 93% center #f8f8f8; }
+  background: image-url("icons/calendar.png") no-repeat 93% center #f8f8f8; }
 
 .custom-select .button {
   background: #f8f8f8;
