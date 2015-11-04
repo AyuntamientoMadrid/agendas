@@ -50,15 +50,9 @@ class User < ActiveRecord::Base
     user.first_name = data["NOMBRE_USUARIO"]
     user.last_name = data["APELLIDO1_USUARIO"]+' '+data["APELLIDO2_USUARIO"]
     user.email =  data["MAIL"].blank? ? Faker::Internet.email : data["MAIL"]
-    user.user_key = data['CLAVE_IND']
     user.password = SecureRandom.uuid
     user.role = role
-    p user
-    if user.save
-      p 'mc'
-    else
-      user.errors
-    end
+    user
   end
 
 end

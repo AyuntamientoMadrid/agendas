@@ -31,21 +31,9 @@ class Holder < ActiveRecord::Base
   end
 
   def self.create_from_uweb(data)
-    user = Holder.find_or_initialize_by(user_key: data['CLAVE_IND'])
-    user.first_name = data["NOMBRE_USUARIO"]
-    user.last_name = data["APELLIDO1_USUARIO"]+' '+data["APELLIDO2_USUARIO"]
-    user.user_key = data['CLAVE_IND']
-    p user
-
-    api = DirectoryApi.new
-    response = api.client.call(:buscar_dependencias, message: api.request({cod_organico: data['COD_UNIDAD']})).body
-    pata = response[:buscar_dependencias_response][:buscar_dependencias_return]
-    p pata
-
-    if user.save
-      p 'mc'
-    else
-      p user.errors
-    end
+    holder = Holder.find_or_initialize_by(user_key: data['CLAVE_IND'])
+    holder.first_name = data["NOMBRE_USUARIO"]
+    holder.last_name = data["APELLIDO1_USUARIO"]+' '+data["APELLIDO2_USUARIO"]
+    holder
   end
 end
