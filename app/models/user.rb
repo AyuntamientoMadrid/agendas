@@ -30,18 +30,6 @@ class User < ActiveRecord::Base
     self.last_name.to_s+', '+self.first_name.to_s
   end
 
-  def self.import(profileKey, role)
-    api = UwebApi.new
-    response = api.client.call(:get_users_profile_application_list, message: api.request({profileKey: profileKey})).body
-    data = response[:get_users_profile_application_list_response][:get_users_profile_application_list_return]
-    Hash.from_xml(data)['USUARIOS']['USUARIO'].each do |mc|
-      create_from_uweb(role,Hash.from_xml(api.client.call(:get_user_data, message: api.request({userKey: mc['CLAVE_IND']})).body[:get_user_data_response][:get_user_data_return])['USUARIO'])
-    end
-  end
-
-
-
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
@@ -58,7 +46,6 @@ class User < ActiveRecord::Base
   end
 
   def self.create_from_uweb(role, data)
-    p data
     user = User.find_or_initialize_by(user_key: data['CLAVE_IND'])
     user.first_name = data["NOMBRE_USUARIO"]
     user.last_name = data["APELLIDO1_USUARIO"]+' '+data["APELLIDO2_USUARIO"]

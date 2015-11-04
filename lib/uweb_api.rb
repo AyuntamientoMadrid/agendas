@@ -6,8 +6,8 @@ class UwebApi
     @client = Savon.client(wsdl: Rails.application.secrets.uweb_api_endpoint)
   end
 
-  def response(method)
-    client.call(method, message: request).body if end_point_available?
+  def response(method,params)
+    client.call(method, message: request(params)).body if end_point_available?
   end
 
   def request(params)
@@ -19,8 +19,8 @@ class UwebApi
     {request: h}
   end
 
-  def data(method)
-    response(method)[(method.to_s+'_response').to_sym][(method.to_s+'_return').to_sym]
+  def data(method,params)
+    response(method,params)[(method.to_s+'_response').to_sym][(method.to_s+'_return').to_sym]
   end
 
   def end_point_available?
