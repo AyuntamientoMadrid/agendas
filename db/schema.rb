@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029144853) do
+ActiveRecord::Schema.define(version: 20151104134637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,9 +20,10 @@ ActiveRecord::Schema.define(version: 20151029144853) do
     t.integer  "internal_id"
     t.string   "title"
     t.integer  "active"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "ancestry"
+    t.string   "internal_code"
   end
 
   add_index "areas", ["ancestry"], name: "index_areas_on_ancestry", using: :btree

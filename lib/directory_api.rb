@@ -1,13 +1,7 @@
-class DirectoryApi
-
-  attr_accessor :client, :request
+class DirectoryApi < MadridApi
 
   def client
     @client = Savon.client(wsdl: Rails.application.secrets.directory_api_endpoint)
-  end
-
-  def response(method,params)
-    client.call(method, message: request(params)).body if end_point_available?
   end
 
   def request(params)
@@ -19,12 +13,39 @@ class DirectoryApi
     h
   end
 
-  def data(method,params)
-    response(method,params)[(method.to_s+'_response').to_sym][(method.to_s+'_return').to_sym]
+  def get_units(codOrganico)
+    data = data(:buscar_dependencias, {codOrganico: codOrganico})
+    Hash.from_xml(data)['UNIDADES_ORGANIZATIVAS']
   end
 
-  def end_point_available?
-    Rails.env.staging? || Rails.env.preproduction? || Rails.env.production? || Rails.env.development?
+  def get_unit(idUnidad)
+    data = data(:consulta_datos_dependencia, {i_id_unidad: idUnidad})
+    Hash.from_xml(data)['UNIDAD_ORGANIZATIVA']
+  end
+
+  def create_tree (internal_id)
+    unit = get_unit(internal_id)
+    area = Area.find_by(internal_id: unit['ID_UNIDAD'])
+    if !area
+      area = Area.create(internal_id: internal_id, title: unit['DENOMINACION'])
+      if area.internal_id == unit['ID_UNIDAD_PADRE']
+        #no hacemos nada
+        return
+      else
+        #sacamos el padre
+        parent = get_unit(unit['ID_UNIDAD_PADRE'])
+        #lo creamos
+        parent_area = Area.find_by(internal_id: parent['ID_UNIDAD'])
+        if !parent_area
+          parent_area = Area.create(internal_id: parent['ID_UNIDAD'], title: parent['DENOMINACION'])
+        end
+        # le asignamos al hijo el id del padre
+        area.parent = parent_area
+        area.save
+        create_tree(directory_api,parent['ID_UNIDAD'])
+
+      end
+    end
   end
 
 end

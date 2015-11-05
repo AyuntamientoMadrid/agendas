@@ -2,10 +2,6 @@ class Area < ActiveRecord::Base
 
   has_ancestry
 
-  # Relations
-  belongs_to :parent, class_name: "Area", foreign_key: "parent_id"
-  has_many :children, class_name: "Area", foreign_key: "parent_id", dependent: :destroy
-
   # Validations
   validates_presence_of :title
 

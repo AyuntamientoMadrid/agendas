@@ -1,13 +1,7 @@
-class UwebApi
-
-  attr_accessor :client, :request
+class UwebApi < MadridApi
 
   def client
     @client = Savon.client(wsdl: Rails.application.secrets.uweb_api_endpoint)
-  end
-
-  def response(method,params)
-    client.call(method, message: request(params)).body if end_point_available?
   end
 
   def request(params)
@@ -19,12 +13,14 @@ class UwebApi
     {request: h}
   end
 
-  def data(method,params)
-    response(method,params)[(method.to_s+'_response').to_sym][(method.to_s+'_return').to_sym]
+  def get_users(profileKey)
+    data = data(:get_users_profile_application_list,{profileKey: profileKey})
+    Hash.from_xml(data)['USUARIOS']['USUARIO']
   end
 
-  def end_point_available?
-    Rails.env.staging? || Rails.env.preproduction? || Rails.env.production? || Rails.env.development?
+  def get_user(userKey)
+    data = data(:get_user_data, {userKey: userKey})
+    Hash.from_xml(data)['USUARIO']
   end
 
 end
