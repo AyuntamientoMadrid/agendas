@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :manages, dependent: :destroy
   has_many :holders, through: :manages
 
-  accepts_nested_attributes_for :manages, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :manages
 
 
   # Validations

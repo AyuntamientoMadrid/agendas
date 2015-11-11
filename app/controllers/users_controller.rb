@@ -1,21 +1,20 @@
 class UsersController < AdminController
-  before_action :load_holders
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :load_holders, only: [:new, :edit]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :disable]
 
   def new
     @user = User.new
   end
 
   def index
-    @users = User.includes(:manages => :holder).active.user.order("last_name asc")
+    @users = User.includes(:manages => :holder)
   end
 
   def create
     @user = User.new(user_params)
     @user.password = Faker::Internet.password(8)
     if @user.save
-      @user.user!
-      redirect_to edit_user_path(@user), notice: 'User was successfully created.'
+      redirect_to users_path, notice: t('backend.successfully_created_record')
     else
       render :new
     end
@@ -23,15 +22,21 @@ class UsersController < AdminController
 
   def update
     if @user.update_attributes(user_params)
-      redirect_to users_path, :notice => "User updated."
+      redirect_to users_path, notice: t('backend.successfully_updated_record')
     else
-      redirect_to users_path, :alert => "Unable to update user."
+      render :edit, alert: t('backend.review_errors')
     end
   end
 
   def destroy
     @user.destroy
-    redirect_to users_path, :notice => "User deleted."
+    redirect_to users_path, notice: t('backend.successfully_destroyed_record')
+  end
+
+  def disable
+    @user.status = false
+    @user.save
+    redirect_to users_path, notice: t('backend.successfully_disabled_record')
   end
 
   private
@@ -41,7 +46,7 @@ class UsersController < AdminController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :id, manages_attributes: [:id, :user_id, :holder_id, :_destroy])
+    params.require(:user).permit(:first_name, :last_name, :email, :role, :id, manages_attributes: [:id, :user_id, :holder_id, :_destroy])
   end
 
   def load_holders

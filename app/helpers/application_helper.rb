@@ -10,9 +10,9 @@ module ApplicationHelper
     url_for params.merge(new_params)
   end
 
-  def current_urr_kk(new_params)
-    url_for params.merge(new_params)
-    url_for(:only_path => false, :overwrite_params=>nil)
+  def show_date(date)
+    output = date.present? ? date.strftime(t('date.formats.short')) : '----------'
+    output.html_safe
   end
 
   def current_language

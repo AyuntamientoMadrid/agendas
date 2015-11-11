@@ -1,0 +1,33 @@
+$(function () {
+    var $checkoutForm = $(".admin-form").validate({
+        ignore: [],
+        errorElement: "small",
+        rules : {
+            "user[first_name]" : {
+                required : true
+            },
+            "user[last_name]" : {
+                required : true
+            },
+            "user[email]" : {
+                required : true
+            }
+        },
+
+        messages : {
+            "holder[first_name]" : {
+                required : "<%= I18n.translate('backend.mandatory_field')%>"
+            },
+            "holder[last_name]" : {
+                required : "<%= I18n.translate('backend.mandatory_field')%>"
+            },
+            "holder[email]" : {
+                required : "<%= I18n.translate('backend.mandatory_field')%>"
+            }
+        },
+
+        errorPlacement : function(error, element) {
+            error.insertAfter(element);
+        }
+    });
+});

@@ -1,3 +1,24 @@
-<h3>User</h3>
-<p>Name: <%= @user.name if @user.name %></p>
-<p>Email: <%= @user.email if @user.email %></p>
+<h3><%= @user.full_name_comma %></h3>
+<%= link_to t('backend.back'), users_path , :class=> "button tiny radius" %>
+<%= link_to t('backend.edit'), edit_user_path(@user), :class=> "button tiny radius success" %>
+<fieldset>
+  <legend><%= t('backend.basic_data') %></legend>
+  <p><strong><%= t('backend.first_name') %>:</strong> <%= @user.first_name %></p>
+  <p><strong><%= t('backend.last_name') %>:</strong> <%= @user.last_name %></p>
+  <p><strong><%= t('backend.role') %>:</strong> <%= @user.role.capitalize %></p>
+</fieldset>
+<fieldset>
+  <legend><%= t('backend.managed_positions') %></legend>
+  <div class="row">
+    <div class="small-4 columns"><strong><%= t('backend.holder') %></strong></div>
+    <div class="small-4 columns"><strong><%= t('backend.position') %></strong></div>
+    <div class="small-4 columns"><strong><%= t('backend.area') %></strong></div>
+  </div>
+  <% @user.manages.each do |manage| %>
+  <div class="row">
+    <div class="small-4 columns"><%= link_to manage.holder.full_name_comma, holder_path(manage.holder) %></div>
+    <div class="small-4 columns"><%= manage.holder.current_position.title %></div>
+    <div class="small-4 columns"><%= manage.holder.current_position.area.title %></div>
+  </div>
+  <% end %>
+</fieldset>

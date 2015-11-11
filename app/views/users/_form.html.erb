@@ -1,9 +1,10 @@
-<%= form_for(@user) do |f| %>
+<%= link_to t('backend.back'), users_path , :class=> "button tiny radius" %>
+<%= form_for @user, html: {class: 'admin-form'} do |f| %>
 
     <% if @user.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this video from being saved:</h2>
-
+        <div class="panel callout radius">
+          <strong><%= t('activerecord.errors.template.header',
+  :model => Holder.model_name.human, :count => @user.errors.count) %></strong>
           <ul>
             <% @user.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
@@ -11,40 +12,34 @@
           </ul>
         </div>
     <% end %>
+
     <fieldset>
-
-      <legend>Datos básicos</legend>
-
-      <label>Nombre</label>
+      <legend><%= t('backend.basic_data') %></legend>
+      <%= f.label :first_name, t('backend.first_name') %>
       <%= f.text_field :first_name %>
-
-      <label>Apellidos</label>
+      <%= f.label :last_name, t('backend.last_name') %>
       <%= f.text_field :last_name %>
-
-      <label>Email</label>
+      <%= f.label :email, t('backend.email') %>
       <%= f.text_field :email %>
-
-
+      <%= f.label :role, t('backend.role') %>
+      <%= f.select :role, [[t('backend.user_role'), :user],[t('backend.admin_role'), :admin]] %>
     </fieldset>
 
-      <% if @user.persisted? %>
-        <fieldset>
-
-          <legend><%= t('backend.holders') %></legend>
-
-          <div id="tasks">
-            <%= f.fields_for :manages do |manage| %>
-                <%= render 'manage_fields', f: manage %>
-            <% end %>
-            <div class="left inline">
-              <%= link_to_add_association 'Add holder', f, :manages, :class => "button tiny info alert " %>
-            </div>
-          </div>
-        </fieldset>
-
-      <% end %>
-
-      <%= submit_tag "Guardar", :class=> "button  radius success right" %>
-
-
+    <fieldset>
+      <legend><%= t('backend.positions') %></legend>
+      <div class="row">
+        <div class="small-2 columns"></div>
+        <div class="small-8 columns"></div>
+        <div class="small-2 columns"></div>
+      </div>
+      <div id="manages">
+        <%= f.fields_for :manages do |manage| %>
+            <%= render 'manage_fields', f: manage %>
+        <% end %>
+        <%= link_to_add_association t('backend.add'), f, :manages, :class => "button radius tiny info right" %>
+      </div>
+    </fieldset>
+    <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
 <% end %>
+
+<%= javascript_include_tag 'users'%>

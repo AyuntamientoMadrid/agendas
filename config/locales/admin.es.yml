@@ -9,6 +9,7 @@ es:
     cancel: "Cancelar"
     actions: "Acciones"
     add: "Añadir"
+    back: "Volver"
     basic_data: "Datos básicos"
     mandatory_field: "Este campo es obligatorio"
     successfully_updated_record: "Registro actualizado correctamente"
@@ -22,8 +23,10 @@ es:
     first_name: "Nombre"
     last_name: "Apellidos"
     role: "Rol"
+    managed_positions: "Cargos gestionados"
 
     holders: "Titulares"
+    holder: "Titular"
     new_holder: "Nuevo titular"
     edit_holder: "Editar titular"
     from: "Desde"

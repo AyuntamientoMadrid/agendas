@@ -20,5 +20,6 @@ Rails.application.config.assets.precompile += %w( admin_listings.js )
 Rails.application.config.assets.precompile += %w( holders.js )
 Rails.application.config.assets.precompile += %w( areas.js )
 Rails.application.config.assets.precompile += %w( events.js )
+Rails.application.config.assets.precompile += %w( users.js )
 
 
