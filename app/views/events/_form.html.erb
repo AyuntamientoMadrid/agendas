@@ -1,5 +1,5 @@
 <%= form_for @event, html: {class: 'admin-form'} do |f| %>
-
+<%= link_to t('backend.back'), events_path , :class=> "button tiny radius" %>
     <% if @event.errors.any? %>
         <div class="panel callout radius">
           <strong><%= t('activerecord.errors.template.header',
@@ -23,7 +23,7 @@
       <%= f.label :scheduled, t('backend.date') %>
       <%= f.text_field :scheduled, class: 'fdatepicker' %>
       <%= f.label :position_id, t('backend.position') %>
-      <%= f.select :position_id, current_user.holders.order(:last_name).map{|holder| [holder.full_name_comma, holder.positions.current.first.id]}, prompt: t('backend.select') %>
+      <%= f.select :position_id, @holders.order(:last_name).map{|holder| [holder.full_name_comma, holder.positions.current.first.id]}, prompt: t('backend.select') %>
     </fieldset>
 
     <fieldset><!-- Participants -->
@@ -75,7 +75,6 @@
       </div>
     </fieldset>
   <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
-
 <% end %>
 <%= tinymce %>
 <%= javascript_include_tag 'events'%>

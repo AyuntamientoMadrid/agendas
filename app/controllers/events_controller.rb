@@ -1,5 +1,6 @@
 class EventsController < AdminController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_holders, only: [:new, :edit]
 
   def index
     @events = current_user.admin? ? Event.all : user.events
@@ -26,7 +27,7 @@ class EventsController < AdminController
     if @event.update_attributes(event_params)
       redirect_to events_path, notice: t('backend.successfully_updated_record')
     else
-      render :edit
+      render :edit, alert: 'kk'
     end
   end
 
@@ -42,7 +43,11 @@ class EventsController < AdminController
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, attendees_attributes: [:name, :position, :company, :_destroy])
+    params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, attendees_attributes: [:name, :position, :company, :_destroy], participants_attributes: [:position_id])
+  end
+
+  def set_holders
+    @holders = current_user.admin? ? Holder.all : current_user.holders
   end
 
 end

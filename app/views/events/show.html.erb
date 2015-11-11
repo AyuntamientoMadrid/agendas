@@ -1,0 +1,52 @@
+<h3><%= @event.title %></h3>
+<%= link_to t('backend.edit'), edit_event_path(@event), :class=> "button tiny radius success" if can? :edit, Event %>
+<%= link_to t('backend.cancel'), events_path , :class=> "button tiny radius" %>
+<fieldset>
+  <legend><%= t('backend.basic_data') %></legend>
+  <p><strong><%= t('backend.holder') %>:</strong> <%= @event.position.holder.full_name %></p>
+  <p><strong><%= t('backend.title') %>:</strong> <%= @event.title %></p>
+  <p><strong><%= t('backend.location') %>:</strong> <%= @event.location %></p>
+  <p><strong><%= t('backend.date') %>:</strong> <%= show_date(@event.scheduled) %></p>
+  <%= @event.description.html_safe %>
+</fieldset>
+<fieldset>
+  <legend><%= t('backend.attendees') %></legend>
+  <div class="row">
+    <div class="small-4 columns"><strong><%= t('backend.name') %></strong></div>
+    <div class="small-4 columns"><strong><%= t('backend.position') %></strong></div>
+    <div class="small-4 columns"><strong><%= t('backend.company') %></strong></div>
+  </div>
+  <% @event.attendees.each do |attendee| %>
+  <div class="row">
+    <div class="small-4 columns"><%= attendee.name %></div>
+    <div class="small-4 columns"><%= attendee.position %></div>
+    <div class="small-4 columns"><%= attendee.company %></div>
+  </div>
+  <% end %>
+</fieldset>
+<fieldset>
+  <legend><%= t('backend.Participants') %></legend>
+  <div class="row">
+    <div class="small-4 columns"><strong><%= t('backend.from') %></strong></div>
+    <div class="small-4 columns"><strong><%= t('backend.to') %></strong></div>
+    <div class="small-4 columns"><strong><%= t('backend.position') %></strong></div>
+  </div>
+  <% @event.participants.each do |participant| %>
+  <div class="row">
+    <div class="small-2 columns"><%= show_date(position.from) %></div>
+    <div class="small-2 columns"><%= show_date(position.to) %></div>
+    <div class="small-4 columns"><%= position.title %></div>
+  </div>
+  <% end %>
+</fieldset>
+<fieldset>
+  <legend><%= t('backend.attachments') %></legend>
+  <div class="row">
+    <div class="small-12 columns"><strong><%= t('backend.file') %></strong></div>
+  </div>
+  <% @event.positions.each do |position| %>
+  <div class="row">
+    <div class="small-2 columns"><%= show_date(position.from) %></div>
+  </div>
+  <% end %>
+</fieldset>
