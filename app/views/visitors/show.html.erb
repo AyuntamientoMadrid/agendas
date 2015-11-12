@@ -21,8 +21,10 @@
   </div>
   <div class="small-12 large-7 end columns">
     <p class="post__description">
-      <strong><%= @event.position.holder.full_name %> - <%= @event.position.title %></strong>
+      <strong><%= link_to @event.position.holder.full_name, root_path(holder: @event.position.holder.id ) %></strong>
     </p>
+    <p><%= @event.position.title %></p>
+    <p><%= @event.position.area.title %></p>
   </div>
 </div>
 
@@ -34,6 +36,11 @@
     <% @event.attendees.each do |attendee|%>
     <p class="post__description">
       <%= attendee.name %> - <%= attendee.company %>
+    </p>
+    <% end %>
+    <% @event.participants.each do |participant|%>
+    <p class="post__description">
+      <%= participant.position.holder.full_name %> - <%= participant.position.title %> - <%= participant.position.area.title %>
     </p>
     <% end %>
   </div>
@@ -53,7 +60,7 @@
     <strong class="post__subtitle"><%= t('show.description')%></strong>
   </div>
   <div class="small-12 large-7 end columns">
-    <p class="post__text"><%= @event.description%></p>
+    <p class="post__text"><%= @event.description.html_safe%></p>
   </div>
 </div>
 
@@ -62,11 +69,9 @@
     <strong class="post__subtitle"><%= t('show.documentation')%></strong>
   </div>
   <div class="small-12 large-7 end columns">
-    <% @event.attachments.each do |file| %>
-      <p class="post__text mb20"><%= link_to file.title, file.path %></p>
+    <% @event.attachments.each do |attachment| %>
+      <p class="post__text mb20"><%= link_to attachment.title, attachment.file.path %></p>
     <% end %>
-    <p class="post__text mb20"><a href="#">Acta reunión</a></p>
-    <p class="post__text mb80"><a href="#">Resumen conclusiones</a></p>
   </div>
 </div>
 

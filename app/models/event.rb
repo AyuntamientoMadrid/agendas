@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
 
   extend FriendlyId
-  friendly_id :title, use: [:finders]
+  friendly_id :title, use: [:slugged, :finders]
 
 
   # Relations
@@ -23,7 +23,7 @@ class Event < ActiveRecord::Base
 
   def self.as_csv
     CSV.generate do |csv|
-      csv << ["Title", "Description", "Location","Holder","Date"]
+      csv << ["Title", "Description", "Location", "Holder", "Date"]
       all.each do |item|
         csv << [item.title, item.description, item.location, item.position.holder.full_name_comma, item.scheduled.strftime("%d/%m/%Y %H:%M")]
       end

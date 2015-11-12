@@ -34,7 +34,7 @@
 
     <% @paginated_events.each do |event|%>
       <article class="post">
-        <h1 class="post__title"><%= link_to event.title, show_path(event.slug) %></h1>
+        <h1 class="post__title"><%= link_to event.title, show_path(event) %></h1>
         <p><strong>
           <%= event.position.holder.full_name%> ·
           <%= event.position.title %> ·

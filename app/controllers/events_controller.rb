@@ -43,7 +43,7 @@ class EventsController < AdminController
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, attendees_attributes: [:id, :name, :position, :company, :_destroy], participants_attributes: [:id, :position_id, :_destroy], attachments_attributes: [:id, :file, :_destroy])
+    params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, attendees_attributes: [:id, :name, :position, :company, :_destroy], participants_attributes: [:id, :position_id, :_destroy], attachments_attributes: [:id, :title, :file, :_destroy])
   end
 
   def set_holders

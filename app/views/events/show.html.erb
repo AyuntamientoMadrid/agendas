@@ -46,7 +46,7 @@
   </div>
   <% @event.attachments.each do |attachment| %>
   <div class="row">
-    <div class="small-12 columns"><%= link_to attachment.title, attachment.paths %></div>
+    <div class="small-12 columns"><%= link_to attachment.title, attachment.file.path %></div>
   </div>
   <% end %>
 </fieldset>
