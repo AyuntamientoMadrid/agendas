@@ -8,6 +8,5 @@ class Attachment < ActiveRecord::Base
 
   # Validations
   validates :title, presence: true
-  validates :event, presence: true
 
 end

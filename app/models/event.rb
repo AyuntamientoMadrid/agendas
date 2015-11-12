@@ -1,26 +1,24 @@
 class Event < ActiveRecord::Base
 
-  #friendly-id
-
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :title, use: [:finders]
 
 
   # Relations
   belongs_to :user
   belongs_to :position
-  has_many :participants
+  has_many :participants, dependent: :destroy
   has_many :positions, through: :participants
   has_many :attachments, dependent: :destroy
-  has_many :attendees
+  has_many :attendees, dependent: :destroy
 
   # Validations
   validates_presence_of :title, :position
 
   # Nested models
-  accepts_nested_attributes_for :attendees, allow_destroy: true
-  accepts_nested_attributes_for :attachments, allow_destroy: true
-  accepts_nested_attributes_for :participants, allow_destroy: true
+  accepts_nested_attributes_for :attendees, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :attachments, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :participants, :reject_if => :all_blank, :allow_destroy => true
 
 
   def self.as_csv

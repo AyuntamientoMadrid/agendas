@@ -1,9 +1,9 @@
 class EventsController < AdminController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :set_holders, only: [:new, :edit]
+  before_action :set_holders, only: [:new, :edit, :create]
 
   def index
-    @events = current_user.admin? ? Event.all : user.events
+    @events = current_user.admin? ? Event.all : current_user.events
   end
 
   def new
@@ -43,7 +43,7 @@ class EventsController < AdminController
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, attendees_attributes: [:name, :position, :company, :_destroy], participants_attributes: [:position_id])
+    params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, attendees_attributes: [:id, :name, :position, :company, :_destroy], participants_attributes: [:id, :position_id, :_destroy], attachments_attributes: [:id, :file, :_destroy])
   end
 
   def set_holders

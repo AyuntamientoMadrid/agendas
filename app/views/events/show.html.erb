@@ -27,15 +27,15 @@
 <fieldset>
   <legend><%= t('backend.Participants') %></legend>
   <div class="row">
-    <div class="small-4 columns"><strong><%= t('backend.from') %></strong></div>
-    <div class="small-4 columns"><strong><%= t('backend.to') %></strong></div>
+    <div class="small-4 columns"><strong><%= t('backend.name') %></strong></div>
     <div class="small-4 columns"><strong><%= t('backend.position') %></strong></div>
+    <div class="small-4 columns"><strong><%= t('backend.area') %></strong></div>
   </div>
   <% @event.participants.each do |participant| %>
   <div class="row">
-    <div class="small-2 columns"><%= show_date(position.from) %></div>
-    <div class="small-2 columns"><%= show_date(position.to) %></div>
-    <div class="small-4 columns"><%= position.title %></div>
+    <div class="small-4 columns"><%= participant.position.holder.full_name %></div>
+    <div class="small-4 columns"><%= participant.position.title %></div>
+    <div class="small-4 columns"><%= participant.position.area.title %></div>
   </div>
   <% end %>
 </fieldset>
@@ -44,9 +44,9 @@
   <div class="row">
     <div class="small-12 columns"><strong><%= t('backend.file') %></strong></div>
   </div>
-  <% @event.positions.each do |position| %>
+  <% @event.attachments.each do |attachment| %>
   <div class="row">
-    <div class="small-2 columns"><%= show_date(position.from) %></div>
+    <div class="small-12 columns"><%= link_to attachment.title, attachment.paths %></div>
   </div>
   <% end %>
 </fieldset>

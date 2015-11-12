@@ -1,5 +1,5 @@
 class UsersController < AdminController
-  before_action :load_holders, only: [:new, :edit]
+  before_action :load_holders, only: [:new, :edit, :update, :create]
   before_action :set_user, only: [:show, :edit, :update, :destroy, :disable]
 
   def new
@@ -46,7 +46,7 @@ class UsersController < AdminController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :role, :id, manages_attributes: [:id, :user_id, :holder_id, :_destroy])
+    params.require(:user).permit(:first_name, :last_name, :email, :role, :id, manages_attributes: [:id, :holder_id, :_destroy])
   end
 
   def load_holders
