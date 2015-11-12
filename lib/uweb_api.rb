@@ -23,4 +23,14 @@ class UwebApi < MadridApi
     Hash.from_xml(data)['USUARIO']
   end
 
+  def get_application_status
+    data = data(:get_application_data, {})
+    Hash.from_xml(data)['APLICACION']['BLOQ_APLIC'].to_i
+  end
+
+  def get_user_status(userKey, date)
+    data = data(:get_status_user_data,{userKey: userKey,date: date})
+    Hash.from_xml(data)['USUARIO']['BAJA_LOGICA'].to_i
+  end
+
 end

@@ -39,11 +39,11 @@ namespace :madrid do
         end
       end
 
-      #Comprobamos si el cargo y el area coinciden
-      #Si coinciden lo dejamos tal cual y salvamos holder
+      # Comprobamos si el cargo y el area coinciden
+      # Si coinciden lo dejamos tal cual y salvamos holder
       area = Area.find_by(internal_id: unit)
-        if holder.try!(:positions).try!(:current).try!(:first).try!(:title) == data['CARGO'] && holder.try!(:positions).try!(:current).try!(:first).try!(:area) == area
-        else
+        if !(holder.try!(:positions).try!(:current).try!(:first).try!(:title) == data['CARGO'] && holder.try!(:positions).try!(:current).try!(:first).try!(:area) == area)
+          # TODO: Dar por terminado el cargo actual
           position = Position.create(title: data['CARGO'], area: area, from: Time.now)
           holder.positions << position
         end

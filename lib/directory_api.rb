@@ -42,7 +42,7 @@ class DirectoryApi < MadridApi
         # le asignamos al hijo el id del padre
         area.parent = parent_area
         area.save
-        create_tree(directory_api,parent['ID_UNIDAD'])
+        create_tree(parent['ID_UNIDAD'])
 
       end
     end
