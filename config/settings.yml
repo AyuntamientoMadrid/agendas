@@ -1,1 +1,8 @@
-madrid: false
+development:
+  madrid: false
+
+staging:
+  madrid: true
+
+production:
+  madrid: true
