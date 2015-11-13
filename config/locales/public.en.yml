@@ -13,3 +13,6 @@ en:
       any: "Todos"
       search: "Buscar"
       reset: "Cancelar"
+      order_by: "Orden"
+      sheduled: "Fecha"
+      score: "Relevancia"

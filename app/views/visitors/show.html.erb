@@ -40,7 +40,7 @@
     <% end %>
     <% @event.participants.each do |participant|%>
     <p class="post__description">
-      <%= participant.position.holder.full_name %> - <%= participant.position.title %> - <%= participant.position.area.title %>
+      <%= link_to participant.position.holder.full_name, root_path(holder: participant.position.holder.id) %> - <%= participant.position.title %> - <%= participant.position.area.title %>
     </p>
     <% end %>
   </div>

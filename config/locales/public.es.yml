@@ -15,7 +15,7 @@ es:
     delete: "Eliminar"
     last_events: "Últimos eventos publicados"
     export: "Exportar"
-    events_for: "Agenda de %{holder}"
+    events_for: "Agenda de "
     form:
       title: "Utiliza estos filtros para buscar la información que más te interesa."
       keyword: "Palabra clave"
@@ -26,6 +26,9 @@ es:
       any: "Todos"
       search: "Buscar"
       reset: "Cancelar"
+      order_by: "Orden"
+      scheduled: "Fecha"
+      score: "Relevancia"
   show:
     participants: "Asisten"
     location: "Lugar"

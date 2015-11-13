@@ -23,10 +23,10 @@
     <div class="small-8 columns mb20">
       <div class="row">
         <div class="small-3 columns">
-          <label for="right-label" class="inline title-xs"><%= t('main.order_by')%></label>
+          <label for="right-label" class="inline title-xs"><%= t('main.form.order_by')%></label>
         </div>
         <div class="small-9 columns">
-          <%= select_tag :order, options_for_select([:scheduled, :score],params[:order]), id: 'search-order', class: 'select-sm' %>
+          <%= select_tag :order, options_for_select({t('main.form.scheduled') => :scheduled ,t('main.form.score') => :score},params[:order]), id: 'search-order', class: 'select-sm' %>
         </div>
       </div>
     </div>
@@ -36,7 +36,7 @@
       <article class="post">
         <h1 class="post__title"><%= link_to event.title, show_path(event) %></h1>
         <p><strong>
-          <%= event.position.holder.full_name%> ·
+          <%= link_to event.position.holder.full_name , root_path(holder: event.position.holder.id)%> ·
           <%= event.position.title %> ·
           <%= event.position.area.title%>
         </strong></p>

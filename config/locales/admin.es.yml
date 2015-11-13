@@ -33,6 +33,7 @@ es:
     to: "Hasta"
 
     areas: "Organigrama"
+    descendant: "Subareas"
     new_area: "Nueva Área"
     edit_area: "Editar Área"
 
@@ -44,6 +45,17 @@ es:
     must_have_position: "Es necesario añadir al menos un cargo"
 
     events: "Eventos"
+    event: "Evento"
+    date: "Fecha"
+    location: "Lugar"
+    attendees: "Asistentes"
+    participants: "Participantes"
+    attachments: "Archivos adjuntos"
+    name: "Nombre"
+    file: "Archivo"
+    title: "Título"
+    company: "Empresa"
+    description: "Descripción"
     new_event: "Nuevo evento"
     edit_event: "Editar evento"
 
