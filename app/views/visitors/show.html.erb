@@ -70,7 +70,7 @@
   </div>
   <div class="small-12 large-7 end columns">
     <% @event.attachments.each do |attachment| %>
-      <p class="post__text mb20"><%= link_to attachment.title, attachment.file.path %></p>
+      <p class="post__text mb20"><%= link_to attachment.title, attachment.file.url %></p>
     <% end %>
   </div>
 </div>
