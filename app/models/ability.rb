@@ -4,11 +4,11 @@ class Ability
   def initialize(user)
     user ||= User.new
     if user.admin?
-        if Settings.madrid
+        if Rails.application.secrets.madrid
             can [:index,:update], User
             can :manage, Event
             can :index, Area
-            can :index, Holder
+            can [:index, :show], Holder
         else
             can :manage, :all
         end
