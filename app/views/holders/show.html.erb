@@ -1,5 +1,5 @@
 <h3><%= @holder.full_name_comma %></h3>
-<%= link_to t('backend.edit'), edit_holder_path(@holder), :class=> "button tiny radius success" %>
+<%= link_to t('backend.edit'), edit_holder_path(@holder), :class=> "button tiny radius success" if can? :update, Holder%>
 <%= link_to t('backend.cancel'), holders_path , :class=> "button tiny radius" %>
 <fieldset>
   <legend><%= t('backend.basic_data') %></legend>

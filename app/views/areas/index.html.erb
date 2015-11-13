@@ -1,7 +1,7 @@
 <div class="row">
   <h1>
     <%= t('backend.areas')%> (<%= @areas.count %>)
-    <%= link_to t('backend.new_area'), new_area_path, :class => "button radius warning right" %>
+    <%= link_to t('backend.new_area'), new_area_path, :class => "button radius warning right" if can? :create, Area %>
     </h1>
 </div>
 <div class="row">
