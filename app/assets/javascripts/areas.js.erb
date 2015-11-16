@@ -11,7 +11,26 @@ $(function(){
     }else{
       $(this).addClass('fi-minus size-18');
     }
-
   });
+
+  var $checkoutForm = $(".admin-form").validate({
+        ignore: [],
+        errorElement: "small",
+        rules : {
+            "area[title]" : {
+                required : true
+            }
+        },
+
+        messages : {
+            "area[title]" : {
+                required : "<%= I18n.translate('backend.mandatory_field')%>"
+            }
+        },
+
+        errorPlacement : function(error, element) {
+            error.insertAfter(element);
+        }
+    });
 
 });

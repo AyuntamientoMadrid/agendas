@@ -1,1 +1,0 @@
-<option value="<%= area.id %>"><%= area.title.titleize %></option>

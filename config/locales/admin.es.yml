@@ -11,11 +11,13 @@ es:
     actions: "Acciones"
     add: "Añadir"
     back: "Volver"
+    none: "Ninguno"
     basic_data: "Datos básicos"
     mandatory_field: "Este campo es obligatorio"
     successfully_updated_record: "Registro actualizado correctamente"
     successfully_destroyed_record: "Registro eliminado correctamente"
     successfully_created_record: "Registro creado correctmente"
+    review_errors: "Por favor correija los siguientes errores antes de continuar"
 
     contributors: "Contribuidores"
     new_user: "Nuevo usuario"
@@ -38,6 +40,7 @@ es:
     descendant: "Subareas"
     new_area: "Nueva Área"
     edit_area: "Editar Área"
+    parent: "Padre"
 
     position: "Cargo"
     positions: "Cargos"

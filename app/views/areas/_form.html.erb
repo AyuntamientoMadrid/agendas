@@ -1,0 +1,26 @@
+<%= form_for @area, html: {class: 'admin-form'} do |f| %>
+
+    <% if @area.errors.any? %>
+        <div class="panel callout radius">
+          <strong><%= t('activerecord.errors.template.header',
+  :model => Holder.model_name.human, :count => @area.errors.count) %></strong>
+          <ul>
+            <% @area.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <fieldset>
+      <legend><%= t('backend.basic_data') %></legend>
+      <%= f.label :title, t('backend.title') %>
+      <%= f.text_field :title %>
+      <%= f.label :parent, t('backend.parent') %>
+      <%= f.select :parent_id, options_for_select(Area.all.map{|a| [a.title, a.id]},:parent_id), prompt: t('backend.none') %>
+    </fieldset>
+
+    <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
+<% end %>
+
+<%= javascript_include_tag 'areas'%>

@@ -28,7 +28,7 @@ class EventsController < AdminController
     if @event.update_attributes(event_params)
       redirect_to events_path, notice: t('backend.successfully_updated_record')
     else
-      render :edit, alert: 'kk'
+      render :edit, alert: t('backend.review_errors')
     end
   end
 
