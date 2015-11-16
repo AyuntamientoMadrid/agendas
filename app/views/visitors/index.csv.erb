@@ -1,5 +1,6 @@
-<%- headers = ['Title', 'Location'] -%>
-<%= CSV.generate_line headers %>
-<%- @events.results.each do |event| -%>
-    <%= CSV.generate_line([event.title, event.location]) %>
-<%- end -%>
+<% header = [t('backend.title'), t('backend.description'), t('backend.location'), t('backend.holder'), t('backend.date')]%>
+<%= CSV.generate_line(header,:row_sep => ?\t).strip  %>
+<% @events.results.each do |e| %>
+  <% row = [e.title.strip, e.description, e.location, e.position.holder.full_name,e.scheduled.strftime(t('time.formats.short')) ]%>
+  <%= CSV.generate_line(row,:row_sep => ?\t).strip %>
+<% end %>

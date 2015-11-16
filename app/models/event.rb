@@ -23,18 +23,6 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :participants, :reject_if => :all_blank, :allow_destroy => true
 
-
-  def self.as_csv
-    CSV.generate do |csv|
-      csv << ["Title", "Description", "Location", "Holder", "Date"]
-      all.each do |item|
-        csv << [item.title, item.description, item.location, item.position.holder.full_name_comma, item.scheduled.strftime("%d/%m/%Y %H:%M")]
-      end
-    end
-  end
-
-
-
   searchable do
 
     text :title, :description
