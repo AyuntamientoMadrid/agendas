@@ -1,4 +1,5 @@
 class HoldersController < AdminController
+  load_and_authorize_resource
   before_action :set_holder, only: [:show, :edit, :update, :destroy]
   before_action :load_areas
 

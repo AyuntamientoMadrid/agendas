@@ -29,7 +29,13 @@
       </a>
     </li>
     <% end %>
-
+    <% if current_user.admin? %>
+    <li class="<%= active_menu('activities') %>">
+      <a href="<%= activities_path %>">
+        <i class="fi-page-multiple size-18"> <%= t("backend.activity")%></i>
+      </a>
+    </li>
+    <% end %>
     <li>
       <%= link_to destroy_user_session_path, method: :delete do %>
           <i class="fi-arrow-left size-18"> <%= t("backend.logout")%></i>

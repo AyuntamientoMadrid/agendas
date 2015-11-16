@@ -7,6 +7,7 @@ es:
     delete: "Eliminar"
     save: "Guardar"
     cancel: "Cancelar"
+    action: "Acción"
     actions: "Acciones"
     add: "Añadir"
     back: "Volver"
@@ -20,6 +21,7 @@ es:
     new_user: "Nuevo usuario"
     edit_user: "Editar usuario"
     users: "Usuarios"
+    user: Usuario
     first_name: "Nombre"
     last_name: "Apellidos"
     role: "Rol"
@@ -58,6 +60,8 @@ es:
     description: "Descripción"
     new_event: "Nuevo evento"
     edit_event: "Editar evento"
+
+    activity: "Registro de Actividad"
 
   backend_header:
     open_gov: "Gobierno abierto"

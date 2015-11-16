@@ -33,8 +33,8 @@
             <%= user.role.capitalize %>
           </td>
           <td>
-            <% user.manages.map{|h| h.holder.full_name}.each do |m| %>
-                <%= m %><br />
+            <% user.manages.map{|h| h.holder}.each do |h| %>
+                <%= link_to h.full_name, holder_path(h) %><br />
             <% end %>
           </td>
           <td>

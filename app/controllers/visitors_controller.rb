@@ -1,5 +1,7 @@
 class VisitorsController < ApplicationController
 
+  require 'csv'
+
   def index
     @events = search(params)
     @paginated_events = Event.includes(:position => [:holder,:area]).where(id: @events.hits.map(&:primary_key))

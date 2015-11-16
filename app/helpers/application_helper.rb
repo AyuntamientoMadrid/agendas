@@ -20,4 +20,11 @@ module ApplicationHelper
     message += I18n.locale == :es ? t('header.spanish') : t('header.english')
     message.html_safe
   end
+
+  def show_user(user_id)
+    if user_id.present?
+      user = User.find(user_id)
+      link_to(user.full_name, user_path(user)).html_safe
+    end
+  end
 end

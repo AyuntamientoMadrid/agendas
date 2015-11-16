@@ -33,6 +33,7 @@ gem 'i18n_data'
 gem 'rails-i18n', :git => 'https://github.com/svenfuchs/rails-i18n.git', branch: 'master' # For 4.x
 gem "cocoon"
 gem 'cancancan'
+gem 'public_activity'
 gem "jquery-ui-rails"
 gem 'rails4-autocomplete'
 gem 'friendly_id', '~> 5.1.0'

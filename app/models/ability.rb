@@ -12,6 +12,7 @@ class Ability
         else
             can :manage, :all
         end
+        can :index, :activities
     else
         can :manage, Event, user_id: user.id
         can :delete, Event do |event|

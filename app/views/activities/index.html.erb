@@ -1,0 +1,39 @@
+<div class="row">
+  <h1>
+    <%= t('backend.entries')%> (<%= @activities.count %>)
+  </h1>
+</div>
+<div class="row">
+  <table id="listing" class="display" cellpadding="0" width="100%">
+    <thead>
+    <tr>
+      <th><%= t('backend.date')%></th>
+      <th><%= t('backend.user')%></th>
+      <th><%= t('backend.event')%></th>
+      <th><%= t('backend.action')%></th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+      <th><%= t('backend.date')%></th>
+      <th><%= t('backend.user')%></th>
+      <th><%= t('backend.event')%></th>
+      <th><%= t('backend.action')%></th>
+    </tr>
+    </tfoot>
+    <tbody>
+    <% @activities.each do |activity| %>
+        <tr>
+          <td><%= activity.created_at %></td>
+          <td><%= link_to activity.owner.full_name, user_path(activity.owner) if activity.owner.present? %></td>
+          <td><%= link_to activity.trackable.title, event_path(activity.trackable) if activity.trackable.present? %></td>
+          <td><%= activity.key %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= javascript_include_tag 'admin_listings' %>
+
+

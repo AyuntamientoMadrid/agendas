@@ -1,4 +1,5 @@
 class AreasController < AdminController
+  load_and_authorize_resource
   before_action :set_area, only: [:show, :edit, :update, :destroy]
 
   def index

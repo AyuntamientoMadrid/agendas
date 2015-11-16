@@ -1,4 +1,5 @@
 class UsersController < AdminController
+  load_and_authorize_resource
   before_action :load_holders, only: [:new, :edit, :update, :create]
   before_action :set_user, only: [:show, :edit, :update, :destroy, :disable]
 
