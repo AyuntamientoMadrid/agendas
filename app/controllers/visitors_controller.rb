@@ -22,6 +22,7 @@ class VisitorsController < ApplicationController
   end
 
   def contact
+    @message = ContactMessage.new
   end
 
   private

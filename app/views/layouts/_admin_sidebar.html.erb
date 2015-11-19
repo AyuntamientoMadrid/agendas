@@ -37,6 +37,11 @@
     </li>
     <% end %>
     <li>
+      <%= link_to root_path, method: :delete do %>
+          <i class="fi-arrow-right size-18"> <%= t("backend.frontend")%></i>
+      <% end %>
+    </li>
+    <li>
       <%= link_to destroy_user_session_path, method: :delete do %>
           <i class="fi-arrow-left size-18"> <%= t("backend.logout")%></i>
       <% end %>

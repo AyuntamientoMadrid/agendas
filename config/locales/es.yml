@@ -15,6 +15,7 @@ es:
   time:
     formats:
       short: "%d-%m-%Y %H:%M"
+      complete: "%d de %B de %Y · %H:%m"
   date:
     formats:
       short: "%d/%m/%Y"

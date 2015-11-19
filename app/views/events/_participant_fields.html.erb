@@ -2,7 +2,7 @@
   <div class="row">
       <%= f.hidden_field :event_id, value: @event.id %>
       <div class="small-8 columns">
-        <%= f.select( :position_id, @holders.collect {|a| [a.full_name_comma, a.current_position.id]}, {} ,{:class => "large-8 columns"}) -%>
+        <%= f.select( :position_id, @participants.order(:last_name).collect {|a| [a.full_name_comma, a.current_position.id]}, {} ,{:class => "large-8 columns"}) -%>
       </div>
     <div class="small-2 columns">
       <%= link_to_remove_association t('backend.delete'), f, :class => "button tiny radius alert right" %>

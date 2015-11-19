@@ -22,8 +22,8 @@
       <%= f.text_area :description, class: 'tinymce'%>
       <%= f.label :scheduled, t('backend.date') %>
       <%= f.text_field :scheduled, class: 'fdatepicker' %>
-      <%= f.label :position_id, t('backend.position') %>
-      <%= f.select :position_id, @holders.order(:last_name).map{|holder| [holder.full_name_comma, holder.positions.current.first.id]}, prompt: t('backend.select') %>
+      <%= f.label :position_id, t('backend.main_position') %>
+      <%= f.select :position_id, @holders.order(:last_name).map{|holder| [holder.full_name_comma, holder.positions.current.first.id]}, prompt: t('backend.select') if @holders.count > 1 %>
     </fieldset>
 
     <fieldset><!-- Participants -->
@@ -60,7 +60,7 @@
     </fieldset>
 
     <fieldset><!-- Attachments -->
-      <legend><%= t('backend.attachments') %></legend>
+      <legend><%= t('backend.attachments') %> ( <%= t('backend.only_pdf') %>)</legend>
       <div class="row">
         <div class="small-4 columns"><%= t('backend.title') %></div>
         <div class="small-6 columns"><%= t('backend.file') %></div>

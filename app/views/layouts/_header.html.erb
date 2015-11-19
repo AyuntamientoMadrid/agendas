@@ -1,17 +1,13 @@
 <header class="header" role="banner">
   <div class="row hide-for-small-only">
     <div class="small-6 columns">
-      <button data-dropdown="languagesMenu" aria-controls="languagesMenu" aria-expanded="false" class="button transparent dropdown"><%= current_language %></button>
-      <ul id="languagesMenu" data-dropdown-content class="f-dropdown" aria-hidden="true">
-        <li><%= link_to t('header.spanish'), change_language_path(:es) %></li>
-        <li><%= link_to t('header.english'), change_language_path(:en) %></li>
-      </ul>
+      <%#= language_selection %>
     </div>
     <div class="small-6 columns text-right">
       <ul class="header__menu">
-        <li><a href="#">Participación</a></li>
-        <li><a href="#">Transparencia</a></li>
-        <li><a href="#">Datos abiertos</a></li>
+        <li><a href="https://decide.madrid.es/" target="_blank" ><%= t('header.participation') %></a></li>
+        <li><a href="https://decide.madrid.es/transparency" target="_blank"><%= t('header.transparency') %></a></li>
+        <li><a href="https://decide.madrid.es/opendata" target="_blank"><%= t('header.open_data') %></a></li>
       </ul>
     </div>
   </div>
@@ -19,7 +15,7 @@
     <div class="small-12 columns hide-for-small-only">
       <div class="header__base">
         <%= image_tag 'madrid.png', class: 'header__imago', alt:'¡Madrid'%>
-        <h1 class="header__title"><strong>Gobierno abierto</strong> Transparencia</h1>
+        <h1 class="header__title"><strong><%= t('header.open_goverment') %></strong><%= t('header.transparency') %></h1>
       </div>
     </div>
   </div>
@@ -28,21 +24,15 @@
   <nav class="top-bar show-for-small-only" data-topbar role="navigation">
     <div class="header__base">
       <%= image_tag('madrid.png', class: 'left', size: '96x96') %>
-      <h1 class="header__title"><strong>Gobierno abierto</strong> Transparencia</h1>
+      <h1 class="header__title"><strong><%= t('header.open_goverment') %></strong> <%= t('header.transparency') %></h1>
     </div>
     <div class="toggle-topbar menu-icon"><a href="#"><span></span></a></div>
     <section class="top-bar-section">
       <ul>
-        <li class="has-dropdown">
-          <a href="#">Idioma de la página: Español</a>
-          <ul class="dropdown">
-            <li><a href="#">English</a></li>
-            <li><a href="#">Español</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Participación</a></li>
-        <li><a href="#">Transparencia</a></li>
-        <li><a href="#">Datos abiertos</a></li>
+        <%#= language_selection %>
+        <li><a href="https://decide.madrid.es/" target="_blank" ><%= t('header.participation') %></a></li>
+        <li><a href="https://decide.madrid.es/transparency" target="_blank"><%= t('header.transparency') %></a></li>
+        <li><a href="https://decide.madrid.es/opendata" target="_blank"><%= t('header.open_data') %></a></li>
       </ul>
     </section>
   </nav>

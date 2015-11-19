@@ -10,7 +10,7 @@
     <tr>
       <th><%= t('backend.name')%></th>
       <th><%= t('backend.role')%></th>
-      <th><%= t('backend.positions')%></th>
+      <th><%= t('backend.managed_positions')%></th>
       <th><%= t('backend.actions')%></th>
     </tr>
     </thead>
@@ -18,7 +18,7 @@
     <tr>
       <th><%= t('backend.name')%></th>
       <th><%= t('backend.role')%></th>
-      <th><%= t('backend.positions')%></th>
+      <th><%= t('backend.managed_positions')%></th>
       <th><%= t('backend.actions')%></th>
     </tr>
     </tfoot>
@@ -30,7 +30,7 @@
             <%= user.email %>
           </td>
           <td>
-            <%= user.role.capitalize %>
+            <%= t("backend.#{user.role}").capitalize %>
           </td>
           <td>
             <% user.manages.map{|h| h.holder}.each do |h| %>

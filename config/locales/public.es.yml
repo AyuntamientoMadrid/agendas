@@ -5,6 +5,10 @@ es:
     page_language: "Idioma de la página"
     spanish: "Español"
     english: "Inglés"
+    open_goverment: "Gobierno abierto"
+    transparency: "Transparencia"
+    participation: "Participación"
+    open_data: "Datos abiertos"
   main:
     title: "Publicación de agendas"
     any_errors: "¿Hay algún error en esta página?"
@@ -35,5 +39,17 @@ es:
     description: "Descripción"
     documentation: "Documentación"
     holder: "Organiza"
+  contact:
+    send: "Enviar"
+    name: "Nombre"
+    email: "Email"
+    message: "Mensaje"
+  simple_captcha:
+    placeholder: "Enter the image value"
+    label: "Enter the code in the box:"
+    refresh_button_text: "Refresh"
+    message:
+      default: "Secret Code did not match with the Image"
+      user: "The secret Image and code were different"
 
 

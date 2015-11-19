@@ -35,11 +35,11 @@ gem "cocoon"
 gem 'cancancan'
 gem 'public_activity'
 gem "jquery-ui-rails"
-gem 'rails4-autocomplete'
 gem 'friendly_id', '~> 5.1.0'
 gem 'ancestry'
 gem 'savon'
 gem 'tinymce-rails'
+gem 'tinymce-rails-langs'
 
 group :development do
   gem 'jazz_hands', :git => 'https://github.com/nixme/jazz_hands.git', branch: 'bring-your-own-debugger'

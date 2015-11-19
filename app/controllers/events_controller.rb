@@ -48,7 +48,8 @@ class EventsController < AdminController
   end
 
   def set_holders
-    @holders = current_user.admin? ? Holder.all : current_user.holders
+    @participants = Holder.all
+    @holders = current_user.admin? ? @participants : current_user.holders
   end
 
 end

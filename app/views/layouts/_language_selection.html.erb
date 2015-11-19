@@ -1,0 +1,13 @@
+<button data-dropdown="languagesMenu" aria-controls="languagesMenu" aria-expanded="false" class="button transparent dropdown"><%= current_language %></button>
+<ul id="languagesMenu" data-dropdown-content class="f-dropdown" aria-hidden="true">
+  <li><%= link_to t('header.spanish'), change_language_path(:es) %></li>
+  <li><%= link_to t('header.english'), change_language_path(:en) %></li>
+</ul>
+
+<li class="has-dropdown">
+  <a href="#"><%= current_language %></a>
+  <ul class="dropdown">
+    <li><%= link_to t('header.spanish'), change_language_path(:es) %></li>
+    <li><%= link_to t('header.english'), change_language_path(:en) %></li>
+  </ul>
+</li>

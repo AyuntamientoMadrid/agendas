@@ -17,7 +17,6 @@
 //= require dependencies/dataTables.foundation.min
 //= require dependencies/jquery.treetable
 //= require jquery-ui
-//= require autocomplete-rails
 //= require jquery.validate
 //= require cocoon
 //= require dependencies/foundation-datepicker

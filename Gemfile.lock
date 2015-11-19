@@ -274,8 +274,6 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
-    rails4-autocomplete (1.1.1)
-      rails (>= 3.0)
     rails_layout (1.0.26)
     railties (4.2.3)
       actionpack (= 4.2.3)
@@ -368,6 +366,8 @@ GEM
     tilt (2.0.1)
     tinymce-rails (4.2.6)
       railties (>= 3.1.1)
+    tinymce-rails-langs (4.20140129)
+      tinymce-rails (~> 4.0)
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
@@ -441,7 +441,6 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.2.3)
   rails-i18n!
-  rails4-autocomplete
   rails_layout
   rspec-rails
   rubocop
@@ -455,6 +454,7 @@ DEPENDENCIES
   sunspot_solr
   thin
   tinymce-rails
+  tinymce-rails-langs
   turbolinks
   uglifier (>= 1.3.0)
   unicorn
