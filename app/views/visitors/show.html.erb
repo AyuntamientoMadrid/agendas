@@ -16,7 +16,7 @@
 </div>
 
 <div class="row mb40">
-  <div class="small-12 large-4 columns">
+  <div class="small-12 large-3 columns">
     <strong class="post__subtitle"><%= t('show.holder')%></strong>
   </div>
   <div class="small-12 large-7 end columns">
@@ -29,25 +29,31 @@
 </div>
 
 <div class="row mb40">
-  <div class="small-12 large-4 columns">
+  <div class="small-12 large-3 columns">
     <strong class="post__subtitle"><%= t('show.participants')%></strong>
   </div>
   <div class="small-12 large-7 end columns">
     <% @event.attendees.each do |attendee|%>
-    <p class="post__description">
-      <%= attendee.name %> - <%= attendee.company %>
-    </p>
+      <p class="post__description">
+        <strong><%= attendee.name %></strong>
+      </p>
+      <p><%= attendee.position %></p>
+      <p><%= attendee.company %></p>
+      <br />
     <% end %>
     <% @event.participants.each do |participant|%>
     <p class="post__description">
-      <%= link_to participant.position.holder.full_name, root_path(holder: participant.position.holder.id) %> - <%= participant.position.title %> - <%= participant.position.area.title %>
+      <strong><%= link_to participant.position.holder.full_name, root_path(holder: participant.position.holder.id) %></strong>
     </p>
+    <p><%= participant.position.title %></p>
+    <p><%= participant.position.area.title %></p>
+    <br />
     <% end %>
   </div>
 </div>
 
 <div class="row mb40">
-  <div class="small-12 large-4 columns">
+  <div class="small-12 large-3 columns">
     <strong class="post__subtitle"><%= t('show.location')%></strong>
   </div>
   <div class="small-12 large-7 end columns">
@@ -56,7 +62,7 @@
 </div>
 
 <div class="row mb40">
-  <div class="small-12 large-4 columns">
+  <div class="small-12 large-3 columns">
     <strong class="post__subtitle"><%= t('show.description')%></strong>
   </div>
   <div class="small-12 large-7 end columns">
@@ -65,7 +71,7 @@
 </div>
 
 <div class="row mb40">
-  <div class="small-12 large-4 columns">
+  <div class="small-12 large-3 columns">
     <strong class="post__subtitle"><%= t('show.documentation')%></strong>
   </div>
   <div class="small-12 large-7 end columns">
