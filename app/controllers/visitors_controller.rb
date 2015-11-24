@@ -4,7 +4,7 @@ class VisitorsController < ApplicationController
 
   def index
     @events = search(params)
-    @paginated_events = Event.includes(:position => [:holder,:area]).where(id: @events.hits.map(&:primary_key))
+    @paginated_events = set_order(Event.includes(:position => [:holder,:area]).where(id: @events.hits.map(&:primary_key)))
     @tree = Area.area_tree
     @holders = get_holders_by_area(params[:area])
   end
@@ -41,6 +41,14 @@ class VisitorsController < ApplicationController
 
   def get_holders_by_area (area)
     Holder.where(id: Position.includes(:holder).area_filtered(area).current.map {|position| position.holder }).order(last_name: :asc)
+  end
+
+  def set_order(events)
+    if params[:order].blank? or params[:order] == 'scheduled'
+      events.order(scheduled: :desc)
+    else
+      events.sort_by {|m| @events.hits.index(m.id)}
+    end
   end
 
 end
