@@ -6,7 +6,7 @@
   <p><strong><%= t('backend.first_name') %>:</strong> <%= @holder.first_name %></p>
   <p><strong><%= t('backend.last_name') %>:</strong> <%= @holder.last_name %></p>
   <p><strong><%= t('backend.agenda') %>:</strong>
-  <%= link_to agenda_url(@holder.id, @holder.full_name.parameterize) %></p>
+  <%= link_to agenda_url(@holder.id, @holder.full_name.parameterize), agenda_url(@holder.id, @holder.full_name.parameterize), target: :blank %></p>
 </fieldset>
 <fieldset>
   <legend><%= t('backend.positions') %></legend>

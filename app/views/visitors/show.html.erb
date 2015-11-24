@@ -21,7 +21,7 @@
   </div>
   <div class="small-12 large-7 end columns">
     <p class="post__description">
-      <strong><%= link_to @event.position.holder.full_name, root_path(holder: @event.position.holder.id ) %></strong>
+      <strong><%= show_agenda_link(@event.position.holder) %></strong>
     </p>
     <p><%= @event.position.title %></p>
     <p><%= @event.position.area.title %></p>
@@ -43,7 +43,7 @@
     <% end %>
     <% @event.participants.each do |participant|%>
     <p class="post__description">
-      <strong><%= link_to participant.position.holder.full_name, root_path(holder: participant.position.holder.id) %></strong>
+      <strong><%= show_agenda_link(participant.position.holder) %></strong>
     </p>
     <p><%= participant.position.title %></p>
     <p><%= participant.position.area.title %></p>

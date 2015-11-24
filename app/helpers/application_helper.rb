@@ -27,4 +27,8 @@ module ApplicationHelper
       link_to(user.full_name, user_path(user)).html_safe
     end
   end
+
+  def show_agenda_link(holder)
+    link_to(holder.full_name,  agenda_path(holder.id,holder.full_name.parameterize)).html_safe
+  end
 end

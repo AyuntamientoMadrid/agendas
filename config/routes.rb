@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/show/:id', to: 'visitors#show', as: 'show'
   get '/update_holders', to: 'visitors#update_holders', as: 'update_holders'
   get '/inicio.do', to: 'uweb_access#uweb_sign_in'
-  get '/agenda/:id/:full_name', to: 'visitors#agenda', as: 'agenda'
+  get '/agenda/:holder/:full_name', to: 'visitors#agenda', as: 'agenda'
 
   # Admin
   get "/admin", to: 'events#index', as: 'admin'
