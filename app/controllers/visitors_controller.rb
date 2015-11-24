@@ -13,6 +13,12 @@ class VisitorsController < ApplicationController
     @event = Event.friendly.find(params[:id])
   end
 
+  def agenda
+    params[:holder] = params[:id]
+    index
+    render :index
+  end
+
   def update_areas
     @areas = Area.filtered(params[:id])
   end

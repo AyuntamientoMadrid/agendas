@@ -20,6 +20,7 @@
 //= require jquery.validate
 //= require cocoon
 //= require dependencies/foundation-datepicker
+//= require_tree ./dependencies/foundation-datepicker-locales
 //= require tinymce
 $(function() {
   $(document).foundation();

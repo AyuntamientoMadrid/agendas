@@ -18,6 +18,7 @@ $(function () {
 
     $('.fdatepicker').fdatepicker({
       format: "<%= I18n.translate('datepicker-format') %>",
+      language: "<%= I18n.locale %>"
     });
 
     $('#area').change(function(){
