@@ -15,7 +15,8 @@ class AreasController < AdminController
     if @area.save
       redirect_to areas_path, notice: t('backend.successfully_created_record')
     else
-      render :new, notice: t('backend.review_errors')
+      flash[:alert] = t('backend.review_errors')
+      render :new
     end
   end
 
@@ -23,7 +24,8 @@ class AreasController < AdminController
     if @area.update_attributes(area_params)
       redirect_to areas_path, notice: t('backend.successfully_updated_record')
     else
-      render :edit, alert: t('backend.review_errors')
+      flash[:alert] = t('backend.review_errors')
+      render :edit
     end
   end
 

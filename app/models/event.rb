@@ -17,11 +17,16 @@ class Event < ActiveRecord::Base
 
   # Validations
   validates_presence_of :title, :position
+  validate :participants_uniqueness
 
   # Nested models
   accepts_nested_attributes_for :attendees, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :attachments, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :participants, :reject_if => :all_blank, :allow_destroy => true
+
+  def participants_uniqueness
+    errors.add(:base, I18n.t('backend.participants_uniqueness')) unless self.participants.uniq.count == self.participants.count
+  end
 
   searchable do
 

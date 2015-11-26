@@ -37,8 +37,8 @@
         <%= f.fields_for :participants do |participant| %>
             <%= render 'participant_fields', f: participant %>
         <% end %>
-        <%= link_to_add_association t('backend.add'), f, :participants, :class => "button radius tiny info right" %>
       </div>
+      <%= link_to_add_association t('backend.add'), f, :participants, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#participants' %>
     </fieldset>
 
 
@@ -55,8 +55,8 @@
         <%= f.fields_for :attendees do |attendee| %>
             <%= render 'attendee_fields', f: attendee %>
         <% end %>
-        <%= link_to_add_association t('backend.add'), f, :attendees, :class => "button radius tiny info right" %>
       </div>
+      <%= link_to_add_association t('backend.add'), f, :attendees, :class => "button radius tiny info right",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attendees' %>
     </fieldset>
 
     <fieldset><!-- Attachments -->
@@ -71,8 +71,8 @@
         <%= f.fields_for :attachments do |attachment| %>
             <%= render 'attachment_fields', f: attachment %>
         <% end %>
-        <%= link_to_add_association t('backend.add'), f, :attachments, :class => "button radius tiny info right" %>
       </div>
+      <%= link_to_add_association t('backend.add'), f, :attachments, :class => "button radius tiny info right",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attachments' %>
     </fieldset>
   <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
 <% end %>

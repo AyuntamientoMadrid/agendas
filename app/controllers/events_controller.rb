@@ -20,7 +20,8 @@ class EventsController < AdminController
     if @event.save
       redirect_to events_path, notice: t('backend.successfully_created_record')
     else
-      render :new, notice: t('backend.review_errors')
+      flash[:alert] = t('backend.review_errors')
+      render :new
     end
   end
 
@@ -28,7 +29,9 @@ class EventsController < AdminController
     if @event.update_attributes(event_params)
       redirect_to events_path, notice: t('backend.successfully_updated_record')
     else
-      render :edit, alert: t('backend.review_errors')
+      set_holders
+      flash[:alert] = t('backend.review_errors')
+      render :edit
     end
   end
 

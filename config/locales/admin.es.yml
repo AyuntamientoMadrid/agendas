@@ -59,6 +59,7 @@ es:
     location: "Lugar"
     attendees: "Otros asistentes"
     participants: "Asistentes del ayuntamiento"
+    participants_uniqueness: "Existen titulares de agenda duplicados"
     attachments: "Archivos adjuntos"
     only_pdf: "Solo PDF"
     name: "Nombre"

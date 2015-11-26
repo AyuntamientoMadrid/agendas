@@ -1,0 +1,25 @@
+es:
+  errors:
+    format: "%{attribute} %{message}"
+
+    messages: &errors_messages
+      blank: "no puede estar en blanco"
+
+  activerecord:
+    errors:
+      template:
+        header:
+          one:    "1 error impidió guardar este %{model} "
+          other:  "%{count} errores impidieron guardar este %{model}"
+        body: "There were problems with the following fields:"
+
+      messages:
+        record_invalid: "Fallo de validación: %{errors}"
+        <<: *errors_messages
+
+      full_messages:
+        format: "%{attribute} %{message}"
+    models:
+      event:
+        one: "evento"
+        other: "eventos"

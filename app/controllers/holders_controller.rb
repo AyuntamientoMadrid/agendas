@@ -22,6 +22,7 @@ class HoldersController < AdminController
     if @holder.save
       redirect_to edit_holder_path(@holder), notice: t('backend.successfully_created_record')
     else
+      flash[:alert] = t('backend.review_errors')
       render :new
     end
   end
@@ -30,6 +31,7 @@ class HoldersController < AdminController
     if @holder.update(holder_params)
       redirect_to holders_path, notice: t('backend.successfully_updated_record')
     else
+      flash[:alert] = t('backend.review_errors')
       render :edit
     end
   end

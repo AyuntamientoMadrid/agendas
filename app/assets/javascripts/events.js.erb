@@ -15,6 +15,9 @@ $(function(){
           },
           "event[scheduled]" : {
               required : true
+          },
+          "event[position_id]" : {
+              required : true
           }
       },
 
@@ -23,6 +26,9 @@ $(function(){
               required : "<%= I18n.translate('backend.mandatory_field')%>"
           },
           "event[scheduled]" : {
+              required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[position_id]" : {
               required : "<%= I18n.translate('backend.mandatory_field')%>"
           }
       },

@@ -17,6 +17,7 @@ class UsersController < AdminController
     if @user.save
       redirect_to users_path, notice: t('backend.successfully_created_record')
     else
+      flash[:alert] = t('backend.review_errors')
       render :new
     end
   end
@@ -25,7 +26,8 @@ class UsersController < AdminController
     if @user.update_attributes(user_params)
       redirect_to users_path, notice: t('backend.successfully_updated_record')
     else
-      render :edit, alert: t('backend.review_errors')
+      flash[:alert] = t('backend.review_errors')
+      render :edit
     end
   end
 
