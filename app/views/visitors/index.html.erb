@@ -37,8 +37,8 @@
         <h1 class="post__title"><%= link_to event.title, show_path(event) %></h1>
         <p><strong>
           <%= show_agenda_link(event.position.holder) %> ·
-          <%= event.position.title %> ·
-          <%= event.position.area.title%>
+          <%= event.position.title.titleize %> ·
+          <%= event.position.area.title.titleize %>
         </strong></p>
         <p><%= I18n.l event.scheduled, :format => :complete %></p>
       </article>
