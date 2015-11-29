@@ -1,7 +1,15 @@
 <div class="nested-fields">
   <div class="row">
     <div class="small-4 columns"><%= f.text_field :title %></div>
-    <div class="small-6 columns"><%= f.file_field :file %></div>
+    <div class="small-6 columns">
+    <%=
+      if f.object.file.present?
+        link_to f.object.title, f.object.file.url
+      else
+        f.file_field :file
+      end
+    %>
+    </div>
     <div class="small-2 columns">
       <%= link_to_remove_association t('backend.delete'), f, :class => "button tiny radius alert right" %>
     </div>

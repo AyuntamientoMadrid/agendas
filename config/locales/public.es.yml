@@ -38,7 +38,7 @@ es:
     location: "Lugar"
     description: "Descripción"
     documentation: "Documentación"
-    holder: "Organiza"
+    holder: "Titular de la agenda"
   contact:
     send: "Enviar"
     name: "Nombre"

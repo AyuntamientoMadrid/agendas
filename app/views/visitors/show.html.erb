@@ -70,6 +70,7 @@
   </div>
 </div>
 
+<% if @event.attachments.count > 0 %>
 <div class="row mb40">
   <div class="small-12 large-3 columns">
     <strong class="post__subtitle"><%= t('show.documentation')%></strong>
@@ -80,9 +81,12 @@
     <% end %>
   </div>
 </div>
+<% end %>
 
+<!--
 <div class="row">
   <div class="small-12 columns">
     <p><%= link_to t('main.any_errors'), '' %></p>
   </div>
 </div>
+-->

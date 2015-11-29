@@ -48,7 +48,7 @@ es:
     parent: "Padre"
 
     position: "Cargo"
-    main_position: "Convocante"
+    main_position: "Titular de la agenda"
     positions: "Titulares de agenda"
     contributed_by: "Gestionado por"
     new_position: "Nuevo cargo"
@@ -60,7 +60,7 @@ es:
     date: "Fecha"
     location: "Lugar"
     attendees: "Otros asistentes"
-    participants: "Asistentes del ayuntamiento"
+    participants: "Asistentes titulares de agenda"
     participants_uniqueness: "Existen titulares de agenda duplicados"
     attachments: "Archivos adjuntos"
     only_pdf: "Solo PDF"

@@ -2,3 +2,5 @@ menubar:
   false
 statusbar:
   false
+plugins:
+  link
