@@ -15,14 +15,23 @@ feature 'User delete', :devise, :js do
   #   Given I am signed in
   #   When I delete my account
   #   Then I should see an account deleted message
-  scenario 'user can delete own account' do
-    skip 'skip a slow test'
-    user = FactoryGirl.create(:user)
+  #scenario 'user can delete own account' do
+  #  user = FactoryGirl.create(:user)
+  #  login_as(user, :scope => :user)
+  #  visit edit_user_registration_path(user)
+  #  click_button 'Cancel my account'
+  #  page.driver.browser.switch_to.alert.accept
+  #  expect(page).to have_content I18n.t 'devise.registrations.destroyed'
+  #end
+
+  scenario 'user can not delete own account' do
+    user = FactoryGirl.create(:admin)
     login_as(user, :scope => :user)
-    visit edit_user_registration_path(user)
-    click_button 'Cancel my account'
+    visit users_path
+    expect(page).to have_content I18n.t 'backend.users'
+    click_link user_path(user)
     page.driver.browser.switch_to.alert.accept
-    expect(page).to have_content I18n.t 'devise.registrations.destroyed'
+    expect(page).to have_content I18n.t 'unable_to_perform_operation'
   end
 
 end

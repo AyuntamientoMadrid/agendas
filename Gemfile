@@ -19,7 +19,6 @@ end
 gem 'devise'
 gem 'devise-i18n'
 gem 'foundation-rails', '= 5.5.1.0'
-gem 'high_voltage'
 gem 'pg'
 gem 'will_paginate'
 gem 'will_paginate-foundation'
@@ -59,7 +58,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop'
   gem 'thin'
-  gem "bullet"
+  gem 'bullet'
 end
 
 group :production do
@@ -71,4 +70,5 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
+  gem 'simplecov'
 end

@@ -19,10 +19,6 @@ class VisitorsController < ApplicationController
     render :index
   end
 
-  def update_areas
-    @areas = Area.filtered(params[:id])
-  end
-
   def update_holders
     @holders = get_holders_by_area(params[:id])
   end

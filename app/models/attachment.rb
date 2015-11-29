@@ -12,7 +12,6 @@ class Attachment < ActiveRecord::Base
     attachment.instance.normalized_file_name
   end
 
-
   validates_attachment_content_type :file, content_type: ["application/pdf"], message: I18n.t('backend.allowed_file_content_types')
 
   # Validations

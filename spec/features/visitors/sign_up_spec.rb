@@ -4,6 +4,10 @@
 #   So I can visit protected areas of the site
 feature 'Sign Up', :devise do
 
+  before do
+    visit admin_path
+  end
+
   # Scenario: Visitor can sign up with valid email address and password
   #   Given I am not signed in
   #   When I sign up with a valid email address and password
@@ -18,9 +22,9 @@ feature 'Sign Up', :devise do
   #   Given I am not signed in
   #   When I sign up with an invalid email address
   #   Then I see an invalid email message
-  scenario 'visitor cannot sign up with invalid email address' do
-    sign_up_with('bogus', 'please123', 'please123')
-    expect(page).to have_content 'Email is invalid'
+  scenario 'visitor cannot sign up' do
+    visit user_registration_path
+    expect(last.response.status).to eq(500)
   end
 
   # Scenario: Visitor cannot sign up without password

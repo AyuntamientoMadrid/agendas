@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :participant do
-    position nil
-event nil
+    association :position
+    association :event
   end
-
 end

@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :manage do
-    user nil
-hoder nil
+    association :user
+    association :holder
   end
 
 end

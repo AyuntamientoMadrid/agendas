@@ -32,8 +32,12 @@ class UsersController < AdminController
   end
 
   def destroy
-    @user.destroy
-    redirect_to users_path, notice: t('backend.successfully_destroyed_record')
+    if current_user == @user
+      redirect_to users_path, alert: t('backend.unable_to_perform_operation')
+    else
+      @user.destroy
+      redirect_to users_path, notice: t('backend.successfully_destroyed_record')
+    end
   end
 
   def disable

@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
 
-  include PublicActivity::Model
-  tracked owner: Proc.new { |controller, model| controller.current_user ? controller.current_user : nil }
+  #include PublicActivity::Model
+  #tracked owner: Proc.new { |controller, model| controller.current_user ? controller.current_user : nil }
 
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
@@ -46,7 +46,6 @@ class Event < ActiveRecord::Base
     end
 
     integer :holder_id do
-      p self.position.holder.id.to_s
       self.position.holder.id
     end
 
