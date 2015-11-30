@@ -1,5 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Attachment, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  before do
+    @attachment = FactoryGirl.build(:attachment, title: nil)
+  end
+
+  it "should be invalid if no title" do
+    expect(@attachment).not_to be_valid
+  end
 end

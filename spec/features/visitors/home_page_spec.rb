@@ -7,6 +7,7 @@ feature 'Home page' do
 
   scenario 'visit holder agenda page' do
     @event = FactoryGirl.create(:event)
+    expect(@event.position.holder.full_name).to eq('First Last')
     visit root_path
     click_link @event.position.holder.full_name
     expect(page).to have_content @event.position.holder.full_name

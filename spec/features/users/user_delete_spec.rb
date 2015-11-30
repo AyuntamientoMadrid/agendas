@@ -1,37 +1,20 @@
 include Warden::Test::Helpers
 Warden.test_mode!
 
-# Feature: User delete
-#   As a user
-#   I want to delete my user profile
-#   So I can close my account
 feature 'User delete', :devise, :js do
 
   after(:each) do
     Warden.test_reset!
   end
 
-  # Scenario: User can delete own account
-  #   Given I am signed in
-  #   When I delete my account
-  #   Then I should see an account deleted message
-  #scenario 'user can delete own account' do
-  #  user = FactoryGirl.create(:user)
-  #  login_as(user, :scope => :user)
-  #  visit edit_user_registration_path(user)
-  #  click_button 'Cancel my account'
-  #  page.driver.browser.switch_to.alert.accept
-  #  expect(page).to have_content I18n.t 'devise.registrations.destroyed'
-  #end
-
   scenario 'user can not delete own account' do
-    user = FactoryGirl.create(:admin)
+    user = FactoryGirl.create(:user, :admin)
     login_as(user, :scope => :user)
     visit users_path
     expect(page).to have_content I18n.t 'backend.users'
-    click_link user_path(user)
+    page.click_link('',href: user_path(user))
     page.driver.browser.switch_to.alert.accept
-    expect(page).to have_content I18n.t 'unable_to_perform_operation'
+    expect(page).to have_content I18n.t 'backend.unable_to_perform_operation'
   end
 
 end

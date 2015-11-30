@@ -1,42 +1,37 @@
 include Warden::Test::Helpers
 Warden.test_mode!
 
-# Feature: User edit
-#   As a user
-#   I want to edit my user profile
-#   So I can change my email address
 feature 'User edit', :devise do
 
   after(:each) do
     Warden.test_reset!
   end
 
-  # Scenario: User changes email address
-  #   Given I am signed in
-  #   When I change my email address
-  #   Then I see an account updated message
-  scenario 'user changes email address' do
-    user = FactoryGirl.create(:user)
+  scenario 'admin can change own email address' do
+    user = FactoryGirl.create(:user, :admin)
     login_as(user, :scope => :user)
-    visit edit_user_registration_path(user)
-    fill_in 'Email', :with => 'newemail@example.com'
-    fill_in 'Current password', :with => user.password
-    click_button 'Update'
-    txts = [I18n.t( 'devise.registrations.updated'), I18n.t( 'devise.registrations.update_needs_confirmation')]
-    expect(page).to have_content(/.*#{txts[0]}.*|.*#{txts[1]}.*/)
+    visit edit_user_path(user)
+    fill_in :user_email, :with => 'adminemail@example.com'
+    click_button I18n.t 'backend.save'
+    expect(page).to have_content I18n.t 'backend.successfully_updated_record'
   end
 
-  # Scenario: User cannot edit another user's profile
-  #   Given I am signed in
-  #   When I try to edit another user's profile
-  #   Then I see my own 'edit profile' page
-  scenario "user cannot cannot edit another user's profile", :me do
+  scenario 'admin can change other user email address' do
+    admin = FactoryGirl.create(:user, :admin, email: 'adminemail@example.com')
+    login_as(admin, :scope => :user)
+    user = FactoryGirl.create(:user)
+    visit edit_user_path(user)
+    fill_in :user_email, :with => 'useremail@example.com'
+    click_button I18n.t 'backend.save'
+    expect(page).to have_content I18n.t 'backend.successfully_updated_record'
+  end
+
+  scenario "user cannot edit another user's profile", :me do
     me = FactoryGirl.create(:user)
     other = FactoryGirl.create(:user, email: 'other@example.com')
     login_as(me, :scope => :user)
-    visit edit_user_registration_path(other)
-    expect(page).to have_content 'Edit User'
-    expect(page).to have_field('Email', with: me.email)
+    visit edit_user_path(other)
+    expect(page).to have_content I18n.t 'backend.access_denied'
   end
 
 end
