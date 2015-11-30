@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'trackings/index'
-
   # Public resources
   root to: 'visitors#index'
   get '/lang/:lang', to: 'application#change_language', as: 'change_language'

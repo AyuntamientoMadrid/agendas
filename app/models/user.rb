@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   # Validations
   validates_presence_of :first_name, :last_name, :email
+  validate :manages_uniqueness
 
   enum role: [:user, :admin]
   after_initialize :set_default_role, if: :new_record?
@@ -28,6 +29,10 @@ class User < ActiveRecord::Base
 
   def full_name_comma
     self.last_name.to_s+', '+self.first_name.to_s
+  end
+
+  def manages_uniqueness
+    errors.add(:base, I18n.t('backend.participants_uniqueness')) unless self.manages.uniq.count == self.manages.to_a.count
   end
 
   # Include default devise modules. Others available are:

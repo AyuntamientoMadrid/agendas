@@ -25,7 +25,7 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :participants, :reject_if => :all_blank, :allow_destroy => true
 
   def participants_uniqueness
-    errors.add(:base, I18n.t('backend.participants_uniqueness')) unless self.participants.uniq.count == self.participants.count
+    errors.add(:base, I18n.t('backend.participants_uniqueness')) unless self.participants.uniq.count == self.participants.to_a.count
   end
 
   searchable do

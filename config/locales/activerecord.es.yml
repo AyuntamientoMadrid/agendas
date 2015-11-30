@@ -23,3 +23,9 @@ es:
       event:
         one: "evento"
         other: "eventos"
+      user:
+        one: "gestor de agenda"
+        other: "gestores de agenda"
+      holder:
+        one: "titular de agenda"
+        other: "titulares de agenda"

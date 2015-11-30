@@ -4,7 +4,7 @@
     <% if @user.errors.any? %>
         <div class="panel callout radius">
           <strong><%= t('activerecord.errors.template.header',
-  :model => Holder.model_name.human, :count => @user.errors.count) %></strong>
+  :model => User.model_name.human, :count => @user.errors.count) %></strong>
           <ul>
             <% @user.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
