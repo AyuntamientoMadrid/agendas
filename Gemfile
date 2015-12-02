@@ -71,4 +71,5 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
   gem 'simplecov'
+  gem 'codeclimate-test-reporter'
 end
