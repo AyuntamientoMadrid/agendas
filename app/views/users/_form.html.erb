@@ -21,8 +21,8 @@
       <%= f.text_field :last_name %>
       <%= f.label :email, t('backend.email') %>
       <%= f.text_field :email %>
-      <%= f.label :role, t('backend.role') %>
-      <%= f.select :role, [[t('backend.user'), :user],[t('backend.admin'), :admin]] %>
+      <%= f.label :role, t('backend.role') if Rails.application.secrets.madrid %>
+      <%= f.select :role, [[t('backend.user'), :user],[t('backend.admin'), :admin]] if Rails.application.secrets.madrid%>
     </fieldset>
 
     <fieldset>

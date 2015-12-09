@@ -46,6 +46,15 @@ class UsersController < AdminController
     redirect_to users_path, notice: t('backend.successfully_disabled_record')
   end
 
+  def import
+    require 'rake'
+    Rake::Task.clear # necessary to avoid tasks being loaded several times in dev mode
+    Agendas::Application.load_tasks # providing your application name is 'sample'
+    Rake::Task['madrid:import'].reenable
+    Rake::Task['madrid:import'].invoke
+    redirect_to users_path, notice: t('backend.successfully_sync')
+  end
+
   private
 
   def set_user

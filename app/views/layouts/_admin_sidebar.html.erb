@@ -36,8 +36,15 @@
       </a>
     </li>
     <% end %>
+    <% if current_user.admin? %>
+    <li class="<%= active_menu('import') %>">
+      <a href="<%= import_path %>" data-confirm="<%= t("backend.confirm") %>">
+        <i class="fi-rss size-18"> <%= t("backend.sync")%></i>
+      </a>
+    </li>
+    <% end %>
     <li>
-      <%= link_to root_path do %>
+      <%= link_to root_path, target: :blank do %>
           <i class="fi-arrow-right size-18"> <%= t("backend.frontend")%></i>
       <% end %>
     </li>

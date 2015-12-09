@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/update_holders', to: 'visitors#update_holders', as: 'update_holders'
   get '/inicio.do', to: 'uweb_access#uweb_sign_in'
   get '/agenda/:holder/:full_name', to: 'visitors#agenda', as: 'agenda'
+  get '/import', to: 'users#import', as: 'import'
 
   # Admin
   get "/admin", to: 'events#index', as: 'admin'

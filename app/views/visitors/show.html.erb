@@ -1,5 +1,10 @@
 <% content_for :title, t('site_title') + @event.title %>
 <div class="row">
+  <div class="small-12 large-12 columns">
+    <%= link_to '<< '+ t('main.back'), :back, class: 'right' %>
+  </div>
+</div>
+<div class="row">
   <div class="small-12 large-8 columns">
 
     <strong class="post__date"><%= I18n.l @event.scheduled, :format => :complete %></strong>
@@ -78,7 +83,7 @@
   </div>
   <div class="small-12 large-7 end columns">
     <% @event.attachments.each do |attachment| %>
-      <p class="post__text mb20"><%= link_to attachment.title, attachment.file.url %></p>
+      <p class="post__text mb20"><%= link_to attachment.title, attachment.file.url,target: :blank %></p>
     <% end %>
   </div>
 </div>

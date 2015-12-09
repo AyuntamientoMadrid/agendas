@@ -19,8 +19,10 @@ es:
     successfully_updated_record: "Registro actualizado correctamente"
     successfully_destroyed_record: "Registro eliminado correctamente"
     successfully_created_record: "Registro creado correctmente"
+    successfully_sync: "La sincronización se ha realizado correctamente"
     unable_to_perform_operation: "No ha sido posible realizar la operación"
     review_errors: "Por favor corrija los siguientes errores antes de continuar"
+    sync: "Sincronizar con UWEB"
 
     contributors: "Contribuidores"
     new_user: "Nuevo usuario"

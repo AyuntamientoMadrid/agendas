@@ -20,6 +20,7 @@ es:
     last_events: "Últimos eventos publicados"
     export: "Exportar"
     events_for: "Agenda de "
+    back: "Volver al listado"
     form:
       title: "Utiliza estos filtros para buscar la información que más te interesa."
       keyword: "Palabra clave"
