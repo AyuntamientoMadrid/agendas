@@ -10,8 +10,4 @@ FactoryGirl.define do
     user :user
   end
 
-  trait :title do
-    title :title
-  end
-
 end

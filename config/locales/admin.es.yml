@@ -33,6 +33,7 @@ es:
     user: "Gestor"
     admin: "Administrador"
     managed_positions: "Agendas"
+    manage_agendas: "Asignación de Agendas"
 
     holders: "Titulares"
     holder: "Titular"
