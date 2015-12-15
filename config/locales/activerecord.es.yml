@@ -1,6 +1,6 @@
 es:
   errors:
-    format: "%{attribute} %{message}"
+    format: "%{attribute}  %{message}"
 
     messages: &errors_messages
       blank: "no puede estar en blanco"

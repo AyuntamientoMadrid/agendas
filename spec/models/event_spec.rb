@@ -20,5 +20,8 @@ RSpec.describe Event, type: :model do
     expect(@event).not_to be_valid
   end
 
+  it "should not be allowed assign participant more than once to event" do
+  end
+
 
 end

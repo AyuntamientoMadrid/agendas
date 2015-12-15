@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :event do
-    title "MyString"
-    description "MyText"
+    title "Event title"
+    description "Event description"
     scheduled "2015-09-23 15:48:11"
     association :position
   end

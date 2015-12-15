@@ -34,4 +34,8 @@ describe User do
     user = User.create_from_uweb(:user, data)
     expect(user).to be_valid
   end
+
+  it "should not be allowed assign holder more than once to user" do
+  end
+
 end

@@ -5,7 +5,6 @@ class Manage < ActiveRecord::Base
   belongs_to :holder
 
   # Validations
-  validates_uniqueness_of :holder_id, scope: :user_id, message: I18n.t('backend.participants_uniqueness')
-
+  # validates_uniqueness_of :holder_id, scope: :user_id, message: I18n.t('backend.participants_uniqueness')
 
 end

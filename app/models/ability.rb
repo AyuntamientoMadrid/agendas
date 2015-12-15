@@ -5,7 +5,7 @@ class Ability
     user ||= User.new
     if user.admin?
         if Rails.application.secrets.madrid
-            can [:index,:update,:show], User
+            can [:index,:update,:show, :import], User
             can :manage, Event
             can :index, Area
             can [:index, :show], Holder

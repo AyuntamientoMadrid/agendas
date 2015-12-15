@@ -5,7 +5,6 @@ class Participant < ActiveRecord::Base
   belongs_to :event
 
   # Validations
-  validates_uniqueness_of :position_id, scope: :event_id
-  validates_presence_of :position, :event
+  # validates_uniqueness_of :position_id, scope: :event_id
 
 end

@@ -32,7 +32,8 @@ class User < ActiveRecord::Base
   end
 
   def manages_uniqueness
-    errors.add(:base, I18n.t('backend.participants_uniqueness')) unless self.manages.uniq.count == self.manages.to_a.count
+    manages = self.manages.reject(&:marked_for_destruction?)
+    errors.add(:base, I18n.t('backend.participants_uniqueness')) unless manages.map{|x| x.holder_id}.uniq.count == manages.to_a.count
   end
 
   # Include default devise modules. Others available are:
