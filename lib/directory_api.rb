@@ -1,7 +1,7 @@
 class DirectoryApi < MadridApi
 
   def client
-    @client = Savon.client(wsdl: Rails.application.secrets.directory_api_endpoint)
+    @client = Savon.client(wsdl: Rails.application.secrets.directory_api_endpoint,encoding: 'ISO-8859-1')
   end
 
   def request(params)

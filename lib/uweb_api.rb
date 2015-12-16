@@ -1,7 +1,7 @@
 class UwebApi < MadridApi
 
   def client
-    @client = Savon.client(wsdl: Rails.application.secrets.uweb_api_endpoint)
+    @client = Savon.client(wsdl: Rails.application.secrets.uweb_api_endpoint, encoding: 'ISO-8859-1')
   end
 
   def request(params)
@@ -20,6 +20,7 @@ class UwebApi < MadridApi
 
   def get_user(userKey)
     data = data(:get_user_data, {userKey: userKey})
+    data = data.encode('ISO-8859-1')
     Hash.from_xml(data)['USUARIO']
   end
 
