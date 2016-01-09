@@ -17,7 +17,7 @@ class Event < ActiveRecord::Base
 
   # Validations
   validates_presence_of :title, :position
-  validate :participants_uniqueness
+  validate :participants_uniqueness, :position_not_in_participants
 
   # Nested models
   accepts_nested_attributes_for :attendees, :reject_if => :all_blank, :allow_destroy => true
@@ -27,6 +27,11 @@ class Event < ActiveRecord::Base
   def participants_uniqueness
     participants = self.participants.reject(&:marked_for_destruction?)
     errors.add(:base, I18n.t('backend.participants_uniqueness')) unless participants.map{|x| x.position_id}.uniq.count == participants.to_a.count
+  end
+
+  def position_not_in_participants
+    participants = self.participants.reject(&:marked_for_destruction?).map{|x| x.position_id}
+    errors.add(:base, I18n.t('backend.position_not_in_participants')) if participants.include? position.id
   end
 
   searchable do

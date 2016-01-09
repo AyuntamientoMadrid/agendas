@@ -66,6 +66,7 @@ es:
     attendees: "Otros asistentes"
     participants: "Asistentes titulares de agenda"
     participants_uniqueness: "Existen titulares de agenda duplicados"
+    position_not_in_participants: "El titular de agenda se ha incluido también como asistente"
     attachments: "Archivos adjuntos"
     only_pdf: "Solo PDF"
     name: "Nombre"

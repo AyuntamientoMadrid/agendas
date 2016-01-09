@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :attachment do
-    title "MyString"
+    title "Attachment title"
   end
 
 end

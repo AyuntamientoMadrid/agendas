@@ -3,11 +3,7 @@ FactoryGirl.define do
     title "Event title"
     description "Event description"
     scheduled "2015-09-23 15:48:11"
-    association :position
+    association :position, factory: :position
+    association :user, factory: :user
   end
-
-  trait :user do
-    user :user
-  end
-
 end

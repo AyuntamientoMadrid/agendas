@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :attendee do
-    name "MyString"
-    position "MyString"
-    company "MyString"
+    name "Attendee name"
+    position "Attendee position"
+    company "Attendee company"
   end
 
 end

@@ -1,9 +1,7 @@
 FactoryGirl.define do
   factory :position do
-    title "MyString"
+    title "Position title"
     from "2015-09-28 18:30:24"
-    to "2015-09-28 18:30:24"
-    association :area, factory: :area, strategy: :create
-    association :holder, factory: :holder, strategy: :create
+    association :area, factory: :area
   end
 end
