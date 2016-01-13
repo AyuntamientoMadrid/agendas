@@ -43,7 +43,6 @@ class DirectoryApi < MadridApi
         area.parent = parent_area
         area.save
         create_tree(parent['ID_UNIDAD'])
-
       end
     end
   end
