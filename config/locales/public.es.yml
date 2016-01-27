@@ -9,6 +9,9 @@ es:
     transparency: "Transparencia"
     participation: "Participación"
     open_data: "Datos abiertos"
+    transparency_url: "https://transparencia.madrid.es"
+    participation_url: "https://decide.madrid.es"
+    open_data_url: "https://decide.madrid.es/opendata"
   main:
     title: "Agendas públicas"
     any_errors: "¿Hay algún error en esta página?"
@@ -52,5 +55,14 @@ es:
     message:
       default: "Secret Code did not match with the Image"
       user: "The secret Image and code were different"
+  footer:
+    description: Este portal usa la %{consul} que es %{open_source}. De Madrid, para el mundo entero.
+    open_data_text: Todos los datos del Ayuntamiento son tuyos.
+    participation_text: Decide cómo debe ser la ciudad de Madrid que quieres.
+    transparency_text: Obtén cualquier información sobre el Ayuntamiento de Madrid.
+    consul: aplicación Consul
+    consul_url: https://github.com/consul/consul
+    open_source: software libre
+    open_source_url: http://www.gnu.org/licenses/agpl-3.0.html
 
 

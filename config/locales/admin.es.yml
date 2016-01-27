@@ -78,6 +78,7 @@ es:
     edit_event: "Editar evento"
 
     activity: "Registro de Actividad"
+    entries: "Registros"
 
   backend_header:
     open_gov: "Gobierno abierto"

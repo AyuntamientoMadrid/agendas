@@ -6732,8 +6732,14 @@ th.next .fa {
 	HEADER
 */
 .header {
-  background: image-url("header.jpg") repeat-y top center;
-  padding-bottom: 70px; }
+  background: #002d50;
+}
+.header__title a {
+  color: white;
+}
+.header__title a:hover {
+  text-decoration: underline;
+}
 @media only screen and (max-width: 40em) {
   .header {
     background: none white;
@@ -6759,6 +6765,10 @@ th.next .fa {
   font-size: 15px;
   line-height: 17px;
   margin: 15px 0; }
+.header__menu {
+  font-size: 12px;
+  margin: 10px 0;
+}
 .header__menu li {
   display: inline-block;
   border-left: 1px solid white;
@@ -6770,15 +6780,18 @@ th.next .fa {
   padding-left: 0; }
 .header__menu a {
   color: white; }
+.header__menu a:hover {
+  text-decoration: underline;
+}
 .header__base {
-  background: black;
-  background: rgba(0, 0, 0, 0.65);
+  background: #004A83;
   overflow: hidden; }
 @media only screen and (max-width: 40em) {
   .header__base {
-    background: black; } }
+    background: #004A83 } }
 .header__imago {
-  float: left; }
+  float: left;
+  max-width: 80px; }
 @media only screen and (max-width: 40em) {
   .header__imago {
     max-width: 67px; } }
@@ -6790,6 +6803,9 @@ th.next .fa {
   font-family: 'Lato';
   line-height: 30px;
   padding: 31px 10px; }
+  .header__title {
+    padding: 24px 10px;
+  }
 @media only screen and (max-width: 40em) {
   .header__title {
     font-size: 24px;
@@ -6802,6 +6818,9 @@ th.next .fa {
   border-right: 2px solid white;
   padding-right: 10px;
   margin-right: 8px; }
+  .header__title strong {
+    font-size: 24px;
+  }
 @media only screen and (max-width: 40em) {
   .header__title strong {
     display: none; } }
@@ -6810,8 +6829,11 @@ th.next .fa {
 	FOOTER
 */
 .footer {
-  background: #0077b9;
-  color: white;
+    color: #222222;
+    padding: 35px 0 100px;
+    background: #DEE0E2;
+    border-top: 6px solid #004A83;
+    padding-top: 1.5rem;
   padding: 35px 0 100px; }
 @media only screen and (max-width: 40em) {
   .footer {
@@ -6825,10 +6847,12 @@ th.next .fa {
     font-size: 13px;
     line-height: 17px; } }
 .footer a {
-  color: white;
-  text-decoration: underline; }
+  color: #222222;}
+.footer a:hover {
+  text-decoration: underline;
+}
 .footer .title-m {
-  color: white; }
+  color: #222222; }
 .footer ul {
   color: #999;
   font-size: 18px;
@@ -6846,6 +6870,10 @@ th.next .fa {
   border-left: 0;
   margin-left: 0;
   padding-left: 0; }
+.footer h4 {
+  border-bottom: 1px solid #BFC1C3;
+  padding-bottom: 0.375rem;
+}
 
 /*
 	EXTEND
@@ -7160,3 +7188,9 @@ select {
     display: none !important;
   }
 }
+
+.top_bar_box {
+    padding: 35px 0 100px;
+    background: #004A83;
+    padding: 0;
+  }
