@@ -3,9 +3,7 @@ class VisitorsController < ApplicationController
   require 'csv'
 
   def index
-    @events = search(params)
-    @paginated_events = Event.includes(:position => [:holder,:area]).where(id: @events.hits.map(&:primary_key)).order(scheduled: :desc)
-    @paginated_events =  @paginated_events.sort_by {|m| @events.hits.index(m.id)} if params[:order] == 'score'
+    get_events
     @tree = Area.area_tree
     @holders = get_holders_by_area(params[:area])
   end
@@ -24,6 +22,12 @@ class VisitorsController < ApplicationController
   end
 
   private
+
+  def get_events
+    @events = search(params)
+    @paginated_events = Event.includes(:position => [:holder,:area]).where(id: @events.hits.map(&:primary_key)).order(scheduled: :desc)
+    @paginated_events =  @paginated_events.sort_by {|m| @events.hits.index(m.id)} if params[:order] == 'score'
+  end
 
   def search (params)
     Event.search do

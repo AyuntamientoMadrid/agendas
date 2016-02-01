@@ -4,7 +4,8 @@ atom_feed do |feed|
   @events.results.each_with_index do |event|
     feed.entry event, published: event.updated_at do |entry|
       entry.title event.title
-      entry.content event.description
+      entry.content strip_tags(event.description)
+      entry.scheduled event.scheduled
       entry.author do |author|
         author.name event.position.holder.full_name
       end
