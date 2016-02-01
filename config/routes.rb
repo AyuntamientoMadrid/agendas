@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # Admin
   get "/admin", to: 'events#index', as: 'admin'
 
-  devise_for :users, controllers: { session: "users/sessions", registration: "users/registration" }
+  devise_for :users unless Rails.application.secrets.madrid
 
   resources :users
 

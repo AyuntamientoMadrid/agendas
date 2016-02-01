@@ -8,5 +8,6 @@ class AdminController < ApplicationController
   include PublicActivity::StoreController
 
   helper_method :current_user
+  hide_action :current_user
 
 end

@@ -1,7 +1,5 @@
 class VisitorsController < ApplicationController
 
-  require 'csv'
-
   def index
     get_events
     @tree = Area.area_tree
