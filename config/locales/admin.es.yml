@@ -72,7 +72,7 @@ es:
     name: "Nombre"
     file: "Archivo"
     title: "Título"
-    company: "Empresa"
+    company: "Organización"
     description: "Descripción"
     new_event: "Nuevo evento"
     edit_event: "Editar evento"
