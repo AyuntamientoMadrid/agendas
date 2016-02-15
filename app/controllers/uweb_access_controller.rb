@@ -16,32 +16,28 @@ class UwebAccessController < ApplicationController
 
     else
       p '*************************** INVALID REQUEST ************************'
-      redirect_to root_path
     end
     if (valid_params? params)
 
     else
       p '*************************** INVALID PARAMS ************************'
-      redirect_to root_path
     end
     if @uweb_api.get_application_status.zero?
 
     else
       p '*************************** UWEB INACTIVE APPLICATION ************************'
-      redirect_to root_path
     end
     if @uweb_api.get_user_status(params[:clave_usuario],params[:fecha_conexion]).zero?
 
     else
       p '*************************** UWEB INACTIVE USER ************************'
-      redirect_to root_path
     end
     if @user = User.find_by(user_key: params[:clave_usuario])
 
     else
       p '*************************** DATABASE NON EXISTING USER ************************'
-      redirect_to root_path
     end
+    redirect_to root_path
   end
 
   private
