@@ -125,6 +125,8 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     colorize (0.7.7)
+    concurrent-ruby (1.0.0)
+    connection_pool (2.2.0)
     coolline (0.5.0)
       unicode_utils (~> 1.4)
     daemons (1.2.3)
@@ -285,6 +287,7 @@ GEM
     rainbow (2.0.0)
     raindrops (0.15.0)
     rake (10.4.2)
+    redis (3.2.2)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rsolr (1.0.12)
@@ -334,6 +337,10 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    sidekiq (4.1.0)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      redis (~> 3.2, >= 3.2.1)
     simplecov (0.10.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -454,6 +461,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   savon
   selenium-webdriver
+  sidekiq
   simplecov
   social-share-button
   spring

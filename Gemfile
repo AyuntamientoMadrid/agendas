@@ -39,6 +39,7 @@ gem 'ancestry'
 gem 'savon'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
+gem 'sidekiq'
 
 group :development do
   gem 'jazz_hands', :git => 'https://github.com/nixme/jazz_hands.git', branch: 'bring-your-own-debugger'
