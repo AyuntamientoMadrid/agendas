@@ -47,16 +47,8 @@ class UsersController < AdminController
   end
 
   def import
-    require 'rake'
-    begin
-      Rake::Task.clear # necessary to avoid tasks being loaded several times in dev mode
-      Agendas::Application.load_tasks # providing your application name is 'sample'
-      Rake::Task['madrid:import'].reenable
-      Rake::Task['madrid:import'].invoke
+      UwebImportWorker.perform_async
       redirect_to users_path, notice: t('backend.successfully_sync')
-    rescue
-      redirect_to users_path, alert: t('backend.unable_sync')
-    end
   end
 
   private
