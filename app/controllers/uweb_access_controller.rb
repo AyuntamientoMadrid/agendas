@@ -17,6 +17,7 @@ class UwebAccessController < ApplicationController
   end
 
   def valid_request?(url)
+    #TODO: remove in order to ensure request is comming from Aire
     return true
     url.include? Rails.application.secrets.uweb_referer_url
   end
