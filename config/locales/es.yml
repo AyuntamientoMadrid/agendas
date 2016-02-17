@@ -16,13 +16,13 @@ es:
     formats:
       short: "%d-%m-%Y %H:%M"
       custom: "%Y%m%d"
-      complete: "%d de %B de %Y · %H:%m"
+      complete: "%d de %B de %Y · %H:%M"
   date:
     formats:
       short: "%d/%m/%Y"
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
-      complete: "%d de %B de %Y · %H:%m"
+      complete: "%d de %B de %Y · %H:%M"
 
     order:
       - :day
