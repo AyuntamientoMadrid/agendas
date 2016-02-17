@@ -19,11 +19,11 @@ class Holder < ActiveRecord::Base
   end
 
   def full_name
-    (self.first_name.to_s+' '+self.last_name.to_s).titleize
+    (self.first_name.to_s+' '+self.last_name.to_s).mb_chars.titleize.to_s
   end
 
   def full_name_comma
-    (self.last_name.to_s+', '+self.first_name.to_s).titleize
+    (self.last_name.to_s+', '+self.first_name.to_s).mb_chars.titleize.to_s
   end
 
   def current_position
