@@ -18,7 +18,8 @@ $(function () {
 
     $('.fdatepicker').fdatepicker({
       format: "<%= I18n.translate('datepicker-format') %>",
-      language: "<%= I18n.locale %>"
+      language: "<%= I18n.locale %>",
+      weekStart: 1
     });
 
     $('#area').change(function(){

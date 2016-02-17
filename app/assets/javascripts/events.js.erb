@@ -3,7 +3,8 @@ $(function(){
     format: "<%= I18n.translate('datepicker-format-time') %>",
     pickTime: true,
     language: "<%= I18n.locale %>",
-    disableDblClickSelection: true
+    disableDblClickSelection: true,
+    weekStart: 1
   });
 
   $(".admin-form").validate({
