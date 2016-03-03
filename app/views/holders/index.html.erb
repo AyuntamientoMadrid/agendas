@@ -3,6 +3,7 @@
     <%= t('backend.holders')%> (<%= @holders.count %>)
     <%= link_to t('backend.new_holder'), new_holder_path, :class => "button radius warning right" if can? :create, Holder %>
   </h1>
+  <%= link_to t('backend.export'), current_url(:format=>:csv), :class => "button tiny radius success" %>
 </div>
 <div class="row">
   <table id="listing" class="display" cellpadding="0" width="100%">

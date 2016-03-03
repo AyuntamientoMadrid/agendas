@@ -24,6 +24,7 @@ es:
     unable_to_perform_operation: "No ha sido posible realizar la operación"
     review_errors: "Por favor corrija los siguientes errores antes de continuar"
     sync: "Sincronizar con UWEB"
+    export: "Exportar"
 
     contributors: "Contribuidores"
     new_user: "Nuevo usuario"
@@ -44,6 +45,7 @@ es:
     edit_holder: "Editar titular"
     from: "Desde"
     to: "Hasta"
+    public_url: "URL pública"
 
     areas: "Organigrama"
     descendant: "Subareas"

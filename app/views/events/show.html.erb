@@ -6,7 +6,7 @@
   <p><strong><%= t('backend.holder') %>:</strong> <%= @event.position.holder.full_name %></p>
   <p><strong><%= t('backend.title') %>:</strong> <%= @event.title %></p>
   <p><strong><%= t('backend.location') %>:</strong> <%= @event.location %></p>
-  <p><strong><%= t('backend.date') %>:</strong> <%= show_date(@event.scheduled) %></p>
+  <p><strong><%= t('backend.date') %>:</strong> <%= @event.scheduled.strftime(t('time.formats.short')) %></p>
   <%= @event.description.html_safe %>
 </fieldset>
 <fieldset>

@@ -16,13 +16,15 @@
     <fieldset>
       <legend><%= t('backend.basic_data') %></legend>
       <%= f.label :first_name, t('backend.first_name') %>
-      <%= f.text_field :first_name %>
+      <%= f.text_field :first_name, readonly: Rails.application.secrets.madrid %>
       <%= f.label :last_name, t('backend.last_name') %>
-      <%= f.text_field :last_name %>
+      <%= f.text_field :last_name, readonly: Rails.application.secrets.madrid %>
       <%= f.label :email, t('backend.email') %>
-      <%= f.text_field :email %>
-      <%= f.label :role, t('backend.role') if Rails.application.secrets.madrid %>
-      <%= f.select :role, [[t('backend.user'), :user],[t('backend.admin'), :admin]] if Rails.application.secrets.madrid%>
+      <%= f.text_field :email, readonly: Rails.application.secrets.madrid %>
+      <% unless Rails.application.secrets.madrid %>
+      <%= f.label :role, t('backend.role') %>
+      <%= f.select :role, [[t('backend.user'), :user],[t('backend.admin'), :admin]] %>
+      <% end %>
     </fieldset>
 
     <fieldset>
