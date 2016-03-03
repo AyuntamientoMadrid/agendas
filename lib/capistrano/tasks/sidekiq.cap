@@ -18,7 +18,7 @@ namespace :sidekiq do
   task :start do
     on roles(:app) do
       if !pid_process_exists?
-        execute "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env)} ~/.rvm/bin/rvm 2.1.0 do bundle exec sidekiq -c 6 -q agendas_queue,1 -e #{fetch(:rails_env)} -L #{sidekiq_logfile} -P #{sidekiq_pid} -d"
+        execute "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env)} ~/.rvm/bin/#{fetch(:rvm_ruby_version)} do bundle exec sidekiq -c 6 -q agendas_queue,1 -e #{fetch(:rails_env)} -L #{sidekiq_logfile} -P #{sidekiq_pid} -d"
       end
     end
   end
