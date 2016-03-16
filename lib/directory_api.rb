@@ -25,21 +25,15 @@ class DirectoryApi < MadridApi
 
   def create_tree (internal_id)
     unit = get_unit(internal_id)
-    area = Area.find_by(internal_id: unit['ID_UNIDAD'])
-    if !area
+    if !area = Area.find_by(internal_id: unit['ID_UNIDAD'])
+      # In area does not exist in database, we create it
       area = Area.create(internal_id: internal_id, title: unit['DENOMINACION'])
-      if area.internal_id == unit['ID_UNIDAD_PADRE']
-        #no hacemos nada
-        return
-      else
-        #sacamos el padre
-        parent = get_unit(unit['ID_UNIDAD_PADRE'])
-        #lo creamos
-        parent_area = Area.find_by(internal_id: parent['ID_UNIDAD'])
-        if !parent_area
+      # Get parent area
+      if parent = get_unit(unit['ID_UNIDAD_PADRE'])
+        # In parent area does not exist in database, we create it
+        if !parent_area = Area.find_by(internal_id: parent['ID_UNIDAD'])
           parent_area = Area.create(internal_id: parent['ID_UNIDAD'], title: parent['DENOMINACION'])
         end
-        # le asignamos al hijo el id del padre
         area.parent = parent_area
         area.save
         create_tree(parent['ID_UNIDAD'])
