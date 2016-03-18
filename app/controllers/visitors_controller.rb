@@ -4,7 +4,7 @@ class VisitorsController < ApplicationController
 
   def index
     get_events
-    @tree = Area.area_tree
+    @tree = ancestry_options(Area.unscoped.arrange(:order => 'title')) {|i| "#{'-' * i.depth} #{i.title}" }
     @holders = get_holders_by_area(params[:area])
   end
 
@@ -43,6 +43,15 @@ class VisitorsController < ApplicationController
 
   def get_holders_by_area (area)
     Holder.where(id: Position.includes(:holder).area_filtered(area).current.map {|position| position.holder }).order(last_name: :asc)
+  end
+
+  def ancestry_options(items)
+    result = []
+    items.map do |item, sub_items|
+      result << [yield(item), item.id]
+      result += ancestry_options(sub_items) {|i| "#{'-' * i.depth} #{i.title}" }
+    end
+    result
   end
 
 end
