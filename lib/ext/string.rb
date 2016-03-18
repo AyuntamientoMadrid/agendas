@@ -1,9 +1,12 @@
 class String
     def custom_titleize
-        self.capitalize!
         excluded = ["el", "la", "de", "del", "y", "a", "e"]
-        phrase = self.split(" ").map {|word|
-            word.capitalize unless excluded.include?(word)
+        phrase = self.downcase.capitalize!.split(" ").map {|word|
+            if excluded.include?(word)
+                word
+            else
+                word.capitalize
+            end
         }.join(" ")
         phrase
     end
