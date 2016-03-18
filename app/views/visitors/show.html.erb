@@ -29,8 +29,8 @@
     <p class="post__description">
       <strong><%= show_agenda_link(@event.position.holder) %></strong>
     </p>
-    <p><%= @event.position.title.titleize %></p>
-    <p><%= @event.position.area.title.titleize %></p>
+    <p><%= @event.position.title.custom_titleize %></p>
+    <p><%= @event.position.area.title.custom_titleize %></p>
   </div>
 </div>
 
@@ -51,8 +51,8 @@
     <p class="post__description">
       <strong><%= show_agenda_link(participant.position.holder) %></strong>
     </p>
-    <p><%= participant.position.title.titleize %></p>
-    <p><%= participant.position.area.title.titleize %></p>
+    <p><%= participant.position.title.custom_titleize %></p>
+    <p><%= participant.position.area.title.custom_titleize %></p>
     <br />
     <% end %>
   </div>
