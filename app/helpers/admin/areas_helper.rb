@@ -6,7 +6,7 @@ module Admin::AreasHelper
 
   def nested_areas(areas)
     areas.map do |area|
-      render(area) + nested_areas(area.children)
+      render(area) + nested_areas(area.children.order(:title))
     end.join.html_safe unless areas.blank?
   end
 
