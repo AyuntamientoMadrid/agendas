@@ -32,8 +32,8 @@ class Holder < ActiveRecord::Base
 
   def self.create_from_uweb(data)
     holder = Holder.find_or_initialize_by(user_key: data['CLAVE_IND'])
-    holder.first_name = data["NOMBRE_USUARIO"]
-    holder.last_name = data["APELLIDO1_USUARIO"]+' '+data["APELLIDO2_USUARIO"]
+    holder.first_name = data["NOMBRE_USUARIO"].split
+    holder.last_name = data["APELLIDO1_USUARIO"].split+' '+data["APELLIDO2_USUARIO"].split
     holder
   end
 end

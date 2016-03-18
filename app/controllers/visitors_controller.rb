@@ -1,5 +1,7 @@
 class VisitorsController < ApplicationController
 
+  require 'ext/string'
+
   def index
     get_events
     @tree = Area.area_tree
