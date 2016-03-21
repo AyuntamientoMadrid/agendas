@@ -53,9 +53,9 @@ class User < ActiveRecord::Base
 
   def self.create_from_uweb(role, data)
     user = User.find_or_initialize_by(user_key: data['CLAVE_IND'])
-    user.first_name = data["NOMBRE_USUARIO"].split
-    user.last_name = data["APELLIDO1_USUARIO"].split
-    user.last_name += ' ' + data["APELLIDO2_USUARIO"].split if data["APELLIDO2_USUARIO"].present?
+    user.first_name = data["NOMBRE_USUARIO"].strip
+    user.last_name = data["APELLIDO1_USUARIO"].strip
+    user.last_name += ' ' + data["APELLIDO2_USUARIO"].strip if data["APELLIDO2_USUARIO"].present?
     user.email =  data["MAIL"].blank? ? Faker::Internet.email : data["MAIL"]
     user.password = SecureRandom.uuid
     user.role = role
