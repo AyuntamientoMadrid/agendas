@@ -14,6 +14,11 @@ class Position < ActiveRecord::Base
   scope :current, -> { where(to: nil) }
   scope :area_filtered, lambda{ |area| self.where(area_id: [area, Area.find(area).descendant_ids]) if area.present? }
 
+  def finalize
+    self.to = Time.now
+    self
+  end
+
   private
 
   def date_to_before_date_from
