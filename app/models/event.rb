@@ -16,7 +16,7 @@ class Event < ActiveRecord::Base
   has_many :attendees, dependent: :destroy
 
   # Validations
-  validates_presence_of :title, :position
+  validates_presence_of :title, :position, :scheduled
   validate :participants_uniqueness, :position_not_in_participants
 
   # Nested models
