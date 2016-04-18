@@ -1,3 +1,5 @@
+require 'faker'
+
 FactoryGirl.define do
   factory :participant do
     association :position, factory: :position
