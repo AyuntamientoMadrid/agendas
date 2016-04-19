@@ -42,7 +42,7 @@ namespace :madrid do
       # Comprobamos si el cargo y el area coinciden
       area = Area.find_by(internal_id: unit)
       if !(holder.try!(:positions).try!(:current).try!(:first).try!(:title) == data['CARGO'] && holder.try!(:positions).try!(:current).try!(:first).try!(:area) == area)
-        holder.current_position.finalize.save
+        holder.current_position.finalize.save if holder.current_position.present?
         position = Position.create(title: data['CARGO'], area: area, from: Time.now)
         holder.positions << position
       end
