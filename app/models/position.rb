@@ -13,6 +13,7 @@ class Position < ActiveRecord::Base
 
   scope :current, -> { where(to: nil) }
   scope :area_filtered, lambda{ |area| self.where(area_id: [area, Area.find(area).descendant_ids]) if area.present? }
+  #TODO revisar array anidado de area_filtered, ancestry
 
   def finalize
     self.to = Time.now
