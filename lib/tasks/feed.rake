@@ -9,7 +9,6 @@ namespace :generator do
 
   task :initialize => :environment do
 
-    Faker::Config.locale = 'en-US'
 
     Rake::Task['db:reset'].invoke
 
