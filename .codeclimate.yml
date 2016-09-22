@@ -45,3 +45,4 @@ exclude_paths:
 - test/
 - vendor/
 - "**.min.js"
+- app/assets/javascripts
