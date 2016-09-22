@@ -44,3 +44,5 @@ exclude_paths:
 - spec/
 - test/
 - vendor/
+- "**.min.js"
+- app/assets/javascripts/dependencies
