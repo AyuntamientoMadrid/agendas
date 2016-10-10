@@ -7,6 +7,8 @@ feature 'Home page' do
 
   scenario 'visit holder agenda page' do
     @event = FactoryGirl.create(:event)
+    Event.reindex
+    Sunspot.commit
     visit root_path
     click_link @event.position.holder.full_name
     expect(page).to have_content @event.position.holder.full_name
