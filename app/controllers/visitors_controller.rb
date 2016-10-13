@@ -31,11 +31,13 @@ class VisitorsController < ApplicationController
 
   def search (params)
     Event.search do
-      fulltext params[:keyword] unless params[:keyword].blank?
-      with :area_id, (Area.find(params[:area]).descendant_ids << Area.find(params[:area]).id) unless params[:area].blank?
-      with :holder_id, params[:holder] unless params[:holder].blank?
-      with(:scheduled).greater_than params[:from].to_date unless params[:from].blank?
-      with(:scheduled).less_than params[:to].to_date unless params[:to].blank?
+      fulltext params[:keyword] if params[:keyword].present?
+      with :area_id, (Area.find(params[:area]).descendant_ids << Area.find(params[:area]).id) if params[:area].present?
+      with :holder_id, params[:holder] if params[:holder].present?
+      all_of do
+        with(:scheduled).greater_than_or_equal_to params[:from].to_date if params[:from].present?
+        with(:scheduled).less_than_or_equal_to params[:to].to_date.end_of_day() if params[:to].present?
+      end
       order_by params[:order].blank? ? :scheduled : params[:order], :desc
       paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 10
     end
