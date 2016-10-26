@@ -4,7 +4,8 @@
   </h1>
 </div>
 <div class="row">
-  <table id="listing" class="display" cellpadding="0" width="100%">
+  <%= will_paginate @activities, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
+  <table class="display" cellpadding="0" width="100%">
     <thead>
     <tr>
       <th><%= t('backend.date')%></th>
@@ -32,8 +33,6 @@
     <% end %>
     </tbody>
   </table>
+  <%= will_paginate @activities, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
+
 </div>
-
-<%= javascript_include_tag 'admin_listings' %>
-
-

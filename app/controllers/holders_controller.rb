@@ -4,7 +4,7 @@ class HoldersController < AdminController
   before_action :load_areas
 
   def index
-    Holder.includes(:users).includes(:positions).includes(:manages)
+    @holders = Holder.includes(:users, :positions, :manages).order(last_name: :asc).paginate(:page => params[:page], :per_page => 20)
   end
 
   def show

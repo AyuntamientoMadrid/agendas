@@ -4,7 +4,15 @@ class EventsController < AdminController
   before_action :set_holders, only: [:new, :edit, :create]
 
   def index
-    @events = current_user.admin? ? Event.all : current_user.events
+    @events = current_user.admin? ?  list_admin_events : list_user_events
+  end
+
+  def list_admin_events
+    Event.order(scheduled: :desc).paginate(:page => params[:page], :per_page => 20)
+  end
+
+  def list_user_events
+    current_user.events.order(scheduled: :desc).paginate(:page => params[:page], :per_page => 20)
   end
 
   def new

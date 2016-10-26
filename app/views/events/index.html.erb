@@ -5,7 +5,10 @@
     </h1>
 </div>
 <div class="row">
-  <table id="listing" class="display" cellpadding="0" width="100%">
+  <div class="small-3 columns">
+  <%= will_paginate @events, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
+  </div>
+  <table class="display" cellpadding="0" width="100%">
     <thead>
       <tr>
         <th><%= t('backend.date')%></th>
@@ -48,6 +51,5 @@
       <% end %>
     </tbody>
   </table>
+  <%= will_paginate @events, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
 </div>
-<%= javascript_include_tag 'events_listings' %>
-
