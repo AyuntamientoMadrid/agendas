@@ -8,7 +8,7 @@ class UsersController < AdminController
   end
 
   def index
-    @users = User.includes(:manages => :holder)
+    @users = User.includes(:manages => :holder).order(last_name: :asc).paginate(:page => params[:page], :per_page => 20)
   end
 
   def create

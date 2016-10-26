@@ -6,7 +6,8 @@
   <%= link_to t('backend.export'), current_url(:format=>:csv), :class => "button tiny radius success" %>
 </div>
 <div class="row">
-  <table id="listing" class="display" cellpadding="0" width="100%">
+  <%= will_paginate @holders, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
+  <table class="display" cellpadding="0" width="100%">
     <thead>
     <tr>
       <th><%= t('backend.name')%></th>
@@ -52,7 +53,5 @@
     <% end %>
     </tbody>
   </table>
+  <%= will_paginate @holders, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
 </div>
-
-<%= javascript_include_tag 'admin_listings' %>
-
