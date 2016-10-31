@@ -2,7 +2,7 @@ namespace :madrid do
 
   task :import => :environment do
 
-    desc 'Preceso de importación'
+    desc 'Proceso de importación'
 
     uweb_api = UwebApi.new
     directory_api = DirectoryApi.new
