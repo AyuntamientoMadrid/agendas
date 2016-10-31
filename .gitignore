@@ -38,6 +38,7 @@ db/*.sqlite3
 /doc/app/
 /doc/features.html
 /doc/specs.html
+/lib/tasks/user.rake
 /public/cache
 /public/assets
 /public/stylesheets/compiled
