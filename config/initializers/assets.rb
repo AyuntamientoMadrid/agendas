@@ -14,6 +14,7 @@ Rails.application.config.assets.precompile += %w( dependencies/respond.min.js )
 Rails.application.config.assets.precompile += %w( dependencies/jquery.treetable.js )
 Rails.application.config.assets.precompile += %w( admin.css )
 Rails.application.config.assets.precompile += %w( admin.js )
+Rails.application.config.assets.precompile += %w( ie_lt9.js )
 
 Rails.application.config.assets.precompile += %w( search_form.js )
 Rails.application.config.assets.precompile += %w( holders.js )
