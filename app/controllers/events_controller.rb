@@ -1,6 +1,7 @@
 class EventsController < AdminController
+  require 'will_paginate/array'
   load_and_authorize_resource
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  #before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :set_holders, only: [:new, :edit, :create]
 
   def index
@@ -8,18 +9,22 @@ class EventsController < AdminController
   end
 
   def list_admin_events
-    Event.order(scheduled: :desc).paginate(:page => params[:page], :per_page => 20)
+    if params[:search_person].present?
+      @events = []
+      Holder.by_name(params[:search_person]).each do |h|
+        h.positions.each do |p|
+          @events += p.events
+        end
+      end
+    end
+    if params[:search_title].present?
+      @events = Event.by_title(params[:search_title])
+    end
+    @events.paginate(:page => params[:page], :per_page => 20)
   end
 
   def list_user_events
     current_user.events.order(scheduled: :desc).paginate(:page => params[:page], :per_page => 20)
-  end
-
-  def new
-    @event = Event.new
-  end
-
-  def show
   end
 
   def create
@@ -50,12 +55,8 @@ class EventsController < AdminController
 
   private
 
-  def set_event
-    @event = Event.find(params[:id])
-  end
-
   def event_params
-    params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, attendees_attributes: [:id, :name, :position, :company, :_destroy], participants_attributes: [:id, :position_id, :_destroy], attachments_attributes: [:id, :title, :file, :_destroy])
+    params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, :search_title, :search_person, attendees_attributes: [:id, :name, :position, :company, :_destroy], participants_attributes: [:id, :position_id, :_destroy], attachments_attributes: [:id, :title, :file, :_destroy])
   end
 
   def set_holders

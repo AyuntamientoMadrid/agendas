@@ -3,6 +3,6 @@ require 'faker'
 FactoryGirl.define do
   factory :participant do
     association :position, factory: :position
-    association :event, factory: :event
+    association :participants_event, factory: :event
   end
 end

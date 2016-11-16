@@ -63,6 +63,12 @@ es:
 
     events: "Eventos"
     event: "Evento"
+    search:
+        title: "Búsqueda por título"
+        placeholder_title: "Búsqueda por título"
+        person: "Ó por titular/asistente"
+        placeholder_person: "Búsqueda por titulares y asistentes"
+        button: "Buscar"
     date: "Fecha"
     location: "Lugar"
     attendees: "Otros asistentes"

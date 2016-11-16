@@ -1,9 +1,4 @@
-<div class="row">
-  <h1>
-    <%= t('backend.events')%> (<%= @events.count %>)
-    <%= link_to t('backend.new_event'), new_event_path, :class => "button radius warning right" if can? :create, Event %>
-    </h1>
-</div>
+<%= render 'search_form' %>
 <div class="row">
   <%= will_paginate @events, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
   <table class="display" cellpadding="0" width="100%">

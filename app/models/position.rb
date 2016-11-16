@@ -4,8 +4,8 @@ class Position < ActiveRecord::Base
   belongs_to :area
   belongs_to :holder
   has_many :participants, dependent: :destroy
-  has_many :events, dependent: :destroy
-  has_many :events, through: :participants, dependent: :destroy
+  has_many :titular_events, class_name: "Event", dependent: :destroy
+  has_many :participants_events, through: :participants
 
   # Validations
   validates_presence_of :title, :area, :from
@@ -14,6 +14,10 @@ class Position < ActiveRecord::Base
   scope :current, -> { where(to: nil) }
   scope :area_filtered, lambda{ |area| self.where(area_id: [area, Area.find(area).descendant_ids]) if area.present? }
   #TODO revisar array anidado de area_filtered, ancestry
+
+  def events
+    (titular_events + participants_events).uniq
+  end
 
   def finalize
     self.to = Time.now
