@@ -6,7 +6,6 @@
   <%= link_to t('backend.export'), current_url(:format=>:csv), :class => "button tiny radius success" %>
 </div>
 <div class="row">
-  <%= will_paginate @holders, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
   <table class="display" cellpadding="0" width="100%">
     <thead>
     <tr>
@@ -53,5 +52,4 @@
     <% end %>
     </tbody>
   </table>
-  <%= will_paginate @holders, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
 </div>

@@ -5,7 +5,6 @@
   </h1>
 </div>
 <div class="row">
-  <%= will_paginate @users, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
   <table class="display" cellpadding="0" width="100%">
     <thead>
     <tr>
@@ -51,5 +50,4 @@
     <% end %>
     </tbody>
   </table>
-  <%= will_paginate @users, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
 </div>

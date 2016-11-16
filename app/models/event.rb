@@ -11,6 +11,7 @@ class Event < ActiveRecord::Base
   belongs_to :user
   belongs_to :position
   has_many :participants, dependent: :destroy
+  has_many :positions
   has_many :positions, through: :participants
   has_many :attachments, dependent: :destroy
   has_many :attendees, dependent: :destroy
@@ -18,6 +19,7 @@ class Event < ActiveRecord::Base
   # Validations
   validates_presence_of :title, :position, :scheduled
   validate :participants_uniqueness, :position_not_in_participants
+  scope :by_title, lambda {|name| where(["title ILIKE ?", "%#{name}%"])}
 
   # Nested models
   accepts_nested_attributes_for :attendees, :reject_if => :all_blank, :allow_destroy => true
