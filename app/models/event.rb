@@ -36,27 +36,24 @@ class Event < ActiveRecord::Base
 
   def self.ability_events(user)
     event_ids = []
-    event_ids += Event.ability_titular_events(user)
-    event_ids += Event.ability_participants_events(user)
-
+    event_ids += ability(user, 'titular_events')
+    event_ids += ability(user, 'participants_events')
     return event_ids
   end
 
   def self.ability_titular_events(user)
-    event_ids = []
-    user.manages.includes(:holder).each do |m|
-      m.holder.positions.each do |p|
-        event_ids += p.titular_events.ids
-       end
-    end
-    return event_ids
+    ability(user, 'titular_events')
   end
 
   def self.ability_participants_events(user)
+    ability(user, 'participants_events')
+  end
+
+  def self.ability(user, method)
     event_ids = []
     user.manages.includes(:holder).each do |m|
       m.holder.positions.each do |p|
-        event_ids += p.send("participants_events").ids
+        event_ids += p.send(method).ids
       end
     end
     return event_ids
