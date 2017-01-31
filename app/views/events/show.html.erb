@@ -1,5 +1,5 @@
 <h3><%= @event.title %></h3>
-<%= link_to t('backend.edit'), edit_event_path(@event), :class=> "button tiny radius success" if can? :edit, Event %>
+<%= link_to t('backend.edit'), edit_event_path(@event), :class=> "button tiny radius success" if can? :edit, @event%>
 <%= link_to t('backend.back'), events_path , :class=> "button tiny radius" %>
 <fieldset>
   <legend><%= t('backend.basic_data') %></legend>

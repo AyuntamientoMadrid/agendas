@@ -4,7 +4,7 @@ class HoldersController < AdminController
   before_action :load_areas
 
   def index
-    @holders = Holder.includes(:users, :positions, :manages).order(last_name: :asc)
+    @holders = Holder.includes(:users, :areas, :positions, :manages).order(last_name: :asc)
   end
 
   def show
