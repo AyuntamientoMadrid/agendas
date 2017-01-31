@@ -1,30 +1,20 @@
 class EventsController < AdminController
   require 'will_paginate/array'
   load_and_authorize_resource
-  #before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :set_holders, only: [:new, :edit, :create]
 
   def index
-    @events = current_user.admin? ?  list_admin_events : list_user_events
+    @events = current_user.admin? ? list_admin_events : list_user_events
   end
 
   def list_admin_events
-    if params[:search_person].present?
-      @events = []
-      Holder.by_name(params[:search_person]).each do |h|
-        h.positions.each do |p|
-          @events += p.events
-        end
-      end
-    end
-    if params[:search_title].present?
-      @events = Event.by_title(params[:search_title])
-    end
-    @events.paginate(:page => params[:page], :per_page => 20)
+    @events = Event.searches(params)
+    @events.order(scheduled: :desc).paginate(:page => params[:page], :per_page => 20)
   end
 
   def list_user_events
-    current_user.events.order(scheduled: :desc).paginate(:page => params[:page], :per_page => 20)
+    @events = Event.by_manages(current_user.id)
+    @events.paginate(:page => params[:page], :per_page => 20)
   end
 
   def create
@@ -60,8 +50,9 @@ class EventsController < AdminController
   end
 
   def set_holders
-    @participants = Holder.all
+    @participants = Position.all
     @holders = current_user.admin? ? @participants : current_user.holders
+    @positions = current_user.admin? ? @participants : Position.holders(current_user.id)
   end
 
 end

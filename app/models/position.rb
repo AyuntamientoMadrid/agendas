@@ -13,7 +13,6 @@ class Position < ActiveRecord::Base
 
   scope :current, -> { where(to: nil) }
   scope :area_filtered, lambda{ |area| self.where(area_id: [area, Area.find(area).descendant_ids]) if area.present? }
-  #TODO revisar array anidado de area_filtered, ancestry
 
   def events
     (titular_events + participants_events).uniq
@@ -22,6 +21,11 @@ class Position < ActiveRecord::Base
   def finalize
     self.to = Time.now
     self
+  end
+
+  def self.holders(user_id)
+    holder_ids = Holder.by_manages(user_id).ids
+    Position.where(holder_id: holder_ids)
   end
 
   private

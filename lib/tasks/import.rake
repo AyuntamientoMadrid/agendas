@@ -8,22 +8,24 @@ namespace :madrid do
     directory_api = DirectoryApi.new
 
     p 'Importing users...'
-    uweb_api.get_users(Rails.application.secrets.uweb_api_users_key).each do |mc|
+      uweb_api.get_users(Rails.application.secrets.uweb_api_users_key).each do |mc|
       user = User.create_from_uweb('user',uweb_api.get_user(mc['CLAVE_IND']))
       p 'Creating user '+user.full_name
       user.save
     end
+    p 'Finished importing users...'
 
     p 'Importing admin users...'
-    uweb_api.get_users(Rails.application.secrets.uweb_api_admins_key).each do |mc|
+      uweb_api.get_users(Rails.application.secrets.uweb_api_admins_key).each do |mc|
       user = User.create_from_uweb('admin',uweb_api.get_user(mc['CLAVE_IND']))
       p 'Creating admin '+user.full_name
       user.save
     end
+    p 'Finished importing admin users...'
 
 
     p 'Importing holders...'
-    uweb_api.get_users(Rails.application.secrets.uweb_api_holders_key).each do |mc|
+      uweb_api.get_users(Rails.application.secrets.uweb_api_holders_key).each do |mc|
       data = uweb_api.get_user(mc['CLAVE_IND'])
       holder = Holder.create_from_uweb(data)
       if !data['COD_UNIDAD'].nil?
@@ -49,9 +51,12 @@ namespace :madrid do
       if holder.valid?
         holder.save
       else
+        p 'Something unexpected'
+        p holder
         p holder.errors
       end
     end
+    p 'Finished importing holders...'
   end
 
 end

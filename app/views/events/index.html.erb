@@ -34,11 +34,11 @@
         <td>
           <%= link_to edit_event_path(event), title: t('backend.edit') do %>
               <i class="step fi-page-edit size-24"></i>
-            <% end if can? :edit, Event %>
+            <% end if can? :edit, event %>
 
             <%= link_to event_path(event), method: :delete, data: { confirm: t("backend.confirm") }, title: t('backend.delete') do%>
               <i class="step fi-page-delete size-24"></i>
-            <% end if can? :delete, Event %>
+            <% end if can? :destroy, event %>
         </td>
       </tr>
       <% end %>

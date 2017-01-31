@@ -23,8 +23,6 @@
   </div>
   <% end %>
 <% else %>
-  <h1>
-      <%= t('backend.events')%> (<%= @events.total_entries %>)
-  </h1>
+  <h1><%= t('backend.events')%> (<%= @events.total_entries %>)</h1>
   <%= link_to t('backend.new_event'), new_event_path, :class => "expanded button tiny radius warning" if can? :create, Event %>
 <% end %>

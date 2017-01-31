@@ -3,7 +3,7 @@ class Holder < ActiveRecord::Base
   # Relations
   has_many :manages
   has_many :users, through: :manages
-
+  has_many :areas, through: :positions
   has_many :positions, dependent: :delete_all
 
   accepts_nested_attributes_for :positions, reject_if: :all_blank, allow_destroy: true
@@ -28,6 +28,10 @@ class Holder < ActiveRecord::Base
 
   def current_position
     self.positions.current.first
+  end
+
+  def self.by_manages (user_id)
+    joins(:manages).where("manages.user_id" => user_id)
   end
 
   def self.create_from_uweb(data)
