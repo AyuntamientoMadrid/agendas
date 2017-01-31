@@ -1,6 +1,5 @@
 require 'simplecov'
 require "codeclimate-test-reporter"
-require 'faker'
 
 SimpleCov.start
 CodeClimate::TestReporter.start
@@ -95,10 +94,5 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
-  config.before(:each) do |example|
-    DatabaseCleaner.strategy = :transaction
-    I18n.locale = :en
-    load "#{Rails.root}/db/test_seeds.rb"
-  end
 
 end
