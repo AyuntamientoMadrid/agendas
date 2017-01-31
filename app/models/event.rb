@@ -56,7 +56,7 @@ class Event < ActiveRecord::Base
     event_ids = []
     user.manages.includes(:holder).each do |m|
       m.holder.positions.each do |p|
-        event_ids += p.participants_events.ids
+        event_ids += p.send("participants_events").ids
       end
     end
     return event_ids
