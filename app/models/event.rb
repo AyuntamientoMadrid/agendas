@@ -68,7 +68,7 @@ class Event < ActiveRecord::Base
         @events = Event.by_title(params[:search_title])
       end
     else
-      @events = Event.paginate(:page => params[:page], :per_page => 20)
+      @events = Event.page(params[:page]).per(20)
     end
 
     return @events

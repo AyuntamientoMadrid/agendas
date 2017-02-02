@@ -4,7 +4,7 @@
   </h1>
 </div>
 <div class="row">
-  <%= will_paginate @activities, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
+  <%= paginate @activities%>
   <table class="display" cellpadding="0" width="100%">
     <thead>
     <tr>
@@ -33,6 +33,6 @@
     <% end %>
     </tbody>
   </table>
-  <%= will_paginate @activities, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
+  <%= paginate @activities%>
 
 </div>
