@@ -24,7 +24,7 @@ holder_one_position2 = Holder.create(first_name: 'Maria Jos√©', last_name:'Hern√
 holder_orphan_position = Holder.create(first_name: 'Carmelina', last_name:'Cabezas')
 
 #Position
-director = Position.create(title: 'Director/a', from: Faker::Time.between(5.months.ago, Time.now - 1.months, :all), to: nil, area_id: sub_area.id, holder_id: holder_several_positions.id)
+director = Position.create(title: 'Director/a', from: Time.now - 6.months, to: Time.now - 1.month, area_id: sub_area.id, holder_id: holder_several_positions.id)
 sub_director = Position.create(title: 'Subdirector/a', from: Faker::Time.between(5.months.ago, Time.now - 1.months, :all), to: nil, area_id: sub_area.id, holder_id: holder_several_positions.id)
 section_boss = Position.create(title: 'Jefe/a de seccion', from: Faker::Time.between(5.months.ago, Time.now - 1.months, :all), to: nil, area_id: sub_area.id, holder_id: holder_several_positions.id)
 commerce_boss = Position.create(title: 'Jefe negociado', from: Faker::Time.between(5.months.ago, Time.now - 1.months, :all), to: nil, area_id: sub_area.id, holder_id: holder_one_position.id)
