@@ -15,9 +15,9 @@ en:
           zero: "%{entry_name} cannot be found"
   views:
     pagination:
-      first: "&#8249;"
-      last: "&#8250;"
-      next: "&#x2192;"
-      previous: "&#x2190;"
+      first: "&#8249;&#8249;"
+      last: "&#8250;&#8250;"
+      next: "&#8250;"
+      previous: "&#8249;"
       truncate: "&hellip;"
       current: You're on page
