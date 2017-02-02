@@ -50,9 +50,9 @@ class EventsController < AdminController
   end
 
   def set_holders
-    @participants = Position.all
+    @participants = Position.current
     @holders = current_user.admin? ? @participants : current_user.holders
-    @positions = current_user.admin? ? @participants : Position.holders(current_user.id)
+    @positions = current_user.admin? ? @participants : Position.current.holders(current_user.id)
   end
 
 end
