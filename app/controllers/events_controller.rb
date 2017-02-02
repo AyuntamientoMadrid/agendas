@@ -1,5 +1,4 @@
 class EventsController < AdminController
-  require 'will_paginate/array'
   load_and_authorize_resource
   before_action :set_holders, only: [:new, :edit, :create]
 
@@ -9,12 +8,12 @@ class EventsController < AdminController
 
   def list_admin_events
     @events = Event.searches(params)
-    @events.order(scheduled: :desc).paginate(:page => params[:page], :per_page => 20)
+    @events.order(scheduled: :desc).page(params[:page]).per(20)
   end
 
   def list_user_events
     @events = Event.by_manages(current_user.id)
-    @events.paginate(:page => params[:page], :per_page => 20)
+    @events.page(params[:page]).per(20)
   end
 
   def create

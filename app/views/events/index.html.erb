@@ -1,6 +1,9 @@
 <%= render 'search_form' %>
 <div class="row">
-  <%= will_paginate @events, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
+  <%= page_entries_info @events%>
+  <%= paginate @events%>
+</div>
+<div class="row">
   <table class="display" cellpadding="0" width="100%">
     <thead>
       <tr>
@@ -44,5 +47,5 @@
       <% end %>
     </tbody>
   </table>
-  <%= will_paginate @events, params: params , renderer: FoundationPagination::Rails,previous_label: '&laquo;', next_label: '&raquo;' %>
 </div>
+<%= paginate @events%>

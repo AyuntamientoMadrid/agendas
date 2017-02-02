@@ -1,28 +1,24 @@
 <% if current_user.admin? %>
   <%= form_tag events_path, method: :get do %>
   <div class="small-12 columns" id="search_form">
-    <div class="small-2 columns">
-      <h4><%= t('backend.events')%> (<%= @events.total_entries %>)</h4>
+    <div class="small-6 columns">
+      <%= label_tag(:search_title, t("backend.search.title")) %>
+      <input type="text" name="search_title" placeholder="<%= t("backend.search.placeholder_title") %>"  value="<%= params[:search_title] %>" onchange="form.search_person.value=''">
     </div>
-      <div class="small-5 columns">
-        <%= label_tag(:search_title, t("backend.search.title")) %>
-        <input type="text" name="search_title" placeholder="<%= t("backend.search.placeholder_title") %>"  value="<%= params[:search_title] %>" onchange="form.search_person.value=''">
-      </div>
-      <div class="small-5 columns">
-        <%= label_tag(:search_person, t("backend.search.person")) %>
-        <input type="text" name="search_person" placeholder="<%= t("backend.search.placeholder_person") %>"  value="<%= params[:search_person] %>"  onchange="form.search_title.value=''">
-      </div>
+    <div class="small-6 columns">
+      <%= label_tag(:search_person, t("backend.search.person")) %>
+      <input type="text" name="search_person" placeholder="<%= t("backend.search.placeholder_person") %>"  value="<%= params[:search_person] %>"  onchange="form.search_title.value=''">
+    </div>
   </div>
   <div class="small-12 columns">
-    <div class="small-2 columns">
+    <div class="small-3 columns left">
       <%= link_to t('backend.new_event'), new_event_path, :class => "expanded button tiny radius warning" if can? :create, Event %>
     </div>
-    <div class="small-2 columns ">
+    <div class="small-2 columns right">
       <input type="submit" class="expanded button tiny radius" value="<%= t("backend.search.button") %>">
     </div>
   </div>
   <% end %>
 <% else %>
-  <h1><%= t('backend.events')%> (<%= @events.total_entries %>)</h1>
   <%= link_to t('backend.new_event'), new_event_path, :class => "expanded button tiny radius warning" if can? :create, Event %>
 <% end %>
