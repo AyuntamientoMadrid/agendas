@@ -63,6 +63,9 @@ es:
 
     events: "Eventos"
     event: "Evento"
+    event_history_updates: "Actualización"
+    event_update_user: "Usuario"
+    event_update_date: "Fecha"
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"
