@@ -9,6 +9,7 @@
   <p><strong><%= t('backend.date') %>:</strong> <%= @event.scheduled.strftime(t('time.formats.short')) %></p>
   <%= @event.description.html_safe %>
 </fieldset>
+<% if @event.user.present? %>
 <fieldset>
   <legend><%= t('backend.event_history_updates') %></legend>
   <div class="row">
@@ -20,6 +21,7 @@
     <div class="small-6 columns"><%= @event.updated_at.strftime(t('time.formats.short')) %></div>
   </div>
 </fieldset>
+<% end %>
 <fieldset>
   <legend><%= t('backend.participants') %></legend>
   <div class="row">

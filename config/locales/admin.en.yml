@@ -63,7 +63,7 @@ es:
 
     events: "Eventos"
     event: "Evento"
-    event_history_updates: "Actualización"
+    event_history_updates: "Última actualización"
     event_update_user: "Usuario"
     event_update_date: "Fecha"
     search:
