@@ -28,6 +28,7 @@ class EventsController < AdminController
   end
 
   def update
+    @event.user = current_user
     if @event.update_attributes(event_params)
       redirect_to events_path, notice: t('backend.successfully_updated_record')
     else
