@@ -26,7 +26,7 @@ namespace :madrid do
 
     p 'Importing holders...'
     uweb_get_users('uweb_api_holders_key').each do |mc|
-      data = uweb_api.get_user(mc['CLAVE_IND'])
+      data = @uweb_api.get_user(mc['CLAVE_IND'])
       holder = Holder.create_from_uweb(data)
       if !data['COD_UNIDAD'].nil?
         units = directory_api.get_units(data['COD_UNIDAD'])
