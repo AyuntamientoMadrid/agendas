@@ -16,6 +16,7 @@ class Event < ActiveRecord::Base
 
   # Validations
   validates_presence_of :title, :position, :scheduled
+  #validate :participants_uniqueness
   validate :participants_uniqueness, :position_not_in_participants
   scope :by_title, lambda {|name| where(["title ILIKE ?", "%#{name}%"])}
 

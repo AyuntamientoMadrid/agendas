@@ -38,9 +38,9 @@
     <% end %>
     <% if current_user.admin? %>
     <li class="<%= active_menu('import') %>">
-      <a href="<%= import_path %>" data-confirm="<%= t("backend.confirm") %>">
+      <span href="<%= import_path %>" data-confirm="<%= t("backend.confirm") %>">
         <i class="fi-rss size-18"> <%= t("backend.sync")%></i>
-      </a>
+      </span>
     </li>
     <% end %>
     <li>

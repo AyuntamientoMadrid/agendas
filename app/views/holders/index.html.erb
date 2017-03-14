@@ -30,8 +30,8 @@
             <%= link_to holder.full_name_comma, holder_path(holder) %>
           </td>
           <td>
-            <strong><%= holder.current_position.title %></strong><br />
-            <%= holder.current_position.area.title %>
+            <strong><%= holder.current_position.try!(:title)  %></strong><br />
+            <%= holder.current_position.try!(:area).try!(:title)%>
           </td>
           <td>
             <% holder.users.each do |u| %>

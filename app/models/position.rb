@@ -12,6 +12,7 @@ class Position < ActiveRecord::Base
   validate :date_to_before_date_from
 
   scope :current, -> { where(to: nil) }
+  scope :previous, -> { where(to: 'IS NOT NULL') }
   scope :area_filtered, lambda{ |area| self.where(area_id: [area, Area.find(area).descendant_ids]) if area.present? }
 
   def events
