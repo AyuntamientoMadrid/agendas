@@ -106,11 +106,13 @@ namespace :clean do
         unless units.nil?
           unidad = units['UNIDAD_ORGANIZATIVA']
           if unidad.kind_of?(Array)
-            unit = unidad[0]['ID_UNIDAD']
+            unidad_pos = unidad.index{|u|u['COD_ORGANICO'] == data['COD_UNIDAD']}
+            unit = unidad[unidad_pos]['ID_UNIDAD']
+            directory_api.create_tree(unidad[unidad_pos])
           else
             unit = unidad['ID_UNIDAD']
+            directory_api.create_tree(unidad)
           end
-          directory_api.create_tree(unit)
         end
       end
 
@@ -203,5 +205,63 @@ namespace :clean do
     end
     puts "Total=#{count} holders without current positions"
   end
+
+  task :change_position_at_event, [:pos_old, :pos_new, :year, :month, :day] => :environment do |t, arg|
+    count = 0
+    #events = Event.where("position_id= ? and created_at > ?", arg[:pos_old], DateTime.new(arg[:year],arg[:month],arg[:day],0,0,0))
+    events = Event.where("position_id= ? and created_at > ?", arg[:pos_old], DateTime.new(2016,3,31,0,0,0))
+    puts "Change position=#{arg[:pos_old]}, with new position=#{arg[:pos_new]}"
+    events.each do |event|
+      count += 1
+      event.position_id = arg[:pos_new]
+      event.save!
+      puts event.inspect
+    end
+    puts "Total=#{count} events with position #{arg[:pos_old]}, save new position #{arg[:pos_new]}"
+
+  end
+
+
+  task :show_area_by_position,[:clave_ind] => :environment do |t, arg|
+    p "Test import holder | clave_ind=#{arg[:clave_ind]}"
+    uweb_api = UwebApi.new
+    directory_api = DirectoryApi.new
+
+    begin
+      data = uweb_api.get_user(arg[:clave_ind])
+
+    rescue => e
+      puts "Holder with uweb_key #{@uweb_api.get_user(mc['CLAVE_IND'])} exception"
+      puts e.message            # Test de excepción
+      puts e.backtrace.inspect
+    end
+
+    if e.nil?
+
+      holder = Holder.create_from_uweb(data)
+
+      unless data['COD_UNIDAD'].nil?
+        units = directory_api.get_units(data['COD_UNIDAD'])
+
+        unless units.nil?
+          unidad = units['UNIDAD_ORGANIZATIVA']
+          if unidad.kind_of?(Array)
+            unidad_pos = unidad.index{|u|u['COD_ORGANICO'] == data['COD_UNIDAD']}
+            unit = unidad[unidad_pos]['ID_UNIDAD']
+          else
+            unit = unidad['ID_UNIDAD']
+          end
+          directory_api.create_tree(unit)
+        end
+      end
+
+      # Comprobamos si el cargo y el area coinciden
+      area = Area.find_by(internal_id: unit)
+      puts area.inspect
+      puts area.title
+    end
+
+  end
+
 
 end

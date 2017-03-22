@@ -23,21 +23,19 @@ class DirectoryApi < MadridApi
     Hash.from_xml(data)['UNIDAD_ORGANIZATIVA']
   end
 
-  def create_tree (internal_id)
-    unit = get_unit(internal_id)
-    if !area = Area.find_by(internal_id: unit['ID_UNIDAD'])
-      # If area does not exist in database, we create it
-      area = Area.create(internal_id: internal_id, title: unit['DENOMINACION'])
-    end
-    # Get parent area
+  def create_tree (unit)
+    area = Area.find_or_create_by(internal_id: unit['ID_UNIDAD'])
+    area.title = unit['DENOMINACION']
+
+    # Set parent area
     if parent = get_unit(unit['ID_UNIDAD_PADRE'])
-      # In parent area does not exist in database, we create it
-      if !parent_area = Area.find_by(internal_id: parent['ID_UNIDAD'])
-        parent_area = Area.create(internal_id: parent['ID_UNIDAD'], title: parent['DENOMINACION'])
-      end
+      parent_area = Area.find_or_create_by(internal_id: parent['ID_UNIDAD'])
+      parent_area.title = parent['DENOMINACION']
       area.parent = parent_area
-      area.save
+      area.save!
       create_tree(parent['ID_UNIDAD'])
+    else
+      area.save!
     end
   end
 

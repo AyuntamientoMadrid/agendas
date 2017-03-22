@@ -10,7 +10,7 @@ class Holder < ActiveRecord::Base
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validate :must_have_position
+  validate :must_have_position, :on => :update
 
   scope :by_name, lambda {|name| where(["last_name ILIKE ? or first_name ILIKE ?", "%#{name}%", "%#{name}%"]).includes(positions: [:titular_events, :participants_events])}
 

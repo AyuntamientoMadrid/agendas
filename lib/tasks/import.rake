@@ -43,7 +43,8 @@ namespace :madrid do
           unless units.nil?
             unidad = units['UNIDAD_ORGANIZATIVA']
             if unidad.kind_of?(Array)
-              unit = unidad[0]['ID_UNIDAD']
+              unidad_pos = unidad.index{|u|u['COD_ORGANICO'] == data['COD_UNIDAD']}
+              unit = unidad[unidad_pos]['ID_UNIDAD']
             else
               unit = unidad['ID_UNIDAD']
             end
