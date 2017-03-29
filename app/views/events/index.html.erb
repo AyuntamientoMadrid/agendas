@@ -4,7 +4,7 @@
   <%= paginate @events%>
 </div>
 <div class="row">
-  <table class="display" cellpadding="0" width="100%">
+  <table class="event">
     <thead>
       <tr>
         <th><%= t('backend.date')%></th>
@@ -24,24 +24,28 @@
     <tbody>
       <% @events.each do |event| %>
       <tr>
-        <td>
-          <p><span class="hide"><%= event.scheduled.strftime(t('time.formats.custom')) %></span><%= event.scheduled.strftime(t('time.formats.short')) %></p>
+        <td class="event_date">
+          <%= event.scheduled.strftime(t('time.formats.short')) %>
+          <span class="hide"><%= event.scheduled.strftime(t('time.formats.custom')) %></span>
         </td>
-        <td>
+        <td class="event_txt">
           <p><%= link_to event.title, event_path(event) %></p>
         </td>
-        <td>
-          <strong><%= event.position.holder.full_name %></strong><br />
-          <%= event.position.title %>
+        <td class="event_holder">
+          <%= event.position.holder.full_name %><br />
+          <small><%= event.position.title %></small>
         </td>
-        <td>
+        <td class="event_actions">
           <%= link_to edit_event_path(event), title: t('backend.edit') do %>
               <i class="step fi-page-edit size-24"></i>
             <% end if can? :edit, event %>
 
-            <%= link_to event_path(event), method: :delete, data: { confirm: t("backend.confirm") }, title: t('backend.delete') do%>
+            <%= link_to event_path(event), method: :delete, data: { confirm: t("backend.delete_confirm") }, title: t('backend.delete') do%>
               <i class="step fi-page-delete size-24"></i>
             <% end if can? :destroy, event %>
+          <%= link_to event.attachments.first.file.url, target: :_blank do %>
+            <i class="step fi-archive size-24"></i>
+          <% end if event.attachments.size > 0 %>
         </td>
       </tr>
       <% end %>

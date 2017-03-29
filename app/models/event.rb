@@ -81,12 +81,13 @@ class Event < ActiveRecord::Base
     titular_event_ids = Event.where(position_id: position_ids).pluck(:id)
     participant_event_ids = Participant.where(position_id: position_ids).pluck(:event_id)
 
-    @events = Event.where(id: (titular_event_ids + participant_event_ids).uniq)
+    @events = Event.where(id: (titular_event_ids + participant_event_ids).uniq).includes(:position, :attachments, position: [:holder])
   end
 
   def self.has_manage_holders(user_id)
     holder_ids = Holder.by_manages(user_id).pluck(:id)
     return true unless holder_ids.blank?
+    false
   end
 
   def self.by_manages(user_id)
@@ -95,7 +96,7 @@ class Event < ActiveRecord::Base
     titular_event_ids = Event.where(position_id: position_ids).pluck(:id)
     participant_event_ids = Participant.where(position_id: position_ids).pluck(:event_id)
 
-    Event.where(id: (titular_event_ids + participant_event_ids).uniq)
+    Event.where(id: (titular_event_ids + participant_event_ids).uniq).includes(:position, :attachments, position: [:holder])
   end
 
   searchable do

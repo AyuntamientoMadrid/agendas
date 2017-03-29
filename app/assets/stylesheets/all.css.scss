@@ -318,7 +318,29 @@ table {
   border-spacing: 0; }
 
 td, th {
-  padding: 0; }
+  padding: 0;
+}
+
+table.event{
+  cellpadding: 0;
+  width: 100%;
+
+  td.event_date {
+    width: 6rem;
+    font-size: 14px;
+  }
+  td.event_txt {
+    a{
+      font-size: 14px;
+    }
+  }
+  td.event_holder {
+    width: 16rem;
+  }
+  td.event_actions {
+    width: 6rem;
+  }
+}
 
 meta.foundation-version {
   font-family: "/5.5.2/"; }

@@ -37,12 +37,8 @@ feature "Abilities::User" do
     it { should be_able_to(:new, @registration_offices) }
     it { should be_able_to(:show, @registration_offices) }
     it { should be_able_to(:edit, @registration_offices) }
-    it {
-      @registration_offices.scheduled = Time.now + 2.days
-      should be_able_to(:destroy, @registration_offices)
-      @registration_offices.scheduled = Time.now - 2.days
-      should_not be_able_to(:destroy, @registration_offices)
-    }
+    it { should be_able_to(:destroy, @registration_offices) }
+
 
     it { should be_able_to(:index, Event, id: Event.by_manages(@user_with_holders.id)) }
     it { should be_able_to(:new, Event) }
@@ -71,8 +67,8 @@ feature "Abilities::User" do
     it { should_not be_able_to(:edit, @holder_several_positions) }
     it { should_not be_able_to(:destroy, @holder_several_positions) }
 
-    it { should_not be_able_to(:index, @registration_offices) }
-    it { should be_able_to(:new, Event) }
+    it { should be_able_to(:index, @registration_offices) }
+    it { should_not be_able_to(:new, Event) }
     it { should_not be_able_to(:show, @registration_offices) }
     it { should_not be_able_to(:edit, @registration_offices) }
     it { should_not be_able_to(:destroy, @registration_offices) }
