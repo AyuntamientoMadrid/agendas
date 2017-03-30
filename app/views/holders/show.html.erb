@@ -11,17 +11,15 @@
 <fieldset>
   <legend><%= t('backend.positions') %></legend>
   <div class="row">
-    <div class="small-2 columns"><strong><%= t('backend.from') %></strong></div>
-    <div class="small-2 columns"><strong><%= t('backend.to') %></strong></div>
-    <div class="small-4 columns"><strong><%= t('backend.position') %></strong></div>
-    <div class="small-4 columns"><strong><%= t('backend.area') %></strong></div>
+    <div class="small-1 columns"><strong><%= t('backend.to') %></strong></div>
+    <div class="small-3 columns"><strong><%= t('backend.position') %></strong></div>
+    <div class="small-8 columns"><strong><%= t('backend.area') %></strong></div>
   </div>
   <% @holder.positions.each do |position| %>
   <div class="row">
-    <div class="small-2 columns"><%= show_date(position.from) %></div>
-    <div class="small-2 columns"><%= show_date(position.to) %></div>
-    <div class="small-4 columns"><%= position.title %></div>
-    <div class="small-4 columns"><%= position.area.title %></div>
+    <div class="small-1 columns"><%= position.to.present? ? t('backend.active') : t('backend.inactive') %></div>
+    <div class="small-3 columns"><%= position.title %></div>
+    <div class="small-8 columns"><%= position.area.title %></div>
   </div>
   <% end %>
 </fieldset>

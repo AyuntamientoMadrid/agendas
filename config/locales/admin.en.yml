@@ -43,8 +43,9 @@ es:
     holder: "Titular"
     new_holder: "Nuevo titular"
     edit_holder: "Editar titular"
-    from: "Desde"
-    to: "Hasta"
+    to: "Activo"
+    active: "Activo"
+    inactive: "Inactivo"
     public_url: "URL pública"
 
     areas: "Organigrama"

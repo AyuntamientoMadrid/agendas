@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116182137) do
+ActiveRecord::Schema.define(version: 20170330072431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,14 +68,6 @@ ActiveRecord::Schema.define(version: 20151116182137) do
   end
 
   add_index "attendees", ["event_id"], name: "index_attendees_on_event_id", using: :btree
-
-  create_table "contact_messages", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.text     "message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "events", force: :cascade do |t|
     t.string   "title"
@@ -136,7 +128,6 @@ ActiveRecord::Schema.define(version: 20151116182137) do
 
   create_table "positions", force: :cascade do |t|
     t.string   "title"
-    t.datetime "from"
     t.datetime "to"
     t.integer  "area_id"
     t.integer  "holder_id"
@@ -146,15 +137,6 @@ ActiveRecord::Schema.define(version: 20151116182137) do
 
   add_index "positions", ["area_id"], name: "index_positions_on_area_id", using: :btree
   add_index "positions", ["holder_id"], name: "index_positions_on_holder_id", using: :btree
-
-  create_table "simple_captcha_data", force: :cascade do |t|
-    t.string   "key",        limit: 40
-    t.string   "value",      limit: 6
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "simple_captcha_data", ["key"], name: "idx_key", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
