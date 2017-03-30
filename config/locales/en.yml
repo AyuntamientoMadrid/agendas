@@ -1,4 +1,8 @@
 en:
+  event:
+    create: 'Evento creado'
+    update: 'Evento editado'
+    destroy: 'Evento borrado'
   number_delimiter: ","
   number_separator: "."
   month: "month"

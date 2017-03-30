@@ -43,6 +43,10 @@ class EventsController < AdminController
     redirect_to events_path, notice: t('backend.successfully_destroyed_record')
   end
 
+  def get_title
+    Event.find(params[:id]).title if params[:action] == 'destroy'
+  end
+
   private
 
   def event_params
@@ -55,4 +59,27 @@ class EventsController < AdminController
     @positions = current_user.admin? ? @participants : Position.current.holders(current_user.id)
   end
 
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
