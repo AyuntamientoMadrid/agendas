@@ -59,27 +59,4 @@ class EventsController < AdminController
     @positions = current_user.admin? ? @participants : Position.current.holders(current_user.id)
   end
 
-
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
