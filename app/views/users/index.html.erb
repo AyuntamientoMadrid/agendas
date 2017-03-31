@@ -3,6 +3,7 @@
     <%= t('backend.users')%> (<%= @users.count %>)
     <%= link_to t('backend.new_user'), new_user_path, :class => "button radius warning right" if can? :create, User %>
   </h1>
+  <%= link_to t('backend.export'), current_url(:format=>:csv), :class => "button tiny radius success" %>
 </div>
 <div class="row">
   <table class="display" cellpadding="0" width="100%">

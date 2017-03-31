@@ -24,11 +24,11 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    (self.first_name+' '+self.last_name).mb_chars.to_s
+    (self.first_name.delete(',')+' '+self.last_name.delete(',')).mb_chars.to_s
   end
 
   def full_name_comma
-    (self.last_name.to_s+', '+self.first_name.to_s).mb_chars.to_s
+    (self.last_name.to_s.delete(',')+', '+self.first_name.to_s.delete(',')).mb_chars.to_s
   end
 
   def manages_uniqueness

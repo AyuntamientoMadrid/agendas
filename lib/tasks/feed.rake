@@ -159,11 +159,11 @@ namespace :generator do
 
       Holder.all.each do |h|
         #actual
-        p = Position.create(:title => Faker::Name.title, :from => Faker::Time.between(5.months.ago, Time.now - 1.months, :all), :to => nil, :area_id => Area.all.shuffle[0].id, :holder_id => h.id)
+        p = Position.create(:title => Faker::Name.title, :to => nil, :area_id => Area.all.shuffle[0].id, :holder_id => h.id)
         #anteriores
         rand(1..4).times do
           p "Aleatorio anterior de " + h.full_name_comma
-          p = Position.create(:title => Faker::Name.title, :from => Faker::Time.between(1.year.ago, Time.now - 6.months, :all), :to => Faker::Time.between(6.months.ago, Time.now - 1.months, :all), :area_id => Area.all.shuffle[0].id, :holder_id => h.id)
+          p = Position.create(:title => Faker::Name.title, :to => Faker::Time.between(6.months.ago, Time.now - 1.months, :all), :area_id => Area.all.shuffle[0].id, :holder_id => h.id)
           p p
           p.save!
 

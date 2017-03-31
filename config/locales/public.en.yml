@@ -6,7 +6,7 @@ en:
   main:
     form:
       keyword: "Palabra clave"
-      main_area: "Área de gobierno"
+      main_area: "Área/Distrito/Organismo autónomo"
       child_area: "Dirección general"
       holder: "Titular de la agenda"
       date: "Fecha"

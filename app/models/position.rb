@@ -8,8 +8,7 @@ class Position < ActiveRecord::Base
   has_many :participants_events, through: :participants
 
   # Validations
-  validates_presence_of :title, :area, :from
-  validate :date_to_before_date_from
+  validates_presence_of :title, :area
 
   scope :current, -> { where(to: nil) }
   scope :previous, -> { where(to: 'IS NOT NULL') }
@@ -28,11 +27,4 @@ class Position < ActiveRecord::Base
     holder_ids = Holder.by_manages(user_id).ids
     Position.where(holder_id: holder_ids)
   end
-
-  private
-
-  def date_to_before_date_from
-    errors.add(:to, "to can't be previous to from") if (to.present? && from > to)
-  end
-
 end

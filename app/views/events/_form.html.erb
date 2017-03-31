@@ -23,9 +23,9 @@
       <%= f.label :scheduled, t('backend.date') %>
       <%= f.text_field :scheduled, class: 'fdatepicker' %>
       <%= f.label :position_id, t('backend.main_position') %>
-      <% if @positions.count > 1 %>
+      <% if @positions.size > 1 %>
           <%= f.select :position_id, @positions.map{|position| [position.holder.full_name_comma+' - '+position.title, position.id]}, prompt: t('backend.select') %>
-      <% else %>
+      <% elsif @positions.size == 1 %>
           <p><strong><%= @holders.first.full_name %></strong></p>
           <%= f.hidden_field :position_id, value: @positions.first.id %>
       <% end %>

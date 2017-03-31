@@ -133,8 +133,6 @@ namespace :clean do
           position = Position.find_or_create_by(title: data['CARGO'], area: area, holder: holder)
           position.holder_id = holder.id
           position.to = nil unless data['BAJA_LOGICA'] == '1'
-          position.from = Time.now if position.from.nil?
-
           position.save!
           holder.positions << position
         rescue => e

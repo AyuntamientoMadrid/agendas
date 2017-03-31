@@ -2,9 +2,6 @@
   <div class="row">
     <%= f.hidden_field :holder_id, :value => @holder.id %>
     <div class="small-2 columns">
-      <%= f.text_field :from, value: (f.object.from.strftime(t('date.formats.short')) if f.object.from.present?), class: 'fdatepicker'%>
-    </div>
-    <div class="small-2 columns">
       <%= f.text_field :to, value: (f.object.to.strftime(t('date.formats.short')) if f.object.to.present?), class: 'fdatepicker'%>
     </div>
     <div class="small-3 columns">

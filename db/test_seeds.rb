@@ -24,12 +24,12 @@ holder_one_position2 = Holder.create(first_name: 'Maria José', last_name:'Hern�
 holder_orphan_position = Holder.create(first_name: 'Carmelina', last_name:'Cabezas')
 
 #Position
-director = Position.create(title: 'Director/a', from: Time.now - 6.months, to: Time.now - 1.month, area_id: sub_area.id, holder_id: holder_several_positions.id)
-sub_director = Position.create(title: 'Subdirector/a', from: Faker::Time.between(5.months.ago, Time.now - 1.months, :all), to: nil, area_id: sub_area.id, holder_id: holder_several_positions.id)
-section_boss = Position.create(title: 'Jefe/a de seccion', from: Faker::Time.between(5.months.ago, Time.now - 1.months, :all), to: nil, area_id: sub_area.id, holder_id: holder_several_positions.id)
-commerce_boss = Position.create(title: 'Jefe negociado', from: Faker::Time.between(5.months.ago, Time.now - 1.months, :all), to: nil, area_id: sub_area.id, holder_id: holder_one_position.id)
-proyect_boss = Position.create(title: 'Jefa de proyecto', from: Faker::Time.between(5.months.ago, Time.now - 1.months, :all), to: nil, area_id: sub_area.id, holder_id: holder_one_position2.id)
-secretary = Position.create(title: 'Secretaria', from: Faker::Time.between(5.months.ago, Time.now - 1.months, :all), to: nil, area_id: sub_area.id, holder_id: holder_orphan_position.id)
+director = Position.create(title: 'Director/a', to: Time.now - 1.month, area_id: sub_area.id, holder_id: holder_several_positions.id)
+sub_director = Position.create(title: 'Subdirector/a', to: nil, area_id: sub_area.id, holder_id: holder_several_positions.id)
+section_boss = Position.create(title: 'Jefe/a de seccion', to: nil, area_id: sub_area.id, holder_id: holder_several_positions.id)
+commerce_boss = Position.create(title: 'Jefe negociado', to: nil, area_id: sub_area.id, holder_id: holder_one_position.id)
+proyect_boss = Position.create(title: 'Jefa de proyecto',to: nil, area_id: sub_area.id, holder_id: holder_one_position2.id)
+secretary = Position.create(title: 'Secretaria', to: nil, area_id: sub_area.id, holder_id: holder_orphan_position.id)
 
 #Event
 open_government = Event.create(location: Faker::Address.street_address, title: 'Gobierno Abierto', description: 'El Gobierno Abierto tiene como objetivo que la ciudadanía colabore en la creación y mejora de servicios públicos y en el robustecimiento de la transparencia y la rendición de cuentas.', scheduled: rand(0..1)==1 ? Faker::Time.forward(60, :day) : Faker::Time.backward(100, :morning),

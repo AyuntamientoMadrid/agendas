@@ -8,12 +8,12 @@ class EventsController < AdminController
 
   def list_admin_events
     @events = Event.searches(params)
-    @events.order(scheduled: :desc).page(params[:page]).per(20)
+    @events.order(scheduled: :desc).page(params[:page]).per(50)
   end
 
   def list_user_events
     @events = Event.by_manages(current_user.id)
-    @events.page(params[:page]).per(20)
+    @events.order(scheduled: :desc).page(params[:page]).per(50)
   end
 
   def create
@@ -41,6 +41,10 @@ class EventsController < AdminController
   def destroy
     @event.destroy
     redirect_to events_path, notice: t('backend.successfully_destroyed_record')
+  end
+
+  def get_title
+    Event.find(params[:id]).title if params[:action] == 'destroy'
   end
 
   private
