@@ -5,7 +5,7 @@ Este es el repositorio de código abierto de la aplicación de Transparencia del
 ## Estado del proyecto
 
 Inicio el desarrollo de esta aplicación [15 septiembre de 2015]
-La evolución y futura lista de funcionalidades a implementar se pueden consultar en la lista de [tareas por hacer](https://github.com/IAMCorporativos/agendas).
+La evolución y futura lista de funcionalidades a implementar se pueden consultar en la lista de [tareas por hacer](https://github.com/IAMCorporativos/agendas/projects/1).
 
 ## Tecnología
 
