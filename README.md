@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/AyuntamientoMadrid/agendas.svg?branch=master)](https://travis-ci.org/consul/consul)
+[![Build Status](https://travis-ci.org/AyuntamientoMadrid/agendas.svg?branch=master)](https://travis-ci.org/AyuntamientoMadrid/agendas)
 [![Code Climate](https://codeclimate.com/github/AyuntamientoMadrid/agendas/badges/gpa.svg)](https://codeclimate.com/github/AyuntamientoMadrid/agendas)
 [![Dependency Status](https://gemnasium.com/AyuntamientoMadrid/agendas.svg)](https://gemnasium.com/AyuntamientoMadrid/agendas)
 [![Coverage Status](https://coveralls.io/repos/github/AyuntamientoMadrid/agendas/badge.svg?branch=master)](https://coveralls.io/github/AyuntamientoMadrid/agendas?branch=master)
