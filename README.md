@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/IAMCorporativos/agendas.svg?branch=master)](https://travis-ci.org/IAMCorporativos/agendas)[![Code Climate](https://codeclimate.com/repos/5609610ee30ba02f6c0004e6/badges/8cb97e196dd1eec126f1/gpa.svg)](https://codeclimate.com/repos/5609610ee30ba02f6c0004e6/feed)
+[![Build Status](https://travis-ci.org/AyuntamientoMadrid/agendas.svg?branch=master)](https://travis-ci.org/AyuntamientoMadrid/agendas)
+[![Code Climate](https://codeclimate.com/repos/5609610ee30ba02f6c0004e6/badges/8cb97e196dd1eec126f1/gpa.svg)](https://codeclimate.com/repos/5609610ee30ba02f6c0004e6/feed)
 
 Este es el repositorio de código abierto de la aplicación de Transparencia del Ayuntamiento de Madrid.
 
@@ -18,7 +19,7 @@ Prerequisitos: tener instalado git, Ruby 2.2.3, la gema `bundler`, ghostscript y
 
 ```
 
-git clone https://github.com/IAMCorporativos/agendas
+git clone https://github.com/AyuntamientoMadrid/agendas
 cd agendas
 bundle install
 cp config/database.yml.example config/database.yml
