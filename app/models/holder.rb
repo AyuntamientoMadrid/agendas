@@ -12,7 +12,10 @@ class Holder < ActiveRecord::Base
   validates :last_name, presence: true
   validate :must_have_position, :on => :update
 
-  scope :by_name, lambda {|name| where(["last_name ILIKE ? or first_name ILIKE ?", "%#{name}%", "%#{name}%"]).includes(positions: [:titular_events, :participants_events])}
+  scope :by_name, (lambda do |name|
+    name_condition = ["last_name ILIKE ? or first_name ILIKE ?", "%#{name}%", "%#{name}%"]
+    where(name_condition).includes(positions: [:titular_events, :participants_events])
+  end)
 
   def must_have_position
     if positions.empty? or positions.all? {|child| child.marked_for_destruction? }

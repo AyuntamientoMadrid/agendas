@@ -48,7 +48,8 @@ class HoldersController < AdminController
   end
 
   def holder_params
-    params.require(:holder).permit(:first_name, :last_name, :id, positions_attributes: [:id, :holder_id, :title, :area_id, :from, :to, :_destroy])
+    params.require(:holder).permit(:first_name, :last_name, :id,
+                                   positions_attributes: [:id, :holder_id, :title, :area_id, :from, :to, :_destroy])
   end
 
   def load_areas

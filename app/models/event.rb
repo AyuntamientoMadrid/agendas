@@ -28,7 +28,7 @@ class Event < ActiveRecord::Base
 
   def participants_uniqueness
     participants = self.participants.reject(&:marked_for_destruction?)
-    errors.add(:base, I18n.t('backend.participants_uniqueness')) unless participants.map{|x| x.position_id}.uniq.count == participants.to_a.count
+    errors.add(:base, I18n.t('backend.participants_uniqueness')) if participants.map(&:position_id).uniq.count != participants.to_a.count
   end
 
   def position_not_in_participants

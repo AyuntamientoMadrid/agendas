@@ -73,7 +73,8 @@ namespace :generator do
 
     args[:quantity].to_i.times do
 
-      u = User.create(:password => Faker::Internet.password, :email => Faker::Internet.email, :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :active => 1 )
+      u = User.create(:password => Faker::Internet.password, :email => Faker::Internet.email, :first_name => Faker::Name.first_name,
+                      :last_name => Faker::Name.last_name, :active => 1 )
 
       if rand(0..1)==1
         u.admin!
@@ -109,7 +110,10 @@ namespace :generator do
       holder = Holder.all.shuffle[0]
       position = Position.current.where(:holder => holder)[0]
 
-      e = Event.create(:location => Faker::Address.street_address, :title => Faker::Lorem.sentence, :description => Faker::Lorem.paragraph(6, false, 2), :scheduled => rand(0..1)==1 ? Faker::Time.forward(60, :day) : Faker::Time.backward(100, :morning), :user => Holder.last.users[0], :position => position)
+      e = Event.create(:location => Faker::Address.street_address, :title => Faker::Lorem.sentence,
+                       :description => Faker::Lorem.paragraph(6, false, 2),
+                       :scheduled => rand(0..1)==1 ? Faker::Time.forward(60, :day) : Faker::Time.backward(100, :morning),
+                       :user => Holder.last.users[0], :position => position)
       p e
 
       rand(0..5).times do
@@ -155,26 +159,18 @@ namespace :generator do
   end
 
   task :positions => :environment do |t, args|
-
-
-      Holder.all.each do |h|
-        #actual
-        p = Position.create(:title => Faker::Name.title, :to => nil, :area_id => Area.all.shuffle[0].id, :holder_id => h.id)
-        #anteriores
-        rand(1..4).times do
-          p "Aleatorio anterior de " + h.full_name_comma
-          p = Position.create(:title => Faker::Name.title, :to => Faker::Time.between(6.months.ago, Time.now - 1.months, :all), :area_id => Area.all.shuffle[0].id, :holder_id => h.id)
-          p p
-          p.save!
-
-        end
-
+    Holder.all.each do |h|
+      #actual
+      p = Position.create(:title => Faker::Name.title, :to => nil, :area_id => Area.all.shuffle[0].id, :holder_id => h.id)
+      #anteriores
+      rand(1..4).times do
+        p "Aleatorio anterior de " + h.full_name_comma
+        p = Position.create(:title => Faker::Name.title, :to => Faker::Time.between(6.months.ago, Time.now - 1.months, :all),
+                            :area_id => Area.all.shuffle[0].id, :holder_id => h.id)
+        p p
+        p.save!
       end
-
-
-
-
+    end
   end
-
 
 end

@@ -2,7 +2,9 @@ class UwebAccessController < ApplicationController
 
   def uweb_sign_in
     @uweb_api = UwebApi.new
-    if (valid_request? request.referer) && (valid_params? params) && @uweb_api.get_application_status.zero? && @uweb_api.get_user_status(params[:clave_usuario],params[:fecha_conexion]).zero? && @user = User.find_by(user_key: params[:clave_usuario])
+    if (valid_request? request.referer) && (valid_params? params) && @uweb_api.get_application_status.zero? &&
+       @uweb_api.get_user_status(params[:clave_usuario],params[:fecha_conexion]).zero? &&
+       @user = User.find_by(user_key: params[:clave_usuario])
       sign_in(:user, @user)
       redirect_to events_path
     else
