@@ -51,6 +51,7 @@ end
 group :development, :test do
   gem 'bullet'
   gem 'byebug'
+  gem 'coveralls', require: false
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'rubocop'
