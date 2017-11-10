@@ -66,6 +66,7 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
   gem 'simplecov'
+  gem 'sunspot-rails-tester'
 end
 
 group :production do
