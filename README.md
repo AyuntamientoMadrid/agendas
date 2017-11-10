@@ -1,5 +1,7 @@
-[![Build Status](https://travis-ci.org/AyuntamientoMadrid/agendas.svg?branch=master)](https://travis-ci.org/AyuntamientoMadrid/agendas)
-[![Code Climate](https://codeclimate.com/repos/5609610ee30ba02f6c0004e6/badges/8cb97e196dd1eec126f1/gpa.svg)](https://codeclimate.com/repos/5609610ee30ba02f6c0004e6/feed)
+[![Build Status](https://travis-ci.org/AyuntamientoMadrid/agendas.svg?branch=master)](https://travis-ci.org/consul/consul)
+[![Code Climate](https://codeclimate.com/github/AyuntamientoMadrid/agendas/badges/gpa.svg)](https://codeclimate.com/github/AyuntamientoMadrid/agendas)
+[![Dependency Status](https://gemnasium.com/AyuntamientoMadrid/agendas.svg)](https://gemnasium.com/AyuntamientoMadrid/agendas)
+[![Coverage Status](https://coveralls.io/repos/github/AyuntamientoMadrid/agendas/badge.svg?branch=master)](https://coveralls.io/github/AyuntamientoMadrid/agendas?branch=master)
 
 Este es el repositorio de código abierto de la aplicación de Transparencia del Ayuntamiento de Madrid.
 
