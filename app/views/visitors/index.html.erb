@@ -33,15 +33,7 @@
   </div>
 
     <% @paginated_events.each do |event|%>
-      <article class="post">
-        <h1 class="post__title"><%= link_to event.title, show_path(event) %></h1>
-        <p><strong>
-          <%= show_agenda_link(event.position.holder) %> ·
-          <%= event.position.title.custom_titleize %> ·
-          <%= event.position.area.title.custom_titleize %>
-        </strong></p>
-        <p><%= I18n.l event.scheduled, format: :complete %></p>
-      </article>
+      <%= render "visitors/event", event: event %>
     <% end %>
   </div>
 </div>

@@ -138,5 +138,4 @@ class Event < ActiveRecord::Base
       [self.attendees.map{|attendee| attendee.name },self.attendees.map{|attendee| attendee.company}]
     end
   end
-
 end
