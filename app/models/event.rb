@@ -1,8 +1,8 @@
 class Event < ActiveRecord::Base
   include PublicActivity::Model
 
-  tracked owner: Proc.new { |controller, model| controller && controller.current_user }
-  tracked title: Proc.new { |controller, model| controller && controller.get_title }
+  tracked owner: Proc.new { |controller, model| controller.current_user }
+  tracked title: Proc.new { |controller, model| controller.get_title }
 
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
@@ -33,7 +33,9 @@ class Event < ActiveRecord::Base
 
   def position_not_in_participants
     participants = self.participants.reject(&:marked_for_destruction?).map{|x| x.position_id}
-    errors.add(:base, I18n.t('backend.position_not_in_participants')) if participants.include? position.id
+    if position && participants.include?(position.id)
+      errors.add(:base, I18n.t('backend.position_not_in_participants'))
+    end
   end
 
   def self.ability_events(user)
