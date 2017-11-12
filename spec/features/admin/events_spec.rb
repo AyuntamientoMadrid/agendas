@@ -11,11 +11,13 @@ feature 'Events' do
 
     scenario 'visit the events index page' do
       visit events_path
+
       expect(page).to have_content I18n.t 'backend.events'
     end
 
     scenario 'visit create event form' do
       visit new_event_path
+
       expect(page).to have_selector('#new_event')
       expect(page).not_to have_selector('#edit_event')
     end
@@ -41,34 +43,43 @@ feature 'Events' do
     scenario 'edit event and modify title' do
       event = create(:event, title: 'Test event')
       visit edit_event_path(event)
+
       fill_in :event_title, with: 'New event modified from Capybara'
       click_button I18n.t 'backend.save'
+
       expect(page).to have_content 'New event modified from Capybara'
     end
 
     scenario 'visit search by title' do
       event = create(:event, title: 'New event from Capybara')
       visit events_path
+
       fill_in :search_title, with: 'Capybara'
       click_button I18n.t('backend.search.button')
+
       expect(page).to have_content event.title
     end
 
     scenario 'visit search by person' do
       event = create(:event, title: 'New event from Capybara')
-      name = Holder.where('id=?', Position.where('id=?', event.position_id).take.holder_id).take.first_name
+      name = event.position.holder.first_name
       visit events_path
+
       fill_in :search_person, with: name
       click_button I18n.t('backend.search.button')
+
       expect(page).to have_content event.title
     end
 
     scenario 'visit non results search page' do
       event = create(:event, title: 'New not found event')
       visit events_path
-      fill_in :search_title, with: 'Capybara'
+
+      fill_in :search_title, with: 'Search keywords'
       click_button I18n.t('backend.search.button')
-      expect(page).not_to have_content event.title
+
+      expect(page).to have_content "No se han encontrado eventos"
     end
- end
+
+  end
 end
