@@ -1,6 +1,6 @@
 feature 'Event page' do
 
-  scenario 'visit the event detail page' do
+  scenario 'visit the event detail page', :search do
     event = FactoryGirl.create(:event)
     Event.reindex
     Sunspot.commit
@@ -9,7 +9,7 @@ feature 'Event page' do
     expect(page).to have_content event.title
   end
 
-  scenario 'visit search by keyword and area result page' do
+  scenario 'visit search by keyword and area result page', :search do
     @event = FactoryGirl.create(:event, title: 'New event from Capybara')
     visit root_path
     fill_in :keyword, with: 'Capybara'

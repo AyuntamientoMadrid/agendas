@@ -1,11 +1,11 @@
 feature 'Home page' do
 
-  scenario 'visit the home page' do
+  scenario 'visit the home page', :search do
     visit root_path
     expect(page).to have_content I18n.t 'main.title'
   end
 
-  scenario 'visit holder agenda page' do
+  scenario 'visit holder agenda page', :search do
     @event = FactoryGirl.create(:event)
     Event.reindex
     Sunspot.commit
@@ -25,7 +25,7 @@ feature 'Home page' do
       Sunspot.commit
     end
 
-    scenario 'in range' do
+    scenario 'in range', :search do
       visit root_path
       fill_in :from, with: Time.now
       fill_in :to, with: Time.now+3.days
@@ -34,7 +34,7 @@ feature 'Home page' do
       expect(page).to have_content "3 Resultados con la palabra XXthreeXX"
     end
 
-    scenario 'in range' do
+    scenario 'in range', :search do
       visit root_path
       fill_in :from, with: Time.now+4.days
       fill_in :to, with: Time.now+5.days
@@ -43,7 +43,7 @@ feature 'Home page' do
       expect(page).to have_content "2 Resultados con la palabra XXthreeXX"
     end
 
-    scenario 'out of range' do
+    scenario 'out of range', :search do
       visit root_path
       fill_in :from, with: Time.now-2.days
       fill_in :to, with: Time.now-1.days
@@ -52,7 +52,7 @@ feature 'Home page' do
       expect(page).to have_content "0 Resultados con la palabra XXthreeXX"
     end
 
-    scenario 'out of range' do
+    scenario 'out of range', :search do
       visit root_path
       fill_in :from, with: Time.now+6.days
       fill_in :to, with: Time.now+7.days
@@ -62,7 +62,7 @@ feature 'Home page' do
     end
   end
 
-  scenario 'visit search by keyword result page' do
+  scenario 'visit search by keyword result page', :search do
     @event = FactoryGirl.create(:event, title: 'New event from Capybara')
     visit root_path
     fill_in :keyword, with: 'Capybara'
@@ -70,7 +70,7 @@ feature 'Home page' do
     expect(page).to have_content @event.title
   end
 
-  scenario 'visit search by keyword and area result page' do
+  scenario 'visit search by keyword and area result page', :search do
     @event = FactoryGirl.create(:event, title: 'New event from Capybara')
     visit root_path
     fill_in :keyword, with: 'Capybara'
