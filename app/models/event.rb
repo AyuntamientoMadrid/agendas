@@ -70,8 +70,7 @@ class Event < ActiveRecord::Base
     else
       @events = Event.page(params[:page]).per(20)
     end
-
-    return @events
+    @events
   end
 
   def self.search_by_holder_name(name)

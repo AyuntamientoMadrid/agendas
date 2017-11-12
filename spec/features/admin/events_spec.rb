@@ -72,7 +72,7 @@ feature 'Events' do
     end
 
     scenario 'visit non results search page' do
-      event = create(:event, title: 'New not found event')
+      create(:event, title: 'New not found event')
       visit events_path
 
       fill_in :search_title, with: 'Search keywords'
