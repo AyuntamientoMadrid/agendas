@@ -390,6 +390,9 @@ GEM
     sunspot (2.2.0)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
+    sunspot-rails-tester (1.0.0)
+      sunspot_rails (>= 1.2)
+      sunspot_solr (>= 1.2)
     sunspot_rails (2.2.0)
       nokogiri
       rails (>= 3)
@@ -495,6 +498,7 @@ DEPENDENCIES
   social-share-button
   spring
   spring-commands-rspec
+  sunspot-rails-tester
   sunspot_rails
   sunspot_solr
   thin
