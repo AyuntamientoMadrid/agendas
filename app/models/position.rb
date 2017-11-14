@@ -1,18 +1,16 @@
 class Position < ActiveRecord::Base
 
-  # Relations
   belongs_to :area
   belongs_to :holder
   has_many :participants, dependent: :destroy
   has_many :titular_events, class_name: "Event", dependent: :destroy
   has_many :participants_events, through: :participants
 
-  # Validations
   validates_presence_of :title, :area
 
   scope :current, -> { where(to: nil) }
   scope :previous, -> { where(to: 'IS NOT NULL') }
-  scope :area_filtered, lambda{ |area| self.where(area_id: [area, Area.find(area).descendant_ids]) if area.present? }
+  scope :area_filtered, ->(area) { where(area_id: Area.find(area).subtree_ids) if area.present? }
 
   def events
     (titular_events + participants_events).uniq
