@@ -1,6 +1,6 @@
 feature 'Sign out', :devise do
 
-  scenario 'user signs out successfully', :js do
+  scenario 'user signs out successfully' do
 
     user = create(:user)
     signin(user.email, user.password)
