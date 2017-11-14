@@ -10,4 +10,4 @@ RSpec.configure do |config|
     Sunspot.session = $original_sunspot_session
     Sunspot.remove_all!
   end
-end 
+end

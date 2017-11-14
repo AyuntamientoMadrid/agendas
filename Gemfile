@@ -65,7 +65,7 @@ group :test do
   gem 'codeclimate-test-reporter'
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'selenium-webdriver'
+  gem 'poltergeist', '~> 1.15.0'
   gem 'simplecov'
   gem 'sunspot-rails-tester'
 end

@@ -1,6 +1,3 @@
-include Warden::Test::Helpers
-Warden.test_mode!
-
 feature 'User profile page', :devise do
 
   after(:each) do
