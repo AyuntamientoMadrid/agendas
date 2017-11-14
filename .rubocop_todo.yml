@@ -777,3 +777,7 @@ Style/UnneededInterpolation:
 # SupportedStyles: percent, brackets
 Style/WordArray:
   EnforcedStyle: brackets
+
+Style/GlobalVars:
+  Exclude:
+    - 'spec/support/sunspot.rb'
