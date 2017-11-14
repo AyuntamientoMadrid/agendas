@@ -1,13 +1,12 @@
 class Event < ActiveRecord::Base
   include PublicActivity::Model
 
-  tracked owner: Proc.new { |controller, model| controller && controller.current_user }
-  tracked title: Proc.new { |controller, model| controller && controller.get_title }
+  tracked owner: Proc.new { |controller, model| controller.current_user }
+  tracked title: Proc.new { |controller, model| controller.get_title }
 
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
 
-  # Relations
   belongs_to :user
   belongs_to :position
   has_many :participants, dependent: :destroy
@@ -15,25 +14,24 @@ class Event < ActiveRecord::Base
   has_many :attachments, dependent: :destroy
   has_many :attendees, dependent: :destroy
 
-  # Validations
   validates_presence_of :title, :position, :scheduled
-  #validate :participants_uniqueness
   validate :participants_uniqueness, :position_not_in_participants
   scope :by_title, lambda {|name| where(["title ILIKE ?", "%#{name}%"])}
 
-  # Nested models
-  accepts_nested_attributes_for :attendees, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :attachments, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :participants, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :attendees, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
 
   def participants_uniqueness
     participants = self.participants.reject(&:marked_for_destruction?)
-    errors.add(:base, I18n.t('backend.participants_uniqueness')) if participants.map(&:position_id).uniq.count != participants.to_a.count
+    return unless participants.map(&:position_id).uniq.count != participants.to_a.count
+    errors.add(:base, I18n.t('backend.participants_uniqueness'))
   end
 
   def position_not_in_participants
-    participants = self.participants.reject(&:marked_for_destruction?).map{|x| x.position_id}
-    errors.add(:base, I18n.t('backend.position_not_in_participants')) if participants.include? position.id
+    participants = self.participants.reject(&:marked_for_destruction?)
+    return unless participants.include?(position)
+    errors.add(:base, I18n.t('backend.position_not_in_participants'))
   end
 
   def self.ability_events(user)
@@ -72,17 +70,18 @@ class Event < ActiveRecord::Base
     else
       @events = Event.page(params[:page]).per(20)
     end
-
-    return @events
+    @events
   end
 
   def self.search_by_holder_name(name)
     holder_ids = Holder.by_name(name).pluck(:id)
     position_ids = Position.where(holder_id: holder_ids).pluck(:id)
     titular_event_ids = Event.where(position_id: position_ids).pluck(:id)
-    participant_event_ids = Participant.where(position_id: position_ids).pluck(:event_id)
+    participant_event_ids = Participant.where(position_id: position_ids)
+                                       .pluck(:event_id)
 
-    @events = Event.where(id: (titular_event_ids + participant_event_ids).uniq).includes(:position, :attachments, position: [:holder])
+    @events = Event.where(id: (titular_event_ids + participant_event_ids).uniq)
+                   .includes(:position, :attachments, position: [:holder])
   end
 
   def self.has_manage_holders(user_id)
@@ -95,13 +94,14 @@ class Event < ActiveRecord::Base
     holder_ids = Holder.by_manages(user_id).pluck(:id)
     position_ids = Position.where(holder_id: holder_ids).pluck(:id)
     titular_event_ids = Event.where(position_id: position_ids).pluck(:id)
-    participant_event_ids = Participant.where(position_id: position_ids).pluck(:event_id)
+    participant_event_ids = Participant.where(position_id: position_ids)
+                                       .pluck(:event_id)
 
-    Event.where(id: (titular_event_ids + participant_event_ids).uniq).includes(:position, :attachments, position: [:holder])
+    Event.where(id: (titular_event_ids + participant_event_ids).uniq)
+         .includes(:position, :attachments, position: [:holder])
   end
 
   searchable do
-
     text :title, :description
     time :scheduled
 
@@ -136,7 +136,5 @@ class Event < ActiveRecord::Base
     text :attendee_name do
       [self.attendees.map{|attendee| attendee.name },self.attendees.map{|attendee| attendee.company}]
     end
-
   end
-
 end
