@@ -30,7 +30,7 @@ describe Position do
     let!(:position2) { create(:position, to: Date.current) }
 
     it "Should return only previous positions" do
-      expect(Position.current).to eq([position])
+      expect(Position.previous).to eq([position2])
     end
   end
 
