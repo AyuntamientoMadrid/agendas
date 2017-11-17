@@ -39,12 +39,8 @@ class Event < ActiveRecord::Base
 
   def self.searches(search_person, search_title)
     if search_person.present? || search_title.present?
-      if search_person.present?
-        @events = search_by_holder_name(search_person).uniq
-      end
-      if search_title.present?
-        @events = by_title(search_title)
-      end
+      @events = search_by_holder_name(search_person).uniq if search_person.present?
+      @events = by_title(search_title) if search_title.present?
     else
       @events = all
     end
@@ -100,18 +96,28 @@ class Event < ActiveRecord::Base
     end
   end
 
-  private
+  private_class_method def self.search_by_holder_name(name)
+    holder_ids = Holder.by_name(name).pluck(:id)
+    position_ids = Position.where(holder_id: holder_ids).pluck(:id)
+    titular_event_ids = Event.where(position_id: position_ids).pluck(:id)
+    participant_event_ids = Participant.where(position_id: position_ids)
+                                       .pluck(:event_id)
 
-    def self.search_by_holder_name(name)
-      holder_ids = Holder.by_name(name).pluck(:id)
-      position_ids = Position.where(holder_id: holder_ids).pluck(:id)
-      titular_event_ids = Event.where(position_id: position_ids).pluck(:id)
-      participant_event_ids = Participant.where(position_id: position_ids)
-                                         .pluck(:event_id)
+    Event.where(id: (titular_event_ids + participant_event_ids).uniq)
+         .includes(:position, :attachments, position: [:holder])
+  end
 
-      Event.where(id: (titular_event_ids + participant_event_ids).uniq)
-           .includes(:position, :attachments, position: [:holder])
+  private_class_method def self.ability(user, method)
+    event_ids = []
+    user.manages.includes(:holder).each do |manage|
+      manage.holder.positions.each do |position|
+        event_ids += position.send(method).ids
+      end
     end
+    return event_ids
+  end
+
+  private
 
     def participants_uniqueness
       participants = self.participants.reject(&:marked_for_destruction?)
@@ -125,15 +131,4 @@ class Event < ActiveRecord::Base
       return unless position && positions_ids.include?(position.id)
       errors.add(:base, I18n.t('backend.position_not_in_participants'))
     end
-
-    def self.ability(user, method)
-      event_ids = []
-      user.manages.includes(:holder).each do |manage|
-        manage.holder.positions.each do |position|
-          event_ids += position.send(method).ids
-        end
-      end
-      return event_ids
-    end
-
 end
