@@ -45,16 +45,16 @@ describe Holder do
     end
   end
 
-  describe ".by_manages" do
+  describe ".managed_by" do
     let(:user)            { create(:user, :user) }
     let(:managed_holder1) { create(:manage, user: user) }
     let(:managed_holder2) { create(:manage, user: user) }
     let(:manage)          { create(:manage) }
 
     it "Should return all holder managed by given user" do
-      expect(Holder.by_manages(user)).to include(managed_holder1.holder)
-      expect(Holder.by_manages(user)).to include(managed_holder2.holder)
-      expect(Holder.by_manages(user)).not_to include(manage.holder)
+      expect(Holder.managed_by(user)).to include(managed_holder1.holder)
+      expect(Holder.managed_by(user)).to include(managed_holder2.holder)
+      expect(Holder.managed_by(user)).not_to include(manage.holder)
     end
   end
 

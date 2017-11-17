@@ -32,7 +32,7 @@ class Holder < ActiveRecord::Base
     self.positions.current.size
   end
 
-  def self.by_manages (user_id)
+  def self.managed_by (user_id)
     joins(:manages).where("manages.user_id" => user_id)
   end
 
