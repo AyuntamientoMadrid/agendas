@@ -9,7 +9,7 @@ class Position < ActiveRecord::Base
   validates_presence_of :title, :area
 
   scope :current, -> { where(to: nil) }
-  scope :previous, -> { where(to: 'IS NOT NULL') }
+  scope :previous, -> { where.not(to: nil) }
   scope :area_filtered, ->(area) { where(area_id: Area.find(area).subtree_ids) if area.present? }
 
   def events
