@@ -7,12 +7,12 @@ class EventsController < AdminController
   end
 
   def list_admin_events
-    @events = Event.searches(params)
+    @events = Event.searches(params[:search_person], params[:search_title])
     @events.order(scheduled: :desc).page(params[:page]).per(50)
   end
 
   def list_user_events
-    @events = Event.by_manages(current_user.id)
+    @events = Event.managed_by(current_user.id)
     @events.order(scheduled: :desc).page(params[:page]).per(50)
   end
 
