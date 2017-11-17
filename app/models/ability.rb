@@ -15,7 +15,7 @@ class Ability
       end
       can :index, :activities
     else
-      if(Event.has_manage_holders(user))
+      if Holder.managed_by(user.id).any?
         can :manage, Event, id: Event.ability_titular_events(user)
         can :show, Event, id: Event.ability_events(user)
         can :create, Event

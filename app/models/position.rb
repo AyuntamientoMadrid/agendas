@@ -22,7 +22,7 @@ class Position < ActiveRecord::Base
   end
 
   def self.holders(user_id)
-    holder_ids = Holder.by_manages(user_id).ids
+    holder_ids = Holder.managed_by(user_id).ids
     Position.where(holder_id: holder_ids)
   end
 end
