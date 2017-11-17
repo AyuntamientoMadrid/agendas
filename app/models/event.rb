@@ -16,23 +16,11 @@ class Event < ActiveRecord::Base
 
   validates_presence_of :title, :position, :scheduled
   validate :participants_uniqueness, :position_not_in_participants
-  scope :by_title, lambda {|name| where(["title ILIKE ?", "%#{name}%"])}
+  scope :by_title, lambda {|title| where("title ILIKE ?", "%#{title}%")}
 
   accepts_nested_attributes_for :attendees, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
-
-  def participants_uniqueness
-    participants = self.participants.reject(&:marked_for_destruction?)
-    return unless participants.map(&:position_id).uniq.count != participants.to_a.count
-    errors.add(:base, I18n.t('backend.participants_uniqueness'))
-  end
-
-  def position_not_in_participants
-    participants = self.participants.reject(&:marked_for_destruction?)
-    return unless participants.include?(position)
-    errors.add(:base, I18n.t('backend.position_not_in_participants'))
-  end
 
   def self.ability_events(user)
     event_ids = []
@@ -49,49 +37,22 @@ class Event < ActiveRecord::Base
     ability(user, 'participants_events')
   end
 
-  def self.ability(user, method)
-    event_ids = []
-    user.manages.includes(:holder).each do |m|
-      m.holder.positions.each do |p|
-        event_ids += p.send(method).ids
+  def self.searches(search_person, search_title)
+    if search_person.present? || search_title.present?
+      if search_person.present?
+        @events = search_by_holder_name(search_person).uniq
       end
-    end
-    return event_ids
-  end
-
-  def self.searches(params)
-    if params[:search_person].present? || params[:search_title].present?
-      if params[:search_person].present?
-        @events = Event.search_by_holder_name(params[:search_person]).uniq
-      end
-      if params[:search_title].present?
-        @events = Event.by_title(params[:search_title])
+      if search_title.present?
+        @events = by_title(search_title)
       end
     else
-      @events = Event.page(params[:page]).per(20)
+      @events = all
     end
     @events
   end
 
-  def self.search_by_holder_name(name)
-    holder_ids = Holder.by_name(name).pluck(:id)
-    position_ids = Position.where(holder_id: holder_ids).pluck(:id)
-    titular_event_ids = Event.where(position_id: position_ids).pluck(:id)
-    participant_event_ids = Participant.where(position_id: position_ids)
-                                       .pluck(:event_id)
-
-    @events = Event.where(id: (titular_event_ids + participant_event_ids).uniq)
-                   .includes(:position, :attachments, position: [:holder])
-  end
-
-  def self.has_manage_holders(user_id)
-    holder_ids = Holder.by_manages(user_id).pluck(:id)
-    return true unless holder_ids.blank?
-    false
-  end
-
-  def self.by_manages(user_id)
-    holder_ids = Holder.by_manages(user_id).pluck(:id)
+  def self.managed_by(user_id)
+    holder_ids = Holder.managed_by(user_id).pluck(:id)
     position_ids = Position.where(holder_id: holder_ids).pluck(:id)
     titular_event_ids = Event.where(position_id: position_ids).pluck(:id)
     participant_event_ids = Participant.where(position_id: position_ids)
@@ -134,7 +95,45 @@ class Event < ActiveRecord::Base
     end
 
     text :attendee_name do
-      [self.attendees.map{|attendee| attendee.name },self.attendees.map{|attendee| attendee.company}]
+      [self.attendees.map{|attendee| attendee.name },
+       self.attendees.map{|attendee| attendee.company}]
     end
   end
+
+  private
+
+    def self.search_by_holder_name(name)
+      holder_ids = Holder.by_name(name).pluck(:id)
+      position_ids = Position.where(holder_id: holder_ids).pluck(:id)
+      titular_event_ids = Event.where(position_id: position_ids).pluck(:id)
+      participant_event_ids = Participant.where(position_id: position_ids)
+                                         .pluck(:event_id)
+
+      Event.where(id: (titular_event_ids + participant_event_ids).uniq)
+           .includes(:position, :attachments, position: [:holder])
+    end
+
+    def participants_uniqueness
+      participants = self.participants.reject(&:marked_for_destruction?)
+      return unless participants.map(&:position_id).uniq.count != participants.to_a.count
+      errors.add(:base, I18n.t('backend.participants_uniqueness'))
+    end
+
+    def position_not_in_participants
+      participants = self.participants.reject(&:marked_for_destruction?)
+      positions_ids = participants.collect{|p| p.position.id }
+      return unless position && positions_ids.include?(position.id)
+      errors.add(:base, I18n.t('backend.position_not_in_participants'))
+    end
+
+    def self.ability(user, method)
+      event_ids = []
+      user.manages.includes(:holder).each do |manage|
+        manage.holder.positions.each do |position|
+          event_ids += position.send(method).ids
+        end
+      end
+      return event_ids
+    end
+
 end
