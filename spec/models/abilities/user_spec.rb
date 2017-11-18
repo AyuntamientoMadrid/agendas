@@ -29,13 +29,13 @@ feature "Abilities::User" do
     it { should_not be_able_to(:edit, @holder_several_positions) }
     it { should_not be_able_to(:destroy, @holder_several_positions) }
 
-    it { should be_able_to(:index, Event, id: Event.managed_by(@user_with_holders.id)) }
+    it { should be_able_to(:index, Event, id: Event.managed_by(@user_with_holders)) }
     it { should be_able_to(:new, @registration_offices) }
     it { should be_able_to(:show, @registration_offices) }
     it { should be_able_to(:edit, @registration_offices) }
     it { should be_able_to(:destroy, @registration_offices) }
 
-    it { should be_able_to(:index, Event, id: Event.managed_by(@user_with_holders.id)) }
+    it { should be_able_to(:index, Event, id: Event.managed_by(@user_with_holders)) }
     it { should be_able_to(:new, Event) }
     it { should be_able_to(:show, @political_transparency) }
     it { should_not be_able_to(:edit, @political_transparency) }

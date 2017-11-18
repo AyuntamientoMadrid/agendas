@@ -59,7 +59,50 @@ describe Event do
     end
   end
 
-  describe ".ability_event" do
+  describe ".by_holders" do
+    let!(:event) { create(:event) }
+    let!(:event2) { create(:event) }
+
+    it "Should return all events from given holders ids" do
+      expect(Event.by_holders([event.position.holder.id])).to eq([event])
+    end
+  end
+
+  describe ".by_participant_holders" do
+    let!(:event)       { create(:event) }
+    let!(:event2)      { create(:event) }
+    let!(:participant) { create(:participant, participants_event: event) }
+
+    it "Should return all events where given holders ids acts as participants" do
+      expect(Event.by_participant_holders([participant.position.holder.id])).to eq([event])
+    end
+  end
+
+  describe ".by_holder_name" do
+    let!(:holder) { create(:holder, :with_position, first_name: "John", last_name: "Doe") }
+    let!(:event)  { create(:event, position: holder.current_position) }
+
+    it "Should return all events where holders contains given name" do
+      expect(Event.by_holder_name("John Doe")).to eq([event])
+    end
+  end
+
+  describe ".managed_by" do
+
+    let!(:user)   { create(:user, :user) }
+    let!(:manage) { create(:manage, user: user) }
+    let!(:position) { create(:position, holder: manage.holder) }
+    let!(:event) { create(:event, position: position) }
+    let!(:event_as_participant) { create(:event) }
+    let!(:participant) { create(:participant, position: position, participants_event: event_as_participant) }
+
+    it "Should return all events where given user holders acts as holders or participants" do
+      expect(Event.managed_by(user)).to eq([event, event_as_participant])
+    end
+
+  end
+
+  describe ".ability_events" do
 
     it "Should return all events ids where given user holders are present as holders" do
       event = create(:event)
@@ -112,12 +155,6 @@ describe Event do
       expect(Event.searches("", "amazing")).to eq([event])
     end
 
-  end
-
-  describe ".by_manage" do
-    it "Should return a" do
-
-    end
   end
 
 end
