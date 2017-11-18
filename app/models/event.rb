@@ -7,6 +7,9 @@ class Event < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
 
+  validates_presence_of :title, :position, :scheduled
+  validate :participants_uniqueness, :position_not_in_participants
+
   belongs_to :user
   belongs_to :position
   has_many :participants, dependent: :destroy
@@ -14,13 +17,29 @@ class Event < ActiveRecord::Base
   has_many :attachments, dependent: :destroy
   has_many :attendees, dependent: :destroy
 
-  validates_presence_of :title, :position, :scheduled
-  validate :participants_uniqueness, :position_not_in_participants
-  scope :by_title, lambda {|title| where("title ILIKE ?", "%#{title}%")}
-
   accepts_nested_attributes_for :attendees, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
+
+  scope :by_title, lambda {|title| where("title ILIKE ?", "%#{title}%") }
+  scope :by_holders, lambda {|holder_ids|
+    joins(:position).where("positions.holder_id IN (?)", holder_ids)
+  }
+  scope :by_participant_holders, lambda {|holder_ids|
+    joins(participants: :position).where("positions.holder_id IN (?)", holder_ids)
+  }
+  scope :by_holder_name, lambda {|name|
+    holder_ids = Holder.by_name(name).pluck(:id)
+    joins(:position).where("positions.holder_id IN (?)", holder_ids)
+  }
+
+  def self.managed_by(user)
+    holder_ids = Holder.managed_by(user.id).pluck(:id)
+    titular_event_ids = Event.by_holders(holder_ids).pluck(:id)
+    participant_event_ids = Event.by_participant_holders(holder_ids).pluck(:id)
+
+    Event.where(id: (titular_event_ids + participant_event_ids).uniq)
+  end
 
   def self.ability_events(user)
     event_ids = []
@@ -39,23 +58,12 @@ class Event < ActiveRecord::Base
 
   def self.searches(search_person, search_title)
     if search_person.present? || search_title.present?
-      @events = search_by_holder_name(search_person).uniq if search_person.present?
+      @events = by_holder_name(search_person).uniq if search_person.present?
       @events = by_title(search_title) if search_title.present?
     else
       @events = all
     end
     @events
-  end
-
-  def self.managed_by(user_id)
-    holder_ids = Holder.managed_by(user_id).pluck(:id)
-    position_ids = Position.where(holder_id: holder_ids).pluck(:id)
-    titular_event_ids = Event.where(position_id: position_ids).pluck(:id)
-    participant_event_ids = Participant.where(position_id: position_ids)
-                                       .pluck(:event_id)
-
-    Event.where(id: (titular_event_ids + participant_event_ids).uniq)
-         .includes(:position, :attachments, position: [:holder])
   end
 
   searchable do
@@ -94,17 +102,6 @@ class Event < ActiveRecord::Base
       [self.attendees.map{|attendee| attendee.name },
        self.attendees.map{|attendee| attendee.company}]
     end
-  end
-
-  private_class_method def self.search_by_holder_name(name)
-    holder_ids = Holder.by_name(name).pluck(:id)
-    position_ids = Position.where(holder_id: holder_ids).pluck(:id)
-    titular_event_ids = Event.where(position_id: position_ids).pluck(:id)
-    participant_event_ids = Participant.where(position_id: position_ids)
-                                       .pluck(:event_id)
-
-    Event.where(id: (titular_event_ids + participant_event_ids).uniq)
-         .includes(:position, :attachments, position: [:holder])
   end
 
   private_class_method def self.ability(user, method)
