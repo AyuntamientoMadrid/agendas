@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170330104310) do
+ActiveRecord::Schema.define(version: 20171120210302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,21 @@ ActiveRecord::Schema.define(version: 20170330104310) do
   add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
   add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
   add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
+
+  create_table "agents", force: :cascade do |t|
+    t.string   "identifier"
+    t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.date     "from"
+    t.date     "to"
+    t.text     "public_assignments"
+    t.integer  "organization_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "agents", ["organization_id"], name: "index_agents_on_organization_id", using: :btree
 
   create_table "areas", force: :cascade do |t|
     t.integer  "internal_id"
@@ -69,6 +84,12 @@ ActiveRecord::Schema.define(version: 20170330104310) do
   end
 
   add_index "attendees", ["event_id"], name: "index_attendees_on_event_id", using: :btree
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "events", force: :cascade do |t|
     t.string   "title"
@@ -107,6 +128,26 @@ ActiveRecord::Schema.define(version: 20170330104310) do
     t.string   "user_key"
   end
 
+  create_table "interests", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "legal_representants", force: :cascade do |t|
+    t.string   "identifier"
+    t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phones"
+    t.string   "email"
+    t.integer  "organization_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "legal_representants", ["organization_id"], name: "index_legal_representants_on_organization_id", using: :btree
+
   create_table "manages", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "holder_id"
@@ -116,6 +157,50 @@ ActiveRecord::Schema.define(version: 20170330104310) do
 
   add_index "manages", ["holder_id"], name: "index_manages_on_holder_id", using: :btree
   add_index "manages", ["user_id"], name: "index_manages_on_user_id", using: :btree
+
+  create_table "organization_interests", force: :cascade do |t|
+    t.integer  "organization_id"
+    t.integer  "interest_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "organization_interests", ["interest_id"], name: "index_organization_interests_on_interest_id", using: :btree
+  add_index "organization_interests", ["organization_id"], name: "index_organization_interests_on_organization_id", using: :btree
+
+  create_table "organizations", force: :cascade do |t|
+    t.string   "reference"
+    t.string   "identifier"
+    t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "address_type"
+    t.string   "address"
+    t.string   "number"
+    t.string   "gateway"
+    t.string   "stairs"
+    t.string   "floor"
+    t.string   "door"
+    t.string   "postal_code"
+    t.string   "town"
+    t.string   "province"
+    t.string   "phones"
+    t.string   "email"
+    t.integer  "category_id"
+    t.string   "description"
+    t.string   "web"
+    t.integer  "registered_lobbies"
+    t.integer  "fiscal_year"
+    t.integer  "range_fund"
+    t.boolean  "subvention"
+    t.boolean  "contract"
+    t.boolean  "denied_public_data"
+    t.boolean  "denied_public_events"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "organizations", ["category_id"], name: "index_organizations_on_category_id", using: :btree
 
   create_table "participants", force: :cascade do |t|
     t.integer  "position_id"
@@ -138,6 +223,24 @@ ActiveRecord::Schema.define(version: 20170330104310) do
 
   add_index "positions", ["area_id"], name: "index_positions_on_area_id", using: :btree
   add_index "positions", ["holder_id"], name: "index_positions_on_holder_id", using: :btree
+
+  create_table "represented_entities", force: :cascade do |t|
+    t.string   "identifier"
+    t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.date     "from"
+    t.date     "to"
+    t.integer  "organization_id"
+    t.integer  "fiscal_year"
+    t.integer  "range_fund"
+    t.boolean  "subvention"
+    t.boolean  "contract"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "represented_entities", ["organization_id"], name: "index_represented_entities_on_organization_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -162,14 +265,20 @@ ActiveRecord::Schema.define(version: 20170330104310) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "agents", "organizations"
   add_foreign_key "attachments", "events"
   add_foreign_key "attendees", "events"
   add_foreign_key "events", "positions"
   add_foreign_key "events", "users"
+  add_foreign_key "legal_representants", "organizations"
   add_foreign_key "manages", "holders"
   add_foreign_key "manages", "users"
+  add_foreign_key "organization_interests", "interests"
+  add_foreign_key "organization_interests", "organizations"
+  add_foreign_key "organizations", "categories"
   add_foreign_key "participants", "events"
   add_foreign_key "participants", "positions"
   add_foreign_key "positions", "areas"
   add_foreign_key "positions", "holders"
+  add_foreign_key "represented_entities", "organizations"
 end
