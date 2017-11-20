@@ -6,6 +6,10 @@ main_area = Area.create(title: 'IAM', active: 1)
 area = Area.create(title: 'IAM servicio de portales y contenidos', parent: main_area, active: 1)
 sub_area = Area.create(title: 'IAM departamento de gestion de contenidos y documentos', parent: area, active: 1)
 
+# Admin
+admin_user = User.create(password: '12345678', email: 'admin@agendas.dev', first_name: 'Admin', last_name: 'Istrator', active: 1)
+admin_user.admin!
+
 # Users who do not manage holders, will create the first event
 user_without_holders = User.create(password: '12345678', email: 'pepe@agendas.dev', first_name: 'Pepe', last_name: 'Perez', active: 1)
 user_without_holders.user!
