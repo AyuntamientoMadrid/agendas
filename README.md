@@ -29,7 +29,7 @@ cp config/secrets.yml.example config/secrets.yml
 rake db:create
 rake db:migrate
 rake sunspot:solr:start
-rake generator:initialize
+rake db:test_seeds
 
 ```
 
