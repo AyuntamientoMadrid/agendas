@@ -1,8 +1,8 @@
 class Event < ActiveRecord::Base
   include PublicActivity::Model
 
-  tracked owner: Proc.new { |controller, model| controller.current_user }
-  tracked title: Proc.new { |controller, model| controller.get_title }
+  tracked owner: Proc.new { |controller, model| controller.present? ? controller.current_user : model.user }
+  tracked title: Proc.new { |controller, model| controller.present? ? controller.get_title : model.title }
 
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
