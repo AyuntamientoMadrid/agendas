@@ -78,5 +78,5 @@ Attendee.create(event: online_registration, name: Faker::Name.name, position: Fa
 Attendee.create(event: registration_offices, name: Faker::Name.name, position: Faker::Name.title, company: Faker::Company.name)
 
 # Attachments
-Attachment.create(title: 'pdf', file: File.open('./spec/fixtures/dummy.pdf'), event: registration_offices)
-Attachment.create(title: 'jpg', file: File.open('./spec/fixtures/dummy.jpg'), event: registration_offices)
+Attachment.create(title: 'PDF Attachment', file: File.open('./spec/fixtures/dummy.pdf'), event: registration_offices)
+Attachment.create(title: 'JPG Attachment', file: File.open('./spec/fixtures/dummy.jpg'), event: registration_offices)
