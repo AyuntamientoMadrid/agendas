@@ -1,45 +1,41 @@
 class User < ActiveRecord::Base
 
-  # Relations
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable,
+         :validatable
+  enum role: [:user, :admin]
+
+  after_initialize :set_default_role, if: :new_record?
+  after_initialize :set_active, if: :new_record?
+
   has_many :events
   has_many :manages, dependent: :destroy
   has_many :holders, through: :manages
 
-  accepts_nested_attributes_for :manages, :reject_if => :all_blank, :allow_destroy => true
-
-
-  # Validations
   validates_presence_of :first_name, :last_name, :email
   validate :manages_uniqueness
 
-  enum role: [:user, :admin]
-  after_initialize :set_default_role, if: :new_record?
-  after_initialize :set_active, if: :new_record?
+  accepts_nested_attributes_for :manages, reject_if: :all_blank, allow_destroy: true
 
-
-  scope :active, -> {where(:active => true)}
+  scope :active, -> { where(active: true) }
 
   def name
     last_name.to_s + ", " + first_name.to_s
   end
 
   def full_name
-    (self.first_name.delete(',')+' '+self.last_name.delete(',')).mb_chars.to_s
+    (self.first_name.delete(',') + ' ' + self.last_name.delete(',')).mb_chars.to_s
   end
 
   def full_name_comma
-    (self.last_name.to_s.delete(',')+', '+self.first_name.to_s.delete(',')).mb_chars.to_s
+    (self.last_name.to_s.delete(',') + ', ' + self.first_name.to_s.delete(',')).mb_chars.to_s
   end
 
   def manages_uniqueness
     manages = self.manages.reject(&:marked_for_destruction?)
     errors.add(:base, I18n.t('backend.participants_uniqueness')) unless manages.map{|x| x.holder_id}.uniq.count == manages.to_a.count
   end
-
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable,
-         :recoverable, :rememberable, :trackable, :validatable
 
   private
 

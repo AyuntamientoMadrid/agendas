@@ -1,18 +1,16 @@
 class Position < ActiveRecord::Base
 
-  # Relations
   belongs_to :area
   belongs_to :holder
   has_many :participants, dependent: :destroy
   has_many :titular_events, class_name: "Event", dependent: :destroy
   has_many :participants_events, through: :participants
 
-  # Validations
   validates_presence_of :title, :area
 
   scope :current, -> { where(to: nil) }
-  scope :previous, -> { where(to: 'IS NOT NULL') }
-  scope :area_filtered, lambda{ |area| self.where(area_id: [area, Area.find(area).descendant_ids]) if area.present? }
+  scope :previous, -> { where.not(to: nil) }
+  scope :area_filtered, ->(area) { where(area_id: Area.find(area).subtree_ids) if area.present? }
 
   def events
     (titular_events + participants_events).uniq
@@ -24,7 +22,7 @@ class Position < ActiveRecord::Base
   end
 
   def self.holders(user_id)
-    holder_ids = Holder.by_manages(user_id).ids
+    holder_ids = Holder.managed_by(user_id).ids
     Position.where(holder_id: holder_ids)
   end
 end

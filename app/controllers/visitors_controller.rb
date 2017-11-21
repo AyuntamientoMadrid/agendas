@@ -43,8 +43,11 @@ class VisitorsController < ApplicationController
     end
   end
 
-  def get_holders_by_area (area)
-    Holder.where(id: Position.includes(:holder).area_filtered(area).current.map {|position| position.holder }).order(last_name: :asc)
+  def get_holders_by_area(area)
+    holders_ids = Position.includes(:holder)
+                          .area_filtered(area)
+                          .current.map {|position| position.holder }
+    Holder.where(id: holders_ids).order(last_name: :asc)
   end
 
   def ancestry_options(items)
