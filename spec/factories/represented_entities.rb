@@ -11,7 +11,7 @@ FactoryGirl.define do
     fiscal_year 2018
     range_fund :range_1
     subvention false
-    contract true    
+    contract true
     association :organization, factory: :organization
   end
 

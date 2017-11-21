@@ -7,8 +7,8 @@ FactoryGirl.define do
     address_type { Faker::Address.street_suffix }
     address { Faker::Address.street_name }
     number { Faker::Address.building_number }
-    stairs { "Left"}
-    floor { rand(1..5)}
+    stairs "Left"
+    floor { rand(1..5) }
     door "A"
     postal_code { Faker::Address.postcode }
     town { Faker::Address.city }
@@ -24,7 +24,6 @@ FactoryGirl.define do
     contract true
     denied_public_data false
     denied_public_events false
-
 
     trait :company do
       name { Faker::Company.name }
