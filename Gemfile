@@ -63,7 +63,6 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'codeclimate-test-reporter'
   gem 'coveralls', require: false
   gem 'database_cleaner'
   gem 'launchy'
