@@ -394,7 +394,7 @@ GEM
       nokogiri
       rails (>= 3)
       sunspot (= 2.2.7)
-    sunspot_solr (2.2.0)
+    sunspot_solr (2.2.7)
     term-ansicolor (1.6.0)
       tins (~> 1.0)
     thin (1.6.4)
