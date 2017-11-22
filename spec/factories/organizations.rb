@@ -25,7 +25,7 @@ FactoryGirl.define do
     denied_public_data false
     denied_public_events false
     entity_type :lobby
-    
+
     trait :company do
       name { Faker::Company.name }
     end

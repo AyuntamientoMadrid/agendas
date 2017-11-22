@@ -23,7 +23,7 @@ describe Organization do
   end
 
   it "should not be valid when inscription_reference already exists" do
-    organization = create(:organization, inscription_reference: "XYZ")
+    create(:organization, inscription_reference: "XYZ")
     another_organization = build(:organization, inscription_reference: "XYZ")
 
     expect(another_organization).not_to be_valid
