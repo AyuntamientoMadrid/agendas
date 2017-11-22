@@ -24,9 +24,22 @@ FactoryGirl.define do
     contract true
     denied_public_data false
     denied_public_events false
-
+    entity_type :lobby
+    
     trait :company do
       name { Faker::Company.name }
+    end
+
+    trait :lobby do
+      entity_type :lobby
+    end
+
+    trait :association do
+      entity_type :association
+    end
+
+    trait :federation do
+      entity_type :federation
     end
 
     trait :person  do
