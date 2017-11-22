@@ -57,7 +57,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
   gem 'rubocop', '~> 0.51.0', require: false
   gem 'spring', '~> 1.4.0'
-  gem 'thin', '~> 1.6.4'
+  gem 'thin', '~> 1.7.2'
 end
 
 group :test do
