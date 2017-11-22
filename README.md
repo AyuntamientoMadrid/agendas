@@ -17,7 +17,7 @@ Los estilos de la página usan [SCSS](http://sass-lang.com/) sobre [Foundation](
 
 ## Configuración para desarrollo y tests
 
-Prerequisitos: tener instalado git, Ruby 2.2.3, la gema `bundler`, ghostscript y PostgreSQL (9.4 o superior).
+Prerequisitos: tener instalado git, Ruby 2.2.1, Java, la gema `bundler`, ghostscript y PostgreSQL (9.4 o superior).
 
 ```
 
@@ -30,13 +30,14 @@ rake db:create
 rake db:migrate
 rake sunspot:solr:start
 rake db:test_seeds
-
 ```
 
 Para ejecutar la aplicación en local:
 ```
 bin/rails s
 ```
+
+El usuario admin por defecto es `admin@agendas.dev` con password `12345678`
 
 Prerequisitos para los tests: tener instalado PhantomJS >= 2.0
 
@@ -45,3 +46,4 @@ Para ejecutar los tests:
 ```
 bin/rspec
 ```
+
