@@ -2,6 +2,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
 
+  layout "admin", only: [:edit]
+
   # GET /resource/sign_up
   # def new
   #   super
@@ -13,14 +15,27 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    super
+  end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    if password_params[:password].blank?
+      password_params.delete("password")
+      password_params.delete("password_confirmation")
+    end
+
+    @user = User.find(current_user.id)
+
+    if @user.update_without_password(password_params)
+      set_flash_message :notice, :updated
+      sign_in @user, :bypass => true
+      redirect_to after_update_path_for(@user)
+    else
+      render "edit"
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -35,8 +50,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def cancel
   #   super
   # end
-
-  # protected
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
@@ -57,4 +70,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  private
+
+    def password_params
+      params.require(:user).permit(:password, :password_confirmation)
+    end
 end

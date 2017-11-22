@@ -98,6 +98,10 @@ es:
     activity: "Registro de Actividad"
     entries: "Registros"
 
+    change_password: "Cambiar contraseña"
+    password: "Contraseña"
+    password_confirmation: "Repetir contraseña"
+
   backend_header:
     open_gov: "Gobierno abierto"
     administracion: "Administración"

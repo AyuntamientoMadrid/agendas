@@ -1,0 +1,23 @@
+<h2><%= t("backend.change_password") %></h2>
+
+<%= form_for(resource, as: resource_name, url: user_password_registration_path(), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.label(:password, t("backend.password")) %>
+    <%= f.password_field :password, autocomplete: "off" %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> characters minimum</em>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label(:password_confirmation, t("backend.password_confirmation")) %>
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "#{t("backend.save")}", class: "button radius success right" %>
+  </div>
+<% end %>
