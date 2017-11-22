@@ -1,8 +1,7 @@
 source 'https://rubygems.org'
+ruby '2.3.5'
 
-ruby '2.2.1'
 gem 'rails', '4.2.10'
-
 gem 'ancestry', '~> 2.1.0'
 gem 'cancancan', '~> 1.13.1'
 gem 'cocoon', '~> 1.2.6'

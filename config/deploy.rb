@@ -7,7 +7,7 @@ def deploysecret(key)
 end
 
 set :rails_env, fetch(:stage)
-set :rvm_ruby_version, '2.2.1'
+set :rvm_ruby_version, '2.3.5'
 set :rvm_type, :user
 
 set :application, 'agendas'
