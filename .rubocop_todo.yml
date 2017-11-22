@@ -468,14 +468,21 @@ Rails/ActionFilter:
 # Cop supports --auto-correct.
 Rails/ApplicationRecord:
   Exclude:
+    - 'app/models/agent.rb'
     - 'app/models/area.rb'
     - 'app/models/attachment.rb'
     - 'app/models/attendee.rb'
+    - 'app/models/category.rb'
     - 'app/models/event.rb'
     - 'app/models/holder.rb'
+    - 'app/models/interest.rb'
+    - 'app/models/legal_representant.rb'
     - 'app/models/manage.rb'
+    - 'app/models/organization.rb'
+    - 'app/models/organization_interest.rb'
     - 'app/models/participant.rb'
     - 'app/models/position.rb'
+    - 'app/models/represented_entity.rb'
     - 'app/models/user.rb'
 
 # Offense count: 3

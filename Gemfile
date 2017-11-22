@@ -5,7 +5,7 @@ gem 'rails', '4.2.10'
 
 gem 'ancestry', '~> 2.1.0'
 gem 'cancancan', '~> 1.13.1'
-gem 'cocoon',  '~> 1.2.6'
+gem 'cocoon', '~> 1.2.6'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'devise', '~> 3.5', '>= 3.5.10'
 gem 'devise-i18n', '~> 0.12.1'
