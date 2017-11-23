@@ -9,7 +9,7 @@ FactoryGirl.define do
     from Time.zone.yesterday
     to Time.zone.today
     fiscal_year 2018
-    range_funds :range_1
+    range_fund :range_1
     subvention false
     contract true
     association :organization, factory: :organization

@@ -28,10 +28,10 @@ class Admin::OrganizationsController < AdminController
           .permit(:reference, :identifier, :name, :first_name, :last_name, :phones, :email,
                   :web, :address_type, :address, :number, :gateway, :stairs, :floor, :door,
                   :postal_code, :town, :province, :description, :registered_lobbies, :category_id,
-                  :fiscal_year, :range_funds, :subvention, :contract, :denied_public_data, :denied_public_events, interest_ids: [],
+                  :fiscal_year, :range_fund, :subvention, :contract, :denied_public_data, :denied_public_events, interest_ids: [],
                   legal_representant_attributes: [:id, :identifier, :name, :first_name, :last_name, :phones, :email],
                   user_attributes: [:id, :first_name, :last_name, :role, :email, :active, :phones, :password, :password_confirmation],
-                  represented_entities_attributes: [:id, :identifier, :name, :first_name, :last_name, :from, :fiscal_year, :range_funds, :subvention, :contract],
+                  represented_entities_attributes: [:id, :identifier, :name, :first_name, :last_name, :from, :fiscal_year, :range_fund, :subvention, :contract],
                   organization_interests_attributes: [:interest_ids],
                   agents_attributes: [:id, :identifier, :name, :first_name, :last_name, :from, :to, :public_assignments])
   end

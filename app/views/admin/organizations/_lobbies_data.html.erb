@@ -6,8 +6,8 @@
       <%= f.number_field :fiscal_year %>
     </div>
     <div class="small-6 columns">
-      <%= f.label :range_funds, t('backend.lobbies_data.range_funds') %>
-      <%= f.select :range_funds, Organization.range_funds.keys.to_a %>
+      <%= f.label :range_fund, t('backend.lobbies_data.range_fund') %>
+      <%= f.select :range_fund, Organization.range_funds.keys.to_a %>
     </div>
     <div class="small-12 columns">
       <%= f.label :subvention, t('backend.lobbies_data.subvention') %>

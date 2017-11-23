@@ -50,7 +50,7 @@ es:
     lobbies_data:
       title_fieldset: "Datos de quien va a ejercer la actividad de lobby por cuenta propia"
       fiscal_year: "Ejercicio anual"
-      range_funds: "Fondos"
+      range_fund: "Fondos"
       subvention: "¿Ha recibido ayudas y/o subvenciones con cargo al Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
 

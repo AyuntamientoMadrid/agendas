@@ -9,7 +9,7 @@ class CreateRepresentedEntities < ActiveRecord::Migration
       t.date :to
       t.references :organization, index: true, foreign_key: true
       t.integer :fiscal_year
-      t.integer :range_funds
+      t.integer :range_fund
       t.boolean :subvention
       t.boolean :contract       
 

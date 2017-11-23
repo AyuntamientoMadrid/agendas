@@ -21,7 +21,7 @@ FactoryGirl.define do
     web "www.organization.com"
     registered_lobbies :generalitat_catalunya
     fiscal_year 2018
-    range_funds :range_1
+    range_fund :range_1
     subvention false
     contract true
     denied_public_data false
