@@ -5,21 +5,18 @@
 
   <fieldset>
     <legend><%= t('backend.modify') %></legend>
+
     <div class="field">
-      <%= f.label(:password, t("backend.password")) %>
+      <%= f.label(:password, t("backend.new_password")) %>
       <%= f.password_field :password, autocomplete: "off" %>
     </div>
 
     <div class="field">
-      <%= f.label(:password_confirmation, t("backend.password_confirmation")) %>
+      <%= f.label(:password_confirmation, t("backend.new_password_confirmation")) %>
       <%= f.password_field :password_confirmation, autocomplete: "off" %>
     </div>
-    
-    <div class="field">
-      <%= f.label(:current_password, t("backend.current_password")) %>
-      <%= f.password_field :current_password, autocomplete: "off" %>
-    </div>
+
   </fieldset>
-    
+
   <%= f.submit "#{t("backend.save")}", class: "button radius success right" %>
 <% end %>
