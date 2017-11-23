@@ -81,6 +81,31 @@ Attendee.create(event: registration_offices, name: Faker::Name.name, position: F
 Attachment.create(title: 'PDF Attachment', file: File.open('./spec/fixtures/dummy.pdf'), event: registration_offices)
 Attachment.create(title: 'JPG Attachment', file: File.open('./spec/fixtures/dummy.jpg'), event: registration_offices)
 
+#Interests
+interest_1 = Interest.create(name:"Actividad económica y empresarial")
+interest_2 = Interest.create(name:"Actividad normativa y de regulación")
+interest_3 = Interest.create(name:"Administración de personal y recursos humanos")
+interest_4 = Interest.create(name:"Administración electrónica")
+interest_5 = Interest.create(name:"Administración económica, financiera y tributaria de la Ciudad")
+interest_6 = Interest.create(name:"Atención a la ciudadanía")
+interest_7 = Interest.create(name:"Comercio")
+interest_8 = Interest.create(name:"Consumo")
+interest_9 = Interest.create(name:"Cultura (bibliotecas, archivos, museos, patrimonio histórico artístico, etc.)")
+interest_10 = Interest.create(name:"Deportes")
+interest_11 = Interest.create(name:"Desarrollo tecnológico")
+interest_12 = Interest.create(name:"Educación y Juventud")
+interest_13 = Interest.create(name:"Emergencias y seguridad")
+interest_14 = Interest.create(name:"Empleo")
+interest_15 = Interest.create(name:"Medio Ambiente")
+interest_16 = Interest.create(name:"Medios de comunicación")
+interest_17 = Interest.create(name:"Movilidad, transporte y aparcamientos")
+interest_18 = Interest.create(name:"Salud")
+interest_19 = Interest.create(name:"Servicios sociales")
+interest_20 = Interest.create(name:"Transparencia y participación ciudadana")
+interest_21 = Interest.create(name:"Turismo")
+interest_22 = Interest.create(name:"Urbanismo")
+interest_23 = Interest.create(name:"Vivienda")
+
 # Organization
 user_lobby_1 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
 user_lobby_1.lobby!
@@ -125,3 +150,19 @@ organization_10 = Organization.create(name: Faker::Name.name, first_surname: Fak
 user_lobby_11 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
 user_lobby_11.lobby!
 organization_11 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_11)
+
+#Legal Representant
+LegalRepresentant.create(identifier: "43138883z", name: "Name", first_surname: "Surname", email: "email@legal.com", organization: organization_1)
+
+#Agents
+Agent.create(identifier: "43138882z", name: "Name1", from: Date.yesterday, organization: organization_1)
+Agent.create(identifier: "43138881z", name: "Name2", from: Date.yesterday, organization: organization_1)
+
+#Represented Entities
+RepresentedEntity.create(identifier: "43138880z", name: "Name3", from: Date.yesterday, fiscal_year: 2017, organization: organization_1)
+RepresentedEntity.create(identifier: "43138879z", name: "Name4", from: Date.yesterday, fiscal_year: 2017, organization: organization_1)
+
+#OrganizationInterest
+OrganizationInterest.create(organization: organization_1, interest: interest_1)
+OrganizationInterest.create(organization: organization_1, interest: interest_2)
+OrganizationInterest.create(organization: organization_1, interest: interest_3)

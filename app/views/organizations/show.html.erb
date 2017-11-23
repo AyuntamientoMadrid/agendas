@@ -15,7 +15,7 @@
 <%= @organization.registered_lobbies %>
 
 <%#= Legal Representant %>
-<%= @organization.legal_representant.fullname %>
+<%= @organization.legal_representant.fullname if @organization.legal_representant.present? %>
 
 <%#= Persona fisica de contacto %>
 <%= @organization.user.name %>
