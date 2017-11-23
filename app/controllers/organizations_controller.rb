@@ -2,7 +2,7 @@ class OrganizationsController < ApplicationController
 
   def index
     @organizations = search(params)
-    @paginated_organizations = Organization.all.order(created_at: :desc)
+    @paginated_organizations = Organization.all.where(id: @organizations.hits.map(&:primary_key)).order(created_at: :desc)
   end
 
   private
