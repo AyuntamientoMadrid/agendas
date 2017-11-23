@@ -1,9 +1,11 @@
-class Admin::OrganizationsController < AdminController
+module Admin
+  class OrganizationsController < AdminController
 
-  load_and_authorize_resource
+    load_and_authorize_resource
 
-  def index
-    @organizations = Organization.all.page(params[:page]).per(25)
+    def index
+      @organizations = Organization.all.page(params[:page]).per(25)
+    end
   end
 
   def create
