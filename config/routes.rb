@@ -24,4 +24,8 @@ Rails.application.routes.draw do
 
   resources :activities
 
+  namespace :admin do
+    resources :organizations, only: [:new, :create, :index]
+  end
+
 end

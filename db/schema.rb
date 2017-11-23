@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171122183612) do
+ActiveRecord::Schema.define(version: 20171122191236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,7 +191,7 @@ ActiveRecord::Schema.define(version: 20171122183612) do
     t.string   "web"
     t.integer  "registered_lobbies"
     t.integer  "fiscal_year"
-    t.integer  "range_fund"
+    t.integer  "range_funds"
     t.boolean  "subvention"
     t.boolean  "contract"
     t.boolean  "denied_public_data"
@@ -242,7 +242,7 @@ ActiveRecord::Schema.define(version: 20171122183612) do
     t.date     "to"
     t.integer  "organization_id"
     t.integer  "fiscal_year"
-    t.integer  "range_fund"
+    t.integer  "range_funds"
     t.boolean  "subvention"
     t.boolean  "contract"
     t.datetime "created_at",      null: false
@@ -269,9 +269,12 @@ ActiveRecord::Schema.define(version: 20171122183612) do
     t.string   "last_name"
     t.integer  "active"
     t.string   "user_key"
+    t.string   "phones"
+    t.integer  "organization_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["organization_id"], name: "index_users_on_organization_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "agents", "organizations"
@@ -290,4 +293,5 @@ ActiveRecord::Schema.define(version: 20171122183612) do
   add_foreign_key "positions", "areas"
   add_foreign_key "positions", "holders"
   add_foreign_key "represented_entities", "organizations"
+  add_foreign_key "users", "organizations"
 end

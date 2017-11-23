@@ -23,7 +23,7 @@ class CreateOrganizations < ActiveRecord::Migration
       t.string :web
       t.integer :registered_lobbies
       t.integer :fiscal_year
-      t.integer :range_fund
+      t.integer :range_funds
       t.boolean :subvention
       t.boolean :contract
       t.boolean :denied_public_data

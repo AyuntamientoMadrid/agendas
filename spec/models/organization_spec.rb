@@ -29,4 +29,10 @@ describe Organization do
     expect(another_organization).not_to be_valid
   end
 
+  it "should not be valid whitout name" do
+    organization.name = nil
+
+    expect(organization).not_to be_valid
+  end
+
 end

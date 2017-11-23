@@ -2,6 +2,7 @@ require 'faker'
 
 FactoryGirl.define do
   factory :organization do
+    name { Faker::Name.name }
     reference { Faker::Number.number(8) }
     identifier { Faker::Number.number(10) }
     address_type { Faker::Address.street_suffix }
@@ -19,7 +20,7 @@ FactoryGirl.define do
     web "www.organization.com"
     registered_lobbies :generalitat_catalunya
     fiscal_year 2018
-    range_fund :range_1
+    range_funds :range_1
     subvention false
     contract true
     denied_public_data false
