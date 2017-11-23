@@ -17,9 +17,11 @@
 //= require jquery-ui
 //= require jquery.validate
 //= require cocoon
-//= require dependencies/foundation-datepicker
-//= require_tree ./dependencies/foundation-datepicker-locales
+//= require ../dependencies/foundation-datepicker
+//= require_tree ../dependencies/foundation-datepicker-locales
 //= require tinymce
+//= require_tree .
+
 $(function() {
   $(document).foundation();
 });

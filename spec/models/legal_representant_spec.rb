@@ -8,4 +8,28 @@ describe LegalRepresentant do
     expect(legal_representant).to be_valid
   end
 
+  it "should not be valid whitout name" do
+    legal_representant.name = nil
+
+    expect(legal_representant).not_to be_valid
+  end
+
+  it "should not be valid whitout identifier" do
+    legal_representant.identifier = nil
+
+    expect(legal_representant).not_to be_valid
+  end
+
+  it "should not be valid whitout first_surname" do
+    legal_representant.first_surname = nil
+
+    expect(legal_representant).not_to be_valid
+  end
+
+  it "should not be valid whitout email" do
+    legal_representant.email = nil
+
+    expect(legal_representant).not_to be_valid
+  end
+
 end

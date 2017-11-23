@@ -10,6 +10,7 @@ class Ability
         can :manage, Event
         can :index, Area
         can [:index, :show], Holder
+        can :manage, Organization
       else
         can :manage, :all
       end

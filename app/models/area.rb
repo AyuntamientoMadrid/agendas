@@ -2,7 +2,7 @@ class Area < ActiveRecord::Base
 
   has_ancestry
 
-  validates_presence_of :title
+  validates :title, presence: true
 
   before_create :set_defaults
   after_save :update_children

@@ -13,14 +13,12 @@ Rails.application.config.assets.paths << Rails.root.join("app", "assets", "fonts
 Rails.application.config.assets.precompile += %w( dependencies/html5shiv.min.js )
 Rails.application.config.assets.precompile += %w( dependencies/respond.min.js )
 Rails.application.config.assets.precompile += %w( dependencies/jquery.treetable.js )
-Rails.application.config.assets.precompile += %w( admin.css )
-Rails.application.config.assets.precompile += %w( admin.js )
+Rails.application.config.assets.precompile += %w( admin/admin.js )
 Rails.application.config.assets.precompile += %w( ie_lt9.js )
-
 Rails.application.config.assets.precompile += %w( search_form.js )
-Rails.application.config.assets.precompile += %w( holders.js )
 Rails.application.config.assets.precompile += %w( areas.js )
 Rails.application.config.assets.precompile += %w( events.js )
+Rails.application.config.assets.precompile += %w( holders.js )
 Rails.application.config.assets.precompile += %w( users.js )
 
-
+Rails.application.config.assets.precompile += %w( admin.css )

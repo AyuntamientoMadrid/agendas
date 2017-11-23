@@ -12,11 +12,15 @@ FactoryGirl.define do
     password "please123"
 
     trait :admin do
-      role 'admin'
+      role "admin"
     end
     trait :user do
-      role 'user'
+      role "user"
+    end
+    trait :lobby do
+      role "lobby"
+      phones "645586786"
+      association :organization, factory: :organization
     end
   end
 end
-

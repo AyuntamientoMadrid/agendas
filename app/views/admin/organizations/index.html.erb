@@ -1,0 +1,41 @@
+<h1>
+  <%= t('backend.companies') %> (<%= total_organizations %>)
+  <%= link_to t('backend.new_company'), new_admin_organization_path, :class => "button radius warning right" if can? :create, Organization %>
+</h1>
+
+  <%= paginate @organizations %>
+<div class="row">
+  <table class="event">
+    <thead>
+      <tr>
+        <th><%= t('backend.title')%></th>
+        <th class="right"><%= t('backend.actions')%></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th><%= t('backend.title')%></th>
+        <th class="right"><%= t('backend.actions')%></th>
+      </tr>
+    </tfoot>
+    <tbody>
+      <% @organizations.each do |organization| %>
+      <tr>
+        <td>
+          <%= organization.name %>
+        </td>
+        <td class="right">
+          <%= link_to edit_admin_organization_path(organization), title: t('backend.edit') do %>
+            <i class="step fi-page-edit size-24"></i>
+          <% end if can? :edit, organization %>
+
+          <%= link_to admin_organization_path(organization), method: :delete, data: { confirm: t("backend.delete_confirm") }, title: t('backend.delete') do%>
+            <i class="step fi-page-delete size-24"></i>
+          <% end if can? :destroy, organization %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= paginate @organizations%>

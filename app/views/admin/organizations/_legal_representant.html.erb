@@ -1,0 +1,20 @@
+<fieldset>
+  <legend><%= t('backend.legal_representant.title_fieldset') %></legend>
+  <div class="row">
+    <div id="nested-legal-representant">
+      <div class="small-12 columns">
+        <%= f.fields_for :legal_representant do |legal_representant_builder| %>
+          <%= render 'legal_representant_fields', f: legal_representant_builder %>
+        <% end %>
+        <%= link_to_add_association t('backend.legal_representant.add_legal_representative'), f, :legal_representant,
+                                    partial: "legal_representant_fields",
+                                    id: "legal_representant_link",
+                                    class: "button tiny radius info",
+                                    data: {
+                                      association_insertion_node: "#nested-legal-representant",
+                                      association_insertion_method: "append"
+                                    } %>
+      </div>
+    </div>
+  </div>
+</fieldset>

@@ -1,0 +1,56 @@
+<div id="<%= dom_id(f.object) %>" class="nested-fields">
+  <div class="small-12">
+    <%= f.hidden_field :id %>
+
+    <div class="small-6 columns">
+      <%= f.label :identifier, t('backend.represented_entities.identifier') %>
+      <%= f.text_field :identifier %>
+    </div>
+
+    <div class="small-6 columns">
+      <%= f.label :name, t('backend.represented_entities.name') %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="small-6 columns">
+      <%= f.label :first_surname, t('backend.represented_entities.first_surname') %>
+      <%= f.text_field :first_surname %>
+    </div>
+
+    <div class="small-6 columns">
+      <%= f.label :second_surname, t('backend.represented_entities.second_surname') %>
+      <%= f.text_field :second_surname %>
+    </div>
+
+    <div class="small-12 columns">
+      <%= f.label :from, t('backend.represented_entities.from') %>
+      <%= f.date_field :from %>
+    </div>
+
+    <div class="small-6 columns">
+      <%= f.label :fiscal_year, t('backend.represented_entities.fiscal_year') %>
+      <%= f.number_field :fiscal_year %>
+    </div>
+
+    <div class="small-6 columns">
+      <%= f.label :range_fund, t('backend.represented_entities.range_founds') %>
+      <%= f.select :range_fund, Organization.range_funds.keys.to_a %>
+    </div>
+
+    <div class="small-12 columns">
+      <%= f.label :subvention, t('backend.represented_entities.subvention') %>
+      <%= f.check_box :subvention %> Si
+    </div>
+
+    <div class="small-12 columns">
+      <%= f.label :contract, t('backend.represented_entities.contract') %>
+      <%= f.check_box :contract %> Si
+    </div>
+
+    <div class="small-12 columns">
+      <%= link_to_remove_association "Eliminar", f, class: "button tiny radius alert right" %>
+      <hr />
+    </div>
+
+  </div>
+</div>
