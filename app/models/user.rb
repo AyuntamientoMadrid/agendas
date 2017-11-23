@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :events
   has_many :manages, dependent: :destroy
   has_many :holders, through: :manages
+  belongs_to :organization
 
   validates_presence_of :first_name, :last_name, :email
   validate :manages_uniqueness

@@ -296,4 +296,34 @@ feature 'Organization' do
 
   end
 
+  describe "Manager" do
+
+    background do
+      manager = create(:user, :user)
+      signin(manager.email, manager.password)
+    end
+
+    scenario 'Visit manager backend page and not display organization button on sidebar' do
+      visit admin_path
+
+      expect(page).not_to have_content "Organizaciones"
+    end
+
+  end
+
+  describe "Lobby" do
+
+    background do
+      lobby = create(:user, :lobby)
+      signin(lobby.email, lobby.password)
+    end
+
+    scenario 'Visit lobby backend page and not display organization button on sidebar' do
+      visit admin_path
+
+      expect(page).not_to have_content "Organizaciones"
+    end
+
+  end
+
 end
