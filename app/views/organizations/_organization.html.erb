@@ -1,6 +1,6 @@
 <article id="<%= dom_id(organization)%>" class="post organization">
   <h1 class="organization_name post__title">
-    <%= link_to organization.name, "#" %>
+    <%= link_to organization.fullname, "#" %>
   </h1>
   <p><%= I18n.l organization.inscription_date, format: :complete %></p>
 </article>

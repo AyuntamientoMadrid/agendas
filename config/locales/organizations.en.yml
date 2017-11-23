@@ -1,0 +1,6 @@
+en:
+  organizations:
+    title: Lobbies registry
+    description: Consult the organizations registered in the lobby register.
+    subtitle:
+      default: Last registered lobbies

@@ -18,11 +18,11 @@ describe Organization do
   it { should respond_to(:association?) }
   it { should respond_to(:lobby?) }
 
-  it "should be valid" do
+  it "Should be valid" do
     expect(organization).to be_valid
   end
 
-  it "should not be valid when inscription_reference already exists" do
+  it "Should not be valid when inscription_reference already exists" do
     create(:organization, inscription_reference: "XYZ")
     another_organization = build(:organization, inscription_reference: "XYZ")
 
@@ -53,5 +53,20 @@ describe Organization do
     expect(organization).not_to be_valid
   end
 
+  describe "#fullname" do
+    it "Should return first_name and last_name when they are defined" do
+      organization.name = "Name"
+      organization.first_name = "FirstName"
+      organization.last_name = "LastName"
+
+      expect(organization.fullname).to eq "FirstName LastName"
+    end
+
+    it "Should return name when first and last names are not defined " do
+      organization.name = "Company Name"
+
+      expect(organization.fullname).to eq "Company Name"
+    end
+  end
 
 end

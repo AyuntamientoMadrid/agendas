@@ -6,6 +6,7 @@ feature 'Organizations page' do
       visit organizations_path
 
       expect(page).to have_content I18n.t 'organizations.title'
+      expect(page).to have_content I18n.t 'organizations.description'
     end
 
     scenario 'Should show each organization name and inscription date', :search do
@@ -33,6 +34,16 @@ feature 'Organizations page' do
       expect(page).to have_selector ".pagination"
     end
 
+    scenario 'Should navigate to organization public page when user clicks organization name link', :search do
+      skip "organization show is not yet implemented"
+      organizations = create(:organization)
+      Organization.reindex
+
+      visit organizations_path
+
+      expect(page).to have_selector ".pagination"
+      expect(page).to have_content organization.title
+    end
   end
 
 end

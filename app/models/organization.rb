@@ -30,4 +30,9 @@ class Organization < ActiveRecord::Base
     time :created_at
   end
 
+  def fullname
+    #TODO: Rename this attibutes to surname1 surname2 or something better
+    return "#{first_name} #{last_name}" if first_name.present? && last_name.present?
+    name
+  end
 end
