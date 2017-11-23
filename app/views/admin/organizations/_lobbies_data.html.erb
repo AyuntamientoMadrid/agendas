@@ -2,19 +2,19 @@
   <legend><%= t('backend.lobbies_data.title_fieldset') %></legend>
   <div class="row">
     <div class="small-6 columns">
-      <%= f.label t('backend.lobbies_data.fiscal_year') %>
+      <%= f.label :fiscal_year, t('backend.lobbies_data.fiscal_year') %>
       <%= f.number_field :fiscal_year %>
     </div>
     <div class="small-6 columns">
-      <%= f.label t('backend.lobbies_data.range_funds') %>
+      <%= f.label :range_funds, t('backend.lobbies_data.range_funds') %>
       <%= f.select :range_funds, Organization.range_funds.keys.to_a %>
     </div>
     <div class="small-12 columns">
-      <%= f.label t('backend.lobbies_data.subvention') %>
+      <%= f.label :subvention, t('backend.lobbies_data.subvention') %>
       <%= f.check_box :subvention %> Si
     </div>
     <div class="small-12 columns">
-      <%= f.label t('backend.lobbies_data.subvention') %>
+      <%= f.label :contract, t('backend.lobbies_data.subvention') %>
       <%= f.check_box :contract %> Si
     </div>
   </div>

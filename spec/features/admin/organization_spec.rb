@@ -110,7 +110,7 @@ feature 'Organization' do
             fill_in :organization_legal_representant_attributes_email, with: "valid@email.com"
             click_button "Guardar"
 
-            #expect(page).to have_content "Registro creado correctamente"
+            expect(page).to have_content "Registro creado correctamente"
           end
 
           scenario 'Only add one legal representant', js: true do
@@ -147,13 +147,13 @@ feature 'Organization' do
             click_on "Añadir Entidades a las que se representa"
 
             within "#new_represented_entity" do
-              fill_in "Identifier", with: "43138883z"
-              fill_in "Name", with: "Name"
-              fill_in "Fiscal year", with: 2017
-              fill_in "From", with: nil
+              fill_in "DNI, NIF, NIE", with: "43138883z"
+              fill_in "Nombre o razón social", with: "Name"
+              fill_in "Ejercicio anual", with: 2017
+              fill_in "Fecha de inicio de la representaciòn", with: nil
             end
 
-            click_button "Crear Organization"
+            click_button "Guardar"
 
 
             expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
@@ -162,7 +162,7 @@ feature 'Organization' do
           scenario 'Create organization with valid represented entities', js: true do
             visit new_admin_organization_path
 
-            #fill_in :organization_name, with: "organization name"
+            fill_in :organization_name, with: "organization name"
             fill_in :organization_user_attributes_first_name, with: "user first name"
             fill_in :organization_user_attributes_last_name, with: "user last name"
             fill_in :organization_user_attributes_email, with: "user@email.com"
@@ -172,10 +172,10 @@ feature 'Organization' do
             click_on "Añadir Entidades a las que se representa"
 
             within "#new_represented_entity" do
-              fill_in "Identifier", with: "43138883z"
-              fill_in "Name", with: "Name"
-              fill_in "Fiscal year", with: 2017
-              fill_in "From", with: Date.current
+              fill_in "DNI, NIF, NIE", with: "43138883z"
+              fill_in "Nombre o razón social", with: "Name"
+              fill_in "Ejercicio anual", with: 2017
+              fill_in "Fecha de inicio de la representaciòn", with: Date.current
             end
 
             click_button "Guardar"
@@ -227,12 +227,12 @@ feature 'Organization' do
             click_on "Añadir Agentes"
 
             within "#new_agent" do
-              fill_in "Identifier", with: "43138883z"
-              fill_in "Name", with: "Name"
-              fill_in "From", with: nil
+              fill_in "DNI, NIE, NIF", with: "43138883z"
+              fill_in "Nombre", with: "Name"
+              fill_in "Desde", with: nil
             end
 
-            click_button "Crear Organization"
+            click_button "Guardar"
 
 
             expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
@@ -251,12 +251,12 @@ feature 'Organization' do
             click_on "Añadir Agentes"
 
             within "#new_agent" do
-              fill_in "Identifier", with: "43138883z"
-              fill_in "Name", with: "Name"
-              fill_in "From", with: Date.current
+              fill_in "DNI, NIE, NIF", with: "43138883z"
+              fill_in "Nombre", with: "Name"
+              fill_in "Desde", with: Date.current
             end
 
-            click_button "Crear Organization"
+            click_button "Guardar"
 
 
             expect(page).to have_content "Registro creado correctamente"

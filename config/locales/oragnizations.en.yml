@@ -74,7 +74,7 @@ en:
       add_association: "Añadir Agentes"
       title_fieldset: "Agentes"
       identifier: "DNI, NIE, NIF"
-      name: "nombre"
+      name: "Nombre"
       first_name: "Primer apellido"
       last_name: "Segundo apellido"
       from: "Desde"

@@ -19,9 +19,6 @@ $(function(){
         "organization[user_attributes][last_name]" : {
             required : true
         },
-        "organization[user_attributes][phones]" : {
-            required : true
-        },
         "organization[user_attributes][email]" : {
             required : true
         },

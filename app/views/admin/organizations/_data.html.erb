@@ -2,83 +2,83 @@
   <legend><%= t('backend.identifying_data.title_fieldset') %></legend>
   <div class="row">
     <div class="small-6 columns">
-      <%= f.label t('backend.identifying_data.identifier') %>
+      <%= f.label :identifier, t('backend.identifying_data.identifier') %>
       <%= f.text_field :identifier %>
     </div>
     <div class="small-6 columns">
-      <%= f.label t('backend.identifying_data.name') %>
+      <%= f.label :name, t('backend.identifying_data.name') %>
       <%= f.text_field :name %>
     </div>
     <div class="small-6 columns">
-      <%= f.label t('backend.identifying_data.first_name') %>
+      <%= f.label :first_name, t('backend.identifying_data.first_name') %>
       <%= f.text_field :first_name %>
     </div>
     <div class="small-6 columns">
-      <%= f.label t('backend.identifying_data.last_name') %>
+      <%= f.label :last_name, t('backend.identifying_data.last_name') %>
       <%= f.text_field :last_name %>
     </div>
     <div class="small-6 columns">
-      <%= f.label t('backend.identifying_data.phones') %>
+      <%= f.label :phones, t('backend.identifying_data.phones') %>
       <%= f.text_field :phones %>
     </div>
     <div class="small-6 columns">
-      <%= f.label t('backend.identifying_data.email') %>
+      <%= f.label :email, t('backend.identifying_data.email') %>
       <%= f.text_field :email %>
     </div>
     <div class="small-12 columns">
-      <%= f.label t('backend.identifying_data.category_id') %>
+      <%= f.label :category_id, t('backend.identifying_data.category_id') %>
       <%= f.select :category_id, options_for_select(Category.all.map{|c| [c.name, c.id]}), prompt: t('backend.none') %>
     </div>
     <div class="small-12 columns">
-      <%= f.label t('backend.identifying_data.web') %>
+      <%= f.label :web, t('backend.identifying_data.web') %>
       <%= f.text_field :web %>
     </div>
     <div class="small-4 columns">
-      <%= f.label t('backend.identifying_data.address_type') %>
+      <%= f.label :address_type, t('backend.identifying_data.address_type') %>
       <%= f.text_field :address_type %>
     </div>
     <div class="small-8 columns">
-      <%= f.label t('backend.identifying_data.address') %>
+      <%= f.label :address, t('backend.identifying_data.address') %>
       <%= f.text_field :address %>
     </div>
     <div class="small-3 columns">
-      <%= f.label t('backend.identifying_data.number') %>
+      <%= f.label :number, t('backend.identifying_data.number') %>
       <%= f.text_field :number %>
     </div>
     <div class="small-3 columns">
-      <%= f.label t('backend.identifying_data.gateway') %>
+      <%= f.label :gateway, t('backend.identifying_data.gateway') %>
       <%= f.text_field :gateway %>
     </div>
     <div class="small-3 columns">
-      <%= f.label t('backend.identifying_data.stairs') %>
+      <%= f.label :stairs, t('backend.identifying_data.stairs') %>
       <%= f.text_field :stairs %>
     </div>
     <div class="small-3 columns">
-      <%= f.label t('backend.identifying_data.floor') %>
+      <%= f.label :floor, t('backend.identifying_data.floor') %>
       <%= f.text_field :floor %>
     </div>
     <div class="small-3 columns">
-      <%= f.label t('backend.identifying_data.door') %>
+      <%= f.label :door, t('backend.identifying_data.door') %>
       <%= f.text_field :door %>
     </div>
     <div class="small-3 columns">
-      <%= f.label t('backend.identifying_data.postal_code') %>
+      <%= f.label :postal_code, t('backend.identifying_data.postal_code') %>
       <%= f.text_field :postal_code %>
     </div>
     <div class="small-3 columns">
-      <%= f.label t('backend.identifying_data.town') %>
+      <%= f.label :town, t('backend.identifying_data.town') %>
       <%= f.text_field :town %>
     </div>
     <div class="small-3 columns">
-      <%= f.label t('backend.identifying_data.province') %>
+      <%= f.label :province, t('backend.identifying_data.province') %>
       <%= f.text_field :province %>
     </div>
     <div class="small-12 columns">
-      <%= f.label t('backend.identifying_data.description') %>
+      <%= f.label :description, t('backend.identifying_data.description') %>
       <%= f.text_area :description %>
     </div>
     <div class="small-12 columns">
-      <%= f.label t('backend.identifying_data.registered_lobbies') %>
+      <%= f.label :registered_lobbies, t('backend.identifying_data.registered_lobbies') %>
       <%= f.select :registered_lobbies, Organization.registered_lobbies.keys.to_a %>
     </div>
   </div>
