@@ -1,0 +1,21 @@
+<fieldset>
+  <legend><%= t('backend.terms.title_fieldset') %></legend>
+  <div class="row">
+    <div class="small-12 column">
+      <%= f.label :denied_public_data do %>
+        <small><%= t('backend.terms.denied_public_data') %></small>
+        <br />
+        <%= f.check_box :denied_public_data %> Confirmar
+      <% end %>
+
+      <%= f.label :denied_public_events do %>
+        <small><%= t('backend.terms.denied_public_events') %></small>
+        <br />
+        <%= f.check_box :denied_public_events %> Confirmar
+      <% end %>
+
+      <small><%= t('backend.terms.last_text') %></small>
+      
+    </div>
+  </div>
+</fieldset>

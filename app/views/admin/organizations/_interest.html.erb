@@ -1,0 +1,12 @@
+<fieldset>
+  <legend><%= t('backend.interest.title_fieldset') %></legend>
+  <div class="row">
+    <div class="small-12 columns">
+      <%= f.collection_check_boxes(:interest_ids, Interest.all, :id, :name) do |f| %>
+        <%= f.label class:"small-6 columns" do%>
+          <%= f.check_box %> <span> <%= f.text %> </span>
+        <%end%>
+      <% end %>
+    </div>
+  </div>
+</fieldset>

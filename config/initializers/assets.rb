@@ -22,5 +22,4 @@ Rails.application.config.assets.precompile += %w( holders.js )
 Rails.application.config.assets.precompile += %w( areas.js )
 Rails.application.config.assets.precompile += %w( events.js )
 Rails.application.config.assets.precompile += %w( users.js )
-
-
+Rails.application.config.assets.precompile += %w( organizations.js )

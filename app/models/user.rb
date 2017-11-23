@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
          :validatable
-  enum role: [:user, :admin]
+  enum role: [:user, :admin, :lobby]
 
   after_initialize :set_default_role, if: :new_record?
   after_initialize :set_active, if: :new_record?
@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :events
   has_many :manages, dependent: :destroy
   has_many :holders, through: :manages
+  belongs_to :organization
 
   validates_presence_of :first_name, :last_name, :email
   validate :manages_uniqueness

@@ -1,0 +1,44 @@
+<div id="<%= dom_id(f.object) %>" class="nested-fields">
+  <%= f.hidden_field :id %>
+  <div class="small-6 columns">
+    <%= f.label :identifier, t('backend.agents.identifier') %>
+    <%= f.text_field :identifier %>
+  </div>
+
+  <div class="small-6 columns">
+    <%= f.label :name, t('backend.agents.name') %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="small-6 columns">
+    <%= f.label :first_name, t('backend.agents.first_name') %>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div class="small-6 columns">
+    <%= f.label :last_name, t('backend.agents.last_name') %>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div class="small-6 columns">
+    <%= f.label :from, t('backend.agents.from') %>
+    <%= f.date_field :from %>
+  </div>
+
+  <div class="small-6 columns">
+    <%= f.label :to, t('backend.agents.to') %>
+    <%= f.date_field :to %>
+  </div>
+
+  <div class="small-12 columns">
+    <%= f.label :public_assignments, t('backend.agents.public_assignments') %>
+    <%= f.text_area :public_assignments %>
+  </div>
+
+  <div class="small-12 columns">
+    <small><%= t('backend.agents.only_fill_if_answer') %> </small>
+    <%= link_to_remove_association "Eliminar", f, class: "button tiny radius alert right" %>
+    <hr />
+  </div>
+
+</div>
