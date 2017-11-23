@@ -2,9 +2,9 @@ require 'public_organization_exporter'
 require 'fileutils'
 
 namespace :export do
-  desc "Exports profiles to public/export/public_organizations.csv,
+  desc "Exports organizations to public/export/public_organizations.csv,
         public/export/public_organizations.xls and public/export/public_organizations.json"
-  task profiles: :environment do
+  task organizations: :environment do
     folder = Rails.root.join('public', 'export')
     FileUtils.rm_rf folder
     FileUtils.mkdir_p folder
