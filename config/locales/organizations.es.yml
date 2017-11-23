@@ -1,0 +1,5 @@
+es:
+  organizations:
+    title: "Consulta del registro de lobbies"
+    subtitle:
+      default: "Últimos lobbies registrados"

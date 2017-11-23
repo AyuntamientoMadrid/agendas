@@ -20,17 +20,17 @@
     </div><!-- .tools -->
 
     <div class="row">
-    <div class="small-8 columns mb20">
-      <div class="row">
-        <div class="small-3 columns">
-          <label for="right-label" class="inline title-xs"><%= t('main.form.order_by')%></label>
-        </div>
-        <div class="small-9 columns">
-          <%= select_tag :order, options_for_select({t('main.form.scheduled') => :scheduled ,t('main.form.score') => :score},params[:order]), id: 'search-order', class: 'select-sm' %>
+      <div class="small-8 columns mb20">
+        <div class="row">
+          <div class="small-3 columns">
+            <label for="right-label" class="inline title-xs"><%= t('main.form.order_by')%></label>
+          </div>
+          <div class="small-9 columns">
+            <%= select_tag :order, options_for_select({t('main.form.scheduled') => :scheduled ,t('main.form.score') => :score},params[:order]), id: 'search-order', class: 'select-sm' %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
     <% @paginated_events.each do |event|%>
       <%= render "visitors/event", event: event %>
@@ -41,7 +41,7 @@
 <div class="row">
   <div class="small-12 large-7 small-offset-1 columns right mb20">
     <div class="text-center">
-      <%= paginate @events.hits%>
+      <%= paginate @events.hits %>
     </div>
   </div>
   <!--

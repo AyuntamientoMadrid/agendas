@@ -80,3 +80,17 @@ Attendee.create(event: registration_offices, name: Faker::Name.name, position: F
 # Attachments
 Attachment.create(title: 'PDF Attachment', file: File.open('./spec/fixtures/dummy.pdf'), event: registration_offices)
 Attachment.create(title: 'JPG Attachment', file: File.open('./spec/fixtures/dummy.jpg'), event: registration_offices)
+
+# Organizations
+Organization.create(name: Faker::Company.name, inscription_date: Date.current - 1.year)
+Organization.create(name: Faker::Company.name, inscription_date: Date.current - 2.years)
+Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
+Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
+Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
+Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
+Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
+Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
+Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
+Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
+Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
+Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)

@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="small-12 columns">
+    <h2 class="title-l"><%= t('organizations.title')%></h2>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="small-12 large-4 columns">
+  </div>
+  <div class="small-12 large-7 large-ofsset-1 columns mb40">
+
+    <div class="small-12 columns mb10">
+      <p><strong class="result-l mb20"><%= oganizations_index_subtitle %></strong></p>
+    </div>
+
+    <% @paginated_organizations.each do |organization| %>
+      <%= render organization %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 large-7 small-offset-1 columns right mb20">
+    <div class="text-center">
+      <%#= paginate @organizations %>
+    </div>
+  </div>
+</div>
