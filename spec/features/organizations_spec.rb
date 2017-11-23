@@ -26,7 +26,7 @@ feature 'Organizations page' do
     end
 
     scenario 'Should show paginator when there are more than 11 results', :search do
-      organizations = create_list(:organization, 11)
+      create_list(:organization, 11)
       Organization.reindex
 
       visit organizations_path
@@ -36,7 +36,7 @@ feature 'Organizations page' do
 
     scenario 'Should navigate to organization public page when user clicks organization name link', :search do
       skip "organization show is not yet implemented"
-      organizations = create(:organization)
+      organization = create(:organization)
       Organization.reindex
 
       visit organizations_path
