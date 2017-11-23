@@ -102,6 +102,7 @@ es:
     password: "Contraseña"
     password_confirmation: "Repetir contraseña"
     current_password: "Contraseña actual"
+    modify: "Modificar"
 
   backend_header:
     open_gov: "Gobierno abierto"
