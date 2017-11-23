@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/inicio.do', to: 'uweb_access#uweb_sign_in'
   get '/agenda/:holder/:full_name', to: 'visitors#agenda', as: 'agenda'
   get '/import', to: 'users#import', as: 'import'
+  resources :organizations, only: :index
 
   # Admin
   get "/admin", to: 'events#index', as: 'admin'

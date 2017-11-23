@@ -5,6 +5,8 @@ class Organization < ActiveRecord::Base
   enum entity_type: [:association, :federation, :lobby]
 
   validates :inscription_reference, uniqueness: true, allow_blank: true, allow_nil: true
+  validates :name, :user, presence: true
+  validates :denied_public_data, :denied_public_events, inclusion: { in: [false] }
 
   has_many :represented_entities, dependent: :destroy
   has_many :agents, dependent: :destroy
@@ -18,12 +20,21 @@ class Organization < ActiveRecord::Base
   has_one :legal_representant, dependent: :destroy
   belongs_to :category
 
-  validates_presence_of :name, :user
-  validates_inclusion_of :denied_public_data, :denied_public_events, in: [false]
-
   accepts_nested_attributes_for :legal_representant
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :represented_entities
   accepts_nested_attributes_for :agents
+
+  searchable do
+    text :name, :first_surname, :second_surname, :description
+    time :created_at
+  end
+
+  def fullname
+    str = name
+    str += " #{first_surname}"  if first_surname.present?
+    str += " #{second_surname}" if second_surname.present?
+    str
+  end
 
 end

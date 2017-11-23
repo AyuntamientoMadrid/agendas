@@ -1,4 +1,10 @@
-es:
+en:
+  organizations:
+    title: Lobbies registry
+    description: Consult the organizations registered in the lobby register.
+    subtitle:
+      default: Last registered lobbies
+
   backend:
 
     reference:
@@ -9,8 +15,8 @@ es:
       title_fieldset: "Datos identificativos"
       identifier: "DNI, NIF, NIE"
       name: "Nombre o razón social"
-      first_name: "Primer apellido"
-      last_name: "Segundo apellido"
+      first_surname: "Primer apellido"
+      second_surname: "Segundo apellido"
       phones: "Teléfono(s)"
       email: "Correo electrónico"
       category_id: "Categoria"
@@ -33,15 +39,15 @@ es:
       title_fieldset: "Representante legal"
       identifier: "DNI, NIF, NIE"
       name: "Nombre o razón social"
-      first_name: "Primer apellido"
-      last_name: "Segundo apellido"
+      first_surname: "Primer apellido"
+      second_surname: "Segundo apellido"
       phones: "Teléfono(s)"
       email: "Correo electrónico"
 
     contact_person:
       title_fieldset: "Persona fisica de contacto"
       name: "Nombre"
-      last_name: "Apellido"
+      second_surname: "Apellido"
       phone: "Teléfono"
       email: "Email"
       password: "Contraseña"
@@ -59,8 +65,8 @@ es:
       title_fieldset: "Datos personas o entidades sin personalidad a quines se va a representar"
       identifier: "DNI, NIF, NIE"
       name: "Nombre o razón social"
-      first_name: "Primer apellido"
-      last_name: "Segundo apellido"
+      first_surname: "Primer apellido"
+      second_surname: "Segundo apellido"
       from: "Fecha de inicio de la representaciòn"
       fiscal_year: "Ejercicio anual"
       range_founds: "Fondos"
@@ -75,8 +81,8 @@ es:
       title_fieldset: "Agentes"
       identifier: "DNI, NIE, NIF"
       name: "Nombre"
-      first_name: "Primer apellido"
-      last_name: "Segundo apellido"
+      first_surname: "Primer apellido"
+      second_surname: "Segundo apellido"
       from: "Desde"
       to: "Hasta"
       public_assignments: "¿Las personas fisicas que van actuar por cuenta de quien se inscribe han trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe en los dos años previos a la fecha de presentaciòn de la declaración responsable?"

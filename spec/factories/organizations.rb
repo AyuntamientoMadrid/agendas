@@ -27,6 +27,7 @@ FactoryGirl.define do
     denied_public_data false
     denied_public_events false
     entity_type :lobby
+    inscription_date { Date.current }
 
     trait :company do
       name { Faker::Company.name }
@@ -44,9 +45,10 @@ FactoryGirl.define do
       entity_type :federation
     end
 
-    trait :person  do
-      first_name { Faker::Name.first_name }
-      last_name { Faker::Name.last_name }
+    trait :person do
+      name { Faker::Name.name }
+      first_surname { Faker::Name.last_name }
+      second_surname { Faker::Name.last_name }
     end
 
   end

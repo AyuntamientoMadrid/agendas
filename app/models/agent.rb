@@ -2,6 +2,6 @@ class Agent < ActiveRecord::Base
 
   belongs_to :organization
 
-  validates_presence_of :name, :identifier, :from
+  validates :name, :identifier, :from, presence: true
 
 end
