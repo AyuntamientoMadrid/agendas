@@ -1,14 +1,21 @@
 <fieldset>
-  <legend>Aceptacion condiciones declaración responsable</legend>
+  <legend><%= t('backend.terms.title_fieldset') %></legend>
   <div class="row">
-    <%= f.label :denied_public_data do %>
-      denied_public_data
-      <%= f.check_box :denied_public_data %>
-    <% end %>
+    <div class="small-12 column">
+      <%= f.label :denied_public_data do %>
+        <small><%= t('backend.terms.denied_public_data') %></small>
+        <br />
+        <%= f.check_box :denied_public_data %> Confirmar
+      <% end %>
 
-    <%= f.label :denied_public_events do %>
-      denied_public_events
-      <%= f.check_box :denied_public_events %>
-    <% end %>
+      <%= f.label :denied_public_events do %>
+        <small><%= t('backend.terms.denied_public_events') %></small>
+        <br />
+        <%= f.check_box :denied_public_events %> Confirmar
+      <% end %>
+
+      <small><%= t('backend.terms.last_text') %></small>
+      
+    </div>
   </div>
 </fieldset>

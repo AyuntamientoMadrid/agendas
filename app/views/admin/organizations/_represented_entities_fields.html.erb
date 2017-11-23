@@ -3,51 +3,48 @@
     <%= f.hidden_field :id %>
 
     <div class="small-6 columns">
-      <%= f.label :identifier %>
+      <%= f.label t('backend.represented_entities.identifier') %>
       <%= f.text_field :identifier %>
     </div>
 
     <div class="small-6 columns">
-      <%= f.label :name %>
+      <%= f.label t('backend.represented_entities.name') %>
       <%= f.text_field :name %>
     </div>
 
     <div class="small-6 columns">
-      <%= f.label :first_name %>
+      <%= f.label t('backend.represented_entities.first_name') %>
       <%= f.text_field :first_name %>
     </div>
 
     <div class="small-6 columns">
-      <%= f.label :last_name %>
+      <%= f.label t('backend.represented_entities.last_name') %>
       <%= f.text_field :last_name %>
     </div>
 
     <div class="small-12 columns">
-      <%= f.label :from %>
+      <%= f.label t('backend.represented_entities.from') %>
       <%= f.date_field :from %>
     </div>
 
     <div class="small-6 columns">
-      <%= f.label :fiscal_year %>
+      <%= f.label t('backend.represented_entities.fiscal_year') %>
       <%= f.number_field :fiscal_year %>
     </div>
 
     <div class="small-6 columns">
-      <%= f.label :range_funds %>
+      <%= f.label t('backend.represented_entities.range_founds') %>
       <%= f.select :range_funds, Organization.range_funds.keys.to_a %>
     </div>
 
     <div class="small-12 columns">
-      <%= f.label :subvention %>
+      <%= f.label t('backend.represented_entities.subvention') %>
+      <%= f.check_box :subvention %> Si
     </div>
 
     <div class="small-12 columns">
-      <%= f.check_box :subvention %>
-    </div>
-
-    <div class="small-6 columns">
-      <%= f.label :contract %>
-      <%= f.check_box :contract %>
+      <%= f.label t('backend.represented_entities.contract') %>
+      <%= f.check_box :contract %> Si
     </div>
 
     <div class="small-12 columns">

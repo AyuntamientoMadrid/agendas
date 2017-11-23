@@ -1,26 +1,22 @@
 <%= form_for [:admin, @organization], html: {class: 'organization-form'} do |f| %>
 
-<% if @organization.errors.any? %>
+  <% if @organization.errors.any? %>
     <div class="panel callout radius">
-      <strong><%= t('activerecord.errors.template.header',
-:model => Organization.model_name.human, :count => @organization.errors.count) %></strong>
+      <strong><%= t('activerecord.errors.template.header', :model => Organization.model_name.human, :count => @organization.errors.count) %></strong>
       <ul>
         <% @organization.errors.full_messages.each do |msg| %>
             <li><%= msg %></li>
         <% end %>
       </ul>
     </div>
-<% end %>
+  <% end %>
 
   <%= render 'reference', f:f %>
   <%= render 'data', f:f %>
-
-  <%= f.fields_for :legal_representant do |legal_representant_builder| %>
-    <%= render 'legal_representant' , f:legal_representant_builder %>
-  <% end %>
+  <%= render 'legal_representant' , f:f%>
 
   <fieldset>
-    <legend>Persona fisica de contacto</legend>
+    <legend><%= t('backend.contact_person.title_fieldset') %></legend>
     <div class="row">
       <div id="nested-user">
         <%= f.fields_for :user do |user_builder| %>
@@ -34,7 +30,7 @@
 
   <%# DATOS LOBBY CUENTA AJENA %>
   <fieldset>
-    <legend>Datos personas o entidades sin personalidad a quines se va a representar</legend>
+    <legend><%= t('backend.represented_entities.title_fieldset') %></legend>
     <div class="row">
       <div id="nested-represented-entities">
         <%= f.fields_for :represented_entities do |represented_entities_builder| %>
@@ -42,7 +38,7 @@
         <% end %>
       </div>
       <div class="small-12 columns">
-        <%= link_to_add_association "Añadir Entidades a las que se representa", f, :represented_entities,
+        <%= link_to_add_association t('backend.represented_entities.add_represented_entities'), f, :represented_entities,
                                   partial: "represented_entities_fields",
                                   id: "represented_entities_link",
                                   class: "button tiny radius info",
@@ -56,18 +52,17 @@
 
   <%= render 'interest', f:f %>
 
-  <%# AGENTS %>
   <fieldset>
-    <legend>Agentes</legend>
+    <legend><%= t('backend.agents.title_fieldset') %></legend>
     <div class="row">
-        <div id="nested-agents">
-          <%= f.fields_for :agents do |agents_builder| %>
-            <%= render 'agents_fields', f: agents_builder %>
-          <% end %>
-        </div>
+      <div id="nested-agents">
+        <%= f.fields_for :agents do |agents_builder| %>
+          <%= render 'agents_fields', f: agents_builder %>
+        <% end %>
+      </div>
 
       <div class="small-12 columns">
-        <%= link_to_add_association "Añadir Agentes", f, :agents,
+        <%= link_to_add_association t('backend.agents.add_association'), f, :agents,
                                   partial: "agents_fields",
                                   id: "agents_link",
                                   class: "button tiny radius info",
