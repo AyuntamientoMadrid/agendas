@@ -1,0 +1,15 @@
+<div class="small-12 large-4 columns">
+  <p><%= t "organizations.description" %></p>
+  <br>
+  
+  <%= form_tag organizations_path, method: :get do %>
+    <%= hidden_field_tag :order, params[:order] %>
+    <div class="mb20">
+      <%= text_field_tag :keyword, params[:keyword], placeholder: t('main.form.keyword') %>
+    </div>
+    <div class="mb20">
+      <%= link_to t('main.form.reset'), organizations_path, class: 'button secondary' %>
+      <%= submit_tag t('main.form.search'), class: 'button', name: nil %>
+    </div>
+  <% end %>
+</div>

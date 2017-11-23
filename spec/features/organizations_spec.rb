@@ -44,6 +44,70 @@ feature 'Organizations page' do
       expect(page).to have_selector ".pagination"
       expect(page).to have_content organization.title
     end
+
+    describe "Search form", :search do
+      scenario "Should filter by given keyword over organizations name and show result" do
+        organization = create(:organization, name: "Hola", first_name: "", last_name: "")
+        Organization.reindex
+
+        visit organizations_path
+        fill_in :keyword, with: "Hola"
+
+        within "#organization_#{organization.id}" do
+          expect(page).to have_content "Hola"
+        end
+      end
+
+      scenario "Should filter by given keyword over organizations name and show result" do
+        organization = create(:organization, name: "", first_name: "Fulanito", last_name: "de Tal")
+        Organization.reindex
+
+        visit organizations_path
+        fill_in :keyword, with: "Fulanito"
+
+        within "#organization_#{organization.id}" do
+          expect(page).to have_content "Fulanito"
+        end
+      end
+
+      scenario "Should filter by given keyword over organizations name and show result" do
+        organization = create(:organization, name: "", first_name: "Fulanito", last_name: "de Tal")
+        Organization.reindex
+
+        visit organizations_path
+        fill_in :keyword, with: "de Tal"
+
+        within "#organization_#{organization.id}" do
+          expect(page).to have_content "de Tal"
+        end
+      end
+
+      scenario "Should filter by given keywords over organizations name and show result" do
+        organization = create(:organization, name: "", first_name: "Fulanito", last_name: "de Tal")
+        Organization.reindex
+
+        visit organizations_path
+        fill_in :keyword, with: "Fulanito de Tal"
+
+        within "#organization_#{organization.id}" do
+          expect(page).to have_content "de Tal"
+        end
+      end
+
+      scenario "Should reset search form when user clicks reset form button" do
+        organization = create(:organization, name: "", first_name: "Fulanito", last_name: "de Tal")
+        Organization.reindex
+
+        visit organizations_path
+        fill_in :keyword, with: "Fulanito de Tal"
+        expect(find('#keyword').value).to eq "Fulanito de Tal"
+
+        click_on "Cancelar"
+
+        expect(find('#keyword').value).to eq nil
+      end
+    end
+
   end
 
 end

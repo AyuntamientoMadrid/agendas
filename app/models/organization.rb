@@ -26,7 +26,7 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :agents
 
   searchable do
-    text :name, :description
+    text :name, :first_name, :last_name, :description
     time :created_at
   end
 
