@@ -91,6 +91,8 @@ es:
     file: "Archivo"
     title: "Título"
     company: "Organización"
+    companies: "Organizaciones"
+    new_company: "Nueva organización"
     description: "Descripción"
     new_event: "Nuevo evento"
     edit_event: "Editar evento"
