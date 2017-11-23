@@ -13,16 +13,22 @@ $(function(){
         "organization[name]" : {
             required : true
         },
-        "organization[email]" : {
+        "organization[user_attributes][first_name]" : {
+            required : true
+        },
+        "organization[user_attributes][last_name]" : {
+            required : true
+        },
+        "organization[user_attributes][phones]" : {
+            required : true
+        },
+        "organization[user_attributes][email]" : {
             required : true
         },
         "organization[user_attributes][password]" : {
             required : true
         },
-        "organization[first_name]" : {
-            required : true
-        },
-        "organization[last_name]" : {
+        "organization[user_attributes][password_confirmation]" : {
             required : true
         }
       },
@@ -31,17 +37,26 @@ $(function(){
         "organization[name]" : {
             required : "Añade el nombre"
         },
-        "organization[email]" : {
-            required : "Añade email"
+        "organization[user_attributes][first_name]" : {
+            required : "Añade el nombre"
+        },
+        "organization[user_attributes][last_name]" : {
+            required : "Añade Apellido"
         },
         "organization[user_attributes][password]" : {
             required : "Añade contraseña"
         },
-        "organization[first_name]" : {
-            required : "Añade nombre"
+        "organization[user_attributes][phones]" : {
+            required : "Añade telefóno"
         },
-        "organization[last_name]" : {
-            required : "Añade apellido"
+        "organization[user_attributes][email]" : {
+            required : "Añade Email"
+        },
+        "organization[user_attributes][password]" : {
+            required : "Añade Contraseña"
+        },
+        "organization[user_attributes][password_confirmation]" : {
+            required : "Confirmar Contraseña"
         }
       },
 
