@@ -54,18 +54,28 @@ describe Organization do
   end
 
   describe "#fullname" do
-    it "Should return first_name and last_name when they are defined" do
+    it "Should return first_surname and second_surname when they are defined" do
       organization.name = "Name"
-      organization.first_name = "FirstName"
-      organization.last_name = "LastName"
+      organization.first_surname = ""
+      organization.second_surname = ""
 
-      expect(organization.fullname).to eq "FirstName LastName"
+      expect(organization.fullname).to eq "Name"
     end
 
-    it "Should return name when first and last names are not defined " do
-      organization.name = "Company Name"
+    it "Should return first_surname and second_surname when they are defined" do
+      organization.name = "Name"
+      organization.first_surname = "FirstSurname"
+      organization.second_surname = ""
 
-      expect(organization.fullname).to eq "Company Name"
+      expect(organization.fullname).to eq "Name FirstSurname"
+    end
+
+    it "Should return first_surname and second_surname when they are defined" do
+      organization.name = "Name"
+      organization.first_surname = "FirstSurname"
+      organization.second_surname = "SecondSurname"
+
+      expect(organization.fullname).to eq "Name FirstSurname SecondSurname"
     end
   end
 

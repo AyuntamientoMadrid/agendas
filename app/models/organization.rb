@@ -26,13 +26,15 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :agents
 
   searchable do
-    text :name, :first_name, :last_name, :description
+    text :name, :first_surname, :second_surname, :description
     time :created_at
   end
 
   def fullname
-    # TODO: Rename this attibutes to surname1 surname2 or something better
-    return "#{first_name} #{last_name}" if first_name.present? && last_name.present?
-    name
+    str = name
+    str += " #{first_surname}"  if first_surname.present?
+    str += " #{second_surname}" if second_surname.present?
+    str
   end
+
 end

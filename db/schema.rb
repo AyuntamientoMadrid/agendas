@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171122183612) do
+ActiveRecord::Schema.define(version: 20171123185532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 20171122183612) do
   create_table "agents", force: :cascade do |t|
     t.string   "identifier"
     t.string   "name"
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "first_surname"
+    t.string   "second_surname"
     t.date     "from"
     t.date     "to"
     t.text     "public_assignments"
@@ -137,8 +137,8 @@ ActiveRecord::Schema.define(version: 20171122183612) do
   create_table "legal_representants", force: :cascade do |t|
     t.string   "identifier"
     t.string   "name"
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "first_surname"
+    t.string   "second_surname"
     t.string   "phones"
     t.string   "email"
     t.integer  "organization_id"
@@ -172,8 +172,8 @@ ActiveRecord::Schema.define(version: 20171122183612) do
     t.string   "reference"
     t.string   "identifier"
     t.string   "name"
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "first_surname"
+    t.string   "second_surname"
     t.string   "address_type"
     t.string   "address"
     t.string   "number"
@@ -236,8 +236,8 @@ ActiveRecord::Schema.define(version: 20171122183612) do
   create_table "represented_entities", force: :cascade do |t|
     t.string   "identifier"
     t.string   "name"
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "first_surname"
+    t.string   "second_surname"
     t.date     "from"
     t.date     "to"
     t.integer  "organization_id"

@@ -47,7 +47,7 @@ feature 'Organizations page' do
 
     describe "Search form", :search do
       scenario "Should filter by given keyword over organizations name and show result" do
-        organization = create(:organization, name: "Hola", first_name: "", last_name: "")
+        organization = create(:organization, name: "Hola", first_surname: "", second_surname: "")
         Organization.reindex
 
         visit organizations_path
@@ -59,19 +59,19 @@ feature 'Organizations page' do
       end
 
       scenario "Should filter by given keyword over organizations name and show result" do
-        organization = create(:organization, name: "", first_name: "Fulanito", last_name: "de Tal")
+        organization = create(:organization, name: "Fulanito", first_surname: "", second_surname: "de Tal")
         Organization.reindex
 
         visit organizations_path
         fill_in :keyword, with: "Fulanito"
 
         within "#organization_#{organization.id}" do
-          expect(page).to have_content "Fulanito"
+          expect(page).to have_content "Fulanito de Tal"
         end
       end
 
       scenario "Should filter by given keyword over organizations name and show result" do
-        organization = create(:organization, name: "", first_name: "Fulanito", last_name: "de Tal")
+        organization = create(:organization, name: "", first_surname: "Fulanito", second_surname: "de Tal")
         Organization.reindex
 
         visit organizations_path
@@ -83,7 +83,7 @@ feature 'Organizations page' do
       end
 
       scenario "Should filter by given keywords over organizations name and show result" do
-        organization = create(:organization, name: "", first_name: "Fulanito", last_name: "de Tal")
+        organization = create(:organization, name: "", first_surname: "Fulanito", second_surname: "de Tal")
         Organization.reindex
 
         visit organizations_path
@@ -95,7 +95,7 @@ feature 'Organizations page' do
       end
 
       scenario "Should reset search form when user clicks reset form button" do
-        organization = create(:organization, name: "", first_name: "Fulanito", last_name: "de Tal")
+        organization = create(:organization, name: "", first_surname: "Fulanito", second_surname: "de Tal")
         Organization.reindex
 
         visit organizations_path

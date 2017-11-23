@@ -46,8 +46,9 @@ FactoryGirl.define do
     end
 
     trait :person  do
-      first_name { Faker::Name.last_name }
-      last_name { Faker::Name.last_name }
+      name { Faker::Name.name }
+      first_surname { Faker::Name.last_name }
+      second_surname { Faker::Name.last_name }
     end
 
   end
