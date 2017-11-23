@@ -1,0 +1,42 @@
+<h3>Organizacion</h3>
+<%= @organization.id %>
+
+<%#= Datos %>
+<%= @organization.identifier %>
+<%= @organization.name %>
+<%= @organization.first_name %>
+<%= @organization.last_name %>
+<%= @organization.web %>
+<%= @organization.category %>
+<%= @organization.address %>
+<%= @organization.postal_code %>
+<%= @organization.town %>
+<%= @organization.province %>
+<%= @organization.phones %>
+<%= @organization.description %>
+<%= @organization.registered_lobbies %>
+
+<%#= Legal Representant %>
+<%= @organization.legal_representant.fullname %>
+
+<%#= Persona fisica de contacto %>
+<%= @organization.user.name %>
+
+<%#= Datos Lobby Cuenta propia %>
+<% if @organization.fiscal_year.present? %>
+  <h1>Datos economicos</h1>
+  <%= @organization.fiscal_year %>
+  <%= @organization.range_fund %>
+  <%= @organization.subvention %>
+  <%= @organization.contract %>
+<% end %>
+
+<%#= Represented Entity %>
+<% @organization.represented_entities.each do |represented_entity| %>
+  <%= represented_entity.identifier %>
+  <%= represented_entity.name %>
+  <%= represented_entity.first_name %>
+  <%= represented_entity.last_name %>
+  <%= represented_entity.phones %>
+  <%= represented_entity.email %>
+<% end %>
