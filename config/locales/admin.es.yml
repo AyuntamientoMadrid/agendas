@@ -101,7 +101,7 @@ es:
     change_password: "Cambiar contraseña"
     password: "Contraseña"
     password_confirmation: "Repetir contraseña"
-    successfully_updated_password: "Contraseña actualizada correctamente"
+    current_password: "Contraseña actual"
 
   backend_header:
     open_gov: "Gobierno abierto"

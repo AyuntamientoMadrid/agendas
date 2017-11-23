@@ -42,7 +42,7 @@ feature 'User edit', :devise do
 
     click_button I18n.t 'backend.save'
 
-    expect(page).to have_content I18n.t 'backend.successfully_updated_password'
+    expect(page).to have_content I18n.t 'devise.registrations.updated'
   end
 
 end
