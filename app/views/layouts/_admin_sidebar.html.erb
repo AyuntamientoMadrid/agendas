@@ -18,7 +18,7 @@
     <% if current_user.admin? %>
     <li class="<%= active_menu('admin/organizations') %>">
       <a href="<%= admin_organizations_path %>">
-        <i class="fi-calendar size-18"> Organizaciones</i>
+        <i class="fi-book size-18"> <%= t("backend.companies")%></i>
       </a>
     </li>
     <% end %>
