@@ -21,20 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
-    if password_params[:password].blank?
-      password_params.delete("password")
-      password_params.delete("password_confirmation")
-    end
-
-    @user = User.find(current_user.id)
-
-    if @user.update_without_password(password_params)
-      set_flash_message :notice, :updated
-      sign_in @user, :bypass => true
-      redirect_to after_update_path_for(@user)
-    else
-      render "edit"
-    end
+    super
   end
 
   # DELETE /resource
@@ -70,10 +57,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
-
-  private
-
-    def password_params
-      params.require(:user).permit(:password, :password_confirmation)
-    end
 end

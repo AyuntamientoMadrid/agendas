@@ -31,4 +31,18 @@ feature 'User edit', :devise do
     expect(page).to have_content I18n.t 'backend.access_denied'
   end
 
+  scenario "user can change their password" do
+    user = FactoryGirl.create(:user, :admin)
+    login_as(user, :scope => :user)
+    visit edit_user_passwords_path(user)
+
+    fill_in 'user_password', with: '123456789'
+    fill_in 'user_password_confirmation', with: '123456789'
+    fill_in 'user_current_password', with: user.password
+
+    click_button I18n.t 'backend.save'
+
+    expect(page).to have_content I18n.t 'backend.successfully_updated_password'
+  end
+
 end
