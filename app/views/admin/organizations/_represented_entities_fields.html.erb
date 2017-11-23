@@ -1,32 +1,59 @@
 <div id="<%= dom_id(f.object) %>" class="nested-fields">
-  <%= f.hidden_field :id %>
+  <div class="small-12">
+    <%= f.hidden_field :id %>
 
-  <%= f.label :identifier %>
-  <%= f.text_field :identifier %>
+    <div class="small-6 columns">
+      <%= f.label :identifier %>
+      <%= f.text_field :identifier %>
+    </div>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+    <div class="small-6 columns">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
 
-  <%= f.label :first_name %>
-  <%= f.text_field :first_name %>
+    <div class="small-6 columns">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name %>
+    </div>
 
-  <%= f.label :last_name %>
-  <%= f.text_field :last_name %>
+    <div class="small-6 columns">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+    </div>
 
-  <%= f.label :from %>
-  <%= f.date_field :from %>
+    <div class="small-12 columns">
+      <%= f.label :from %>
+      <%= f.date_field :from %>
+    </div>
 
-  <%= f.label :fiscal_year %>
-  <%= f.number_field :fiscal_year %>
+    <div class="small-6 columns">
+      <%= f.label :fiscal_year %>
+      <%= f.number_field :fiscal_year %>
+    </div>
 
-  <%= f.label :range_funds %>
-  <%= f.select :range_funds, Organization.range_funds.keys.to_a %>
+    <div class="small-6 columns">
+      <%= f.label :range_funds %>
+      <%= f.select :range_funds, Organization.range_funds.keys.to_a %>
+    </div>
 
-  <%= f.label :subvention %>
-  <%= f.check_box :subvention %>
+    <div class="small-12 columns">
+      <%= f.label :subvention %>
+    </div>
 
-  <%= f.label :contract %>
-  <%= f.check_box :contract %>
-  
-  <%= link_to_remove_association "Eliminar", f %>
+    <div class="small-12 columns">
+      <%= f.check_box :subvention %>
+    </div>
+
+    <div class="small-6 columns">
+      <%= f.label :contract %>
+      <%= f.check_box :contract %>
+    </div>
+
+    <div class="small-12 columns">
+      <%= link_to_remove_association "Eliminar", f, class: "button tiny radius alert right" %>
+      <hr />
+    </div>
+
+  </div>
 </div>

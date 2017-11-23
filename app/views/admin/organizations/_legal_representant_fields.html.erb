@@ -1,23 +1,39 @@
 <div id="<%= dom_id(f.object) %>" class="nested-fields">
+
   <%= f.hidden_field :id %>
 
-  <%= f.label :identifier %>
-  <%= f.text_field :identifier %>
+  <div class="small-6 columns">
+    <%= f.label :identifier %>
+    <%= f.text_field :identifier %>
+  </div>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+  <div class="small-6 columns">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
 
-  <%= f.label :first_name %>
-  <%= f.text_field :first_name %>
+  <div class="small-6 columns">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
 
-  <%= f.label :last_name %>
-  <%= f.text_field :last_name %>
+  <div class="small-6 columns">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
 
-  <%= f.label :phones %>
-  <%= f.text_field :phones %>
+  <div class="small-6 columns">
+    <%= f.label :phones %>
+    <%= f.text_field :phones %>
+  </div>
 
-  <%= f.label :email %>
-  <%= f.text_field :email %>
+  <div class="small-6 columns">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
 
-  <%= link_to_remove_association "Eliminar", f %>
+  <div class="small-12 columns">
+    <%= link_to_remove_association "Eliminar" ,f ,class: "button tiny radius alert right" %>
+  </div>
+
 </div>
