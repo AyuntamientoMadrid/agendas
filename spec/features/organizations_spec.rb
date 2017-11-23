@@ -99,7 +99,7 @@ feature 'Organizations page' do
       end
 
       scenario "Should filter by given keywords over organizations name and show result" do
-        organization = create(:organization, name: "Fulanito", first_surname: "Mengano", second_surname: "de Tal")
+        organization = organization = create(:organization, name: "Fulanito", first_surname: "Mengano", second_surname: "de Tal")
         Organization.reindex
 
         visit organizations_path
@@ -112,7 +112,7 @@ feature 'Organizations page' do
       end
 
       scenario "Should reset search form when user clicks reset form button" do
-        organization = create(:organization, name: "Fulanito", first_surname: "Mengano", second_surname: "de Tal")
+        create(:organization, name: "Fulanito", first_surname: "Mengano", second_surname: "de Tal")
         Organization.reindex
 
         visit organizations_path
@@ -125,7 +125,7 @@ feature 'Organizations page' do
       end
 
       scenario "Should show number of results by given keywords" do
-        organization = create(:organization, name: "Hola", first_surname: "", second_surname: "")
+        create(:organization, name: "Hola", first_surname: "", second_surname: "")
         Organization.reindex
 
         visit organizations_path
@@ -136,7 +136,7 @@ feature 'Organizations page' do
       end
 
       scenario "Should show number of results by given keywords", :js do
-        organization = create(:organization, name: "Hola", first_surname: "", second_surname: "")
+        create(:organization, name: "Hola", first_surname: "", second_surname: "")
         Organization.reindex
 
         visit organizations_path

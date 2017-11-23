@@ -4,6 +4,6 @@ class RepresentedEntity < ActiveRecord::Base
 
   belongs_to :organization
 
-  validates_presence_of :identifier, :name, :fiscal_year, :from
+  validates :identifier, :name, :fiscal_year, :from, presence: true
 
 end

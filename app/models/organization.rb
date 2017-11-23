@@ -5,8 +5,8 @@ class Organization < ActiveRecord::Base
   enum entity_type: [:association, :federation, :lobby]
 
   validates :inscription_reference, uniqueness: true, allow_blank: true, allow_nil: true
-  validates_presence_of :name, :user
-  validates_inclusion_of :denied_public_data, :denied_public_events, in: [false]
+  validates :name, :user, presence: true
+  validates :denied_public_data, :denied_public_events, inclusion: { in: [false] }
 
   has_many :represented_entities, dependent: :destroy
   has_many :agents, dependent: :destroy

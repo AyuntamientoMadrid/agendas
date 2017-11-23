@@ -6,7 +6,7 @@ class Position < ActiveRecord::Base
   has_many :titular_events, class_name: "Event", dependent: :destroy
   has_many :participants_events, through: :participants
 
-  validates_presence_of :title, :area
+  validates :title, :area, presence: true
 
   scope :current, -> { where(to: nil) }
   scope :previous, -> { where.not(to: nil) }

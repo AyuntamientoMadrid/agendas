@@ -75,7 +75,7 @@ feature 'Organization' do
 
         describe "Legal Representant" do
 
-          scenario 'Try create organization with invalid legal representant and display error', js: true do
+          scenario 'Try create organization with invalid legal representant and display error', :js do
             visit new_admin_organization_path
 
             fill_in :organization_name, with: "organization name"
@@ -94,7 +94,7 @@ feature 'Organization' do
             expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
           end
 
-          scenario 'Create organization with valid legal representant', js: true do
+          scenario 'Create organization with valid legal representant', :js do
             visit new_admin_organization_path
 
             fill_in :organization_name, with: "organization name"
@@ -113,7 +113,7 @@ feature 'Organization' do
             expect(page).to have_content "Registro creado correctamente"
           end
 
-          scenario 'Only add one legal representant', js: true do
+          scenario 'Only add one legal representant', :js do
             visit new_admin_organization_path
 
             click_on "Añadir legal representant"
@@ -121,7 +121,7 @@ feature 'Organization' do
             expect(page).not_to have_content "Añadir legal representant"
           end
 
-          scenario 'Display remove button after add one legal representant', js: true do
+          scenario 'Display remove button after add one legal representant', :js do
             visit new_admin_organization_path
 
             expect(page).not_to have_selector "#new_legal_representant .remove_fields"
@@ -134,7 +134,7 @@ feature 'Organization' do
 
         describe "Represented Entities" do
 
-          scenario 'Try create organization with invalid respresented entities and display error', js: true do
+          scenario 'Try create organization with invalid respresented entities and display error', :js do
             visit new_admin_organization_path
 
             fill_in :organization_name, with: "organization name"
@@ -155,11 +155,10 @@ feature 'Organization' do
 
             click_button "Guardar"
 
-
             expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
           end
 
-          scenario 'Create organization with valid represented entities', js: true do
+          scenario 'Create organization with valid represented entities', :js do
             visit new_admin_organization_path
 
             fill_in :organization_name, with: "organization name"
@@ -180,11 +179,10 @@ feature 'Organization' do
 
             click_button "Guardar"
 
-
             expect(page).to have_content "Registro creado correctamente"
           end
 
-          scenario 'Can adding more than one represented entity', js: true do
+          scenario 'Can adding more than one represented entity', :js do
             visit new_admin_organization_path
 
             click_on "Añadir Entidades a las que se representa"
@@ -192,7 +190,7 @@ feature 'Organization' do
             expect(page).to have_content "Añadir Entidades a las que se representa"
           end
 
-          scenario 'Display remove button after add represented entity', js: true do
+          scenario 'Display remove button after add represented entity', :js do
             visit new_admin_organization_path
 
             expect(page).not_to have_selector "#new_represented_entity .remove_fields"
@@ -201,7 +199,7 @@ feature 'Organization' do
             expect(page).to have_selector "#new_represented_entity .remove_fields"
           end
 
-          scenario 'Display remove button after add more than one represented entity', js: true do
+          scenario 'Display remove button after add more than one represented entity', :js do
             visit new_admin_organization_path
 
             expect(page).not_to have_selector "#new_represented_entity .remove_fields"
@@ -214,7 +212,7 @@ feature 'Organization' do
 
         describe "Agents" do
 
-          scenario 'Try create organization with invalid agent and display error', js: true do
+          scenario 'Try create organization with invalid agent and display error', :js do
             visit new_admin_organization_path
 
             fill_in :organization_name, with: "organization name"
@@ -234,11 +232,10 @@ feature 'Organization' do
 
             click_button "Guardar"
 
-
             expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
           end
 
-          scenario 'Create organization with valid agents', js: true do
+          scenario 'Create organization with valid agents', :js do
             visit new_admin_organization_path
 
             fill_in :organization_name, with: "organization name"
@@ -258,11 +255,10 @@ feature 'Organization' do
 
             click_button "Guardar"
 
-
             expect(page).to have_content "Registro creado correctamente"
           end
 
-          scenario 'Can adding more than one agent', js: true do
+          scenario 'Can adding more than one agent', :js do
             visit new_admin_organization_path
 
             click_on "Añadir Agentes"
@@ -270,7 +266,7 @@ feature 'Organization' do
             expect(page).to have_content "Añadir Agentes"
           end
 
-          scenario 'Display remove button after add agent', js: true do
+          scenario 'Display remove button after add agent', :js do
             visit new_admin_organization_path
 
             expect(page).not_to have_selector "#new_agent .remove_fields"
@@ -279,7 +275,7 @@ feature 'Organization' do
             expect(page).to have_selector "#new_agent .remove_fields"
           end
 
-          scenario 'Display remove button after add more than one agent', js: true do
+          scenario 'Display remove button after add more than one agent', :js do
             visit new_admin_organization_path
 
             expect(page).not_to have_selector "#new_agent .remove_fields"

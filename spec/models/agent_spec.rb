@@ -26,5 +26,4 @@ describe Agent do
     expect(agent).not_to be_valid
   end
 
-
 end

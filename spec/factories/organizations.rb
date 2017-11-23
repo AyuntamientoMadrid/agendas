@@ -45,7 +45,7 @@ FactoryGirl.define do
       entity_type :federation
     end
 
-    trait :person  do
+    trait :person do
       name { Faker::Name.name }
       first_surname { Faker::Name.last_name }
       second_surname { Faker::Name.last_name }
