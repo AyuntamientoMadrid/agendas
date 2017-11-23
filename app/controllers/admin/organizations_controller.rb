@@ -6,7 +6,6 @@ class Admin::OrganizationsController < AdminController
   end
 
   def create
-
     @organization = Organization.new(organization_params)
     if @organization.save
       redirect_to admin_organizations_path, notice: t('backend.successfully_created_record')

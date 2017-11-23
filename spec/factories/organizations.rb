@@ -17,6 +17,7 @@ FactoryGirl.define do
     phones { Faker::PhoneNumber.phone_number }
     email { Faker::Internet.email }
     association :category, factory: :category
+    association :user, factory: :user
     web "www.organization.com"
     registered_lobbies :generalitat_catalunya
     fiscal_year 2018

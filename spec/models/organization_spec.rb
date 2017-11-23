@@ -35,4 +35,23 @@ describe Organization do
     expect(organization).not_to be_valid
   end
 
+  it "should not be valid whitout user" do
+    organization.user = nil
+
+    expect(organization).not_to be_valid
+  end
+
+  it "should not be valid with denied_public_data" do
+    organization.denied_public_data = true
+
+    expect(organization).not_to be_valid
+  end
+
+  it "should not be valid with denied_public_events" do
+    organization.denied_public_events = true
+
+    expect(organization).not_to be_valid
+  end
+
+
 end

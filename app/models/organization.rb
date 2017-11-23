@@ -18,7 +18,8 @@ class Organization < ActiveRecord::Base
   has_one :legal_representant, dependent: :destroy
   belongs_to :category
 
-  validates_presence_of :name
+  validates_presence_of :name, :user
+  validates_inclusion_of :denied_public_data, :denied_public_events, in: [false]
 
   accepts_nested_attributes_for :legal_representant
   accepts_nested_attributes_for :user
