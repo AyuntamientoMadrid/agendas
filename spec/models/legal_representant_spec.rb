@@ -20,8 +20,8 @@ describe LegalRepresentant do
     expect(legal_representant).not_to be_valid
   end
 
-  it "should not be valid whitout first_name" do
-    legal_representant.first_name = nil
+  it "should not be valid whitout first_surname" do
+    legal_representant.first_surname = nil
 
     expect(legal_representant).not_to be_valid
   end

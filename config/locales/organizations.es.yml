@@ -4,3 +4,92 @@ es:
     description: Consulte las organizaciones registradas en el registro de lobbies.
     subtitle:
       default: Últimos lobbies registrados
+
+  backend:
+
+    reference:
+      title_fieldset: "Referencia de la declaracíon responsable"
+      title: "Referencia"
+
+    identifying_data:
+      title_fieldset: "Datos identificativos"
+      identifier: "DNI, NIF, NIE"
+      name: "Nombre o razón social"
+      first_surname: "Primer apellido"
+      second_surname: "Segundo apellido"
+      phones: "Teléfono(s)"
+      email: "Correo electrónico"
+      category_id: "Categoria"
+      web: "Pagina web"
+      address_type: "Tipo de via"
+      address: "Domicilio"
+      number: "Num"
+      gateway: "Portal"
+      stairs: "Escalera"
+      floor: "Planta"
+      door: "Puerta"
+      postal_code: "CP"
+      town: "Municipio"
+      province: "Provincia"
+      description: "Descripción"
+      registered_lobbies: "Lobbies registrados"
+
+    legal_representant:
+      add_legal_representative: "Añadir legal representant"
+      title_fieldset: "Representante legal"
+      identifier: "DNI, NIF, NIE"
+      name: "Nombre o razón social"
+      first_surname: "Primer apellido"
+      second_surname: "Segundo apellido"
+      phones: "Teléfono(s)"
+      email: "Correo electrónico"
+
+    contact_person:
+      title_fieldset: "Persona fisica de contacto"
+      name: "Nombre"
+      second_surname: "Apellido"
+      phone: "Teléfono"
+      email: "Email"
+      password: "Contraseña"
+      password_confirmation: "Confirmar contraseña"
+
+    lobbies_data:
+      title_fieldset: "Datos de quien va a ejercer la actividad de lobby por cuenta propia"
+      fiscal_year: "Ejercicio anual"
+      range_fund: "Fondos"
+      subvention: "¿Ha recibido ayudas y/o subvenciones con cargo al Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
+      contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
+
+    represented_entities:
+      add_represented_entities: "Añadir Entidades a las que se representa"
+      title_fieldset: "Datos personas o entidades sin personalidad a quines se va a representar"
+      identifier: "DNI, NIF, NIE"
+      name: "Nombre o razón social"
+      first_surname: "Primer apellido"
+      second_surname: "Segundo apellido"
+      from: "Fecha de inicio de la representaciòn"
+      fiscal_year: "Ejercicio anual"
+      range_founds: "Fondos"
+      subvention: "¿Ha recibido ayudas y/o subvenciones con cargo al Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
+      contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
+
+    interest:
+      title_fieldset: "Area de Interés"
+
+    agents:
+      add_association: "Añadir Agentes"
+      title_fieldset: "Agentes"
+      identifier: "DNI, NIE, NIF"
+      name: "Nombre"
+      first_surname: "Primer apellido"
+      second_surname: "Segundo apellido"
+      from: "Desde"
+      to: "Hasta"
+      public_assignments: "¿Las personas fisicas que van actuar por cuenta de quien se inscribe han trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe en los dos años previos a la fecha de presentaciòn de la declaración responsable?"
+      only_fill_if_answer: "Solo rellenar el campo en caso de cumplir la pregunta."
+
+    terms:
+      title_fieldset: "Aceptacion condiciones declaración responsable"
+      denied_public_data: "Los datos personales recogidos serán incorporados y tratados por el Ayuntamiento de Madrid en el  fichero REGISTRO DE LOBBIES cuya finalidad es la de “Gestión de lobbies”. Estos datos serán objeto de publicación, de conformidad con el art. 35 de la Ordenanza de Transparencia de la Ciudad de Madrid, salvo que se oponga a ello por causa justificada, para la cual deberá marcar la siguiente casilla"
+      denied_public_events: "Así mismo, en caso de mantener reuniones y encuentros con concejales, personal directivo y personal eventual sus datos se incorporarán también al fichero GESTIÓN DE AGENDAS cuya finalidad es la de “Facilitar la gestión y publicidad de las agendas de los concejales, personal directivo y personal eventual del Ayuntamiento de Madrid”. Estos datos serán objeto de publicación, de conformidad con el art. 8 de la Ordenanza de Transparencia de la Ciudad de Madrid, salvo que se oponga a ello por causa justificada, para la cual deberá marcar la siguiente casilla"
+      last_text: "El Órgano responsable de ambos ficheros es la Dirección General de Transparencia y Atención a la Ciudadanía, con domicilio en C/ Alcalá 45, 28014 Madrid, ante la cual la persona interesada podrá ejercer los derechos de acceso, rectificación, cancelación y oposición. Con carácter general los datos recogidos no podrán ser cedidos a terceros salvo en los supuesto previstos en el artículo 11 de la Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal. Todo lo cual se informa en el cumplimiento del artículo 5 de la citada Ley Orgánica 15/1999."

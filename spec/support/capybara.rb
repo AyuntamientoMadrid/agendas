@@ -8,8 +8,10 @@ Capybara.register_driver :poltergeist do |app|
     phantomjs_logger: File.open(File::NULL, "w"),
     # disable image loading
     phantomjs_options: ['--load-images=no', '--disk-cache=false'],
+    #
+    window_size: [1600, 4000],
     # disable js effects
-    extensions: [File.expand_path("../phantomjs_ext/disable_js_fx.js", __FILE__)]
+
   )
 end
 

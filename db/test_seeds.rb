@@ -81,16 +81,47 @@ Attendee.create(event: registration_offices, name: Faker::Name.name, position: F
 Attachment.create(title: 'PDF Attachment', file: File.open('./spec/fixtures/dummy.pdf'), event: registration_offices)
 Attachment.create(title: 'JPG Attachment', file: File.open('./spec/fixtures/dummy.jpg'), event: registration_offices)
 
-# Organizations
-Organization.create(name: Faker::Company.name, inscription_date: Date.current - 1.year)
-Organization.create(name: Faker::Company.name, inscription_date: Date.current - 2.years)
-Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
-Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
-Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
-Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
-Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
-Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday)
-Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday)
-Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday)
-Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday)
-Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday)
+# Organization
+organization_1 = Organization.create(name: Faker::Company.name, inscription_date: Date.current - 1.year)
+user_lobby_1 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, organization: organization_1)
+user_lobby_1.lobby!
+
+organization_2 = Organization.create(name: Faker::Company.name, inscription_date: Date.current - 2.years)
+user_lobby_2 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, organization: organization_2)
+user_lobby_2.lobby!
+
+organization_3 = Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
+user_lobby_3 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, organization: organization_3)
+user_lobby_3.lobby!
+
+organization_4 = Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
+user_lobby_4 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, organization: organization_4)
+user_lobby_4.lobby!
+
+organization_5 = Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
+user_lobby_5 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, organization: organization_5)
+user_lobby_5.lobby!
+
+organization_6 = Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
+user_lobby_6 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, organization: organization_6)
+user_lobby_6.lobby!
+
+organization_7 = Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday)
+user_lobby_7 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, organization: organization_7)
+user_lobby_7.lobby!
+
+organization_8 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday)
+user_lobby_8 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, organization: organization_8)
+user_lobby_8.lobby!
+
+organization_9 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday)
+user_lobby_9 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, organization: organization_9)
+user_lobby_9.lobby!
+
+organization_10 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday)
+user_lobby_10 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, organization: organization_10)
+user_lobby_10.lobby!
+
+organization_11 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday)
+user_lobby_11 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, organization: organization_11)
+user_lobby_11.lobby!

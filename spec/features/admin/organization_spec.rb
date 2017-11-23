@@ -87,7 +87,7 @@ feature 'Organization' do
             click_on "Añadir legal representant"
             fill_in :organization_legal_representant_attributes_identifier, with: "43138883z"
             fill_in :organization_legal_representant_attributes_name, with: "Name"
-            fill_in :organization_legal_representant_attributes_first_name, with: "First name"
+            fill_in :organization_legal_representant_attributes_first_surname, with: "First name"
             fill_in :organization_legal_representant_attributes_email, with: nil
             click_button "Guardar"
 
@@ -106,7 +106,7 @@ feature 'Organization' do
             click_on "Añadir legal representant"
             fill_in :organization_legal_representant_attributes_identifier, with: "43138883z"
             fill_in :organization_legal_representant_attributes_name, with: "43138883z"
-            fill_in :organization_legal_representant_attributes_first_name, with: "43138883z"
+            fill_in :organization_legal_representant_attributes_first_surname, with: "43138883z"
             fill_in :organization_legal_representant_attributes_email, with: "valid@email.com"
             click_button "Guardar"
 
