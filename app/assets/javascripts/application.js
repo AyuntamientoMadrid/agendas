@@ -16,8 +16,10 @@
 //= require dependencies/foundation-datepicker
 //= require_tree ./dependencies/foundation-datepicker-locales
 //= require social-share-button
+//= require organizations
 //= require respond.min
 //= require rem.min
+
 $(function() {
   $(document).foundation();
 });

@@ -52,6 +52,7 @@ feature 'Organizations page' do
 
         visit organizations_path
         fill_in :keyword, with: "Hola"
+        click_on "Buscar"
 
         within "#organization_#{organization.id}" do
           expect(page).to have_content "Hola"
@@ -64,6 +65,7 @@ feature 'Organizations page' do
 
         visit organizations_path
         fill_in :keyword, with: "Fulanito"
+        click_on "Buscar"
 
         within "#organization_#{organization.id}" do
           expect(page).to have_content "Fulanito"
@@ -76,6 +78,7 @@ feature 'Organizations page' do
 
         visit organizations_path
         fill_in :keyword, with: "Mengano"
+        click_on "Buscar"
 
         within "#organization_#{organization.id}" do
           expect(page).to have_content "Fulanito Mengano"
@@ -88,6 +91,7 @@ feature 'Organizations page' do
 
         visit organizations_path
         fill_in :keyword, with: "de Tal"
+        click_on "Buscar"
 
         within "#organization_#{organization.id}" do
           expect(page).to have_content "Fulanito Mengano de Tal"
@@ -100,6 +104,7 @@ feature 'Organizations page' do
 
         visit organizations_path
         fill_in :keyword, with: "Fulanito Mengano de Tal"
+        click_on "Buscar"
 
         within "#organization_#{organization.id}" do
           expect(page).to have_content "Fulanito Mengano de Tal"
@@ -113,10 +118,34 @@ feature 'Organizations page' do
         visit organizations_path
         fill_in :keyword, with: "Fulanito"
         expect(find('#keyword').value).to eq "Fulanito"
-
+        click_on "Buscar"
         click_on "Cancelar"
 
         expect(find('#keyword').value).to eq nil
+      end
+
+      scenario "Should show number of results by given keywords" do
+        organization = create(:organization, name: "Hola", first_surname: "", second_surname: "")
+        Organization.reindex
+
+        visit organizations_path
+        fill_in :keyword, with: "Hola"
+        click_on "Buscar"
+
+        expect(page).to have_content "1 Resultados con la palabra Hola"
+      end
+
+      scenario "Should show number of results by given keywords", :js do
+        organization = create(:organization, name: "Hola", first_surname: "", second_surname: "")
+        Organization.reindex
+
+        visit organizations_path
+        fill_in :keyword, with: "Hola"
+        click_on "Buscar"
+
+        find('#delete-keywords').click
+        expect(page).not_to have_content "1 Resultados con la palabra Hola"
+        expect(find('#keyword').value).to eq ""
       end
     end
 

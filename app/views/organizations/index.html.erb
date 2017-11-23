@@ -9,6 +9,11 @@
   <%= render 'search_form' %>
 
   <div class="small-12 large-7 large-ofsset-1 columns mb40">
+    <% if params[:keyword].present? %>
+      <%= render "shared/search_keywords",
+                 collection: @organizations,
+                 keyword: params[:keyword] %>
+    <% end %>
 
     <div class="row">
       <div class="small-12 columns mb10">
