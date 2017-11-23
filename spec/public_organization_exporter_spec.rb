@@ -14,6 +14,7 @@ describe PublicOrganizationExporter do
   describe '#public_organization_to_row' do
     it "generates a row of info based on a public organization" do
       o = create(:organization)
+
       row = exporter.organization_to_row(o)
 
       expect(row).to include(o.reference)
@@ -29,7 +30,6 @@ describe PublicOrganizationExporter do
       expect(row).to include(o.province)
       expect(row).to include(o.phones)
       expect(row).to include(o.email)
-      # expect(row).to include(o.association)
       expect(row).to include(o.web)
       expect(row).to include(o.registered_lobbies)
       expect(row).to include(o.fiscal_year)
