@@ -3232,6 +3232,11 @@ input.error, textarea.error, select.error {
 label.error {
   color: #f04124; }
 
+span.error_field_rails,
+small.error_field_rails {
+  margin-top: -1rem;
+}
+
 .icon-bar {
   display: inline-block;
   font-size: 0;

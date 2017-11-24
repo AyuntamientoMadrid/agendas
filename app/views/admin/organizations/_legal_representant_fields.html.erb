@@ -5,31 +5,37 @@
   <div class="small-6 columns">
     <%= f.label :identifier, t('backend.legal_representant.identifier') %>
     <%= f.text_field :identifier %>
+    <%= form_field_errors(f, :identifier) %>
   </div>
 
   <div class="small-6 columns">
     <%= f.label :name, t('backend.legal_representant.name') %>
     <%= f.text_field :name %>
+    <%= form_field_errors(f, :name) %>
   </div>
 
   <div class="small-6 columns">
     <%= f.label :first_surname, t('backend.legal_representant.first_surname') %>
     <%= f.text_field :first_surname %>
+    <%= form_field_errors(f, :first_surname) %>
   </div>
 
   <div class="small-6 columns">
     <%= f.label :second_surname, t('backend.legal_representant.second_surname') %>
     <%= f.text_field :second_surname %>
+    <%= form_field_errors(f, :second_surname) %>
   </div>
 
   <div class="small-6 columns">
     <%= f.label :phones, t('backend.legal_representant.phones') %>
     <%= f.text_field :phones %>
+    <%= form_field_errors(f, :phones) %>
   </div>
 
   <div class="small-6 columns">
     <%= f.label :email, t('backend.legal_representant.email') %>
     <%= f.text_field :email %>
+    <%= form_field_errors(f, :email) %>
   </div>
 
   <div class="small-12 columns">
