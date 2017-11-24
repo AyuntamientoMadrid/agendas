@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# Categories
 names = ['Consultoría profesional y despachos de abogados', 'Empresas', 'Asociaciones/Fundaciones',
          'Sindicatos y organizaciones profesionales', 'Organizaciones empresariales',
          'ONGs y plataformas sin personalidad jurídica',
@@ -14,5 +15,5 @@ names = ['Consultoría profesional y despachos de abogados', 'Empresas', 'Asocia
          'Iglesia y otras confesiones', 'Otro tipo de sujetos']
 
 names.each do |name|
-  Category.find_or_create_by(name: name)
+  Category.create(name: name)
 end

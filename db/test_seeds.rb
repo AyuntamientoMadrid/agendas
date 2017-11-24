@@ -80,3 +80,15 @@ Attendee.create(event: registration_offices, name: Faker::Name.name, position: F
 # Attachments
 Attachment.create(title: 'PDF Attachment', file: File.open('./spec/fixtures/dummy.pdf'), event: registration_offices)
 Attachment.create(title: 'JPG Attachment', file: File.open('./spec/fixtures/dummy.jpg'), event: registration_offices)
+
+# Categories
+names = ['Consultoría profesional y despachos de abogados', 'Empresas', 'Asociaciones/Fundaciones',
+         'Sindicatos y organizaciones profesionales', 'Organizaciones empresariales',
+         'ONGs y plataformas sin personalidad jurídica',
+         'Universidades y centros de investigación',
+         'Corporaciones de Derecho Público (colegios profesionales, cámaras oficiales, etc.)',
+         'Iglesia y otras confesiones', 'Otro tipo de sujetos']
+
+names.each do |name|
+  Category.create(name: name)
+end
