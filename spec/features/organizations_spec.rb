@@ -302,6 +302,15 @@ feature 'Organizations page' do
       expect(page).to have_content interest_2.name
     end
 
+    scenario "Should return to organizations index page" do
+      organization = create(:organization)
+      visit organization_path(organization)
+
+      click_on "Volver"
+
+      expect(page).to have_content("Consulta del registro de lobbies")
+    end
+
   end
 
 end
