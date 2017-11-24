@@ -125,3 +125,15 @@ organization_10 = Organization.create(name: Faker::Name.name, first_surname: Fak
 user_lobby_11 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
 user_lobby_11.lobby!
 organization_11 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_11)
+
+# Categories
+names = ['Consultoría profesional y despachos de abogados', 'Empresas', 'Asociaciones/Fundaciones',
+         'Sindicatos y organizaciones profesionales', 'Organizaciones empresariales',
+         'ONGs y plataformas sin personalidad jurídica',
+         'Universidades y centros de investigación',
+         'Corporaciones de Derecho Público (colegios profesionales, cámaras oficiales, etc.)',
+         'Iglesia y otras confesiones', 'Otro tipo de sujetos']
+
+names.each do |name|
+  Category.create(name: name)
+end
