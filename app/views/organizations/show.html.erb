@@ -1,37 +1,37 @@
 <div class="row mb40">
   <div class="small-12 large-8 columns">
     <%= link_to t('backend.back'), events_path , :class=> "button tiny radius" %>
-    <h2 class="post__title-big">Organizacion</h2>
-    <p>Referencia: <strong><%= @organization.reference %></p>
+    <h2 class="post__title-big"><%= t('organizations.show.title') %></h2>
+    <p><%= t('organizations.show.reference') %>: <strong><%= @organization.reference %></p>
   </div>
 </div>
 
 <div class="row mb40">
   <div class="small-12 large-3 columns">
-    <strong class="post__subtitle">Datos</strong>
+    <strong class="post__subtitle"><%= t('organizations.show.identifying_data_title') %></strong>
   </div>
   <div class="small-12 large-7 end columns">
-    <p><strong>Código de Lobby: </strong><%= @organization.id %></strong></p>
-    <p><strong>NIF: </strong><%= @organization.identifier %></p>
-    <p><strong>Nombre/Apellidos o Razón Social: </strong><%= @organization.name %></p>
-    <p><strong>CP: </strong><%= @organization.postal_code %></p>
-    <p><strong>Municipio: </strong> <%= @organization.town %></p>
-    <p><strong>Domicilio: </strong><%= @organization.address %></p>
-    <p><strong>Provincia: </strong><%= @organization.province %></p>
-    <p><strong>Categoría: </strong><%= @organization.category.name %></p>
-    <p><strong>Finalidad y objetivos: </strong><%= @organization.description %></p>
-    <p><strong>Página web: </strong> <%= @organization.web %></p>
+    <p><strong><%= t('organizations.show.id') %>: </strong><%= @organization.id %></strong></p>
+    <p><strong><%= t('organizations.show.identifier') %>: </strong><%= @organization.identifier %></p>
+    <p><strong><%= t('organizations.show.name') %>: </strong><%= @organization.name %></p>
+    <p><strong><%= t('organizations.show.postal_code') %>: </strong><%= @organization.postal_code %></p>
+    <p><strong><%= t('organizations.show.town') %>: </strong> <%= @organization.town %></p>
+    <p><strong><%= t('organizations.show.address') %>: </strong><%= @organization.address %></p>
+    <p><strong><%= t('organizations.show.province') %>: </strong><%= @organization.province %></p>
+    <p><strong><%= t('organizations.show.category') %>: </strong><%= @organization.category.name %></p>
+    <p><strong><%= t('organizations.show.description') %>: </strong><%= @organization.description %></p>
+    <p><strong><%= t('organizations.show.web') %>: </strong> <%= @organization.web %></p>
   </div>
 </div>
 
 <div class="row mb40">
   <div class="small-12 large-3 columns">
-    <strong class="post__subtitle">Representante legal</strong>
+    <strong class="post__subtitle"><%= t('organizations.show.legal_representant_title') %></strong>
   </div>
 
   <div class="small-12 large-7 end columns">
     <p>
-      <strong>Nombres/Apellidos o Razón Social: </strong>
+      <strong><%= t('organizations.show.legal_representant_name') %>: </strong>
       <%= @organization.legal_representant.fullname if @organization.legal_representant.present? %>
     </p>
   </div>
@@ -39,65 +39,65 @@
 
 <div class="row mb40">
   <div class="small-12 large-3 columns">
-    <strong class="post__subtitle">Persona fisica de contacto</strong>
+    <strong class="post__subtitle"><%= t('organizations.show.display_user_title') %></strong>
   </div>
 
   <div class="small-12 large-7 end columns">
-    <p><strong>Nombre/Apellidos: </strong> <%= @organization.user.name %></p>
+    <p><strong><%= t('organizations.show.user_name') %>: </strong> <%= @organization.user.name %></p>
   </div>
 </div>
 
 <% if @organization.fiscal_year.present? %>
   <div class="row mb40">
     <div class="small-12 large-3 columns">
-      <strong class="post__subtitle">Datos de quien va a ejercer la actividad de lobby por cuenta propria</strong>
+      <strong class="post__subtitle"><%= t('organizations.show.fiscal_year_title') %></strong>
     </div>
 
     <div class="small-12 large-7 end columns">
-        <p><strong>Ejercicio anual: </strong> <%= @organization.fiscal_year %></p>
-        <p><strong>Fondos dedicados a la actividad e lobby: </strong> <%= @organization.range_fund %></p>
-        <p><strong>Ayudas y/o subvenciones recibidas del Ayto: </strong><%= @organization.subvention %></p>
-        <p><strong>Contratos y/o convenios con el Ayto</strong><%= @organization.contract %></p>
+        <p><strong><%= t('organizations.show.fiscal_year') %>: </strong> <%= @organization.fiscal_year %></p>
+        <p><strong><%= t('organizations.show.range_fund') %>: </strong> <%= @organization.range_fund %></p>
+        <p><strong><%= t('organizations.show.subvention') %> : </strong><%= @organization.subvention %></p>
+        <p><strong><%= t('organizations.show.contract') %> </strong><%= @organization.contract %></p>
     </div>
   </div>
 <% end %>
 
 <div class="row mb40">
   <div class="small-12 large-3 columns">
-    <strong class="post__subtitle">Datos personas o entidades sin personalidad a quienes se va a representar</strong>
+    <strong class="post__subtitle"><%= t('organizations.show.represented_entity_title') %></strong>
   </div>
 
   <div class="small-12 large-7 end columns">
     <% @organization.represented_entities.each do |represented_entity| %>
-      <p><strong>NIF: </strong><%= represented_entity.identifier %></p>
-      <p><strong>Nombres/Apellidos o Razón Social: </strong><%= represented_entity.fullname %></p>
-      <p><strong>Fecha de inicio de representación: </strong><%= represented_entity.from %></p>
-      <p><strong>Fecha de final de representación: </strong><%= represented_entity.to if represented_entity.to.present? %></p>
-      <p><strong>Fondos que la entidad dedica: </strong><%= represented_entity.range_fund %></p>
-      <p><strong>Ejercicio anual: </strong><%= represented_entity.fiscal_year %></p>
-      <p><strong>Ayudas y/o subvenciones recibidas del Ayto: </strong><%= represented_entity.subvention %></p>
-      <p><strong>Contratos y/o convenios con el Ayto: </strong><%= represented_entity.contract %></p>
+      <p><strong><%= t('organizations.show.represented_entity_identifier') %>: </strong><%= represented_entity.identifier %></p>
+      <p><strong><%= t('organizations.show.represented_entity_fullname') %>: </strong><%= represented_entity.fullname %></p>
+      <p><strong><%= t('organizations.show.represented_entity_from') %> : </strong><%= represented_entity.from %></p>
+      <p><strong><%= t('organizations.show.represented_entity_to') %> : </strong><%= represented_entity.to if represented_entity.to.present? %></p>
+      <p><strong><%= t('organizations.show.represented_entity_range_fund') %> : </strong><%= represented_entity.range_fund %></p>
+      <p><strong><%= t('organizations.show.represented_entity_fiscal_year') %> : </strong><%= represented_entity.fiscal_year %></p>
+      <p><strong><%= t('organizations.show.represented_entity_subvention') %> : </strong><%= represented_entity.subvention %></p>
+      <p><strong><%= t('organizations.show.represented_entity_contract') %> : </strong><%= represented_entity.contract %></p>
     <% end %>
   </div>
 </div>
 
 <div class="row mb40">
   <div class="small-12 large-3 columns">
-    <strong class="post__subtitle">Agentes</strong>
+    <strong class="post__subtitle"><%= t('organizations.show.agents_title') %> </strong>
   </div>
 
   <div class="small-12 large-7 end columns">
     <% @organization.agents.each do |agent| %>
-      <p><strong>Nombre/Apellidos: </strong><%= agent.fullname %></p>
-      <p><strong>Fecha de inicio de representación: </strong><%= agent.from %></p>
-      <p><strong>Fecha de fin de representación: </strong><%= agent.to if agent.to.present? %></p>
+      <p><strong><%= t('organizations.show.agents_fullname') %>: </strong><%= agent.fullname %></p>
+      <p><strong><%= t('organizations.show.agents_from') %> : </strong><%= agent.from %></p>
+      <p><strong><%= t('organizations.show.agents_to') %> : </strong><%= agent.to if agent.to.present? %></p>
     <% end %>
   </div>
 </div>
 
 <div class="row mb40">
   <div class="small-12 large-3 columns">
-    <strong class="post__subtitle">Area de interés</strong>
+    <strong class="post__subtitle"><%= t('organizations.show.interests_title') %></strong>
   </div>
 
   <div class="small-12 large-7 end columns">

@@ -167,7 +167,7 @@ feature 'Organizations page' do
 
       visit organization_path(organization)
 
-      expect(page).to have_content "Organizacion"
+      expect(page).to have_content "Organización"
       expect(page).to have_content organization.id
     end
 
