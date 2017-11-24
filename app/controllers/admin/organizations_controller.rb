@@ -3,7 +3,7 @@ module Admin
 
     load_and_authorize_resource
 
-    before_action :set_organizaion, only: :update
+    before_action :set_organization, only: [:update, :edit]
 
     def index
       @organizations = Organization.all.page(params[:page]).per(25)
@@ -24,6 +24,9 @@ module Admin
       @organization.user = User.new
     end
 
+    def edit
+    end
+
     def update
       if @organization.update_attributes(organization_params)
         redirect_to admin_organizations_path, notice: t('backend.successfully_updated_record')
@@ -41,15 +44,15 @@ module Admin
                       :web, :address_type, :address, :number, :gateway, :stairs, :floor, :door,
                       :postal_code, :town, :province, :description, :registered_lobbies, :category_id,
                       :fiscal_year, :range_fund, :subvention, :contract, :denied_public_data, :denied_public_events, interest_ids: [],
-                      legal_representant_attributes: [:id, :identifier, :name, :first_surname, :second_surname, :phones, :email],
+                      legal_representant_attributes: [:identifier, :name, :first_surname, :second_surname, :phones, :email, :_destroy],
                       user_attributes: [:id, :first_name, :last_name, :role, :email, :active, :phones, :password, :password_confirmation],
                       represented_entities_attributes: [:id, :identifier, :name, :first_surname, :second_surname,
-                                                        :from, :fiscal_year, :range_fund, :subvention, :contract],
+                                                        :from, :fiscal_year, :range_fund, :subvention, :contract, :_destroy],
                       organization_interests_attributes: [:interest_ids],
-                      agents_attributes: [:id, :identifier, :name, :first_surname, :second_surname, :from, :to, :public_assignments])
+                      agents_attributes: [:id, :identifier, :name, :first_surname, :second_surname, :from, :to, :public_assignments, :_destroy])
       end
 
-      def set_organizaion
+      def set_organization
         @organization = Organization.find(params[:id])
       end
 

@@ -20,10 +20,10 @@ class Organization < ActiveRecord::Base
   has_one :legal_representant, dependent: :destroy
   belongs_to :category
 
-  accepts_nested_attributes_for :legal_representant, update_only: true
+  accepts_nested_attributes_for :legal_representant, update_only: true, allow_destroy: true
   accepts_nested_attributes_for :user
-  accepts_nested_attributes_for :represented_entities
-  accepts_nested_attributes_for :agents
+  accepts_nested_attributes_for :represented_entities, allow_destroy: true
+  accepts_nested_attributes_for :agents, allow_destroy: true
 
   searchable do
     text :name, :first_surname, :second_surname, :description

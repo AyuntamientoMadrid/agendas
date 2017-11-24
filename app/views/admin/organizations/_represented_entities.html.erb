@@ -1,0 +1,20 @@
+<fieldset>
+  <legend><%= t('backend.represented_entities.title_fieldset') %></legend>
+  <div class="row">
+    <div id="nested-represented-entities">
+      <%= f.fields_for :represented_entities do |represented_entities_builder| %>
+        <%= render 'represented_entities_fields', f: represented_entities_builder %>
+      <% end %>
+    </div>
+    <div class="small-12 columns">
+      <%= link_to_add_association t('backend.represented_entities.add_represented_entities'), f, :represented_entities,
+                                partial: "represented_entities_fields",
+                                id: "represented_entities_link",
+                                class: "button tiny radius info",
+                                data: {
+                                  association_insertion_node: "#nested-represented-entities",
+                                  association_insertion_method: "append"
+                                } %>
+    </div>
+  </div>
+</fieldset>
