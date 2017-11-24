@@ -13,11 +13,9 @@ Rails.application.routes.draw do
   # Admin
   get "/admin", to: 'events#index', as: 'admin'
 
-  devise_for :users, controllers: { session: "users/sessions", registration: "users/registrations" }
-  as :user do
-    get 'users/edit_password' => 'users/registrations#edit', :as => 'edit_user_passwords'
-    put 'users/update_password' => 'users/registrations#update', :as => 'user_password_registration'
-  end
+  devise_for :users, controllers: { session: "users/sessions" }
+  get 'admin/edit_password', to: 'admin/passwords#edit', as: 'edit_password'
+  match 'admin/update_password', to: 'admin/passwords#update', as: 'update_password', via: [:patch, :put]
 
   resources :users
 
