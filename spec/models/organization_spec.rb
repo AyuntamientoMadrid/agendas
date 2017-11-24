@@ -95,7 +95,7 @@ describe Organization do
 
   it "should have a correct user name" do
     user_name = organization.user.full_name
-    puts user_name
+
     expect(organization.user_name).to eq(user_name)
   end
 
