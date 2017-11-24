@@ -2,4 +2,5 @@
   <legend><%= t('backend.reference.title_fieldset') %></legend>
     <%= f.label :reference, t('backend.reference.title') %>
     <%= f.text_field :reference %>
+    <%= form_field_errors(f, :reference) %>
 </fieldset>

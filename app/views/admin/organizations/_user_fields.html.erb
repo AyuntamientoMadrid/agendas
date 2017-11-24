@@ -9,31 +9,36 @@
   <div class="small-6 columns">
     <%= f.label :first_name, t('backend.contact_person.name') %>
     <%= f.text_field :first_name %>
+    <%= form_field_errors(f, :first_name) %>
   </div>
 
   <div class="small-6 columns">
-    <%= f.label :last_name, t('backend.contact_person.last_name') %>
+    <%= f.label :last_name, t('backend.contact_person.second_surname') %>
     <%= f.text_field :last_name %>
+    <%= form_field_errors(f, :last_name) %>
   </div>
 
   <div class="small-6 columns">
     <%= f.label :phones, t('backend.contact_person.phone') %>
     <%= f.text_field :phones %>
+    <%= form_field_errors(f, :phones) %>
   </div>
 
   <div class="small-6 columns">
     <%= f.label :email, t('backend.contact_person.email') %>
     <%= f.text_field :email %>
+    <%= form_field_errors(f, :email) %>
   </div>
 
   <div class="small-6 columns">
     <%= f.label :password, t('backend.contact_person.password') %>
     <%= f.text_field :password %>
+    <%= form_field_errors(f, :password) %>
   </div>
 
   <div class="small-6 columns">
     <%= f.label :password_confirmation, t('backend.contact_person.password_confirmation') %>
     <%= f.text_field :password_confirmation %>
+    <%= form_field_errors(f, :password_confirmation) %>
   </div>
-
 </div>
