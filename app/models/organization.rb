@@ -37,4 +37,12 @@ class Organization < ActiveRecord::Base
     str
   end
 
+  def legal_representant_full_name
+    legal_representant.fullname if legal_representant
+  end
+
+  def user_name
+    user.full_name
+  end
+
 end

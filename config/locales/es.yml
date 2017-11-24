@@ -88,8 +88,8 @@ es:
     reference: referencia
     identifier: identificador
     name: nombre
-    first_name: primer apellido
-    last_name: segundo apellido
+    first_surname: primer apellido
+    second_surname: segundo apellido
     address_type: tipo de dirección
     address: direccion
     number: numero
@@ -121,3 +121,5 @@ es:
     associations_count: numero de associaciones
     members_count: numero de miembros
     approach: aproximación
+    legal_representant_full_name: nombre y apellidos del representante legal
+    user_name: nombre y apellidos

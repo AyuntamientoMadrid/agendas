@@ -7,13 +7,15 @@ describe PublicOrganizationExporter do
   describe '#headers' do
     it "generates localized headers" do
       expect(exporter.headers.first).to eq('referencia')
-      expect(exporter.headers.last).to eq('aproximación')
+      expect(exporter.headers.last).to eq('nombre y apellidos')
     end
   end
 
   describe '#public_organization_to_row' do
     it "generates a row of info based on a public organization" do
       o = create(:organization)
+      l = create(:legal_representant)
+      o.legal_representant = l
 
       row = exporter.organization_to_row(o)
 
@@ -39,6 +41,15 @@ describe PublicOrganizationExporter do
       expect(row).to include(o.denied_public_data)
       expect(row).to include(o.denied_public_events)
       expect(row).to include(o.entity_type)
+      expect(row).to include(nil)
+      expect(row).to include(o.user.full_name)
+
+      l = create(:legal_representant)
+      o.legal_representant = l
+
+      row = exporter.organization_to_row(o)
+
+      expect(row).to include(o.legal_representant.fullname)
 
     end
   end
