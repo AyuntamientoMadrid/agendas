@@ -12,6 +12,8 @@ es:
     transparency_url: "http://www.madrid.es/portaldetransparencia "
     participation_url: "https://decide.madrid.es"
     open_data_url: "http://datos.madrid.es"
+    btn_public_agenda: "Agendas públicas"
+    btn_organizations: "Consulta de registro"
   main:
     title: "Agendas públicas"
     any_errors: "¿Hay algún error en esta página?"
@@ -64,5 +66,3 @@ es:
     consul_url: https://github.com/consul/consul
     open_source: software libre
     open_source_url: http://www.gnu.org/licenses/agpl-3.0.html
-
-

@@ -5,6 +5,50 @@ es:
     subtitle:
       default: Últimos lobbies registrados
 
+    show:
+      title: "Página pública de la Organización"
+      reference: "Referencia"
+      identifying_data_title: "Datos"
+      id: "Código de Lobby"
+      identifier: "NIF"
+      name: "Nombre/Apellidos o Razón Social"
+      postal_code: "CP"
+      town: "Municipio"
+      address: "Domicilio"
+      province: "Provincia"
+      category: "Categoría"
+      description: "Finalidad y objetivos"
+      web: "Página web"
+
+      legal_representant_title: "Representante legal"
+      legal_representant_name: "Nombres/Apellidos o Razón Social"
+
+      display_user_title: "Persona fisica de contacto"
+      user_name: "Nombre/Apellidos"
+      fiscal_year_title: "Datos de quien va a ejercer la actividad de lobby por cuenta propria"
+      fiscal_year: "Ejercicio anual"
+      range_fund: "Fondos dedicados a la actividad e lobby"
+      subvention: "Ayudas y/o subvenciones recibidas del Ayto"
+      contract: "Contratos y/o convenios con el Ayto"
+
+      represented_entity_title: "Datos personas o entidades sin personalidad a quienes se va a representar"
+      represented_entity_identifier: "NIF"
+      represented_entity_fullname: "Nombres/Apellidos o Razón Social"
+      represented_entity_from: "Fecha de inicio de representación"
+      represented_entity_to: "Fecha de final de representación"
+      represented_entity_range_fund: "Fondos que la entidad dedica"
+      represented_entity_fiscal_year: "Ejercicio anual"
+      represented_entity_subvention: "Ayudas y/o subvenciones recibidas del Ayto"
+      represented_entity_contract: "Contratos y/o convenios con el Ayto"
+
+      agents_title: "Agentes"
+      agents_fullname: "Nombre/Apellidos"
+      agents_from: "Fecha de inicio de representación"
+      agents_to: "Fecha de fin de representación"
+
+      interests_title: "Area de interés"
+
+
   backend:
 
     reference:

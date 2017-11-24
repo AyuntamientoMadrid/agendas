@@ -32,4 +32,13 @@ module ApplicationHelper
     link_to(holder.full_name,  agenda_path(holder.id,holder.full_name.parameterize)).html_safe
   end
 
+  def form_field_errors(form, field)
+    if form.object.errors[field].any?
+      content_tag :span, class: "error error_field_rails" do
+        field_errors = form.object.errors[field]
+        field_errors.join(", ")
+      end
+    end
+  end
+
 end

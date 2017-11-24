@@ -6,16 +6,18 @@
         <small><%= t('backend.terms.denied_public_data') %></small>
         <br />
         <%= f.check_box :denied_public_data %> Confirmar
+        <%= form_field_errors(f, :denied_public_data) %>
       <% end %>
 
       <%= f.label :denied_public_events do %>
         <small><%= t('backend.terms.denied_public_events') %></small>
         <br />
         <%= f.check_box :denied_public_events %> Confirmar
+        <%= form_field_errors(f, :denied_public_events) %>
       <% end %>
 
       <small><%= t('backend.terms.last_text') %></small>
-      
+
     </div>
   </div>
 </fieldset>

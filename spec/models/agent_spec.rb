@@ -26,4 +26,30 @@ describe Agent do
     expect(agent).not_to be_valid
   end
 
+  describe "#fullname" do
+    it "Should return first_surname and second_surname when they are defined" do
+      agent.name = "Name"
+      agent.first_surname = ""
+      agent.second_surname = ""
+
+      expect(agent.fullname).to eq "Name"
+    end
+
+    it "Should return first_surname and second_surname when they are defined" do
+      agent.name = "Name"
+      agent.first_surname = "FirstSurname"
+      agent.second_surname = ""
+
+      expect(agent.fullname).to eq "Name FirstSurname"
+    end
+
+    it "Should return first_surname and second_surname when they are defined" do
+      agent.name = "Name"
+      agent.first_surname = "FirstSurname"
+      agent.second_surname = "SecondSurname"
+
+      expect(agent.fullname).to eq "Name FirstSurname SecondSurname"
+    end
+  end
+
 end
