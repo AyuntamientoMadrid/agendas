@@ -20,7 +20,7 @@ class Organization < ActiveRecord::Base
   has_one :legal_representant, dependent: :destroy
   belongs_to :category
 
-  accepts_nested_attributes_for :legal_representant
+  accepts_nested_attributes_for :legal_representant, update_only: true
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :represented_entities
   accepts_nested_attributes_for :agents

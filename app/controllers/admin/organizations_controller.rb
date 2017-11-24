@@ -3,6 +3,8 @@ module Admin
 
     load_and_authorize_resource
 
+    before_action :set_organizaion, only: :update
+
     def index
       @organizations = Organization.all.page(params[:page]).per(25)
     end
@@ -22,6 +24,15 @@ module Admin
       @organization.user = User.new
     end
 
+    def update
+      if @organization.update_attributes(organization_params)
+        redirect_to admin_organizations_path, notice: t('backend.successfully_updated_record')
+      else
+        flash[:alert] = t('backend.review_errors')
+        render :edit
+      end
+    end
+
     private
 
       def organization_params
@@ -36,6 +47,10 @@ module Admin
                                                         :from, :fiscal_year, :range_fund, :subvention, :contract],
                       organization_interests_attributes: [:interest_ids],
                       agents_attributes: [:id, :identifier, :name, :first_surname, :second_surname, :from, :to, :public_assignments])
+      end
+
+      def set_organizaion
+        @organization = Organization.find(params[:id])
       end
 
   end

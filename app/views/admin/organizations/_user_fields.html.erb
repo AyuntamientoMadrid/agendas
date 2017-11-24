@@ -30,15 +30,18 @@
     <%= form_field_errors(f, :email) %>
   </div>
 
-  <div class="small-6 columns">
-    <%= f.label :password, t('backend.contact_person.password') %>
-    <%= f.text_field :password %>
-    <%= form_field_errors(f, :password) %>
-  </div>
+  <% if form_new_organization? %>
+    <div class="small-6 columns">
+      <%= f.label :password, t('backend.contact_person.password') %>
+      <%= f.text_field :password %>
+      <%= form_field_errors(f, :password) %>
+    </div>
 
-  <div class="small-6 columns">
-    <%= f.label :password_confirmation, t('backend.contact_person.password_confirmation') %>
-    <%= f.text_field :password_confirmation %>
-    <%= form_field_errors(f, :password_confirmation) %>
-  </div>
+    <div class="small-6 columns">
+      <%= f.label :password_confirmation, t('backend.contact_person.password_confirmation') %>
+      <%= f.text_field :password_confirmation %>
+      <%= form_field_errors(f, :password_confirmation) %>
+    </div>
+  <% end %>
+  
 </div>
