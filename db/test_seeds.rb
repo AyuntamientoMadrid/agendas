@@ -106,11 +106,10 @@ interest_21 = Interest.create(name:"Turismo")
 interest_22 = Interest.create(name:"Urbanismo")
 interest_23 = Interest.create(name:"Vivienda")
 
-#Cateogry
+#Category
 category_1 = Category.create(name: 'Empresas')
 category_2 = Category.create(name: 'Asociaciones')
 category_3 = Category.create(name: 'Comunidad de Bienes')
-
 
 # Organization
 user_lobby_1 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
