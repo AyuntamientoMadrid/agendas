@@ -106,10 +106,22 @@ interest_21 = Interest.create(name:"Turismo")
 interest_22 = Interest.create(name:"Urbanismo")
 interest_23 = Interest.create(name:"Vivienda")
 
+# Categories
+names = ['Consultoría profesional y despachos de abogados', 'Empresas', 'Asociaciones/Fundaciones',
+         'Sindicatos y organizaciones profesionales', 'Organizaciones empresariales',
+         'ONGs y plataformas sin personalidad jurídica',
+         'Universidades y centros de investigación',
+         'Corporaciones de Derecho Público (colegios profesionales, cámaras oficiales, etc.)',
+         'Iglesia y otras confesiones', 'Otro tipo de sujetos']
+
+names.each do |name|
+  Category.create(name: name)
+end
+
 #Category
-category_1 = Category.create(name: 'Empresas')
-category_2 = Category.create(name: 'Asociaciones')
-category_3 = Category.create(name: 'Comunidad de Bienes')
+category_1 = Category.first
+category_2 = Category.second
+category_3 = Category.third
 
 # Organization
 user_lobby_1 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)

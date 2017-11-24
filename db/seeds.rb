@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-# Categories
+# Interests
 interests = ['Actividad económica y empresarial',
              'Actividad normativa y de regulación',
              'Administración de personal y recursos humanos',
@@ -34,3 +34,17 @@ interests = ['Actividad económica y empresarial',
 interests.each do |name|
   Interest.create(name: name)
 end
+puts "Interests created ✅"
+
+# Categories
+names = ['Consultoría profesional y despachos de abogados', 'Empresas', 'Asociaciones/Fundaciones',
+         'Sindicatos y organizaciones profesionales', 'Organizaciones empresariales',
+         'ONGs y plataformas sin personalidad jurídica',
+         'Universidades y centros de investigación',
+         'Corporaciones de Derecho Público (colegios profesionales, cámaras oficiales, etc.)',
+         'Iglesia y otras confesiones', 'Otro tipo de sujetos']
+
+names.each do |name|
+  Category.find_or_create_by(name: name)
+end
+puts "Categories created ✅"
