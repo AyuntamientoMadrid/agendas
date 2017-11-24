@@ -106,10 +106,13 @@ interest_21 = Interest.create(name:"Turismo")
 interest_22 = Interest.create(name:"Urbanismo")
 interest_23 = Interest.create(name:"Vivienda")
 
+#Cateogry
+category_1 = Category.create(name: 'Categoria 1')
+
 # Organization
 user_lobby_1 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
 user_lobby_1.lobby!
-organization_1 = Organization.create(name: Faker::Company.name, inscription_date: Date.current - 1.year, denied_public_data: false, denied_public_events: false, user: user_lobby_1)
+organization_1 = Organization.create(name: Faker::Company.name, inscription_date: Date.current - 1.year, denied_public_data: false, denied_public_events: false, user: user_lobby_1, category: category_1, reference: 'W45Y')
 
 user_lobby_2 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
 user_lobby_2.lobby!

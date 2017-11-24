@@ -1,50 +1,108 @@
-<h3>Organizacion</h3>
-<%= @organization.id %>
+<div class="row mb40">
+  <div class="small-12 large-8 columns">
+    <%= link_to t('backend.back'), events_path , :class=> "button tiny radius" %>
+    <h2 class="post__title-big">Organizacion</h2>
+    <p>Referencia: <strong><%= @organization.reference %></p>
+  </div>
+</div>
 
-<%#= Datos %>
-<%= @organization.identifier %>
-<%= @organization.name %>
-<%= @organization.web %>
-<%= @organization.category.name %>
-<%= @organization.address %>
-<%= @organization.postal_code %>
-<%= @organization.town %>
-<%= @organization.province %>
-<%= @organization.description %>
+<div class="row mb40">
+  <div class="small-12 large-3 columns">
+    <strong class="post__subtitle">Datos</strong>
+  </div>
+  <div class="small-12 large-7 end columns">
+    <p><strong>Código de Lobby: </strong><%= @organization.id %></strong></p>
+    <p><strong>NIF: </strong><%= @organization.identifier %></p>
+    <p><strong>Nombre/Apellidos o Razón Social: </strong><%= @organization.name %></p>
+    <p><strong>CP: </strong><%= @organization.postal_code %></p>
+    <p><strong>Municipio: </strong> <%= @organization.town %></p>
+    <p><strong>Domicilio: </strong><%= @organization.address %></p>
+    <p><strong>Provincia: </strong><%= @organization.province %></p>
+    <p><strong>Categoría: </strong><%= @organization.category.name %></p>
+    <p><strong>Finalidad y objetivos: </strong><%= @organization.description %></p>
+    <p><strong>Página web: </strong> <%= @organization.web %></p>
+  </div>
+</div>
 
-<%#= Legal Representant %>
-<%= @organization.legal_representant.fullname if @organization.legal_representant.present? %>
+<div class="row mb40">
+  <div class="small-12 large-3 columns">
+    <strong class="post__subtitle">Representante legal</strong>
+  </div>
 
-<%#= Persona fisica de contacto %>
-<%= @organization.user.name %>
+  <div class="small-12 large-7 end columns">
+    <p>
+      <strong>Nombres/Apellidos o Razón Social: </strong>
+      <%= @organization.legal_representant.fullname if @organization.legal_representant.present? %>
+    </p>
+  </div>
+</div>
 
-<%#= Datos Lobby Cuenta propia %>
+<div class="row mb40">
+  <div class="small-12 large-3 columns">
+    <strong class="post__subtitle">Persona fisica de contacto</strong>
+  </div>
+
+  <div class="small-12 large-7 end columns">
+    <p><strong>Nombre/Apellidos: </strong> <%= @organization.user.name %></p>
+  </div>
+</div>
+
 <% if @organization.fiscal_year.present? %>
-  <h1>Datos economicos</h1>
-  <%= @organization.fiscal_year %>
-  <%= @organization.range_fund %>
-  <%= @organization.subvention %>
-  <%= @organization.contract %>
+  <div class="row mb40">
+    <div class="small-12 large-3 columns">
+      <strong class="post__subtitle">Datos de quien va a ejercer la actividad de lobby por cuenta propria</strong>
+    </div>
+
+    <div class="small-12 large-7 end columns">
+        <p><strong>Ejercicio anual: </strong> <%= @organization.fiscal_year %></p>
+        <p><strong>Fondos dedicados a la actividad e lobby: </strong> <%= @organization.range_fund %></p>
+        <p><strong>Ayudas y/o subvenciones recibidas del Ayto: </strong><%= @organization.subvention %></p>
+        <p><strong>Contratos y/o convenios con el Ayto</strong><%= @organization.contract %></p>
+    </div>
+  </div>
 <% end %>
 
-<%#= Represented Entity %>
-<% @organization.represented_entities.each do |represented_entity| %>
-  <%= represented_entity.identifier %>
-  <%= represented_entity.fullname %>
-  <%= represented_entity.from %>
-  <%= represented_entity.to if represented_entity.to.present? %>
-  <%= represented_entity.fiscal_year %>
-  <%= represented_entity.range_fund %>
-  <%= represented_entity.subvention %>
-  <%= represented_entity.contract %>
-<% end %>
+<div class="row mb40">
+  <div class="small-12 large-3 columns">
+    <strong class="post__subtitle">Datos personas o entidades sin personalidad a quienes se va a representar</strong>
+  </div>
 
-<% @organization.agents.each do |agent| %>
-  <%= agent.fullname %>
-  <%= agent.from %>
-  <%= agent.to if agent.to.present? %>
-<% end %>
+  <div class="small-12 large-7 end columns">
+    <% @organization.represented_entities.each do |represented_entity| %>
+      <p><strong>NIF: </strong><%= represented_entity.identifier %></p>
+      <p><strong>Nombres/Apellidos o Razón Social: </strong><%= represented_entity.fullname %></p>
+      <p><strong>Fecha de inicio de representación: </strong><%= represented_entity.from %></p>
+      <p><strong>Fecha de final de representación: </strong><%= represented_entity.to if represented_entity.to.present? %></p>
+      <p><strong>Fondos que la entidad dedica: </strong><%= represented_entity.range_fund %></p>
+      <p><strong>Ejercicio anual: </strong><%= represented_entity.fiscal_year %></p>
+      <p><strong>Ayudas y/o subvenciones recibidas del Ayto: </strong><%= represented_entity.subvention %></p>
+      <p><strong>Contratos y/o convenios con el Ayto: </strong><%= represented_entity.contract %></p>
+    <% end %>
+  </div>
+</div>
 
-<% @organization.interests.each do |interest| %>
-  <%= interest.name %>
-<% end %>
+<div class="row mb40">
+  <div class="small-12 large-3 columns">
+    <strong class="post__subtitle">Agentes</strong>
+  </div>
+
+  <div class="small-12 large-7 end columns">
+    <% @organization.agents.each do |agent| %>
+      <p><strong>Nombre/Apellidos: </strong><%= agent.fullname %></p>
+      <p><strong>Fecha de inicio de representación: </strong><%= agent.from %></p>
+      <p><strong>Fecha de fin de representación: </strong><%= agent.to if agent.to.present? %></p>
+    <% end %>
+  </div>
+</div>
+
+<div class="row mb40">
+  <div class="small-12 large-3 columns">
+    <strong class="post__subtitle">Area de interés</strong>
+  </div>
+
+  <div class="small-12 large-7 end columns">
+    <% @organization.interests.each do |interest| %>
+      <%= interest.name %>
+    <% end %>
+  </div>
+</div>

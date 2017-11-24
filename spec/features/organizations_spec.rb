@@ -240,7 +240,7 @@ feature 'Organizations page' do
 
       visit organization_path(organization)
 
-      expect(page).to have_content "Datos economicos"
+      expect(page).to have_content "Datos de quien va a ejercer la actividad de lobby por cuenta propria"
       expect(page).to have_content organization.fiscal_year
       expect(page).to have_content organization.range_fund
       expect(page).to have_content organization.subvention
