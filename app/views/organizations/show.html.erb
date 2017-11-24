@@ -5,14 +5,12 @@
 <%= @organization.identifier %>
 <%= @organization.name %>
 <%= @organization.web %>
-<%= @organization.category %>
+<%= @organization.category.name %>
 <%= @organization.address %>
 <%= @organization.postal_code %>
 <%= @organization.town %>
 <%= @organization.province %>
-<%= @organization.phones %>
 <%= @organization.description %>
-<%= @organization.registered_lobbies %>
 
 <%#= Legal Representant %>
 <%= @organization.legal_representant.fullname if @organization.legal_representant.present? %>
