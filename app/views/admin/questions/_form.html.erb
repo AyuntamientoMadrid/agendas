@@ -1,0 +1,25 @@
+<%= form_for [:admin, @question], html: {class: 'question-form'} do |f| %>
+
+  <% if @question.errors.any? %>
+    <div class="panel callout radius">
+      <strong><%= t('activerecord.errors.template.header', :model => Organization.model_name.human, :count => @question.errors.count) %></strong>
+      <ul>
+        <% @question.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend><%= t('backend.faq.create_new_question') %></legend>
+      <%= f.label :title, t('backend.faq.title') %>
+      <%= f.text_field :title %>
+      <%= f.label :answer, t('backend.faq.answer') %>
+      <%= f.text_area :answer, class: 'tinymce'%>
+      <%= f.label :position, t('backend.faq.position') %>
+      <%= f.number_field :position %>
+  </fieldset>
+  <%= submit_tag t('backend.send'), :class=> "button radius success right" %>
+<% end %>
+<%= tinymce :language => I18n.locale %>

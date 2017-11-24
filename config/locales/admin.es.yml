@@ -107,6 +107,15 @@ es:
     current_password: "Contraseña actual"
     modify: "Modificar"
 
+    faq:
+      questions: "Preguntas frecuentes"
+      new_question: "Nueva pregunta"
+      edit_question: "Editar pregunta"
+      title: "Título"
+      answer: "Respuesta"
+      position: "Posición"
+    send: "Enviar"
+
   backend_header:
     open_gov: "Gobierno abierto"
     administracion: "Administración"
