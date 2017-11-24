@@ -31,11 +31,9 @@
             </li>
           </ul>
         </section>
-
       </div>
     </div>
   </div>
-
 
   <nav class="top-bar show-for-small-only" data-topbar role="navigation">
     <div class="header__base">
@@ -49,12 +47,12 @@
         <li><a href="<%= t('header.transparency_url') %>" target="_blank"><%= t('header.transparency') %></a></li>
         <li><a href="<%= t('header.open_data_url') %>" target="_blank"><%= t('header.open_data') %></a></li>
         <li class="btn-public-agenda <%= current_page?(root_path) && 'active' %>">
-          <%= link_to 'Agenda públicas', root_path %>
+          <%= link_to t('header.btn_public_agenda'), root_path %>
         </li>
         <li class="btn-organizations <%= current_page?(organizations_path) && 'active' %>">
-          <%= link_to 'Consulta de registro', organizations_path %>
+          <%= link_to t('header.btn_organizations'), organizations_path %>
         </li>
       </ul>
     </section>
   </nav>
-</header><!-- .header -->
+</header>

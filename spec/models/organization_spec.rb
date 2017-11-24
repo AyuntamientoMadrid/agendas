@@ -42,13 +42,19 @@ describe Organization do
   end
 
   it "should not be valid with denied_public_data" do
-    organization.denied_public_data = true
+    organization.denied_public_data = nil
 
     expect(organization).not_to be_valid
   end
 
   it "should not be valid with denied_public_events" do
-    organization.denied_public_events = true
+    organization.denied_public_events = nil
+
+    expect(organization).not_to be_valid
+  end
+
+  it "should not be valid without category defined" do
+    organization.category = nil
 
     expect(organization).not_to be_valid
   end
