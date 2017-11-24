@@ -64,8 +64,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       user_path(resource)
     end
 
-    protected
-
     def update_resource(resource, params)
       resource.update(params)
     end

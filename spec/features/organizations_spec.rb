@@ -99,7 +99,7 @@ feature 'Organizations page' do
       end
 
       scenario "Should filter by given keywords over organizations name and show result" do
-        organization = organization = create(:organization, name: "Fulanito", first_surname: "Mengano", second_surname: "de Tal")
+        organization = create(:organization, name: "Fulanito", first_surname: "Mengano", second_surname: "de Tal")
         Organization.reindex
 
         visit organizations_path
