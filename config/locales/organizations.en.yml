@@ -6,7 +6,7 @@ en:
       default: Last registered lobbies
 
     show:
-      title: "Organización"
+      title: "Organization public page"
       reference: "Referencia"
       identifying_data_title: "Datos"
       id: "Código de Lobby"

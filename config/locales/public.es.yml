@@ -12,7 +12,7 @@ es:
     transparency_url: "http://www.madrid.es/portaldetransparencia "
     participation_url: "https://decide.madrid.es"
     open_data_url: "http://datos.madrid.es"
-    btn_public_agenda: "Agenda públicas"
+    btn_public_agenda: "Agendas públicas"
     btn_organizations: "Consulta de registro"
   main:
     title: "Agendas públicas"

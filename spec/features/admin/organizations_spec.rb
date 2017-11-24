@@ -63,9 +63,12 @@ feature 'Organization' do
       end
 
       scenario 'Visit new admin organization page and create organization with the minimum permitted fields' do
+        category = create(:category)
+        category = create(:category)
         visit new_admin_organization_path
 
         fill_in :organization_name, with: "organization name"
+        select category.name, from: :organization_category_id
         fill_in :organization_user_attributes_first_name, with: "user first name"
         fill_in :organization_user_attributes_last_name, with: "user last name"
         fill_in :organization_user_attributes_email, with: "user@email.com"
@@ -81,9 +84,11 @@ feature 'Organization' do
         describe "Legal Representant" do
 
           scenario 'Try create organization with invalid legal representant and display error', :js do
+            category = create(:category)
             visit new_admin_organization_path
 
             fill_in :organization_name, with: "organization name"
+            select category.name, from: :organization_category_id
             fill_in :organization_user_attributes_first_name, with: "user first name"
             fill_in :organization_user_attributes_last_name, with: "user last name"
             fill_in :organization_user_attributes_email, with: "user@email.com"
@@ -100,9 +105,11 @@ feature 'Organization' do
           end
 
           scenario 'Create organization with valid legal representant', :js do
+            category = create(:category)
             visit new_admin_organization_path
 
             fill_in :organization_name, with: "organization name"
+            select category.name, from: :organization_category_id
             fill_in :organization_user_attributes_first_name, with: "user first name"
             fill_in :organization_user_attributes_last_name, with: "user last name"
             fill_in :organization_user_attributes_email, with: "user@email.com"
@@ -140,9 +147,11 @@ feature 'Organization' do
         describe "Represented Entities" do
 
           scenario 'Try create organization with invalid respresented entities and display error', :js do
+            category = create(:category)
             visit new_admin_organization_path
 
             fill_in :organization_name, with: "organization name"
+            select category.name, from: :organization_category_id
             fill_in :organization_user_attributes_first_name, with: "user first name"
             fill_in :organization_user_attributes_last_name, with: "user last name"
             fill_in :organization_user_attributes_email, with: "user@email.com"
@@ -164,9 +173,11 @@ feature 'Organization' do
           end
 
           scenario 'Create organization with valid represented entities', :js do
+            category = create(:category)
             visit new_admin_organization_path
 
             fill_in :organization_name, with: "organization name"
+            select category.name, from: :organization_category_id
             fill_in :organization_user_attributes_first_name, with: "user first name"
             fill_in :organization_user_attributes_last_name, with: "user last name"
             fill_in :organization_user_attributes_email, with: "user@email.com"
@@ -218,9 +229,11 @@ feature 'Organization' do
         describe "Agents" do
 
           scenario 'Try create organization with invalid agent and display error', :js do
+            category = create(:category)
             visit new_admin_organization_path
 
             fill_in :organization_name, with: "organization name"
+            select category.name, from: :organization_category_id
             fill_in :organization_user_attributes_first_name, with: "user first name"
             fill_in :organization_user_attributes_last_name, with: "user last name"
             fill_in :organization_user_attributes_email, with: "user@email.com"
@@ -241,9 +254,11 @@ feature 'Organization' do
           end
 
           scenario 'Create organization with valid agents', :js do
+            category = create(:category)
             visit new_admin_organization_path
 
             fill_in :organization_name, with: "organization name"
+            select category.name, from: :organization_category_id
             fill_in :organization_user_attributes_first_name, with: "user first name"
             fill_in :organization_user_attributes_last_name, with: "user last name"
             fill_in :organization_user_attributes_email, with: "user@email.com"
