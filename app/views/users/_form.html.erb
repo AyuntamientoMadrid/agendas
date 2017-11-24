@@ -1,47 +1,62 @@
-<%= link_to t('backend.back'), users_path , :class=> "button tiny radius" %>
-<%= form_for @user, html: {class: 'admin-form'} do |f| %>
+<%= link_to t("backend.back"), users_path, class: "button tiny radius" %>
+<%= form_for @user, html: { class: 'admin-form' } do |f| %>
 
-    <% if @user.errors.any? %>
-        <div class="panel callout radius">
-          <strong><%= t('activerecord.errors.template.header',
-  :model => User.model_name.human, :count => @user.errors.count) %></strong>
-          <ul>
-            <% @user.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
-
-    <fieldset>
-      <legend><%= t('backend.basic_data') %></legend>
-      <%= f.label :first_name, t('backend.first_name') %>
-      <%= f.text_field :first_name, readonly: Rails.application.secrets.madrid %>
-      <%= f.label :last_name, t('backend.last_name') %>
-      <%= f.text_field :last_name, readonly: Rails.application.secrets.madrid %>
-      <%= f.label :email, t('backend.email') %>
-      <%= f.text_field :email, readonly: Rails.application.secrets.madrid %>
-      <% unless Rails.application.secrets.madrid %>
-      <%= f.label :role, t('backend.role') %>
-      <%= f.select :role, [[t('backend.user'), :user],[t('backend.admin'), :admin]] %>
-      <% end %>
-    </fieldset>
-
-    <fieldset>
-      <legend><%= t('backend.positions') %></legend>
-      <div class="row">
-        <div class="small-2 columns"></div>
-        <div class="small-8 columns"></div>
-        <div class="small-2 columns"></div>
-      </div>
-      <div id="manages">
-        <%= f.fields_for :manages do |manage| %>
-            <%= render 'manage_fields', f: manage %>
+  <% if @user.errors.any? %>
+    <div class="panel callout radius">
+    <strong><%= t("activerecord.errors.template.header",
+                model: User.model_name.human,
+                count: @user.errors.count) %></strong>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
         <% end %>
-      </div>
-      <%= link_to_add_association t('backend.add'), f, :manages, :class => "button radius tiny info right",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#manages' %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend><%= t("backend.basic_data") %></legend>
+    <%= f.label :first_name, t("backend.first_name") %>
+    <%= f.text_field :first_name, readonly: Rails.application.secrets.madrid %>
+    <%= f.label :last_name, t("backend.last_name") %>
+    <%= f.text_field :last_name, readonly: Rails.application.secrets.madrid %>
+    <%= f.label :email, t("backend.email") %>
+    <%= f.text_field :email, readonly: Rails.application.secrets.madrid %>
+    <% unless Rails.application.secrets.madrid %>
+      <%= f.label :role, t("backend.role") %>
+      <%= f.select :role, [[t("backend.user"), :user], [t("backend.admin"), :admin]] %>
+    <% end %>
+  </fieldset>
+
+  <fieldset>
+    <legend><%= t("backend.positions") %></legend>
+    <div class="row">
+      <div class="small-2 columns"></div>
+      <div class="small-8 columns"></div>
+      <div class="small-2 columns"></div>
+    </div>
+    <div id="manages">
+      <%= f.fields_for :manages do |manage| %>
+        <%= render "manage_fields", f: manage %>
+      <% end %>
+    </div>
+    <%= link_to_add_association t("backend.add"), f, :manages,
+                                class: "button radius tiny info right",
+                                "data-association-insertion-method" => "append",
+                                "data-association-insertion-node" => "#manages" %>
+  </fieldset>
+
+  <% if action_name == "edit" || action_name == "update" %>
+    <fieldset>
+      <legend><%= t("backend.change_password") %></legend>
+      <%= f.label :password, t("backend.new_password") %>
+      <%= f.password_field :password %>
+      <%= f.label :password_confirmation, t("backend.new_password_confirmation") %>
+      <%= f.password_field :password_confirmation %>
     </fieldset>
-    <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
+  <% end %>
+
+  <%= submit_tag t("backend.save"), class: "button radius success right" %>
 <% end %>
 
-<%= javascript_include_tag 'users'%>
+<%= javascript_include_tag "users" %>
