@@ -1,12 +1,13 @@
 class PublicOrganizationExporter
-  FIELDS = ['reference', 'identifier', 'name', 'first_name', 'last_name',
+  FIELDS = ['reference', 'identifier', 'name', 'first_surname', 'second_surname',
             'address_type', 'address', 'number', 'gateway', 'stairs', 'floor',
             'door', 'postal_code', 'town', 'province', 'phones', 'email',
             'description', 'web', 'registered_lobbies', 'fiscal_year',
             'range_fund', 'subvention', 'contract', 'denied_public_data',
             'denied_public_events', 'inscription_reference', 'inscription_date',
             'entity_type', 'neighbourhood', 'district', 'scope',
-            'associations_count', 'members_count', 'approach'].freeze
+            'associations_count', 'members_count', 'approach',
+            'legal_representant_full_name', 'user_name'].freeze
 
   def headers
     FIELDS.map { |f| I18n.t("public_organization_exporter.#{f}") }

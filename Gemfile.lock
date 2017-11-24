@@ -336,6 +336,7 @@ GEM
       rainbow (>= 2.2.2, < 3.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
+    ruby-ole (1.2.12.1)
     ruby-progressbar (1.9.0)
     rubyzip (1.2.1)
     sass (3.4.25)
@@ -367,6 +368,8 @@ GEM
       coffee-rails
       sass-rails
     socksify (1.7.1)
+    spreadsheet (1.1.5)
+      ruby-ole (>= 1.0)
     spring (1.4.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -491,6 +494,7 @@ DEPENDENCIES
   sidekiq (~> 4.1.0)
   simplecov (~> 0.10.0)
   social-share-button (~> 0.1.8)
+  spreadsheet
   spring (~> 1.4.0)
   spring-commands-rspec (~> 1.0.4)
   sunspot-rails-tester (~> 1.0.0)

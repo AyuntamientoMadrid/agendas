@@ -80,8 +80,8 @@ en:
     reference: reference
     identifier: identifier
     name: name
-    first_name: first name
-    last_name: last name
+    first_surname: first name
+    second_surname: last name
     address_type: address type
     address: address
     number: number
@@ -113,3 +113,5 @@ en:
     associations_count: associations count
     members_count: members count
     approach: approach
+    legal_representant_full_name: legal representant full name
+    user_name: user name
