@@ -15,12 +15,22 @@
   <div class="top_bar_box">
     <div class="row">
       <div class="small-12 columns hide-for-small-only">
-        <div class="header__base">
-        <%= link_to root_path do %>
-          <%= image_tag 'header_logo_madrid.png', class: 'header__imago', alt:'¡Madrid'%>
-          <h1 class="header__title"><strong><%= t('header.open_goverment') %></strong><%= t('header.transparency') %></h1>
+        <div class="header__base medium-6 columns">
+          <%= link_to root_path do %>
+            <%= image_tag 'header_logo_madrid.png', class: 'header__imago', alt:'¡Madrid'%>
+            <h1 class="header__title"><strong><%= t('header.open_goverment') %></strong><%= t('header.transparency') %></h1>
+          <% end %>
         </div>
-        <% end %>
+        <section class="top-bar-section">
+          <ul class="right">
+            <li class="btn-public-agenda <%= current_page?(root_path) && 'active' %>">
+              <%= link_to 'Agenda públicas', root_path %>
+            </li>
+            <li class="btn-organizations <%= current_page?(organizations_path) && 'active' %>">
+              <%= link_to 'Consulta de registro', organizations_path %>
+            </li>
+          </ul>
+        </section>
 
       </div>
     </div>
@@ -38,6 +48,12 @@
         <li><a href="<%= t('header.participation_url') %>" target="_blank"><%= t('header.participation') %></a></a></li>
         <li><a href="<%= t('header.transparency_url') %>" target="_blank"><%= t('header.transparency') %></a></li>
         <li><a href="<%= t('header.open_data_url') %>" target="_blank"><%= t('header.open_data') %></a></li>
+        <li class="btn-public-agenda <%= current_page?(root_path) && 'active' %>">
+          <%= link_to 'Agenda públicas', root_path %>
+        </li>
+        <li class="btn-organizations <%= current_page?(organizations_path) && 'active' %>">
+          <%= link_to 'Consulta de registro', organizations_path %>
+        </li>
       </ul>
     </section>
   </nav>
