@@ -80,4 +80,6 @@ end
 
 group :production do
   gem 'unicorn', '~> 4.9.0'
+  gem 'rails_12factor'
+  gem 'database_cleaner', '~> 1.5.0'
 end
