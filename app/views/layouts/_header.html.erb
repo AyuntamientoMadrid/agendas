@@ -24,10 +24,10 @@
         <section class="top-bar-section">
           <ul class="right">
             <li class="btn-public-agenda <%= current_page?(root_path) && 'active' %>">
-              <%= link_to 'Agenda públicas', root_path %>
+              <%= link_to t('header.btn_public_agenda'), root_path %>
             </li>
             <li class="btn-organizations <%= current_page?(organizations_path) && 'active' %>">
-              <%= link_to 'Consulta de registro', organizations_path %>
+              <%= link_to t('header.btn_organizations'), organizations_path %>
             </li>
           </ul>
         </section>
