@@ -6,7 +6,6 @@ class Organization < ActiveRecord::Base
 
   validates :inscription_reference, uniqueness: true, allow_blank: true, allow_nil: true
   validates :name, :user, :category_id, presence: true
-  validates :denied_public_data, :denied_public_events, inclusion: { in: [false] }
 
   has_many :represented_entities, dependent: :destroy
   has_many :agents, dependent: :destroy

@@ -28,4 +28,27 @@ es:
       attachment:
         one: "archivo adjunto"
         other: "archivos adjuntos"
-
+    attributes:
+      organization:
+        name: "Nombre"
+        category_id: "Categoria"
+      organization/legal_representant:
+        identifier: "Representante Legal: Identificador"
+        name: "Representante Legal: Nombre"
+        first_surname: "Representante Legal: Apellido"
+        email: "Representante Legal: email"
+      organization/user:
+        first_name: "Persona física de contacto: Nombre"
+        last_name: "Persona física de contacto: Apellidos"
+        email: "Persona física de contacto: email"
+        password: "Persona física de contacto: password"
+        password_confirmation: "Persona física de contacto: confirmación del password"
+      organization/represented_entities:
+        identifier: "Entidad Representada: Identificador"
+        name: "Entidad Representada: Nombre"
+        fiscal_year: "Entidad Representada: Año fiscal"
+        from: "Entidad Representada: Fecha de inicio"
+      organization/agents:
+        identifier: "Agente: Identificador"
+        name: "Agente: Nombre"
+        from: "Agente: Fecha de inicio"

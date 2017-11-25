@@ -6,7 +6,8 @@ module Admin
     end
 
     def form_new_organization?
-      params[:action] == "new"
+      params[:controller] == "admin/organizations" &&
+      (params[:action] == "new" || params[:action] == "create")
     end
 
   end

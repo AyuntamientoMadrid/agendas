@@ -21,7 +21,7 @@
     </tfoot>
     <tbody>
       <% @organizations.each do |organization| %>
-      <tr>
+      <tr id="<%= dom_id(organization) %>" >
         <td>
           <%= organization.name %>
         </td>

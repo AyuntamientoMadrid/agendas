@@ -3,7 +3,7 @@
     <strong><%= t('activerecord.errors.template.header', :model => Organization.model_name.human, :count => @organization.errors.count) %></strong>
     <ul>
       <% @organization.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+        <li><%= msg %></li>
       <% end %>
     </ul>
   </div>
