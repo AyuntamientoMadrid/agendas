@@ -84,3 +84,42 @@ es:
       - :day
       - :month
       - :year
+  public_organization_exporter:
+    reference: referencia
+    identifier: identificador
+    name: nombre
+    first_surname: primer apellido
+    second_surname: segundo apellido
+    address_type: tipo de dirección
+    address: direccion
+    number: numero
+    gateway: portal
+    stairs: escaleras
+    floor: planta
+    door: puerta
+    postal_code: codig postal
+    town: pueblo
+    province: provincia
+    phones: telefonos
+    email: email
+    category_name: nombre de categoria
+    description: descripción
+    web: web
+    fiscal_year: año fiscal
+    subvention: subvención
+    contract: contrato
+    denied_public_data: datos publicos denegados
+    denied_public_events: eventos publicos denegados
+    registered_lobbies: lobbies registrados
+    range_fund: rango de fondos
+    inscription_reference: refecencie de inscripcion
+    inscription_date: fecha inscripción
+    entity_type: tipo de entidad
+    neighbourhood: barrio
+    district: distrito
+    scope: alcance
+    associations_count: numero de associaciones
+    members_count: numero de miembros
+    approach: aproximación
+    legal_representant_full_name: nombre y apellidos del representante legal
+    user_name: nombre y apellidos

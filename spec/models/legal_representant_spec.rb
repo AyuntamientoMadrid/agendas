@@ -4,6 +4,12 @@ describe LegalRepresentant do
 
   let(:legal_representant) { build(:legal_representant) }
 
+  it "should have a correct fullname" do
+    fullname = "#{legal_representant.name} #{legal_representant.first_surname} #{legal_representant.second_surname}"
+
+    expect(legal_representant.fullname).to eq(fullname)
+  end
+
   it "should be valid" do
     expect(legal_representant).to be_valid
   end

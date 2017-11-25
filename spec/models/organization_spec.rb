@@ -85,4 +85,18 @@ describe Organization do
     end
   end
 
+  it "should have a correct legal representant full name" do
+    legal_representant = build(:legal_representant)
+    organization.legal_representant = legal_representant
+    legal_representant_full_name = organization.legal_representant.fullname
+
+    expect(organization.legal_representant_full_name).to eq(legal_representant_full_name)
+  end
+
+  it "should have a correct user name" do
+    user_name = organization.user.full_name
+
+    expect(organization.user_name).to eq(user_name)
+  end
+
 end
