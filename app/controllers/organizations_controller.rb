@@ -22,6 +22,6 @@ class OrganizationsController < ApplicationController
 
     def set_organization
       @organization = Organization.find(params[:id])
-    end    
+    end
 
 end

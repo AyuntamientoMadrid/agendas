@@ -158,6 +158,31 @@ feature 'Organizations page' do
 
       expect(page).to have_content organization.name
     end
+
+    describe "Export link" do
+      scenario "Should generate CSV file with organizations" do
+        visit organizations_path
+
+        click_link "Exportar"
+
+        expect(page.status_code).to eq 200
+        expect(page.response_headers['Content-Type']).to eq "text/csv; charset=utf-8"
+      end
+
+      scenario "Should include only search results", :search do
+        organizations = create_list(:organization, 2)
+        Organization.reindex
+        visit organizations_path
+        fill_in :keyword, with: organizations.first.name
+        click_on "Buscar"
+
+        click_link "Exportar"
+
+        expect(page).to have_content organizations.first.name
+        expect(page).not_to have_content organizations.last.name
+      end
+    end
+
   end
 
   describe "Show" do

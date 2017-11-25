@@ -41,4 +41,10 @@ module ApplicationHelper
     end
   end
 
+  def export_link(url)
+    link_to url, class: "right dib dn hide-for-small-only" do
+      content_tag(:span, "", class: "icon icon__export") + t('main.export')
+    end
+  end
+
 end
