@@ -28,6 +28,7 @@ FactoryGirl.define do
     denied_public_events false
     entity_type :lobby
     inscription_date { Date.current }
+    invalidate false
 
     trait :company do
       name { Faker::Company.name }

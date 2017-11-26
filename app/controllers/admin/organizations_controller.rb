@@ -42,7 +42,7 @@ module Admin
         params.require(:organization)
               .permit(:reference, :identifier, :name, :first_surname, :second_surname, :phones, :email,
                       :web, :address_type, :address, :number, :gateway, :stairs, :floor, :door,
-                      :postal_code, :town, :province, :description, :registered_lobbies, :category_id,
+                      :postal_code, :town, :province, :description, :registered_lobbies, :category_id, :invalidate,
                       :fiscal_year, :range_fund, :subvention, :contract, :denied_public_data, :denied_public_events, interest_ids: [],
                       legal_representant_attributes: [:identifier, :name, :first_surname, :second_surname, :phones, :email, :_destroy],
                       user_attributes: [:id, :first_name, :last_name, :role, :email, :active, :phones, :password, :password_confirmation],
