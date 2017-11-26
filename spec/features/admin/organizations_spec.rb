@@ -40,7 +40,7 @@ feature 'Organization' do
         visit admin_organizations_path
 
         within "#organization_#{organization.id}" do
-          find('a[title="Editar"]').click()
+          find('a[title="Editar"]').click
         end
 
         expect(page).to have_content "Referencia de la declaracíon responsable"
@@ -104,7 +104,7 @@ feature 'Organization' do
         fill_in :organization_web, with: "www.new_web.com"
         fill_in :organization_description, with: "New description"
         select :generalitat_catalunya, from: :organization_registered_lobbies
-        #mandatory user fields
+        # mandatory user fields
         fill_in :organization_user_attributes_first_name, with: "user first name"
         fill_in :organization_user_attributes_last_name, with: "user last name"
         fill_in :organization_user_attributes_email, with: "user@email.com"
@@ -142,7 +142,7 @@ feature 'Organization' do
         fill_in :organization_town, with: "New town"
         fill_in :organization_province, with: "New province"
         fill_in :organization_description, with: "New description"
-        #mandatory user fields
+        # mandatory user fields
         fill_in :organization_name, with: "New name"
         fill_in :organization_user_attributes_first_name, with: "user first name"
         fill_in :organization_user_attributes_last_name, with: "user last name"
@@ -176,7 +176,7 @@ feature 'Organization' do
         select :range_4, from: :organization_range_fund
         check "organization_contract"
         check "organization_subvention"
-        #mandatory user fields
+        # mandatory user fields
         fill_in :organization_name, with: "New name"
         fill_in :organization_user_attributes_first_name, with: "user first name"
         fill_in :organization_user_attributes_last_name, with: "user last name"
@@ -200,7 +200,7 @@ feature 'Organization' do
 
         check "organization_denied_public_data"
         check "organization_denied_public_events"
-        #mandatory user fields
+        # mandatory user fields
         fill_in :organization_name, with: "New name"
         fill_in :organization_user_attributes_first_name, with: "user first name"
         fill_in :organization_user_attributes_last_name, with: "user last name"
@@ -582,12 +582,12 @@ feature 'Organization' do
             legal_representant = create(:legal_representant, organization: organization)
             visit edit_admin_organization_path(organization)
 
-            #mandatory fields
+            # mandatory fields
             fill_in :organization_legal_representant_attributes_identifier, with: "new identifier"
             fill_in :organization_legal_representant_attributes_name, with: "new name"
             fill_in :organization_legal_representant_attributes_first_surname, with: "new first surname"
             fill_in :organization_legal_representant_attributes_email, with: "new@email.com"
-            #opional fields
+            # opional fields
             fill_in :organization_legal_representant_attributes_second_surname, with: "new second surname"
             fill_in :organization_legal_representant_attributes_phones, with: "971466655"
             click_button "Guardar"
@@ -641,11 +641,11 @@ feature 'Organization' do
             organization = create(:organization)
             visit edit_admin_organization_path(organization)
 
-            #mandatory fields
+            # mandatory fields
             fill_in :organization_user_attributes_first_name, with: "new first name"
             fill_in :organization_user_attributes_last_name, with: "new last name"
             fill_in :organization_user_attributes_email, with: "new@email.com"
-            #opional fields
+            # opional fields
             fill_in :organization_user_attributes_phones, with: "971466655"
             click_button "Guardar"
 
@@ -684,15 +684,15 @@ feature 'Organization' do
           scenario 'Update organization with valid represented entity' do
             organization = create(:organization)
             represented_entity = create(:represented_entity, organization: organization, subvention: false, contract: false)
-            new_date = Date.today
+            new_date = Time.zone.today
             visit edit_admin_organization_path(organization)
 
-            #mandatory fields
+            # mandatory fields
             fill_in :organization_represented_entities_attributes_0_name, with: "New name"
             fill_in :organization_represented_entities_attributes_0_identifier, with: "New identifier"
             fill_in :organization_represented_entities_attributes_0_fiscal_year, with: 2014
             fill_in :organization_represented_entities_attributes_0_from, with: new_date
-            #optional fields
+            # optional fields
             fill_in :organization_represented_entities_attributes_0_first_surname, with: "new first surname"
             fill_in :organization_represented_entities_attributes_0_second_surname, with: "new second surname"
             select :range_4, from: :organization_represented_entities_attributes_0_range_fund
@@ -716,7 +716,7 @@ feature 'Organization' do
           scenario 'Update to blank represented entity fields', :js do
             organization = create(:organization)
             represented_entity = create(:represented_entity, organization: organization)
-            new_date = Date.today
+            new_date = Time.zone.today
             visit edit_admin_organization_path(organization)
 
             within "#nested-represented-entities" do
@@ -754,14 +754,14 @@ feature 'Organization' do
           scenario 'Update organization with valid represented entity' do
             organization = create(:organization)
             agent = create(:agent, organization: organization)
-            new_date = Date.today
+            new_date = Time.zone.today
             visit edit_admin_organization_path(organization)
 
-            #mandatory fields
+            # mandatory fields
             fill_in :organization_agents_attributes_0_name, with: "New name"
             fill_in :organization_agents_attributes_0_identifier, with: "New identifier"
             fill_in :organization_agents_attributes_0_from, with: new_date
-            #optional fields
+            # optional fields
             fill_in :organization_agents_attributes_0_first_surname, with: "new first surname"
             fill_in :organization_agents_attributes_0_second_surname, with: "new second surname"
             fill_in :organization_agents_attributes_0_to, with: new_date
@@ -782,7 +782,7 @@ feature 'Organization' do
           scenario 'Update to blank represented entity fields', :js do
             organization = create(:organization)
             agent = create(:agent, organization: organization)
-            new_date = Date.today
+            new_date = Time.zone.today
             visit edit_admin_organization_path(organization)
 
             within "#nested-agents" do
