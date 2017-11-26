@@ -1,6 +1,4 @@
-<div id="<%= dom_id(f.object) %>" class="nested-fields">
-
-  <%= f.hidden_field :id %>
+<div id="<%= dom_id(f.object) %>" class="legal-representant">
 
   <div class="small-6 columns">
     <%= f.label :identifier, t('backend.legal_representant.identifier') %>
@@ -39,7 +37,7 @@
   </div>
 
   <div class="small-12 columns">
-    <%= link_to_remove_association "Eliminar" ,f ,class: "button tiny radius alert right" %>
+    <%= link_to_remove_association "Eliminar" ,f ,class: "button tiny radius alert right", wrapper_class: "legal-representant" %>
   </div>
 
 </div>

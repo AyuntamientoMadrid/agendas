@@ -1,0 +1,22 @@
+<fieldset>
+  <legend><%= t('backend.agents.title_fieldset') %></legend>
+  <div class="row">
+    <div id="nested-agents">
+      <%= f.fields_for :agents do |agents_builder| %>
+        <%= render 'agents_fields', f: agents_builder %>
+      <% end %>
+    </div>
+
+    <div class="small-12 columns">
+      <%= link_to_add_association t('backend.agents.add_association'), f, :agents,
+                                partial: "agents_fields",
+                                id: "agents_link",
+                                class: "button tiny radius info",
+                                data: {
+                                  association_insertion_node: "#nested-agents",
+                                  association_insertion_method: "append"
+                                } %>
+
+    </div>
+  </div>
+</fieldset>

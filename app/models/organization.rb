@@ -6,7 +6,6 @@ class Organization < ActiveRecord::Base
 
   validates :inscription_reference, uniqueness: true, allow_blank: true, allow_nil: true
   validates :name, :user, :category_id, presence: true
-  validates :denied_public_data, :denied_public_events, inclusion: { in: [false] }
 
   has_many :represented_entities, dependent: :destroy
   has_many :agents, dependent: :destroy
@@ -20,10 +19,10 @@ class Organization < ActiveRecord::Base
   has_one :legal_representant, dependent: :destroy
   belongs_to :category
 
-  accepts_nested_attributes_for :legal_representant
+  accepts_nested_attributes_for :legal_representant, update_only: true, allow_destroy: true
   accepts_nested_attributes_for :user
-  accepts_nested_attributes_for :represented_entities
-  accepts_nested_attributes_for :agents
+  accepts_nested_attributes_for :represented_entities, allow_destroy: true
+  accepts_nested_attributes_for :agents, allow_destroy: true
 
   searchable do
     text :name, :first_surname, :second_surname, :description
