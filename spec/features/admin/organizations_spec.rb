@@ -35,8 +35,10 @@ feature 'Organization' do
         expect(current_path).to eq(new_admin_organization_path)
       end
 
-      scenario 'visit admin index organization page and edit organization link render organization edit', :js do
+      scenario 'visit admin index organization page and edit organization link render organization edit', :search do
         organization = create(:organization)
+        Organization.reindex
+
         visit admin_organizations_path
 
         within "#organization_#{organization.id}" do
