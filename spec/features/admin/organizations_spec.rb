@@ -778,7 +778,7 @@ feature 'Organization' do
             expect(agent.public_assignments).to eq "New public assignments"
           end
 
-          scenario 'Update to blank represented entity fields' do
+          scenario 'Update to blank represented entity fields', :js do
             organization = create(:organization)
             agent = create(:agent, organization: organization)
             new_date = Time.zone.today
@@ -791,7 +791,7 @@ feature 'Organization' do
 
             organization.reload
             expect(page).to have_content "Registro actualizado correctamente"
-            expect(organization.represented_entities).to eq []
+            expect(organization.agents).to eq []
           end
 
         end
