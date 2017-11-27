@@ -15,6 +15,7 @@ es:
     none: "Ninguno"
     frontend: "Zona pública"
     basic_data: "Datos"
+    change_password: "Cambiar contraseña"
     mandatory_field: "Este campo es obligatorio"
     successfully_updated_record: "Registro actualizado correctamente"
     successfully_destroyed_record: "Registro eliminado correctamente"
