@@ -24,6 +24,8 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :represented_entities, allow_destroy: true
   accepts_nested_attributes_for :agents, allow_destroy: true
 
+  after_create :set_inscription_date
+
   searchable do
     text :name, :first_surname, :second_surname, :description
     time :created_at
@@ -42,6 +44,11 @@ class Organization < ActiveRecord::Base
 
   def user_name
     user.full_name
+  end
+
+  def set_inscription_date
+    self.inscription_date = Date.current if self.inscription_date.blank?
+    self.save
   end
 
 end

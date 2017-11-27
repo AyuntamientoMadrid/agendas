@@ -1,12 +1,15 @@
+
 <h1>
-  <%= t('backend.companies') %> (<%= total_organizations %>)
+  <%= t('backend.companies') %> (<%= @organizations.total %>)
   <%= link_to t('backend.new_company'), new_admin_organization_path, :class => "button radius warning right" if can? :create, Organization %>
 </h1>
 
-<%= paginate @organizations %>
+<%= render 'admin_search_form' %>
 
-<div class="row">
-  <table class="event">
+<%= paginate @organizations.hits %>
+
+<div class="small-12">
+  <table class="small-12">
     <thead>
       <tr>
         <th><%= t('backend.title')%></th>
@@ -20,10 +23,10 @@
       </tr>
     </tfoot>
     <tbody>
-      <% @organizations.each do |organization| %>
+      <% @paginated_organizations.each do |organization| %>
       <tr id="<%= dom_id(organization) %>" >
         <td>
-          <%= organization.name %>
+          <%= organization.fullname %>
         </td>
         <td class="right">
           <%= link_to organization_path(organization),
@@ -48,4 +51,4 @@
     </tbody>
   </table>
 </div>
-<%= paginate @organizations%>
+<%= paginate @organizations.hits %>
