@@ -35,7 +35,7 @@ feature 'Organization' do
         expect(current_path).to eq(new_admin_organization_path)
       end
 
-      scenario 'visit admin index organization page and edit organization link render organization edit', :js do
+      scenario 'visit admin index organization page and edit organization link render organization edit' do
         organization = create(:organization)
         visit admin_organizations_path
 
@@ -296,7 +296,7 @@ feature 'Organization' do
 
             click_on "Añadir Entidades a las que se representa"
 
-            within "#new_represented_entity" do
+            within "#new_represented_entity_1" do
               fill_in "DNI, NIF, NIE", with: "43138883z"
               fill_in "Nombre o razón social", with: "Name"
               fill_in "Ejercicio anual", with: 2017
@@ -322,7 +322,7 @@ feature 'Organization' do
 
             click_on "Añadir Entidades a las que se representa"
 
-            within "#new_represented_entity" do
+            within "#new_represented_entity_1" do
               fill_in "DNI, NIF, NIE", with: "43138883z"
               fill_in "Nombre o razón social", with: "Name"
               fill_in "Ejercicio anual", with: 2017
@@ -334,7 +334,7 @@ feature 'Organization' do
             expect(page).to have_content "Registro creado correctamente"
           end
 
-          scenario 'Can adding more than one represented entity', :js do
+          scenario 'Can adding more than one represented entity' do
             visit new_admin_organization_path
 
             click_on "Añadir Entidades a las que se representa"
@@ -345,20 +345,19 @@ feature 'Organization' do
           scenario 'Display remove button after add represented entity', :js do
             visit new_admin_organization_path
 
-            expect(page).not_to have_selector "#new_represented_entity .remove_fields"
+            expect(page).not_to have_selector "#new_represented_entity_1 .remove_fields"
             click_on "Añadir Entidades a las que se representa"
 
-            expect(page).to have_selector "#new_represented_entity .remove_fields"
+            expect(page).to have_selector "#new_represented_entity_1 .remove_fields"
           end
 
           scenario 'Display remove button after add more than one represented entity', :js do
             visit new_admin_organization_path
 
-            expect(page).not_to have_selector "#new_represented_entity .remove_fields"
-            click_on "Añadir Entidades a las que se representa"
+            expect(page).not_to have_selector "#new_represented_entity_1 .remove_fields"
             click_on "Añadir Entidades a las que se representa"
 
-            expect(page).to have_selector "#new_represented_entity .remove_fields", count: 2
+            expect(page).to have_selector "#new_represented_entity_1 .remove_fields", count: 1
           end
         end
 
@@ -378,7 +377,7 @@ feature 'Organization' do
 
             click_on "Añadir Agentes"
 
-            within "#new_agent" do
+            within "#new_agent_1" do
               fill_in "DNI, NIE, NIF", with: "43138883z"
               fill_in "Nombre", with: "Name"
               fill_in "Desde", with: nil
@@ -403,7 +402,7 @@ feature 'Organization' do
 
             click_on "Añadir Agentes"
 
-            within "#new_agent" do
+            within "#new_agent_1" do
               fill_in "DNI, NIE, NIF", with: "43138883z"
               fill_in "Nombre", with: "Name"
               fill_in "Desde", with: Date.current
@@ -414,7 +413,7 @@ feature 'Organization' do
             expect(page).to have_content "Registro creado correctamente"
           end
 
-          scenario 'Can adding more than one agent', :js do
+          scenario 'Can adding more than one agent' do
             visit new_admin_organization_path
 
             click_on "Añadir Agentes"
@@ -425,20 +424,20 @@ feature 'Organization' do
           scenario 'Display remove button after add agent', :js do
             visit new_admin_organization_path
 
-            expect(page).not_to have_selector "#new_agent .remove_fields"
+            expect(page).not_to have_selector "#new_agent_1 .remove_fields"
             click_on "Añadir Agentes"
 
-            expect(page).to have_selector "#new_agent .remove_fields"
+            expect(page).to have_selector "#new_agent_1 .remove_fields"
           end
 
           scenario 'Display remove button after add more than one agent', :js do
             visit new_admin_organization_path
 
-            expect(page).not_to have_selector "#new_agent .remove_fields"
+            expect(page).not_to have_selector "#new_agent_1 .remove_fields"
             click_on "Añadir Agentes"
             click_on "Añadir Agentes"
 
-            expect(page).to have_selector "#new_agent .remove_fields", count: 2
+            expect(page).to have_selector "#new_agent_1 .remove_fields", count: 1
           end
 
         end
@@ -458,7 +457,7 @@ feature 'Organization' do
         expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
       end
 
-      scenario 'Should update data organization fields', :js do
+      scenario 'Should update data organization fields' do
         new_category = create(:category)
         organization = create(:organization)
         visit edit_admin_organization_path(organization)
@@ -489,7 +488,7 @@ feature 'Organization' do
         expect(organization.registered_lobbies).to eq "generalitat_catalunya"
       end
 
-      scenario 'Should update address organization fields', :js do
+      scenario 'Should update address organization fields' do
         organization = create(:organization)
         visit edit_admin_organization_path(organization)
 
@@ -523,7 +522,7 @@ feature 'Organization' do
         expect(organization.description).to eq "New description"
       end
 
-      scenario 'Should update lobby organization fields', :js do
+      scenario 'Should update lobby organization fields' do
         organization = create(:organization, subvention: false, contract: false)
         visit edit_admin_organization_path(organization)
 
@@ -541,7 +540,7 @@ feature 'Organization' do
         expect(organization.subvention).to eq true
       end
 
-      scenario 'Should update terms organization fields', :js do
+      scenario 'Should update terms organization fields' do
         organization = create(:organization, denied_public_data: false, denied_public_events: false)
         visit edit_admin_organization_path(organization)
 
@@ -779,7 +778,7 @@ feature 'Organization' do
             expect(agent.public_assignments).to eq "New public assignments"
           end
 
-          scenario 'Update to blank represented entity fields', :js do
+          scenario 'Update to blank represented entity fields' do
             organization = create(:organization)
             agent = create(:agent, organization: organization)
             new_date = Time.zone.today
