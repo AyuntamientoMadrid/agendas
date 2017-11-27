@@ -43,6 +43,7 @@ es:
     admin: "Administrador"
     managed_positions: "Agendas"
     manage_agendas: "Asignación de Agendas"
+    lobby: "Lobby"
 
     holders: "Titulares"
     holder: "Titular"
