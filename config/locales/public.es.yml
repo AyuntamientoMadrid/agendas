@@ -1,6 +1,7 @@
 es:
   site_title: "Ayuntamiento de Madrid > Transparencia > Agendas"
   site_description: "Pendiente de definir"
+  back: "Volver"
   header:
     page_language: "Idioma de la página"
     spanish: "Español"

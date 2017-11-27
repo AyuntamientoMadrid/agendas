@@ -2,7 +2,26 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.faq_box {
+  padding: 23px 12px 60px;
+  margin: 30px -14px;
+}
+
+.faq_question_container{
+  margin-bottom:30px;
+}
+
 .faq_question {
   font-weight: bold;
   font-size: x-large;
+  margin-bottom:10px;
+}
+
+div.faq_sidebar {
+  @extend .faq_box;
+  font-size: small;
+}
+
+div.faq_sidebar > div {
+  margin-bottom: 20px;
 }
