@@ -18,6 +18,38 @@ feature 'Organization' do
         3.times { create(:organization) }
       end
 
+      describe "Search form", :search do
+
+        scenario "Should filter by given keyword over organizations name and show result" do
+          organization = create(:organization, name: "Fulanito")
+          Organization.reindex
+
+          visit admin_organizations_path
+          fill_in :keyword, with: "Fulanito"
+          click_on "Buscar"
+
+          within "#organization_#{organization.id}" do
+            expect(page).to have_content "Fulanito"
+          end
+        end
+
+        scenario "Should reset search form when user clicks reset form button" do
+          create(:organization, name: "Fulanito")
+          Organization.reindex
+
+          visit admin_organizations_path
+          fill_in :keyword, with: "Fulanito"
+
+          expect(find('#keyword').value).to eq "Fulanito"
+          click_on "Buscar"
+          click_on "Cancelar"
+          expect(find('#keyword').value).to eq nil
+
+        end
+
+      end
+
+
       scenario 'visit admin page and organization button render organization index' do
         visit admin_path
 

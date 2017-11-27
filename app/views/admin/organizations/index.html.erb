@@ -3,10 +3,12 @@
   <%= t('backend.companies') %> (<%= total_organizations %>)
   <%= link_to t('backend.new_company'), new_admin_organization_path, :class => "button radius warning right" if can? :create, Organization %>
 </h1>
+
 <%= render 'admin_search_form' %>
+
 <%= paginate @organizations.hits %>
 
-<div class="row">
+<div class="small-12">
   <table class="small-12">
     <thead>
       <tr>
