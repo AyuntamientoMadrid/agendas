@@ -16,20 +16,17 @@ $(function(){
   }
 
   var agents_i = 0;
-
   $('#nested-agents').on('cocoon:after-insert', function() {
     agents_i ++;
-    $('#new_agent').attr("id",'new_agent_' + agents_i);
+    $(this).children().last().attr('id','new_agent_' + agents_i);
   });
 
   var represented_i = 0;
   $('#nested-represented-entities').on('cocoon:after-insert', function() {
     represented_i ++;
-    $('#new_represented_entity').attr("id",'new_represented_entity_' + represented_i);
+    $(this).children().last().attr('id','new_represented_entity_' + represented_i);
   });
-
-
-
+  
 });
 
 function restore_legal_representant(e){
