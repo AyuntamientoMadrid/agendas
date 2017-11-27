@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :organizations
     resources :questions
+    post 'order_questions', to: 'questions#order', as: 'order_questions'
   end
 
 end

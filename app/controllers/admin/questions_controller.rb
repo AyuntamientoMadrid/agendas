@@ -5,10 +5,12 @@ module Admin
 
     def index
       @questions = Question.all.order(:position)
+      respond_to :html, :js
     end
 
     def new
       @question = Question.new
+      @legend_title = t('backend.faq.new_question_legend')
     end
 
     def create
@@ -23,6 +25,7 @@ module Admin
 
     def edit
       @question = Question.find(params[:id])
+      @legend_title = t('backend.faq.edit_question_legend')
     end
 
     def update
@@ -35,7 +38,16 @@ module Admin
       end
     end
 
-    def destroy; end
+    def destroy
+      @question = Question.find(params[:id])
+      @question.destroy
+      redirect_to admin_questions_path, notice: t('backend.successfully_destroyed_record')
+    end
+
+    def order
+      Question.order_answers(params[:ordered_list])
+      redirect_to admin_questions_path
+    end
 
     private
 

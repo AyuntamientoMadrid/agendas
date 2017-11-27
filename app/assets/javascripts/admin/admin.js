@@ -15,6 +15,7 @@
 //= require foundation
 //= require dependencies/jquery.treetable
 //= require jquery-ui
+//= require sortable
 //= require jquery.validate
 //= require cocoon
 //= require ../dependencies/foundation-datepicker

@@ -107,13 +107,17 @@ es:
     modify: "Modify"
 
     faq:
-      questions: "Preguntas frecuentes"
-      new_question: "Nueva pregunta"
-      edit_question: "Editar pregunta"
-      title: "Título"
-      answer: "Respuesta"
-      position: "Posición"
-    send: "Enviar"
+      questions: "Frequent questions"
+      new_question: "New question"
+      edit_question: "Edit question"
+      new_question_legend: "Create a new question"
+      edit_question_legend: "Edit the question"
+      title: "title"
+      placeholder_title: "Question title"
+      answer: "Answer"
+      position: "Position"
+      info_position: "Add the position number where you want this question appear. If you let it blank, the question will be positioned at the end of the list."
+    send: "Send"
 
   backend_header:
     open_gov: "Gobierno abierto"

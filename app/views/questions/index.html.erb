@@ -1,4 +1,20 @@
-<% @questions.each do |question| %>
-  <h1><%= question.title %></h1>
-  <p><%= question.answer %></p>
-<% end %>
+<div>
+  <%= link_to :back do %>
+      <span class="icon-angle-left"><%= t(:back) %></span>
+  <% end %>
+</div>
+<div class="row">
+  <div class="small-3 column">
+    <% @questions.each do |question| %>
+      <div><%= question.title %></div>
+    <% end %>
+  </div>
+  <div class="small-9 column">
+    <% @questions.each do |question| %>
+      <div class="faq_question_container">
+        <div class="faq_question"><%= question.title %></div>
+        <%= question.answer.html_safe %>
+      </div>
+    <% end %>
+  </div>
+</div>

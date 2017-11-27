@@ -12,13 +12,14 @@
   <% end %>
 
   <fieldset>
-    <legend><%= t('backend.faq.create_new_question') %></legend>
+    <legend><%= @legend_title %></legend>
       <%= f.label :title, t('backend.faq.title') %>
-      <%= f.text_field :title %>
+      <%= f.text_field :title, placeholder: t("backend.faq.placeholder_title") %>
       <%= f.label :answer, t('backend.faq.answer') %>
       <%= f.text_area :answer, class: 'tinymce'%>
       <%= f.label :position, t('backend.faq.position') %>
-      <%= f.number_field :position %>
+      <%= f.number_field :position, value: (@question.id ? @question.position : nil), placeholder: t("backend.faq.placeholder_position") %>
+      <i><%= t("backend.faq.info_position") %></i>
   </fieldset>
   <%= submit_tag t('backend.send'), :class=> "button radius success right" %>
 <% end %>
