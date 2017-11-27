@@ -345,19 +345,19 @@ feature 'Organization' do
           scenario 'Display remove button after add represented entity', :js do
             visit new_admin_organization_path
 
-            expect(page).not_to have_selector "#new_represented_entity_1 .remove_fields"
+            expect(page).not_to have_selector ".nested-fields .remove_fields"
             click_on "Añadir Entidades a las que se representa"
 
-            expect(page).to have_selector "#new_represented_entity_1 .remove_fields"
+            expect(page).to have_selector ".nested-fields .remove_fields"
           end
 
           scenario 'Display remove button after add more than one represented entity', :js do
             visit new_admin_organization_path
 
-            expect(page).not_to have_selector "#new_represented_entity_1 .remove_fields"
+            expect(page).not_to have_selector ".nested-fields .remove_fields"
             click_on "Añadir Entidades a las que se representa"
-
-            expect(page).to have_selector "#new_represented_entity_1 .remove_fields", count: 1
+            click_on "Añadir Entidades a las que se representa"
+            expect(page).to have_selector ".nested-fields .remove_fields", count: 2
           end
         end
 
@@ -433,11 +433,11 @@ feature 'Organization' do
           scenario 'Display remove button after add more than one agent', :js do
             visit new_admin_organization_path
 
-            expect(page).not_to have_selector "#new_agent_1 .remove_fields"
+            expect(page).not_to have_selector ".nested-fields .remove_fields"
             click_on "Añadir Agentes"
             click_on "Añadir Agentes"
 
-            expect(page).to have_selector "#new_agent_1 .remove_fields", count: 1
+            expect(page).to have_selector ".nested-fields .remove_fields", count: 2
           end
 
         end
