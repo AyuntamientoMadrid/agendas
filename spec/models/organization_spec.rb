@@ -41,14 +41,8 @@ describe Organization do
     expect(organization).not_to be_valid
   end
 
-  it "should not be valid with denied_public_data" do
-    organization.denied_public_data = true
-
-    expect(organization).not_to be_valid
-  end
-
-  it "should not be valid with denied_public_events" do
-    organization.denied_public_events = true
+  it "should not be valid without category defined" do
+    organization.category = nil
 
     expect(organization).not_to be_valid
   end
@@ -77,6 +71,20 @@ describe Organization do
 
       expect(organization.fullname).to eq "Name FirstSurname SecondSurname"
     end
+  end
+
+  it "should have a correct legal representant full name" do
+    legal_representant = build(:legal_representant)
+    organization.legal_representant = legal_representant
+    legal_representant_full_name = organization.legal_representant.fullname
+
+    expect(organization.legal_representant_full_name).to eq(legal_representant_full_name)
+  end
+
+  it "should have a correct user name" do
+    user_name = organization.user.full_name
+
+    expect(organization.user_name).to eq(user_name)
   end
 
 end

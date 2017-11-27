@@ -32,4 +32,19 @@ module ApplicationHelper
     link_to(holder.full_name,  agenda_path(holder.id,holder.full_name.parameterize)).html_safe
   end
 
+  def form_field_errors(form, field)
+    if form.object.errors[field].any?
+      content_tag :span, class: "error error_field_rails" do
+        field_errors = form.object.errors[field]
+        field_errors.join(", ")
+      end
+    end
+  end
+
+  def export_link(url)
+    link_to url, class: "right dib dn hide-for-small-only" do
+      content_tag(:span, "", class: "icon icon__export") + t('main.export')
+    end
+  end
+
 end

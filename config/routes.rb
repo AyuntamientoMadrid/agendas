@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get '/agenda/:holder/:full_name', to: 'visitors#agenda', as: 'agenda'
   get '/import', to: 'users#import', as: 'import'
   get '/faq', to: 'questions#index', as: 'faq'
-  resources :organizations, only: :index
+  resources :organizations, only: [:index, :show]
 
   # Admin
   get "/admin", to: 'events#index', as: 'admin'

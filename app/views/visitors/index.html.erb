@@ -17,8 +17,8 @@
 
     <div class="tools">
       <%= t('main.get_updates')%><a href="<%= current_url(:format=>:atom)%>"><span class="icon icon__feed"></span> feed</a>
-      <a class="right dib dn hide-for-small-only" href="<%= current_url(:format=>:csv)%>"><span class="icon icon__export"></span> <%= t('main.export')%></a>
-    </div><!-- .tools -->
+      <%= export_link(current_url(format: :csv)) %>
+    </div>
 
     <div class="row">
       <div class="small-8 columns mb20">

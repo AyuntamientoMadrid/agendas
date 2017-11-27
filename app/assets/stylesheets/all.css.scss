@@ -3232,6 +3232,11 @@ input.error, textarea.error, select.error {
 label.error {
   color: #f04124; }
 
+span.error_field_rails,
+small.error_field_rails {
+  margin-top: -1rem;
+}
+
 .icon-bar {
   display: inline-block;
   font-size: 0;
@@ -6808,12 +6813,78 @@ th.next .fa {
 .header__base {
   background: #004A83;
   overflow: hidden; }
+
+header{
+  .top-bar-section{
+    .right{
+      margin-top: 1rem;
+      li{
+        background: transparent;
+        &.active:not(.has-form) a:not(.button){
+          background: transparent;
+          text-decoration: underline;
+          border:1px solid transparent;
+
+          &:hover{
+            border:1px solid #fff;
+            background: transparent;
+          }
+        }
+        &:not(.has-form) a:not(.button){
+          background: transparent;
+          border:1px solid #fff;
+          &:hover{
+            background: transparent;
+            text-decoration: underline;
+          }
+        }
+      }
+      .btn-public-agenda{
+        margin-right: 1rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+  header{
+    .header__base{
+      .header__title{
+        padding: 0px 0px;
+        float: left;
+        display: inline-grid;
+        margin-top: 11px;
+        max-width: 210px;
+        margin-left: 0.5rem;
+
+        strong{
+          border-right:0;
+          font-size: 21px;
+        }
+      }
+    }
+
+    .top-bar-section .right{
+      margin-top: 1rem;
+    }
+  }
+}
+
+
 @media only screen and (max-width: 40em) {
   .header__base {
     background: #004A83 } }
 .header__imago {
   float: left;
   max-width: 80px; }
+  header{
+    .top-bar-section{
+      margin-top:0;
+      .btn-public-agenda{
+        margin-right:0;
+      }
+    }
+  }
 @media only screen and (max-width: 40em) {
   .header__imago {
     max-width: 67px; } }
@@ -6965,7 +7036,8 @@ body {
     margin: 0 -0.9375rem; } }
 .box p {
   font-size: 18px;
-  line-height: 18px; }
+  line-height: 18px;
+  margin-bottom:0.5rem; }
 @media only screen and (max-width: 40em) {
   .box p {
     font-size: 13px;
