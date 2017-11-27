@@ -107,6 +107,20 @@ es:
     current_password: "Contraseña actual"
     modify: "Modificar"
 
+    faq:
+      questions: "Preguntas frecuentes"
+      new_question: "Nueva pregunta"
+      edit_question: "Editar pregunta"
+      new_question_legend: "Crear una nueva pregunta"
+      edit_question_legend: "Editar la pregunta"
+      title: "Título"
+      placeholder_title: "Título de la pregunta"
+      answer: "Respuesta"
+      position: "Posición"
+      placeholder_position: "Posición en el listado de preguntas"
+      info_position: "Añade el número donde quieras que salga la pregunta. Dejando el campo vacío, la pregunta se posicionará al final del listado."
+    send: "Enviar"
+
   backend_header:
     open_gov: "Gobierno abierto"
     administracion: "Administración"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171123185532) do
+ActiveRecord::Schema.define(version: 20171124113029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,6 +232,14 @@ ActiveRecord::Schema.define(version: 20171123185532) do
 
   add_index "positions", ["area_id"], name: "index_positions_on_area_id", using: :btree
   add_index "positions", ["holder_id"], name: "index_positions_on_holder_id", using: :btree
+
+  create_table "questions", force: :cascade do |t|
+    t.string   "title"
+    t.text     "answer"
+    t.integer  "position",   default: 1
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "represented_entities", force: :cascade do |t|
     t.string   "identifier"

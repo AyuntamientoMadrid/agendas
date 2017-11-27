@@ -11,6 +11,7 @@ class Ability
         can :index, Area
         can [:index, :show], Holder
         can :manage, Organization
+        can :manage, Question
       else
         can :manage, :all
       end
