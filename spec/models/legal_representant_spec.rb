@@ -38,4 +38,30 @@ describe LegalRepresentant do
     expect(legal_representant).not_to be_valid
   end
 
+  describe "#fullname" do
+    it "Should return first_surname and second_surname when they are defined" do
+      legal_representant.name = "Name"
+      legal_representant.first_surname = ""
+      legal_representant.second_surname = ""
+
+      expect(legal_representant.fullname).to eq "Name"
+    end
+
+    it "Should return first_surname and second_surname when they are defined" do
+      legal_representant.name = "Name"
+      legal_representant.first_surname = "FirstSurname"
+      legal_representant.second_surname = ""
+
+      expect(legal_representant.fullname).to eq "Name FirstSurname"
+    end
+
+    it "Should return first_surname and second_surname when they are defined" do
+      legal_representant.name = "Name"
+      legal_representant.first_surname = "FirstSurname"
+      legal_representant.second_surname = "SecondSurname"
+
+      expect(legal_representant.fullname).to eq "Name FirstSurname SecondSurname"
+    end
+  end
+
 end

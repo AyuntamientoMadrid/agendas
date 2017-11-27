@@ -149,6 +149,193 @@ feature 'Organizations page' do
       end
     end
 
+    scenario 'Should be go to show page when click on organization', :search do
+      organization = create(:organization)
+      Organization.reindex
+
+      visit organizations_path
+      find("#organization_#{organization.id}").click
+
+      expect(page).to have_content organization.name
+    end
+
+    describe "Export link" do
+      scenario "Should generate CSV file with organizations" do
+        visit organizations_path
+
+        click_link "Exportar"
+
+        expect(page.status_code).to eq 200
+        expect(page.response_headers['Content-Type']).to eq "text/csv; charset=utf-8"
+      end
+
+      scenario "Should include only search results", :search do
+        organizations = create_list(:organization, 2)
+        Organization.reindex
+        visit organizations_path
+        fill_in :keyword, with: organizations.first.name
+        click_on "Buscar"
+
+        click_link "Exportar"
+
+        expect(page).to have_content organizations.first.name
+        expect(page).not_to have_content organizations.last.name
+      end
+    end
+
+  end
+
+  describe "Show" do
+
+    scenario "Should display organization title and id" do
+      organization = create(:organization)
+
+      visit organization_path(organization)
+
+      expect(page).to have_content "Organización"
+      expect(page).to have_content organization.id
+    end
+
+    scenario "Should display organization data" do
+      organization = create(:organization)
+
+      visit organization_path(organization)
+
+      expect(page).to have_content organization.identifier
+      expect(page).to have_content organization.name
+      expect(page).to have_content organization.web
+      expect(page).to have_content organization.category.name
+      expect(page).to have_content organization.address
+      expect(page).to have_content organization.postal_code
+      expect(page).to have_content organization.town
+      expect(page).to have_content organization.province
+      expect(page).to have_content organization.description
+    end
+
+    scenario "Should not display some organization data" do
+      organization = create(:organization)
+
+      visit organization_path(organization)
+
+      expect(page).not_to have_content organization.phones
+      expect(page).not_to have_content organization.email
+      expect(page).not_to have_content organization.registered_lobbies
+    end
+
+    scenario "Should display organization legal_representant" do
+      organization = create(:organization)
+      legal_representant = create(:legal_representant, organization: organization)
+
+      visit organization_path(organization)
+
+      expect(page).to have_content legal_representant.fullname
+    end
+
+    scenario "Should not display some legal_representant info" do
+      organization = create(:organization)
+      legal_representant = create(:legal_representant, organization: organization)
+
+      visit organization_path(organization)
+
+      expect(page).not_to have_content legal_representant.identifier
+      expect(page).not_to have_content legal_representant.phones
+      expect(page).not_to have_content legal_representant.email
+    end
+
+    scenario "Should display organization user info" do
+      organization = create(:organization)
+
+      visit organization_path(organization)
+
+      expect(page).to have_content organization.user.name
+    end
+
+    scenario "Should not display some user info" do
+      user = create(:user, :lobby)
+      organization = create(:organization, user: user)
+
+      visit organization_path(organization)
+
+      expect(page).not_to have_content organization.user.phones
+      expect(page).not_to have_content organization.user.email
+    end
+
+    scenario "Should display organization lobby info" do
+      organization = create(:organization)
+
+      visit organization_path(organization)
+
+      expect(page).to have_content "Datos de quien va a ejercer la actividad de lobby por cuenta propria"
+      expect(page).to have_content organization.fiscal_year
+      expect(page).to have_content organization.range_fund
+      expect(page).to have_content organization.subvention
+      expect(page).to have_content organization.contract
+    end
+
+    scenario "Should display organization represented_entity lobby info" do
+      organization = create(:organization)
+      represented_entity_1 = create(:represented_entity, organization: organization)
+      represented_entity_2 = create(:represented_entity, organization: organization)
+
+      visit organization_path(organization)
+
+      expect(page).to have_content represented_entity_1.identifier
+      expect(page).to have_content represented_entity_1.fullname
+      expect(page).to have_content represented_entity_1.from
+      expect(page).to have_content represented_entity_1.to
+      expect(page).to have_content represented_entity_1.fiscal_year
+      expect(page).to have_content represented_entity_1.range_fund
+      expect(page).to have_content represented_entity_1.subvention
+      expect(page).to have_content represented_entity_1.contract
+
+      expect(page).to have_content represented_entity_2.identifier
+      expect(page).to have_content represented_entity_2.fullname
+      expect(page).to have_content represented_entity_2.from
+      expect(page).to have_content represented_entity_2.to
+      expect(page).to have_content represented_entity_2.fiscal_year
+      expect(page).to have_content represented_entity_2.range_fund
+      expect(page).to have_content represented_entity_2.subvention
+      expect(page).to have_content represented_entity_2.contract
+    end
+
+    scenario "Should display organization agent info" do
+      organization = create(:organization)
+      agent_1 = create(:agent, organization: organization)
+      agent_2 = create(:agent, organization: organization)
+
+      visit organization_path(organization)
+
+      expect(page).to have_content agent_1.from
+      expect(page).to have_content agent_1.fullname
+      expect(page).to have_content agent_1.to
+
+      expect(page).to have_content agent_2.from
+      expect(page).to have_content agent_2.fullname
+      expect(page).to have_content agent_2.to
+    end
+
+    scenario "Should display organization interest" do
+      organization = create(:organization)
+      interest_1 = create(:interest)
+      interest_2 = create(:interest)
+      organization.interests << interest_1
+      organization.interests << interest_2
+
+      visit organization_path(organization)
+
+      expect(page).to have_content interest_1.name
+      expect(page).to have_content interest_2.name
+    end
+
+    scenario "Should return to organizations index page" do
+      organization = create(:organization)
+      visit organization_path(organization)
+
+      click_on "Volver"
+
+      expect(page).to have_content("Consulta del registro de lobbies")
+    end
+
   end
 
 end

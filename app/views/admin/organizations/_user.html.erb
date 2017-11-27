@@ -1,0 +1,10 @@
+<fieldset>
+  <legend><%= t('backend.contact_person.title_fieldset') %></legend>
+  <div class="row">
+    <div id="nested-user">
+      <%= f.fields_for :user do |user_builder| %>
+        <%= render 'user_fields', f: user_builder %>
+      <% end %>
+    </div>
+  </div>
+</fieldset>

@@ -41,14 +41,8 @@ describe Organization do
     expect(organization).not_to be_valid
   end
 
-  it "should not be valid with denied_public_data" do
-    organization.denied_public_data = true
-
-    expect(organization).not_to be_valid
-  end
-
-  it "should not be valid with denied_public_events" do
-    organization.denied_public_events = true
+  it "should not be valid without category defined" do
+    organization.category = nil
 
     expect(organization).not_to be_valid
   end
@@ -89,8 +83,6 @@ describe Organization do
 
   it "should have a correct user name" do
     user_name = organization.user.full_name
-    puts user_name
-    expect(organization.user_name).to eq(user_name)
   end
 
 end

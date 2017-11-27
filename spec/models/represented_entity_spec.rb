@@ -32,4 +32,30 @@ describe RepresentedEntity do
     expect(represented_entity).not_to be_valid
   end
 
+  describe "#fullname" do
+    it "Should return first_surname and second_surname when they are defined" do
+      represented_entity.name = "Name"
+      represented_entity.first_surname = ""
+      represented_entity.second_surname = ""
+
+      expect(represented_entity.fullname).to eq "Name"
+    end
+
+    it "Should return first_surname and second_surname when they are defined" do
+      represented_entity.name = "Name"
+      represented_entity.first_surname = "FirstSurname"
+      represented_entity.second_surname = ""
+
+      expect(represented_entity.fullname).to eq "Name FirstSurname"
+    end
+
+    it "Should return first_surname and second_surname when they are defined" do
+      represented_entity.name = "Name"
+      represented_entity.first_surname = "FirstSurname"
+      represented_entity.second_surname = "SecondSurname"
+
+      expect(represented_entity.fullname).to eq "Name FirstSurname SecondSurname"
+    end
+  end
+
 end

@@ -4,18 +4,22 @@
     <div class="small-6 columns">
       <%= f.label :fiscal_year, t('backend.lobbies_data.fiscal_year') %>
       <%= f.number_field :fiscal_year %>
+      <%= form_field_errors(f, :fiscal_year) %>
     </div>
     <div class="small-6 columns">
       <%= f.label :range_fund, t('backend.lobbies_data.range_fund') %>
       <%= f.select :range_fund, Organization.range_funds.keys.to_a %>
+      <%= form_field_errors(f, :range_fund) %>
     </div>
     <div class="small-12 columns">
       <%= f.label :subvention, t('backend.lobbies_data.subvention') %>
       <%= f.check_box :subvention %> Si
+      <%= form_field_errors(f, :subvention) %>
     </div>
     <div class="small-12 columns">
       <%= f.label :contract, t('backend.lobbies_data.subvention') %>
       <%= f.check_box :contract %> Si
+      <%= form_field_errors(f, :contract) %>
     </div>
   </div>
 </fieldset>
