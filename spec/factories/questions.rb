@@ -1,9 +1,8 @@
+require 'faker'
+
 FactoryGirl.define do
   factory :question do
-    id ""
-title "MyString"
-answer "MyText"
-position 1
+    title { Faker::Name.title }
+    answer { Faker::Lorem.paragraph }
   end
-
 end
