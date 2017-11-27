@@ -13,7 +13,7 @@ class OrganizationsController < ApplicationController
   private
 
     def search(params)
-      Organization.search do
+      Organization.validated.search do
         fulltext params[:keyword] if params[:keyword].present?
         order_by :created_at, :desc
         paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 10
@@ -21,7 +21,8 @@ class OrganizationsController < ApplicationController
     end
 
     def set_organization
-      @organization = Organization.find(params[:id])
+      @organization = Organization.validated.find(params[:id])
     end
 
 end
+

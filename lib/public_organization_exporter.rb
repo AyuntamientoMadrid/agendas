@@ -7,7 +7,7 @@ class PublicOrganizationExporter
             'denied_public_events', 'inscription_reference', 'inscription_date',
             'entity_type', 'neighbourhood', 'district', 'scope',
             'associations_count', 'members_count', 'approach',
-            'legal_representant_full_name', 'user_name'].freeze
+            'legal_representant_full_name', 'user_name', 'invalidate'].freeze
 
   def headers
     FIELDS.map { |f| I18n.t("public_organization_exporter.#{f}") }

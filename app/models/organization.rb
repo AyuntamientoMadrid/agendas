@@ -27,7 +27,11 @@ class Organization < ActiveRecord::Base
   searchable do
     text :name, :first_surname, :second_surname, :description
     time :created_at
+    boolean :invalidate
   end
+
+  scope :invalidated, -> { where('invalidate = ?', true) }
+  scope :validated, -> { where('invalidate = ?', false) }
 
   def fullname
     str = name

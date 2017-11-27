@@ -106,6 +106,9 @@ es:
     current_password: "Current password"
     modify: "Modify"
 
+    invalidate: Invalidate
+    validate: Validate
+
   backend_header:
     open_gov: "Gobierno abierto"
     administracion: "Administración"
