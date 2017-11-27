@@ -1,5 +1,6 @@
 class Question < ActiveRecord::Base
   validates :position, presence: true, uniqueness: true
+  validates :title, :answer, presence: true
 
   before_validation :set_position, on: :create
 
