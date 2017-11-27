@@ -87,4 +87,24 @@ describe Organization do
     expect(organization.user_name).to eq(user_name)
   end
 
+  describe "#set_inscription_date" do
+
+    it "should set inscription_date with current date" do
+      organization.inscription_date = nil
+
+      organization.save
+
+      expect(organization.inscription_date).to eq(Date.current)
+    end
+
+    it "should not set inscription_date" do
+      organization.inscription_date = Date.yesterday
+
+      organization.save
+
+      expect(organization.inscription_date).to eq(Date.yesterday)
+    end
+
+  end
+
 end
