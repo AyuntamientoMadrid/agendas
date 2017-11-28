@@ -46,18 +46,6 @@ feature 'Organizations page' do
     end
 
     describe "Search form", :search do
-      scenario "Should filter by given keyword over organizations name and show result" do
-        organization = create(:organization, name: "Hola", first_surname: "", second_surname: "")
-        Organization.reindex
-
-        visit organizations_path
-        fill_in :keyword, with: "Hola"
-        click_on "Buscar"
-
-        within "#organization_#{organization.id}" do
-          expect(page).to have_content "Hola"
-        end
-      end
 
       scenario "Should filter by given keyword over organizations name and show result" do
         organization = create(:organization, name: "Fulanito", first_surname: "", second_surname: "")

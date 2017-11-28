@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/inicio.do', to: 'uweb_access#uweb_sign_in'
   get '/agenda/:holder/:full_name', to: 'visitors#agenda', as: 'agenda'
   get '/import', to: 'users#import', as: 'import'
+  get '/faq', to: 'questions#index', as: 'faq'
   resources :organizations, only: [:index, :show]
 
   # Admin
@@ -29,6 +30,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :organizations
+    resources :questions
+    post 'order_questions', to: 'questions#order', as: 'order_questions'
   end
 
 end

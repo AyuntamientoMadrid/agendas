@@ -1,0 +1,26 @@
+<h1>
+  <%= t('backend.faq.questions') %> (<%= @questions.count %>)
+  <%= link_to t('backend.faq.new_question'), new_admin_question_path, :class => "button radius warning right" if can? :create, Question %>
+</h1>
+
+<div class="row">
+  <table class="event">
+    <thead>
+      <tr>
+        <th><%= t('backend.faq.title')%></th>
+        <th><%= t('backend.faq.position')%></th>
+        <th class="right"><%= t('backend.faq.actions')%></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th><%= t('backend.faq.title')%></th>
+        <th><%= t('backend.faq.position')%></th>
+        <th class="right"><%= t('backend.faq.actions')%></th>
+      </tr>
+    </tfoot>
+    <tbody class="sortable" data-js-url="<%= admin_order_questions_path() %>">
+      <%= render 'questions', questions: @questions %>
+    </tbody>
+  </table>
+</div>
