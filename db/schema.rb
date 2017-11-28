@@ -206,7 +206,6 @@ ActiveRecord::Schema.define(version: 20171127165006) do
     t.integer  "associations_count"
     t.integer  "members_count"
     t.string   "approach"
-    t.boolean  "invalidate"
     t.integer  "entity_type"
   end
 
