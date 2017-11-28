@@ -5,7 +5,9 @@ class Organization < ActiveRecord::Base
   enum entity_type: [:association, :federation, :lobby]
 
   validates :inscription_reference, uniqueness: true, allow_blank: true, allow_nil: true
-  validates :name, :user, :category_id, presence: true
+  validates  :name, :category_id, presence: true
+  # PublicOrganizationImporter gets organizations without related user
+  # validates :name, :user, :category_id, presence: true
 
   has_many :represented_entities, dependent: :destroy
   has_many :agents, dependent: :destroy
