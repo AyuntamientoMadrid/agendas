@@ -7,7 +7,7 @@ class Event < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
 
-  validates :title, :position, :scheduled, presence: true
+  validates :title, :position, :scheduled, :location, :lobby_activity, :published_at, presence: true
   validate :participants_uniqueness, :position_not_in_participants
 
   before_create :set_status

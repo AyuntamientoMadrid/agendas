@@ -96,12 +96,17 @@ ActiveRecord::Schema.define(version: 20171130131121) do
     t.text     "description"
     t.datetime "scheduled"
     t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "position_id"
     t.string   "location"
     t.string   "slug"
-    t.string   "status"
+    t.boolean  "lobby_activity"
+    t.text     "notes"
+    t.integer  "status"
+    t.string   "reasons"
+    t.date     "published_at"
+    t.date     "canceled_at"
   end
 
   add_index "events", ["position_id"], name: "index_events_on_position_id", using: :btree
