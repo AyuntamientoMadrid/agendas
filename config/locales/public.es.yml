@@ -41,6 +41,7 @@ es:
       scheduled: "Fecha"
       score: "Relevancia"
       sort_by: "Ordernar por"
+      filter_by: "Filtrar por"
   show:
     participants: "Asisten"
     location: "Lugar"
