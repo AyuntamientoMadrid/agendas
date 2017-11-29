@@ -33,6 +33,8 @@ class Organization < ActiveRecord::Base
     time :inscription_date
   end
 
+	scope :full_like, -> (name) { where("identifier ilike ? OR name ilike ?", name, name)}  
+
   def fullname
     str = name
     str += " #{first_surname}"  if first_surname.present?

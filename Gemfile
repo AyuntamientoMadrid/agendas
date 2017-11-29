@@ -37,6 +37,7 @@ gem 'tinymce-rails', '~> 4.2.6'
 gem 'tinymce-rails-langs', '~> 4.20140129'
 gem 'turbolinks', '~> 2.5.3'
 gem 'uglifier', '>= 1.3.0'
+gem 'rails4-autocomplete'
 
 group :development do
   gem 'better_errors', '~> 2.1.1'

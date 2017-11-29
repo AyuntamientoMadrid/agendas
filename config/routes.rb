@@ -29,7 +29,9 @@ Rails.application.routes.draw do
   resources :activities
 
   namespace :admin do
-    resources :organizations
+    resources :organizations do
+      get :autocomplete_organization_name, :on => :collection
+    end
     resources :questions
     post 'order_questions', to: 'questions#order', as: 'order_questions'
   end

@@ -57,9 +57,10 @@
         <%= f.label :lobby_activity, "No", value: false %>
       </div>
 
+      <div id="lobby-activity-event">
 
-      <div id="lobby-activity-event" class="hide">
-          <%= f.select :organization_id,
+          <%= text_field_tag :organization_id, params[:search], class: "search-query", placeholder: "namesearch", type: "search", data: {autocomplete: autocomplete_organization_name_admin_organizations_path} %>
+          <%#= f.select :organization_id,
                         options_for_select(Organization.all.map{|c| [c.name, c.id]}),
                         prompt: t('backend.none') %>
 
