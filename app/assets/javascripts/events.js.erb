@@ -45,5 +45,8 @@ $(function(){
   $("#event_lobby_activity_false").click(function(){
     $("#lobby-activity-event").hide();
   });
+  $('#search-organization').bind('railsAutocomplete.select', function(event, data){
+    $('#event_organization_id').val(data.item.id)
+  });
 
 });

@@ -59,16 +59,20 @@
 
       <div id="lobby-activity-event">
 
-          <%= text_field_tag :organization_id, params[:search], class: "search-query", placeholder: "namesearch", type: "search", data: {autocomplete: autocomplete_organization_name_admin_organizations_path} %>
-          <%#= f.select :organization_id,
-                        options_for_select(Organization.all.map{|c| [c.name, c.id]}),
-                        prompt: t('backend.none') %>
+          <%= text_field_tag "search-organization",
+                              params[:search],
+                              class: "search-query",
+                              placeholder: "Buscar por nombre o identificador",
+                              type: "search",
+                              data: {autocomplete: autocomplete_organization_name_admin_organizations_path} %>
 
-          <%= f.collection_check_boxes(:represented_entity_ids, Organization.first.represented_entities, :id, :name) do |f| %>
-            <%= f.label class:"small-6 columns" do %>
-              <%= f.check_box %> <span> <%= f.text %> </span>
-            <% end %>
-          <% end %>
+          <%= f.hidden_field :organization_id %>
+
+          <%#= f.collection_check_boxes(:represented_entity_ids, Organization.first.represented_entities, :id, :name) do |f| %>
+            <%#= f.label class:"small-6 columns" do %>
+              <%#= f.check_box %> <span> <%#= f.text %> </span>
+            <%# #end %>
+          <%# end %>
       </div>
 
     </fieldset>

@@ -13,7 +13,7 @@ $(function(){
   });
   if ($('#nested-legal-representant-wrapper .legal-representant').length > 0) {
     $("#legal_representant_link").hide();
-  }  
+  }
 
 });
 
