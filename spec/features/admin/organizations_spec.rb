@@ -644,7 +644,7 @@ feature 'Organization' do
 
           scenario 'Try update organization with invalid legal representant and display error' do
             organization = create(:organization)
-            _legal_representant = create(:legal_representant, organization: organization)
+            legal_representant = create(:legal_representant, organization: organization)
             visit edit_admin_organization_path(organization)
 
             fill_in :organization_legal_representant_attributes_email, with: nil
@@ -688,7 +688,7 @@ feature 'Organization' do
 
           scenario 'Update to blank legal representants fields', :js do
             organization = create(:organization)
-            _legal_representant = create(:legal_representant, organization: organization)
+            legal_representant = create(:legal_representant, organization: organization)
             visit edit_admin_organization_path(organization)
 
             within "#nested-legal-representant-wrapper" do
@@ -747,7 +747,7 @@ feature 'Organization' do
 
           scenario 'Try update organization with invalid represented_entity and display error' do
             organization = create(:organization)
-            _represented_entity = create(:represented_entity, organization: organization)
+            represented_entity = create(:represented_entity, organization: organization)
             visit edit_admin_organization_path(organization)
 
             fill_in :organization_represented_entities_attributes_0_name, with: nil
@@ -799,8 +799,8 @@ feature 'Organization' do
 
           scenario 'Update to blank represented entity fields', :js do
             organization = create(:organization)
-            _represented_entity = create(:represented_entity, organization: organization)
-            _new_date = Time.zone.today
+            represented_entity = create(:represented_entity, organization: organization)
+            new_date = Time.zone.today
             visit edit_admin_organization_path(organization)
 
             within "#nested-represented-entities" do
@@ -819,7 +819,7 @@ feature 'Organization' do
 
           scenario 'Try update organization with invalid agent and display error' do
             organization = create(:organization)
-            _agent = create(:agent, organization: organization)
+            agent = create(:agent, organization: organization)
             visit edit_admin_organization_path(organization)
 
             fill_in :organization_agents_attributes_0_name, with: nil
@@ -865,8 +865,8 @@ feature 'Organization' do
 
           scenario 'Update to blank represented entity fields', :js do
             organization = create(:organization)
-            _agent = create(:agent, organization: organization)
-            _new_date = Time.zone.today
+            agent = create(:agent, organization: organization)
+            new_date = Time.zone.today
             visit edit_admin_organization_path(organization)
 
             within "#nested-agents" do
