@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 20171129121738) do
     t.integer  "position_id"
     t.string   "location"
     t.string   "slug"
+    t.string   "status"
   end
 
   add_index "events", ["position_id"], name: "index_events_on_position_id", using: :btree
