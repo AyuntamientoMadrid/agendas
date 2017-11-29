@@ -17,3 +17,4 @@ en:
       order_by: "Orden"
       sheduled: "Fecha"
       score: "Relevancia"
+      sort_by: "Ordernar por"

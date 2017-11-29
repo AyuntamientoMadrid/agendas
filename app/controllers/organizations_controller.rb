@@ -7,14 +7,14 @@ class OrganizationsController < ApplicationController
     @paginated_organizations = Organization.all.where(id: @organizations.hits.map(&:primary_key)).order(created_at: :desc)
   end
 
-  def show
-  end
+  def show; end
 
   private
 
     def search(params)
       Organization.search do
         fulltext params[:keyword] if params[:keyword].present?
+        with :entity_type, params[:entity_type] unless params[:entity_type].blank?
         order_by :created_at, :desc
         paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 10
       end
