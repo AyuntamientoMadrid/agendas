@@ -15,15 +15,25 @@
                  keyword: params[:keyword] %>
     <% end %>
 
-    <div class="tools">
-      <%= export_link(current_url(format: :csv)) %>
+    <div class="row">
+        <p><strong class="result-l mb20"><%= oganizations_index_subtitle %></strong></p>
     </div>
 
     <div class="row">
-      <div class="small-12 columns mb10">
-        <p><strong class="result-l mb20"><%= oganizations_index_subtitle %></strong></p>
+      <div class="tools">
+        <div class="small-2 columns mb20">
+            <label for="right-label" class="inline title-xs"><%= t('main.form.order_by')%></label>
+        </div>
+        <div class="small-7 columns">
+           <%= select_tag :order, options_for_select({t('main.form.descending') => :descending},params[:order]), id: 'search-order',  include_blank: true, class: 'select-sm' %>
+        </div>
+        <div class="small-3 columns">
+          <%= export_link(current_url(format: :csv)) %>
+        </div>
       </div>
     </div>
+
+
 
     <% @paginated_organizations.each do |organization| %>
       <%= render organization %>
@@ -38,3 +48,4 @@
     </div>
   </div>
 </div>
+<%= javascript_include_tag 'search_form'%>
