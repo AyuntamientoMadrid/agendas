@@ -49,4 +49,19 @@ $(function(){
     $('#event_organization_id').val(data.item.id)
   });
 
+  $('#search-organization').change(function(){
+    if ($('#event_organization_id').val()){
+      $.ajax({
+        method: "GET",
+        url: $('#lobby-activity-event').data('new-url').replace('organization_id', $('#event_organization_id').val())
+      }).done(function( represented_entities ) {
+        var check_box_container = $('#yeah');
+        $.each(represented_entities, function(id, represented_entity){
+          check_box_container.append($('<input>', { type:"checkbox", value: represented_entity.id, id: "represented_entity_event_ids_"+represented_entity.id, name: "event[represented_entity_ids][]"}));
+          check_box_container.append($('<span>').text(represented_entity.name));
+        });
+      });
+    }
+  });
+
 });

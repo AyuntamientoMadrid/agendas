@@ -1,6 +1,6 @@
 class EventsController < AdminController
   load_and_authorize_resource
-  before_action :set_holders, only: [:new, :edit, :create]
+  before_action :set_holders, :set_represented_entities, only: [:new, :edit, :create]
 
   def index
     @events = current_user.admin? ? list_admin_events : list_user_events
@@ -62,6 +62,12 @@ class EventsController < AdminController
     @events = Event.managed_by(current_user)
                    .includes(:position, :attachments, position: [:holder])
     @events.order(scheduled: :desc).page(params[:page]).per(50)
+  end
+
+  def set_represented_entities
+    if @event.organization_id.present?
+      @represented_entities =  RepresentedEntity.by_organization(@event.organization_id).order(:name).collect{|m| [m.name, m.id]}
+    end
   end
 
 end
