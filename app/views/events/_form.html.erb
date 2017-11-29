@@ -46,6 +46,31 @@
       <%= link_to_add_association t('backend.add'), f, :participants, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#participants' %>
     </fieldset>
 
+    <fieldset>
+      <legend>¿Es una reunión donde se hará actividad de Lobby?</legend>
+      <div>
+
+        <%= f.radio_button :lobby_activity, true %>
+        <%= f.label :lobby_activity, "Si", value: true %>
+
+        <%= f.radio_button :lobby_activity, false %>
+        <%= f.label :lobby_activity, "No", value: false %>
+      </div>
+
+
+      <div id="lobby-activity-event" class="hide">
+          <%= f.select :organization_id,
+                        options_for_select(Organization.all.map{|c| [c.name, c.id]}),
+                        prompt: t('backend.none') %>
+
+          <%= f.collection_check_boxes(:represented_entity_ids, Organization.first.represented_entities, :id, :name) do |f| %>
+            <%= f.label class:"small-6 columns" do %>
+              <%= f.check_box %> <span> <%= f.text %> </span>
+            <% end %>
+          <% end %>
+      </div>
+
+    </fieldset>
 
     <fieldset><!-- Attendees -->
       <legend><%= t('backend.attendees') %></legend>
