@@ -23,6 +23,8 @@ class UsersController < AdminController
   end
 
   def update
+    remove_password_params if params[:user][:password].blank?
+
     if @user.update_attributes(user_params)
       redirect_to users_path, notice: t('backend.successfully_updated_record')
     else
@@ -62,11 +64,18 @@ class UsersController < AdminController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :role, :id, manages_attributes: [:id, :holder_id, :_destroy])
+    params.require(:user).permit(:first_name, :last_name, :email,
+                                 :password, :password_confirmation,
+                                 :role, :id, manages_attributes: [:id, :holder_id, :_destroy])
   end
 
   def load_holders
     @holders = Holder.all.order("last_name asc")
+  end
+
+  def remove_password_params
+    params[:user].delete(:password)
+    params[:user].delete(:password_confirmation)
   end
 
 end

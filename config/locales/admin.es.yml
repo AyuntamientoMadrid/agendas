@@ -15,6 +15,7 @@ es:
     none: "Ninguno"
     frontend: "Zona pública"
     basic_data: "Datos"
+    change_password: "Cambiar contraseña"
     mandatory_field: "Este campo es obligatorio"
     successfully_updated_record: "Registro actualizado correctamente"
     successfully_destroyed_record: "Registro eliminado correctamente"
@@ -42,6 +43,7 @@ es:
     admin: "Administrador"
     managed_positions: "Agendas"
     manage_agendas: "Asignación de Agendas"
+    lobby: "Lobby"
 
     holders: "Titulares"
     holder: "Titular"
@@ -106,9 +108,21 @@ es:
     new_password_confirmation: "Repetir nueva contraseña"
     current_password: "Contraseña actual"
     modify: "Modificar"
-
     invalidate: Invalidar
     validate: Validar
+    faq:
+      questions: "Preguntas frecuentes"
+      new_question: "Nueva pregunta"
+      edit_question: "Editar pregunta"
+      new_question_legend: "Crear una nueva pregunta"
+      edit_question_legend: "Editar la pregunta"
+      title: "Título"
+      placeholder_title: "Título de la pregunta"
+      answer: "Respuesta"
+      position: "Posición"
+      placeholder_position: "Posición en el listado de preguntas"
+      info_position: "Añade el número donde quieras que salga la pregunta. Dejando el campo vacío, la pregunta se posicionará al final del listado."
+    send: "Enviar"
 
   backend_header:
     open_gov: "Gobierno abierto"

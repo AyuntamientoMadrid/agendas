@@ -6,7 +6,8 @@ module Admin
     before_action :set_organization, only: [:update, :edit]
 
     def index
-      @organizations = Organization.all.page(params[:page]).per(25)
+      @organizations = search(params)
+      @paginated_organizations = Organization.all.where(id: @organizations.hits.map(&:primary_key)).order(created_at: :desc)
     end
 
     def create
@@ -54,6 +55,14 @@ module Admin
 
       def set_organization
         @organization = Organization.find(params[:id])
+      end
+
+      def search(params)
+        Organization.search do
+          fulltext params[:keyword] if params[:keyword].present?
+          order_by :created_at, :desc
+          paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 10
+        end
       end
 
   end

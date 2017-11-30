@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
   belongs_to :organization
 
   validates :first_name, :last_name, :email, presence: true
+  validates :password, presence: true,
+                       if: :encrypted_password_changed?,
+                       on: :update
+
   validate :manages_uniqueness
 
   accepts_nested_attributes_for :manages, reject_if: :all_blank, allow_destroy: true

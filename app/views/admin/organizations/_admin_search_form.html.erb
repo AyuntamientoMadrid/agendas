@@ -1,0 +1,14 @@
+<div class="row">
+  <br />
+  <%= form_tag admin_organizations_path, method: :get do %>
+    <%= hidden_field_tag :order, params[:order] %>
+    <div class="small-6 medium-12 columns">
+      <%= label_tag(:search_title, t("organizations.description")) %>
+      <%= text_field_tag :keyword, params[:keyword], placeholder: t('main.form.keyword') %>
+    </div>
+    <div class="columns text-right">
+      <%= link_to t('main.form.reset'), admin_organizations_path, class: 'expanded tiny radius button secondary' %>
+      <%= submit_tag t('main.form.search'), class: 'button expanded tiny radius button', name: nil %>
+    </div>
+  <% end %>
+</div>
