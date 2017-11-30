@@ -29,6 +29,7 @@ class Organization < ActiveRecord::Base
   searchable do
     text :name, :first_surname, :second_surname, :description
     time :created_at
+    string :entity_type
   end
 
   def fullname
