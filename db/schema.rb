@@ -200,13 +200,13 @@ ActiveRecord::Schema.define(version: 20171127165006) do
     t.datetime "updated_at",            null: false
     t.string   "inscription_reference"
     t.date     "inscription_date"
+    t.integer  "entity_type"
     t.string   "neighbourhood"
     t.string   "district"
     t.string   "scope"
     t.integer  "associations_count"
     t.integer  "members_count"
     t.string   "approach"
-    t.integer  "entity_type"
   end
 
   add_index "organizations", ["category_id"], name: "index_organizations_on_category_id", using: :btree

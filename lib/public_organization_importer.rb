@@ -1,19 +1,11 @@
 class PublicOrganizationImporter
 
   def self.parse_associations
-    parse(associations_url, associations_mapping)
+    parse(Rails.application.config.associations_csv_url, associations_mapping)
   end
 
   def self.parse_federations
-    parse(federations_url, federations_mapping)
-  end
-
-  def self.associations_url
-    "http://datos.madrid.es/egob/catalogo/206117-0-entidades-participacion-ciudadan.csv"
-  end
-
-  def self.federations_url
-    "http://datos.madrid.es/egob/catalogo/202781-0-entidades-participacion-ciudadan.csv"
+    parse(Rails.application.config.federations_csv_url, federations_mapping)
   end
 
   def self.parse(url, type_mapping)
@@ -78,8 +70,7 @@ class PublicOrganizationImporter
       "approach" => "Aproximación" }
   end
 
-  private_class_method :associations_url, :federations_url, :parse, :get_file,
-                       :get_category, :associations_mapping, :federations_mapping,
-                       :common_mapping
+  private_class_method :parse, :get_file, :get_category, :associations_mapping,
+                       :federations_mapping, :common_mapping
 
 end
