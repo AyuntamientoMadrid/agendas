@@ -124,6 +124,11 @@
       </div>
       <%= link_to_add_association t('backend.add'), f, :attachments, :class => "button radius tiny info right",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attachments' %>
     </fieldset>
+
+    <fieldset>
+      <legend><%= t('backend.meeting_lobby_activity_public_website') %></legend>
+      <%= f.text_field :published_at, class: 'fdatepicker' %>
+    </fieldset>
   <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
 <% end %>
 <%= tinymce :language => I18n.locale %>
