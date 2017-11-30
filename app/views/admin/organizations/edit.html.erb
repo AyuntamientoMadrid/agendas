@@ -1,13 +1,2 @@
-<div class="row">
-  <div class="small-10 column">
-    <h1>Editar Organización</h1>
-  </div>
-  <div class="small-2 column">
-    <% if @organization.invalidate %>
-      <%= link_to t('backend.validate'), admin_organization_path(@organization, invalidate: false), method: :put, :class=> "button radius success right" %>
-    <% else %>
-      <%= link_to t('backend.invalidate'), admin_organization_path(@organization, invalidate: true), method: :put, :class=> "button radius warning right" %>
-    <% end %>
-  </div>
-</div>
+<h1>Editar Organización</h1>
 <%= render :partial => 'form' %>

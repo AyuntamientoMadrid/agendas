@@ -11,6 +11,19 @@
   <%= render 'agents', f:f %>
   <%= render 'terms', f:f %>
 
-  <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
-
+  <div class="row">
+    <div class="small-8 column">
+      &nbsp
+    </div>
+    <div class="small-2 column">
+      <% if @organization.invalidate %>
+        <%= link_to t('backend.validate'), admin_organization_path(@organization, organization: {invalidate: false}), method: :put, :class=> "button radius success right" %>
+      <% else %>
+        <%= link_to t('backend.invalidate'), admin_organization_path(@organization, organization: {invalidate: true}), method: :put, :class=> "button radius alert right" %>
+      <% end %>
+    </div>
+    <div class="small-2 column">
+      <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
+    </div>
+  </div>
 <% end %>
