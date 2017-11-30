@@ -27,7 +27,7 @@ FactoryGirl.define do
     denied_public_data false
     denied_public_events false
     entity_type :lobby
-    invalidate :false
+    invalidate false
     inscription_date { Date.current }
 
     trait :company do
@@ -53,7 +53,7 @@ FactoryGirl.define do
     end
 
     trait :invalidate do
-      invalidate :true
+      invalidate true
     end
 
   end
