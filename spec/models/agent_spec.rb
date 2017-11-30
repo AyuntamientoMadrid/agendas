@@ -52,4 +52,23 @@ describe Agent do
     end
   end
 
+  describe "scopes" do
+
+    describe "by_organization" do
+
+      it "should return all agents by organization" do
+        organization = create(:organization)
+        agent1 = create(:agent, organization: organization)
+        agent2 = create(:agent, organization: organization)
+
+        agents = Agent.by_organization(organization)
+
+        expect(agents.count).to eq(2)
+        expect(agents).to include agent1
+        expect(agents).to include agent2
+      end
+
+    end
+
+  end
 end

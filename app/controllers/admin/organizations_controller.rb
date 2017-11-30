@@ -3,7 +3,7 @@ module Admin
 
     load_and_authorize_resource
 
-    before_action :set_organization, only: [:update, :edit,]
+    before_action :set_organization, only: [:update, :edit]
 
     autocomplete :organization, :name
 
