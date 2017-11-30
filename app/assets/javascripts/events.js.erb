@@ -48,13 +48,15 @@ $(function(){
 
   $("#event_lobby_activity_false").click(function(){
     $("#lobby-activity-event").hide();
-    $('.link_to_remove_association').trigger('click');
+    $("#lobby-activity-event #category-block").hide();
+    $("#lobby-activity-event #re-block").hide();
+    $("#lobby-activity-event #agents-block").hide();
     $('#event_organization_name').val('');
   });
 
   $('#event_organization_name').bind('railsAutocomplete.select', function(event, data){
     $('#organization_id').val(data.item.id);
-    $("#category-block").show();
+    $('#event-category').empty();
     if ($('#organization_id').val()){
       $.ajax({
         method: "GET",
@@ -63,6 +65,7 @@ $(function(){
         var div_category = $('#event-category');
         div_category.append(category);
       });
+      $("#category-block").show();
     }
 
     if ($("#re-block #event-represented-entities").find(".nested-fields").length > 0){

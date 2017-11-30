@@ -89,6 +89,7 @@ es:
     meeting_lobby_activity_yes: "si"
     meeting_lobby_activity_no: "no"
     meeting_lobby_activity_organization: "Organización"
+    meeting_lobby_category: "Categoria: "
     meeting_lobby_activity_represented_entities: "Empresas Representadas"
     meeting_lobby_activity_agents: "Agentes"
     meeting_lobby_activity_public_website: "Fecha en la cual el evento se verá en la página web pública"

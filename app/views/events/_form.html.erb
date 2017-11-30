@@ -64,11 +64,10 @@
 
         <div id="category-block" style="display: none" data-new-url="<%= organization_category_url_pattern(format: :json) %>">
           <div class="row">
-            <div class="small-10 columns">Categoria</div>
+            <div class="small-10 columns"><%= t('backend.meeting_lobby_category') %> <i id="event-category"></i></div>
             <div class="small-2 columns"></div>
           </div>
-          <div id="event-category">
-          </div>
+          <hr />
         </div>
 
         <div id="re-block" style="display: none" data-new-url="<%= organization_represented_entities_url_pattern(format: :json) %>">
