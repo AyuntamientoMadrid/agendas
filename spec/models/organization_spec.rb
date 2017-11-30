@@ -29,6 +29,18 @@ describe Organization do
     expect(another_organization).not_to be_valid
   end
 
+  it "should not be valid whitout name" do
+    organization.name = nil
+
+    expect(organization).not_to be_valid
+  end
+
+  it "should have a correct user name" do
+    user_name = organization.user.full_name
+
+    expect(organization.user_name).to eq(user_name)
+  end
+
   it "should not be valid whitout user" do
     organization.user = nil
 
