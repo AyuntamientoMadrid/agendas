@@ -12,6 +12,7 @@ gem 'foundation-rails', '= 5.5.1.0'
 gem 'friendly_id', '~> 5.1.0'
 gem 'i18n_data', '~> 0.7.0'
 gem 'initialjs-rails', '0.2.0.1'
+gem 'invisible_captcha', '~> 0.9.2'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails', '~> 4.0.5'
 gem 'jquery-ui-rails', '~> 5.0.5'
@@ -46,6 +47,7 @@ group :development do
   gem 'capistrano-rails-console', require: false
   gem 'capistrano-rvm', '~> 0.1.1', require: false
   gem 'jazz_hands', :git => 'https://github.com/nixme/jazz_hands.git', branch: 'bring-your-own-debugger'
+  gem 'letter_opener_web', '~> 1.3.1'
   gem 'quiet_assets', '~> 1.1.0'
   gem 'rails_layout', '~> 1.0.26'
   gem 'spring-commands-rspec', '~> 1.0.4'

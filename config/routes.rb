@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get '/faq', to: 'questions#index', as: 'faq'
 
 
+  resources :infringement_emails, only: [:new, :create]
+
   # Admin
   get "/admin", to: 'events#index', as: 'admin'
 
@@ -39,5 +41,7 @@ Rails.application.routes.draw do
     resources :represented_entities, only: :index, format: :json
     resources :agents, only: :index, format: :json
   end
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
 end

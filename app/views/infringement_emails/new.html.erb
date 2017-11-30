@@ -1,0 +1,26 @@
+<h1><%= t('infringement_mailbox.title') %></h1>
+<%= link_to t('backend.back'), :back , :class=> "button tiny radius" %>
+<p><%= t('infringement_mailbox.description') %></p>
+
+<%= form_for @infringement_email, { multipart: true } do |f| %>
+  <fieldset>
+    <legend><%= t('infringement_mailbox.legend') %></legend>
+    <%= f.label :subject, t('infringement_mailbox.subject_title') %>
+    <%= f.text_field :subject, placeholder: t('infringement_mailbox.subject_placeholder') %>
+
+    <%= f.invisible_captcha :subsubject %>
+
+    <%= f.label :link, t('infringement_mailbox.link_title') %>
+    <%= f.text_field :link, placeholder: t('infringement_mailbox.link_placeholder') %>
+    <%= t('infringement_mailbox.link_info') %>
+
+    <%= f.label :attachment, t('infringement_mailbox.attachment_title') %>
+    <%= f.file_field :attachment %>
+    <%= t('infringement_mailbox.attachment_info') %>
+
+    <%= f.label :description, t('infringement_mailbox.description_title') %>
+    <%= f.text_area :description, class: 'tinymce'%>
+  </fieldset>
+  <%= f.submit t('infringement_mailbox.send'), class: "button radius success right" %>
+<% end %>
+<%= tinymce :language => I18n.locale %>
