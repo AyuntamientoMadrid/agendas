@@ -39,23 +39,35 @@ $(function(){
       }
   });
 
+  $('#lobby-activity-event').hide();
+
   $("#event_lobby_activity_true").click(function(){
     $("#lobby-activity-event").show();
+    $('lobby-activity-event').show();
   });
+
   $("#event_lobby_activity_false").click(function(){
     $("#lobby-activity-event").hide();
+    $('.link_to_remove_association').trigger('click');
+    $('#event_organization_name').val('');
   });
 
   $('#event_organization_name').bind('railsAutocomplete.select', function(event, data){
     $('#organization_id').val(data.item.id)
+
+    if ($("#re-block #event-represented-entities").find(".nested-fields").length > 0){
+      $('.link_to_remove_association').trigger('click');
+      $("#re-block").show();
+      $('#link_to_add_association').trigger('click');
+    }else{
+      $("#re-block").show();
+      $('#link_to_add_association').trigger('click');
+    }
   });
 
-  $('#event_organization_name').change(function(){
-    $("#re-block").show();
-    $("#agents-block").show();
-  });
 
   $('#event-represented-entities').bind('cocoon:after-insert', function() {
+
     if ($('#organization_id').val()){
       $.ajax({
         method: "GET",

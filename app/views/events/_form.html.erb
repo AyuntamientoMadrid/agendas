@@ -72,7 +72,7 @@
               <%= render 'event_represented_entity_fields', f: represented_entity %>
             <% end %>
           </div>
-          <%= link_to_add_association t('backend.add'), f, :event_represented_entities, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#event-represented-entities' %>
+          <%= link_to_add_association t('backend.add'), f, :event_represented_entities, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#event-represented-entities', id:'link_to_add_association' %>
         </div>
 
         <div id="agents-block" style="display: none" data-new-url="<%= organization_agents_url_pattern(format: :json) %>">
