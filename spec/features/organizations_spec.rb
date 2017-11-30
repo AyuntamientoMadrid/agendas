@@ -135,6 +135,16 @@ feature 'Organizations page' do
         expect(page).not_to have_content "1 Resultados con la palabra Hola"
         expect(find('#keyword').value).to eq ""
       end
+
+      scenario "Shouldn't show invalidated organizations" do
+        create(:organization, name: "Valid Org 1")
+        create(:organization, name: "Invalid Org 2", invalidate: true)
+        Organization.reindex
+
+        visit organizations_path
+        expect(page).not_to have_content "Invalid Org 2"
+        expect(page).to have_content "Valid Org 1"
+      end
     end
 
     scenario 'Should be go to show page when click on organization', :search do
