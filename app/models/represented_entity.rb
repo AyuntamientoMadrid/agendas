@@ -11,6 +11,6 @@ class RepresentedEntity < ActiveRecord::Base
     str += " #{first_surname}"  if first_surname.present?
     str += " #{second_surname}" if second_surname.present?
     str
-  end  
+  end
 
 end

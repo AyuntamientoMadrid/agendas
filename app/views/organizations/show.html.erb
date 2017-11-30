@@ -43,7 +43,7 @@
   </div>
 
   <div class="small-12 large-7 end columns">
-    <p><strong><%= t('organizations.show.user_name') %>: </strong> <%= @organization.user.name %></p>
+    <p><strong><%= t('organizations.show.user_name') %>: </strong> <%= @organization.user.name if @organization.user %></p>
   </div>
 </div>
 

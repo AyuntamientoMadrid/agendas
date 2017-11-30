@@ -1,6 +1,5 @@
 module Admin
   module OrganizationsHelper
-
     def total_organizations
       Organization.count
     end
@@ -9,6 +8,5 @@ module Admin
       params[:controller] == "admin/organizations" &&
         (params[:action] == "new" || params[:action] == "create")
     end
-
   end
 end

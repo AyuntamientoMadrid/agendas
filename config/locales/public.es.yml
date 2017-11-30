@@ -40,6 +40,9 @@ es:
       order_by: "Orden"
       scheduled: "Fecha"
       score: "Relevancia"
+      sort_by: "Ordernar por"
+      filter_by: "Filtrar por"
+      descending: "Orden descendente"
   show:
     participants: "Asisten"
     location: "Lugar"

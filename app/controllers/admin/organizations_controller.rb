@@ -12,6 +12,7 @@ module Admin
 
     def create
       @organization = Organization.new(organization_params)
+      @organization.entity_type = 'lobby'
       if @organization.save
         redirect_to admin_organizations_path, notice: t('backend.successfully_created_record')
       else
@@ -25,8 +26,7 @@ module Admin
       @organization.user = User.new
     end
 
-    def edit
-    end
+    def edit; end
 
     def update
       if @organization.update_attributes(organization_params)
@@ -50,7 +50,8 @@ module Admin
                       represented_entities_attributes: [:id, :identifier, :name, :first_surname, :second_surname,
                                                         :from, :fiscal_year, :range_fund, :subvention, :contract, :_destroy],
                       organization_interests_attributes: [:interest_ids],
-                      agents_attributes: [:id, :identifier, :name, :first_surname, :second_surname, :from, :to, :public_assignments, :_destroy])
+                      agents_attributes: [:id, :identifier, :name, :first_surname, :second_surname, :from,
+                                          :to, :public_assignments, :_destroy])
       end
 
       def set_organization

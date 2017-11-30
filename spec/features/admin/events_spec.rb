@@ -82,4 +82,38 @@ feature 'Events' do
     end
 
   end
+
+  describe 'Organization user' do
+    background do
+      organization_user = create(:user, :lobby)
+      @position = create(:position)
+      organization_user.manages.create(holder_id: @position.holder_id)
+      signin(organization_user.email, organization_user.password)
+    end
+
+    scenario 'visit index event page' do
+      event = create(:event, title: 'New event for lobbies', position: @position)
+      visit events_path
+
+      expect(page).to have_content event.title
+    end
+
+    scenario 'create new event' do
+      event = create(:event, title: 'Event not for lobbies')
+      visit events_path
+
+      click_link I18n.t('backend.new_event')
+
+      expect(page).to have_content I18n.t('backend.new_event')
+
+      fill_in :event_title, with: 'New event for a lobby'
+      fill_in :event_scheduled, with: '02/11/2017 06:30'
+
+      click_button I18n.t('backend.save')
+
+      expect(page).to have_content 'New event for a lobby'
+      expect(page).to_not have_content event.title
+    end
+
+  end
 end

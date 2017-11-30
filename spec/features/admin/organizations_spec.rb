@@ -418,7 +418,7 @@ feature 'Organization' do
             expect(page).to have_content "Registro creado correctamente"
           end
 
-          scenario 'Can adding more than one represented entity', :js do
+          scenario 'Can adding more than one represented entity' do
             visit new_admin_organization_path
 
             click_on "Añadir Entidades a las que se representa"
@@ -498,7 +498,7 @@ feature 'Organization' do
             expect(page).to have_content "Registro creado correctamente"
           end
 
-          scenario 'Can adding more than one agent', :js do
+          scenario 'Can adding more than one agent' do
             visit new_admin_organization_path
 
             click_on "Añadir Agentes"
@@ -542,7 +542,7 @@ feature 'Organization' do
         expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
       end
 
-      scenario 'Should update data organization fields', :js do
+      scenario 'Should update data organization fields' do
         new_category = create(:category)
         organization = create(:organization)
         visit edit_admin_organization_path(organization)
@@ -573,7 +573,7 @@ feature 'Organization' do
         expect(organization.registered_lobbies).to eq "generalitat_catalunya"
       end
 
-      scenario 'Should update address organization fields', :js do
+      scenario 'Should update address organization fields' do
         organization = create(:organization)
         visit edit_admin_organization_path(organization)
 
@@ -607,7 +607,7 @@ feature 'Organization' do
         expect(organization.description).to eq "New description"
       end
 
-      scenario 'Should update lobby organization fields', :js do
+      scenario 'Should update lobby organization fields' do
         organization = create(:organization, subvention: false, contract: false)
         visit edit_admin_organization_path(organization)
 
@@ -876,7 +876,7 @@ feature 'Organization' do
 
             organization.reload
             expect(page).to have_content "Registro actualizado correctamente"
-            expect(organization.represented_entities).to eq []
+            expect(organization.agents).to eq []
           end
 
         end
