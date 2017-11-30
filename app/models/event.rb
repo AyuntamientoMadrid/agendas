@@ -1,14 +1,17 @@
 class Event < ActiveRecord::Base
   include PublicActivity::Model
 
+  attr_accessor :organization_id
+
   tracked owner: Proc.new { |controller, model| controller.present? ? controller.current_user : model.user }
   tracked title: Proc.new { |controller, model| controller.present? ? controller.get_title : model.title }
 
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
 
-  validates :title, :position, :scheduled, :location, :lobby_activity, :published_at, presence: true
-  validates_inclusion_of :lobby_activity, :in => [true, false]
+  # validates :title, :position, :scheduled, :location, :lobby_activity, :published_at, presence: true
+  validates :title, :position, :scheduled, :location, presence: true
+  # validates_inclusion_of :lobby_activity, :in => [true, false]
   validate :participants_uniqueness, :position_not_in_participants
 
   before_create :set_status
@@ -19,8 +22,10 @@ class Event < ActiveRecord::Base
   has_many :positions, through: :participants
   has_many :attachments, dependent: :destroy
   has_many :attendees, dependent: :destroy
+  has_many :event_represented_entities, dependent: :destroy
 
   accepts_nested_attributes_for :attendees, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :event_represented_entities, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
 

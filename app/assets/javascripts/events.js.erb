@@ -45,20 +45,24 @@ $(function(){
   $("#event_lobby_activity_false").click(function(){
     $("#lobby-activity-event").hide();
   });
-  $('#search-organization').bind('railsAutocomplete.select', function(event, data){
-    $('#event_organization_id').val(data.item.id)
+
+  $('#event_organization_name').bind('railsAutocomplete.select', function(event, data){
+    $('#organization_id').val(data.item.id)
   });
 
-  $('#search-organization').change(function(){
-    if ($('#event_organization_id').val()){
+  $('#event_organization_name').change(function(){
+    $("#re-block").show();
+  });
+
+  $('#event-represented-entities').bind('cocoon:after-insert', function() {
+    if ($('#organization_id').val()){
       $.ajax({
         method: "GET",
-        url: $('#lobby-activity-event').data('new-url').replace('organization_id', $('#event_organization_id').val())
+        url: $('#lobby-activity-event').data('new-url').replace('organization_id', $('#organization_id').val())
       }).done(function( represented_entities ) {
-        var check_box_container = $('#yeah');
+        var select = $('#event-represented-entities select:last-child');
         $.each(represented_entities, function(id, represented_entity){
-          check_box_container.append($('<input>', { type:"checkbox", value: represented_entity.id, id: "represented_entity_event_ids_"+represented_entity.id, name: "event[represented_entity_ids][]"}));
-          check_box_container.append($('<span>').text(represented_entity.name));
+          select.append($('<option>', { value: represented_entity.name, text: represented_entity.name }));
         });
       });
     }

@@ -39,7 +39,7 @@ open_government = Event.create(location: Faker::Address.street_address, title: '
                                description: 'El Gobierno Abierto tiene como objetivo que la ciudadanía colabore en la creación y mejora'\
                                ' de servicios públicos y en el robustecimiento de la transparencia y la rendición de cuentas.',
                                scheduled: rand(0..1) == 1 ? Faker::Time.forward(60, :day) : Faker::Time.backward(100, :morning),
-                               user: user_without_holders, position: sub_director)
+                               user: User.first, position: Position.first)
 registration_offices = Event.create(location: Faker::Address.street_address, title: 'Oficinas de registro',
                                     description: 'Las oficinas de registro son los lugares que utiliza el ciudadano para presentar las'\
                                     ' solicitudes, escritos y comunicaciones que van dirigidos a las Administraciones Públicas. Asimismo,'\

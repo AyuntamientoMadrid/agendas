@@ -58,22 +58,20 @@
       </div>
 
       <div id="lobby-activity-event" data-new-url="<%= organization_represented_entities_url_pattern(format: :json) %>">
-
-          <%= text_field_tag "search-organization",
-                              params[:search],
-                              class: "search-query",
-                              placeholder: "Buscar por nombre o identificador",
-                              type: "search",
-                              data: {autocomplete: autocomplete_organization_name_admin_organizations_path, update_elements: {}}%>
-          <%= f.hidden_field :organization_id %>
-
-          <%#= f.collection_check_boxes(:represented_entity_ids, Organization.first.represented_entities, :id, :name) do |f| %>
-            <%#= f.label class:"small-6 columns" do %>
-              <%#= f.check_box %> <span> <%#= f.text %> </span>
-            <%# end %>
-          <%# end %>
-          <div id="yeah">
+        <%= hidden_field_tag  :organization_id %>
+        <%= f.autocomplete_field :organization_name, autocomplete_organization_name_admin_organizations_path, :update_elements => {} %>
+        <div id="re-block" style="display: none">
+          <div class="row">
+            <div class="small-10 columns"><%= t('backend.name') %></div>
+            <div class="small-2 columns"></div>
           </div>
+          <div id="event-represented-entities">
+            <%= f.fields_for :event_represented_entities do |represented_entity| %>
+              <%= render 'event_represented_entity_fields', f: represented_entity %>
+            <% end %>
+          </div>
+          <%= link_to_add_association t('backend.add'), f, :event_represented_entities, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#event-represented-entities' %>
+        </div>
       </div>
 
     </fieldset>

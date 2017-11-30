@@ -1,0 +1,14 @@
+<div class="nested-fields">
+  <div class="row">
+      <%= f.hidden_field :event_id, value: @event.id %>
+      <div id="select-represented-entities" class="small-8 columns">
+        <!-- <select name="event[event_represented_entities_attributes][1][name]" id="event_event_represented_entities_attributes_1_name" aria-invalid="false" class="valid">
+
+        </select> -->
+        <%= f.select :name, [], class: "large-8 columns unique", prompt: t('backend.select') %>
+      </div>
+    <div class="small-2 columns">
+      <%= link_to_remove_association t('backend.delete'), f, :class => "button tiny radius alert right" %>
+    </div>
+  </div>
+</div>

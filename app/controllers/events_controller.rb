@@ -1,6 +1,6 @@
 class EventsController < AdminController
   load_and_authorize_resource
-  before_action :set_holders, :set_represented_entities, only: [:new, :edit, :create]
+  before_action :set_holders, only: [:new, :edit, :create]
 
   def index
     @events = current_user.admin? ? list_admin_events : list_user_events
@@ -18,6 +18,7 @@ class EventsController < AdminController
   end
 
   def update
+    debugger
     @event.user = current_user
     if @event.update_attributes(event_params)
       redirect_to events_path, notice: t('backend.successfully_updated_record')
@@ -42,6 +43,7 @@ class EventsController < AdminController
   def event_params
     params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, :search_title, :search_person,
                                   :lobby_activity, :notes, :status, :reasons, :published_at, :canceled_at,
+                                  :organization_name, event_represented_entities_attributes: [:id, :name, :_destroy],
                                   attendees_attributes: [:id, :name, :position, :company, :_destroy],
                                   participants_attributes: [:id, :position_id, :_destroy],
                                   attachments_attributes: [:id, :title, :file, :_destroy])
@@ -62,12 +64,6 @@ class EventsController < AdminController
     @events = Event.managed_by(current_user)
                    .includes(:position, :attachments, position: [:holder])
     @events.order(scheduled: :desc).page(params[:page]).per(50)
-  end
-
-  def set_represented_entities
-    if @event.organization_id.present?
-      @represented_entities =  RepresentedEntity.by_organization(@event.organization_id).order(:name).collect{|m| [m.name, m.id]}
-    end
   end
 
 end
