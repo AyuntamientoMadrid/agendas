@@ -61,9 +61,13 @@ $(function(){
         url: $('#lobby-activity-event').data('new-url').replace('organization_id', $('#organization_id').val())
       }).done(function( represented_entities ) {
         var select = $('#event-represented-entities select:last-child');
-        $.each(represented_entities, function(id, represented_entity){
-          select.append($('<option>', { value: represented_entity.name, text: represented_entity.name }));
-        });
+        if (represented_entities.length > 0) {
+          $.each(represented_entities, function(id, represented_entity){
+            select.append($('<option>', { value: represented_entity.name, text: represented_entity.name }));
+          });
+        } else {
+          select.append($('<option>', { value: $('#event_organization_name').val(), text: $('#event_organization_name').val() }));
+        }
       });
     }
   });

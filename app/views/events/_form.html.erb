@@ -58,6 +58,7 @@
       </div>
 
       <div id="lobby-activity-event" data-new-url="<%= organization_represented_entities_url_pattern(format: :json) %>">
+        Empresas Representadas
         <%= hidden_field_tag  :organization_id %>
         <%= f.autocomplete_field :organization_name, autocomplete_organization_name_admin_organizations_path, :update_elements => {} %>
         <div id="re-block" style="display: none">
