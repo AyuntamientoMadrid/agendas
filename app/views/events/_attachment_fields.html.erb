@@ -10,7 +10,25 @@
       end
     %>
     </div>
-    <div class="small-2 columns">
+
+    <div class="small-12 columns">
+      <br />
+      <%= t('backend.attachments_description') %>
+      <%= f.text_area :description, class: 'tinymce', :rows => 10 %>
+      <br />
+    </div>
+    <div class="attachments-public">
+      <div class="small-12 columns">
+        <%= f.label :public, t('backend.attachments_public'), value: false %>
+        <%= f.radio_button :public, false %>
+      </div>
+      <div class="small-12 columns">
+        <%= f.label :public, t('backend.attachments_private'), value: false %>
+        <%= f.radio_button :public, false %>
+      </div>
+    </div>
+
+    <div class="small-12 columns">
       <%= link_to_remove_association t('backend.delete'), f, :class => "button tiny radius alert right" %>
     </div>
   </div>

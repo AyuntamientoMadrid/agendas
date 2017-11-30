@@ -46,15 +46,15 @@
       <%= link_to_add_association t('backend.add'), f, :participants, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#participants' %>
     </fieldset>
 
-    <fieldset>
-      <legend>¿Es una reunión donde se hará actividad de Lobby?</legend>
-      <div>
-
+    <fieldset class="meeting-lobby-activity">
+      <legend><%= t('backend.meeting_lobby_activity') %></legend>
+      <div class="small-12 column">
+        <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_yes'), value: true %>
         <%= f.radio_button :lobby_activity, true %>
-        <%= f.label :lobby_activity, "Si", value: true %>
-
+      </div>
+      <div class="small-12 column">
+        <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_no'), value: false %>
         <%= f.radio_button :lobby_activity, false %>
-        <%= f.label :lobby_activity, "No", value: false %>
       </div>
 
       <div id="lobby-activity-event">

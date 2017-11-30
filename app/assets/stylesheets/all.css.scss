@@ -7292,3 +7292,18 @@ select {
 #lobby-activity-event #event-category{
   display: inline-block;
 }
+
+.meeting-lobby-activity{
+  label{
+    display: inline-block;
+    width: 30px;
+  }
+}
+
+.attachments-public{
+  label{
+    display: inline-block;
+    width: 60px;
+    float: left;
+  }
+}

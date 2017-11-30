@@ -22,22 +22,53 @@ $(function(){
           },
           "event[position_id]" : {
               required : true
+          },
+          "event[lobby_activity]" : {
+              required : true
+          },
+          "event[attachments_attributes][0][title]" : {
+              required : true
+          },
+          "event[attachments_attributes][0][file]" : {
+            required : true
+          },
+          "event[attachments_attributes][0][public]" : {
+            required : true
+          },
+          "event[published_at]" : {
+            required : true
           }
       },
 
       messages : {
           "event[title]" : {
-              required : "<%= I18n.translate('backend.mandatory_field')%>"
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
           },
           "event[location]" : {
-              required : "<%= I18n.translate('backend.mandatory_field')%>"
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
           },
           "event[scheduled]" : {
-              required : "<%= I18n.translate('backend.mandatory_field')%>"
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
           },
           "event[position_id]" : {
-              required : "<%= I18n.translate('backend.mandatory_field')%>"
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[attachments_attributes][0][title]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[attachments_attributes][0][public]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[attachments_attributes][0][file]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[attachments_attributes][0][public]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[published_at]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
           }
+
       },
 
       errorPlacement : function(error, element) {
