@@ -19,3 +19,4 @@ en:
       score: "Relevancia"
       sort_by: "Sort by"
       filter_by: "Filter by"
+      descending: "Descending order"
