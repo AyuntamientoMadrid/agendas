@@ -54,14 +54,20 @@ $(function(){
 
   $('#event_organization_name').bind('railsAutocomplete.select', function(event, data){
     $('#organization_id').val(data.item.id)
+  });
 
-    if ($("#re-block #event-represented-entities").find(".nested-fields").length > 0){
-      $('.link_to_remove_association').trigger('click');
-      $("#re-block").show();
-      $('#link_to_add_association').trigger('click');
-    }else{
-      $("#re-block").show();
-      $('#link_to_add_association').trigger('click');
+  $('#event_organization_name').change(function(){
+    $("#re-block").show();
+    $("#agents-block").show();
+    $("#category-block").show();
+    if ($('#organization_id').val()){
+      $.ajax({
+        method: "GET",
+        url: $('#category-block').data('new-url').replace('organization_id', $('#organization_id').val())
+      }).done(function( category ) {
+        var div_category = $('#event-category');
+        div_category.append(category);
+      });
     }
   });
 

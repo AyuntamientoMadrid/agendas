@@ -3,13 +3,18 @@ module Admin
 
     load_and_authorize_resource
 
-    before_action :set_organization, only: [:update, :edit]
+    before_action :set_organization, only: [:update, :edit,]
 
     autocomplete :organization, :name
 
     def index
       @organizations = search(params)
       @paginated_organizations = Organization.all.where(id: @organizations.hits.map(&:primary_key)).order(created_at: :desc)
+    end
+
+    def show
+      @organization = Organization.find(params[:id])
+      render :json => [@organization.category.name]
     end
 
     def create

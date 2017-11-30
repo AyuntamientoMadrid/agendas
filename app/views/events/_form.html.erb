@@ -62,6 +62,16 @@
         <%= hidden_field_tag  :organization_id %>
         <%= f.autocomplete_field :organization_name, autocomplete_organization_name_admin_organizations_path, :update_elements => {} %>
 
+        <div id="category-block" style="display: none" data-new-url="<%= organization_category_url_pattern(format: :json) %>">
+          <div class="row">
+            <div class="small-10 columns">Categoria</div>
+            <div class="small-2 columns"></div>
+          </div>
+          <div id="event-category">
+
+          </div>
+        </div>
+
         <div id="re-block" style="display: none" data-new-url="<%= organization_represented_entities_url_pattern(format: :json) %>">
           <div class="row">
             <div class="small-10 columns">Empresas Representadas</div>
@@ -77,7 +87,7 @@
 
         <div id="agents-block" style="display: none" data-new-url="<%= organization_agents_url_pattern(format: :json) %>">
           <div class="row">
-            <div class="small-10 columns">Agentes</div>
+            <div class="small-10 columns">Agentes por parte del lobby</div>
             <div class="small-2 columns"></div>
           </div>
           <div id="event-agents">

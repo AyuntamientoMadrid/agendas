@@ -15,4 +15,10 @@ module OrganizationsHelper
     "#{rooturl}#{url.gsub(rooturl, "").gsub("1", "organization_id")}"
   end
 
+  def organization_category_url_pattern(format = :html)
+    rooturl = root_url
+    url = admin_organization_url(id: 1, format: format)
+    "#{rooturl}#{url.gsub(rooturl, "").gsub("1", "organization_id")}"
+  end
+
 end
