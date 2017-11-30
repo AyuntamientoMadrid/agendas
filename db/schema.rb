@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171130131121) do
+ActiveRecord::Schema.define(version: 20171130154333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,8 @@ ActiveRecord::Schema.define(version: 20171130131121) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
     t.integer  "event_id"
+    t.text     "description"
+    t.boolean  "public"
   end
 
   add_index "attachments", ["event_id"], name: "index_attachments_on_event_id", using: :btree
