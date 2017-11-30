@@ -91,6 +91,13 @@ ActiveRecord::Schema.define(version: 20171130131121) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "event_agents", force: :cascade do |t|
+    t.integer "event_id"
+    t.string  "name"
+  end
+
+  add_index "event_agents", ["event_id"], name: "index_event_agents_on_event_id", using: :btree
+
   create_table "event_represented_entities", force: :cascade do |t|
     t.integer "event_id"
     t.string  "name"
@@ -304,6 +311,7 @@ ActiveRecord::Schema.define(version: 20171130131121) do
   add_foreign_key "agents", "organizations"
   add_foreign_key "attachments", "events"
   add_foreign_key "attendees", "events"
+  add_foreign_key "event_agents", "events"
   add_foreign_key "event_represented_entities", "events"
   add_foreign_key "events", "positions"
   add_foreign_key "events", "users"

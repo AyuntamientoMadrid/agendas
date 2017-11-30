@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     resources :organizations do
       get :autocomplete_organization_name, :on => :collection
       resources :represented_entities, only: :index, format: :json
+      resources :agents, only: :index, format: :json
     end
     resources :questions
     post 'order_questions', to: 'questions#order', as: 'order_questions'

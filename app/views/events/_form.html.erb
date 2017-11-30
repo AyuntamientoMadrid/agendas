@@ -57,13 +57,14 @@
         <%= f.label :lobby_activity, "No", value: false %>
       </div>
 
-      <div id="lobby-activity-event" data-new-url="<%= organization_represented_entities_url_pattern(format: :json) %>">
-        Empresas Representadas
+      <div id="lobby-activity-event">
+        Organización
         <%= hidden_field_tag  :organization_id %>
         <%= f.autocomplete_field :organization_name, autocomplete_organization_name_admin_organizations_path, :update_elements => {} %>
-        <div id="re-block" style="display: none">
+
+        <div id="re-block" style="display: none" data-new-url="<%= organization_represented_entities_url_pattern(format: :json) %>">
           <div class="row">
-            <div class="small-10 columns"><%= t('backend.name') %></div>
+            <div class="small-10 columns">Empresas Representadas</div>
             <div class="small-2 columns"></div>
           </div>
           <div id="event-represented-entities">
@@ -73,6 +74,20 @@
           </div>
           <%= link_to_add_association t('backend.add'), f, :event_represented_entities, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#event-represented-entities' %>
         </div>
+
+        <div id="agents-block" style="display: none" data-new-url="<%= organization_agents_url_pattern(format: :json) %>">
+          <div class="row">
+            <div class="small-10 columns">Agentes</div>
+            <div class="small-2 columns"></div>
+          </div>
+          <div id="event-agents">
+            <%= f.fields_for :event_agents do |agent| %>
+              <%= render 'event_agent_fields', f: agent %>
+            <% end %>
+          </div>
+          <%= link_to_add_association t('backend.add'), f, :event_agents, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#event-agents' %>
+        </div>
+
       </div>
 
     </fieldset>

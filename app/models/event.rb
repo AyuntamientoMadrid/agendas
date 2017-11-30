@@ -23,9 +23,11 @@ class Event < ActiveRecord::Base
   has_many :attachments, dependent: :destroy
   has_many :attendees, dependent: :destroy
   has_many :event_represented_entities, dependent: :destroy
+  has_many :event_agents, dependent: :destroy
 
   accepts_nested_attributes_for :attendees, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :event_represented_entities, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :event_agents, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
 
