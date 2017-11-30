@@ -60,8 +60,7 @@
       <div id="lobby-activity-event">
         Organización
         <%= hidden_field_tag  :organization_id %>
-        <%= f.autocomplete_field :organization_name, autocomplete_organization_name_admin_organizations_path, :update_elements => {} %>
-
+        <%= f.autocomplete_field :organization_name, autocomplete_organization_name_admin_organizations_path, :update_elements => {}, placeholder: t('backend.meeting_lobby_activity_input') %>
         <div id="category-block" style="display: none" data-new-url="<%= organization_category_url_pattern(format: :json) %>">
           <div class="row">
             <div class="small-10 columns"><%= t('backend.meeting_lobby_category') %> <i id="event-category"></i></div>

@@ -14,6 +14,9 @@ $(function(){
           "event[title]" : {
               required : true
           },
+          "event[location]" : {
+              required : true
+          },
           "event[scheduled]" : {
               required : true
           },
@@ -24,6 +27,9 @@ $(function(){
 
       messages : {
           "event[title]" : {
+              required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[location]" : {
               required : "<%= I18n.translate('backend.mandatory_field')%>"
           },
           "event[scheduled]" : {

@@ -27,7 +27,7 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :attendees, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :event_represented_entities, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :event_agents, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :attachments, allow_destroy: true
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
 
   scope :by_title, lambda {|title| where("title ILIKE ?", "%#{title}%") }
