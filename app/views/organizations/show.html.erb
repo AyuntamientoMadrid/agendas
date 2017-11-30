@@ -18,7 +18,7 @@
     <p><strong><%= t('organizations.show.town') %>: </strong> <%= @organization.town %></p>
     <p><strong><%= t('organizations.show.address') %>: </strong><%= @organization.address %></p>
     <p><strong><%= t('organizations.show.province') %>: </strong><%= @organization.province %></p>
-    <p><strong><%= t('organizations.show.category') %>: </strong><%= @organization.category.try(:name) %></p>
+    <p><strong><%= t('organizations.show.category') %>: </strong><%= @organization.category.name %></p>
     <p><strong><%= t('organizations.show.description') %>: </strong><%= @organization.description %></p>
     <p><strong><%= t('organizations.show.web') %>: </strong> <%= @organization.web %></p>
   </div>
