@@ -7293,17 +7293,11 @@ select {
   display: inline-block;
 }
 
-.meeting-lobby-activity{
+.attachments-public .field_with_errors{
+  display: inline-block;
   label{
-    display: inline-block;
-    width: 30px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
   }
-}
 
-.attachments-public{
-  label{
-    display: inline-block;
-    width: 60px;
-    float: left;
-  }
 }

@@ -17,15 +17,13 @@
       <%= f.text_area :description, class: 'tinymce', :rows => 10 %>
       <br />
     </div>
-    <div class="attachments-public">
-      <div class="small-12 columns">
+
+    <div class="attachments-public small-12 column">
+        <%= f.radio_button :public, false %>
         <%= f.label :public, t('backend.attachments_public'), value: false %>
         <%= f.radio_button :public, false %>
-      </div>
-      <div class="small-12 columns">
         <%= f.label :public, t('backend.attachments_private'), value: false %>
-        <%= f.radio_button :public, false %>
-      </div>
+        <div class="small-12 error-radio-buttons"></div>
     </div>
 
     <div class="small-12 columns">

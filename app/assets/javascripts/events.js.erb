@@ -7,9 +7,12 @@ $(function(){
     weekStart: 1
   });
 
+
   $(".admin-form").validate({
+
       ignore: [],
       errorElement: "small",
+
       rules : {
           "event[title]" : {
               required : true
@@ -24,7 +27,7 @@ $(function(){
               required : true
           },
           "event[lobby_activity]" : {
-              required : true
+              required : true,
           },
           "event[attachments_attributes][0][title]" : {
               required : true
@@ -68,13 +71,21 @@ $(function(){
           "event[published_at]" : {
             required : "<%= I18n.translate('backend.mandatory_field')%>"
           }
-
       },
 
       errorPlacement : function(error, element) {
-          error.insertAfter(element);
+        error.insertAfter(element);
+        if (element.attr("name") == "event[lobby_activity]" ){
+          error.appendTo('.meeting-lobby-activity .error-radio-buttons');
+        } else if (element.attr("name") == "event[attachments_attributes][0][public]" ) {
+          error.appendTo('.attachments-public .error-radio-buttons');
+        }
       }
   });
+
+  if( $('.admin-form #attachments .nested-fields').length > 0 ){
+    $(".admin-form").valid();
+  }
 
   $('#lobby-activity-event').hide();
 

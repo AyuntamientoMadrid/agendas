@@ -48,14 +48,11 @@
 
     <fieldset class="meeting-lobby-activity">
       <legend><%= t('backend.meeting_lobby_activity') %></legend>
-      <div class="small-12 column">
-        <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_yes'), value: true %>
-        <%= f.radio_button :lobby_activity, true %>
-      </div>
-      <div class="small-12 column">
-        <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_no'), value: false %>
-        <%= f.radio_button :lobby_activity, false %>
-      </div>
+      <%= f.radio_button :lobby_activity, true %>
+      <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_yes'), value: true %>
+      <%= f.radio_button :lobby_activity, false %>
+      <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_no'), value: false %>
+      <div class="small-12 error-radio-buttons"></div>
 
       <div id="lobby-activity-event">
         Organización
@@ -101,13 +98,6 @@
 
     <fieldset><!-- Attendees -->
       <legend><%= t('backend.attendees') %></legend>
-      <div class="row">
-        <div class="small-4 columns"><%= t('backend.name') %></div>
-        <div class="small-3 columns"><%= t('backend.position') %></div>
-        <div class="small-3 columns"><%= t('backend.company') %></div>
-        <div class="small-2 columns"></div>
-      </div>
-
       <div id="attendees">
         <%= f.fields_for :attendees do |attendee| %>
             <%= render 'attendee_fields', f: attendee %>
