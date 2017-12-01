@@ -1,2 +1,5 @@
-<%= link_to t('backend.back'), admin_organizations_path , :class=> "button tiny radius" %>
+<div class="small-12 column mt5">
+  <h1><%= t('backend.new_organization_title')%></h1>
+  <%= link_to t('backend.back'), admin_organizations_path , :class=> "button tiny radius" %>
+</div>
 <%= render "form" %>

@@ -52,7 +52,7 @@ en:
       interests_title: "Area de interés"
 
   backend:
-
+    new_organization_title: "Nueva organización" 
     reference:
       title_fieldset: "Referencia de la declaracíon responsable"
       title: "Referencia"
