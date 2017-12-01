@@ -11,9 +11,9 @@ class InfringementEmailsController < ApplicationController
 
     if @infringement_email.valid?
       UserMailer.infringement_email(@infringement_email, email_params[:attachment]).deliver
-      redirect_to new_infringement_email_path, notice: "Email enviado correctamente"
+      redirect_to new_infringement_email_path, notice: t('infringement_mailbox.sent')
     else
-      flash.now.alert = "El fichero #{@infringement_email.errors.messages[:attachment][0]}"
+      flash.now.alert = t('infringement_mailbox.error', error: @infringement_email.errors.messages[:attachment][0])
       render action: 'new'
     end
   end

@@ -84,3 +84,5 @@ es:
     attachment_info: "Puedes subir imágenes .jpg, .png y.bmp, o un archivo .zip o .rar, con un máximo de 3 megas."
     description_title: "Descripción"
     send: "Enviar"
+    sent: "Email enviado correctamente"
+    error: "El fichero %{error}"
