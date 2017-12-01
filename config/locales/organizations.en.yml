@@ -1,9 +1,9 @@
 en:
   organizations:
-    title: Lobbies registry
-    description: Consult the organizations registered in the lobby register.
+    title: Organizations registry
+    description: Consult the organizations registered.
     subtitle:
-      default: Last registered lobbies
+      default: Last registered organizations
 
     show:
       title: "Organization public page"
@@ -19,6 +19,9 @@ en:
       category: "Categoría"
       description: "Finalidad y objetivos"
       web: "Página web"
+      lobby: 'Lobbie'
+      federation: 'Federación'
+      association: 'Asociación'
 
       legal_representant_title: "Representante legal"
       legal_representant_name: "Nombres/Apellidos o Razón Social"

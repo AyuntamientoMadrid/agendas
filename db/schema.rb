@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 20171130131121) do
     t.integer  "position_id"
     t.string   "location"
     t.string   "slug"
+    t.string   "status"
   end
 
   add_index "events", ["position_id"], name: "index_events_on_position_id", using: :btree
@@ -200,7 +201,6 @@ ActiveRecord::Schema.define(version: 20171130131121) do
     t.datetime "updated_at",            null: false
     t.string   "inscription_reference"
     t.date     "inscription_date"
-    t.string   "entity_type"
     t.string   "neighbourhood"
     t.string   "district"
     t.string   "scope"
@@ -208,6 +208,7 @@ ActiveRecord::Schema.define(version: 20171130131121) do
     t.integer  "members_count"
     t.string   "approach"
     t.datetime "canceled_at"
+    t.integer  "entity_type"
   end
 
   add_index "organizations", ["category_id"], name: "index_organizations_on_category_id", using: :btree

@@ -8,6 +8,9 @@
       <%= text_field_tag :keyword, params[:keyword], placeholder: t('main.form.keyword') %>
     </div>
     <div class="mb20">
+      <%= select_tag :entity_type, options_for_select(Organization.entity_types.keys.map{|type| [t("organizations.show.#{type}"), type]}, params[:entity_type]),prompt: t('main.form.filter_by'), class: 'dropdown'%>
+    </div>
+    <div class="mb20">
       <%= link_to t('main.form.reset'), organizations_path, class: 'button secondary' %>
       <%= submit_tag t('main.form.search'), class: 'button', name: nil %>
     </div>

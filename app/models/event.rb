@@ -10,6 +10,8 @@ class Event < ActiveRecord::Base
   validates :title, :position, :scheduled, presence: true
   validate :participants_uniqueness, :position_not_in_participants
 
+  before_create :set_status
+
   belongs_to :user
   belongs_to :position
   has_many :participants, dependent: :destroy
@@ -127,5 +129,9 @@ class Event < ActiveRecord::Base
       positions_ids = participants.collect{|p| p.position.id }
       return unless position && positions_ids.include?(position.id)
       errors.add(:base, I18n.t('backend.position_not_in_participants'))
+    end
+
+    def set_status
+      self.status = :on_request if self.user.lobby?
     end
 end
