@@ -16,6 +16,8 @@ class Ability
         can :manage, :all
       end
       can :index, :activities
+    elsif user.lobby?
+      can [:index, :new, :create], Event
     else
       if Holder.managed_by(user.id).any?
         can :manage, Event, id: Event.ability_titular_events(user)

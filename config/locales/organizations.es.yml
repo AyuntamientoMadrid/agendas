@@ -1,9 +1,9 @@
 es:
   organizations:
-    title: Consulta del registro de lobbies
-    description: Consulte las organizaciones registradas en el registro de lobbies.
+    title: Consulta del registro de Organizaciones
+    description: Consulte las organizaciones registradas.
     subtitle:
-      default: Últimos lobbies registrados
+      default: Últimas Organizaciones registradas
 
     show:
       title: "Página pública de la Organización"
@@ -19,6 +19,9 @@ es:
       category: "Categoría"
       description: "Finalidad y objetivos"
       web: "Página web"
+      lobby: 'Lobbie'
+      federation: 'Federación'
+      association: 'Asociación'
 
       legal_representant_title: "Representante legal"
       legal_representant_name: "Nombres/Apellidos o Razón Social"
