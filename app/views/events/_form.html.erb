@@ -23,12 +23,7 @@
       <%= f.label :scheduled, t('backend.date') %>
       <%= f.text_field :scheduled, class: 'fdatepicker' %>
       <%= f.label :position_id, t('backend.main_position') %>
-      <% if @positions.size > 1 %>
-          <%= f.select :position_id, @positions.map{|position| [position.holder.full_name_comma+' - '+position.title, position.id]}, prompt: t('backend.select') %>
-      <% elsif @positions.size == 1 %>
-          <p><strong><%= @holders.first.full_name %></strong></p>
-          <%= f.hidden_field :position_id, value: @positions.first.id %>
-      <% end %>
+      <%= f.select :position_id, @positions.map{|position| [position.holder.full_name_comma+' - '+position.title, position.id]}, prompt: t('backend.select') %>
     </fieldset>
 
     <fieldset><!-- Participants -->
@@ -43,7 +38,7 @@
             <%= render 'participant_fields', f: participant %>
         <% end %>
       </div>
-      <%= link_to_add_association t('backend.add'), f, :participants, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#participants' %>
+      <%= link_to_add_association t('backend.add'), f, :participants, :class => "button radius tiny info right add-participant", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#participants' %>
     </fieldset>
 
     <fieldset class="meeting-lobby-activity">
@@ -103,7 +98,7 @@
             <%= render 'attendee_fields', f: attendee %>
         <% end %>
       </div>
-      <%= link_to_add_association t('backend.add'), f, :attendees, :class => "button radius tiny info right",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attendees' %>
+      <%= link_to_add_association t('backend.add'), f, :attendees, :class => "button radius tiny info right add-attendee",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attendees' %>
     </fieldset>
 
     <fieldset><!-- Attachments -->
@@ -119,7 +114,8 @@
             <%= render 'attachment_fields', f: attachment %>
         <% end %>
       </div>
-      <%= link_to_add_association t('backend.add'), f, :attachments, :class => "button radius tiny info right",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attachments' %>
+
+      <%= link_to_add_association t('backend.add'), f, :attachments, :class => "button radius tiny info right add-attachment",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attachments' %>
     </fieldset>
 
     <fieldset>
