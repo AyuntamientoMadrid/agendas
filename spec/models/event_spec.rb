@@ -163,7 +163,7 @@ describe Event do
 
   describe ".searches" do
     let!(:holder) { create(:holder, :with_position, first_name: "John", last_name: "Doe") }
-    let!(:event) { create(:event, position: holder.current_position, title: "Some amazing title" , lobby_activity: false) }
+    let!(:event) { create(:event, position: holder.current_position, title: "Some amazing title", lobby_activity: false) }
 
     it "Should return events by given holder name" do
       expect(Event.searches("John", "", false)).to eq([event])

@@ -43,7 +43,6 @@ class Event < ActiveRecord::Base
   }
 
   scope :with_lobby_activity_active, -> { where(lobby_activity: true) }
-  scope :without_lobby_activity_active, -> { where(lobby_activity: false) }
 
   enum status: { requested: 0, accepted: 1 }
 
@@ -74,11 +73,7 @@ class Event < ActiveRecord::Base
     if search_person.present? || search_title.present? || search_lobby_activity.present?
       @events = by_holder_name(search_person).uniq if search_person.present?
       @events = by_title(search_title) if search_title.present?
-      if @events && search_lobby_activity
-        @events = @events.with_lobby_activity_active
-      elsif @events.nil? && search_lobby_activity
-        @events = with_lobby_activity_active
-      end
+      @events = with_lobby_activity_active if search_lobby_activity
     else
       @events = all
     end
