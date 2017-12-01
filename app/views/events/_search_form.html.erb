@@ -17,12 +17,13 @@
     <div class="small-4 columns left">
       <input type="submit" class="expanded button tiny radius" value="<%= t("backend.search.button") %>">
     </div>
-        <div class="small-1 columns left">
+    <div class="small-1 columns left">
       <%= check_box_tag(:lobby_activity, value = "1", checked = check_filter_lobby_activity , id: "lobby_activity")%>
     </div>
     <div class="small-3 columns left mb40">
       <%= label_tag(:lobby_activity, t("backend.lobby_activity")) %>
     </div>
+  </div>
   <% end %>
 <% else %>
   <%= link_to t('backend.new_event'), new_event_path, :class => "expanded button tiny radius warning" if can? :create, Event %>
