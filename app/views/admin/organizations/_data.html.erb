@@ -97,8 +97,8 @@
       <%= form_field_errors(f, :description) %>
     </div>
     <div class="small-12 columns">
-      <%= f.label :registered_lobbies, t('backend.identifying_data.registered_lobbies') %>
-      <%= f.select :registered_lobbies, Organization.registered_lobbies.keys.to_a %>
+      <%= f.label :registered_lobbies, t('backend.identifying_data.registered_lobbies_title') %>
+      <%= f.select :registered_lobbies, Organization.registered_lobbies.keys.map {|key| [t("backend.identifying_data.registered_lobbies.#{key}"), key]} %>
       <%= form_field_errors(f, :registered_lobbies) %>
     </div>
   </div>

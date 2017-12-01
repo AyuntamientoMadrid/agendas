@@ -39,8 +39,8 @@
     </div>
 
     <div class="small-6 columns">
-      <%= f.label :range_fund, t('backend.represented_entities.range_founds') %>
-      <%= f.select :range_fund, Organization.range_funds.keys.to_a %>
+      <%= f.label :range_fund, t('backend.represented_entities.range_fund_title') %>
+      <%= f.select :range_fund, Organization.range_funds.keys.map {|key| [t("backend.represented_entities.range_fund.#{key}"), key]} %>
       <%= form_field_errors(f, :range_fund) %>
     </div>
 
