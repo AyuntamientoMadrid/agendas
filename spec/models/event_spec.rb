@@ -163,15 +163,7 @@ describe Event do
 
   describe ".searches" do
     let!(:holder) { create(:holder, :with_position, first_name: "John", last_name: "Doe") }
-<<<<<<< HEAD
     let!(:event) { create(:event, position: holder.current_position, title: "Some amazing title", lobby_activity: false) }
-=======
-<<<<<<< HEAD
-    let!(:event) { create(:event, position: holder.current_position, title: "Some amazing title") }
-=======
-    let!(:event) { create(:event, position: holder.current_position, title: "Some amazing title", lobby_activity: false) }
->>>>>>> modified event controller  to validate lobby_activity  option
->>>>>>> modified event controller  to validate lobby_activity  option
 
     it "Should return events by given holder name" do
       expect(Event.searches("John", "", false)).to eq([event])
