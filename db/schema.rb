@@ -117,9 +117,9 @@ ActiveRecord::Schema.define(version: 20171130154333) do
     t.integer  "position_id"
     t.string   "location"
     t.string   "slug"
+    t.string   "status"
     t.boolean  "lobby_activity"
     t.text     "notes"
-    t.integer  "status"
     t.string   "reasons"
     t.date     "published_at"
     t.date     "canceled_at"
@@ -223,6 +223,7 @@ ActiveRecord::Schema.define(version: 20171130154333) do
     t.datetime "updated_at",            null: false
     t.string   "inscription_reference"
     t.date     "inscription_date"
+    t.integer  "entity_type"
     t.string   "neighbourhood"
     t.string   "district"
     t.string   "scope"
@@ -230,7 +231,6 @@ ActiveRecord::Schema.define(version: 20171130154333) do
     t.integer  "members_count"
     t.string   "approach"
     t.datetime "canceled_at"
-    t.integer  "entity_type"
   end
 
   add_index "organizations", ["category_id"], name: "index_organizations_on_category_id", using: :btree

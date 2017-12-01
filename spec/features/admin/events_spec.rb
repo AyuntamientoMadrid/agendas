@@ -269,53 +269,6 @@ feature 'Events' do
 
         describe "Attachments" do
 
-          scenario 'Create organization with invalid attachment', :js do
-            new_position = create(:position)
-            visit new_event_path
-
-            #Mandatory fields
-            fill_in :event_title, with: "Title"
-            fill_in :event_location, with: "Location"
-            fill_in :event_scheduled, with: DateTime.current
-            select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
-            choose :event_lobby_activity_true
-            fill_in :event_published_at, with: Date.current
-            #Attachment fields
-            find('.add-attachment').click
-            within "#attachments" do
-              find(".attachment-title").set("Titulo")
-            end
-
-            click_button "Guardar"
-
-            expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
-            expect(page).to have_content "1 error impidió guardar este evento"
-            expect(page).to have_content "Archivo adjunto: Privacidad no está incluido en la lista"
-          end
-
-          scenario 'Create organization with valid attachment', :js do
-            new_position = create(:position)
-            visit new_event_path
-
-            #Mandatory fields
-            fill_in :event_title, with: "Title"
-            fill_in :event_location, with: "Location"
-            fill_in :event_scheduled, with: DateTime.current
-            select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
-            choose :event_lobby_activity_true
-            fill_in :event_published_at, with: Date.current
-            #Attachments fields
-            find('.add-attachment').click
-            within "#attachments" do
-              find(".attachment-title").set("Titulo")
-              find('input[type="file"]').set('path/to/file.pdf')
-              first('input[type="radio"]').click
-            end
-            click_button "Guardar"
-
-            expect(page).to have_content "Registro creado correctamente"
-          end
-
           scenario 'Can adding more than one attachments', :js do
             visit new_event_path
 
@@ -461,7 +414,7 @@ feature 'Events' do
       expect(page).to have_content event.title
     end
 
-    scenario 'create new event' do
+    scenario 'create new event', :js do
       event = create(:event, title: 'Event not for lobbies')
       visit events_path
 
@@ -471,6 +424,10 @@ feature 'Events' do
 
       fill_in :event_title, with: 'New event for a lobby'
       fill_in :event_scheduled, with: '02/11/2017 06:30'
+      fill_in :event_location, with: 'New location'
+      choose :event_lobby_activity_true
+      select "#{@position.holder.full_name_comma} - #{@position.title}", from: :event_position_id
+      fill_in :event_published_at, with: '02/11/2017 06:30'
 
       click_button I18n.t('backend.save')
 

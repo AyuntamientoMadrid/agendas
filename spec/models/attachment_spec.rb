@@ -10,9 +10,10 @@ describe Attachment do
     expect(attachment).not_to be_valid
   end
 
-  it "should be invalid if no checked public boolean" do
-    attachment.public = nil
+  it "should be invalid if no title" do
+    attachment.file = nil
 
     expect(attachment).not_to be_valid
   end
+
 end

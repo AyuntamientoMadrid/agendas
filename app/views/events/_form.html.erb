@@ -103,11 +103,6 @@
 
     <fieldset><!-- Attachments -->
       <legend><%= t('backend.attachments') %></legend>
-      <div class="row">
-        <div class="small-4 columns"><%= t('backend.title') %></div>
-        <div class="small-6 columns"><%= t('backend.file') %></div>
-        <div class="small-2 columns"></div>
-      </div>
 
       <div id="attachments">
         <%= f.fields_for :attachments do |attachment| %>
