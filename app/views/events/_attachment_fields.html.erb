@@ -1,16 +1,38 @@
 <div class="nested-fields">
   <div class="row">
-    <div class="small-4 columns"><%= f.text_field :title %></div>
-    <div class="small-6 columns">
+
+    <div class="small-12 columns">
+      <%= t('backend.file') %>
+      <%= f.text_field :title, class: "attachment-title" %>
+    </div>
+
+    <div class="small-12 columns">
+      <%= t('backend.file') %>
     <%=
       if f.object.file.present?
         link_to f.object.title, f.object.file.url
       else
-        f.file_field :file
+        f.file_field :file, class: "attachment-file"
       end
     %>
     </div>
-    <div class="small-2 columns">
+
+    <div class="small-12 columns">
+      <br />
+      <%= t('backend.attachments_description') %>
+      <%= f.text_area :description, class: 'tinymce attachment-description', :rows => 10 %>
+      <br />
+    </div>
+
+    <div class="attachments-public small-12 column">
+        <%= f.radio_button :public, true %>
+        <%= f.label :public, t('backend.attachments_public'), value: true %>
+        <%= f.radio_button :public, false %>
+        <%= f.label :public, t('backend.attachments_private'), value: false %>
+        <div class="small-12 error-radio-buttons"></div>
+    </div>
+
+    <div class="small-12 columns">
       <%= link_to_remove_association t('backend.delete'), f, :class => "button tiny radius alert right" %>
     </div>
   </div>

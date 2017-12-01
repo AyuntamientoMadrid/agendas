@@ -23,12 +23,7 @@
       <%= f.label :scheduled, t('backend.date') %>
       <%= f.text_field :scheduled, class: 'fdatepicker' %>
       <%= f.label :position_id, t('backend.main_position') %>
-      <% if @positions.size > 1 %>
-          <%= f.select :position_id, @positions.map{|position| [position.holder.full_name_comma+' - '+position.title, position.id]}, prompt: t('backend.select') %>
-      <% elsif @positions.size == 1 %>
-          <p><strong><%= @holders.first.full_name %></strong></p>
-          <%= f.hidden_field :position_id, value: @positions.first.id %>
-      <% end %>
+      <%= f.select :position_id, @positions.map{|position| [position.holder.full_name_comma+' - '+position.title, position.id]}, prompt: t('backend.select') %>
     </fieldset>
 
     <fieldset><!-- Participants -->
@@ -43,41 +38,84 @@
             <%= render 'participant_fields', f: participant %>
         <% end %>
       </div>
-      <%= link_to_add_association t('backend.add'), f, :participants, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#participants' %>
+      <%= link_to_add_association t('backend.add'), f, :participants, :class => "button radius tiny info right add-participant", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#participants' %>
     </fieldset>
 
+    <fieldset class="meeting-lobby-activity">
+      <legend><%= t('backend.meeting_lobby_activity') %></legend>
+      <%= f.radio_button :lobby_activity, true %>
+      <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_yes'), value: true %>
+      <%= f.radio_button :lobby_activity, false %>
+      <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_no'), value: false %>
+      <div class="small-12 error-radio-buttons"></div>
+
+      <div id="lobby-activity-event">
+        Organización
+        <%= hidden_field_tag  :organization_id %>
+        <%= f.autocomplete_field :organization_name, autocomplete_organization_name_admin_organizations_path, :update_elements => {}, placeholder: t('backend.meeting_lobby_activity_input') %>
+        <div id="category-block" style="display: none" data-new-url="<%= organization_category_url_pattern(format: :json) %>">
+          <div class="row">
+            <div class="small-10 columns"><%= t('backend.meeting_lobby_category') %> <i id="event-category"></i></div>
+            <div class="small-2 columns"></div>
+          </div>
+          <hr />
+        </div>
+
+        <div id="re-block" style="display: none" data-new-url="<%= organization_represented_entities_url_pattern(format: :json) %>">
+          <div class="row">
+            <div class="small-10 columns">Empresas Representadas</div>
+            <div class="small-2 columns"></div>
+          </div>
+          <div id="event-represented-entities">
+            <%= f.fields_for :event_represented_entities do |represented_entity| %>
+              <%= render 'event_represented_entity_fields', f: represented_entity %>
+            <% end %>
+          </div>
+          <%= link_to_add_association t('backend.add'), f, :event_represented_entities, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#event-represented-entities', id:'link_to_add_association' %>
+        </div>
+
+        <div id="agents-block" style="display: none" data-new-url="<%= organization_agents_url_pattern(format: :json) %>">
+          <div class="row">
+            <div class="small-10 columns">Agentes por parte del lobby</div>
+            <div class="small-2 columns"></div>
+          </div>
+          <div id="event-agents">
+            <%= f.fields_for :event_agents do |agent| %>
+              <%= render 'event_agent_fields', f: agent %>
+            <% end %>
+          </div>
+          <%= link_to_add_association t('backend.add'), f, :event_agents, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#event-agents' %>
+        </div>
+
+      </div>
+
+    </fieldset>
 
     <fieldset><!-- Attendees -->
       <legend><%= t('backend.attendees') %></legend>
-      <div class="row">
-        <div class="small-4 columns"><%= t('backend.name') %></div>
-        <div class="small-3 columns"><%= t('backend.position') %></div>
-        <div class="small-3 columns"><%= t('backend.company') %></div>
-        <div class="small-2 columns"></div>
-      </div>
-
       <div id="attendees">
         <%= f.fields_for :attendees do |attendee| %>
             <%= render 'attendee_fields', f: attendee %>
         <% end %>
       </div>
-      <%= link_to_add_association t('backend.add'), f, :attendees, :class => "button radius tiny info right",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attendees' %>
+      <%= link_to_add_association t('backend.add'), f, :attendees, :class => "button radius tiny info right add-attendee",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attendees' %>
     </fieldset>
 
     <fieldset><!-- Attachments -->
       <legend><%= t('backend.attachments') %></legend>
-      <div class="row">
-        <div class="small-4 columns"><%= t('backend.title') %></div>
-        <div class="small-6 columns"><%= t('backend.file') %></div>
-        <div class="small-2 columns"></div>
-      </div>
 
       <div id="attachments">
         <%= f.fields_for :attachments do |attachment| %>
             <%= render 'attachment_fields', f: attachment %>
         <% end %>
       </div>
-      <%= link_to_add_association t('backend.add'), f, :attachments, :class => "button radius tiny info right",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attachments' %>
+
+      <%= link_to_add_association t('backend.add'), f, :attachments, :class => "button radius tiny info right add-attachment",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attachments' %>
+    </fieldset>
+
+    <fieldset>
+      <legend><%= t('backend.meeting_lobby_activity_public_website') %></legend>
+      <%= f.text_field :published_at, class: 'fdatepicker' %>
     </fieldset>
   <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
 <% end %>

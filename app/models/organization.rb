@@ -7,7 +7,7 @@ class Organization < ActiveRecord::Base
   validates :inscription_reference, uniqueness: true, allow_blank: true, allow_nil: true
   validates :name, :category_id, presence: true
 
-  has_many :represented_entities, dependent: :destroy
+  has_many :represented_entities, dependent: :destroy, inverse_of: :organization
   has_many :agents, dependent: :destroy
   has_many :organization_interests, dependent: :destroy
   has_many :interests, through: :organization_interests, dependent: :destroy
@@ -32,6 +32,8 @@ class Organization < ActiveRecord::Base
     string :entity_type
     time :inscription_date
   end
+
+	scope :full_like, -> (name) { where("identifier ilike ? OR name ilike ?", name, name)}
 
   def fullname
     str = name

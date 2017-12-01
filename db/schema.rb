@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171130131121) do
+ActiveRecord::Schema.define(version: 20171130154333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,8 @@ ActiveRecord::Schema.define(version: 20171130131121) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
     t.integer  "event_id"
+    t.text     "description"
+    t.boolean  "public"
   end
 
   add_index "attachments", ["event_id"], name: "index_attachments_on_event_id", using: :btree
@@ -91,17 +93,37 @@ ActiveRecord::Schema.define(version: 20171130131121) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "event_agents", force: :cascade do |t|
+    t.integer "event_id"
+    t.string  "name"
+  end
+
+  add_index "event_agents", ["event_id"], name: "index_event_agents_on_event_id", using: :btree
+
+  create_table "event_represented_entities", force: :cascade do |t|
+    t.integer "event_id"
+    t.string  "name"
+  end
+
+  add_index "event_represented_entities", ["event_id"], name: "index_event_represented_entities_on_event_id", using: :btree
+
   create_table "events", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.datetime "scheduled"
     t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "position_id"
     t.string   "location"
     t.string   "slug"
     t.string   "status"
+    t.boolean  "lobby_activity"
+    t.text     "notes"
+    t.string   "reasons"
+    t.date     "published_at"
+    t.date     "canceled_at"
+    t.string   "organization_name"
   end
 
   add_index "events", ["position_id"], name: "index_events_on_position_id", using: :btree
@@ -201,6 +223,7 @@ ActiveRecord::Schema.define(version: 20171130131121) do
     t.datetime "updated_at",            null: false
     t.string   "inscription_reference"
     t.date     "inscription_date"
+    t.integer  "entity_type"
     t.string   "neighbourhood"
     t.string   "district"
     t.string   "scope"
@@ -208,7 +231,6 @@ ActiveRecord::Schema.define(version: 20171130131121) do
     t.integer  "members_count"
     t.string   "approach"
     t.datetime "canceled_at"
-    t.integer  "entity_type"
   end
 
   add_index "organizations", ["category_id"], name: "index_organizations_on_category_id", using: :btree
@@ -291,6 +313,8 @@ ActiveRecord::Schema.define(version: 20171130131121) do
   add_foreign_key "agents", "organizations"
   add_foreign_key "attachments", "events"
   add_foreign_key "attendees", "events"
+  add_foreign_key "event_agents", "events"
+  add_foreign_key "event_represented_entities", "events"
   add_foreign_key "events", "positions"
   add_foreign_key "events", "users"
   add_foreign_key "legal_representants", "organizations"

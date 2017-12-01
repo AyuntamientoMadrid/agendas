@@ -34,32 +34,32 @@ commerce_boss = Position.create(title: 'Jefe negociado', to: nil, area_id: sub_a
 proyect_boss = Position.create(title: 'Jefa de proyecto', to: nil, area_id: sub_area.id, holder_id: holder_one_position2.id)
 secretary = Position.create(title: 'Secretaria', to: nil, area_id: sub_area.id, holder_id: holder_orphan_position.id)
 
-# Event
+# Event :title, :position, :scheduled, :location, :lobby_activity, :published_at,
 open_government = Event.create(location: Faker::Address.street_address, title: 'Gobierno Abierto',
                                description: 'El Gobierno Abierto tiene como objetivo que la ciudadanía colabore en la creación y mejora'\
                                ' de servicios públicos y en el robustecimiento de la transparencia y la rendición de cuentas.',
                                scheduled: rand(0..1) == 1 ? Faker::Time.forward(60, :day) : Faker::Time.backward(100, :morning),
-                               user: user_without_holders, position: sub_director)
+                               user: User.first, position: Position.first, lobby_activity: false, published_at: Date.today)
 registration_offices = Event.create(location: Faker::Address.street_address, title: 'Oficinas de registro',
                                     description: 'Las oficinas de registro son los lugares que utiliza el ciudadano para presentar las'\
                                     ' solicitudes, escritos y comunicaciones que van dirigidos a las Administraciones Públicas. Asimismo,'\
                                     ' es el lugar que utiliza la Administración para registrar los documentos que remite al ciudadano, a'\
                                     ' entidades privadas o a la propia Administración.',
                                     scheduled: rand(0..1) == 1 ? Faker::Time.forward(60, :day) : Faker::Time.backward(100, :morning),
-                                    user: user_without_holders, position: commerce_boss)
+                                    user: user_without_holders, position: commerce_boss, lobby_activity: false, published_at: Date.today)
 online_registration = Event.create(location: Faker::Address.street_address, title: 'Registro Electrónico',
                                    description: 'El Registro Electrónico es un punto para la presentación de documentos para su'\
                                    ' tramitación con destino a cualquier órgano administrativo de la Administración General del Estado,'\
                                    ' Organismo público o Entidad vinculado o dependiente a éstos, de acuerdo a lo dispuesto en la Ley'\
                                    ' 39/2015 , de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas. ',
                                    scheduled: rand(0..1) == 1 ? Faker::Time.forward(60, :day) : Faker::Time.backward(100, :morning),
-                                   user: user_without_holders, position: proyect_boss)
+                                   user: user_without_holders, position: proyect_boss, lobby_activity: false, published_at: Date.today)
 political_transparency = Event.create(location: Faker::Address.street_address, title: 'Transparencia política',
                                       description: 'Transparencia política es la obligación de los gobiernos de dar cuenta a los'\
                                       'ciudadanos de todos sus actos, especialmente del uso del dinero público y prevenir así los casos de'\
                                       ' corrupción',
                                       scheduled: rand(0..1) == 1 ? Faker::Time.forward(60, :day) : Faker::Time.backward(100, :morning),
-                                      user: user_without_holders, position: secretary)
+                                      user: user_without_holders, position: secretary, lobby_activity: false, published_at: Date.today)
 
 # Participant
 Participant.create(position_id: commerce_boss.id, event_id: political_transparency.id)
@@ -78,8 +78,8 @@ Attendee.create(event: online_registration, name: Faker::Name.name, position: Fa
 Attendee.create(event: registration_offices, name: Faker::Name.name, position: Faker::Name.title, company: Faker::Company.name)
 
 # Attachments
-Attachment.create(title: 'PDF Attachment', file: File.open('./spec/fixtures/dummy.pdf'), event: registration_offices)
-Attachment.create(title: 'JPG Attachment', file: File.open('./spec/fixtures/dummy.jpg'), event: registration_offices)
+Attachment.create(title: 'PDF Attachment', file: File.open('./spec/fixtures/dummy.pdf'), public: true, event: registration_offices)
+Attachment.create(title: 'JPG Attachment', file: File.open('./spec/fixtures/dummy.jpg'), public: true, event: registration_offices)
 
 #Interests
 interest_1 = Interest.create(name:"Actividad económica y empresarial")
