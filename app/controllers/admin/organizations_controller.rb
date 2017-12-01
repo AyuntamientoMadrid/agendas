@@ -37,6 +37,20 @@ module Admin
       end
     end
 
+    def destroy
+      @organization = Organization.find(params[:id])
+      @organization.canceled_at = Time.zone.now
+      User.soft_destroy(@organization)
+
+      if @organization.save
+        redirect_to admin_organizations_path,
+                    notice: t('backend.successfully_destroyed_record')
+      else
+        flash[:alert] = t('backend.unable_to_perform_operation')
+        redirect_to admin_organizations_path
+      end
+    end
+
     private
 
       def organization_params

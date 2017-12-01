@@ -63,4 +63,10 @@ class User < ActiveRecord::Base
     user
   end
 
+  def self.soft_destroy(organization)
+    user = organization.user
+    user.deleted_at = Time.zone.now
+    user.save
+  end
+
 end

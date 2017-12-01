@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171129121738) do
+ActiveRecord::Schema.define(version: 20171130131121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,6 +207,7 @@ ActiveRecord::Schema.define(version: 20171129121738) do
     t.integer  "associations_count"
     t.integer  "members_count"
     t.string   "approach"
+    t.datetime "canceled_at"
     t.integer  "entity_type"
   end
 
@@ -280,6 +281,7 @@ ActiveRecord::Schema.define(version: 20171129121738) do
     t.string   "user_key"
     t.string   "phones"
     t.integer  "organization_id"
+    t.datetime "deleted_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
