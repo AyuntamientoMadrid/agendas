@@ -20,7 +20,8 @@ class Attachment < ActiveRecord::Base
     message: I18n.t('backend.allowed_file_content_types')
 
   # Validations
-  validates :title, presence: true
+  validates :title, :file, presence: true
+  validates_inclusion_of :public, :in => [true, false]
 
   def normalized_file_name
     "#{self.file_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')}"

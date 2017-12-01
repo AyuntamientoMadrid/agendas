@@ -7,11 +7,17 @@ $(function(){
     weekStart: 1
   });
 
+
   $(".admin-form").validate({
+
       ignore: [],
       errorElement: "small",
+
       rules : {
           "event[title]" : {
+              required : true
+          },
+          "event[location]" : {
               required : true
           },
           "event[scheduled]" : {
@@ -19,24 +25,151 @@ $(function(){
           },
           "event[position_id]" : {
               required : true
+          },
+          "event[lobby_activity]" : {
+              required : true,
+          },
+          "event[attachments_attributes][0][title]" : {
+              required : true
+          },
+          "event[attachments_attributes][0][file]" : {
+            required : true
+          },
+          "event[attachments_attributes][0][public]" : {
+            required : true
+          },
+          "event[published_at]" : {
+            required : true
           }
       },
 
       messages : {
           "event[title]" : {
-              required : "<%= I18n.translate('backend.mandatory_field')%>"
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[location]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
           },
           "event[scheduled]" : {
-              required : "<%= I18n.translate('backend.mandatory_field')%>"
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
           },
           "event[position_id]" : {
-              required : "<%= I18n.translate('backend.mandatory_field')%>"
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[attachments_attributes][0][title]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[attachments_attributes][0][public]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[attachments_attributes][0][file]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[attachments_attributes][0][public]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[published_at]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
           }
       },
 
       errorPlacement : function(error, element) {
-          error.insertAfter(element);
+        error.insertAfter(element);
+        if (element.attr("name") == "event[lobby_activity]" ){
+          error.appendTo('.meeting-lobby-activity .error-radio-buttons');
+        } else if (element.attr("name") == "event[attachments_attributes][0][public]" ) {
+          error.appendTo('.attachments-public .error-radio-buttons');
+        }
       }
+  });
+
+  if( $('.admin-form #attachments .nested-fields').length > 0 ){
+    $(".admin-form").valid();
+  }
+
+  $('#lobby-activity-event').hide();
+
+  $("#event_lobby_activity_true").click(function(){
+    $("#lobby-activity-event").show();
+    $('lobby-activity-event').show();
+  });
+
+  $("#event_lobby_activity_false").click(function(){
+    $("#lobby-activity-event").hide();
+    $("#lobby-activity-event #category-block").hide();
+    $("#lobby-activity-event #re-block").hide();
+    $("#lobby-activity-event #agents-block").hide();
+    $('#event_organization_name').val('');
+  });
+
+  $('#event_organization_name').bind('railsAutocomplete.select', function(event, data){
+    $('#organization_id').val(data.item.id);
+    $('#event-category').empty();
+    if ($('#organization_id').val()){
+      $.ajax({
+        method: "GET",
+        url: $('#category-block').data('new-url').replace('organization_id', $('#organization_id').val())
+      }).done(function( category ) {
+        var div_category = $('#event-category');
+        div_category.append(category);
+      });
+      $("#category-block").show();
+    }
+
+    if ($("#re-block #event-represented-entities").find(".nested-fields").length > 0){
+      $('#re-block .link_to_remove_association').trigger('click');
+      $("#re-block").show();
+      $('#re-block .add_fields').trigger('click');
+    }else{
+      $("#re-block").show();
+      $('#re-block .add_fields').trigger('click');
+    }
+
+    if ($("#agents-block #event-agents").find(".nested-fields").length > 0){
+      $('#agents-block .link_to_remove_association').trigger('click');
+      $("#agents-block").show();
+      $('#agents-block .add_fields').trigger('click');
+    }else{
+      $("#agents-block").show();
+      $('#agents-block .add_fields').trigger('click');
+    }
+  });
+
+  $('#event-represented-entities').bind('cocoon:after-insert', function() {
+
+    if ($('#organization_id').val()){
+      $.ajax({
+        method: "GET",
+        url: $('#re-block').data('new-url').replace('organization_id', $('#organization_id').val())
+      }).done(function( represented_entities ) {
+        var select = $('#event-represented-entities select:last');
+        if (represented_entities.length > 0) {
+          $.each(represented_entities, function(id, represented_entity){
+            select.append($('<option>', { value: represented_entity.name, text: represented_entity.name }));
+          });
+        } else {
+          select.append($('<option>', { value: $('#event_organization_name').val(), text: $('#event_organization_name').val() }));
+        }
+      });
+    }
+  });
+
+  $('#event-agents').bind('cocoon:after-insert', function() {
+    if ($('#organization_id').val()){
+      $.ajax({
+        method: "GET",
+        url: $('#agents-block').data('new-url').replace('organization_id', $('#organization_id').val())
+      }).done(function( agents ) {
+        var select = $('#event-agents select:last');
+        if (agents.length > 0) {
+          $.each(agents, function(id, agent){
+            select.append($('<option>', { value: agent.name, text: agent.name }));
+          });
+        } else {
+          select.append($('<option>', { value: "No hay agentes disponibles.", text: "No hay agentes disponibles." }));
+        }
+      });
+    }
   });
 
 });

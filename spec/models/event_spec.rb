@@ -26,6 +26,24 @@ describe Event do
     expect(event).not_to be_valid
   end
 
+  it "Should be invalid if event not lobby_activity" do
+    event.lobby_activity = nil
+
+    expect(event).not_to be_valid
+  end
+
+  it "Should be invalid if event not published_at" do
+    event.published_at = nil
+
+    expect(event).not_to be_valid
+  end
+
+  it "Should be invalid if event not location" do
+    event.location = nil
+
+    expect(event).not_to be_valid
+  end
+
   it "Should be invalid if participant are not unique" do
     event = create(:event)
     participant = create(:participant)

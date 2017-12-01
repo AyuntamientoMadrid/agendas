@@ -57,3 +57,11 @@ en:
         identifier: "Agente: Identificador"
         name: "Agente: Nombre"
         from: "Agente: Fecha"
+      event/attendees:
+        name: "Asistente: Nombre"
+        position: "Asistente: Cargo"
+        company: "Asistente: Organización"
+      event/attachments:
+        title: "Archivo adjunto: Título"
+        file: "Archivo adjunto: Archivo"
+        public: "Archivo adjunto: Privacidad"        

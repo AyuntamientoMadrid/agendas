@@ -11,4 +11,6 @@ class Agent < ActiveRecord::Base
     str
   end
 
+  scope :by_organization, -> (organization_id) { where(organization_id: organization_id) }
+
 end
