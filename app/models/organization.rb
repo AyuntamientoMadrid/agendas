@@ -29,11 +29,15 @@ class Organization < ActiveRecord::Base
   searchable do
     text :name, :first_surname, :second_surname, :description
     time :created_at
+    boolean :invalidate
     string :entity_type
     time :inscription_date
   end
 
+  scope :invalidated, -> { where('invalidate = ?', true) }
+  scope :validated, -> { where('invalidate = ?', false) }
 	scope :full_like, -> (name) { where("identifier ilike ? OR name ilike ?", name, name)}
+
 
   def fullname
     str = name

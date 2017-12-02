@@ -7,7 +7,7 @@ describe PublicOrganizationExporter do
   describe '#headers' do
     it "generates localized headers" do
       expect(exporter.headers.first).to eq('referencia')
-      expect(exporter.headers.last).to eq('nombre y apellidos')
+      expect(exporter.headers.last).to eq('invalidada')
     end
   end
 

@@ -230,6 +230,7 @@ ActiveRecord::Schema.define(version: 20171130154333) do
     t.integer  "associations_count"
     t.integer  "members_count"
     t.string   "approach"
+    t.boolean  "invalidate"
     t.datetime "canceled_at"
   end
 

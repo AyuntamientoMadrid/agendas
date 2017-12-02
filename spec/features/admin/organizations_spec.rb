@@ -528,9 +528,29 @@ feature 'Organization' do
         end
       end
 
+      scenario "Shouldn't show invalidate button" do
+        visit new_admin_organization_path
+
+        expect(page).not_to have_content "Invalidate"
+      end
+
     end
 
     describe "Edit" do
+
+      scenario "Should show invalidate button on valid organization" do
+        organization = create(:organization)
+        visit edit_admin_organization_path(organization)
+
+        expect(page).to have_content "Invalidar"
+      end
+
+      scenario "Should show validate button on invalid organization" do
+        organization = create(:organization, invalidate: true)
+        visit edit_admin_organization_path(organization)
+
+        expect(page).to have_content "Validar"
+      end
 
       scenario 'Visit edit admin organization page and remove mandatory fields from organization should display error' do
         organization = create(:organization)

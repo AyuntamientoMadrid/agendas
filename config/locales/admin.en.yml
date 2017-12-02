@@ -115,7 +115,8 @@ es:
     password_confirmation: "Repeat password"
     current_password: "Current password"
     modify: "Modify"
-
+    invalidate: Invalidate
+    validate: Validate
     faq:
       questions: "Frequent questions"
       new_question: "New question"

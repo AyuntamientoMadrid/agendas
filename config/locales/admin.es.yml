@@ -117,7 +117,8 @@ es:
     new_password_confirmation: "Repetir nueva contraseña"
     current_password: "Contraseña actual"
     modify: "Modificar"
-
+    invalidate: Invalidar
+    validate: Validar
     faq:
       questions: "Preguntas frecuentes"
       new_question: "Nueva pregunta"

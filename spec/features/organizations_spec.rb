@@ -136,6 +136,16 @@ feature 'Organizations page' do
         expect(find('#keyword').value).to eq ""
       end
 
+      scenario "Shouldn't show invalidated organizations" do
+        create(:organization, name: "Valid Org 1")
+        create(:organization, name: "Invalid Org 2", invalidate: true)
+        Organization.reindex
+
+        visit organizations_path
+        expect(page).not_to have_content "Invalid Org 2"
+        expect(page).to have_content "Valid Org 1"
+      end
+
       scenario "Should filter by selected entity_type" do
         create(:organization, entity_type: 'federation', name: "Federación 1")
         create(:organization, entity_type: 'association', name: "Asociación 1")
@@ -169,7 +179,6 @@ feature 'Organizations page' do
         expect(page).to have_content "Lobby 1"
         expect(page).to have_content "Asociación 1"
         expect(page).to have_content "Federación 1"
-
       end
     end
 
@@ -364,9 +373,9 @@ feature 'Organizations page' do
       create(:organization, name: "Carlos", first_surname: "Peréz", inscription_date: "Sat, 27 Nov 2015")
       create(:organization, name: "Fulanito", first_surname: "Mengano", inscription_date: "Sun, 27 Nov 2016")
       Organization.reindex
-  
+
       visit organizations_path
-       
+
       page.body.index('Carlos').should < page.body.index('Fulanito')
     end
 
