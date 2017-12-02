@@ -24,7 +24,7 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :represented_entities, allow_destroy: true
   accepts_nested_attributes_for :agents, allow_destroy: true
 
-  after_create :set_inscription_date
+  after_create :set_inscription_date, :set_invalidate
 
   searchable do
     text :name, :first_surname, :second_surname, :description
@@ -59,4 +59,8 @@ class Organization < ActiveRecord::Base
     self.save
   end
 
+  def set_invalidate
+    self.invalidate = false
+    self.save
+  end
 end

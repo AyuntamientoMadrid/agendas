@@ -93,7 +93,7 @@ en:
     contact_person:
       title_fieldset: "Persona fisica de contacto"
       name: "Nombre"
-      second_surname: "Apellido"
+      surnames: "Apellidos"
       phone: "Teléfono"
       email: "Email"
       password: "Contraseña"

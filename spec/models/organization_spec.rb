@@ -102,4 +102,16 @@ describe Organization do
 
   end
 
+  describe "#set_invalidate" do
+
+    it "should set inscription_date with current date" do
+      organization.invalidate = nil
+
+      organization.save
+
+      expect(organization.invalidate).to eq(false)
+    end
+
+  end
+
 end
