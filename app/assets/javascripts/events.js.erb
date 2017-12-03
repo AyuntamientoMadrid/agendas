@@ -97,6 +97,16 @@ $(function(){
     $("#lobby-activity-event").show();
     $("#re-block").show();
     $("#agents-block").show();
+    if ($('#organization_id').val()){
+      $.ajax({
+        method: "GET",
+        url: $('#category-block').data('new-url').replace('organization_id', $('#organization_id').val())
+      }).done(function( category ) {
+        var div_category = $('#event-category');
+        div_category.append(category);
+      });
+      $("#category-block").show();
+    }
   };
 
   $("#event_lobby_activity_false").click(function(){
@@ -139,43 +149,6 @@ $(function(){
       $('#agents-block .add_fields').trigger('click');
     }
   });
-
-  // if ($('#event_organization_name').length > 0){
-  //   // $('#organization_id').val(data.item.id);
-  //   $('#event-category').empty();
-  //   if ($('#organization_id').val()){
-  //     $.ajax({
-  //       method: "GET",
-  //       url: $('#category-block').data('new-url').replace('organization_id', $('#organization_id').val())
-  //     }).done(function( category ) {
-  //       var div_category = $('#event-category');
-  //       div_category.append(category);
-  //     });
-  //     $("#category-block").show();
-  //   }
-  //
-  //   if ($("#re-block #event-represented-entities").find(".nested-fields").length > 0){
-//
-  //     $('#re-block .link_to_remove_association').trigger('click');
-  //     $("#re-block").show();
-  //     $('#re-block .add_fields').trigger('click');
-  //   }else{
-//
-  //     $("#re-block").show();
-  //     $('#re-block .add_fields').trigger('click');
-  //   }
-  //
-  //   if ($("#agents-block #event-agents").find(".nested-fields").length > 0){
-//
-  //     $('#agents-block .link_to_remove_association').trigger('click');
-  //     $("#agents-block").show();
-  //     $('#agents-block .add_fields').trigger('click');
-  //   }else{
-//
-  //     $("#agents-block").show();
-  //     $('#agents-block .add_fields').trigger('click');
-  //   }
-  // };
 
 
   $('#event-represented-entities').bind('cocoon:after-insert', function() {

@@ -155,6 +155,7 @@ feature 'Events' do
             fill_in :event_published_at, with: Date.current
             #Participant fields
             find('.add-participant').click
+            sleep 0.5
 
             within "#participants" do
               find("option[value='1']").select_option
@@ -323,6 +324,18 @@ feature 'Events' do
           expect(page).to have_selector("#agents-block", visible: true)
         end
 
+        scenario 'We can search organization by identifier', :js do
+          organization = create(:organization, identifier: "43138883z")
+          visit new_event_path
+          choose :event_lobby_activity_true
+
+          choose_autocomplete :event_organization_name, with: "43138883z", select: organization.name
+
+          expect(page).to have_selector("#category-block", visible: true)
+          expect(page).to have_selector("#re-block", visible: true)
+          expect(page).to have_selector("#agents-block", visible: true)
+        end
+
         scenario 'When select organization display category', :js do
           organization = create(:organization)
           visit new_event_path
@@ -401,7 +414,8 @@ feature 'Events' do
 
   describe 'Organization user' do
     background do
-      organization_user = create(:user, :lobby)
+      @organization = create(:organization)
+      organization_user = create(:user, :lobby, organization: @organization)
       @position = create(:position)
       organization_user.manages.create(holder_id: @position.holder_id)
       signin(organization_user.email, organization_user.password)
@@ -414,24 +428,162 @@ feature 'Events' do
       expect(page).to have_content event.title
     end
 
-    scenario 'create new event', :js do
-      event = create(:event, title: 'Event not for lobbies')
-      visit events_path
 
-      click_link I18n.t('backend.new_event')
+    describe "Create" do
 
-      expect(page).to have_content I18n.t('backend.new_event')
+      scenario 'visit new event page', :js do
+        visit events_path
 
-      fill_in :event_title, with: 'New event for a lobby'
-      tinymce_fill_in :event_lobby_scheduled, '02/11/2017 06:30'
-      fill_in :event_location, with: 'New location'
-      choose :event_lobby_activity_true
-      select "#{@position.holder.full_name_comma} - #{@position.title}", from: :event_position_id
+        click_link I18n.t('backend.new_event')
 
-      click_button I18n.t('backend.save')
+        expect(page).to have_content I18n.t('backend.new_event')
+      end
 
-      expect(page).to have_content 'New event for a lobby'
-      expect(page).to_not have_content event.title
+      scenario 'create new event with the minimum permitted fields', :js do
+        visit new_event_path
+
+        fill_in :event_title, with: 'New event for a lobby'
+        tinymce_fill_in :event_lobby_scheduled, '02/11/2017 06:30'
+        tinymce_fill_in :event_general_remarks, 'General remarks'
+        fill_in :event_location, with: 'New location'
+        select "#{@position.holder.full_name_comma} - #{@position.title}", from: :event_position_id
+        click_button I18n.t('backend.save')
+
+        expect(page).to have_content 'Registro creado correctamente'
+      end
+
+      scenario 'Visit new event page and create event without mandatory fields and display error', :js do
+        visit new_event_path
+
+        click_button "Guardar"
+
+        expect(page).to have_content "Este campo es obligatorio", count: 3
+      end
+
+      scenario 'Visit new event page and lobby_activity is checked and organization_name selected', :js do
+        visit new_event_path
+
+        find(:radio_button, "event_lobby_activity_true", checked: true)
+        expect(find_field("event_organization_name").value).to eq "#{@organization.name}"
+      end
+
+      scenario 'Visit new event page and not display specific admin/managers fields', :js do
+        visit new_event_path
+
+        expect(page).not_to have_field("event_scheduled")
+        expect(page).not_to have_field("event_published_at")
+      end
+
+      scenario 'Should create organization with all fields without nesteds' do
+        new_position = create(:position)
+        visit new_event_path
+
+        fill_in :event_title, with: "Title"
+        fill_in :event_location, with: "Location"
+        fill_in :event_description, with: "Description"
+        fill_in :event_general_remarks, with: "General remarks"
+        fill_in :event_lobby_scheduled, with: "Lobby scheduled proposal"
+        select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
+        click_button "Guardar"
+
+        event = Event.where(title: "Title").first
+        expect(page).to have_content "Registro creado correctamente"
+        expect(event.title).to eq "Title"
+        expect(event.location).to eq "Location"
+        expect(event.description).to eq "Description"
+        expect(event.general_remarks).to eq "General remarks"
+        expect(event.lobby_scheduled).to eq "Lobby scheduled proposal"
+        expect(event.position).to eq new_position
+        expect(event.lobby_activity).to eq true
+      end
+
+      describe "Lobby activity" do
+
+        scenario 'When check lobby activity true display organization_name', :js do
+          visit new_event_path
+          expect(page).to have_selector("#event_organization_name", visible: false)
+
+          choose :event_lobby_activity_true
+
+          expect(page).to have_selector("#event_organization_name", visible: true)
+        end
+
+        scenario 'When fill by js organization_name fields are visibles', :js do
+          visit new_event_path
+
+          expect(page).to have_selector("#category-block", visible: true)
+          expect(page).to have_selector("#re-block", visible: true)
+          expect(page).to have_selector("#agents-block", visible: true)
+        end
+
+        scenario 'When fill by js organization_name display category', :js do
+          visit new_event_path
+
+          within "#category-block" do
+            expect(page).to have_content @organization.category.name
+          end
+        end
+
+        describe "Represented entity" do
+
+          scenario 'When fill by js organization_name without represented_entity display organization on represented_entity selector', :js do
+            visit new_event_path
+
+            within "#re-block" do
+              find("#link_to_add_association_re").click
+            end
+
+            within "#re-block" do
+              expect(page).to have_selector("option[value='#{@organization.name}']")
+            end
+          end
+
+          scenario 'When fill by js organization_name with represented_entity display represented_entity on represented_entity selector', :js do
+            represented_entity = create(:represented_entity, organization: @organization)
+            visit new_event_path
+
+            within "#re-block" do
+              find("#link_to_add_association_re").click
+            end
+
+            within "#re-block" do
+              expect(page).to have_selector("option[value='#{represented_entity.name}']")
+            end
+          end
+
+        end
+
+        describe "Agents" do
+
+          scenario 'When fill by js organization_name without agents display no_result_text on agents selector', :js do
+            visit new_event_path
+
+            within "#agents-block" do
+              find("#link_to_add_association_agent").click
+            end
+
+            within "#agents-block" do
+              expect(page).to have_selector("option[value='No hay agentes disponibles.']")
+            end
+          end
+
+          scenario 'When fill by js organization_name with agents display agent on agents selector', :js do
+            agent = create(:agent, organization: @organization)
+            visit new_event_path
+
+            within "#agents-block" do
+              find("#link_to_add_association_agent").click
+            end
+
+            within "#agents-block" do
+              expect(page).to have_selector("option[value='#{agent.name}']")
+            end
+          end
+
+        end
+
+      end
+
     end
 
   end

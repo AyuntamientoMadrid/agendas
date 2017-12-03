@@ -5,17 +5,10 @@ module Admin
 
     before_action :set_organization, only: [:update, :edit]
 
-    # autocomplete :organization, :name
-
     def index
       @organizations = search(params)
       @paginated_organizations = Organization.all.where(id: @organizations.hits.map(&:primary_key)).order(created_at: :desc)
     end
-
-    # def show
-    #   @organization = Organization.find(params[:id])
-    #   render :json => [@organization.category.name]
-    # end
 
     def create
       @organization = Organization.new(organization_params)
@@ -56,10 +49,6 @@ module Admin
         flash[:alert] = t('backend.unable_to_perform_operation')
         redirect_to admin_organizations_path
       end
-    end
-
-    def get_autocomplete_items(parameters)
-      items = Organization.full_like("%#{parameters[:term]}%")
     end
 
     private

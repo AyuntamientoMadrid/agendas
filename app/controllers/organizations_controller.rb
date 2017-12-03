@@ -34,4 +34,8 @@ class OrganizationsController < ApplicationController
       @organization = Organization.validated.find(params[:id])
     end
 
+    def get_autocomplete_items(parameters)
+      items = Organization.full_like("%#{parameters[:term]}%")
+    end    
+
 end
