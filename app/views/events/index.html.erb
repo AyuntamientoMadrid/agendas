@@ -25,8 +25,10 @@
       <% @events.each do |event| %>
       <tr>
         <td class="event_date">
-          <%= event.scheduled.to_time.strftime(t('time.formats.short')) %>
-          <span class="hide"><%= event.scheduled.strftime(t('time.formats.custom')) %></span>
+          <% if event.scheduled.present? %>
+            <%= event.scheduled.to_time.strftime(t('time.formats.short')) %>
+            <span class="hide"><%= event.scheduled.strftime(t('time.formats.custom')) %></span>
+          <% end %>
         </td>
         <td class="event_txt">
           <p><%= link_to event.title, event_path(event) %></p>

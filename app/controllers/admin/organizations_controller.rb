@@ -5,17 +5,17 @@ module Admin
 
     before_action :set_organization, only: [:update, :edit]
 
-    autocomplete :organization, :name
+    # autocomplete :organization, :name
 
     def index
       @organizations = search(params)
       @paginated_organizations = Organization.all.where(id: @organizations.hits.map(&:primary_key)).order(created_at: :desc)
     end
 
-    def show
-      @organization = Organization.find(params[:id])
-      render :json => [@organization.category.name]
-    end
+    # def show
+    #   @organization = Organization.find(params[:id])
+    #   render :json => [@organization.category.name]
+    # end
 
     def create
       @organization = Organization.new(organization_params)

@@ -9,9 +9,9 @@ class Event < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
 
-  validates :title, :position, :scheduled, :location, :published_at, presence: true
+  validates :title, :position, :location, presence: true
   validates_inclusion_of :lobby_activity, :in => [true, false]
-  validate :participants_uniqueness, :position_not_in_participants
+  validate :participants_uniqueness, :position_not_in_participants, :role_validate_published_at, :role_validate_scheduled
 
   before_create :set_status
 
@@ -140,5 +140,15 @@ class Event < ActiveRecord::Base
 
     def set_status
       self.status = :on_request if self.user.lobby?
+    end
+
+    def role_validate_published_at
+      return if self.user.lobby? || self.published_at.present?
+      errors.add(:base, "Fecha de publicación no puede estar en blanco")
+    end
+
+    def role_validate_scheduled
+      return if self.user.lobby? || self.scheduled.present?
+      errors.add(:base, "Fecha del evento no puede estar en blanco")
     end
 end

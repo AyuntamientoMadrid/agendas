@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get '/agenda/:holder/:full_name', to: 'visitors#agenda', as: 'agenda'
   get '/import', to: 'users#import', as: 'import'
   get '/faq', to: 'questions#index', as: 'faq'
-  resources :organizations, only: [:index, :show]
+
 
   # Admin
   get "/admin", to: 'events#index', as: 'admin'
@@ -29,13 +29,21 @@ Rails.application.routes.draw do
   resources :activities
 
   namespace :admin do
-    resources :organizations do
-      get :autocomplete_organization_name, :on => :collection
-      resources :represented_entities, only: :index, format: :json
-      resources :agents, only: :index, format: :json
-    end
+    resources :organizations
+    # resources :organizations do
+    #   get :autocomplete_organization_name, :on => :collection
+    #   resources :represented_entities, only: :index, format: :json
+    #   resources :agents, only: :index, format: :json
+    # end
     resources :questions
     post 'order_questions', to: 'questions#order', as: 'order_questions'
+  end
+  
+  # resources :organizations, only: [:index, :show]
+  resources :organizations do
+    get :autocomplete_organization_name, :on => :collection
+    resources :represented_entities, only: :index, format: :json
+    resources :agents, only: :index, format: :json
   end
 
 end

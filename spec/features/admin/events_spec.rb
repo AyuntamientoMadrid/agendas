@@ -423,11 +423,10 @@ feature 'Events' do
       expect(page).to have_content I18n.t('backend.new_event')
 
       fill_in :event_title, with: 'New event for a lobby'
-      fill_in :event_scheduled, with: '02/11/2017 06:30'
+      tinymce_fill_in :event_lobby_scheduled, '02/11/2017 06:30'
       fill_in :event_location, with: 'New location'
       choose :event_lobby_activity_true
       select "#{@position.holder.full_name_comma} - #{@position.title}", from: :event_position_id
-      fill_in :event_published_at, with: '02/11/2017 06:30'
 
       click_button I18n.t('backend.save')
 
@@ -436,11 +435,4 @@ feature 'Events' do
     end
 
   end
-end
-
-def choose_autocomplete(field, options = {})
-  page.execute_script %Q{ $('##{field}').trigger('focus'); }
-  find("#event_organization_name").native.send_key(options[:with])
-  sleep 1
-  page.execute_script %Q{ $('li.ui-menu-item:contains("#{options[:select]}")').trigger("mouseenter").trigger("click"); }
 end
