@@ -21,6 +21,7 @@
 //= require ../dependencies/foundation-datepicker
 //= require_tree ../dependencies/foundation-datepicker-locales
 //= require tinymce
+//= require tinymce-jquery
 //= require autocomplete-rails
 //= require_tree .
 
