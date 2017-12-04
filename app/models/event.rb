@@ -42,6 +42,8 @@ class Event < ActiveRecord::Base
     joins(:position).where("positions.holder_id IN (?)", holder_ids)
   }
 
+  enum status: { requested: 0, accepted: 1 }
+
   def self.managed_by(user)
     holder_ids = Holder.managed_by(user.id).pluck(:id)
     titular_event_ids = Event.by_holders(holder_ids).pluck(:id)
@@ -139,7 +141,7 @@ class Event < ActiveRecord::Base
     end
 
     def set_status
-      self.status = :on_request if self.user.lobby?
+      self.status = "requested" if self.user.lobby?
     end
 
     def role_validate_published_at

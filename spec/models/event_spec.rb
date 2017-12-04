@@ -177,26 +177,12 @@ describe Event do
 
   describe "organizations' events" do
     let!(:organization_user) { create(:user, :lobby) }
-    let!(:position) { create(:position) }
 
     it "should create event with status on_request" do
       event = create(:event, title: 'Event on request', user: organization_user)
       event.save
 
-      expect(event.status).to eq('on_request')
-    end
-
-  end
-
-  describe "admins' events" do
-    let!(:organization_user) { create(:user, :admin) }
-    let!(:position) { create(:position) }
-
-    it "should create event with status nil" do
-      event = create(:event, title: 'Admin event', user: organization_user)
-      event.save
-
-      expect(event.status).to eq(nil)
+      expect(event.status).to eq('requested')
     end
 
   end
