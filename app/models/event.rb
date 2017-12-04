@@ -44,6 +44,8 @@ class Event < ActiveRecord::Base
 
   enum status: { requested: 0, accepted: 1 }
 
+  scope :unpublished, -> { where("published_at >= ?", Time.zone.today) }
+
   def self.managed_by(user)
     holder_ids = Holder.managed_by(user.id).pluck(:id)
     titular_event_ids = Event.by_holders(holder_ids).pluck(:id)
@@ -80,6 +82,7 @@ class Event < ActiveRecord::Base
   searchable do
     text :title, :description
     time :scheduled
+    date :published_at
 
     text :area_title do
       self.position.area.title
