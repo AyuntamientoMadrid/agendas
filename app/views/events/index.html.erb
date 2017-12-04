@@ -28,6 +28,8 @@
           <% if event.scheduled.present? %>
             <%= event.scheduled.to_time.strftime(t('time.formats.short')) %>
             <span class="hide"><%= event.scheduled.strftime(t('time.formats.custom')) %></span>
+            <% else %>
+            <span><%= t('backend.pending') %></span>
           <% end %>
         </td>
         <td class="event_txt">
