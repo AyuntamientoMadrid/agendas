@@ -51,6 +51,17 @@ en:
 
       interests_title: "Area de interés"
 
+    new:
+      title: Registration in lobbies
+
+    edit:
+      title: Modification in the registry of lobbies
+
+    delete:
+      title: Unsubscribe in the registry of lobbies
+
+    common:
+
   backend:
     new_organization_title: "Nueva organización"
     reference:

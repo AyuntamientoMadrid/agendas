@@ -1,0 +1,24 @@
+<% register_url = 'https://sede.madrid.es/portal/site/tramites/menuitem.1f3361415fda829be152e15284f1a5a0/?vgnextoid=4d629f7aec219210VgnVCM100000171f5a0aRCRD&vgnextchannel=db32275e58889210VgnVCM100000171f5a0aRCRD&vgnextfmt=default' %>
+
+<% certificates_url = 'https://sede.madrid.es/portal/site/tramites/menuitem.1f3361415fda829be152e15284f1a5a0/?vgnextoid=33b09f7aec219210VgnVCM100000171f5a0aRCRD&vgnextchannel=fd9ae59bdb789210VgnVCM100000171f5a0aRCRD&vgnextfmt=default' %>
+<br/>
+<h3>Instrucciones generales</h3>
+<span>
+El impreso puede ser cumplimentado o a mano (con mayúsculas tipo imprenta), o a través de la Sede electrónica del Ayuntamiento de Madrid (<%= link_to 'https://sede.madrid.es', 'https://sede.madrid.es' , name: nil %>).
+</span>
+<ul>
+  <li>
+    <br>
+    Podrá presentarlo:
+  </li>
+  <li>
+    <br>
+    a) <strong>Presencialmente</strong>, una vez cumplimentado y firmado, en los registros de los Distritos, en los restantes registros del Ayuntamiento de Madrid, en los registros de la Administración General del Estado, en los de las Comunidades Autónomas, o mediante las demás formas previstas en el artículo 16.4 de la Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas.
+  </li>
+  <li>
+    <br>
+    b) Utilizando el <%= link_to 'Registro Electrónico', register_url, name: nil %>. En este caso, deberá utilizar los <%= link_to 'certificados electrónicos', certificates_url, name: nil %> admitidos por el Ayuntamiento de Madrid.
+  </li>
+</ul>
+<br/>
+ <%= link_to 'Ir a sede electronica', '#' ,class: 'button expanded button', name: nil %>

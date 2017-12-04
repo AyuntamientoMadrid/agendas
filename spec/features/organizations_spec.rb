@@ -397,4 +397,13 @@ feature 'Organizations page' do
 
   end
 
+  describe "New (remote)" do
+
+    scenario 'Should show page title' do
+      visit new_organization_path
+
+      expect(page).to have_content I18n.t 'organizations.new.title'
+    end
+
+  end
 end

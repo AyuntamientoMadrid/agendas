@@ -17,6 +17,8 @@ es:
     frontend: "Zona pública"
     basic_data: "Datos"
     change_password: "Cambiar contraseña"
+    edit_organization: Modificar declaracion responsable
+    delete_organization: Eliminar declaracion responsable
     mandatory_field: "Este campo es obligatorio"
     successfully_updated_record: "Registro actualizado correctamente"
     successfully_destroyed_record: "Registro eliminado correctamente"

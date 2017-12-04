@@ -14,6 +14,8 @@ es:
     back: "Volver"
     none: "Ninguno"
     frontend: "Zona pública"
+    edit_organization: Modify responsible declaration
+    delete_organization: Delete responsible declaration
     basic_data: "Datos"
     mandatory_field: "Este campo es obligatorio"
     successfully_updated_record: "Registro actualizado correctamente"

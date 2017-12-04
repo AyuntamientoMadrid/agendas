@@ -1,0 +1,24 @@
+<% register_url = 'https://sede.madrid.es/portal/site/tramites/menuitem.1f3361415fda829be152e15284f1a5a0/?vgnextoid=4d629f7aec219210VgnVCM100000171f5a0aRCRD&vgnextchannel=db32275e58889210VgnVCM100000171f5a0aRCRD&vgnextfmt=default' %>
+
+<% certificates_url = 'https://sede.madrid.es/portal/site/tramites/menuitem.1f3361415fda829be152e15284f1a5a0/?vgnextoid=33b09f7aec219210VgnVCM100000171f5a0aRCRD&vgnextchannel=fd9ae59bdb789210VgnVCM100000171f5a0aRCRD&vgnextfmt=default' %>
+<br/>
+<h3>General instructions</h3>
+<span>
+The form can be completed or by hand (with capital letters type), or through the electronic headquarters of the City of Madrid (<%= link_to 'https://sede.madrid.es', 'https://sede.madrid.es' , name: nil %>).
+</span>
+<ul>
+  <li>
+    <br>
+    You can present it:
+  </li>
+  <li>
+    <br>
+    a) <strong>In person</strong>, once completed and signed, in the registers of the Districts, in the other registers of the Madrid City Council, in the registers of the General State Administration, in those of the Autonomous Communities, or through the other forms provided for in Article 16.4 of Law 39/2015, of October 1, on the Common Administrative Procedure of Public Administrations.
+  </li>
+  <li>
+    <br>
+    b) Using the  <%= link_to 'Electronic Registry', register_url, name: nil %>. Using the <%= link_to 'electronic certificate', certificates_url, name: nil %>. In this case, you must use the electronic certificates accepted by the Madrid City Council.
+  </li>
+</ul>
+<br/>
+ <%= link_to 'Go to electronic headquarters', '#' ,class: 'button expanded button', name: nil %>

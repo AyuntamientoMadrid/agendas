@@ -67,6 +67,20 @@
           <i class="fi-key size-18"> <%= t("backend.change_password")%></i>
       <% end %>
     </li>
+    <% if current_user.admin? %>
+    <li class="<%= active_menu('organization/edit') %>">
+      <%= link_to edit_organization_path, target: "_blank" do %>
+          <i class="fi-page-edit size-18"> <%= t("backend.edit_organization")%></i>
+      <% end %>
+    </li>
+    <% end %>
+    <% if current_user.admin? %>
+    <li class="<%= active_menu('organization/delete') %>">
+      <%= link_to destroy_organization_path, target: "_blank" do %>
+          <i class="fi-page-delete size-18"> <%= t("backend.delete_organization")%></i>
+      <% end %>
+    </li>
+    <% end %>
     <li>
       <%= link_to destroy_user_session_path, method: :delete do %>
           <i class="fi-arrow-left size-18">

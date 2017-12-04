@@ -938,4 +938,36 @@ feature 'Organization' do
 
   end
 
+  describe "Edit (remote)" do
+
+    background do
+      user_admin = create(:user, :admin)
+      signin(user_admin.email, user_admin.password)
+    end
+
+    scenario 'Should show page title' do
+      visit admin_path
+
+      click_link I18n.t 'backend.edit_organization'
+      expect(page).to have_content I18n.t 'organizations.edit.title'
+    end
+
+  end
+
+  describe "Destroy (remote)" do
+
+    background do
+      user_admin = create(:user, :admin)
+      signin(user_admin.email, user_admin.password)
+    end
+
+    scenario 'Should show page title' do
+      visit admin_path
+
+      click_link I18n.t 'backend.delete_organization'
+      expect(page).to have_content I18n.t 'organizations.delete.title'
+    end
+
+  end
+
 end
