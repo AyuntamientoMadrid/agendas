@@ -92,6 +92,8 @@ feature 'Events' do
       expect(page).to have_content "Test for check lobby_activity"
     end
 
+    end
+
     describe "Create" do
 
       scenario 'visit create event form' do
