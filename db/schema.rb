@@ -225,6 +225,7 @@ ActiveRecord::Schema.define(version: 20171204113941) do
     t.datetime "updated_at",            null: false
     t.string   "inscription_reference"
     t.date     "inscription_date"
+    t.integer  "entity_type"
     t.string   "neighbourhood"
     t.string   "district"
     t.string   "scope"
@@ -232,7 +233,6 @@ ActiveRecord::Schema.define(version: 20171204113941) do
     t.integer  "members_count"
     t.string   "approach"
     t.boolean  "invalidate"
-    t.integer  "entity_type"
     t.datetime "canceled_at"
   end
 
