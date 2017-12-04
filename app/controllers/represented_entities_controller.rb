@@ -1,4 +1,4 @@
-class Admin::RepresentedEntitiesController < AdminController
+class RepresentedEntitiesController < AdminController
   respond_to :json
 
   def index

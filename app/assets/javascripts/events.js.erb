@@ -91,8 +91,23 @@ $(function(){
 
   $("#event_lobby_activity_true").click(function(){
     $("#lobby-activity-event").show();
-    $('lobby-activity-event').show();
   });
+
+  if ($("#event_lobby_activity_true").is(":checked")) {
+    $("#lobby-activity-event").show();
+    $("#re-block").show();
+    $("#agents-block").show();
+    if ($('#organization_id').val()){
+      $.ajax({
+        method: "GET",
+        url: $('#category-block').data('new-url').replace('organization_id', $('#organization_id').val())
+      }).done(function( category ) {
+        var div_category = $('#event-category');
+        div_category.append(category);
+      });
+      $("#category-block").show();
+    }
+  };
 
   $("#event_lobby_activity_false").click(function(){
     $("#lobby-activity-event").hide();
@@ -135,8 +150,8 @@ $(function(){
     }
   });
 
-  $('#event-represented-entities').bind('cocoon:after-insert', function() {
 
+  $('#event-represented-entities').bind('cocoon:after-insert', function() {
     if ($('#organization_id').val()){
       $.ajax({
         method: "GET",

@@ -546,7 +546,8 @@ feature 'Organization' do
       end
 
       scenario "Should show validate button on invalid organization" do
-        organization = create(:organization, invalidate: true)
+        organization = create(:organization)
+        organization.update(invalidate: true)
         visit edit_admin_organization_path(organization)
 
         expect(page).to have_content "Validar"

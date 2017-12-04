@@ -124,48 +124,37 @@ category_2 = Category.second
 category_3 = Category.third
 
 # Organization
-user_lobby_1 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
-user_lobby_1.lobby!
+user_lobby_1 = User.create(password: '12345678', email: 'lobby@agendas.dev', first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
 organization_1 = Organization.create(name: Faker::Company.name, inscription_date: Date.current - 1.year, denied_public_data: false, denied_public_events: false, user: user_lobby_1, category: category_1, reference: 'W45Y')
 
-user_lobby_2 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
-user_lobby_2.lobby!
+user_lobby_2 = User.create(password: '12345678', email: 'lob_by@agendas.dev', first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
 organization_2 = Organization.create(name: Faker::Company.name, inscription_date: Date.current - 2.years, denied_public_data: false, denied_public_events: false, user: user_lobby_2, category: category_2)
 
-user_lobby_3 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
-user_lobby_3.lobby!
+user_lobby_3 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
 organization_3 = Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_3, category: category_3)
 
-user_lobby_4 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
-user_lobby_4.lobby!
+user_lobby_4 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
 organization_4 = Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_4, category: category_1)
 
-user_lobby_5 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
-user_lobby_5.lobby!
+user_lobby_5 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
 organization_5 = Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_5, category: category_2)
 
-user_lobby_6 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
-user_lobby_6.lobby!
+user_lobby_6 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
 organization_6 = Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_6, category: category_1)
 
-user_lobby_7 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
-user_lobby_7.lobby!
+user_lobby_7 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
 organization_7 = Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_7, category: category_3)
 
-user_lobby_8 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
-user_lobby_8.lobby!
+user_lobby_8 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
 organization_8 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_8, category: category_2)
 
-user_lobby_9 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
-user_lobby_9.lobby!
+user_lobby_9 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
 organization_9 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_9, category: category_3)
 
-user_lobby_10 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
-user_lobby_10.lobby!
+user_lobby_10 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
 organization_10 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_10, category: category_1)
 
-user_lobby_11 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1)
-user_lobby_11.lobby!
+user_lobby_11 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
 organization_11 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_11, category: category_2)
 
 #Legal Representant

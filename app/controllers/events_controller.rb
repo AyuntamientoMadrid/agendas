@@ -42,18 +42,18 @@ class EventsController < AdminController
   def event_params
     params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, :search_title, :search_person,
                                   :lobby_activity, :notes, :status, :reasons, :published_at, :canceled_at,
-                                  :organization_name,
+                                  :organization_name, :lobby_scheduled, :general_remarks,
                                   event_represented_entities_attributes: [:id, :name, :_destroy],
                                   event_agents_attributes: [:id, :name, :_destroy],
                                   attendees_attributes: [:id, :name, :position, :company, :_destroy],
                                   participants_attributes: [:id, :position_id, :_destroy],
-                                  attachments_attributes: [:id, :title, :file, :_destroy])
+                                  attachments_attributes: [:id, :title, :file, :public, :_destroy])
   end
 
   def set_holders
     @participants = Position.current
     @holders = current_user.admin? ? @participants : current_user.holders
-    @positions = current_user.admin? ? @participants : Position.current.holders(current_user.id)
+    @positions = current_user.admin? || current_user.lobby? ? @participants : Position.current.holders(current_user.id)
   end
 
   def list_admin_events

@@ -36,6 +36,7 @@ feature 'Organizations page' do
 
     scenario 'Should navigate to organization public page when user clicks organization name link', :search do
       organization = create(:organization)
+
       Organization.reindex
 
       visit organizations_path
@@ -138,7 +139,9 @@ feature 'Organizations page' do
 
       scenario "Shouldn't show invalidated organizations" do
         create(:organization, name: "Valid Org 1")
-        create(:organization, name: "Invalid Org 2", invalidate: true)
+        organization = create(:organization, name: "Invalid Org 2")
+        organization.update(invalidate: true)
+
         Organization.reindex
 
         visit organizations_path

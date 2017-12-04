@@ -19,9 +19,15 @@
       <%= f.label :location, t('backend.location') %>
       <%= f.text_field :location %>
       <%= f.label :description, t('backend.description') %>
-      <%= f.text_area :description, class: 'tinymce'%>
-      <%= f.label :scheduled, t('backend.date') %>
-      <%= f.text_field :scheduled, class: 'fdatepicker' %>
+      <%= f.text_area :description, class: 'tinymce' %>
+      <%= f.label :general_remarks, t('backend.general_remarks') %>
+      <%= f.text_area :general_remarks, class: 'tinymce' %>
+      <%= f.label :lobby_scheduled, t('backend.lobby_date') %>
+      <%= f.text_area :lobby_scheduled, class: 'tinymce' %>
+      <% unless current_user.lobby? %>
+        <%= f.label :scheduled, t('backend.date') %>
+        <%= f.text_field :scheduled, class: 'fdatepicker' %>
+      <% end %>
       <%= f.label :position_id, t('backend.main_position') %>
       <%= f.select :position_id, @positions.map{|position| [position.holder.full_name_comma+' - '+position.title, position.id]}, prompt: t('backend.select') %>
     </fieldset>
@@ -43,7 +49,7 @@
 
     <fieldset class="meeting-lobby-activity">
       <legend><%= t('backend.meeting_lobby_activity') %></legend>
-      <%= f.radio_button :lobby_activity, true %>
+      <%= f.radio_button :lobby_activity, true, checked: current_user.lobby? %>
       <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_yes'), value: true %>
       <%= f.radio_button :lobby_activity, false %>
       <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_no'), value: false %>
@@ -51,9 +57,14 @@
 
       <div id="lobby-activity-event">
         Organización
-        <%= hidden_field_tag  :organization_id %>
-        <%= f.autocomplete_field :organization_name, autocomplete_organization_name_admin_organizations_path, :update_elements => {}, placeholder: t('backend.meeting_lobby_activity_input') %>
-        <div id="category-block" style="display: none" data-new-url="<%= organization_category_url_pattern(format: :json) %>">
+        <% if current_user.lobby? %>
+          <%= hidden_field_tag  :organization_id, current_user.organization_id %>
+          <%= f.autocomplete_field :organization_name, autocomplete_organization_name_organizations_path, :update_elements => {}, placeholder: t('backend.meeting_lobby_activity_input'), value: current_user.organization.name, readonly: true %>
+        <% else %>
+          <%= hidden_field_tag  :organization_id %>
+          <%= f.autocomplete_field :organization_name, autocomplete_organization_name_organizations_path, :update_elements => {}, placeholder: t('backend.meeting_lobby_activity_input') %>
+        <% end %>
+        <div id="category-block" style="display: none" data-new-url="<%= organization_category_url_pattern %>">
           <div class="row">
             <div class="small-10 columns"><%= t('backend.meeting_lobby_category') %> <i id="event-category"></i></div>
             <div class="small-2 columns"></div>
@@ -71,7 +82,7 @@
               <%= render 'event_represented_entity_fields', f: represented_entity %>
             <% end %>
           </div>
-          <%= link_to_add_association t('backend.add'), f, :event_represented_entities, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#event-represented-entities', id:'link_to_add_association' %>
+          <%= link_to_add_association t('backend.add'), f, :event_represented_entities, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#event-represented-entities', id:'link_to_add_association_re' %>
         </div>
 
         <div id="agents-block" style="display: none" data-new-url="<%= organization_agents_url_pattern(format: :json) %>">
@@ -84,7 +95,7 @@
               <%= render 'event_agent_fields', f: agent %>
             <% end %>
           </div>
-          <%= link_to_add_association t('backend.add'), f, :event_agents, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#event-agents' %>
+          <%= link_to_add_association t('backend.add'), f, :event_agents, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#event-agents', id:'link_to_add_association_agent' %>
         </div>
 
       </div>
@@ -113,10 +124,12 @@
       <%= link_to_add_association t('backend.add'), f, :attachments, :class => "button radius tiny info right add-attachment",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attachments' %>
     </fieldset>
 
-    <fieldset>
-      <legend><%= t('backend.meeting_lobby_activity_public_website') %></legend>
-      <%= f.text_field :published_at, class: 'fdatepicker' %>
-    </fieldset>
+    <% unless current_user.lobby? %>
+      <fieldset>
+        <legend><%= t('backend.meeting_lobby_activity_public_website') %></legend>
+        <%= f.text_field :published_at, class: 'fdatepicker' %>
+      </fieldset>
+    <% end %>
   <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
 <% end %>
 <%= tinymce :language => I18n.locale %>

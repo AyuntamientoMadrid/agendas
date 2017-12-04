@@ -80,6 +80,8 @@ es:
         placeholder_person: "Búsqueda por titulares y asistentes"
         button: "Buscar"
     date: "Fecha"
+    lobby_date: "Descripción de fecha propuesta"
+    general_remarks: "Observaciones generales"
     delete_confirm: "Este evento se va a eliminar de todas las agendas en las que está anotado, tanto del convocante como de los asistentes. ¿Está seguro de eliminarlo?"
     location: "Lugar"
     attendees: "Otros asistentes"

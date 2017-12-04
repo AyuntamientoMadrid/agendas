@@ -1,4 +1,4 @@
-class Admin::AgentsController < AdminController
+class AgentsController < AdminController
   respond_to :json
 
   def index
