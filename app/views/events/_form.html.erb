@@ -20,11 +20,14 @@
       <%= f.text_field :location %>
       <%= f.label :description, t('backend.description') %>
       <%= f.text_area :description, class: 'tinymce' %>
+      <br />
       <% if current_user.lobby? %>
         <%= f.label :general_remarks, t('backend.general_remarks') %>
         <%= f.text_area :general_remarks, class: 'tinymce' %>
+        <br />
         <%= f.label :lobby_scheduled, t('backend.lobby_date') %>
         <%= f.text_area :lobby_scheduled, class: 'tinymce' %>
+        <br />
       <% end %>
       <% unless current_user.lobby? %>
         <%= f.label :scheduled, t('backend.date') %>
