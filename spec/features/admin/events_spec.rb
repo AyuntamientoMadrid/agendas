@@ -156,14 +156,14 @@ feature 'Events' do
             new_position = create(:position)
             visit new_event_path
 
-            #Mandatory fields
+            # Mandatory fields
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
             fill_in :event_scheduled, with: DateTime.current
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             choose :event_lobby_activity_true
             fill_in :event_published_at, with: Date.current
-            #Participant fields
+            # Participant fields
             find('.add-participant').click
             sleep 0.5
 
@@ -210,14 +210,14 @@ feature 'Events' do
             new_position = create(:position)
             visit new_event_path
 
-            #Mandatory fields
+            # Mandatory fields
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
             fill_in :event_scheduled, with: DateTime.current
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             choose :event_lobby_activity_true
             fill_in :event_published_at, with: Date.current
-            #Attendees fields
+            # Attendees fields
             find('.add-attendee').click
             find(".attendee-name").set("Name")
             click_button "Guardar"
@@ -232,14 +232,14 @@ feature 'Events' do
             new_position = create(:position)
             visit new_event_path
 
-            #Mandatory fields
+            # Mandatory fields
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
             fill_in :event_scheduled, with: DateTime.current
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             choose :event_lobby_activity_true
             fill_in :event_published_at, with: Date.current
-            #Participant fields
+            # Participant fields
             find('.add-attendee').click
             find(".attendee-name").set("Name")
             find(".attendee-position").set("Position")
@@ -438,7 +438,6 @@ feature 'Events' do
       expect(page).to have_content event.title
     end
 
-
     describe "Create" do
 
       scenario 'visit new event page', :js do
@@ -474,7 +473,7 @@ feature 'Events' do
         visit new_event_path
 
         find(:radio_button, "event_lobby_activity_true", checked: true)
-        expect(find_field("event_organization_name").value).to eq "#{@organization.name}"
+        expect(find_field("event_organization_name").value).to eq @organization.name.to_s
       end
 
       scenario 'Visit new event page and not display specific admin/managers fields', :js do
@@ -594,6 +593,44 @@ feature 'Events' do
 
       end
 
+    end
+
+    describe "Edit" do
+      scenario "Edit buttons enabled for events on_request" do
+        event_requested = create(:event, title: 'Event on request', position: @position, status: 0)
+        event_accepted = create(:event, title: 'Event accepted', position: @position, status: 1)
+
+        visit events_path
+
+        expect(page).to have_link("", href: edit_event_path(event_requested).to_s)
+        expect(page).to_not have_link("", href: edit_event_path(event_accepted).to_s)
+      end
+
+      scenario "Edit buttons enabled for events on_request on show view" do
+        event_requested = create(:event, title: 'Event on request', position: @position, status: 0)
+        event_accepted = create(:event, title: 'Event accepted', position: @position, status: 1)
+
+        visit event_path(event_requested)
+
+        expect(page).to have_link("Editar")
+
+        visit event_path(event_accepted)
+
+        expect(page).to_not have_link("Editar")
+      end
+
+      scenario "User can edit events" do
+        event_requested = create(:event, title: 'Event on request', position: @position, status: 0)
+
+        visit event_path(event_requested)
+
+        click_link "Editar"
+
+        fill_in :event_title, with: "Edited event title"
+        click_button "Guardar"
+
+        expect(page).to have_content "Edited event title"
+      end
     end
 
   end
