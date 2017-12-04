@@ -5,5 +5,5 @@
     <%= event.position.title.custom_titleize %> ·
     <%= event.position.area.title.custom_titleize %>
   </strong></p>
-  <p><%= I18n.l event.scheduled, format: :complete %></p>
+  <p><%= I18n.l event.scheduled, format: :complete if event.scheduled.present? %></p>
 </article>
