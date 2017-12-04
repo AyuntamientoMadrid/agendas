@@ -81,6 +81,7 @@ es:
         person: "Búsqueda por titulares y asistentes"
         placeholder_person: "Búsqueda por titulares y asistentes"
         button: "Buscar"
+    pending: "Pendiente"
     date: "Fecha"
     lobby_date: "Descripción de fecha propuesta"
     general_remarks: "Observaciones generales"
