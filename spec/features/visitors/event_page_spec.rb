@@ -33,7 +33,7 @@ feature 'Event page' do
     PublicActivity.set_controller(nil)
   end
 
-  scenario 'show only unpublished events', :search do
+  scenario 'show only published events', :search do
     event1 = create(:event, published_at: Time.zone.yesterday, title: 'event1')
     event2 = create(:event, published_at: Time.zone.today, title: 'event2')
     event3 = create(:event, published_at: Time.zone.tomorrow, title: 'event3')
