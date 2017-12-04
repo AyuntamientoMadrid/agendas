@@ -10,7 +10,7 @@ class InfringementEmailsController < ApplicationController
     @infringement_email = InfringementEmail.new(email_params)
 
     if @infringement_email.valid?
-      UserMailer.infringement_email(@infringement_email, email_params[:attachment]).deliver
+      UserMailer.infringement_email(@infringement_email, email_params[:attachment]).deliver_now
       redirect_to new_infringement_email_path, notice: t('infringement_mailbox.sent')
     else
       flash.now.alert = t('infringement_mailbox.error', error: @infringement_email.errors.messages[:attachment][0])

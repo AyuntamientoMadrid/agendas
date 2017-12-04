@@ -1,4 +1,7 @@
 feature 'Infringement mailbox' do
+  background do
+    create(:user, :admin)
+  end
 
   scenario 'Anyone can visit the mailbox page' do
     visit new_infringement_email_path
@@ -27,7 +30,7 @@ feature 'Infringement mailbox' do
     fill_in :infringement_email_link, with: "www.agenda.es"
     attach_file("infringement_email_attachment", Rails.root + "spec/fixtures/dummy.pdf")
 
-    sleep(5) #to pass the invise_captcha
+    sleep(5) # to pass the invise_captcha
 
     click_button I18n.t('infringement_mailbox.send')
 
@@ -44,9 +47,8 @@ feature 'Infringement mailbox' do
 
     click_button I18n.t('infringement_mailbox.send')
 
-    expect(page.status_code).to eq(200)
     expect(current_path).to eq(new_infringement_email_path)
+    expect(page).to_not have_content I18n.t('infringement_mailbox.sent')
   end
-
 
 end
