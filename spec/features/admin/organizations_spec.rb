@@ -187,7 +187,7 @@ feature 'Organization' do
         select new_category.name, from: :organization_category_id
         fill_in :organization_web, with: "www.new_web.com"
         fill_in :organization_description, with: "New description"
-        select :generalitat_catalunya, from: :organization_registered_lobbies
+        select "Generalidad catalunya", from: :organization_registered_lobbies
         # mandatory user fields
         fill_in :organization_user_attributes_first_name, with: "user first name"
         fill_in :organization_user_attributes_last_name, with: "user last name"
@@ -257,7 +257,7 @@ feature 'Organization' do
         visit new_admin_organization_path
 
         fill_in :organization_fiscal_year, with: 2014
-        select :range_4, from: :organization_range_fund
+        select "Más de 50.000 euros", from: :organization_range_fund
         check "organization_contract"
         check "organization_subvention"
         # mandatory user fields
@@ -548,6 +548,7 @@ feature 'Organization' do
       scenario "Should show validate button on invalid organization" do
         organization = create(:organization)
         organization.update(invalidate: true)
+
         visit edit_admin_organization_path(organization)
 
         expect(page).to have_content "Validar"
@@ -577,7 +578,7 @@ feature 'Organization' do
         select new_category.name, from: :organization_category_id
         fill_in :organization_web, with: "www.new_web.com"
         fill_in :organization_description, with: "New description"
-        select :generalitat_catalunya, from: :organization_registered_lobbies
+        select "Generalidad catalunya", from: :organization_registered_lobbies
         click_button "Guardar"
 
         organization.reload
@@ -633,7 +634,7 @@ feature 'Organization' do
         visit edit_admin_organization_path(organization)
 
         fill_in :organization_fiscal_year, with: 2014
-        select :range_4, from: :organization_range_fund
+        select "Más de 50.000 euros", from: :organization_range_fund
         check "organization_contract"
         check "organization_subvention"
         click_button "Guardar"
@@ -800,7 +801,7 @@ feature 'Organization' do
             # optional fields
             fill_in :organization_represented_entities_attributes_0_first_surname, with: "new first surname"
             fill_in :organization_represented_entities_attributes_0_second_surname, with: "new second surname"
-            select :range_4, from: :organization_represented_entities_attributes_0_range_fund
+            select "Más de 50.000 euros", from: :organization_represented_entities_attributes_0_range_fund
             check "organization_represented_entities_attributes_0_subvention"
             check "organization_represented_entities_attributes_0_contract"
             click_button "Guardar"

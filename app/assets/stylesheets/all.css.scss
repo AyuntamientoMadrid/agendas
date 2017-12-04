@@ -7281,6 +7281,19 @@ select {
   .dib.dn {
     display: none !important;
   }
+  .organizations-list,
+  .organizations-new{
+    h1{
+      font-size: 1.8rem;
+    }
+  }
+  .organizations-list {
+    .button {
+      padding-left: 0;
+      padding-right: 0;
+      width: 100%;
+    }
+  }
 }
 
 .top_bar_box {

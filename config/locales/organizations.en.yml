@@ -52,7 +52,7 @@ en:
       interests_title: "Area de interés"
 
   backend:
-
+    new_organization_title: "Nueva organización" 
     reference:
       title_fieldset: "Referencia de la declaracíon responsable"
       title: "Referencia"
@@ -78,7 +78,13 @@ en:
       town: "Municipio"
       province: "Provincia"
       description: "Descripción"
-      registered_lobbies: "Lobbies registrados"
+      registered_lobbies_title: "Lobbies registrados"
+      registered_lobbies:
+        no_record: "Seleciona algo"
+        generalitat_catalunya: "Generalidad catalunya"
+        cnmc: "CNMC"
+        europe_union: "Europe union"
+        others: "Altro"
 
     legal_representant:
       add_legal_representative: "Añadir legal representant"
@@ -102,7 +108,12 @@ en:
     lobbies_data:
       title_fieldset: "Datos de quien va a ejercer la actividad de lobby por cuenta propia"
       fiscal_year: "Ejercicio anual"
-      range_fund: "Fondos"
+      range_fund_title: "Fondos"
+      range_fund:
+        range_1: "Inferiores a 9.999 euros"
+        range_2: "De 10.000 a 24.999 euros"
+        range_3: "De 25.000 a 49.000 euros"
+        range_4: "Más de 50.000 euros"
       subvention: "¿Ha recibido ayudas y/o subvenciones con cargo al Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
 
@@ -115,6 +126,12 @@ en:
       second_surname: "Segundo apellido"
       from: "Fecha de inicio de la representaciòn"
       fiscal_year: "Ejercicio anual"
+      range_fund_title: "Fondos"
+      range_fund:
+          range_1: "Inferiores a 9.999 euros"
+          range_2: "De 10.000 a 24.999 euros"
+          range_3: "De 25.000 a 49.000 euros"
+          range_4: "Más de 50.000 euros"
       range_founds: "Fondos"
       subvention: "¿Ha recibido ayudas y/o subvenciones con cargo al Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"

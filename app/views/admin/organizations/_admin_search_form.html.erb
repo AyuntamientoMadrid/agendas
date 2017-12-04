@@ -2,7 +2,7 @@
   <br />
   <%= form_tag admin_organizations_path, method: :get do %>
     <%= hidden_field_tag :order, params[:order] %>
-    <div class="small-6 medium-12 columns">
+    <div class="small-12 columns">
       <%= label_tag(:search_title, t("organizations.description")) %>
       <%= text_field_tag :keyword, params[:keyword], placeholder: t('main.form.keyword') %>
     </div>

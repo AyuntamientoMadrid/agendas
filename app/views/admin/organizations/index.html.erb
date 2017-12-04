@@ -1,9 +1,16 @@
-<h1>
-  <%= t('backend.companies') %> (<%= @organizations.total %>)
-  <%= link_to t('backend.new_company'),
+<div class="row organizations-list">
+  <div class="small-12 medium-8 column">
+    <h1>
+      <%= t('backend.companies') %> (<%= @organizations.total %>)
+    </h1>
+  </div>
+
+  <div class=" small-12 medium-4 column">
+    <%= link_to t('backend.new_company'),
               new_admin_organization_path,
               class: "button radius warning right" if can? :create, Organization %>
-</h1>
+  </div>
+</div>
 
 <%= render 'admin_search_form' %>
 
@@ -31,7 +38,7 @@
         </td>
         <td class="right">
           <%= link_to organization_path(organization),
-                      target: :blank,
+                      target: :_blank,
                       title: t('organizations.show.title') do %>
             <i class="step fi-eye size-24"></i>
           <% end %>

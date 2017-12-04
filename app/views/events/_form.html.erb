@@ -1,5 +1,5 @@
 <%= form_for @event, html: {class: 'admin-form'} do |f| %>
-<%= link_to t('backend.back'), events_path , :class=> "button tiny radius" %>
+
     <% if @event.errors.any? %>
         <div class="panel callout radius">
           <strong><%= t('activerecord.errors.template.header',

@@ -1,12 +1,12 @@
 <div id="<%= dom_id(f.object) %>" class="nested-fields">
 
   <%= f.hidden_field :id %>
-  <div class="small-6 columns">
+  <div class="small-12 medium-6 columns">
     <%= f.hidden_field :role, value: :lobby %>
     <%= f.hidden_field :active, value: 1 %>
   </div>
 
-  <div class="small-6 columns">
+  <div class="small-12 medium-6 columns">
     <%= f.label :first_name, t('backend.contact_person.name') %>
     <%= f.text_field :first_name %>
     <%= form_field_errors(f, :first_name) %>
@@ -18,26 +18,26 @@
     <%= form_field_errors(f, :last_name) %>
   </div>
 
-  <div class="small-6 columns">
+  <div class="small-12 medium-6 columns">
     <%= f.label :phones, t('backend.contact_person.phone') %>
     <%= f.text_field :phones %>
     <%= form_field_errors(f, :phones) %>
   </div>
 
-  <div class="small-6 columns">
+  <div class="small-12 medium-6 columns">
     <%= f.label :email, t('backend.contact_person.email') %>
     <%= f.text_field :email %>
     <%= form_field_errors(f, :email) %>
   </div>
 
   <% if form_new_organization? %>
-    <div class="small-6 columns">
+    <div class="small-12 medium-6 columns">
       <%= f.label :password, t('backend.contact_person.password') %>
       <%= f.text_field :password %>
       <%= form_field_errors(f, :password) %>
     </div>
 
-    <div class="small-6 columns">
+    <div class="small-12 medium-6 columns">
       <%= f.label :password_confirmation, t('backend.contact_person.password_confirmation') %>
       <%= f.text_field :password_confirmation %>
       <%= form_field_errors(f, :password_confirmation) %>

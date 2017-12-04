@@ -1,2 +1,6 @@
-<h1><%= t('backend.new_event')%></h1>
+<div class="small-12 mt5">
+  <h1><%= t('backend.new_event')%></h1>
+  <%= link_to t('backend.back'), events_path , :class=> "button tiny radius" %>
+</div>
+
 <%= render :partial => 'form' %>
