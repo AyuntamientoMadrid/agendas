@@ -53,7 +53,7 @@ es:
 
 
   backend:
-    new_organization_title: "Nueva organización" 
+    new_organization_title: "Nueva organización"
     reference:
       title_fieldset: "Referencia de la declaracíon responsable"
       title: "Referencia"
@@ -79,13 +79,13 @@ es:
       town: "Municipio"
       province: "Provincia"
       description: "Descripción"
-      registered_lobbies_title: "Lobbies registrados"
+      registered_lobbies_title: "¿Esta inscrito en algún otro registro?"
       registered_lobbies:
-        no_record: "Seleciona algo"
+        no_record: "Ninguno"
         generalitat_catalunya: "Generalidad catalunya"
         cnmc: "CNMC"
         europe_union: "Europe union"
-        others: "Altro"
+        others: "Otro"
 
     legal_representant:
       add_legal_representative: "Añadir legal representant"
