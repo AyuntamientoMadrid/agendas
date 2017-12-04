@@ -49,7 +49,8 @@ feature 'Event page' do
 
   scenario 'search lobby activity for visitors ', :search do
     create(:event, title: 'Test for check lobby_activity for visitors', lobby_activity: true)
-    
+
+    visit root_path
     check 'lobby_activity'
     click_button I18n.t('backend.search.button')
 
