@@ -57,7 +57,7 @@ class EventsController < AdminController
   end
 
   def list_admin_events
-    @events = Event.searches(params[:search_person], params[:search_title])
+    @events = Event.searches(params[:search_person], params[:search_title], params[:lobby_activity])
     @events.order(scheduled: :desc).page(params[:page]).per(50)
   end
 

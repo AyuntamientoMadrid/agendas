@@ -34,6 +34,7 @@ class VisitorsController < ApplicationController
       fulltext params[:keyword] if params[:keyword].present?
       with :area_id, (Area.find(params[:area]).descendant_ids << Area.find(params[:area]).id) if params[:area].present?
       with :holder_id, params[:holder] if params[:holder].present?
+      with :lobby_activity, params[:lobby_activity] if params[:lobby_activity].present?
       all_of do
         with(:scheduled).greater_than_or_equal_to params[:from].to_date if params[:from].present?
         with(:scheduled).less_than_or_equal_to params[:to].to_date.end_of_day() if params[:to].present?

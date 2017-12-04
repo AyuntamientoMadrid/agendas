@@ -82,6 +82,16 @@ feature 'Events' do
       expect(page).to have_content "No se han encontrado eventos"
     end
 
+    scenario 'search lobby activity' do
+      create(:event, title: 'Test for check lobby_activity', lobby_activity: true)
+      visit events_path
+
+      check 'lobby_activity'
+      click_button I18n.t('backend.search.button')
+
+      expect(page).to have_content "Test for check lobby_activity"
+    end
+
     describe "Create" do
 
       scenario 'visit create event form' do

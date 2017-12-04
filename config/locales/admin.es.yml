@@ -45,6 +45,7 @@ es:
     managed_positions: "Agendas"
     manage_agendas: "Asignación de Agendas"
     lobby: "Lobby"
+    lobby_activity: "Actividad de Lobby"
 
     holders: "Titulares"
     holder: "Titular"

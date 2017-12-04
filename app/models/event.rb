@@ -42,6 +42,8 @@ class Event < ActiveRecord::Base
     joins(:position).where("positions.holder_id IN (?)", holder_ids)
   }
 
+  scope :with_lobby_activity_active, -> { where(lobby_activity: true) }
+
   enum status: { requested: 0, accepted: 1 }
 
   def self.managed_by(user)
@@ -67,10 +69,11 @@ class Event < ActiveRecord::Base
     ability(user, 'participants_events')
   end
 
-  def self.searches(search_person, search_title)
-    if search_person.present? || search_title.present?
+  def self.searches(search_person, search_title, search_lobby_activity)
+    if search_person.present? || search_title.present? || search_lobby_activity.present?
       @events = by_holder_name(search_person).uniq if search_person.present?
       @events = by_title(search_title) if search_title.present?
+      @events = with_lobby_activity_active if search_lobby_activity
     else
       @events = all
     end
@@ -80,6 +83,7 @@ class Event < ActiveRecord::Base
   searchable do
     text :title, :description
     time :scheduled
+    boolean :lobby_activity
 
     text :area_title do
       self.position.area.title
