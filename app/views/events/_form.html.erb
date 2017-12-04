@@ -20,10 +20,12 @@
       <%= f.text_field :location %>
       <%= f.label :description, t('backend.description') %>
       <%= f.text_area :description, class: 'tinymce' %>
-      <%= f.label :general_remarks, t('backend.general_remarks') %>
-      <%= f.text_area :general_remarks, class: 'tinymce' %>
-      <%= f.label :lobby_scheduled, t('backend.lobby_date') %>
-      <%= f.text_area :lobby_scheduled, class: 'tinymce' %>
+      <% if current_user.lobby? %>
+        <%= f.label :general_remarks, t('backend.general_remarks') %>
+        <%= f.text_area :general_remarks, class: 'tinymce' %>
+        <%= f.label :lobby_scheduled, t('backend.lobby_date') %>
+        <%= f.text_area :lobby_scheduled, class: 'tinymce' %>
+      <% end %>
       <% unless current_user.lobby? %>
         <%= f.label :scheduled, t('backend.date') %>
         <%= f.text_field :scheduled, class: 'fdatepicker' %>
@@ -51,7 +53,7 @@
       <legend><%= t('backend.meeting_lobby_activity') %></legend>
       <%= f.radio_button :lobby_activity, true, checked: current_user.lobby? %>
       <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_yes'), value: true %>
-      <%= f.radio_button :lobby_activity, false %>
+      <%= f.radio_button :lobby_activity, false, disabled: current_user.lobby? %>
       <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_no'), value: false %>
       <div class="small-12 error-radio-buttons"></div>
 
@@ -84,7 +86,7 @@
           </div>
           <%= link_to_add_association t('backend.add'), f, :event_represented_entities, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#event-represented-entities', id:'link_to_add_association_re' %>
         </div>
-
+        <hr />
         <div id="agents-block" style="display: none" data-new-url="<%= organization_agents_url_pattern(format: :json) %>">
           <div class="row">
             <div class="small-10 columns">Agentes por parte del lobby</div>
