@@ -592,10 +592,34 @@ feature 'Events' do
 
         visit events_path
 
-        puts page.body
+        expect(page).to have_link("", href: edit_event_path(event_requested).to_s)
+        expect(page).to_not have_link("", href: edit_event_path(event_accepted).to_s)
+      end
 
-        expect(page).to have_content edit_event_path(event_requested)
-        expect(page).to_not have_content edit_event_path(event_accepted)
+      scenario "Edit buttons enabled for events on_request on show view" do
+        event_requested = create(:event, title: 'Event on request', position: @position, status: 0)
+        event_accepted = create(:event, title: 'Event accepted', position: @position, status: 1)
+
+        visit event_path(event_requested)
+
+        expect(page).to have_link("Editar")
+
+        visit event_path(event_accepted)
+
+        expect(page).to_not have_link("Editar")
+      end
+
+      scenario "User can edit events" do
+        event_requested = create(:event, title: 'Event on request', position: @position, status: 0)
+
+        visit event_path(event_requested)
+
+        click_link "Editar"
+
+        fill_in :event_title, with: "Edited event title"
+        click_button "Guardar"
+
+        expect(page).to have_content "Edited event title"
       end
     end
 
