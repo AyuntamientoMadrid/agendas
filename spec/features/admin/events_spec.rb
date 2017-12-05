@@ -4,92 +4,134 @@ feature 'Events' do
 
     background do
       user_manager = create(:user, :user)
-      position = create(:position)
-      user_manager.manages.create(holder_id: position.holder_id)
+      @position = create(:position)
+      user_manager.manages.create(holder_id: @position.holder_id)
       signin(user_manager.email, user_manager.password)
     end
 
-    scenario 'visit the events index page' do
-      visit events_path
+    describe "index" do
 
-      expect(page).to have_content I18n.t 'backend.events'
+      scenario 'visit the events index page' do
+        visit events_path
+
+        expect(page).to have_content I18n.t 'backend.events'
+      end
+
     end
 
-    scenario 'visit create event form' do
-      visit new_event_path
+    describe "create" do
 
-      expect(page).to have_selector('#new_event')
-      expect(page).not_to have_selector('#edit_event')
+      scenario 'visit create event form' do
+        visit new_event_path
+
+        expect(page).to have_selector('#new_event')
+        expect(page).not_to have_selector('#edit_event')
+      end
+
     end
+
+    describe "edit" do
+
+      scenario 'manager user can see on page the name of the organization' do
+        event = create(:event, organization_name: "Organization name", position: @position)
+
+        visit edit_event_path(event)
+
+        expect(page).to have_content('Organización que solicita la reunión')
+        expect(page).to have_css("#event_organization_name[disabled]")
+      end
+
+    end
+
   end
 
   describe 'user admin' do
 
     background do
       user_admin = create(:user, :admin)
-      position = create(:position)
-      user_admin.manages.create(holder_id: position.holder_id)
+      @position = create(:position)
+      user_admin.manages.create(holder_id: @position.holder_id)
       signin(user_admin.email, user_admin.password)
     end
 
-    scenario 'visit show event page' do
-      event = create(:event, title: 'New event from Capybara')
-      visit events_path
+    describe "show" do
 
-      click_link event.title
+      scenario 'visit show event page' do
+        event = create(:event, title: 'New event from Capybara')
+        visit events_path
 
-      expect(page).to have_content event.title
+        click_link event.title
+
+        expect(page).to have_content event.title
+      end
     end
 
-    scenario 'edit event and modify title' do
-      event = create(:event, title: 'Test event')
-      visit edit_event_path(event)
+    describe "edit" do
 
-      fill_in :event_title, with: 'New event modified from Capybara'
-      click_button I18n.t 'backend.save'
+      scenario 'edit event and modify title' do
+        event = create(:event, title: 'Test event')
+        visit edit_event_path(event)
 
-      expect(page).to have_content 'New event modified from Capybara'
+        fill_in :event_title, with: 'New event modified from Capybara'
+        click_button I18n.t 'backend.save'
+
+        expect(page).to have_content 'New event modified from Capybara'
+      end
+
+      scenario 'admin user can see on page the name of the organization' do
+        event = create(:event, organization_name: "Organization name", position: @position)
+
+        visit edit_event_path(event)
+
+        expect(page).to have_content('Organización que solicita la reunión')
+        expect(page).to have_css("#event_organization_name[disabled]")
+      end
+
     end
 
-    scenario 'visit search by title' do
-      event = create(:event, title: 'New event from Capybara')
-      visit events_path
+    describe "index" do
 
-      fill_in :search_title, with: 'Capybara'
-      click_button I18n.t('backend.search.button')
+      scenario 'visit search by title' do
+        event = create(:event, title: 'New event from Capybara')
+        visit events_path
 
-      expect(page).to have_content event.title
-    end
+        fill_in :search_title, with: 'Capybara'
+        click_button I18n.t('backend.search.button')
 
-    scenario 'visit search by person' do
-      event = create(:event, title: 'New event from Capybara')
-      name = event.position.holder.first_name
-      visit events_path
+        expect(page).to have_content event.title
+      end
 
-      fill_in :search_person, with: name
-      click_button I18n.t('backend.search.button')
+      scenario 'visit search by person' do
+        event = create(:event, title: 'New event from Capybara')
+        name = event.position.holder.first_name
+        visit events_path
 
-      expect(page).to have_content event.title
-    end
+        fill_in :search_person, with: name
+        click_button I18n.t('backend.search.button')
 
-    scenario 'visit non results search page' do
-      create(:event, title: 'New not found event')
-      visit events_path
+        expect(page).to have_content event.title
+      end
 
-      fill_in :search_title, with: 'Search keywords'
-      click_button I18n.t('backend.search.button')
+      scenario 'visit non results search page' do
+        create(:event, title: 'New not found event')
+        visit events_path
 
-      expect(page).to have_content "No se han encontrado eventos"
-    end
+        fill_in :search_title, with: 'Search keywords'
+        click_button I18n.t('backend.search.button')
 
-    scenario 'search lobby activity' do
-      create(:event, title: 'Test for check lobby_activity', lobby_activity: true)
-      visit events_path
+        expect(page).to have_content "No se han encontrado eventos"
+      end
 
-      check 'lobby_activity'
-      click_button I18n.t('backend.search.button')
+      scenario 'search lobby activity' do
+        create(:event, title: 'Test for check lobby_activity', lobby_activity: true)
+        visit events_path
 
-      expect(page).to have_content "Test for check lobby_activity"
+        check 'lobby_activity'
+        click_button I18n.t('backend.search.button')
+
+        expect(page).to have_content "Test for check lobby_activity"
+      end
+
     end
 
     describe "Create" do
@@ -590,6 +632,7 @@ feature 'Events' do
     end
 
     describe "Edit" do
+
       scenario "Edit buttons enabled for events on_request" do
         event_requested = create(:event, title: 'Event on request', position: @position, status: 0)
         event_accepted = create(:event, title: 'Event accepted', position: @position, status: 1)
@@ -645,6 +688,14 @@ feature 'Events' do
 
         expect(page).not_to have_selector "#event_cancel_true"
       end
+
+      scenario 'Lobby user can see on page the name of the organization' do
+        event = create(:event, organization_name: "Organization name", position: @position)
+
+        visit edit_event_path(event)
+
+        expect(page).not_to have_content('Organización que solicita la reunión')
+      end      
 
     end
 

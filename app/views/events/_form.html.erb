@@ -3,13 +3,22 @@
     <% if @event.errors.any? %>
         <div class="panel callout radius">
           <strong><%= t('activerecord.errors.template.header',
-  :model => Event.model_name.human, :count => @event.errors.count) %></strong>
+                        :model => Event.model_name.human,
+                        :count => @event.errors.count) %>
+          </strong>
           <ul>
             <% @event.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
             <% end %>
           </ul>
         </div>
+    <% end %>
+
+    <% if admin_or_mananger_edit? %>
+      <fieldset>
+        <%= f.label :title, "Organización que solicita la reunión" %>
+        <%= f.text_field :organization_name, disabled: true %>
+      </fieldset>
     <% end %>
 
     <fieldset>
@@ -37,20 +46,22 @@
       <%= f.select :position_id, @positions.map{|position| [position.holder.full_name_comma+' - '+position.title, position.id]}, prompt: t('backend.select') %>
     </fieldset>
 
-    <fieldset><!-- Participants -->
-      <legend><%= t('backend.participants') %></legend>
-      <div class="row">
-        <div class="small-10 columns"><%= t('backend.name') %></div>
-        <div class="small-2 columns"></div>
-      </div>
+    <% unless current_user.lobby? %>
+      <fieldset><!-- Participants -->
+        <legend><%= t('backend.participants') %></legend>
+        <div class="row">
+          <div class="small-10 columns"><%= t('backend.name') %></div>
+          <div class="small-2 columns"></div>
+        </div>
 
-      <div id="participants">
-        <%= f.fields_for :participants do |participant| %>
-            <%= render 'participant_fields', f: participant %>
-        <% end %>
-      </div>
-      <%= link_to_add_association t('backend.add'), f, :participants, :class => "button radius tiny info right add-participant", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#participants' %>
-    </fieldset>
+        <div id="participants">
+          <%= f.fields_for :participants do |participant| %>
+              <%= render 'participant_fields', f: participant %>
+          <% end %>
+        </div>
+        <%= link_to_add_association t('backend.add'), f, :participants, :class => "button radius tiny info right add-participant", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#participants' %>
+      </fieldset>
+    <% end %>
 
     <fieldset class="meeting-lobby-activity">
       <legend><%= t('backend.meeting_lobby_activity') %></legend>
