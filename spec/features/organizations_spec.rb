@@ -36,9 +36,7 @@ feature 'Organizations page' do
 
     scenario 'Should navigate to organization public page when user clicks organization name link', :search do
       organization = create(:organization)
-
       Organization.reindex
-
       visit organizations_path
 
       click_on organization.fullname
