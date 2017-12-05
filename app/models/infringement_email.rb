@@ -1,7 +1,7 @@
 class InfringementEmail
   include ActiveModel::Model
 
-  ATTRIBUTES = [:subject, :description, :link, :attachment].freeze
+  ATTRIBUTES = [:subject, :description, :link, :attachment, :name, :first_surname, :email, :phone].freeze
 
   attr_accessor(*ATTRIBUTES)
 

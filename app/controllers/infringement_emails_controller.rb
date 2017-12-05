@@ -21,6 +21,6 @@ class InfringementEmailsController < ApplicationController
   private
 
     def email_params
-      params.require(:infringement_email).permit(:subject, :link, :attachment, :description)
+      params.require(:infringement_email).permit(:subject, :link, :attachment, :description, :name, :first_surname, :email, :phone)
     end
 end
