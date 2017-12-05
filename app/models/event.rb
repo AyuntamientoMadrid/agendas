@@ -2,6 +2,7 @@ class Event < ActiveRecord::Base
   include PublicActivity::Model
 
   attr_accessor :organization_id
+  attr_accessor :cancel
 
   tracked owner: Proc.new { |controller, model| controller.present? ? controller.current_user : model.user }
   tracked title: Proc.new { |controller, model| controller.present? ? controller.get_title : model.title }
@@ -14,6 +15,7 @@ class Event < ActiveRecord::Base
   validate :participants_uniqueness, :position_not_in_participants, :role_validate_published_at, :role_validate_scheduled
 
   before_create :set_status
+  before_save :cancel_event
 
   belongs_to :user
   belongs_to :position
@@ -30,6 +32,8 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
 
+  enum status: { requested: 0, accepted: 1 , canceled: 4 }
+
   scope :by_title, lambda {|title| where("title ILIKE ?", "%#{title}%") }
   scope :by_holders, lambda {|holder_ids|
     joins(:position).where("positions.holder_id IN (?)", holder_ids)
@@ -43,10 +47,14 @@ class Event < ActiveRecord::Base
   }
 
   scope :with_lobby_activity_active, -> { where(lobby_activity: true) }
-
-  enum status: { requested: 0, accepted: 1 }
-
   scope :published, -> { where("published_at >= ?", Time.zone.today) }
+
+  def cancel_event
+    if cancel == 'true' and canceled_at.nil?
+      self.canceled_at = Time.zone.today
+      self.status = 'canceled'
+    end
+  end
 
   def self.managed_by(user)
     holder_ids = Holder.managed_by(user.id).pluck(:id)

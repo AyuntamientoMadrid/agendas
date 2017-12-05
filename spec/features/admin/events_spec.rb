@@ -631,6 +631,27 @@ feature 'Events' do
 
         expect(page).to have_content "Edited event title"
       end
+
+      scenario "User can cancel events", :js do
+        event = create(:event)
+        visit edit_event_path(event)
+
+        page.find_by_id("cancel-reason", visible: false)
+        page.choose('event_cancel_true')
+        page.find_by_id("cancel-reason", visible: true)
+
+        click_button "Guardar"
+
+        expect(page).not_to have_selector "#event_cancel_true"
+      end
+
+      scenario "User can cancel events only once!" do
+        event_requested = create(:event, title: 'Event on request', position: @position, status: 0, canceled_at: Time.zone.today)
+        visit edit_event_path(event_requested)
+
+        expect(page).not_to have_selector "#event_cancel_true"
+      end
+
     end
 
   end

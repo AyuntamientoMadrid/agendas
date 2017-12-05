@@ -186,4 +186,18 @@ $(function(){
     }
   });
 
+  $('#cancel-reason').hide();
+
+  $("#event_cancel_true").click(function(){
+    $("#cancel-reason").show();
+  });
+
+  if ($("#event_cancel_true").is(":checked")) {
+    $("#cancel-reason").show();
+  };
+
+  $("#event_cancel_false").click(function(){
+    $("#cancel-reason").hide();
+  });
+
 });
