@@ -32,7 +32,7 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
 
-  enum status: { requested: 0, accepted: 1 , canceled: 4 }
+  enum status: { requested: 0, accepted: 1, canceled: 4 }
 
   scope :by_title, lambda {|title| where("title ILIKE ?", "%#{title}%") }
   scope :by_holders, lambda {|holder_ids|
@@ -50,10 +50,10 @@ class Event < ActiveRecord::Base
   scope :published, -> { where("published_at >= ?", Time.zone.today) }
 
   def cancel_event
-    if cancel == 'true' and canceled_at.nil?
-      self.canceled_at = Time.zone.today
-      self.status = 'canceled'
-    end
+    return unless cancel == 'true' && canceled_at.nil?
+    self.canceled_at = Time.zone.today
+    self.status = 'canceled'
+    EventMailer.cancel(self).deliver_now
   end
 
   def self.managed_by(user)
