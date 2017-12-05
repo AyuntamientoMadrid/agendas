@@ -1,5 +1,4 @@
 feature 'Events' do
-
   describe 'user manager', type: :feature do
 
     background do
@@ -39,6 +38,20 @@ feature 'Events' do
 
         expect(page).to have_content('Organización que solicita la reunión')
         expect(page).to have_css("#event_organization_name[disabled]")
+      end
+
+      scenario 'manager user can see on page lobby contact info' do
+        event = create(:event, organization_name: "Organization name", position: @position, lobby_contact_firstname: "name",
+                               lobby_contact_lastname: "lastname", lobby_contact_phone: "971466655", lobby_contact_email: "lobby@email.com")
+
+        visit edit_event_path(event)
+
+        within ".lobby-contact-info" do
+          expect(page).to have_selector("input[value='name']")
+          expect(page).to have_selector("input[value='lastname']")
+          expect(page).to have_selector("input[value='971466655']")
+          expect(page).to have_selector("input[value='lobby@email.com']")
+        end
       end
 
     end
@@ -85,6 +98,20 @@ feature 'Events' do
 
         expect(page).to have_content('Organización que solicita la reunión')
         expect(page).to have_css("#event_organization_name[disabled]")
+      end
+
+      scenario 'admin user can see on page lobby contact info' do
+        event = create(:event, organization_name: "Organization name", lobby_contact_firstname: 'lobyname',
+                               lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123', lobby_contact_email: 'lobbyemail@email.com')
+
+        visit edit_event_path(event)
+
+        within ".lobby-contact-info" do
+          expect(page).to have_selector("input[value='lobyname']")
+          expect(page).to have_selector("input[value='lobbylastname']")
+          expect(page).to have_selector("input[value='600123123']")
+          expect(page).to have_selector("input[value='lobbyemail@email.com']")
+        end
       end
 
     end
@@ -461,10 +488,10 @@ feature 'Events' do
   describe 'Organization user' do
     background do
       @organization = create(:organization)
-      organization_user = create(:user, :lobby, organization: @organization)
+      @organization_user = create(:user, :lobby, organization: @organization)
       @position = create(:position)
-      organization_user.manages.create(holder_id: @position.holder_id)
-      signin(organization_user.email, organization_user.password)
+      @organization_user.manages.create(holder_id: @position.holder_id)
+      signin(@organization_user.email, @organization_user.password)
     end
 
     scenario 'visit index event page' do
@@ -540,6 +567,17 @@ feature 'Events' do
         expect(event.lobby_scheduled).to eq "Lobby scheduled proposal"
         expect(event.position).to eq new_position
         expect(event.lobby_activity).to eq true
+      end
+
+      scenario 'Lobby user can see lobby contact info' do
+        visit new_event_path
+
+        within ".lobby-contact-info" do
+          expect(page).to have_selector("input[value='#{@organization_user.name}']")
+          expect(page).to have_selector("input[value='#{@organization_user.last_name}']")
+          expect(page).to have_selector("input[value='#{@organization_user.phones}']")
+          expect(page).to have_selector("input[value='#{@organization_user.email}']")
+        end
       end
 
       describe "Lobby activity" do
@@ -696,6 +734,39 @@ feature 'Events' do
 
         expect(page).not_to have_content('Organización que solicita la reunión')
       end      
+
+      scenario 'Lobby user can see lobby contact info' do
+        event = create(:event, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
+                               lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123', lobby_contact_email: 'lobbyemail@email.com')
+
+        visit edit_event_path(event)
+
+        within ".lobby-contact-info" do
+          expect(page).to have_selector("input[value='lobbyname']")
+          expect(page).to have_selector("input[value='lobbylastname']")
+          expect(page).to have_selector("input[value='600123123']")
+          expect(page).to have_selector("input[value='lobbyemail@email.com']")
+        end
+      end
+
+      scenario 'Lobby user can update lobby contact info' do
+        event = create(:event, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
+                               lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123', lobby_contact_email: 'lobbyemail@email.com')
+        visit edit_event_path(event)
+
+
+        fill_in :event_lobby_contact_firstname, with: 'new lobbyname'
+        fill_in :event_lobby_contact_lastname, with: 'new lobylastname'
+        fill_in :event_lobby_contact_phone, with: '900878787'
+        fill_in :event_lobby_contact_email, with: 'new_loby@email.com'
+        click_button 'Guardar'
+
+        event.reload
+        expect(event.lobby_contact_firstname).to eq 'new lobbyname'
+        expect(event.lobby_contact_lastname).to eq 'new lobylastname'
+        expect(event.lobby_contact_phone).to eq '900878787'
+        expect(event.lobby_contact_email).to eq 'new_loby@email.com'
+      end
 
     end
 

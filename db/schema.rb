@@ -112,12 +112,12 @@ ActiveRecord::Schema.define(version: 20171205234013) do
     t.text     "description"
     t.datetime "scheduled"
     t.integer  "user_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "position_id"
     t.string   "location"
     t.string   "slug"
-    t.integer  "status",            default: 0
+    t.integer  "status",                  default: 0
     t.boolean  "lobby_activity"
     t.text     "notes"
     t.string   "reasons"
@@ -126,6 +126,10 @@ ActiveRecord::Schema.define(version: 20171205234013) do
     t.string   "organization_name"
     t.text     "lobby_scheduled"
     t.text     "general_remarks"
+    t.string   "lobby_contact_firstname"
+    t.string   "lobby_contact_lastname"
+    t.string   "lobby_contact_email"
+    t.string   "lobby_contact_phone"
   end
 
   add_index "events", ["position_id"], name: "index_events_on_position_id", using: :btree
