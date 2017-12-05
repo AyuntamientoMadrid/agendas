@@ -4,5 +4,9 @@ module Admin
       params[:controller] == "admin/organizations" &&
         (params[:action] == "new" || params[:action] == "create")
     end
+
+    def category_name(id)
+      Category.find(id).name
+    end
   end
 end

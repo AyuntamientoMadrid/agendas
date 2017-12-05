@@ -36,8 +36,7 @@ class Organization < ActiveRecord::Base
 
   scope :invalidated, -> { where('invalidate = ?', true) }
   scope :validated, -> { where('invalidate = ?', false) }
-	scope :full_like, -> (name) { where("identifier ilike ? OR name ilike ?", name, name)}
-
+  scope :full_like, ->(name) { where("identifier ilike ? OR name ilike ?", name, name) }
 
   def fullname
     str = name
@@ -55,12 +54,16 @@ class Organization < ActiveRecord::Base
   end
 
   def set_inscription_date
-    self.inscription_date = Date.current if self.inscription_date.blank?
-    self.save
+    self.inscription_date = Date.current if inscription_date.blank?
+    save
   end
 
   def set_invalidate
     self.invalidate = false
-    self.save
+    save
+  end
+
+  def interest?(id)
+    interests.pluck(:id).include?(id)
   end
 end

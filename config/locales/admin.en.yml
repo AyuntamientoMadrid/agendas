@@ -113,6 +113,9 @@ es:
     description: "Descripción"
     new_event: "Nuevo evento"
     edit_event: "Editar evento"
+    add_agents: "Añadir agentes"
+    add_interests: "Añadir intereses"
+    show_company: "Ver datos organización"
 
     activity: "Registro de Actividad"
     entries: "Registros"

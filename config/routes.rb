@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   get '/import', to: 'users#import', as: 'import'
   get '/faq', to: 'questions#index', as: 'faq'
 
-
   # Admin
   get "/admin", to: 'events#index', as: 'admin'
 
@@ -29,7 +28,10 @@ Rails.application.routes.draw do
   resources :activities
 
   namespace :admin do
-    resources :organizations
+    resources :organizations do
+      get 'add_agents'
+      get 'add_interests'
+    end
     resources :questions
     post 'order_questions', to: 'questions#order', as: 'order_questions'
   end
