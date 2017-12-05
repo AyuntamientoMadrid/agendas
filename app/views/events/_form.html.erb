@@ -22,6 +22,17 @@
         </div>
       </fieldset>
     <% end %>
+    <fieldset class="lobby-contact-info">
+      <legend> Datos de contacto </legend>
+      <%= f.label :lobby_contact_firstname, "Nombre" %>
+      <%= f.text_field :lobby_contact_firstname, value: calculate_firstname(@event) %>
+      <%= f.label :lobby_contact_lastname, "Apellidos" %>
+      <%= f.text_field :lobby_contact_lastname, value: calculate_lastname(@event) %>
+      <%= f.label :lobby_contact_phone, "Teléfono" %>
+      <%= f.text_field :lobby_contact_phone, value: calculate_phone(@event) %>
+      <%= f.label :lobby_contact_email, "Email" %>
+      <%= f.text_field :lobby_contact_email, value: calculate_email(@event) %>
+    </fieldset>
 
     <fieldset>
       <legend><%= t('backend.basic_data') %></legend>
@@ -207,7 +218,7 @@
           </div>
         </div>
       <% end %>
-    </fieldset>    
+    </fieldset>
 
   <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
 <% end %>

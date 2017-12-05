@@ -47,7 +47,7 @@ class EventsController < AdminController
     params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, :search_title, :search_person,
                                   :lobby_activity, :notes, :status, :reasons, :published_at, :cancel,
                                   :organization_name, :lobby_scheduled, :general_remarks, :lobby_contact_firstname,
-                                  :lobby_contact_lastname, :lobby_contact_phone, :lobby_contact_email,
+                                  :lobby_contact_lastname, :lobby_contact_phone, :lobby_contact_email, :lobby_general_remarks,
                                   event_represented_entities_attributes: [:id, :name, :_destroy],
                                   event_agents_attributes: [:id, :name, :_destroy],
                                   attendees_attributes: [:id, :name, :position, :company, :_destroy],
