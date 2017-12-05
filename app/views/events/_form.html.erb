@@ -42,7 +42,7 @@
       <%= f.label :description, t('backend.description') %>
       <%= f.text_area :description, class: 'tinymce' %>
       <br />
-      <% if current_user.lobby? %>
+      <% if current_user.lobby? || admin_or_mananger_edit? %>
         <%= f.label :general_remarks, t('backend.general_remarks') %>
         <%= f.text_area :general_remarks, class: 'tinymce' %>
         <br />
@@ -51,6 +51,9 @@
         <br />
       <% end %>
       <% unless current_user.lobby? %>
+        <%= f.label :manager_general_remarks, "Observaciones generales Gestor de agendas" %>
+        <%= f.text_area :manager_general_remarks, class: 'tinymce' %>
+        <br />
         <%= f.label :scheduled, t('backend.date') %>
         <%= f.text_field :scheduled, class: 'fdatepicker' %>
       <% end %>
