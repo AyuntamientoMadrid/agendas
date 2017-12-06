@@ -102,6 +102,9 @@ es:
     participants_uniqueness: "Existen titulares de agenda duplicados"
     position_not_in_participants: "El titular de agenda se ha incluido también como asistente"
     attachments: "Archivos adjuntos"
+    attachments_description: "Descripción de archivos adjuntos"
+    attachments_public: "Archivos adjuntos públicos"
+    attachments_private: "Archivos adjuntos privados"
     only_pdf: "Solo PDF"
     name: "Nombre"
     file: "Archivo"
@@ -112,10 +115,8 @@ es:
     description: "Descripción"
     new_event: "Nuevo evento"
     edit_event: "Editar evento"
-
     activity: "Registro de Actividad"
     entries: "Registros"
-
     change_password: "Cambiar contraseña"
     password: "Contraseña"
     new_password: "Nueva contraseña"

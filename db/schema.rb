@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171204113941) do
+ActiveRecord::Schema.define(version: 20171205234013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -212,7 +212,7 @@ ActiveRecord::Schema.define(version: 20171204113941) do
     t.string   "phones"
     t.string   "email"
     t.integer  "category_id"
-    t.string   "description"
+    t.string   "description",           default: ""
     t.string   "web"
     t.integer  "registered_lobbies"
     t.integer  "fiscal_year"
@@ -221,8 +221,8 @@ ActiveRecord::Schema.define(version: 20171204113941) do
     t.boolean  "contract"
     t.boolean  "denied_public_data"
     t.boolean  "denied_public_events"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "inscription_reference"
     t.date     "inscription_date"
     t.integer  "entity_type"

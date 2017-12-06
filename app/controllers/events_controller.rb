@@ -47,7 +47,7 @@ class EventsController < AdminController
                                   event_agents_attributes: [:id, :name, :_destroy],
                                   attendees_attributes: [:id, :name, :position, :company, :_destroy],
                                   participants_attributes: [:id, :position_id, :_destroy],
-                                  attachments_attributes: [:id, :title, :file, :public, :_destroy])
+                                  attachments_attributes: [:id, :title, :file, :public, :description, :_destroy])
   end
 
   def set_holders
