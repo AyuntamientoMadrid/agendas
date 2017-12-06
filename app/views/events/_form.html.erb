@@ -77,31 +77,7 @@
           <hr />
         </div>
 
-        <div id="re-block" style="display: none" data-new-url="<%= organization_represented_entities_url_pattern(format: :json) %>">
-          <div class="row">
-            <div class="small-10 columns">Empresas Representadas</div>
-            <div class="small-2 columns"></div>
-          </div>
-          <div id="event-represented-entities">
-            <%= f.fields_for :event_represented_entities do |represented_entity| %>
-              <%= render 'event_represented_entity_fields', f: represented_entity %>
-            <% end %>
-          </div>
-          <%= link_to_add_association t('backend.add'), f, :event_represented_entities, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#event-represented-entities', id:'link_to_add_association_re' %>
-        </div>
-        <hr />
-        <div id="agents-block" style="display: none" data-new-url="<%= organization_agents_url_pattern(format: :json) %>">
-          <div class="row">
-            <div class="small-10 columns">Agentes por parte del lobby</div>
-            <div class="small-2 columns"></div>
-          </div>
-          <div id="event-agents">
-            <%= f.fields_for :event_agents do |agent| %>
-              <%= render 'event_agent_fields', f: agent %>
-            <% end %>
-          </div>
-          <%= link_to_add_association t('backend.add'), f, :event_agents, :class => "button radius tiny info right", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#event-agents', id:'link_to_add_association_agent' %>
-        </div>
+        <%= render 'event_represented_entities', f:f %>
 
       </div>
 

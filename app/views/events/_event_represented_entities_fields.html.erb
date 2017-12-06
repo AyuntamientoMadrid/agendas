@@ -1,0 +1,16 @@
+<div id="<%= dom_id(f.object) %>" class="nested-fields">
+  <div class="small-12">
+    <%= f.hidden_field :id %>
+
+    <div class="small-12 medium-6 columns">
+      <%= f.label :name, t('backend.represented_entities.name') %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="small-12 columns">
+      <%= link_to_remove_association "Eliminar", f, class: "button tiny radius alert right" %>
+      <hr />
+    </div>
+
+  </div>
+</div>

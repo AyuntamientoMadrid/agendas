@@ -1,6 +1,7 @@
 class EventsController < AdminController
   load_and_authorize_resource
   before_action :set_holders, only: [:new, :edit, :create]
+  before_action :set_event, only: [:edit, :update]
 
   def index
     @events = current_user.admin? ? list_admin_events : list_user_events
@@ -15,6 +16,9 @@ class EventsController < AdminController
       flash[:alert] = t('backend.review_errors')
       render :new
     end
+  end
+
+  def edit
   end
 
   def update
@@ -66,5 +70,10 @@ class EventsController < AdminController
                    .includes(:position, :attachments, position: [:holder])
     @events.order(scheduled: :desc).page(params[:page]).per(50)
   end
+
+  def set_event
+    @event = Event.find(params[:id])
+  end
+
 
 end
