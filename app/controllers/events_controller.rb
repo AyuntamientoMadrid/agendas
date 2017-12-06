@@ -41,8 +41,8 @@ class EventsController < AdminController
 
   def event_params
     params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, :search_title, :search_person,
-                                  :lobby_activity, :notes, :status, :reasons, :published_at, :canceled_at,
-                                  :organization_name, :lobby_scheduled, :general_remarks,
+                                  :lobby_activity, :notes, :status, :reasons, :published_at,
+                                  :organization_name, :lobby_scheduled, :general_remarks, :cancel,
                                   event_represented_entities_attributes: [:id, :name, :_destroy],
                                   event_agents_attributes: [:id, :name, :_destroy],
                                   attendees_attributes: [:id, :name, :position, :company, :_destroy],
