@@ -1,17 +1,14 @@
 <div class="row mb40">
-  <div class="small-12 large-8 columns">
+  <div class="small-12 medium-9 medium-centered columns">
     <%= link_to t('backend.back'), organizations_path , class: "button tiny radius" %>
     <h2 class="post__title-big"><%= t('organizations.show.title') %></h2>
     <p><%= t('organizations.show.reference') %>: <strong><%= @organization.reference %></p>
   </div>
 </div>
-
-<div class="row mb40">
-  <div class="small-12 large-3 columns">
-    <strong class="post__subtitle"><%= t('organizations.show.identifying_data_title') %></strong>
-  </div>
-  <div class="small-12 large-7 end columns">
-    <p><strong><%= t('organizations.show.id') %>: </strong><%= @organization.id %></strong></p>
+<div class="small-12 medium-9 medium-centered columns">
+  <fieldset>
+    <legend><%= t('organizations.show.identifying_data_title') %></legend>
+    <p><strong><%= t('organizations.show.id') %>: </strong><%= @organization.id %></p>
     <p><strong><%= t('organizations.show.identifier') %>: </strong><%= @organization.identifier %></p>
     <p><strong><%= t('organizations.show.name') %>: </strong><%= @organization.name %></p>
     <p><strong><%= t('organizations.show.postal_code') %>: </strong><%= @organization.postal_code %></p>
@@ -21,53 +18,30 @@
     <p><strong><%= t('organizations.show.category') %>: </strong><%= @organization.category.name %></p>
     <p><strong><%= t('organizations.show.description') %>: </strong><%= @organization.description %></p>
     <p><strong><%= t('organizations.show.web') %>: </strong> <%= @organization.web %></p>
-  </div>
-</div>
+  </fieldset>
 
-<div class="row mb40">
-  <div class="small-12 large-3 columns">
-    <strong class="post__subtitle"><%= t('organizations.show.legal_representant_title') %></strong>
-  </div>
+  <fieldset>
+    <legend><%= t('organizations.show.legal_representant_title') %></legend>
+    <p><strong><%= t('organizations.show.legal_representant_name') %>: </strong><%= @organization.legal_representant.fullname if @organization.legal_representant.present? %></p>
+  </fieldset>
 
-  <div class="small-12 large-7 end columns">
-    <p>
-      <strong><%= t('organizations.show.legal_representant_name') %>: </strong>
-      <%= @organization.legal_representant.fullname if @organization.legal_representant.present? %>
-    </p>
-  </div>
-</div>
-
-<div class="row mb40">
-  <div class="small-12 large-3 columns">
-    <strong class="post__subtitle"><%= t('organizations.show.display_user_title') %></strong>
-  </div>
-
-  <div class="small-12 large-7 end columns">
+  <fieldset>
+    <legend><%= t('organizations.show.display_user_title') %></legend>
     <p><strong><%= t('organizations.show.user_name') %>: </strong> <%= @organization.user.name if @organization.user %></p>
-  </div>
-</div>
+  </fieldset>
 
-<% if @organization.fiscal_year.present? %>
-  <div class="row mb40">
-    <div class="small-12 large-3 columns">
-      <strong class="post__subtitle"><%= t('organizations.show.fiscal_year_title') %></strong>
-    </div>
+  <fieldset>
+    <legend><%= t('organizations.show.fiscal_year_title') %></legend>
+    <% if @organization.fiscal_year.present? %>
+      <p><strong><%= t('organizations.show.fiscal_year') %>: </strong> <%= @organization.fiscal_year %></p>
+      <p><strong><%= t('organizations.show.range_fund') %>: </strong> <%= @organization.range_fund %></p>
+      <p><strong><%= t('organizations.show.subvention') %> : </strong><%= @organization.subvention %></p>
+      <p><strong><%= t('organizations.show.contract') %> </strong><%= @organization.contract %></p>
+    <% end %>
+  </fieldset>
 
-    <div class="small-12 large-7 end columns">
-        <p><strong><%= t('organizations.show.fiscal_year') %>: </strong> <%= @organization.fiscal_year %></p>
-        <p><strong><%= t('organizations.show.range_fund') %>: </strong> <%= @organization.range_fund %></p>
-        <p><strong><%= t('organizations.show.subvention') %> : </strong><%= @organization.subvention %></p>
-        <p><strong><%= t('organizations.show.contract') %> </strong><%= @organization.contract %></p>
-    </div>
-  </div>
-<% end %>
-
-<div class="row mb40">
-  <div class="small-12 large-3 columns">
-    <strong class="post__subtitle"><%= t('organizations.show.represented_entity_title') %></strong>
-  </div>
-
-  <div class="small-12 large-7 end columns">
+  <fieldset>
+    <legend><%= t('organizations.show.represented_entity_title') %></legend>
     <% @organization.represented_entities.each do |represented_entity| %>
       <p><strong><%= t('organizations.show.represented_entity_identifier') %>: </strong><%= represented_entity.identifier %></p>
       <p><strong><%= t('organizations.show.represented_entity_fullname') %>: </strong><%= represented_entity.fullname %></p>
@@ -78,31 +52,25 @@
       <p><strong><%= t('organizations.show.represented_entity_subvention') %> : </strong><%= represented_entity.subvention %></p>
       <p><strong><%= t('organizations.show.represented_entity_contract') %> : </strong><%= represented_entity.contract %></p>
     <% end %>
-  </div>
-</div>
+  </fieldset>
 
-<div class="row mb40">
-  <div class="small-12 large-3 columns">
-    <strong class="post__subtitle"><%= t('organizations.show.agents_title') %> </strong>
-  </div>
-
-  <div class="small-12 large-7 end columns">
+  <fieldset>
+    <legend><%= t('organizations.show.agents_title') %></legend>
     <% @organization.agents.each do |agent| %>
       <p><strong><%= t('organizations.show.agents_fullname') %>: </strong><%= agent.fullname %></p>
       <p><strong><%= t('organizations.show.agents_from') %> : </strong><%= agent.from %></p>
       <p><strong><%= t('organizations.show.agents_to') %> : </strong><%= agent.to if agent.to.present? %></p>
     <% end %>
-  </div>
-</div>
+  </fieldset>
 
-<div class="row mb40">
-  <div class="small-12 large-3 columns">
-    <strong class="post__subtitle"><%= t('organizations.show.interests_title') %></strong>
-  </div>
-
-  <div class="small-12 large-7 end columns">
-    <% @organization.interests.each do |interest| %>
-      <%= interest.name %>
-    <% end %>
-  </div>
+  <fieldset>
+    <legend><%= t('organizations.show.interests_title') %></legend>
+    <ul>
+      <% @organization.interests.each do |interest| %>
+        <li>
+          <%= interest.name %>
+        </li>
+      <% end %>
+    </ul>
+  </fieldset>
 </div>
