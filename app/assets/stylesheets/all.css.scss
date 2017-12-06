@@ -7314,3 +7314,9 @@ select {
   }
 
 }
+
+.ui-autocomplete{
+  max-height: 300px !important;
+  overflow-y: auto !important;
+  max-width: 732px !important;
+}

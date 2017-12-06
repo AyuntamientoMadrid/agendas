@@ -1,0 +1,9 @@
+es:
+  mailers:
+    cancel_event:
+      subject: "Cancelado evento: %{title}"
+      welcome: "Hola %{name}"
+      text1: "El evento: %{title}"
+      text2: "Ha sido cancelado por la siguiente razón:"
+      canceled_at: "A día %{canceled_at}"
+      thanks: "Un saludo"

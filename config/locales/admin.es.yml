@@ -138,6 +138,12 @@ es:
       placeholder_position: "Posición en el listado de preguntas"
       info_position: "Añade el número donde quieras que salga la pregunta. Dejando el campo vacío, la pregunta se posicionará al final del listado."
     send: "Enviar"
+    cancel_event: Cancelar evento
+    canceled_event: Evento cancelado
+    cancel_reason_yes: Si
+    cancel_reason_no: "No"
+    reasons: Razones
+
 
   backend_header:
     open_gov: "Gobierno abierto"

@@ -135,6 +135,33 @@
         <%= f.text_field :published_at, class: 'fdatepicker' %>
       </fieldset>
     <% end %>
+
+    <fieldset class="cancel-reason-activity">
+      <% canceled_event = canceled_event(f.object) %>
+      <% if canceled_event %>
+        <legend><%= t('backend.canceled_event') %></legend>
+        <% unless f.object.reasons.blank? %>
+          <%= f.label :reasons, t('backend.reasons') %>
+          <br/>
+          <%= raw f.object.reasons %>
+        <% end  %>
+      <% else %>
+        <legend><%= t('backend.cancel_event') %></legend>
+        <%= f.radio_button :cancel, true, checked: canceled_event %>
+        <%= f.label :cancel, t('backend.cancel_reason_yes'), value: true %>
+        <%= f.radio_button :cancel, false, checked: !canceled_event %>
+        <%= f.label :cancel, t('backend.cancel_reason_no'), value: false %>
+        <div class="small-12 error-radio-buttons"></div>
+        <div id="cancel-reason" style="display: none">
+          <div class="row">
+            <div class="small-12 columns">
+              <%= f.label :reasons, t('backend.reasons') %>
+              <%= f.text_area :reasons, class: 'tinymce' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </fieldset>
   <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
 <% end %>
 

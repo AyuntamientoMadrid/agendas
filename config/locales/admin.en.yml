@@ -136,6 +136,11 @@ es:
       position: "Position"
       info_position: "Add the position number where you want this question appear. If you let it blank, the question will be positioned at the end of the list."
     send: "Send"
+    cancel_event: Cancel event
+    canceled_event: Canceled event
+    cancel_reason_yes: Yes
+    cancel_reason_no: No
+    reasons: Reasons
 
   backend_header:
     open_gov: "Gobierno abierto"

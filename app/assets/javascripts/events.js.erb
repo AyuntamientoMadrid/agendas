@@ -134,6 +134,7 @@ $(function(){
       $('#re-block .link_to_remove_association').trigger('click');
       $("#re-block").show();
       $('#re-block .add_fields').trigger('click');
+
     }else{
       $("#re-block").show();
       $('#re-block .add_fields').trigger('click');
@@ -163,12 +164,15 @@ $(function(){
           });
         } else {
           select.append($('<option>', { value: $('#event_organization_name').val(), text: $('#event_organization_name').val() }));
+          set_option = $('#event_organization_name').val()
+          $('#event-represented-entities select').val(set_option);
         }
       });
     }
   });
 
   $('#event-agents').bind('cocoon:after-insert', function() {
+
     if ($('#organization_id').val()){
       $.ajax({
         method: "GET",
@@ -181,9 +185,26 @@ $(function(){
           });
         } else {
           select.append($('<option>', { value: "No hay agentes disponibles.", text: "No hay agentes disponibles." }));
+          id_select_agent = $('#select-agents select').attr('id');
+          set_option = $('select#' + id_select_agent + ' option').last().val();
+          $('#select-agents select').val(set_option);
         }
       });
     }
+  });
+
+  $('#cancel-reason').hide();
+
+  $("#event_cancel_true").click(function(){
+    $("#cancel-reason").show();
+  });
+
+  if ($("#event_cancel_true").is(":checked")) {
+    $("#cancel-reason").show();
+  };
+
+  $("#event_cancel_false").click(function(){
+    $("#cancel-reason").hide();
   });
 
 });
