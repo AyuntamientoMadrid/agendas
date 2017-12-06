@@ -156,14 +156,12 @@ feature 'Events' do
             new_position = create(:position)
             visit new_event_path
 
-            # Mandatory fields
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
             fill_in :event_scheduled, with: DateTime.current
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             choose :event_lobby_activity_true
             fill_in :event_published_at, with: Date.current
-            # Participant fields
             find('.add-participant').click
             sleep 0.5
 
@@ -210,14 +208,12 @@ feature 'Events' do
             new_position = create(:position)
             visit new_event_path
 
-            # Mandatory fields
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
             fill_in :event_scheduled, with: DateTime.current
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             choose :event_lobby_activity_true
             fill_in :event_published_at, with: Date.current
-            # Attendees fields
             find('.add-attendee').click
             find(".attendee-name").set("Name")
             click_button "Guardar"
@@ -232,14 +228,12 @@ feature 'Events' do
             new_position = create(:position)
             visit new_event_path
 
-            # Mandatory fields
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
             fill_in :event_scheduled, with: DateTime.current
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             choose :event_lobby_activity_true
             fill_in :event_published_at, with: Date.current
-            # Participant fields
             find('.add-attendee').click
             find(".attendee-name").set("Name")
             find(".attendee-position").set("Position")
