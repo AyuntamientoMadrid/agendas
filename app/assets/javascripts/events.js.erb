@@ -86,16 +86,16 @@ $(function(){
     $(".admin-form").valid();
   }
 
-  $('#lobby-activity-event').hide();
+  // $('#lobby-activity-event').hide();
 
-  $("#event_lobby_activity_true").click(function(){
-    $("#lobby-activity-event").show();
-  });
+  // $("#event_lobby_activity_true").click(function(){
+  //   $("#lobby-activity-event").show();
+  // });
 
   if ($("#event_lobby_activity_true").is(":checked")) {
-    $("#lobby-activity-event").show();
-    $("#re-block").show();
-    $("#agents-block").show();
+    // $("#lobby-activity-event").show();
+    // $("#re-block").show();
+    // $("#agents-block").show();
     if ($('#organization_id').val()){
       $.ajax({
         method: "GET",
@@ -109,6 +109,7 @@ $(function(){
   };
 
   $("#event_lobby_activity_false").click(function(){
+    alert("event event_lobby_activity_false");
     $("#lobby-activity-event").hide();
     $("#lobby-activity-event #category-block").hide();
     $("#lobby-activity-event #re-block").hide();
@@ -117,6 +118,7 @@ $(function(){
   });
 
   $('#event_organization_name').bind('railsAutocomplete.select', function(event, data){
+    alert("event organization name");
     $('#organization_id').val(data.item.id);
     $('#event-category').empty();
     if ($('#organization_id').val()){
@@ -151,13 +153,14 @@ $(function(){
   });
 
 
-  $('#event-represented-entities').bind('cocoon:after-insert', function() {
+  $('#nested-event-represented-entities').bind('cocoon:after-insert', function() {
+    alert("event represented-entities");
     if ($('#organization_id').val()){
       $.ajax({
         method: "GET",
-        url: $('#re-block').data('new-url').replace('organization_id', $('#organization_id').val())
+        url: $('.represented_entities-block').data('new-url').replace('organization_id', $('#organization_id').val())
       }).done(function( represented_entities ) {
-        var select = $('#event-represented-entities select:last');
+        var select = $('#nested-event-represented-entities select:last');
         if (represented_entities.length > 0) {
           $.each(represented_entities, function(id, represented_entity){
             select.append($('<option>', { value: represented_entity.name, text: represented_entity.name }));
@@ -172,7 +175,7 @@ $(function(){
   });
 
   $('#event-agents').bind('cocoon:after-insert', function() {
-
+    alert("event agents");
     if ($('#organization_id').val()){
       $.ajax({
         method: "GET",
