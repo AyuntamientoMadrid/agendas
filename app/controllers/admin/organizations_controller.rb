@@ -36,18 +36,6 @@ module Admin
 
     def edit; end
 
-    def add_agents
-      @organization = Organization.find(params[:organization_id])
-      @interests = false
-      @agents = true
-    end
-
-    def add_interests
-      @organization = Organization.find(params[:organization_id])
-      @interests = true
-      @agents = false
-    end
-
     def update
       if @organization.update_attributes(organization_params)
         path = current_user.lobby? ? admin_organization_path(@organization) : admin_organizations_path
