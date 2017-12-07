@@ -7322,6 +7322,10 @@ select {
 }
 
 ul.accordion{
+  margin-left:0;
+  li{
+    margin-top:10px;
+  }
   .accordion-title{
     position: relative;
     display: block;
@@ -7336,7 +7340,6 @@ ul.accordion{
       border-bottom: 0;
       background-color: #fefefe;
       color: #0a0a0a;
-    }  
+    }
   }
-
 }

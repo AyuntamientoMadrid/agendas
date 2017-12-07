@@ -1,13 +1,12 @@
 <div class="row mb40">
   <div class="small-12 columns">
     <%= link_to t('backend.back'), organizations_path , class: "button tiny radius" %>
-    <h2 class="post__title-big"><%= t('organizations.show.title') %></h2>
-    <p><%= t('organizations.show.reference') %>: <strong><%= @organization.reference %></p>
+    <h2 class="post__title-big"><%= @organization.name %></h2>
+    <p><%= t('organizations.show.reference') %>: <%= @organization.reference %></p>
   </div>
 </div>
 
 <div class="small-12 columns">
-  <div class="content">
     <ul class="accordion" data-accordion role = "tablist">
       <li class="accordion-navigation">
         <a href="#panel1" class="accordion-title"><%= t('organizations.show.identifying_data_title') %></a>
