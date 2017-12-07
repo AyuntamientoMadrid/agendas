@@ -324,8 +324,8 @@ feature 'Events' do
           choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
 
           expect(page).to have_selector("#category-block", visible: true)
-          expect(page).to have_selector("#re-block", visible: true)
-          expect(page).to have_selector("#agents-block", visible: true)
+          expect(page).to have_selector(".represented-entities-block", visible: true)
+          expect(page).to have_selector(".agents-block", visible: true)
         end
 
         scenario 'We can search organization by identifier', :js do
@@ -336,8 +336,8 @@ feature 'Events' do
           choose_autocomplete :event_organization_name, with: "43138883z", select: organization.name
 
           expect(page).to have_selector("#category-block", visible: true)
-          expect(page).to have_selector("#re-block", visible: true)
-          expect(page).to have_selector("#agents-block", visible: true)
+          expect(page).to have_selector(".represented-entities-block", visible: true)
+          expect(page).to have_selector(".agents-block", visible: true)
         end
 
         scenario 'When select organization display category', :js do
@@ -361,7 +361,7 @@ feature 'Events' do
 
             choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
 
-            within "#re-block" do
+            within ".represented-entities-block" do
               expect(page).to have_selector("option[value='#{organization.name}']")
             end
           end
@@ -374,7 +374,7 @@ feature 'Events' do
 
             choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
 
-            within "#re-block" do
+            within ".represented-entities-block" do
               expect(page).to have_selector("option[value='#{represented_entity.name}']")
             end
           end
@@ -390,7 +390,7 @@ feature 'Events' do
 
             choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
 
-            within "#agents-block" do
+            within ".agents-block" do
               expect(page).to have_selector("option[value='No hay agentes disponibles.']")
             end
           end
@@ -403,7 +403,7 @@ feature 'Events' do
 
             choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
 
-            within "#agents-block" do
+            within ".agents-block" do
               expect(page).to have_selector("option[value='#{agent.name}']")
             end
           end
@@ -515,8 +515,8 @@ feature 'Events' do
           visit new_event_path
 
           expect(page).to have_selector("#category-block", visible: true)
-          expect(page).to have_selector("#re-block", visible: true)
-          expect(page).to have_selector("#agents-block", visible: true)
+          expect(page).to have_selector(".represented-entities-block", visible: true)
+          expect(page).to have_selector(".agents-block", visible: true)
         end
 
         scenario 'When fill by js organization_name display category', :js do
@@ -532,11 +532,11 @@ feature 'Events' do
           scenario 'When fill by js organization_name without represented_entity display organization on represented_entity selector', :js do
             visit new_event_path
 
-            within "#re-block" do
-              find("#link_to_add_association_re").click
+            within ".represented-entities-block" do
+              find("#event_represented_entities_link").click
             end
 
-            within "#re-block" do
+            within ".represented-entities-block" do
               expect(page).to have_selector("option[value='#{@organization.name}']")
             end
           end
@@ -545,11 +545,11 @@ feature 'Events' do
             represented_entity = create(:represented_entity, organization: @organization)
             visit new_event_path
 
-            within "#re-block" do
-              find("#link_to_add_association_re").click
+            within ".represented-entities-block" do
+              find("#event_represented_entities_link").click
             end
 
-            within "#re-block" do
+            within ".represented-entities-block" do
               expect(page).to have_selector("option[value='#{represented_entity.name}']")
             end
           end
@@ -561,11 +561,11 @@ feature 'Events' do
           scenario 'When fill by js organization_name without agents display no_result_text on agents selector', :js do
             visit new_event_path
 
-            within "#agents-block" do
-              find("#link_to_add_association_agent").click
+            within ".agents-block" do
+              find("#event_agents_link").click
             end
 
-            within "#agents-block" do
+            within ".agents-block" do
               expect(page).to have_selector("option[value='No hay agentes disponibles.']")
             end
           end
@@ -574,11 +574,11 @@ feature 'Events' do
             agent = create(:agent, organization: @organization)
             visit new_event_path
 
-            within "#agents-block" do
-              find("#link_to_add_association_agent").click
+            within ".agents-block" do
+              find("#event_agents_link").click
             end
 
-            within "#agents-block" do
+            within ".agents-block" do
               expect(page).to have_selector("option[value='#{agent.name}']")
             end
           end

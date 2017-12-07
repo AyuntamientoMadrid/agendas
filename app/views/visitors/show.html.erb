@@ -72,7 +72,7 @@
     <strong class="post__subtitle"><%= t('show.description')%></strong>
   </div>
   <div class="small-12 large-7 end columns">
-    <p class="post__text"><%= @event.description.html_safe%></p>
+    <p class="post__text"><%= @event.description.html_safe if @event.description.present? %></p>
   </div>
 </div>
 
