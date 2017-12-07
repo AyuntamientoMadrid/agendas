@@ -54,30 +54,48 @@
 
     <fieldset class="meeting-lobby-activity">
       <legend><%= t('backend.meeting_lobby_activity') %></legend>
-      <%= f.radio_button :lobby_activity, true, checked: current_user.lobby? %>
+      <% if current_user.lobby? %>
+        <%= f.radio_button :lobby_activity, true, checked: true %>
+      <% else %>
+        <%= f.radio_button :lobby_activity, true %>
+      <% end %>
       <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_yes'), value: true %>
       <%= f.radio_button :lobby_activity, false, disabled: current_user.lobby? %>
       <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_no'), value: false %>
       <div class="small-12 error-radio-buttons"></div>
 
       <div id="lobby-activity-event">
-        <%= t('backend.meeting_lobby_activity_organization') %>
-        <% if current_user.lobby? %>
-          <%= hidden_field_tag  :organization_id, current_user.organization_id %>
-          <%= f.autocomplete_field :organization_name, autocomplete_organization_name_organizations_path, :update_elements => {}, placeholder: t('backend.meeting_lobby_activity_input'), value: current_user.organization.name, readonly: true %>
-        <% else %>
-          <%= hidden_field_tag  :organization_id %>
-          <%= f.autocomplete_field :organization_name, autocomplete_organization_name_organizations_path, :update_elements => {}, placeholder: t('backend.meeting_lobby_activity_input') %>
-        <% end %>
-        <div id="category-block" style="display: none" data-new-url="<%= organization_category_url_pattern %>">
-          <div class="row">
-            <div class="small-10 columns"><%= t('backend.meeting_lobby_category') %> <i id="event-category"></i></div>
-            <div class="small-2 columns"></div>
-          </div>
-          <hr />
+        <div class="lobby-organization-autocomplete">
+          <%= t('backend.meeting_lobby_activity_organization') %>
+          <% if current_user.lobby? %>
+            <%= hidden_field_tag  :organization_id, current_user.organization_id %>
+            <%= f.autocomplete_field :organization_name, autocomplete_organization_name_organizations_path, :update_elements => {}, placeholder: t('backend.meeting_lobby_activity_input'), value: current_user.organization.name, readonly: true %>
+          <% else %>
+            <%= hidden_field_tag  :organization_id %>
+            <%= f.autocomplete_field :organization_name, autocomplete_organization_name_organizations_path, :update_elements => {}, placeholder: t('backend.meeting_lobby_activity_input') %>
+          <% end %>
         </div>
 
+        <% if current_user.lobby? %>
+          <div id="category-block">
+            <div class="row">
+              <div class="small-10 columns"><%= t('backend.meeting_lobby_category') %> <i id="event-category"><%= current_user.organization.category.name %> </i></div>
+              <div class="small-2 columns"></div>
+            </div>
+            <hr />
+          </div>
+        <% else %>
+          <div id="category-block" style="display: none" data-new-url="<%= organization_category_url_pattern %>">
+            <div class="row">
+              <div class="small-10 columns"><%= t('backend.meeting_lobby_category') %> <i id="event-category"></i></div>
+              <div class="small-2 columns"></div>
+            </div>
+            <hr />
+          </div>
+        <% end %>
+
         <%= render 'event_represented_entities', f:f %>
+        <%= render 'event_agents', f:f %>
 
       </div>
 

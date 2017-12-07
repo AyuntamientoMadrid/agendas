@@ -3,7 +3,7 @@
     <%= f.hidden_field :id %>
 
     <div class="small-12 medium-6 columns">
-      <%= f.label :name, t('backend.represented_entities.name') %>
+      <%= f.label :name, t('backend.agents.name') %>
       <% if f.object.id.present? %>
         <%= f.select :name, [[f.object.name, f.object.name]], class: "large-8 columns unique", prompt: t('backend.select') %>
       <% else %>
