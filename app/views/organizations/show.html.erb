@@ -57,24 +57,6 @@
         </div>
       </li>
       <li class="accordion-navigation">
-        <a href="#panel2"><%= t('organizations.show.legal_representant_title') %></a>
-        <div id="panel2" class="content">
-          <p><strong><%= t('organizations.show.legal_representant_name') %>: </strong>
-            <br />
-            <%= @organization.legal_representant.fullname if @organization.legal_representant.present? %>
-          </p>
-        </div>
-      </li>
-      <li class="accordion-navigation">
-        <a href="#panel3"><%= t('organizations.show.display_user_title') %></a>
-        <div id="panel3" class="content">
-          <p><strong><%= t('organizations.show.user_name') %>: </strong>
-            <br />
-            <%= @organization.user.name if @organization.user %>
-          </p>
-        </div>
-      </li>
-      <li class="accordion-navigation">
         <a href="#panel4"><%= t('organizations.show.fiscal_year_title') %></a>
         <div id="panel4" class="content">
           <% if @organization.fiscal_year.present? %>

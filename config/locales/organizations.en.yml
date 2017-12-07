@@ -7,7 +7,7 @@ en:
 
     show:
       title: "Organization public page"
-      reference: "Referencia"
+      reference: "Número de anotación en registro"
       identifying_data_title: "Datos"
       id: "Código de Lobby"
       identifier: "NIF"
