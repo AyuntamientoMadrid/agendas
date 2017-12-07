@@ -393,6 +393,35 @@ feature 'Organizations page' do
       page.body.index('Fulanito').should < page.body.index('Carlos')
     end
 
+    feature 'Filters' do
+      background do
+        @org1 = create(:organization)
+        @org2 = create(:organization)
+        Organization.reindex
+      end
+
+      context 'Interests' do
+        background do
+          @org1.interests.push(create(:interest, name: 'Music'))
+          @org2.interests.push(create(:interest, name: 'History'))
+          Organization.reindex
+        end
+
+        scenario 'shows organizations based on the selected interest', :search do
+          visit organizations_path
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_content(@org2.name)
+
+          find('#interestsFilter').find(:xpath, 'option[2]').select_option
+          click_button(I18n.t('main.form.search'))
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_no_content(@org2.name)
+        end
+      end
+    end
+
   end
 
 end

@@ -23,7 +23,8 @@ class OrganizationsController < ApplicationController
     def search(params, selected_order)
       Organization.validated.search do
         fulltext params[:keyword] if params[:keyword].present?
-        with :entity_type, params[:entity_type] unless params[:entity_type].blank?
+        with(:entity_type, params[:entity_type]) if params[:entity_type].present?
+        with(:interest_ids, params[:interests]) if params[:interests].present?
         order_by :created_at, :desc
         order_by :inscription_date, selected_order
         paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 10
@@ -36,6 +37,6 @@ class OrganizationsController < ApplicationController
 
     def get_autocomplete_items(parameters)
       items = Organization.full_like("%#{parameters[:term]}%")
-    end    
+    end
 
 end
