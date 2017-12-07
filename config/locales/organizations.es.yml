@@ -44,7 +44,7 @@ es:
       represented_entity_subvention: "Ayudas y/o subvenciones recibidas del Ayto"
       represented_entity_contract: "Contratos y/o convenios con el Ayto"
 
-      agents_title: "Agentes"
+      agents_title: "Personas que se reúnen"
       agents_fullname: "Nombre/Apellidos"
       agents_from: "Fecha de inicio de representación"
       agents_to: "Fecha de fin de representación"
