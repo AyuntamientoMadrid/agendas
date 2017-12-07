@@ -76,5 +76,4 @@ class EventsController < AdminController
     @event = Event.find(params[:id])
   end
 
-
 end

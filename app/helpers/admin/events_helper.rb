@@ -51,6 +51,5 @@ module Admin
         email
       end
     end
-
   end
 end

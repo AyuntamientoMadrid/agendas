@@ -105,7 +105,8 @@ feature 'Events' do
 
       scenario 'visit edit event form and render correct lobby values' do
         event = create(:event, organization_name: "Organization name", position: @position,
-                       lobby_contact_firstname: 'name', lobby_contact_lastname: 'lastname', lobby_contact_phone: '971466655', lobby_contact_email: 'lobby@email.com',
+                       lobby_contact_firstname: 'name', lobby_contact_lastname: 'lastname',
+                       lobby_contact_phone: '971466655', lobby_contact_email: 'lobby@email.com',
                        lobby_scheduled: 'Day 17', general_remarks: 'General remark')
 
         visit edit_event_path(event)
@@ -275,7 +276,7 @@ feature 'Events' do
         expect(page).to have_content "Registro creado correctamente"
         expect(event.title).to eq "Title"
         expect(event.location).to eq "Location"
-        expect(event.description.html_safe).to eq "<p>Description</p>"
+        expect(event.description).to eq "<p>Description</p>"
         expect(event.scheduled).to eq Date.current
         expect(event.position).to eq new_position
         expect(event.lobby_activity).to eq true
@@ -848,7 +849,6 @@ feature 'Events' do
                                lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123', lobby_contact_email: 'lobbyemail@email.com')
         visit edit_event_path(event)
 
-
         fill_in :event_lobby_contact_firstname, with: 'new lobbyname'
         fill_in :event_lobby_contact_lastname, with: 'new lobylastname'
         fill_in :event_lobby_contact_phone, with: '900878787'
@@ -866,7 +866,6 @@ feature 'Events' do
         event = create(:event, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
                                lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123', lobby_contact_email: 'lobbyemail@email.com')
         visit edit_event_path(event)
-
 
         fill_in :event_lobby_contact_firstname, with: 'new lobbyname'
         fill_in :event_lobby_contact_lastname, with: 'new lobylastname'
