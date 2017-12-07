@@ -7320,3 +7320,23 @@ select {
   overflow-y: auto !important;
   max-width: 732px !important;
 }
+
+ul.accordion{
+  .accordion-title{
+    position: relative;
+    display: block;
+    padding: 1.25rem 1rem;
+    border: 1px solid #e6e6e6;
+  }
+  .accordion-navigation{
+    .content {
+      display: none;
+      padding: 1rem;
+      border: 1px solid #e6e6e6;
+      border-bottom: 0;
+      background-color: #fefefe;
+      color: #0a0a0a;
+    }  
+  }
+
+}
