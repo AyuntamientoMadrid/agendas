@@ -1,5 +1,7 @@
 <%= form_for [:admin, @organization], html: {class: 'organization-form'} do |f| %>
 
+  <%= hidden_field_tag 'show', params[:show] if params[:show] %>
+
   <%= render 'organization_errors', f:f if current_user.admin? %>
   <%= render 'reference', f:f if current_user.admin? %>
   <%= render 'data', f:f if current_user.admin? %>
@@ -7,8 +9,8 @@
   <%= render 'user', f:f if current_user.admin? %>
   <%= render 'lobby_data', f:f if current_user.admin? %>
   <%= render 'represented_entities', f:f if current_user.admin? %>
-  <%= render 'interests', f:f if current_user.admin? || @interests %>
-  <%= render 'agents', f:f if current_user.admin? || @agents %>
+  <%= render 'interests', f:f if current_user.admin? || show_partial?('interests') %>
+  <%= render 'agents', f:f if current_user.admin? || show_partial?('agents') %>
   <%= render 'terms', f:f if current_user.admin? %>
 
   <div class="row">

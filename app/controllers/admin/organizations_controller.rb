@@ -54,7 +54,7 @@ module Admin
         redirect_to path, notice: t('backend.successfully_updated_record')
       else
         flash[:alert] = t('backend.review_errors')
-        render :edit
+        render :edit, show: params[:show]
       end
     end
 

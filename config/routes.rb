@@ -28,10 +28,7 @@ Rails.application.routes.draw do
   resources :activities
 
   namespace :admin do
-    resources :organizations do
-      get 'add_agents'
-      get 'add_interests'
-    end
+    resources :organizations
     resources :questions
     post 'order_questions', to: 'questions#order', as: 'order_questions'
   end

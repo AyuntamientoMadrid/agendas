@@ -8,5 +8,9 @@ module Admin
     def category_name(id)
       Category.find(id).name
     end
+
+    def show_partial?(partial)
+      params[:show] ? params[:show] == partial && current_user.lobby? : true
+    end
   end
 end

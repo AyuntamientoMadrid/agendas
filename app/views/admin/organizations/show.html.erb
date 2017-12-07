@@ -30,7 +30,7 @@
       <strong><%= t('backend.identifying_data.email') %></strong>: <%= @organization.email %>
     </div>
     <div class="small-12 columns">
-      <strong><%= t('backend.identifying_data.category_id') %></strong>: <%= category_name(@organization.category) %>
+      <strong><%= t('backend.identifying_data.category_id') %></strong>: <%= category_name(@organization.category_id) %>
     </div>
     <div class="small-12 columns">
       <strong><%= t('backend.identifying_data.web') %></strong>: <%= @organization.web %>
@@ -200,7 +200,7 @@
     <div class="small-12 columns">
       <% Interest.all.each do |f| %>
         <div class="small-12 medium-6 columns">
-          <%= check_box_tag :interests, nil, @organization.interest?(f.id), disabled: true %> <%= f.name %>
+          <%= check_box_tag "interest_#{f.id}", nil, @organization.interest?(f.id), disabled: true %> <%= f.name %>
         </div>
       <% end %>
     </div>
