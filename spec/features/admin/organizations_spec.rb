@@ -926,14 +926,87 @@ feature 'Organization' do
   describe "Lobby" do
 
     background do
-      lobby = create(:user, :lobby)
-      signin(lobby.email, lobby.password)
+      @lobby = create(:user, :lobby)
+      signin(@lobby.email, @lobby.password)
+
+      @interest = create(:interest)
     end
 
     scenario 'Visit lobby backend page and not display organization button on sidebar' do
       visit admin_path
 
       expect(page).not_to have_content "Organizaciones"
+    end
+
+    scenario 'Has edit organization buttons on sidebar' do
+      visit admin_path
+
+      expect(page).to have_content I18n.t("backend.add_agents")
+      expect(page).to have_content I18n.t("backend.add_interests")
+      expect(page).to have_content I18n.t("backend.show_company")
+    end
+
+    scenario 'Can add agents', :js do
+      visit admin_path
+
+      click_link I18n.t("backend.add_agents")
+
+      expect(page).to have_content I18n.t("backend.agents.title_fieldset")
+
+      click_link I18n.t('backend.agents.add_association')
+
+      expect(page).to have_content I18n.t('backend.agents.identifier')
+
+      find(:css, "input[id^='organization_agents_attributes_'][id$='_name']").set("Nombre Agente 1")
+      find(:css, "input[id^='organization_agents_attributes_'][id$='_identifier']").set("12345678S")
+      find(:css, "input[id^='organization_agents_attributes_'][id$='_from']").set("01/01/2017")
+      click_button 'Guardar'
+
+      expect(current_path).to eq(admin_organization_path(id: @lobby.organization_id))
+      expect(page).to have_content 'Nombre Agente 1'
+    end
+
+    scenario 'Cannot add agents if any mandatory field is empty', :js do
+      visit admin_path
+
+      click_link I18n.t("backend.add_agents")
+
+      expect(page).to have_content I18n.t("backend.agents.title_fieldset")
+
+      click_link I18n.t('backend.agents.add_association')
+
+      expect(page).to have_content I18n.t('backend.agents.identifier')
+
+      find(:css, "input[id^='organization_agents_attributes_'][id$='_name']").set("Nombre Agente 1")
+      find(:css, "input[id^='organization_agents_attributes_'][id$='_identifier']").set("12345678S")
+      click_button 'Guardar'
+
+      expect(current_path).to eq(admin_organization_path(id: @lobby.organization_id))
+      expect(page).to have_content 'no puede estar en blanco'
+    end
+
+    scenario 'Can add interests' do
+      visit admin_path
+
+      click_link I18n.t("backend.add_interests")
+
+      expect(page).to have_content I18n.t("backend.interest.title_fieldset")
+
+      check "organization_interest_ids_#{@interest.id}"
+      click_button 'Guardar'
+
+      expect(current_path).to eq(admin_organization_path(id: @lobby.organization_id))
+      expect(page).to have_field("interest_#{@interest.id}", checked: true, disabled: true)
+    end
+
+    scenario 'Show organization details' do
+      visit admin_path
+
+      click_link I18n.t("backend.show_company")
+
+      expect(page).to have_content I18n.t('backend.reference.title_fieldset')
+      expect(page).to have_content I18n.t('backend.reference.title')
+      expect(page).to have_content @lobby.email
     end
 
   end
