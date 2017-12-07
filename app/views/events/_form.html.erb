@@ -22,17 +22,6 @@
         </div>
       </fieldset>
     <% end %>
-    <fieldset class="lobby-contact-info">
-      <legend> Datos de contacto </legend>
-      <%= f.label :lobby_contact_firstname, "Nombre" %>
-      <%= f.text_field :lobby_contact_firstname, value: calculate_firstname(@event) %>
-      <%= f.label :lobby_contact_lastname, "Apellidos" %>
-      <%= f.text_field :lobby_contact_lastname, value: calculate_lastname(@event) %>
-      <%= f.label :lobby_contact_phone, "Teléfono" %>
-      <%= f.text_field :lobby_contact_phone, value: calculate_phone(@event) %>
-      <%= f.label :lobby_contact_email, "Email" %>
-      <%= f.text_field :lobby_contact_email, value: calculate_email(@event) %>
-    </fieldset>
 
     <fieldset>
       <legend><%= t('backend.basic_data') %></legend>
@@ -159,11 +148,10 @@
     <% end %>
 
     <% if current_user.lobby? || admin_or_mananger_edit? %>
-    <fieldset>
-      <legend><%= t('backend.general_remarks') %></legend>
-      <%= f.text_area :general_remarks, class: 'tinymce' %>
-    </fieldset>
-
+      <fieldset>
+        <legend><%= t('backend.general_remarks') %></legend>
+        <%= f.text_area :general_remarks, class: 'tinymce' %>
+      </fieldset>
     <% end %>
 
     <% unless current_user.lobby? %>
