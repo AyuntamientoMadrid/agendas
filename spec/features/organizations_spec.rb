@@ -370,33 +370,10 @@ feature 'Organizations page' do
       expect(page).to have_content("Consulta del registro de Organizaciones")
     end
 
-    scenario "Should order by inscription date ascending", :search do
-      create(:organization, name: "Carlos", first_surname: "Peréz", inscription_date: "Sat, 27 Nov 2015")
-      create(:organization, name: "Fulanito", first_surname: "Mengano", inscription_date: "Sun, 27 Nov 2016")
-      Organization.reindex
-
-      visit organizations_path
-
-      page.body.index('Carlos').should < page.body.index('Fulanito')
-    end
-
-    scenario "Should order by inscription date descending", :js, :search do
-      create(:organization, name: "Carlos", first_surname: "Peréz", inscription_date: "Sat, 27 Nov 2015")
-      create(:organization, name: "Fulanito", first_surname: "Mengano", inscription_date: "Sun, 27 Nov 2016")
-      Organization.reindex
-
-      visit organizations_path
-
-      all("#search-order option")[1].select_option
-      sleep 1
-
-      page.body.index('Fulanito').should < page.body.index('Carlos')
-    end
-
     feature 'Filters' do
       background do
-        @org1 = create(:organization)
-        @org2 = create(:organization)
+        @org1 = create(:organization, inscription_date: 'Fri, 27 Nov 2015')
+        @org2 = create(:organization, inscription_date: 'Sun, 27 Nov 2016')
         Organization.reindex
       end
 
@@ -418,6 +395,18 @@ feature 'Organizations page' do
 
           expect(page).to have_content(@org1.name)
           expect(page).to have_no_content(@org2.name)
+        end
+      end
+
+      context 'Sorting' do
+        scenario 'by ASC inscription date', :search do
+          visit organizations_path
+          expect(page.body.index(@org1.name)).to be < page.body.index(@org2.name)
+        end
+
+        scenario 'by DESC inscription date', :search do
+          visit organizations_path(order: :descending)
+          expect(page.body.index(@org2.name)).to be < page.body.index(@org1.name)
         end
       end
     end
