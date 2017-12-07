@@ -7340,6 +7340,9 @@ ul.accordion{
       border-bottom: 0;
       background-color: #fefefe;
       color: #0a0a0a;
+      ul{
+      margin-left: 0; 
+      }
     }
   }
 }
