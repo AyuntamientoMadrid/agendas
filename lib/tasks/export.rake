@@ -16,4 +16,18 @@ namespace :export do
     exporter.save_json(folder.join('public_organizations.json'))
   end
 
+  desc "Exports organizations' events to public/export/organizations_events.csv,
+        public/export/organizations_events.xls and public/export/organizations_events.json"
+  task events: :environment do
+    folder = Rails.root.join('public', 'export')
+    FileUtils.rm_rf folder
+    FileUtils.mkdir_p folder
+
+    exporter = EventsExporter.new
+
+    exporter.save_csv(folder.join('organizations_events.csv'))
+    exporter.save_xls(folder.join('organizations_events.xls'))
+    exporter.save_json(folder.join('organizations_events.json'))
+  end
+
 end
