@@ -99,7 +99,7 @@
             <p>
               <strong><%= t('organizations.show.represented_entity_from') %> : </strong>
               <br />
-              <%= represented_entity.from %>
+              <%= represented_entity.from.strftime("%d/%m/%Y") %>
             </p>
             <p>
               <strong><%= t('organizations.show.represented_entity_to') %> : </strong>
@@ -139,11 +139,11 @@
               </p>
               <p><strong><%= t('organizations.show.agents_from') %> : </strong>
                 <br />
-                <%= agent.from %>
+                <%= agent.from.strftime("%d/%m/%Y") %>
               </p>
               <p><strong><%= t('organizations.show.agents_to') %> : </strong>
                 <br />
-                <%= agent.to if agent.to.present? %>
+                <%= agent.to.strftime("%d/%m/%Y") if agent.to.present? %>
               </p>
             <% end %>
         </div>
