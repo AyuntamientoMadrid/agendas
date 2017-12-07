@@ -7,7 +7,7 @@
   <p><strong><%= t('backend.title') %>:</strong> <%= @event.title %></p>
   <p><strong><%= t('backend.location') %>:</strong> <%= @event.location %></p>
   <p><strong><%= t('backend.date') %>:</strong> <%= @event.scheduled.strftime(t('time.formats.short')) %></p>
-  <p><strong><%= t('backend.description') %>:</strong><%= @event.description.html_safe %></p>
+  <p><strong><%= t('backend.description') %>:</strong><%= @event.description.html_safe if @event.description.present? %></p>
 </fieldset>
 <% if @event.user.present? %>
 <fieldset>
