@@ -339,7 +339,6 @@ feature 'Events' do
         describe "Attendees" do
 
           scenario 'Create organization with invalid attendee', :js do
-            skip('pending refactor')
             new_position = create(:position)
             visit new_event_path
 
