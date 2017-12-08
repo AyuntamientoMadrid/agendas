@@ -32,11 +32,9 @@
             <strong><%= t('organizations.show.canceled_at') %>:
             <br />
             </strong>
-
             <% if @organization.canceled_at? %>
               <%= @organization.canceled_at.strftime("%d/%m/%Y") %>
             <% end %>
-
           </p>
 
           <p>
