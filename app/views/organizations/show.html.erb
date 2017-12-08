@@ -23,6 +23,13 @@
             <%= @organization.updated_at.strftime("%d/%m/%Y") %>
           </p>
           <p>
+            <strong><%= t('organizations.show.canceled_at') %>:
+            <br />
+            </strong>
+            <%= @organization.canceled_at.strftime("%d/%m/%Y") %>
+          </p>
+
+          <p>
             <strong><%= t('organizations.show.id') %>:
             <br />
             </strong><%= @organization.id %>
