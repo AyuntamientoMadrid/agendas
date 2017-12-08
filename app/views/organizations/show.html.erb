@@ -13,8 +13,11 @@
 </div>
 <div class="small-12 columns">
     <ul class="accordion" data-accordion role = "tablist">
-      <li class="accordion-navigation">
-        <a href="#panel1" class="accordion-title"><%= t('organizations.show.identifying_data_title') %></a>
+      <li class="accordion-navigation active">
+        <a href="#panel1" class="accordion-title">
+          <%= t('organizations.show.identifying_data_title') %>
+          <span class="accordion-icon"></span>
+        </a>
         <div id="panel1" class="content active">
           <p>
             <strong><%= t('organizations.show.inscription_date') %>:
@@ -83,8 +86,12 @@
         </div>
       </li>
       <li class="accordion-navigation">
-        <a href="#panel4"><%= t('organizations.show.fiscal_year_title') %></a>
+        <a href="#panel4">
+          <%= t('organizations.show.fiscal_year_title') %>
+          <span class="accordion-icon"></span>
+        </a>
         <div id="panel4" class="content">
+
           <% if @organization.fiscal_year.present? %>
             <p>
               <strong><%= t('organizations.show.fiscal_year') %>: </strong>
@@ -106,13 +113,19 @@
               <br />
               <%= t(@organization.contract.to_s) %>
             </p>
+          <% else %>
+            <%= t('organizations.show.no_results') %>
           <% end %>
+
         </div>
       </li>
       <li class="accordion-navigation">
-        <a href="#panel5"><%= t('organizations.show.represented_entity_title') %></a>
+        <a href="#panel5">
+          <%= t('organizations.show.represented_entity_title') %>
+          <span class="fa accordion-icon"></span>
+        </a>
         <div id="panel5" class="content">
-          <% @organization.represented_entities.each do |represented_entity| %>
+          <% if @organization.represented_entities.each do |represented_entity| %>
             <p>
               <strong><%= t('organizations.show.represented_entity_identifier') %>: </strong>
               <br />
@@ -151,13 +164,18 @@
               <br />
               <%= t(represented_entity.contract.to_s) %>
             </p>
-          <% end %>
+            <% end.empty? %>
+              <%= t('organizations.show.no_results') %>
+            <% end %>
         </div>
       </li>
       <li class="accordion-navigation">
-        <a href="#panel6"><%= t('organizations.show.agents_title') %></a>
+        <a href="#panel6">
+          <%= t('organizations.show.agents_title') %>
+          <span class="fa accordion-icon"></span>
+        </a>
           <div id="panel6" class="content">
-            <% @organization.agents.each do |agent| %>
+            <% if @organization.agents.each do |agent| %>
               <p>
                 <strong><%= t('organizations.show.agents_fullname') %>: </strong>
                 <br />
@@ -171,17 +189,24 @@
                 <br />
                 <%= agent.to.strftime("%d/%m/%Y") if agent.to.present? %>
               </p>
+            <% end.empty? %>
+              <%= t('organizations.show.no_results') %>
             <% end %>
         </div>
       </li>
       <li class="accordion-navigation">
-        <a href="#panel7"><%= t('organizations.show.interests_title') %></a>
+        <a href="#panel7">
+          <%= t('organizations.show.interests_title') %>
+          <span class="fa accordion-icon"></span>
+        </a>
           <div id="panel7" class="content">
             <ul>
-              <% @organization.interests.each do |interest| %>
+              <% if @organization.interests.each do |interest| %>
                 <li>
                   <%= interest.name %>
                 </li>
+              <% end.empty? %>
+                <%= t('organizations.show.no_results') %>
               <% end %>
             </ul>
         </div>

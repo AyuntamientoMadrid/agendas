@@ -9,6 +9,8 @@ es:
       default: Últimas Organizaciones registradas
 
     show:
+      state: "Estado"
+      no_results: "No ya ningún dato"
       title: "Página pública de la Organización"
       reference: "Número de anotación en registro"
       identifying_data_title: "Datos"
