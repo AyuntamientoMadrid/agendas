@@ -59,7 +59,7 @@ en:
     new_organization_title: "Nueva organización"
     reference:
       title_fieldset: "Referencia de la declaracíon responsable"
-      title: "Referencia"
+      title: "Número de anotación en registro"
 
     identifying_data:
       title_fieldset: "Datos identificativos"

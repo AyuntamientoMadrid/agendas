@@ -36,6 +36,6 @@ class OrganizationsController < ApplicationController
 
     def get_autocomplete_items(parameters)
       items = Organization.full_like("%#{parameters[:term]}%")
-    end    
+    end
 
 end
