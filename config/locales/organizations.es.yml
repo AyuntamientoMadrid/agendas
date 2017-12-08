@@ -12,6 +12,8 @@ es:
       title: "Página pública de la Organización"
       reference: "Número de anotación en registro"
       identifying_data_title: "Datos"
+      inscription_date: "Fecha de inscripción"
+      updated_at: "Fecha de última modificación"
       id: "Código de Lobby"
       identifier: "NIF"
       name: "Nombre/Apellidos o Razón Social"

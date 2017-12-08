@@ -12,6 +12,8 @@ en:
       title: "Organization public page"
       reference: "Número de anotación en registro"
       identifying_data_title: "Datos"
+      inscription_date: "Fecha de inscripción"
+      updated_at: "Fecha de última modificación"
       id: "Código de Lobby"
       identifier: "NIF"
       name: "Nombre/Apellidos o Razón Social"
@@ -25,10 +27,8 @@ en:
       lobby: 'Lobbie'
       federation: 'Federación'
       association: 'Asociación'
-
       legal_representant_title: "Representante legal"
       legal_representant_name: "Nombres/Apellidos o Razón Social"
-
       display_user_title: "Persona fisica de contacto"
       user_name: "Nombre/Apellidos"
       fiscal_year_title: "Datos de quien va a ejercer la actividad de lobby por cuenta propria"

@@ -11,6 +11,18 @@
         <a href="#panel1" class="accordion-title"><%= t('organizations.show.identifying_data_title') %></a>
         <div id="panel1" class="content active">
           <p>
+            <strong><%= t('organizations.show.inscription_date') %>:
+            <br />
+            </strong>
+            <%= @organization.inscription_date.strftime("%d/%m/%Y") %>
+          </p>
+          <p>
+            <strong><%= t('organizations.show.updated_at') %>:
+            <br />
+            </strong>
+            <%= @organization.updated_at.strftime("%d/%m/%Y") %>
+          </p>
+          <p>
             <strong><%= t('organizations.show.id') %>:
             <br />
             </strong><%= @organization.id %>
