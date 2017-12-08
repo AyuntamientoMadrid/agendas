@@ -2,7 +2,6 @@
   <div class="small-12 columns">
     <%= link_to t('backend.back'), organizations_path , class: "button tiny radius" %>
     <h2 class="post__title-big"><%= @organization.name %></h2>
-    <p><%= t('organizations.show.reference') %>: <%= @organization.reference %></p>
   </div>
 </div>
 
@@ -66,19 +65,19 @@
               <%= @organization.fiscal_year %>
             </p>
             <p>
-              <strong><%= t('organizations.show.range_fund') %>: </strong>
+              <strong><%= t('organizations.show.range_fund_title') %>: </strong>
               <br />
-              <%= @organization.range_fund %>
+              <%= t("organizations.show.range_fund.#{@organization.range_fund}") %>
             </p>
             <p>
               <strong><%= t('organizations.show.subvention') %> : </strong>
               <br />
-              <%= @organization.subvention %>
+              <%= t(@organization.subvention.to_s) %>
             </p>
             <p>
               <strong><%= t('organizations.show.contract') %> </strong>
               <br />
-              <%= @organization.contract %>
+              <%= t(@organization.contract.to_s) %>
             </p>
           <% end %>
         </div>
@@ -109,7 +108,7 @@
             <p>
               <strong><%= t('organizations.show.represented_entity_range_fund') %> : </strong>
               <br />
-              <%= represented_entity.range_fund %>
+              <%= t("organizations.show.range_fund.#{represented_entity.range_fund}") %>
             </p>
             <p>
               <strong><%= t('organizations.show.represented_entity_fiscal_year') %> : </strong>
@@ -119,11 +118,11 @@
             <p>
               <strong><%= t('organizations.show.represented_entity_subvention') %> : </strong>
               <br />
-              <%= represented_entity.subvention %>
+              <%= t(represented_entity.subvention.to_s) %>
             </p>
             <p><strong><%= t('organizations.show.represented_entity_contract') %> : </strong>
               <br />
-              <%= represented_entity.contract %>
+              <%= t(represented_entity.contract.to_s) %>
             </p>
           <% end %>
         </div>

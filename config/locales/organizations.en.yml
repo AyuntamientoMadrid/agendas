@@ -1,4 +1,7 @@
 en:
+  "true": "Yes"
+  "false": "No"
+
   organizations:
     title: Organizations registry
     description: Consult the organizations registered.

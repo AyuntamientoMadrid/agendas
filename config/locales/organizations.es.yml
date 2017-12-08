@@ -1,4 +1,7 @@
 es:
+  "true": "Si"
+  "false": "No"
+
   organizations:
     title: Consulta del registro de Organizaciones
     description: Consulte las organizaciones registradas.
@@ -22,17 +25,19 @@ es:
       lobby: 'Lobbie'
       federation: 'Federación'
       association: 'Asociación'
-
       legal_representant_title: "Representante legal"
       legal_representant_name: "Nombres/Apellidos o Razón Social"
-
       display_user_title: "Persona fisica de contacto"
       user_name: "Nombre/Apellidos"
       fiscal_year_title: "Datos de quien va a ejercer la actividad de lobby por cuenta propria"
       fiscal_year: "Ejercicio anual"
-      range_fund: "Fondos dedicados a la actividad e lobby"
+      range_fund_title: "Fondos dedicados a la actividad e lobby"
+      range_fund:
+        range_1: "Inferiores a 9.999 euros"
+        range_2: "De 10.000 a 24.999 euros"
+        range_3: "De 25.000 a 49.000 euros"
+        range_4: "Más de 50.000 euros"
       subvention: "Ayudas y/o subvenciones recibidas del Ayto"
-      contract: "Contratos y/o convenios con el Ayto"
 
       represented_entity_title: "Datos personas o entidades sin personalidad a quienes se va a representar"
       represented_entity_identifier: "NIF"
@@ -42,6 +47,8 @@ es:
       represented_entity_range_fund: "Fondos que la entidad dedica"
       represented_entity_fiscal_year: "Ejercicio anual"
       represented_entity_subvention: "Ayudas y/o subvenciones recibidas del Ayto"
+
+      contract: "Contratos y/o convenios con el Ayto"
       represented_entity_contract: "Contratos y/o convenios con el Ayto"
 
       agents_title: "Personas que se reúnen"
@@ -50,7 +57,6 @@ es:
       agents_to: "Fecha de fin de representación"
 
       interests_title: "Area de interés"
-
 
   backend:
     new_organization_title: "Nueva organización"
@@ -116,7 +122,9 @@ es:
         range_3: "De 25.000 a 49.000 euros"
         range_4: "Más de 50.000 euros"
       subvention: "¿Ha recibido ayudas y/o subvenciones con cargo al Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
+      subvention_yes: "Si"
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
+      contract_yes: "Si"
 
     represented_entities:
       add_represented_entities: "Añadir Entidades a las que se representa"
