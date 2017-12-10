@@ -32,6 +32,9 @@ class Organization < ActiveRecord::Base
     boolean :invalidate
     string :entity_type
     time :inscription_date
+    integer :interest_ids, multiple: true do
+      interests.map(&:id)
+    end
   end
 
   scope :invalidated, -> { where('invalidate = ?', true) }

@@ -370,27 +370,45 @@ feature 'Organizations page' do
       expect(page).to have_content("Consulta del registro de Organizaciones")
     end
 
-    scenario "Should order by inscription date ascending", :search do
-      create(:organization, name: "Carlos", first_surname: "Peréz", inscription_date: "Sat, 27 Nov 2015")
-      create(:organization, name: "Fulanito", first_surname: "Mengano", inscription_date: "Sun, 27 Nov 2016")
-      Organization.reindex
+    feature 'Filters' do
+      background do
+        @org1 = create(:organization, inscription_date: 'Fri, 27 Nov 2015')
+        @org2 = create(:organization, inscription_date: 'Sun, 27 Nov 2016')
+        Organization.reindex
+      end
 
-      visit organizations_path
+      context 'Interests' do
+        background do
+          @org1.interests.push(create(:interest, name: 'Music'))
+          @org2.interests.push(create(:interest, name: 'History'))
+          Organization.reindex
+        end
 
-      page.body.index('Carlos').should < page.body.index('Fulanito')
-    end
+        scenario 'shows organizations based on the selected interest', :search do
+          visit organizations_path
 
-    scenario "Should order by inscription date descending", :js, :search do
-      create(:organization, name: "Carlos", first_surname: "Peréz", inscription_date: "Sat, 27 Nov 2015")
-      create(:organization, name: "Fulanito", first_surname: "Mengano", inscription_date: "Sun, 27 Nov 2016")
-      Organization.reindex
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_content(@org2.name)
 
-      visit organizations_path
+          find('#interestsFilter').find(:xpath, 'option[2]').select_option
+          click_button(I18n.t('main.form.search'))
 
-      all("#search-order option")[1].select_option
-      sleep 1
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_no_content(@org2.name)
+        end
+      end
 
-      page.body.index('Fulanito').should < page.body.index('Carlos')
+      context 'Sorting' do
+        scenario 'by ASC inscription date', :search do
+          visit organizations_path
+          expect(page.body.index(@org1.name)).to be < page.body.index(@org2.name)
+        end
+
+        scenario 'by DESC inscription date', :search do
+          visit organizations_path(order: :descending)
+          expect(page.body.index(@org2.name)).to be < page.body.index(@org1.name)
+        end
+      end
     end
 
   end
