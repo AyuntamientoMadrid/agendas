@@ -10,7 +10,7 @@ namespace :organizations do
              'Iglesia y otras confesiones', 'Otro tipo de sujetos']
 
     names.each do |name|
-      Category.find_or_create_by(name: name)
+      Category.find_or_create_by(name: name, display: true)
     end
   end
 

@@ -38,7 +38,7 @@ class PublicOrganizationImporter
   end
 
   def self.get_category(data)
-    Category.find_or_create_by(name: data["Categoría"])
+    Category.find_or_create_by(name: data["Categoría"], display: false)
   end
 
   def self.associations_mapping

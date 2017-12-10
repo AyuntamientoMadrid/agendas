@@ -115,7 +115,7 @@ names = ['Consultoría profesional y despachos de abogados', 'Empresas', 'Asocia
          'Iglesia y otras confesiones', 'Otro tipo de sujetos']
 
 names.each do |name|
-  Category.create(name: name)
+  Category.create(name: name, display: true)
 end
 
 #Category
