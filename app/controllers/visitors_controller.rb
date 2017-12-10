@@ -39,7 +39,7 @@ class VisitorsController < ApplicationController
         with(:scheduled).greater_than_or_equal_to params[:from].to_date if params[:from].present?
         with(:scheduled).less_than_or_equal_to params[:to].to_date.end_of_day() if params[:to].present?
       end
-      with(:published_at).greater_than_or_equal_to Time.zone.today
+      with(:published_at).less_than_or_equal_to Time.zone.today
       order_by params[:order].blank? ? :scheduled : params[:order], :desc
       paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 10
     end

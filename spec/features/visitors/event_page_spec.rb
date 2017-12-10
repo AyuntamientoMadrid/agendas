@@ -1,7 +1,7 @@
 feature 'Event page' do
 
   scenario 'visit the event detail page', :search do
-    event = create(:event, published_at: Time.zone.tomorrow)
+    event = create(:event, published_at: Time.zone.yesterday)
     Event.reindex
     Sunspot.commit
     visit root_path
@@ -12,7 +12,7 @@ feature 'Event page' do
   end
 
   scenario 'visit search by keyword and area result page', :search do
-    event = create(:event, title: 'New event from Capybara', published_at: Time.zone.tomorrow)
+    event = create(:event, title: 'New event from Capybara', published_at: Time.zone.yesterday)
     visit root_path
 
     fill_in :keyword, with: 'Capybara'
@@ -23,7 +23,7 @@ feature 'Event page' do
   end
 
   scenario 'visit non results search page' do
-    event = create(:event, title: 'New not found event', published_at: Time.zone.tomorrow)
+    event = create(:event, title: 'New not found event', published_at: Time.zone.yesterday)
     visit root_path
 
     fill_in :keyword, with: 'Capybara'
@@ -37,16 +37,16 @@ feature 'Event page' do
     event1 = create(:event, published_at: Time.zone.yesterday, title: 'event1')
     event2 = create(:event, published_at: Time.zone.today, title: 'event2')
     event3 = create(:event, published_at: Time.zone.tomorrow, title: 'event3')
-    event4 = create(:event, published_at: Time.zone.tomorrow, title: 'event4', status: :canceled)
+    event4 = create(:event, published_at: Time.zone.yesterday, title: 'event4', status: :canceled)
 
     Event.reindex
     Sunspot.commit
 
     visit root_path
 
-    expect(page).not_to have_content event1.title
+    expect(page).to have_content event1.title
     expect(page).to have_content event2.title
-    expect(page).to have_content event3.title
+    expect(page).not_to have_content event3.title
     expect(page).not_to have_content event4.title
   end
 

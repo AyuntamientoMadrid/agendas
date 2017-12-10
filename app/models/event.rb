@@ -47,7 +47,7 @@ class Event < ActiveRecord::Base
   }
 
   scope :with_lobby_activity_active, -> { where(lobby_activity: true) }
-  scope :published, -> { where("published_at >= ? AND status != ?", Time.zone.today, 4) }
+  scope :published, -> { where("published_at <= ? AND status != ?", Time.zone.today, 4) }
 
   def cancel_event
     return unless cancel == 'true' && canceled_at.nil?

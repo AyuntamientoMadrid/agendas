@@ -5,7 +5,7 @@ FactoryGirl.define do
     title "Event title"
     description "Event description"
     lobby_activity true
-    published_at Date.current
+    published_at Date.yesterday
     scheduled Time.now
     location "Ayuntamiento de Madrid"
     association :position, factory: :position
