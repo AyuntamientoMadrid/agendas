@@ -24,6 +24,7 @@ class OrganizationsController < ApplicationController
       Organization.lobbies.validated.search do
         fulltext params[:keyword] if params[:keyword].present?
         with(:interest_ids, params[:interests]) if params[:interests].present?
+        with(:category_id, params[:category]) if params[:category].present?
         order_by :created_at, :desc
         order_by :inscription_date, selected_order
         paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 10
