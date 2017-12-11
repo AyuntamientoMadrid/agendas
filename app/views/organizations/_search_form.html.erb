@@ -20,7 +20,7 @@
 
     <div class="mb20">
       <%= select_tag :category,
-                     options_for_select(Category.all.map {
+                     options_for_select(Category.where(display: true).all.map {
                        |category| [category.name, category.id]
                      }, params[:category]),
                      id: "categoryFilter",
