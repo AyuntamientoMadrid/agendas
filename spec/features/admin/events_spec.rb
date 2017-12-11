@@ -607,7 +607,7 @@ feature 'Events' do
     end
 
     scenario 'visit index event page' do
-      event = create(:event, title: 'New event for lobbies', position: @position)
+      event = create(:event, title: 'New event for lobbies', position: @position , organization_id: @organization.id)
       visit events_path
 
       expect(page).to have_content event.title

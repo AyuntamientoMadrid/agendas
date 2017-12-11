@@ -83,6 +83,7 @@ es:
         person: "Ó por titular/asistente"
         placeholder_person: "Búsqueda por titulares y asistentes"
         button: "Buscar"
+        status: "Search by status"
     pending: "Pending"
     date: "Fecha"
     lobby_date: "Descripción de fecha propuesta"
@@ -149,6 +150,13 @@ es:
     cancel_reason_yes: Yes
     cancel_reason_no: No
     reasons: Reasons
+
+    status:
+      requested: "Requested"
+      accepted: "Accepted"
+      done: "Done"
+      declined: "Rejected"
+      canceled: "Canceled"
 
   backend_header:
     open_gov: "Gobierno abierto"

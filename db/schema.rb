@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20171210174630) do
     t.string   "organization_name"
     t.text     "lobby_scheduled"
     t.text     "general_remarks"
+    t.integer  "organization_id"
     t.string   "lobby_contact_firstname"
     t.string   "lobby_contact_lastname"
     t.string   "lobby_contact_email"

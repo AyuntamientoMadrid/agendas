@@ -1,13 +1,17 @@
-<% if current_user.admin? %>
+<% if current_user.admin? || current_user.lobby? %>
   <%= form_tag events_path, method: :get do %>
   <div class="small-12 columns" id="search_form">
-    <div class="small-6 columns">
+    <div class="small-4 columns">
       <%= label_tag(:search_title, t("backend.search.title")) %>
-      <input type="text" name="search_title" placeholder="<%= t("backend.search.placeholder_title") %>"  value="<%= params[:search_title] %>" onchange="form.search_person.value=''">
+      <input type="text" name="search_title" placeholder="<%= t("backend.search.placeholder_title") %>"  value="<%= params[:search_title] %>">
     </div>
-    <div class="small-6 columns">
+    <div class="small-4 columns">
       <%= label_tag(:search_person, t("backend.search.person")) %>
-      <input type="text" name="search_person" placeholder="<%= t("backend.search.placeholder_person") %>"  value="<%= params[:search_person] %>"  onchange="form.search_title.value=''">
+      <input type="text" name="search_person" placeholder="<%= t("backend.search.placeholder_person") %>"  value="<%= params[:search_person] %>">
+    </div>
+    <div class="small-4 columns">
+      <%= label_tag :status, t('backend.search.status'), class: 'title-s' %>
+      <%= select_tag :status, event_status_search_options(params[:status]) , {include_blank: true , multiple: true}  %>
     </div>
   </div>
   <div class="small-12 columns">
