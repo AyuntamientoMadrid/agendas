@@ -19,6 +19,16 @@
     </div>
 
     <div class="mb20">
+      <%= select_tag :category,
+                     options_for_select(Category.all.map {
+                       |category| [category.name, category.id]
+                     }, params[:category]),
+                     id: "categoryFilter",
+                     prompt: t("main.form.filter_by"),
+                     class: "dropdown" %>
+    </div>
+
+    <div class="mb20">
       <%= link_to t("main.form.reset"), organizations_path, class: "button secondary" %>
       <%= submit_tag t("main.form.search"), class: "button" %>
     </div>

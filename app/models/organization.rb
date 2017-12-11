@@ -34,6 +34,7 @@ class Organization < ActiveRecord::Base
     integer :interest_ids, multiple: true do
       interests.map(&:id)
     end
+    integer :category_id
   end
 
   scope :invalidated, -> { where('invalidate = ?', true) }

@@ -387,6 +387,21 @@ feature 'Organizations page' do
           expect(page.body.index(@org2.name)).to be < page.body.index(@org1.name)
         end
       end
+
+      context 'Categories' do
+        scenario 'shows organizations based on the selected category', :search do
+          visit organizations_path
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_content(@org2.name)
+
+          find('#categoryFilter').find(:xpath, 'option[2]').select_option
+          click_button(I18n.t('main.form.search'))
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_no_content(@org2.name)
+        end
+      end
     end
 
   end
