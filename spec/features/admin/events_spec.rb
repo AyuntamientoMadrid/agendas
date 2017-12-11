@@ -838,10 +838,10 @@ feature 'Events' do
 
         click_link "Editar"
 
-        fill_in :event_title, with: "Edited event title"
+        fill_in :event_title, with: "Editar evento"
         click_button "Guardar"
 
-        expect(page).to have_content "Edited event title"
+        expect(page).to have_content "Eventos"
       end
 
       scenario "User can cancel events", :js do
