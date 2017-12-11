@@ -38,7 +38,7 @@ class Organization < ActiveRecord::Base
 
   scope :invalidated, -> { where('invalidate = ?', true) }
   scope :validated, -> { where('invalidate = ?', false) }
-  scope :lobbies, -> { where('entity_type = ?', 2)}
+  scope :lobbies, -> { where('entity_type = ?', 2) }
   scope :full_like, ->(name) { where("identifier ilike ? OR name ilike ?", name, name) }
 
   def fullname
