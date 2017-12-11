@@ -7,6 +7,16 @@ $(function(){
     weekStart: 1
   });
 
+  $.validator.addMethod("valueNotEquals", function(value, element, arg){
+    agent = $("#new_event_agent > div > div.small-12.medium-6.columns > select").val();
+    if ($(element).is(':checked') && (agent == '' ||
+      typeof(agent) == 'undefined' ||
+      agent == "<%= I18n.translate('backend.event.not_available_agents')%>" ))
+      {return false }
+    else
+      { return true }
+  }, "<%= I18n.translate('backend.event.event_agent_needed')%>");
+
   $(".admin-form").validate({
 
       ignore: [],
@@ -25,9 +35,6 @@ $(function(){
           "event[position_id]" : {
               required : true
           },
-          "event[lobby_activity]" : {
-              required : true,
-          },
           "event[attachments_attributes][0][title]" : {
               required : true
           },
@@ -36,6 +43,9 @@ $(function(){
           },
           "event[attachments_attributes][0][public]" : {
             required : true
+          },
+          "event[lobby_activity]" : {
+            valueNotEquals: "<%= I18n.translate('backend.event.not_available_agents')%>"
           },
           "event[published_at]" : {
             required : true
@@ -69,6 +79,9 @@ $(function(){
           },
           "event[published_at]" : {
             required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[event_agents_attributes][0][name]" : {
+            valueNotEquals: "<%= I18n.translate('backend.event.event_agent_needed')%>"
           }
       },
 
@@ -173,7 +186,7 @@ function fill_agents_select_options() {
             }
           });
         }else {
-          select.append($('<option>', { value: "No hay agentes disponibles.", text: "No hay agentes disponibles." }));
+          select.append($('<option>', { value: "<%= I18n.translate('backend.event.not_available_agents')%>", text: "<%= I18n.translate('backend.event.not_available_agents')%>" }));
           id_select_agent = $('#nested-event-agents select').attr('id');
           set_option = $('select#' + id_select_agent + ' option').last().val();
           $('#nested-event-agents select').val(set_option);
