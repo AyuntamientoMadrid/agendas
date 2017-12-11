@@ -345,7 +345,7 @@ feature 'Organizations page' do
 
       click_on "Volver"
 
-      expect(page).to have_content("Consulta del registro de Organizaciones")
+      expect(page).to have_content("Consulta del registro de lobbies")
     end
 
     feature 'Filters' do

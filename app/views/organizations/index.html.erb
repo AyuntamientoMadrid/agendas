@@ -16,7 +16,9 @@
     <% end %>
 
     <div class="row">
+      <% if !params[:interests].present? %>
         <p><strong class="result-l mb20"><%= oganizations_index_subtitle %></strong></p>
+      <% end %>
     </div>
 
     <div class="row">
@@ -32,7 +34,7 @@
         </div>
       </div>
     </div>
-    
+
     <% @paginated_organizations.each do |organization| %>
       <%= render organization %>
     <% end %>
