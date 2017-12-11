@@ -9,15 +9,6 @@
     </div>
 
     <div class="mb20">
-      <%= select_tag :entity_type,
-                     options_for_select(Organization.entity_types.keys.map {
-                       |type| [t("organizations.show.#{type}"), type]
-                     }, params[:entity_type]),
-                     prompt: t("main.form.filter_by"),
-                     class: "dropdown" %>
-    </div>
-
-    <div class="mb20">
       <%= select_tag :interests,
                      options_for_select(Interest.all.map {
                        |interest| [interest.name, interest.id]

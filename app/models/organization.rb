@@ -30,7 +30,6 @@ class Organization < ActiveRecord::Base
     text :name, :first_surname, :second_surname, :description
     time :created_at
     boolean :invalidate
-    string :entity_type
     time :inscription_date
     integer :interest_ids, multiple: true do
       interests.map(&:id)
@@ -39,6 +38,7 @@ class Organization < ActiveRecord::Base
 
   scope :invalidated, -> { where('invalidate = ?', true) }
   scope :validated, -> { where('invalidate = ?', false) }
+  scope :lobbies, -> { where('entity_type = ?', 2) }
   scope :full_like, ->(name) { where("identifier ilike ? OR name ilike ?", name, name) }
 
   def fullname
