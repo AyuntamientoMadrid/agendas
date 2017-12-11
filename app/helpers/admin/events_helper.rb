@@ -53,10 +53,9 @@ module Admin
     end
 
     def event_status_search_options (selected)
-      rev=Hash.new
-      t("backend.status").each_with_index {|(k,v),index| rev[v]=k}
-      return options_for_select(rev, selected)
+      rev= {}
+      t("backend.status").each_with_index { |(k, v)| rev[v] = k }
+      options_for_select(rev, selected)
     end
-
   end
 end

@@ -33,8 +33,7 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
 
-
-  SUPPORTED_FILTERS = [:title, :position_id, :lobby_activity, :status , :organization_id]
+  SUPPORTED_FILTERS = [:title, :position_id, :lobby_activity, :status, :organization_id].freeze
   scope :title, lambda {|title| where("title ILIKE ?", "%#{title}%") }
   scope :by_holders, lambda {|holder_ids|
     joins(:position).where("positions.holder_id IN (?)", holder_ids)
@@ -46,12 +45,12 @@ class Event < ActiveRecord::Base
     holder_ids = Holder.by_name(name).pluck(:id)
     joins(:position).where("positions.holder_id IN (?)", holder_ids)
   }
-  scope :status, -> (status) { where("status IN (#{status})") }
-  scope :lobby_activity, -> (lobby_activity){ where(lobby_activity: lobby_activity) }
-  scope :position_id, -> (position) { where(position_id: position) }
-  scope :organization_id, -> (organization) { where(organization_id: organization) }
-  scope :published, -> { where("published_at <= ? AND status != ?", Time.zone.today, 4) }
-  enum status: { requested: 0, accepted: 1 , done: 2 ,  declined: 3, canceled: 4 }
+  scope :status, ->(status) { where("status IN (#{status})") }
+  scope :lobby_activity, ->(lobby_activity){ where(lobby_activity: lobby_activity) }
+  scope :position_id, ->(position) { where(position_id: position) }
+  scope :organization_id, ->(organization) { where(organization_id: organization) }
+  scope :published, ->{ where("published_at <= ? AND status != ?", Time.zone.today, 4) }
+  enum status: { requested: 0, accepted: 1, done: 2, declined: 3, canceled: 4 }
   def cancel_event
     return unless cancel == 'true' && canceled_at.nil?
     self.canceled_at = Time.zone.today

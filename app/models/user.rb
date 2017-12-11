@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
   end
 
   def self.lobby?
-    true if self.role="lobby"
+    true if self.role == "lobby"
   end
 
 end
