@@ -1,6 +1,7 @@
 class EventsController < AdminController
   load_and_authorize_resource
   before_action :set_holders, only: [:new, :edit, :create]
+  before_action :set_event, only: [:edit, :update]
 
   def index
     @events = current_user.admin? ? list_admin_events : list_user_events
@@ -15,6 +16,9 @@ class EventsController < AdminController
       flash[:alert] = t('backend.review_errors')
       render :new
     end
+  end
+
+  def edit
   end
 
   def update
@@ -41,8 +45,9 @@ class EventsController < AdminController
 
   def event_params
     params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, :search_title, :search_person,
-                                  :lobby_activity, :notes, :status, :reasons, :published_at,
-                                  :organization_name, :lobby_scheduled, :general_remarks, :cancel,
+                                  :lobby_activity, :notes, :status, :reasons, :published_at, :cancel,
+                                  :organization_name, :lobby_scheduled, :general_remarks, :lobby_contact_firstname,
+                                  :lobby_contact_lastname, :lobby_contact_phone, :lobby_contact_email, :lobby_general_remarks,
                                   event_represented_entities_attributes: [:id, :name, :_destroy],
                                   event_agents_attributes: [:id, :name, :_destroy],
                                   attendees_attributes: [:id, :name, :position, :company, :_destroy],
@@ -65,6 +70,10 @@ class EventsController < AdminController
     @events = Event.managed_by(current_user)
                    .includes(:position, :attachments, position: [:holder])
     @events.order(scheduled: :desc).page(params[:page]).per(50)
+  end
+
+  def set_event
+    @event = Event.find(params[:id])
   end
 
 end

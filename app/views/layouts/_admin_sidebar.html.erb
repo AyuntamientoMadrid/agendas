@@ -21,6 +21,22 @@
         <i class="fi-book size-18"> <%= t("backend.companies")%></i>
       </a>
     </li>
+    <% elsif current_user.lobby? %>
+    <li class="<%= active_menu('admin/organizations', 'agents') %>">
+      <a href="<%= edit_admin_organization_path(id: current_user.organization_id, show: 'agents') %>">
+        <i class="fi-plus size-18"> <%= t("backend.add_agents") %></i>
+      </a>
+    </li>
+    <li class="<%= active_menu('admin/organizations', 'interests') %>">
+      <a href="<%= edit_admin_organization_path(id: current_user.organization_id, show: 'interests') %>">
+        <i class="fi-plus size-18"> <%= t("backend.add_interests") %></i>
+      </a>
+    </li>
+    <li class="<%= active_menu('admin/organizations', 'show') %>">
+      <a href="<%= admin_organization_path(id: current_user.organization_id) %>">
+        <i class="fi-book size-18"> <%= t("backend.show_company") %></i>
+      </a>
+    </li>
     <% end %>
     <% if current_user.admin? %>
     <li class="<%= active_menu('areas') %>">

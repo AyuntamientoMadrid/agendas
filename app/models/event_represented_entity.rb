@@ -1,6 +1,6 @@
 class EventRepresentedEntity < ActiveRecord::Base
 
-  belongs_to :event, dependent: :destroy
+  belongs_to :event
 
   validates :name, presence: true
 

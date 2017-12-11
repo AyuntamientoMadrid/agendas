@@ -7,7 +7,7 @@ class OrganizationsController < ApplicationController
   def index
     selected_order = params[:order] == "descending" ? :desc : :asc
     @organizations = search(params, selected_order)
-    @paginated_organizations = Organization.validated.all.where(id: @organizations.hits.map(&:primary_key))
+    @paginated_organizations = Organization.lobbies.validated.all.where(id: @organizations.hits.map(&:primary_key))
     @paginated_organizations = @paginated_organizations.reorder(inscription_date: selected_order)
   end
 
@@ -21,9 +21,10 @@ class OrganizationsController < ApplicationController
   private
 
     def search(params, selected_order)
-      Organization.validated.search do
+      Organization.lobbies.validated.search do
         fulltext params[:keyword] if params[:keyword].present?
-        with :entity_type, params[:entity_type] unless params[:entity_type].blank?
+        with(:interest_ids, params[:interests]) if params[:interests].present?
+        with(:category_id, params[:category]) if params[:category].present?
         order_by :created_at, :desc
         order_by :inscription_date, selected_order
         paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 10

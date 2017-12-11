@@ -99,6 +99,8 @@ es:
     meeting_lobby_activity_public_website: "Fecha en la cual el evento se verá en la página web pública"
     participants_uniqueness: "Existen titulares de agenda duplicados"
     position_not_in_participants: "El titular de agenda se ha incluido también como asistente"
+    lobby_general_remarks_title: "Observaciones generales Gestor de agendas"
+    position_not_in_participants: "El titular de agenda se ha incluido también como asistente"
     attachments: "Archivos adjuntos"
     attachments_description: "Descripción de archivos adjuntos"
     attachments_public: "Archivos adjuntos públicos"
@@ -113,6 +115,9 @@ es:
     description: "Descripción"
     new_event: "Nuevo evento"
     edit_event: "Editar evento"
+    add_agents: "Añadir agentes"
+    add_interests: "Añadir intereses"
+    show_company: "Ver datos organización"
 
     activity: "Registro de Actividad"
     entries: "Registros"

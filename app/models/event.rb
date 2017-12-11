@@ -23,12 +23,12 @@ class Event < ActiveRecord::Base
   has_many :positions, through: :participants
   has_many :attachments, dependent: :destroy
   has_many :attendees, dependent: :destroy
-  has_many :event_represented_entities, dependent: :destroy
-  has_many :event_agents, dependent: :destroy
+  has_many :event_represented_entities, dependent: :destroy, inverse_of: :event
+  has_many :event_agents, dependent: :destroy, inverse_of: :event
 
   accepts_nested_attributes_for :attendees, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :event_represented_entities, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :event_agents, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :event_represented_entities, allow_destroy: true
+  accepts_nested_attributes_for :event_agents, allow_destroy: true
   accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
 
@@ -47,7 +47,7 @@ class Event < ActiveRecord::Base
   }
 
   scope :with_lobby_activity_active, -> { where(lobby_activity: true) }
-  scope :published, -> { where("published_at >= ? AND status != ?", Time.zone.today, 4) }
+  scope :published, -> { where("published_at <= ? AND status != ?", Time.zone.today, 4) }
 
   def cancel_event
     return unless cancel == 'true' && canceled_at.nil?
@@ -138,6 +138,19 @@ class Event < ActiveRecord::Base
       end
     end
     return event_ids
+  end
+
+  def position_names
+    names = ''
+    positions.each do |position|
+      names += position.holder.full_name_comma + ' - ' + position.title
+      names += ' / ' unless position == positions.last
+    end
+    return names
+  end
+
+  def user_name
+    user.full_name
   end
 
   private

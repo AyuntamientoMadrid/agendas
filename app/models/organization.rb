@@ -29,14 +29,17 @@ class Organization < ActiveRecord::Base
     text :name, :first_surname, :second_surname, :description
     time :created_at
     boolean :invalidate
-    string :entity_type
     time :inscription_date
+    integer :interest_ids, multiple: true do
+      interests.map(&:id)
+    end
+    integer :category_id
   end
 
   scope :invalidated, -> { where('invalidate = ?', true) }
   scope :validated, -> { where('invalidate = ?', false) }
-	scope :full_like, -> (name) { where("identifier ilike ? OR name ilike ?", name, name)}
-
+  scope :lobbies, -> { where('entity_type = ?', 2) }
+  scope :full_like, ->(name) { where("identifier ilike ? OR name ilike ?", name, name) }
 
   def fullname
     str = name
@@ -54,12 +57,16 @@ class Organization < ActiveRecord::Base
   end
 
   def set_inscription_date
-    self.inscription_date = Date.current if self.inscription_date.blank?
-    self.save
+    self.inscription_date = Date.current if inscription_date.blank?
+    save
   end
 
   def set_invalidate
     self.invalidate = false
-    self.save
+    save
+  end
+
+  def interest?(id)
+    interests.pluck(:id).include?(id)
   end
 end

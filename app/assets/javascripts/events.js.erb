@@ -86,111 +86,34 @@ $(function(){
     $(".admin-form").valid();
   }
 
-  $('#lobby-activity-event').hide();
-
   $("#event_lobby_activity_true").click(function(){
-    $("#lobby-activity-event").show();
+    $(".lobby-organization-autocomplete").show();
   });
 
   if ($("#event_lobby_activity_true").is(":checked")) {
-    $("#lobby-activity-event").show();
-    $("#re-block").show();
-    $("#agents-block").show();
-    if ($('#organization_id').val()){
-      $.ajax({
-        method: "GET",
-        url: $('#category-block').data('new-url').replace('organization_id', $('#organization_id').val())
-      }).done(function( category ) {
-        var div_category = $('#event-category');
-        div_category.append(category);
-      });
-      $("#category-block").show();
+    fill_autocomplete_organization_name();
+    fill_represented_entities_select_options();
+    fill_agents_select_options();
+    if ($("#new_event").length > 0) {
+      $('#event_represented_entities_link').trigger('click');
+      $('#event_agents_link').trigger('click');
     }
+  } else {
+    $(".lobby-organization-autocomplete").hide();
+    $('.represented-entities-block').hide();
+    $('.agents-block').hide();
+    fill_autocomplete_organization_name();
+    fill_represented_entities_select_options();
+    fill_agents_select_options();
   };
 
   $("#event_lobby_activity_false").click(function(){
-    $("#lobby-activity-event").hide();
+    $(".lobby-organization-autocomplete").hide();
+    $('.represented-entities-block').hide();
+    $('.agents-block').hide();
     $("#lobby-activity-event #category-block").hide();
-    $("#lobby-activity-event #re-block").hide();
-    $("#lobby-activity-event #agents-block").hide();
     $('#event_organization_name').val('');
-  });
-
-  $('#event_organization_name').bind('railsAutocomplete.select', function(event, data){
-    $('#organization_id').val(data.item.id);
-    $('#event-category').empty();
-    if ($('#organization_id').val()){
-      $.ajax({
-        method: "GET",
-        url: $('#category-block').data('new-url').replace('organization_id', $('#organization_id').val())
-      }).done(function( category ) {
-        var div_category = $('#event-category');
-        div_category.append(category);
-      });
-      $("#category-block").show();
-    }
-
-    if ($("#re-block #event-represented-entities").find(".nested-fields").length > 0){
-      $('#re-block .link_to_remove_association').trigger('click');
-      $("#re-block").show();
-      $('#re-block .add_fields').trigger('click');
-
-    }else{
-      $("#re-block").show();
-      $('#re-block .add_fields').trigger('click');
-    }
-
-    if ($("#agents-block #event-agents").find(".nested-fields").length > 0){
-      $('#agents-block .link_to_remove_association').trigger('click');
-      $("#agents-block").show();
-      $('#agents-block .add_fields').trigger('click');
-    }else{
-      $("#agents-block").show();
-      $('#agents-block .add_fields').trigger('click');
-    }
-  });
-
-
-  $('#event-represented-entities').bind('cocoon:after-insert', function() {
-    if ($('#organization_id').val()){
-      $.ajax({
-        method: "GET",
-        url: $('#re-block').data('new-url').replace('organization_id', $('#organization_id').val())
-      }).done(function( represented_entities ) {
-        var select = $('#event-represented-entities select:last');
-        if (represented_entities.length > 0) {
-          $.each(represented_entities, function(id, represented_entity){
-            select.append($('<option>', { value: represented_entity.name, text: represented_entity.name }));
-          });
-        } else {
-          select.append($('<option>', { value: $('#event_organization_name').val(), text: $('#event_organization_name').val() }));
-          set_option = $('#event_organization_name').val()
-          $('#event-represented-entities select').val(set_option);
-        }
-      });
-    }
-  });
-
-  $('#event-agents').bind('cocoon:after-insert', function() {
-
-    if ($('#organization_id').val()){
-      $.ajax({
-        method: "GET",
-        url: $('#agents-block').data('new-url').replace('organization_id', $('#organization_id').val())
-      }).done(function( agents ) {
-        var select = $('#event-agents select:last');
-        if (agents.length > 0) {
-          $.each(agents, function(id, agent){
-            select.append($('<option>', { value: agent.name, text: agent.name }));
-          });
-        } else {
-          select.append($('<option>', { value: "No hay agentes disponibles.", text: "No hay agentes disponibles." }));
-          id_select_agent = $('#select-agents select').attr('id');
-          set_option = $('select#' + id_select_agent + ' option').last().val();
-          $('#select-agents select').val(set_option);
-        }
-      });
-    }
+    $('#lobby-activity-event .link_to_remove_association').trigger('click');
   });
 
   $('#cancel-reason').hide();
@@ -208,3 +131,77 @@ $(function(){
   });
 
 });
+
+function fill_represented_entities_select_options() {
+  $('#nested-event-represented-entities').bind('cocoon:after-insert', function() {
+    if ($('#organization_id').val()){
+      $.ajax({
+        method: "GET",
+        url: $('.represented-entities-block').data('new-url').replace('organization_id', $('#organization_id').val())
+      }).done(function( represented_entities ) {
+        var select = $('#nested-event-represented-entities select:last');
+        if (represented_entities.length > 0)  {
+          $.each(represented_entities, function(id, represented_entity){
+            select.append($('<option>', { value: represented_entity.name, text: represented_entity.name }));
+            if (represented_entities.length == 1) {
+              $('#nested-event-represented-entities select').val(represented_entity.name);
+            }
+          });
+        }else {
+          select.append($('<option>', { value: $('#event_organization_name').val(), text: $('#event_organization_name').val() }));
+          set_option = $('#event_organization_name').val()
+          $('#nested-event-represented-entities select').val(set_option);
+        }
+      });
+    }
+  });
+}
+
+function fill_agents_select_options() {
+  $('#nested-event-agents').bind('cocoon:after-insert', function() {
+    if ($('#organization_id').val()){
+      $.ajax({
+        method: "GET",
+        url: $('.agents-block').data('new-url').replace('organization_id', $('#organization_id').val())
+      }).done(function( agents ) {
+        var select = $('#nested-event-agents select:last');
+        if (agents.length > 0)  {
+          $.each(agents, function(id, agent){
+            select.append($('<option>', { value: agent.name, text: agent.name }));
+            if (agents.length == 1) {
+              $('#nested-event-agents select').val(agent.name);
+            }
+          });
+        }else {
+          select.append($('<option>', { value: "No hay agentes disponibles.", text: "No hay agentes disponibles." }));
+          id_select_agent = $('#nested-event-agents select').attr('id');
+          set_option = $('select#' + id_select_agent + ' option').last().val();
+          $('#nested-event-agents select').val(set_option);
+        }
+      });
+    }
+  });
+}
+
+function fill_autocomplete_organization_name() {
+  $('#event_organization_name').bind('railsAutocomplete.select', function(event, data){
+    $('#nested-event-represented-entities .link_to_remove_association').trigger('click');
+    $('#nested-event-agents .link_to_remove_association').trigger('click');
+    $('#organization_id').val(data.item.id);
+    $('#event-category').empty();
+    if ($('#organization_id').val()){
+      $.ajax({
+        method: "GET",
+        url: $('#category-block').data('new-url').replace('organization_id', $('#organization_id').val())
+      }).done(function( category ) {
+        var div_category = $('#event-category');
+        div_category.append(category);
+      });
+      $("#category-block").show();
+    }
+    $('.represented-entities-block').show();
+    $('#event_represented_entities_link').trigger('click');
+    $('.agents-block').show();
+    $('#event_agents_link').trigger('click');
+  });
+}
