@@ -1,9 +1,9 @@
 es:
   organizations:
-    title: Consulta del registro de Organizaciones
+    title: Consulta del registro de lobbies
     description: Consulte las organizaciones registradas.
     subtitle:
-      default: Últimas Organizaciones registradas
+      default: Incorporaciones más recientes
 
     show:
       title: "Página pública de la Organización"
