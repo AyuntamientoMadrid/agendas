@@ -1,6 +1,6 @@
 class EventsExporter
-  FIELDS = ['title', 'description', 'scheduled', 'user_id', 'position_id', 'location', 'status',
-            'notes', 'reasons', 'published_at', 'canceled_at',
+  FIELDS = ['title', 'description', 'scheduled', 'updated_at', 'user_name', 'position_names', 'location', 'status',
+            'notes', 'reasons', 'published_at', 'canceled_at', 'lobby_activity',
             'organization_name', 'lobby_scheduled', 'general_remarks', 'lobby_contact_firstname',
             'lobby_contact_lastname', 'lobby_contact_email', 'lobby_contact_phone', 'manager_general_remarks'].freeze
 
@@ -25,7 +25,7 @@ class EventsExporter
   def save_csv(path)
     CSV.open(path, 'w', col_sep: ';', force_quotes: true, encoding: "ISO-8859-1") do |csv|
       csv << windows_headers
-      Event.with_lobby_activity_active.find_each do |event|
+      Event.find_each do |event|
         csv << windows_event_row(event)
       end
     end
@@ -37,7 +37,7 @@ class EventsExporter
     sheet.row(0).default_format = Spreadsheet::Format.new color: :blue, weight: :bold
     sheet.row(0).concat headers
     index = 1
-    Event.with_lobby_activity_active.find_each do |event|
+    Event.find_each do |event|
       sheet.row(index).concat windows_event_row(event)
       index += 1
     end
@@ -48,7 +48,7 @@ class EventsExporter
   def save_json(path)
     data = []
     h = headers
-    Event.with_lobby_activity_active.find_each do |event|
+    Event.find_each do |event|
       data << h.zip(windows_event_row(event)).to_h
     end
     File.open(path, "w") do |f|
@@ -59,7 +59,7 @@ class EventsExporter
   private
 
     def windows_array(values)
-      values.map { |v| v.to_s.encode("ISO-8859-1", invalid: :replace, undef: :replace, replace: '') }
+      values.map { |v| v.to_s.encode("UTF-8", invalid: :replace, undef: :replace, replace: '') }
     end
 
 end
