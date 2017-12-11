@@ -140,6 +140,19 @@ class Event < ActiveRecord::Base
     return event_ids
   end
 
+  def position_names
+    names = ''
+    positions.each do |position|
+      names += position.holder.full_name_comma + ' - ' + position.title
+      names += ' / ' unless position == positions.last
+    end
+    return names
+  end
+
+  def user_name
+    user.full_name
+  end
+
   private
 
     def participants_uniqueness
