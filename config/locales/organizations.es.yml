@@ -1,4 +1,7 @@
 es:
+  "true": "Si"
+  "false": "No"
+
   organizations:
     title: Consulta del registro de Organizaciones
     description: Consulte las organizaciones registradas.
@@ -6,9 +9,14 @@ es:
       default: Últimas Organizaciones registradas
 
     show:
+      state: "Estado"
+      no_results: "No hay ningún dato"
       title: "Página pública de la Organización"
-      reference: "Referencia"
+      reference: "Número de anotación en registro"
       identifying_data_title: "Datos"
+      inscription_date: "Fecha de inscripción"
+      updated_at: "Fecha de última modificación"
+      canceled_at: "Fecha de baja"
       id: "Código de Lobby"
       identifier: "NIF"
       name: "Nombre/Apellidos o Razón Social"
@@ -22,17 +30,19 @@ es:
       lobby: 'Lobbie'
       federation: 'Federación'
       association: 'Asociación'
-
       legal_representant_title: "Representante legal"
       legal_representant_name: "Nombres/Apellidos o Razón Social"
-
       display_user_title: "Persona fisica de contacto"
       user_name: "Nombre/Apellidos"
       fiscal_year_title: "Datos de quien va a ejercer la actividad de lobby por cuenta propria"
       fiscal_year: "Ejercicio anual"
-      range_fund: "Fondos dedicados a la actividad e lobby"
+      range_fund_title: "Fondos dedicados a la actividad e lobby"
+      range_fund:
+        range_1: "Inferiores a 9.999 euros"
+        range_2: "De 10.000 a 24.999 euros"
+        range_3: "De 25.000 a 49.000 euros"
+        range_4: "Más de 50.000 euros"
       subvention: "Ayudas y/o subvenciones recibidas del Ayto"
-      contract: "Contratos y/o convenios con el Ayto"
 
       represented_entity_title: "Datos personas o entidades sin personalidad a quienes se va a representar"
       represented_entity_identifier: "NIF"
@@ -42,21 +52,22 @@ es:
       represented_entity_range_fund: "Fondos que la entidad dedica"
       represented_entity_fiscal_year: "Ejercicio anual"
       represented_entity_subvention: "Ayudas y/o subvenciones recibidas del Ayto"
+
+      contract: "Contratos y/o convenios con el Ayto"
       represented_entity_contract: "Contratos y/o convenios con el Ayto"
 
-      agents_title: "Agentes"
+      agents_title: "Personas que se reúnen"
       agents_fullname: "Nombre/Apellidos"
       agents_from: "Fecha de inicio de representación"
       agents_to: "Fecha de fin de representación"
 
       interests_title: "Area de interés"
 
-
   backend:
     new_organization_title: "Nueva organización"
     reference:
       title_fieldset: "Referencia de la declaracíon responsable"
-      title: "Referencia"
+      title: "Número de anotación en registro"
 
     identifying_data:
       title_fieldset: "Datos identificativos"
@@ -116,7 +127,9 @@ es:
         range_3: "De 25.000 a 49.000 euros"
         range_4: "Más de 50.000 euros"
       subvention: "¿Ha recibido ayudas y/o subvenciones con cargo al Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
+      subvention_yes: "Si"
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
+      contract_yes: "Si"
 
     represented_entities:
       add_represented_entities: "Añadir Entidades a las que se representa"

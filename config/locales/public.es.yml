@@ -15,6 +15,7 @@ es:
     open_data_url: "http://datos.madrid.es"
     btn_public_agenda: "Agendas públicas"
     btn_organizations: "Consulta de registro"
+    btn_login: "Entrar"
   main:
     title: "Agendas públicas"
     any_errors: "¿Hay algún error en esta página?"
