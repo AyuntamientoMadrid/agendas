@@ -1,10 +1,13 @@
 <%= render 'search_form' %>
-<div class="small-12 columns">
+
+<div class="small-12 columns mb20">
   <%= page_entries_info @events %>
   <%= paginate @events %>
 </div>
-<div class="small-12 colum">
-  <table class="event">
+
+<% if @events.present? %>
+  <div class="small-12 colum">
+    <table class="event">
     <thead>
       <tr>
         <th><%= t('backend.date')%></th>
@@ -55,5 +58,6 @@
       <% end %>
     </tbody>
   </table>
-</div>
+  </div>
+<% end %>
 <%= paginate @events%>

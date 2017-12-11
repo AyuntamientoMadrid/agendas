@@ -86,6 +86,8 @@ es:
         placeholder_person: "Búsqueda por titulares y asistentes"
         button: "Buscar"
         status: "Búsqueda por estado"
+        tool_tips_multiple_selection: "Para seleccionar más estados debes mantener apretado SHIFT en una PC o COMMAND en una Mac"
+        multiple_selection: "¿Selección múltipla?"
     pending: "Pendiente"
     date: "Fecha"
     lobby_date: "Descripción de fecha propuesta"

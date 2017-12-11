@@ -23,9 +23,10 @@
         <input type="text" name="search_person" placeholder="<%= t("backend.search.placeholder_person") %>"  value="<%= params[:search_person] %>">
       </div>
 
-      <div class="small-12 medium-5 columns">
+      <div class="small-12 medium-5 columns event-status-search-options">
         <%= label_tag :status, t('backend.search.status'), class: 'title-s' %>
-        <%= select_tag :status, event_status_search_options(params[:status]) , {include_blank: 'Selecciona estado' , multiple: true }  %>
+        <small><a href="#" data-tooltip-custom="<%= t("backend.search.tool_tips_multiple_selection") %>"><%= t("backend.search.multiple_selection") %></a></small>
+        <%= select_tag :status, event_status_search_options(params[:status]) , { multiple: true }  %>
         <%= check_box_tag(:lobby_activity, value = "1", checked = check_filter_lobby_activity , id: "lobby_activity")%>
         <%= label_tag(:lobby_activity, t("backend.lobby_activity")) %>
         <input type="submit" class="expanded button tiny radius right" value="<%= t("backend.search.button") %>">
@@ -33,6 +34,4 @@
     </div>
     <hr />
   <% end %>
-<% else %>
-  <%#= link_to t('backend.new_event'), new_event_path, :class => "expanded button tiny radius warning" if can? :create, Event %>
 <% end %>
