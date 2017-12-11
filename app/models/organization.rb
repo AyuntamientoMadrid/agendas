@@ -34,6 +34,9 @@ class Organization < ActiveRecord::Base
       interests.map(&:id)
     end
     integer :category_id
+    integer :agent_id, multiple: true do
+      agents.map(&:id)
+    end
   end
 
   scope :invalidated, -> { where('invalidate = ?', true) }
@@ -69,4 +72,5 @@ class Organization < ActiveRecord::Base
   def interest?(id)
     interests.pluck(:id).include?(id)
   end
+
 end

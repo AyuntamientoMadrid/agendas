@@ -29,6 +29,16 @@
     </div>
 
     <div class="mb20">
+      <%= select_tag :agent,
+                     options_for_select(Agent.from_active_organizations.all.map {
+                       |agent| [agent.fullname, agent.id]
+                     }, params[:agent]),
+                     id: "agentFilter",
+                     prompt: t("main.form.filter_by"),
+                     class: "dropdown" %>
+    </div>
+
+    <div class="mb20">
       <%= link_to t("main.form.reset"), organizations_path, class: "button secondary" %>
       <%= submit_tag t("main.form.search"), class: "button" %>
     </div>

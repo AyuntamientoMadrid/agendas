@@ -25,6 +25,7 @@ class OrganizationsController < ApplicationController
         fulltext params[:keyword] if params[:keyword].present?
         with(:interest_ids, params[:interests]) if params[:interests].present?
         with(:category_id, params[:category]) if params[:category].present?
+        with(:agent_id, params[:agent]) if params[:agent].present?
         order_by :created_at, :desc
         order_by :inscription_date, selected_order
         paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 10
