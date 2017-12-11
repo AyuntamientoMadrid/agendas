@@ -3142,8 +3142,10 @@ select:hover {
 select:disabled {
   background-color: #DDDDDD;
   cursor: default; }
+
 select[multiple] {
-  height: auto; }
+  height: auto;
+}
 
 /* Adjust margin for form elements below */
 input[type="file"], input[type="checkbox"], input[type="radio"], select {
