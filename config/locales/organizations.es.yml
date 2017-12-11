@@ -10,7 +10,7 @@ es:
 
     show:
       state: "Estado"
-      no_results: "No ya ningún dato"
+      no_results: "No hay ningún dato"
       title: "Página pública de la Organización"
       reference: "Número de anotación en registro"
       identifying_data_title: "Datos"
