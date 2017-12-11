@@ -147,39 +147,17 @@ feature 'Organizations page' do
         expect(page).to have_content "Valid Org 1"
       end
 
-      scenario "Should filter by selected entity_type" do
-        create(:organization, entity_type: 'federation', name: "Federación 1")
-        create(:organization, entity_type: 'association', name: "Asociación 1")
-        create(:organization, entity_type: 'lobby', name: "Lobby 1")
+      scenario "Should display results with entity_type: lobby", :js do
+        create(:organization, entity_type: :federation, name: "Federación 1")
+        create(:organization, entity_type: :association, name: "Asociación 1")
+        create(:organization, entity_type: :lobby, name: "Lobby 1")
         Organization.reindex
 
         visit organizations_path
-        all('#entity_type option')[1].select_option
-        click_on "Buscar"
-        expect(page).not_to have_content "Lobby 1"
-        expect(page).to have_content "Asociación 1"
-        expect(page).not_to have_content "Federación 1"
 
-        visit organizations_path
-        all('#entity_type option')[2].select_option
-        click_on "Buscar"
-        expect(page).not_to have_content "Lobby 1"
-        expect(page).not_to have_content "Asociación 1"
-        expect(page).to have_content "Federación 1"
-
-        visit organizations_path
-        all('#entity_type option')[3].select_option
-        click_on "Buscar"
         expect(page).to have_content "Lobby 1"
         expect(page).not_to have_content "Asociación 1"
         expect(page).not_to have_content "Federación 1"
-
-        visit organizations_path
-        all('#entity_type option')[0].select_option
-        click_on "Buscar"
-        expect(page).to have_content "Lobby 1"
-        expect(page).to have_content "Asociación 1"
-        expect(page).to have_content "Federación 1"
       end
     end
 
