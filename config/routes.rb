@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
 
   # Public resources
-  #root to: 'visitors#index'
   root to: 'homepage#index'
-
+  #root to: 'visitors#index'
   get '/lang/:lang', to: 'application#change_language', as: 'change_language'
   get '/show/:id', to: 'visitors#show', as: 'show'
   get '/update_holders', to: 'visitors#update_holders', as: 'update_holders'

@@ -21,7 +21,7 @@
       <%= javascript_include_tag 'ie_lt9' %>
      <![endif]-->
   </head>
-  <body class="">
+  <body class="<%= yield (:body_class) %>">
     <%= render 'layouts/header' %>
     <%= render  'layouts/admin_messages' %>
 

@@ -7328,6 +7328,22 @@ select {
   }
 }
 
+.home-page{
+  .main-content{
+    .box{
+      margin-top: 0;
+
+      figure{
+        margin: 0;
+        background: #f5f7f8;
+        .content{
+          padding: 1rem;
+        }
+      }
+    }
+  }
+}
+
 #lobby-activity-event #event-category{
   display: inline-block;
 }

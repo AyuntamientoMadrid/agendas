@@ -1,2 +1,49 @@
-<h1>Homepage#index</h1>
-<p>Find me in app/views/homepage/index.html.erb</p>
+<% content_for(:body_class) { 'home-page' } %>
+
+<div class="small-12 medium-4 column">
+  <figure>
+    <%= image_tag 'homepage/agendas.png', class: '', alt:'Agenda públicas'%>
+    <div class="content">
+      <p><strong>Agenda públicas</strong></p>
+      <p>
+        Actividad pública de la Alcadesa, concejalas y concejales, titulares de cargos de dirección y personal eventual de gabinete.
+      </p>
+      <%= link_to 'Acceder', root_path  %>
+    </div>
+  </figure>
+</div>
+
+<div class="small-12 medium-4 column">
+  <figure>
+    <%= image_tag 'homepage/lobby-register.jpg', class: '', alt:'Registro de Lobbies'%>
+    <div class="content">
+      <p><strong>Registro de Lobbies</strong></p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <%= link_to 'Acceder', organizations_path  %>
+    </div>
+  </figure>
+</div>
+
+<div class="small-12 medium-4 column">
+  <figure>
+    <%= image_tag 'homepage/normative-footprint.jpg', class: '', alt:'Huella normativa'%>
+    <div class="content">
+      <p><strong>Huella normativa</strong></p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <%= link_to 'Acceder', root_path  %>
+    </div>
+  </figure>
+</div>
+
+<div class="small-12 column">
+  <hr />
+  <p>
+  Texto generico sobre el portal.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+  </p>
+</div>
