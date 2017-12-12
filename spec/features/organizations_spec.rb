@@ -351,8 +351,8 @@ feature 'Organizations page' do
 
     feature 'Filters' do
       background do
-        @org1 = create(:organization, inscription_date: 'Fri, 27 Nov 2015')
-        @org2 = create(:organization, inscription_date: 'Sun, 27 Nov 2016')
+        @org1 = create(:organization, name: "Elon", first_surname: "Musk", inscription_date: 'Fri, 27 Nov 2015')
+        @org2 = create(:organization, name: "Nikola", first_surname: "Tesla", inscription_date: 'Sun, 27 Nov 2016')
         Organization.reindex
       end
 
@@ -378,13 +378,23 @@ feature 'Organizations page' do
       end
 
       context 'Sorting' do
+        scenario 'by ASC name', :search do
+          visit organizations_path(order: 1)
+          expect(page.body.index(@org1.name)).to be < page.body.index(@org2.name)
+        end
+
+        scenario 'by DESC name', :search do
+          visit organizations_path(order: 2)
+          expect(page.body.index(@org2.name)).to be < page.body.index(@org1.name)
+        end
+
         scenario 'by ASC inscription date', :search do
-          visit organizations_path
+          visit organizations_path(order: 3)
           expect(page.body.index(@org1.name)).to be < page.body.index(@org2.name)
         end
 
         scenario 'by DESC inscription date', :search do
-          visit organizations_path(order: :descending)
+          visit organizations_path(order: 4)
           expect(page.body.index(@org2.name)).to be < page.body.index(@org1.name)
         end
       end

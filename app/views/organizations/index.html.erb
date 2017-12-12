@@ -1,12 +1,12 @@
 <div class="row">
   <div class="small-12 columns">
-    <h2 class="title-l"><%= t('organizations.title')%></h2>
+    <h2 class="title-l"><%= t("organizations.title") %></h2>
   </div>
 </div>
 
 <div class="row">
 
-  <%= render 'search_form' %>
+  <%= render "search_form" %>
 
   <div class="small-12 large-7 large-ofsset-1 columns mb40">
     <% if params[:keyword].present? %>
@@ -17,17 +17,26 @@
 
     <div class="row">
       <% unless search_by_filter? %>
-        <p><strong class="result-l mb20"><%= oganizations_index_subtitle %></strong></p>
+        <p><strong class="result-l mb20"><%= organizations_index_subtitle %></strong></p>
       <% end %>
     </div>
 
     <div class="row">
       <div class="tools">
         <div class="small-2 columns mb20">
-            <label for="right-label" class="inline title-xs"><%= t('main.form.order_by')%></label>
+          <label for="right-label" class="inline title-xs"><%= t("main.form.order_by") %></label>
         </div>
         <div class="small-7 columns">
-           <%= select_tag :order, options_for_select({t('main.form.descending') => :descending},params[:order]), id: 'search-order',  include_blank: true, class: 'select-sm' %>
+           <%= select_tag :order,
+                          options_for_select({
+                            t("main.form.name_asc") => 1,
+                            t("main.form.name_desc") => 2,
+                            t("main.form.inscription_date_asc") => 3,
+                            t("main.form.inscription_date_desc") => 4
+                          }, params[:order]),
+                          include_blank: true,
+                          id: "search-order",
+                          class: "select-sm" %>
         </div>
         <div class="small-3 columns">
           <%= export_link(current_url(format: :csv)) %>
@@ -48,4 +57,5 @@
     </div>
   </div>
 </div>
-<%= javascript_include_tag 'search_form'%>
+
+<%= javascript_include_tag "search_form" %>

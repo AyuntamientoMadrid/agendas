@@ -5,10 +5,9 @@ class OrganizationsController < ApplicationController
   autocomplete :organization, :name
 
   def index
-    selected_order = params[:order] == "descending" ? :desc : :asc
-    @organizations = search(params, selected_order)
+    @organizations = search(params)
     @paginated_organizations = Organization.lobbies.validated.all.where(id: @organizations.hits.map(&:primary_key))
-    @paginated_organizations = @paginated_organizations.reorder(inscription_date: selected_order)
+    @paginated_organizations = @paginated_organizations.reorder(sorting_option(params[:order]))
   end
 
   def show
@@ -20,7 +19,7 @@ class OrganizationsController < ApplicationController
 
   private
 
-    def search(params, selected_order)
+    def search(params)
       Organization.lobbies.validated.search do
         fulltext params[:keyword] if params[:keyword].present?
         with(:interest_ids, params[:interests]) if params[:interests].present?
@@ -31,7 +30,6 @@ class OrganizationsController < ApplicationController
           fulltext(params[:agent_name], :fields => [:agent_second_surname]) if params[:agent_name].present?
         end
         order_by :created_at, :desc
-        order_by :inscription_date, selected_order
         paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 10
       end
     end
@@ -42,6 +40,19 @@ class OrganizationsController < ApplicationController
 
     def get_autocomplete_items(parameters)
       items = Organization.full_like("%#{parameters[:term]}%")
+    end
+
+    def sorting_option(option)
+      case option
+      when '1'
+        'name ASC'
+      when '2'
+        'name DESC'
+      when '3'
+        'inscription_date ASC'
+      when '4'
+        'inscription_date DESC'
+      end
     end
 
 end
