@@ -25,6 +25,11 @@ class OrganizationsController < ApplicationController
         fulltext params[:keyword] if params[:keyword].present?
         with(:interest_ids, params[:interests]) if params[:interests].present?
         with(:category_id, params[:category]) if params[:category].present?
+        any do
+          fulltext(params[:agent_name], :fields => [:agent_name]) if params[:agent_name].present?
+          fulltext(params[:agent_name], :fields => [:agent_first_surname]) if params[:agent_name].present?
+          fulltext(params[:agent_name], :fields => [:agent_second_surname]) if params[:agent_name].present?
+        end
         order_by :created_at, :desc
         order_by :inscription_date, selected_order
         paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 10
