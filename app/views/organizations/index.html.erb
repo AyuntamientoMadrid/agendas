@@ -16,7 +16,7 @@
     <% end %>
 
     <div class="row">
-      <% if !params[:interests].present? %>
+      <% unless search_by_filter? %>
         <p><strong class="result-l mb20"><%= oganizations_index_subtitle %></strong></p>
       <% end %>
     </div>
