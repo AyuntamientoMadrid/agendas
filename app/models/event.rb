@@ -83,12 +83,12 @@ class Event < ActiveRecord::Base
   end
 
   def self.searches(params)
-    if params.any?
-      @events = filter(params)
+    if params.present?
+      events = filter(params)
     else
-      @events = all
+      events = all
     end
-      @events
+      events
   end
 
   searchable do

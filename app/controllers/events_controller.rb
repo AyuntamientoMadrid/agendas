@@ -67,7 +67,7 @@ class EventsController < AdminController
   end
 
   def list_user_events
-    @events = Event.managed_by(current_user)
+    @events = Event.managed_by(current_user).searches(search_params(params))
                    .includes(:position, :attachments, position: [:holder])
     @events.order(scheduled: :desc).page(params[:page]).per(50)
   end
@@ -82,7 +82,7 @@ class EventsController < AdminController
   end
 
   def emun_status(array_status)
-      @status = array_status.map { |status| Event.statuses[status] }.join(' , ') if array_status.present?
+    @status = array_status.map { |status| Event.statuses[status] }.join(' , ') if array_status.present?
   end
 
   def search_params(params)
