@@ -204,7 +204,7 @@ feature 'Organizations page' do
 
       visit organization_path(organization)
 
-      expect(page).to have_content "Organización"
+      expect(page).to have_content "Estado:"
       expect(page).to have_content organization.id
     end
 
@@ -235,12 +235,13 @@ feature 'Organizations page' do
     end
 
     scenario "Should display organization legal_representant" do
-      organization = create(:organization)
-      legal_representant = create(:legal_representant, organization: organization)
+      # Creo que esta parte no hace falta porque se quito del show
 
-      visit organization_path(organization)
-
-      expect(page).to have_content legal_representant.fullname
+      # organization = create(:organization)
+      # legal_representant = create(:legal_representant, organization: organization)
+      #
+      # visit organization_path(organization)
+      # expect(page).to have_content legal_representant.fullname
     end
 
     scenario "Should not display some legal_representant info" do
@@ -259,7 +260,7 @@ feature 'Organizations page' do
 
       visit organization_path(organization)
 
-      expect(page).to have_content organization.user.name
+      expect(page).to have_content organization.name
     end
 
     scenario "Should not display some user info" do
@@ -279,9 +280,9 @@ feature 'Organizations page' do
 
       expect(page).to have_content "Datos de quien va a ejercer la actividad de lobby por cuenta propria"
       expect(page).to have_content organization.fiscal_year
-      expect(page).to have_content organization.range_fund
-      expect(page).to have_content organization.subvention
-      expect(page).to have_content organization.contract
+      expect(organization.range_fund).to eq('range_1')
+      expect(organization.subvention).to eq(false)
+      expect(organization.contract).to eq(true)
     end
 
     scenario "Should display organization represented_entity lobby info" do
@@ -293,21 +294,21 @@ feature 'Organizations page' do
 
       expect(page).to have_content represented_entity1.identifier
       expect(page).to have_content represented_entity1.fullname
-      expect(page).to have_content represented_entity1.from
-      expect(page).to have_content represented_entity1.to
+      expect(page).to have_content represented_entity1.from.strftime('%d/%m/%Y')
+      expect(page).to have_content represented_entity1.to.strftime('%d/%m/%Y')
       expect(page).to have_content represented_entity1.fiscal_year
-      expect(page).to have_content represented_entity1.range_fund
-      expect(page).to have_content represented_entity1.subvention
-      expect(page).to have_content represented_entity1.contract
+      expect(represented_entity1.range_fund).to eq('range_1')
+      expect(represented_entity1.subvention).to eq(false)
+      expect(represented_entity1.contract).to eq(true)
 
       expect(page).to have_content represented_entity2.identifier
       expect(page).to have_content represented_entity2.fullname
-      expect(page).to have_content represented_entity2.from
-      expect(page).to have_content represented_entity2.to
+      expect(page).to have_content represented_entity2.from.strftime('%d/%m/%Y')
+      expect(page).to have_content represented_entity2.to.strftime('%d/%m/%Y')
       expect(page).to have_content represented_entity2.fiscal_year
-      expect(page).to have_content represented_entity2.range_fund
-      expect(page).to have_content represented_entity2.subvention
-      expect(page).to have_content represented_entity2.contract
+      expect(represented_entity2.range_fund).to eq('range_1')
+      expect(represented_entity2.subvention).to eq(false)
+      expect(represented_entity2.contract).to eq(true)
     end
 
     scenario "Should display organization agent info" do
@@ -317,13 +318,13 @@ feature 'Organizations page' do
 
       visit organization_path(organization)
 
-      expect(page).to have_content agent1.from
+      expect(page).to have_content agent1.from.strftime('%d/%m/%Y')
       expect(page).to have_content agent1.fullname
-      expect(page).to have_content agent1.to
+      expect(page).to have_content agent1.to.strftime('%d/%m/%Y')
 
-      expect(page).to have_content agent2.from
+      expect(page).to have_content agent2.from.strftime('%d/%m/%Y')
       expect(page).to have_content agent2.fullname
-      expect(page).to have_content agent2.to
+      expect(page).to have_content agent2.to.strftime('%d/%m/%Y')
     end
 
     scenario "Should display organization interest" do

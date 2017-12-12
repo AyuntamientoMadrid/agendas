@@ -8,6 +8,18 @@
         <li><a href="<%= t('header.participation_url') %>" target="_blank"><%= t('header.participation') %></a></li>
         <li><a href="<%= t('header.transparency_url') %>" target="_blank"><%= t('header.transparency') %></a></li>
         <li><a href="<%= t('header.open_data_url') %>" target="_blank"><%= t('header.open_data') %></a></li>
+
+        <% if user_signed_in? %>
+          <li>
+            <%= link_to destroy_user_session_path, method: :delete do %>
+              <%= t("backend.logout")%>
+            <% end %>
+          </li>
+        <% else %>
+          <li>
+            <a href="<%= admin_path %>"><%= t('header.btn_login') %></a>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>

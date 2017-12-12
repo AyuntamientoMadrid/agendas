@@ -7320,3 +7320,42 @@ select {
   overflow-y: auto !important;
   max-width: 732px !important;
 }
+
+ul.accordion{
+  margin-left:0;
+  li{
+    margin-top:10px;
+  }
+  .accordion-title{
+    position: relative;
+    display: block;
+    border: 1px solid #e6e6e6;
+  }
+  .accordion-navigation{
+
+    .content {
+      display: none;
+      padding: 1rem;
+      border: 1px solid #e6e6e6;
+      border-bottom: 0;
+      background-color: #fefefe;
+      color: #0a0a0a;
+      ul{
+      margin-left: 0;
+      }
+    }
+  }
+
+  .accordion-icon{
+    float: right;
+    color: #0077b9;
+    margin-right: 1rem;
+  }
+  .accordion-icon:before {
+    content: "+";
+    position: absolute;
+  }
+  .active .accordion-icon:before {
+    content: "-";
+  }
+}
