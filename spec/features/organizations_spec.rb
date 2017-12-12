@@ -403,6 +403,32 @@ feature 'Organizations page' do
           expect(page).to have_no_content(@org2.name)
         end
       end
+
+      context 'Agents' do
+        background do
+          @org1.agents.push(create(:agent))
+          @org2.agents.push(create(:agent))
+          Organization.reindex
+        end
+        scenario 'shows organizations based on the selected agent', :search do
+          visit organizations_path
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_content(@org2.name)
+
+          find('#agentFilter').find(:xpath, 'option[2]').select_option
+          click_button(I18n.t('main.form.search'))
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_no_content(@org2.name)
+
+          find('#agentFilter').find(:xpath, 'option[3]').select_option
+          click_button(I18n.t('main.form.search'))
+
+          expect(page).to have_content(@org2.name)
+          expect(page).to have_no_content(@org1.name)
+        end
+      end
     end
 
   end

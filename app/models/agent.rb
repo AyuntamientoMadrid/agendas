@@ -12,6 +12,6 @@ class Agent < ActiveRecord::Base
   end
 
   scope :by_organization, ->(organization_id) { where(organization_id: organization_id) }
-  scope :from_active_organizations, -> { joins(:organization).where('canceled_at is NULL OR invalidate is FALSE') }
+  scope :from_active_organizations, -> { joins(:organization).where('canceled_at is NULL AND invalidate is FALSE') }
 
 end
