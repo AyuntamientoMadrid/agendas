@@ -4893,8 +4893,11 @@ meta.foundation-mq-topbar {
   clear: both;
   height: 1px;
   width: 100%; }
-.top-bar-section ul li {
-  background: #333333; }
+
+// .top-bar-section ul li {
+//   background: #333333;
+// }
+
 .top-bar-section ul li > a {
   color: #FFFFFF;
   display: block;
@@ -4912,10 +4915,14 @@ meta.foundation-mq-topbar {
   background-color: #0077b9;
   border-color: #005f94;
   color: #FFFFFF; }
-.top-bar-section ul li > a.button:hover, .top-bar-section ul li > a.button:focus {
-  background-color: #005f94; }
-.top-bar-section ul li > a.button:hover, .top-bar-section ul li > a.button:focus {
-  color: #FFFFFF; }
+// .top-bar-section ul li > a.button:hover,
+// .top-bar-section ul li > a.button:focus {
+//   background-color: #005f94;
+// }
+.top-bar-section ul li > a.button:hover,
+.top-bar-section ul li > a.button:focus {
+  color: #FFFFFF;
+}
 .top-bar-section ul li > a.button.secondary {
   background-color: #e7e7e7;
   border-color: #b9b9b9;
@@ -5007,10 +5014,13 @@ meta.foundation-mq-topbar {
   background-color: #61b6d9; }
 .top-bar-section ul li > button.info:hover, .top-bar-section ul li > button.info:focus {
   color: #FFFFFF; }
-.top-bar-section ul li:hover:not(.has-form) > a {
-  background-color: #555555;
-  color: #FFFFFF;
-  background: #222222; }
+
+// .top-bar-section ul li:hover:not(.has-form) > a {
+//   background-color: #555555;
+//   color: #FFFFFF;
+//   background: #222222;
+// }
+
 .top-bar-section ul li.active > a {
   background: #0077b9;
   color: #FFFFFF; }
@@ -7451,6 +7461,7 @@ ul.accordion{
     font-size: 14px;
     line-height: 1.2;
   }
+
   &:after {
     margin-left: -5px;
     width: 0;
@@ -7461,9 +7472,30 @@ ul.accordion{
     font-size: 0;
     line-height: 0;
   }
+  
   &:hover:before,
   &:hover:after {
     visibility: visible;
     opacity: 1;
+  }
+}
+
+header .top-bar-section .right li:not(.has-form) a:not(.button) {
+  background: transparent;
+  border: 0;
+}
+
+.top-bar-section ul li > a.button{
+  margin-left: 1rem;
+  color: rgb(0, 74, 131);
+  text-align: center;
+  background: rgb(255, 255, 255);
+  border-radius: 0.1875rem;
+  font-size: 0.875rem;
+  padding: 1rem;
+
+  &:hover{
+    background: rgb(255, 255, 255);
+    color: rgb(0, 74, 131);
   }
 }
