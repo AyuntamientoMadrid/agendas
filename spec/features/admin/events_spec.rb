@@ -596,7 +596,7 @@ feature 'Events' do
     end
 
     scenario 'visit index event page' do
-      event = create(:event, title: 'New event for lobbies', position: @position , organization_id: @organization.id)
+      event = create(:event, title: 'New event for lobbies', position: @position, organization_id: @organization.id)
       visit events_path
 
       expect(page).to have_content event.title
@@ -798,8 +798,10 @@ feature 'Events' do
     describe "Edit" do
 
       scenario "Edit buttons enabled for events on_request" do
-        event_requested = create(:event, title: 'Event on request', position: @position, status: 0, organization: @organization)
-        event_accepted = create(:event, title: 'Event accepted', position: @position, status: 1, organization: @organization)
+        event_requested = create(:event, title: 'Event on request', position: @position, status: 0,
+                                         organization: @organization)
+        event_accepted = create(:event, title: 'Event accepted', position: @position, status: 1,
+                                        organization: @organization)
 
         visit events_path
 
@@ -808,8 +810,10 @@ feature 'Events' do
       end
 
       scenario "Edit buttons enabled for events on_request on show view" do
-        event_requested = create(:event, title: 'Event on request', position: @position, status: 0, organization: @organization)
-        event_accepted = create(:event, title: 'Event accepted', position: @position, status: 1, organization: @organization)
+        event_requested = create(:event, title: 'Event on request', position: @position,
+                                         status: 0, organization: @organization)
+        event_accepted = create(:event, title: 'Event accepted', position: @position,
+                                        status: 1, organization: @organization)
 
         visit event_path(event_requested)
 
@@ -821,7 +825,8 @@ feature 'Events' do
       end
 
       scenario "User can edit events", :js do
-        event_requested = create(:event, title: 'Event on request', position: @position, status: 0, organization: @organization)
+        event_requested = create(:event, title: 'Event on request', position: @position,
+                                         status: 0, organization: @organization)
 
         visit event_path(event_requested)
 
@@ -847,14 +852,16 @@ feature 'Events' do
       end
 
       scenario "User can cancel events only once!" do
-        event_requested = create(:event, title: 'Event on request', position: @position, status: 0, canceled_at: Time.zone.today, organization: @organization)
+        event_requested = create(:event, title: 'Event on request', position: @position, status: 0,
+                                         canceled_at: Time.zone.today, organization: @organization)
         visit edit_event_path(event_requested)
 
         expect(page).not_to have_selector "#event_cancel_true"
       end
 
       scenario 'Lobby user can see on page the name of the organization' do
-        event = create(:event, organization_name: "Organization name", position: @position, organization: @organization)
+        event = create(:event, organization_name: "Organization name", position: @position,
+                               organization: @organization)
 
         visit edit_event_path(event)
 
@@ -863,7 +870,8 @@ feature 'Events' do
 
       scenario 'Lobby user can see lobby contact info' do
         event = create(:event, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
-                               lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123', lobby_contact_email: 'lobbyemail@email.com', organization: @organization)
+                               lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123',
+                               lobby_contact_email: 'lobbyemail@email.com', organization: @organization)
 
         visit edit_event_path(event)
 
@@ -877,25 +885,8 @@ feature 'Events' do
 
       scenario 'Lobby user can update lobby contact info', :js do
         event = create(:event, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
-                               lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123', lobby_contact_email: 'lobbyemail@email.com', organization: @organization)
-        visit edit_event_path(event)
-
-        fill_in :event_lobby_contact_firstname, with: 'new lobbyname'
-        fill_in :event_lobby_contact_lastname, with: 'new lobylastname'
-        fill_in :event_lobby_contact_phone, with: '900878787'
-        fill_in :event_lobby_contact_email, with: 'new_loby@email.com'
-        click_button 'Guardar'
-
-        event.reload
-        expect(event.lobby_contact_firstname).to eq 'new lobbyname'
-        expect(event.lobby_contact_lastname).to eq 'new lobylastname'
-        expect(event.lobby_contact_phone).to eq '900878787'
-        expect(event.lobby_contact_email).to eq 'new_loby@email.com'
-      end
-
-      scenario 'Lobby user can update lobby contact info', :js do
-        event = create(:event, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
-                               lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123', lobby_contact_email: 'lobbyemail@email.com', organization: @organization)
+                               lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123',
+                               lobby_contact_email: 'lobbyemail@email.com', organization: @organization)
         visit edit_event_path(event)
 
         fill_in :event_lobby_contact_firstname, with: 'new lobbyname'

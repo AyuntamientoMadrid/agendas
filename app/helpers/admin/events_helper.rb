@@ -52,8 +52,8 @@ module Admin
       end
     end
 
-    def event_status_search_options (selected)
-      rev= {}
+    def event_status_search_options(selected)
+      rev = {}
       t("backend.status").each_with_index { |(k, v)| rev[v] = k }
       options_for_select(rev, selected)
     end

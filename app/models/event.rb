@@ -88,7 +88,7 @@ class Event < ActiveRecord::Base
     else
       events = all
     end
-      events
+    events
   end
 
   searchable do
@@ -154,6 +154,12 @@ class Event < ActiveRecord::Base
     user.full_name
   end
 
+  def self.filter(attributes)
+    attributes.slice(*SUPPORTED_FILTERS).reduce(all) do |scope, (key, value)|
+      value.present? ? scope.send(key, value) : scope
+    end
+  end
+
   private
 
     def participants_uniqueness
@@ -181,12 +187,6 @@ class Event < ActiveRecord::Base
     def role_validate_scheduled
       return if self.user.lobby? || self.scheduled.present?
       errors.add(:base, "Fecha del evento no puede estar en blanco")
-    end
-
-    def self.filter(attributes)
-      attributes.slice(*SUPPORTED_FILTERS).reduce(all) do |scope, (key, value)|
-        value.present? ? scope.send(key, value) : scope
-      end
     end
 
 end

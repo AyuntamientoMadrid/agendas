@@ -81,22 +81,21 @@ class EventsController < AdminController
     array_position = Position.where("positions.holder_id IN (?)", holder_ids)
   end
 
-  def emun_status(array_status)
+  def enum_status(array_status)
     @status = array_status.map { |status| Event.statuses[status] }.join(' , ') if array_status.present?
   end
 
   def search_params(params)
     person = params[:search_person]
     title = params[:search_title]
-    lobby_activity = params[:lobby_activity]
-    status = emun_status(params[:status])
-    role = current_user.role
+    status = enum_status(params[:status])
+    
     params_searches = {}
     params_searches[:title] = title unless title.blank?
-    params_searches[:lobby_activity] = "1" unless lobby_activity.blank?
-    params_searches[:status] = emun_status(params[:status]) if status.present?
-    params_searches[:position_id] = find_holder_id_by_name(params[:search_person]) if person.present?
-    params_searches[:organization_id] = current_user.organization_id if role == "lobby"
+    params_searches[:lobby_activity] = "1" unless params[:lobby_activity].blank?
+    params_searches[:status] = status if status.present?
+    params_searches[:position_id] = find_holder_id_by_name(person) if person.present?
+    params_searches[:organization_id] = current_user.organization_id if current_user.role == "lobby"
     params_searches
   end
 
