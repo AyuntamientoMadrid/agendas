@@ -72,10 +72,13 @@ es:
     must_have_position: "Es necesario añadir al menos un cargo"
 
     events: "Eventos"
-    event: "Evento"
     event_history_updates: "Última actualización"
     event_update_user: "Usuario"
     event_update_date: "Fecha"
+    event:
+      title: "Evento"
+      event_agent_needed: "En los eventos de lobbies hace falta, al menos, un agente."
+      not_available_agents: "No hay agentes disponibles."
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"

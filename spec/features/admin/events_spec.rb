@@ -179,7 +179,6 @@ feature 'Events' do
           expect(page).to have_selector("input[value='lobbyemail@email.com']")
         end
       end
-
     end
 
     describe "index" do
@@ -216,7 +215,10 @@ feature 'Events' do
       end
 
       scenario 'search lobby activity' do
-        create(:event, title: 'Test for check lobby_activity', lobby_activity: true)
+        event = create(:event, title: 'Test for check lobby_activity')
+        event.lobby_activity = true
+        event.event_agents << create(:event_agent)
+        event.save!
         visit events_path
 
         check 'lobby_activity'
@@ -252,7 +254,7 @@ feature 'Events' do
         fill_in :event_location, with: "Location"
         fill_in :event_scheduled, with: DateTime.current
         select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
-        choose :event_lobby_activity_true
+        choose :event_lobby_activity_false
         fill_in :event_published_at, with: Date.current
         click_button "Guardar"
 
@@ -268,7 +270,7 @@ feature 'Events' do
         tinymce_fill_in(:event_description, "Description")
         fill_in :event_scheduled, with: Date.current
         select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
-        choose :event_lobby_activity_true
+        choose :event_lobby_activity_false
         fill_in :event_published_at, with: Date.current
         click_button "Guardar"
 
@@ -279,7 +281,7 @@ feature 'Events' do
         expect(event.description).to eq "<p>Description</p>"
         expect(event.scheduled).to eq Date.current
         expect(event.position).to eq new_position
-        expect(event.lobby_activity).to eq true
+        expect(event.lobby_activity).to eq false
         expect(event.published_at).to eq Date.current
       end
 
@@ -295,7 +297,7 @@ feature 'Events' do
             fill_in :event_location, with: "Location"
             fill_in :event_scheduled, with: DateTime.current
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
-            choose :event_lobby_activity_true
+            choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
             find('.add-participant').click
             sleep 0.5
@@ -347,7 +349,7 @@ feature 'Events' do
             fill_in :event_location, with: "Location"
             fill_in :event_scheduled, with: DateTime.current
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
-            choose :event_lobby_activity_true
+            choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
             find('.add-attendee').click
             find(".attendee-name").set("Name")
@@ -367,7 +369,7 @@ feature 'Events' do
             fill_in :event_location, with: "Location"
             fill_in :event_scheduled, with: DateTime.current
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
-            choose :event_lobby_activity_true
+            choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
             find('.add-attendee').click
             find(".attendee-name").set("Name")
@@ -543,12 +545,44 @@ feature 'Events' do
             end
           end
 
+          scenario "When radio lobby lobby activity is set to true, only can save selecting an agent", :js do
+            new_position = create(:position)
+            organization = create(:organization)
+            agent = create(:agent, organization: organization)
+            visit new_event_path
+
+            fill_in :event_title, with: "Title"
+            fill_in :event_location, with: "Location"
+            fill_in :event_scheduled, with: DateTime.current
+            select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
+            fill_in :event_published_at, with: Date.current
+            choose :event_lobby_activity_true
+            choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
+            within('#new_event_agent') do
+              select agent.name
+            end
+            click_button "Guardar"
+
+            expect(page).to have_content "Registro creado correctamente"
+          end
+
+          scenario "When fill by js organization_name without agents display no_result_text on agents selector", :js do
+            new_position = create(:position)
+            visit new_event_path
+
+            fill_in :event_title, with: "Title"
+            fill_in :event_location, with: "Location"
+            fill_in :event_scheduled, with: DateTime.current
+            select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
+            fill_in :event_published_at, with: Date.current
+            choose :event_lobby_activity_true
+            click_button "Guardar"
+
+            expect(page).to have_content I18n.translate('backend.event.event_agent_needed'), count: 1
+          end
         end
-
       end
-
     end
-
   end
 
   describe 'Organization user' do
@@ -556,6 +590,7 @@ feature 'Events' do
       @organization = create(:organization)
       @organization_user = create(:user, :lobby, organization: @organization)
       @position = create(:position)
+      @agent = create(:agent, organization: @organization)
       @organization_user.manages.create(holder_id: @position.holder_id)
       signin(@organization_user.email, @organization_user.password)
     end
@@ -613,6 +648,10 @@ feature 'Events' do
         tinymce_fill_in :event_lobby_scheduled, '02/11/2017 06:30'
         tinymce_fill_in :event_general_remarks, 'General remarks'
         fill_in :event_location, with: 'New location'
+        choose_autocomplete :event_organization_name, with: @organization.name, select: @organization.name
+        within('#new_event_agent') do
+          select @agent.name
+        end
         select "#{@position.holder.full_name_comma} - #{@position.title}", from: :event_position_id
         click_button I18n.t('backend.save')
 
@@ -650,6 +689,10 @@ feature 'Events' do
         tinymce_fill_in(:event_description, "Description")
         tinymce_fill_in(:event_general_remarks, "General remarks")
         tinymce_fill_in(:event_lobby_scheduled, "Lobby scheduled proposal")
+        choose_autocomplete :event_organization_name, with: @organization.name, select: @organization.name
+        within('#new_event_agent') do
+          select @agent.name
+        end
         select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
         click_button "Guardar"
 
@@ -732,18 +775,6 @@ feature 'Events' do
         end
 
         describe "Agents" do
-
-          scenario 'When fill by js organization_name without agents display no_result_text on agents selector', :js do
-            visit new_event_path
-
-            within ".agents-block" do
-              find("#event_agents_link").click
-            end
-
-            within ".agents-block" do
-              expect(page).to have_selector("option[value='No hay agentes disponibles.']")
-            end
-          end
 
           scenario 'When fill by js organization_name with agents display agent on agents selector', :js do
             agent = create(:agent, organization: @organization)

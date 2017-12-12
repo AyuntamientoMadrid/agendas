@@ -51,7 +51,10 @@ feature 'Event page' do
   end
 
   scenario 'search lobby activity for visitors ', :search do
-    create(:event, title: 'Test for check lobby_activity for visitors', lobby_activity: true)
+    event = create(:event, title: 'Test for check lobby_activity for visitors')
+    event.lobby_activity = true
+    event.event_agents << create(:event_agent)
+    event.save!
 
     visit root_path
     check 'lobby_activity'
@@ -59,6 +62,5 @@ feature 'Event page' do
 
     expect(page).to have_content "Test for check lobby_activity for visitors"
   end
-
 
 end
