@@ -29,13 +29,7 @@
     </div>
 
     <div class="mb20">
-      <%= select_tag :agent,
-                     options_for_select(Agent.from_active_organizations.all.map {
-                       |agent| [agent.fullname, agent.id]
-                     }, params[:agent]),
-                     id: "agentFilter",
-                     prompt: t("main.form.filter_by"),
-                     class: "dropdown" %>
+      <%= text_field_tag :agent_name, params[:agent_name], placeholder: t("main.form.agent") %>
     </div>
 
     <div class="mb20">

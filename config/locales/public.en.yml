@@ -20,3 +20,4 @@ en:
       sort_by: "Sort by"
       filter_by: "Filter by"
       descending: "Descending order"
+      agent: "Agent's name or surname"

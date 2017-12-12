@@ -406,23 +406,25 @@ feature 'Organizations page' do
 
       context 'Agents' do
         background do
-          @org1.agents.push(create(:agent))
-          @org2.agents.push(create(:agent))
+          @agent1 = create(:agent, name: "Maria")
+          @agent2 = create(:agent, name: "Pedro")
+          @org1.agents.push(@agent1)
+          @org2.agents.push(@agent2)
           Organization.reindex
         end
-        scenario 'shows organizations based on the selected agent', :search do
+        scenario 'shows organizations based on the agent name', :search do
           visit organizations_path
 
           expect(page).to have_content(@org1.name)
           expect(page).to have_content(@org2.name)
 
-          find('#agentFilter').find(:xpath, 'option[2]').select_option
+          fill_in :agent_name, with: "Maria"
           click_button(I18n.t('main.form.search'))
 
           expect(page).to have_content(@org1.name)
           expect(page).to have_no_content(@org2.name)
 
-          find('#agentFilter').find(:xpath, 'option[3]').select_option
+          fill_in :agent_name, with: "Pedro"
           click_button(I18n.t('main.form.search'))
 
           expect(page).to have_content(@org2.name)
