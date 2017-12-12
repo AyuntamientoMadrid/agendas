@@ -7299,10 +7299,34 @@ select {
 }
 
 .top_bar_box {
-    padding: 35px 0 100px;
-    background: #004A83;
-    padding: 0;
+  padding: 35px 0 100px;
+  background: #004A83;
+  padding: 0;
+}
+.sub_top_bar_box{
+  background: #0363a7;
+  ul{
+    margin-bottom:0;
+    padding: 1rem 0;
+
+    a{
+      color:#fff;
+      &:hover{
+          text-decoration: underline;
+      }
+    }
   }
+}
+
+.header-title{
+  background: #f5f7f8;
+  text-align: center;
+  padding: 1.6rem 0;
+  h1{
+    text-transform: uppercase;
+    font-size: 2.1rem;
+  }
+}
 
 #lobby-activity-event #event-category{
   display: inline-block;
