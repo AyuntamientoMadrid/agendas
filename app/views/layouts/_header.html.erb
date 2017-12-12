@@ -55,13 +55,13 @@
         <div class="small-12 columns">
           <ul class="inline-list">
             <li>
-              <%= link_to 'Inicio', root_path %>
+              <%= link_to 'Inicio', root_path, class: current_class(root_path)  %>
             </li>
             <li>
-              <%= link_to 'Agendas', visitors_path %>
+              <%= link_to 'Agendas', visitors_path, class: current_class(visitors_path) %>
             </li>
             <li>
-              <%= link_to 'Registro de lobbies', registration_lobbies_index_path %>
+              <%= link_to 'Registro de lobbies', registration_lobbies_index_path, class: current_class(registration_lobbies_index_path) || current_class(organizations_path)  %>
             </li>
             <li>
               <%= link_to 'Huella normativa', nil %>

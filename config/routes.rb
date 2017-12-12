@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
 #  root to '/visitors', to: 'visitors#index', as: 'index'
   #root to: 'visitors#index'
-  root to: 'registration_lobbies#index'
+  #root to: 'registration_lobbies#index'
+  root to: 'homepage#index'
 
   get '/lang/:lang', to: 'application#change_language', as: 'change_language'
   get '/show/:id', to: 'visitors#show', as: 'show'
@@ -27,6 +28,7 @@ Rails.application.routes.draw do
 
   get '/homepage', to: 'homepage#index', as: 'homepage'
   get 'registration_lobbies/index'
+  get '/registration_lobbies', to: 'registration_lobbies#index', as: 'registration_lobbies'
   get '/visitors', to: 'visitors#index', as: 'visitors'
 
   #get '/registration_lobbies', to: 'registration_lobbies#index', as: 'registration_lobbies'

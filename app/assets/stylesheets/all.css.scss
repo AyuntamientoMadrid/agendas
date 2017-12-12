@@ -7325,7 +7325,10 @@ select {
     a{
       color:#fff;
       &:hover{
-          text-decoration: underline;
+        text-decoration: underline;
+      }
+      &.active{
+        text-decoration: underline;
       }
     }
   }
