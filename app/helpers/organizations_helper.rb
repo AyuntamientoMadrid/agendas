@@ -21,6 +21,10 @@ module OrganizationsHelper
     "#{rooturl}#{url.gsub(rooturl, "").gsub("1", "organization_id")}"
   end
 
+  def search_by_filter?
+    (params[:interests].present? || params[:category].present? || params[:keyword].present?)
+  end
+  
   def organization_status
     canceled_true = @organization.canceled_at
 
