@@ -13,6 +13,7 @@ class Event < ActiveRecord::Base
   validates :title, :position, :location, presence: true
   validates_inclusion_of :lobby_activity, :in => [true, false]
   validate :participants_uniqueness, :position_not_in_participants, :role_validate_published_at, :role_validate_scheduled
+  validates_with EventAgentExistenceValidator
 
   before_create :set_status
   before_save :cancel_event

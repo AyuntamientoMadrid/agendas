@@ -34,6 +34,10 @@ class Organization < ActiveRecord::Base
       interests.map(&:id)
     end
     integer :category_id
+    integer :id
+    join(:name, :prefix => "agent", :target => Agent, :type => :text, :join => { :from => :organization_id, :to => :id })
+    join(:first_surname, :prefix => "agent", :target => Agent, :type => :text, :join => { :from => :organization_id, :to => :id })
+    join(:second_surname, :prefix => "agent", :target => Agent, :type => :text, :join => { :from => :organization_id, :to => :id })
   end
 
   scope :invalidated, -> { where('invalidate = ?', true) }
@@ -69,4 +73,5 @@ class Organization < ActiveRecord::Base
   def interest?(id)
     interests.pluck(:id).include?(id)
   end
+
 end

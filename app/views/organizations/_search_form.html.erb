@@ -29,6 +29,10 @@
     </div>
 
     <div class="mb20">
+      <%= text_field_tag :agent_name, params[:agent_name], placeholder: t("main.form.agent") %>
+    </div>
+
+    <div class="mb20">
       <%= link_to t("main.form.reset"), organizations_path, class: "button secondary" %>
       <%= submit_tag t("main.form.search"), class: "button" %>
     </div>

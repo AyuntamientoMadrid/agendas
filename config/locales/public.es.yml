@@ -47,6 +47,7 @@ es:
       name_desc: "Alfabético descendente"
       inscription_date_asc: "Fecha de inscripción ascendente"
       inscription_date_desc: "Fecha de inscripción descendente"
+      agent: "Nombre o apellido del agente"
   show:
     participants: "Asisten"
     location: "Lugar"

@@ -8,7 +8,7 @@
     </p>
   </div>
 </div>
- 
+
 <div class="small-12 columns">
     <ul class="accordion" data-accordion role = "tablist">
       <li class="accordion-navigation active">
@@ -201,7 +201,7 @@
             <ul>
               <% if @organization.interests.each do |interest| %>
                 <li>
-                  <%= interest.name %>
+                  <p><%= interest.name %></p>
                 </li>
               <% end.empty? %>
                 <%= t('organizations.show.no_results') %>

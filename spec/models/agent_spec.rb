@@ -70,5 +70,28 @@ describe Agent do
 
     end
 
+    describe "from_active_organizations" do
+      it "should return all agents from an active organization" do
+        # active organization means: invalidate <> true && canceled_at == nil
+        organization = create(:organization)
+        not_active_organization = create(:organization)
+        not_active_organization.update(invalidate: true)
+
+        agent1 = create(:agent, organization: organization)
+        agent2 = create(:agent, organization: organization)
+        create(:agent, organization: not_active_organization)
+
+        agents = Agent.all
+
+        expect(agents.count).to eq(3)
+
+        agents = Agent.from_active_organizations
+
+        expect(agents.count).to eq(2)
+        expect(agents).to include agent1
+        expect(agents).to include agent2
+      end
+    end
+
   end
 end

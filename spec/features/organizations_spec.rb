@@ -413,6 +413,34 @@ feature 'Organizations page' do
           expect(page).to have_no_content(@org2.name)
         end
       end
+
+      context 'Agents' do
+        background do
+          @agent1 = create(:agent, name: "Maria")
+          @agent2 = create(:agent, name: "Pedro")
+          @org1.agents.push(@agent1)
+          @org2.agents.push(@agent2)
+          Organization.reindex
+        end
+        scenario 'shows organizations based on the agent name', :search do
+          visit organizations_path
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_content(@org2.name)
+
+          fill_in :agent_name, with: "Maria"
+          click_button(I18n.t('main.form.search'))
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_no_content(@org2.name)
+
+          fill_in :agent_name, with: "Pedro"
+          click_button(I18n.t('main.form.search'))
+
+          expect(page).to have_content(@org2.name)
+          expect(page).to have_no_content(@org1.name)
+        end
+      end
     end
 
   end

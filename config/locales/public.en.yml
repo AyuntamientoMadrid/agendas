@@ -23,3 +23,4 @@ en:
       name_desc: "Name DESC"
       inscription_date_asc: "Inscription date ASC"
       inscription_date_desc: "Inscription date DESC"
+      agent: "Agent's name or surname"
