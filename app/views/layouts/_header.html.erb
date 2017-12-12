@@ -36,9 +36,9 @@
                 <a href="<%= admin_path %>"><%= t('header.btn_login') %></a>
                 <%#= link_to 'Registrarse', root_path, class: "button" %>
               </li>
-              <li>
-                <%= link_to 'Registrarse', root_path, class: "button" %>
-              </li>
+              <!-- <li>
+                <%#= link_to 'Registrarse', root_path, class: "button" %>
+              </li> -->
             <% end %>
             <!-- <li class="btn-public-agenda <%= current_page?(root_path) && 'active' %>">
               <%= link_to t('header.btn_public_agenda'), root_path %>
@@ -58,7 +58,7 @@
               <%= link_to 'Inicio', root_path %>
             </li>
             <li>
-              <%= link_to 'Agendas', root_path %>
+              <%= link_to 'Agendas', visitors_path %>
             </li>
             <li>
               <%= link_to 'Registro de lobbies', registration_lobbies_index_path %>

@@ -7340,17 +7340,22 @@ select {
     font-size: 2.1rem;
   }
 }
+.visitors-events{
+  .header-title{
+    text-align: left;
+  }
+}
 
 .home-page,
-.registration-lobbies{
-  .main-content{
-    .box{
+.registration-lobbies,
+.visitors-events {
+  .main-content {
+    .box {
       margin-top: 0;
-
-      figure{
+      figure {
         margin: 0;
         background: #f5f7f8;
-        .content{
+        .content {
           padding: 1rem;
         }
       }

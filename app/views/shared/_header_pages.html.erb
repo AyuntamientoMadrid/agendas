@@ -1,0 +1,25 @@
+<% if current_page?(controller: 'homepage', action: 'index') %>
+  <div>
+    <div class="header-title">
+      <h1><strong>Transparencia en la Toma de decisiones</strong></h1>
+      <lead>El Ayuntamiento de Madrid abre sus decisiones a la Ciudadanía, consúltalas.</lead>
+    </div>
+  </div>
+<% elsif current_page?(controller: 'registration_lobbies', action: 'index') %>
+  <div>
+    <div class="header-title">
+      <h1><strong>¿Por qué un registro de lobbies del<br /> Ayuntamiento de Madrid?</strong></h1>
+      <lead>Lorem ipsum dolor sit amet, consectetur adipiscing elit, <br />sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</lead>
+    </div>
+  </div>
+<% elsif current_page?(controller: 'visitors', action: 'index') %>
+  <div>
+    <div class="header-title">
+      <div class="row">
+        <strong>¿ Que son las agendas públicas ?</strong><br />
+        <lead>Lorem ipsum dolor sit amet, consectetur adipiscing elit, <br />sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</lead>
+      </div>
+    </div>
+  </div>
+<% else %>
+<% end %>

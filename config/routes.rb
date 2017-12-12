@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
 
-  get 'registration_lobbies/index'
-
   # Public resources
-  root to: 'homepage#index'
+
+#  root to '/visitors', to: 'visitors#index', as: 'index'
   #root to: 'visitors#index'
+  root to: 'registration_lobbies#index'
+
   get '/lang/:lang', to: 'application#change_language', as: 'change_language'
   get '/show/:id', to: 'visitors#show', as: 'show'
   get '/update_holders', to: 'visitors#update_holders', as: 'update_holders'
   get '/inicio.do', to: 'uweb_access#uweb_sign_in'
   get '/agenda/:holder/:full_name', to: 'visitors#agenda', as: 'agenda'
+
   get '/import', to: 'users#import', as: 'import'
   get '/faq', to: 'questions#index', as: 'faq'
 
@@ -23,8 +25,12 @@ Rails.application.routes.draw do
     get '/regulatory_and_documentation', to: :regulatory_and_documentation
   end
 
+  get '/homepage', to: 'homepage#index', as: 'homepage'
+  get 'registration_lobbies/index'
+  get '/visitors', to: 'visitors#index', as: 'visitors'
+
   #get '/registration_lobbies', to: 'registration_lobbies#index', as: 'registration_lobbies'
-  
+
   # Admin
   get "/admin", to: 'events#index', as: 'admin'
 
