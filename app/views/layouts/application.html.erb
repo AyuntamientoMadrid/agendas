@@ -24,15 +24,25 @@
   <body class="<%= yield (:body_class) %>">
     <%= render 'layouts/header' %>
     <%= render  'layouts/admin_messages' %>
-
-    <% if current_page?(controller: 'homepage', action: 'index') %>
-      <div>
+    <%# if current_page?(controller: 'homepage', action: 'index') %>
+      <!-- <div>
         <div class="header-title">
           <h1><strong>Transparencia en la Toma de decisiones</strong></h1>
           <lead>El Ayuntamiento de Madrid abre sus decisiones a la Ciudadanía, consúltalas.</lead>
         </div>
+      </div> -->
+    <%# elsif current_page?(controller: 'registration_lobbies', action: 'index') %>
+    <!-- <div>
+      <div class="header-title">
+        <div>
+          <h1><strong>¿Por qué un registro de lobbies del<br /> Ayuntamiento de Madrid?</strong></h1>
+          <lead>Lorem ipsum dolor sit amet, consectetur adipiscing elit, <br />sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</lead>
+        </div>
       </div>
-    <% end %>
+    </div> -->
+    <%# else %>
+    <%# end %>
+
 
     <div id="main-content" class="main-content">
       <div class="row">

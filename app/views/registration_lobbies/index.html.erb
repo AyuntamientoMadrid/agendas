@@ -1,2 +1,78 @@
-<h1>RegistrationLobbies#index</h1>
-<p>Find me in app/views/registration_lobbies/index.html.erb</p>
+<% content_for(:body_class) { 'registration-lobbies' } %>
+<div class="row">
+  <div class="small-12 medium-4 column">
+    <figure>
+      <%= image_tag 'homepage/agendas.png', class: '', alt:'Agenda públicas'%>
+      <div class="content">
+        <p><strong>Consulta de registro</strong></p>
+        <p>
+          Actividad pública de la Alcadesa, concejalas y concejales, titulares de cargos de dirección y personal eventual de gabinete.
+        </p>
+        <%= link_to 'Acceder', organizations_path  %>
+      </div>
+    </figure>
+  </div>
+
+  <div class="small-12 medium-4 column">
+    <figure>
+      <%= image_tag 'homepage/drop-out.jpg', class: '', alt:'Registro de Lobbies'%>
+      <div class="content">
+        <p><strong>Alta y bajas</strong></p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+        <%= link_to 'Acceder', organizations_path  %>
+      </div>
+    </figure>
+  </div>
+
+  <div class="small-12 medium-4 column">
+    <figure>
+      <%= image_tag 'homepage/regulations.jpg', class: '', alt:'Huella normativa'%>
+      <div class="content">
+        <p><strong>Código de conducta y normativa</strong></p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+        <%= link_to 'Acceder', root_path  %>
+      </div>
+    </figure>
+  </div>
+</div>
+
+<div class="row">
+  <br />
+  <div class="small-12 medium-4 column">
+    <figure>
+      <%= image_tag 'homepage/faq.jpg', class: '', alt:'Huella normativa'%>
+      <div class="content">
+        <p><strong>Preguntas frecuentes</strong></p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+        <%= link_to 'Acceder', root_path  %>
+      </div>
+    </figure>
+  </div>
+
+  <div class="small-12 medium-4 column">
+    <figure>
+      <%= image_tag 'homepage/breaches.jpg', class: '', alt:'Huella normativa'%>
+      <div class="content">
+        <p><strong>Buzon de incumplimientos</strong></p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+        <%= link_to 'Acceder', root_path  %>
+      </div>
+    </figure>
+  </div>
+
+  <div class="small-12 column">
+    <hr />
+    <p>
+      Texto explicativo del registro de lobby  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+    </p>
+  </div>
+</div>

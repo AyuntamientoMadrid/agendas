@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     get '/regulatory_and_documentation', to: :regulatory_and_documentation
   end
 
+  #get '/registration_lobbies', to: 'registration_lobbies#index', as: 'registration_lobbies'
+  
   # Admin
   get "/admin", to: 'events#index', as: 'admin'
 
