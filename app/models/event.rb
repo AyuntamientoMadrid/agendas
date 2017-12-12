@@ -1,8 +1,8 @@
 class Event < ActiveRecord::Base
   include PublicActivity::Model
 
-  attr_accessor :organization_id
   attr_accessor :cancel
+  attr_accessor :organization_reference_id
 
   tracked owner: Proc.new { |controller, model| controller.present? ? controller.current_user : model.user }
   tracked title: Proc.new { |controller, model| controller.present? ? controller.get_title : model.title }
@@ -20,6 +20,7 @@ class Event < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :position
+  belongs_to :organization
   has_many :participants, dependent: :destroy
   has_many :positions, through: :participants
   has_many :attachments, dependent: :destroy
@@ -33,9 +34,8 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
 
-  enum status: { requested: 0, accepted: 1, canceled: 4 }
-
-  scope :by_title, lambda {|title| where("title ILIKE ?", "%#{title}%") }
+  SUPPORTED_FILTERS = [:title, :position_id, :lobby_activity, :status, :organization_id].freeze
+  scope :title, lambda {|title| where("title ILIKE ?", "%#{title}%") }
   scope :by_holders, lambda {|holder_ids|
     joins(:position).where("positions.holder_id IN (?)", holder_ids)
   }
@@ -46,10 +46,12 @@ class Event < ActiveRecord::Base
     holder_ids = Holder.by_name(name).pluck(:id)
     joins(:position).where("positions.holder_id IN (?)", holder_ids)
   }
-
-  scope :with_lobby_activity_active, -> { where(lobby_activity: true) }
-  scope :published, -> { where("published_at <= ? AND status != ?", Time.zone.today, 4) }
-
+  scope :status, ->(status) { where("status IN (#{status})") }
+  scope :lobby_activity, ->(lobby_activity){ where(lobby_activity: lobby_activity) }
+  scope :position_id, ->(position) { where(position_id: position) }
+  scope :organization_id, ->(organization) { where(organization_id: organization) }
+  scope :published, ->{ where("published_at <= ? AND status != ?", Time.zone.today, 4) }
+  enum status: { requested: 0, accepted: 1, done: 2, declined: 3, canceled: 4 }
   def cancel_event
     return unless cancel == 'true' && canceled_at.nil?
     self.canceled_at = Time.zone.today
@@ -80,15 +82,13 @@ class Event < ActiveRecord::Base
     ability(user, 'participants_events')
   end
 
-  def self.searches(search_person, search_title, search_lobby_activity)
-    if search_person.present? || search_title.present? || search_lobby_activity.present?
-      @events = by_holder_name(search_person).uniq if search_person.present?
-      @events = by_title(search_title) if search_title.present?
-      @events = with_lobby_activity_active if search_lobby_activity
+  def self.searches(params)
+    if params.present?
+      events = filter(params)
     else
-      @events = all
+      events = all
     end
-    @events
+    events
   end
 
   searchable do
@@ -154,6 +154,12 @@ class Event < ActiveRecord::Base
     user.full_name
   end
 
+  def self.filter(attributes)
+    attributes.slice(*SUPPORTED_FILTERS).reduce(all) do |scope, (key, value)|
+      value.present? ? scope.send(key, value) : scope
+    end
+  end
+
   private
 
     def participants_uniqueness
@@ -182,4 +188,5 @@ class Event < ActiveRecord::Base
       return if self.user.lobby? || self.scheduled.present?
       errors.add(:base, "Fecha del evento no puede estar en blanco")
     end
+
 end

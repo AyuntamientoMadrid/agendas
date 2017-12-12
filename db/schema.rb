@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 20171210174630) do
     t.string   "lobby_contact_email"
     t.string   "lobby_contact_phone"
     t.text     "manager_general_remarks"
+    t.integer  "organization_id"
   end
 
   add_index "events", ["position_id"], name: "index_events_on_position_id", using: :btree

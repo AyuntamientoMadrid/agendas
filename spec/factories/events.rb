@@ -10,6 +10,8 @@ FactoryGirl.define do
     location "Ayuntamiento de Madrid"
     association :position, factory: :position
     association :user, factory: :user
+    association :organization, factory: :organization
+
   end
 
 end

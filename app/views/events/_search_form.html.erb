@@ -1,32 +1,35 @@
-<% if current_user.admin? %>
-  <%= form_tag events_path, method: :get do %>
-  <div class="small-12 columns" id="search_form">
-    <div class="small-6 columns">
-      <%= label_tag(:search_title, t("backend.search.title")) %>
-      <input type="text" name="search_title" placeholder="<%= t("backend.search.placeholder_title") %>"  value="<%= params[:search_title] %>" onchange="form.search_person.value=''">
-    </div>
-    <div class="small-6 columns">
-      <%= label_tag(:search_person, t("backend.search.person")) %>
-      <input type="text" name="search_person" placeholder="<%= t("backend.search.placeholder_person") %>"  value="<%= params[:search_person] %>"  onchange="form.search_title.value=''">
-    </div>
+<div class="row">
+  <div class="small-6 medium-8 column">
+    <h1>Eventos</h1>
   </div>
-  <div class="small-12 columns">
-    <div class="small-4 columns left ">
-      <%= link_to t('backend.new_event'), new_event_path, :class => "expanded button tiny radius warning" if can? :create, Event %>
+  <div class="small-6 medium-4 column">
+    <%= link_to t('backend.new_event'),
+                new_event_path,
+                :class => "button radius warning right" if can? :create, Event %>
+  </div>
+</div>
+<hr />
+
+<%= form_tag events_path, method: :get do %>
+  <div class="row" id="search_form">
+    <div class="small-12 medium-3 columns">
+      <%= label_tag(:search_title, t("backend.search.title"), class: 'title-s') %>
+      <input type="text" name="search_title" placeholder="<%= t("backend.search.placeholder_title") %>"  value="<%= params[:search_title] %>">
     </div>
-    <div class="small-4 columns left">
-      <input type="submit" class="expanded button tiny radius" value="<%= t("backend.search.button") %>">
+
+    <div class="small-12 medium-4 columns">
+      <%= label_tag(:search_person, t("backend.search.person"), class: 'title-s') %>
+      <input type="text" name="search_person" placeholder="<%= t("backend.search.placeholder_person") %>"  value="<%= params[:search_person] %>">
     </div>
-    <div class="small-1 columns left">
+
+    <div class="small-12 medium-5 columns event-status-search-options">
+      <%= label_tag :status, t('backend.search.status'), class: 'title-s' %>
+      <small><a href="#" data-tooltip-custom="<%= t("backend.search.tool_tips_multiple_selection") %>"><%= t("backend.search.multiple_selection") %></a></small>
+      <%= select_tag :status, event_status_search_options(params[:status]) , { multiple: true }  %>
       <%= check_box_tag(:lobby_activity, value = "1", checked = check_filter_lobby_activity , id: "lobby_activity")%>
-    </div>
-    <div class="small-3 columns left mb40">
       <%= label_tag(:lobby_activity, t("backend.lobby_activity")) %>
+      <input type="submit" class="expanded button tiny radius right" value="<%= t("backend.search.button") %>">
     </div>
   </div>
-  <% end %>
-<% else %>
-  <%= link_to t('backend.new_event'), new_event_path, :class => "expanded button tiny radius warning" if can? :create, Event %>
+  <hr />
 <% end %>
-
-

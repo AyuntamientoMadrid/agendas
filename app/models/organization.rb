@@ -13,6 +13,7 @@ class Organization < ActiveRecord::Base
   has_many :subventions, dependent: :destroy
   has_many :contracts, dependent: :destroy
   has_many :funds, dependent: :destroy
+  has_many :events
   has_one :comunication_representant, dependent: :destroy
   has_one :user, dependent: :destroy
   has_one :legal_representant, dependent: :destroy

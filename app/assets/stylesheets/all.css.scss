@@ -3142,8 +3142,10 @@ select:hover {
 select:disabled {
   background-color: #DDDDDD;
   cursor: default; }
+
 select[multiple] {
-  height: auto; }
+  height: auto;
+}
 
 /* Adjust margin for form elements below */
 input[type="file"], input[type="checkbox"], input[type="radio"], select {
@@ -7312,7 +7314,6 @@ select {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
   }
-
 }
 
 .ui-autocomplete{
@@ -7357,5 +7358,64 @@ ul.accordion{
   }
   .active .accordion-icon:before {
     content: "-";
+  }
+}
+
+#search_form{
+  label{
+    display: inline-block;
+  }
+  .event-status-search-options{
+    small{
+      float:right;
+    }
+  }
+}
+
+
+[data-tooltip-custom] {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+
+  &:before,
+  &:after{
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+  }
+
+  &:before {
+    margin-bottom: 5px;
+    margin-left: -80px;
+    padding: 7px;
+    width: 160px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #000;
+    color: #fff;
+    content: attr(data-tooltip-custom);
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+  &:after {
+    margin-left: -5px;
+    width: 0;
+    border-top: 5px solid #000;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+  }
+  &:hover:before,
+  &:hover:after {
+    visibility: visible;
+    opacity: 1;
   }
 }

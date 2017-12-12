@@ -147,10 +147,10 @@ $(function(){
 
 function fill_represented_entities_select_options() {
   $('#nested-event-represented-entities').bind('cocoon:after-insert', function() {
-    if ($('#organization_id').val()){
+    if ($('#event_organization_reference_id').val()){
       $.ajax({
         method: "GET",
-        url: $('.represented-entities-block').data('new-url').replace('organization_id', $('#organization_id').val())
+        url: $('.represented-entities-block').data('new-url').replace('organization_id', $('#event_organization_reference_id').val())
       }).done(function( represented_entities ) {
         var select = $('#nested-event-represented-entities select:last');
         if (represented_entities.length > 0)  {
@@ -172,10 +172,10 @@ function fill_represented_entities_select_options() {
 
 function fill_agents_select_options() {
   $('#nested-event-agents').bind('cocoon:after-insert', function() {
-    if ($('#organization_id').val()){
+    if ($('#event_organization_reference_id').val()){
       $.ajax({
         method: "GET",
-        url: $('.agents-block').data('new-url').replace('organization_id', $('#organization_id').val())
+        url: $('.agents-block').data('new-url').replace('organization_id', $('#event_organization_reference_id').val())
       }).done(function( agents ) {
         var select = $('#nested-event-agents select:last');
         if (agents.length > 0)  {
@@ -200,12 +200,12 @@ function fill_autocomplete_organization_name() {
   $('#event_organization_name').bind('railsAutocomplete.select', function(event, data){
     $('#nested-event-represented-entities .link_to_remove_association').trigger('click');
     $('#nested-event-agents .link_to_remove_association').trigger('click');
-    $('#organization_id').val(data.item.id);
+    $('#event_organization_reference_id').val(data.item.id);
     $('#event-category').empty();
-    if ($('#organization_id').val()){
+    if ($('#event_organization_reference_id').val()){
       $.ajax({
         method: "GET",
-        url: $('#category-block').data('new-url').replace('organization_id', $('#organization_id').val())
+        url: $('#category-block').data('new-url').replace('organization_id', $('#event_organization_reference_id').val())
       }).done(function( category ) {
         var div_category = $('#event-category');
         div_category.append(category);
