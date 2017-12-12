@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'registration_lobbies/index'
+
   # Public resources
   root to: 'homepage#index'
   #root to: 'visitors#index'

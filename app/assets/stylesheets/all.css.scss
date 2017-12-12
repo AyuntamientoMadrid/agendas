@@ -5409,11 +5409,11 @@ div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, p, blockquote, t
 
 /* Default Link Styles */
 a {
-  color: #0077b9;
+  color: #0000ff;
   line-height: inherit;
   text-decoration: none; }
 a:hover, a:focus {
-  color: #00669f; }
+  color: #0000e1; }
 a img {
   border: none; }
 
@@ -6823,8 +6823,9 @@ th.next .fa {
   text-decoration: underline;
 }
 .header__base {
-  background: #004A83;
-  overflow: hidden; }
+  // background: #004A83;
+  // overflow: hidden;
+}
 
 header{
   .top-bar-section{
@@ -7310,11 +7311,13 @@ select {
 
 .top_bar_box {
   padding: 35px 0 100px;
-  background: #004A83;
+  //background: #004A83;
+  background: #003df6;
   padding: 0;
 }
 .sub_top_bar_box{
-  background: #0363a7;
+  // background: #0363a7;
+  background: #0000e1;
   ul{
     margin-bottom:0;
     padding: 1rem 0;
