@@ -1,85 +1,232 @@
 feature 'Events' do
-
   describe 'user manager', type: :feature do
 
     background do
       user_manager = create(:user, :user)
-      position = create(:position)
-      user_manager.manages.create(holder_id: position.holder_id)
+      @position = create(:position)
+      user_manager.manages.create(holder_id: @position.holder_id)
       signin(user_manager.email, user_manager.password)
     end
 
-    scenario 'visit the events index page' do
-      visit events_path
+    describe "index" do
 
-      expect(page).to have_content I18n.t 'backend.events'
+      scenario 'visit the events index page' do
+        visit events_path
+
+        expect(page).to have_content I18n.t 'backend.events'
+      end
+
     end
 
-    scenario 'visit create event form' do
-      visit new_event_path
+    describe "new" do
 
-      expect(page).to have_selector('#new_event')
-      expect(page).not_to have_selector('#edit_event')
+      scenario 'visit new event form' do
+        visit new_event_path
+
+        expect(page).to have_selector('#new_event')
+        expect(page).not_to have_selector('#edit_event')
+      end
+
+      scenario 'visit new event form and render manager fields' do
+        visit new_event_path
+
+        expect(page).to have_selector('#event_title')
+        expect(page).to have_selector('#event_location')
+        expect(page).to have_selector('#event_description')
+        expect(page).to have_selector('#event_manager_general_remarks')
+        expect(page).to have_selector('#event_scheduled')
+        expect(page).to have_selector('#event_position_id')
+        expect(page).to have_selector('#event_lobby_activity_true')
+        expect(page).to have_selector('#event_lobby_activity_false')
+        expect(page).to have_selector('#event_published_at')
+        expect(page).to have_selector('#event_lobby_contact_firstname')
+        expect(page).to have_selector('#event_lobby_contact_lastname')
+        expect(page).to have_selector('#event_lobby_contact_phone')
+        expect(page).to have_selector('#event_lobby_contact_email')
+      end
+
+      scenario 'visit new event form and not render manager fields' do
+        visit new_event_path
+
+        expect(page).not_to have_content('Organización que solicita la reunión')
+        expect(page).not_to have_selector('#event_general_remarks')
+        expect(page).not_to have_selector('#event_lobby_scheduled')
+      end
+
     end
+
+    describe "edit" do
+
+      scenario 'manager user can see on page the name of the organization' do
+        event = create(:event, organization_name: "Organization name", position: @position)
+
+        visit edit_event_path(event)
+
+        expect(page).to have_content('Organización que solicita la reunión')
+        expect(page).to have_css("#event_organization_name[disabled]")
+      end
+
+      scenario 'manager user can see on page lobby contact info' do
+        event = create(:event, organization_name: "Organization name", position: @position, lobby_contact_firstname: "name",
+                               lobby_contact_lastname: "lastname", lobby_contact_phone: "971466655", lobby_contact_email: "lobby@email.com")
+
+        visit edit_event_path(event)
+
+        within ".lobby-contact-info" do
+          expect(page).to have_selector("input[value='name']")
+          expect(page).to have_selector("input[value='lastname']")
+          expect(page).to have_selector("input[value='971466655']")
+          expect(page).to have_selector("input[value='lobby@email.com']")
+        end
+      end
+
+      scenario 'visit edit event form and render lobby fields' do
+        event = create(:event, organization_name: "Organization name", position: @position)
+
+        visit edit_event_path(event)
+
+        expect(page).to have_content('Organización que solicita la reunión')
+        expect(page).to have_selector('#event_lobby_contact_firstname')
+        expect(page).to have_selector('#event_lobby_contact_lastname')
+        expect(page).to have_selector('#event_lobby_contact_phone')
+        expect(page).to have_selector('#event_lobby_contact_email')
+        expect(page).to have_selector('#event_title')
+        expect(page).to have_selector('#event_location')
+        expect(page).to have_selector('#event_description')
+        expect(page).to have_selector('#event_manager_general_remarks')
+        expect(page).to have_selector('#event_lobby_scheduled')
+        expect(page).to have_selector('#event_general_remarks')
+        expect(page).to have_selector('#event_scheduled')
+        expect(page).to have_selector('#event_position_id')
+        expect(page).to have_selector('#event_lobby_activity_true')
+        expect(page).to have_selector('#event_lobby_activity_false')
+        expect(page).to have_selector('#event_published_at')
+      end
+
+      scenario 'visit edit event form and render correct lobby values' do
+        event = create(:event, organization_name: "Organization name", position: @position,
+                       lobby_contact_firstname: 'name', lobby_contact_lastname: 'lastname',
+                       lobby_contact_phone: '971466655', lobby_contact_email: 'lobby@email.com',
+                       lobby_scheduled: 'Day 17', general_remarks: 'General remark')
+
+        visit edit_event_path(event)
+
+        expect(page).to have_selector("input[value='name']")
+        expect(page).to have_selector("input[value='lastname']")
+        expect(page).to have_selector("input[value='971466655']")
+        expect(page).to have_selector("input[value='lobby@email.com']")
+        expect(page).to have_content "Day 17"
+        expect(page).to have_content("General remark")
+      end
+
+
+    end
+
   end
 
   describe 'user admin' do
 
     background do
       user_admin = create(:user, :admin)
-      position = create(:position)
-      user_admin.manages.create(holder_id: position.holder_id)
+      @position = create(:position)
+      user_admin.manages.create(holder_id: @position.holder_id)
       signin(user_admin.email, user_admin.password)
     end
 
-    scenario 'visit show event page' do
-      event = create(:event, title: 'New event from Capybara')
-      visit events_path
+    describe "show" do
 
-      click_link event.title
+      scenario 'visit show event page' do
+        event = create(:event, title: 'New event from Capybara')
+        visit events_path
 
-      expect(page).to have_content event.title
+        click_link event.title
+
+        expect(page).to have_content event.title
+      end
     end
 
-    scenario 'edit event and modify title' do
-      event = create(:event, title: 'Test event')
-      visit edit_event_path(event)
+    describe "edit" do
 
-      fill_in :event_title, with: 'New event modified from Capybara'
-      click_button I18n.t 'backend.save'
+      scenario 'edit event and modify title', :js do
+        event = create(:event, title: 'Test event')
+        visit edit_event_path(event)
+        # save_screenshot
+        fill_in :event_title, with: 'New event modified from Capybara'
+        click_button I18n.t 'backend.save'
+        # save_screenshot
+        expect(page).to have_content 'New event modified from Capybara'
+      end
 
-      expect(page).to have_content 'New event modified from Capybara'
+      scenario 'admin user can see on page the name of the organization' do
+        event = create(:event, organization_name: "Organization name", position: @position)
+
+        visit edit_event_path(event)
+
+        expect(page).to have_content('Organización que solicita la reunión')
+        expect(page).to have_css("#event_organization_name[disabled]")
+      end
+
+      scenario 'admin user can see on page lobby contact info' do
+        event = create(:event, organization_name: "Organization name", lobby_contact_firstname: 'lobyname',
+                               lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123', lobby_contact_email: 'lobbyemail@email.com')
+
+        visit edit_event_path(event)
+
+        within ".lobby-contact-info" do
+          expect(page).to have_selector("input[value='lobyname']")
+          expect(page).to have_selector("input[value='lobbylastname']")
+          expect(page).to have_selector("input[value='600123123']")
+          expect(page).to have_selector("input[value='lobbyemail@email.com']")
+        end
+      end
     end
 
-    scenario 'visit search by title' do
-      event = create(:event, title: 'New event from Capybara')
-      visit events_path
+    describe "index" do
 
-      fill_in :search_title, with: 'Capybara'
-      click_button I18n.t('backend.search.button')
+      scenario 'visit search by title' do
+        event = create(:event, title: 'New event from Capybara')
+        visit events_path
 
-      expect(page).to have_content event.title
-    end
+        fill_in :search_title, with: 'Capybara'
+        click_button I18n.t('backend.search.button')
 
-    scenario 'visit search by person' do
-      event = create(:event, title: 'New event from Capybara')
-      name = event.position.holder.first_name
-      visit events_path
+        expect(page).to have_content event.title
+      end
 
-      fill_in :search_person, with: name
-      click_button I18n.t('backend.search.button')
+      scenario 'visit search by person' do
+        event = create(:event, title: 'New event from Capybara')
+        name = event.position.holder.first_name
+        visit events_path
 
-      expect(page).to have_content event.title
-    end
+        fill_in :search_person, with: name
+        click_button I18n.t('backend.search.button')
 
-    scenario 'visit non results search page' do
-      create(:event, title: 'New not found event')
-      visit events_path
+        expect(page).to have_content event.title
+      end
 
-      fill_in :search_title, with: 'Search keywords'
-      click_button I18n.t('backend.search.button')
+      scenario 'visit non results search page' do
+        create(:event, title: 'New not found event')
+        visit events_path
 
-      expect(page).to have_content "No se han encontrado eventos"
+        fill_in :search_title, with: 'Search keywords'
+        click_button I18n.t('backend.search.button')
+
+        expect(page).to have_content "No se han encontrado eventos"
+      end
+
+      scenario 'search lobby activity' do
+        event = create(:event, title: 'Test for check lobby_activity')
+        event.lobby_activity = true
+        event.event_agents << create(:event_agent)
+        event.save!
+        visit events_path
+
+        check 'lobby_activity'
+        click_button I18n.t('backend.search.button')
+
+        expect(page).to have_content "Test for check lobby_activity"
+      end
+
     end
 
     describe "Create" do
@@ -99,7 +246,7 @@ feature 'Events' do
         expect(page).to have_content "Este campo es obligatorio", count: 5
       end
 
-      scenario 'Visit new admin event page and create organization with the minimum permitted fields' do
+      scenario 'Visit new admin event page and create organization with the minimum permitted fields', :js do
         new_position = create(:position)
         visit new_event_path
 
@@ -107,23 +254,23 @@ feature 'Events' do
         fill_in :event_location, with: "Location"
         fill_in :event_scheduled, with: DateTime.current
         select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
-        choose :event_lobby_activity_true
+        choose :event_lobby_activity_false
         fill_in :event_published_at, with: Date.current
         click_button "Guardar"
 
         expect(page).to have_content "Registro creado correctamente"
       end
 
-      scenario 'Should create organization with all fields without nesteds' do
+      scenario 'Should create organization with all fields without nesteds', :js do
         new_position = create(:position)
         visit new_event_path
 
         fill_in :event_title, with: "Title"
         fill_in :event_location, with: "Location"
-        fill_in :event_description, with: "Description"
+        tinymce_fill_in(:event_description, "Description")
         fill_in :event_scheduled, with: Date.current
         select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
-        choose :event_lobby_activity_true
+        choose :event_lobby_activity_false
         fill_in :event_published_at, with: Date.current
         click_button "Guardar"
 
@@ -131,10 +278,10 @@ feature 'Events' do
         expect(page).to have_content "Registro creado correctamente"
         expect(event.title).to eq "Title"
         expect(event.location).to eq "Location"
-        expect(event.description).to eq "Description"
+        expect(event.description).to eq "<p>Description</p>"
         expect(event.scheduled).to eq Date.current
         expect(event.position).to eq new_position
-        expect(event.lobby_activity).to eq true
+        expect(event.lobby_activity).to eq false
         expect(event.published_at).to eq Date.current
       end
 
@@ -146,14 +293,12 @@ feature 'Events' do
             new_position = create(:position)
             visit new_event_path
 
-            #Mandatory fields
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
             fill_in :event_scheduled, with: DateTime.current
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
-            choose :event_lobby_activity_true
+            choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
-            #Participant fields
             find('.add-participant').click
             sleep 0.5
 
@@ -200,14 +345,12 @@ feature 'Events' do
             new_position = create(:position)
             visit new_event_path
 
-            #Mandatory fields
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
             fill_in :event_scheduled, with: DateTime.current
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
-            choose :event_lobby_activity_true
+            choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
-            #Attendees fields
             find('.add-attendee').click
             find(".attendee-name").set("Name")
             click_button "Guardar"
@@ -222,14 +365,12 @@ feature 'Events' do
             new_position = create(:position)
             visit new_event_path
 
-            #Mandatory fields
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
             fill_in :event_scheduled, with: DateTime.current
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
-            choose :event_lobby_activity_true
+            choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
-            #Participant fields
             find('.add-attendee').click
             find(".attendee-name").set("Name")
             find(".attendee-position").set("Position")
@@ -320,8 +461,8 @@ feature 'Events' do
           choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
 
           expect(page).to have_selector("#category-block", visible: true)
-          expect(page).to have_selector("#re-block", visible: true)
-          expect(page).to have_selector("#agents-block", visible: true)
+          expect(page).to have_selector(".represented-entities-block", visible: true)
+          expect(page).to have_selector(".agents-block", visible: true)
         end
 
         scenario 'We can search organization by identifier', :js do
@@ -332,8 +473,8 @@ feature 'Events' do
           choose_autocomplete :event_organization_name, with: "43138883z", select: organization.name
 
           expect(page).to have_selector("#category-block", visible: true)
-          expect(page).to have_selector("#re-block", visible: true)
-          expect(page).to have_selector("#agents-block", visible: true)
+          expect(page).to have_selector(".represented-entities-block", visible: true)
+          expect(page).to have_selector(".agents-block", visible: true)
         end
 
         scenario 'When select organization display category', :js do
@@ -357,7 +498,7 @@ feature 'Events' do
 
             choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
 
-            within "#re-block" do
+            within ".represented-entities-block" do
               expect(page).to have_selector("option[value='#{organization.name}']")
             end
           end
@@ -370,7 +511,7 @@ feature 'Events' do
 
             choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
 
-            within "#re-block" do
+            within ".represented-entities-block" do
               expect(page).to have_selector("option[value='#{represented_entity.name}']")
             end
           end
@@ -386,7 +527,7 @@ feature 'Events' do
 
             choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
 
-            within "#agents-block" do
+            within ".agents-block" do
               expect(page).to have_selector("option[value='No hay agentes disponibles.']")
             end
           end
@@ -399,35 +540,96 @@ feature 'Events' do
 
             choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
 
-            within "#agents-block" do
+            within ".agents-block" do
               expect(page).to have_selector("option[value='#{agent.name}']")
             end
           end
 
+          scenario "When radio lobby lobby activity is set to true, only can save selecting an agent", :js do
+            new_position = create(:position)
+            organization = create(:organization)
+            agent = create(:agent, organization: organization)
+            visit new_event_path
+
+            fill_in :event_title, with: "Title"
+            fill_in :event_location, with: "Location"
+            fill_in :event_scheduled, with: DateTime.current
+            select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
+            fill_in :event_published_at, with: Date.current
+            choose :event_lobby_activity_true
+            choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
+            within('#new_event_agent') do
+              select agent.name
+            end
+            click_button "Guardar"
+
+            expect(page).to have_content "Registro creado correctamente"
+          end
+
+          scenario "When fill by js organization_name without agents display no_result_text on agents selector", :js do
+            new_position = create(:position)
+            visit new_event_path
+
+            fill_in :event_title, with: "Title"
+            fill_in :event_location, with: "Location"
+            fill_in :event_scheduled, with: DateTime.current
+            select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
+            fill_in :event_published_at, with: Date.current
+            choose :event_lobby_activity_true
+            click_button "Guardar"
+
+            expect(page).to have_content I18n.translate('backend.event.event_agent_needed'), count: 1
+          end
         end
-
       end
-
     end
-
   end
 
-  describe 'Organization user' do
+  describe 'organization user' do
     background do
       @organization = create(:organization)
-      organization_user = create(:user, :lobby, organization: @organization)
+      @organization_user = create(:user, :lobby, organization: @organization)
       @position = create(:position)
-      organization_user.manages.create(holder_id: @position.holder_id)
-      signin(organization_user.email, organization_user.password)
+      @agent = create(:agent, organization: @organization)
+      @organization_user.manages.create(holder_id: @position.holder_id)
+      signin(@organization_user.email, @organization_user.password)
     end
 
     scenario 'visit index event page' do
-      event = create(:event, title: 'New event for lobbies', position: @position)
+      event = create(:event, title: 'New event for lobbies', position: @position, organization_id: @organization.id)
       visit events_path
 
       expect(page).to have_content event.title
     end
 
+    describe "New" do
+
+      scenario 'visit new event form and render fields' do
+        visit new_event_path
+
+        expect(page).to have_selector('#event_title')
+        expect(page).to have_selector('#event_location')
+        expect(page).to have_selector('#event_description')
+        expect(page).to have_selector('#event_general_remarks')
+        expect(page).to have_selector('#event_lobby_scheduled')
+        expect(page).to have_selector('#event_position_id')
+        expect(page).to have_selector('#event_lobby_activity_true')
+        expect(page).to have_selector('#event_lobby_activity_false')
+        expect(page).to have_selector('#event_lobby_contact_firstname')
+        expect(page).to have_selector('#event_lobby_contact_lastname')
+        expect(page).to have_selector('#event_lobby_contact_phone')
+        expect(page).to have_selector('#event_lobby_contact_email')
+      end
+
+      scenario 'visit new event form and not render fields' do
+        visit new_event_path
+
+        expect(page).not_to have_content('Organización que solicita la reunión')
+        expect(page).not_to have_selector('#event_manager_general_remarks')
+        expect(page).not_to have_selector('#event_scheduled')
+        expect(page).not_to have_selector('#event_published_at')
+      end
+    end
 
     describe "Create" do
 
@@ -446,6 +648,10 @@ feature 'Events' do
         tinymce_fill_in :event_lobby_scheduled, '02/11/2017 06:30'
         tinymce_fill_in :event_general_remarks, 'General remarks'
         fill_in :event_location, with: 'New location'
+        choose_autocomplete :event_organization_name, with: @organization.name, select: @organization.name
+        within('#new_event_agent') do
+          select @agent.name
+        end
         select "#{@position.holder.full_name_comma} - #{@position.title}", from: :event_position_id
         click_button I18n.t('backend.save')
 
@@ -464,7 +670,7 @@ feature 'Events' do
         visit new_event_path
 
         find(:radio_button, "event_lobby_activity_true", checked: true)
-        expect(find_field("event_organization_name").value).to eq "#{@organization.name}"
+        expect(find_field("event_organization_name").value).to eq @organization.name.to_s
       end
 
       scenario 'Visit new event page and not display specific admin/managers fields', :js do
@@ -474,15 +680,19 @@ feature 'Events' do
         expect(page).not_to have_field("event_published_at")
       end
 
-      scenario 'Should create organization with all fields without nesteds' do
+      scenario 'Should create organization with all fields without nesteds', :js do
         new_position = create(:position)
         visit new_event_path
 
         fill_in :event_title, with: "Title"
         fill_in :event_location, with: "Location"
-        fill_in :event_description, with: "Description"
-        fill_in :event_general_remarks, with: "General remarks"
-        fill_in :event_lobby_scheduled, with: "Lobby scheduled proposal"
+        tinymce_fill_in(:event_description, "Description")
+        tinymce_fill_in(:event_general_remarks, "General remarks")
+        tinymce_fill_in(:event_lobby_scheduled, "Lobby scheduled proposal")
+        choose_autocomplete :event_organization_name, with: @organization.name, select: @organization.name
+        within('#new_event_agent') do
+          select @agent.name
+        end
         select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
         click_button "Guardar"
 
@@ -490,11 +700,22 @@ feature 'Events' do
         expect(page).to have_content "Registro creado correctamente"
         expect(event.title).to eq "Title"
         expect(event.location).to eq "Location"
-        expect(event.description).to eq "Description"
-        expect(event.general_remarks).to eq "General remarks"
-        expect(event.lobby_scheduled).to eq "Lobby scheduled proposal"
+        expect(event.description).to eq "<p>Description</p>"
+        expect(event.general_remarks).to eq "<p>General remarks</p>"
+        expect(event.lobby_scheduled).to eq "<p>Lobby scheduled proposal</p>"
         expect(event.position).to eq new_position
         expect(event.lobby_activity).to eq true
+      end
+
+      scenario 'Lobby user can see lobby contact info' do
+        visit new_event_path
+
+        within ".lobby-contact-info" do
+          expect(page).to have_selector("input[value='#{@organization_user.name}']")
+          expect(page).to have_selector("input[value='#{@organization_user.last_name}']")
+          expect(page).to have_selector("input[value='#{@organization_user.phones}']")
+          expect(page).to have_selector("input[value='#{@organization_user.email}']")
+        end
       end
 
       describe "Lobby activity" do
@@ -512,8 +733,8 @@ feature 'Events' do
           visit new_event_path
 
           expect(page).to have_selector("#category-block", visible: true)
-          expect(page).to have_selector("#re-block", visible: true)
-          expect(page).to have_selector("#agents-block", visible: true)
+          expect(page).to have_selector(".represented-entities-block", visible: true)
+          expect(page).to have_selector(".agents-block", visible: true)
         end
 
         scenario 'When fill by js organization_name display category', :js do
@@ -529,11 +750,11 @@ feature 'Events' do
           scenario 'When fill by js organization_name without represented_entity display organization on represented_entity selector', :js do
             visit new_event_path
 
-            within "#re-block" do
-              find("#link_to_add_association_re").click
+            within ".represented-entities-block" do
+              find("#event_represented_entities_link").click
             end
 
-            within "#re-block" do
+            within ".represented-entities-block" do
               expect(page).to have_selector("option[value='#{@organization.name}']")
             end
           end
@@ -542,11 +763,11 @@ feature 'Events' do
             represented_entity = create(:represented_entity, organization: @organization)
             visit new_event_path
 
-            within "#re-block" do
-              find("#link_to_add_association_re").click
+            within ".represented-entities-block" do
+              find("#event_represented_entities_link").click
             end
 
-            within "#re-block" do
+            within ".represented-entities-block" do
               expect(page).to have_selector("option[value='#{represented_entity.name}']")
             end
           end
@@ -555,27 +776,15 @@ feature 'Events' do
 
         describe "Agents" do
 
-          scenario 'When fill by js organization_name without agents display no_result_text on agents selector', :js do
-            visit new_event_path
-
-            within "#agents-block" do
-              find("#link_to_add_association_agent").click
-            end
-
-            within "#agents-block" do
-              expect(page).to have_selector("option[value='No hay agentes disponibles.']")
-            end
-          end
-
           scenario 'When fill by js organization_name with agents display agent on agents selector', :js do
             agent = create(:agent, organization: @organization)
             visit new_event_path
 
-            within "#agents-block" do
-              find("#link_to_add_association_agent").click
+            within ".agents-block" do
+              find("#event_agents_link").click
             end
 
-            within "#agents-block" do
+            within ".agents-block" do
               expect(page).to have_selector("option[value='#{agent.name}']")
             end
           end
@@ -584,6 +793,153 @@ feature 'Events' do
 
       end
 
+    end
+
+    describe "Edit" do
+
+      scenario "Edit buttons enabled for events on_request" do
+        event_requested = create(:event, title: 'Event on request', position: @position, status: 0,
+                                         organization: @organization)
+        event_accepted = create(:event, title: 'Event accepted', position: @position, status: 1,
+                                        organization: @organization)
+
+        visit events_path
+
+        expect(page).to have_link("", href: edit_event_path(event_requested).to_s)
+        expect(page).to_not have_link("", href: edit_event_path(event_accepted).to_s)
+      end
+
+      scenario "Edit buttons enabled for events on_request on show view" do
+        event_requested = create(:event, title: 'Event on request', position: @position,
+                                         status: 0, organization: @organization)
+        event_accepted = create(:event, title: 'Event accepted', position: @position,
+                                        status: 1, organization: @organization)
+
+        visit event_path(event_requested)
+
+        expect(page).to have_link("Editar")
+
+        visit event_path(event_accepted)
+
+        expect(page).to_not have_link("Editar")
+      end
+
+      scenario "User can edit events", :js do
+        event_requested = create(:event, title: 'Event on request', position: @position,
+                                         status: 0, organization: @organization)
+
+        visit event_path(event_requested)
+
+        click_link "Editar"
+
+        fill_in :event_title, with: "Editar evento"
+        click_button "Guardar"
+
+        expect(page).to have_content "Eventos"
+      end
+
+      scenario "User can cancel events", :js do
+        event = create(:event, organization: @organization)
+        visit edit_event_path(event)
+
+        page.find_by_id("cancel-reason", visible: false)
+        page.choose('event_cancel_true')
+        page.find_by_id("cancel-reason", visible: true)
+
+        click_button "Guardar"
+
+        expect(page).not_to have_selector "#event_cancel_true"
+      end
+
+      scenario "User can cancel events only once!" do
+        event_requested = create(:event, title: 'Event on request', position: @position, status: 0,
+                                         canceled_at: Time.zone.today, organization: @organization)
+        visit edit_event_path(event_requested)
+
+        expect(page).not_to have_selector "#event_cancel_true"
+      end
+
+      scenario 'Lobby user can see on page the name of the organization' do
+        event = create(:event, organization_name: "Organization name", position: @position,
+                               organization: @organization)
+
+        visit edit_event_path(event)
+
+        expect(page).not_to have_content('Organización que solicita la reunión')
+      end
+
+      scenario 'Lobby user can see lobby contact info' do
+        event = create(:event, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
+                               lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123',
+                               lobby_contact_email: 'lobbyemail@email.com', organization: @organization)
+
+        visit edit_event_path(event)
+
+        within ".lobby-contact-info" do
+          expect(page).to have_selector("input[value='lobbyname']")
+          expect(page).to have_selector("input[value='lobbylastname']")
+          expect(page).to have_selector("input[value='600123123']")
+          expect(page).to have_selector("input[value='lobbyemail@email.com']")
+        end
+      end
+
+      scenario 'Lobby user can update lobby contact info', :js do
+        event = create(:event, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
+                               lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123',
+                               lobby_contact_email: 'lobbyemail@email.com', organization: @organization)
+        visit edit_event_path(event)
+
+        fill_in :event_lobby_contact_firstname, with: 'new lobbyname'
+        fill_in :event_lobby_contact_lastname, with: 'new lobylastname'
+        fill_in :event_lobby_contact_phone, with: '900878787'
+        fill_in :event_lobby_contact_email, with: 'new_loby@email.com'
+        click_button 'Guardar'
+
+        event.reload
+        expect(event.lobby_contact_firstname).to eq 'new lobbyname'
+        expect(event.lobby_contact_lastname).to eq 'new lobylastname'
+        expect(event.lobby_contact_phone).to eq '900878787'
+        expect(event.lobby_contact_email).to eq 'new_loby@email.com'
+      end
+
+    end
+
+  end
+
+  describe 'search by status' do
+
+    background do
+      user_admin = create(:user, :admin)
+      @position = create(:position)
+      user_admin.manages.create(holder_id: @position.holder_id)
+      signin(user_admin.email, user_admin.password)
+    end
+
+    scenario 'filter events by one status on multiselect' do
+      create(:event, title: 'Test for check status requested', status: 0)
+      create(:event, title: 'Test for check status accepted', status: 1)
+      visit events_path
+
+      select "Solicitada", from: :status
+      click_button I18n.t('backend.search.button')
+
+      expect(page).to have_content "Test for check status requested"
+      expect(page).not_to have_content "Test for check status accepted"
+    end
+
+    scenario 'filter events by more than one status on multiselect' do
+      create(:event, title: 'Test for check status requested', status: 0)
+      create(:event, title: 'Test for check status accepted', status: 1)
+      create(:event, title: 'Test for check status done', status: 2)
+      visit events_path
+
+      select "Solicitada", from: :status
+      select "Aceptada", from: :status
+      click_button I18n.t('backend.search.button')
+
+      expect(page).to have_content "Test for check status requested"
+      expect(page).to have_content "Test for check status accepted"
+      expect(page).not_to have_content "Test for check status done"
     end
 
   end

@@ -1,4 +1,7 @@
 en:
+  "true": "Yes"
+  "false": "No"
+
   organizations:
     title: Organizations registry
     description: Consult the organizations registered.
@@ -7,8 +10,11 @@ en:
 
     show:
       title: "Organization public page"
-      reference: "Referencia"
+      reference: "Número de anotación en registro"
       identifying_data_title: "Datos"
+      inscription_date: "Fecha de inscripción"
+      updated_at: "Fecha de última modificación"
+      canceled_at: "Fecha de baja"
       id: "Código de Lobby"
       identifier: "NIF"
       name: "Nombre/Apellidos o Razón Social"
@@ -22,10 +28,8 @@ en:
       lobby: 'Lobbie'
       federation: 'Federación'
       association: 'Asociación'
-
       legal_representant_title: "Representante legal"
       legal_representant_name: "Nombres/Apellidos o Razón Social"
-
       display_user_title: "Persona fisica de contacto"
       user_name: "Nombre/Apellidos"
       fiscal_year_title: "Datos de quien va a ejercer la actividad de lobby por cuenta propria"
@@ -44,7 +48,7 @@ en:
       represented_entity_subvention: "Ayudas y/o subvenciones recibidas del Ayto"
       represented_entity_contract: "Contratos y/o convenios con el Ayto"
 
-      agents_title: "Agentes"
+      agents_title: "Personas que se reúnen"
       agents_fullname: "Nombre/Apellidos"
       agents_from: "Fecha de inicio de representación"
       agents_to: "Fecha de fin de representación"
@@ -66,7 +70,7 @@ en:
     new_organization_title: "Nueva organización"
     reference:
       title_fieldset: "Referencia de la declaracíon responsable"
-      title: "Referencia"
+      title: "Número de anotación en registro"
 
     identifying_data:
       title_fieldset: "Datos identificativos"

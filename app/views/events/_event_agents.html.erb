@@ -1,0 +1,20 @@
+<div class="row agents-block" data-new-url="<%= organization_agents_url_pattern(format: :json) %>">
+  <div class="small-10 columns">Agentes</div>
+  <div class="small-2 columns"></div>
+
+  <div id="nested-event-agents">
+    <%= f.fields_for :event_agents do |agent| %>
+      <%= render 'event_agents_fields', f: agent %>
+    <% end %>
+  </div>
+  <div class="small-12 columns">
+    <%= link_to_add_association t('backend.add'), f, :event_agents,
+                               partial: "event_agents_fields",
+                               id: "event_agents_link",
+                               class: "button tiny radius info",
+                               data:  {
+                                 association_insertion_node: "#nested-event-agents",
+                                 association_insertion_method: "append"
+                               } %>
+  </div>
+</div>

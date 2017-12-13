@@ -1,14 +1,17 @@
 <%= render 'search_form' %>
-<div class="row">
+
+<div class="small-12 columns mb20">
   <%= page_entries_info @events %>
   <%= paginate @events %>
 </div>
-<div class="row">
-  <table class="event">
+
+<% if @events.present? %>
+  <div class="small-12 colum">
+    <table class="event">
     <thead>
       <tr>
         <th><%= t('backend.date')%></th>
-        <th><%= t('backend.event')%></th>
+        <th><%= t('backend.event.title')%></th>
         <th><%= t('backend.holder')%></th>
         <th><%= t('backend.actions')%></th>
       </tr>
@@ -16,7 +19,7 @@
     <tfoot>
       <tr>
         <th><%= t('backend.date')%></th>
-        <th><%= t('backend.event')%></th>
+        <th><%= t('backend.event.title')%></th>
         <th><%= t('backend.holder')%></th>
         <th><%= t('backend.actions')%></th>
       </tr>
@@ -28,6 +31,8 @@
           <% if event.scheduled.present? %>
             <%= event.scheduled.to_time.strftime(t('time.formats.short')) %>
             <span class="hide"><%= event.scheduled.strftime(t('time.formats.custom')) %></span>
+            <% else %>
+            <span><%= t('backend.pending') %></span>
           <% end %>
         </td>
         <td class="event_txt">
@@ -53,5 +58,6 @@
       <% end %>
     </tbody>
   </table>
-</div>
+  </div>
+<% end %>
 <%= paginate @events%>

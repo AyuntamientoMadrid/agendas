@@ -3,7 +3,6 @@ class Organization < ActiveRecord::Base
   enum registered_lobbies: [:no_record, :generalitat_catalunya, :cnmc, :europe_union, :others]
   enum range_fund: [:range_1, :range_2, :range_3, :range_4]
   enum entity_type: [:association, :federation, :lobby]
-
   validates :inscription_reference, uniqueness: true, allow_blank: true, allow_nil: true
   validates :name, :category_id, presence: true
 
@@ -14,6 +13,7 @@ class Organization < ActiveRecord::Base
   has_many :subventions, dependent: :destroy
   has_many :contracts, dependent: :destroy
   has_many :funds, dependent: :destroy
+  has_many :events
   has_one :comunication_representant, dependent: :destroy
   has_one :user, dependent: :destroy
   has_one :legal_representant, dependent: :destroy
@@ -30,14 +30,21 @@ class Organization < ActiveRecord::Base
     text :name, :first_surname, :second_surname, :description
     time :created_at
     boolean :invalidate
-    string :entity_type
     time :inscription_date
+    integer :interest_ids, multiple: true do
+      interests.map(&:id)
+    end
+    integer :category_id
+    integer :id
+    join(:name, :prefix => "agent", :target => Agent, :type => :text, :join => { :from => :organization_id, :to => :id })
+    join(:first_surname, :prefix => "agent", :target => Agent, :type => :text, :join => { :from => :organization_id, :to => :id })
+    join(:second_surname, :prefix => "agent", :target => Agent, :type => :text, :join => { :from => :organization_id, :to => :id })
   end
 
   scope :invalidated, -> { where('invalidate = ?', true) }
   scope :validated, -> { where('invalidate = ?', false) }
-	scope :full_like, -> (name) { where("identifier ilike ? OR name ilike ?", name, name)}
-
+  scope :lobbies, -> { where('entity_type = ?', 2) }
+  scope :full_like, ->(name) { where("identifier ilike ? OR name ilike ?", name, name) }
 
   def fullname
     str = name
@@ -55,12 +62,17 @@ class Organization < ActiveRecord::Base
   end
 
   def set_inscription_date
-    self.inscription_date = Date.current if self.inscription_date.blank?
-    self.save
+    self.inscription_date = Date.current if inscription_date.blank?
+    save
   end
 
   def set_invalidate
     self.invalidate = false
-    self.save
+    save
   end
+
+  def interest?(id)
+    interests.pluck(:id).include?(id)
+  end
+
 end

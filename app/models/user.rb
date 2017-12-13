@@ -69,4 +69,8 @@ class User < ActiveRecord::Base
     user.save
   end
 
+  def self.lobby?
+    true if self.role == "lobby"
+  end
+
 end
