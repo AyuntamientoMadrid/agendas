@@ -10,6 +10,15 @@ Rails.application.routes.draw do
   get '/import', to: 'users#import', as: 'import'
   get '/faq', to: 'questions#index', as: 'faq'
 
+  # Static pages
+  scope module: 'static_pages' do
+    get '/rules', to: :rules
+    get '/about_lobbies', to: :about_lobbies
+    get '/code_of_conduct', to: :code_of_conduct
+    get '/data_protection', to: :data_protection
+    get '/regulatory_and_documentation', to: :regulatory_and_documentation
+  end
+
   # Admin
   get "/admin", to: 'events#index', as: 'admin'
 
