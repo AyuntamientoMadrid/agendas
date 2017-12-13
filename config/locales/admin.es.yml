@@ -45,6 +45,7 @@ es:
     managed_positions: "Agendas"
     manage_agendas: "Asignación de Agendas"
     lobby: "Lobby"
+    lobby_activity: "Actividad de Lobby"
 
     holders: "Titulares"
     holder: "Titular"
@@ -71,16 +72,23 @@ es:
     must_have_position: "Es necesario añadir al menos un cargo"
 
     events: "Eventos"
-    event: "Evento"
     event_history_updates: "Última actualización"
     event_update_user: "Usuario"
     event_update_date: "Fecha"
+    event:
+      title: "Evento"
+      event_agent_needed: "En los eventos de lobbies hace falta, al menos, un agente."
+      not_available_agents: "No hay agentes disponibles."
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"
         person: "Búsqueda por titulares y asistentes"
         placeholder_person: "Búsqueda por titulares y asistentes"
         button: "Buscar"
+        status: "Búsqueda por estado"
+        tool_tips_multiple_selection: "Para seleccionar más estados debes mantener apretado SHIFT en una PC o COMMAND en una Mac"
+        multiple_selection: "¿Selección múltiple?"
+    pending: "Pendiente"
     date: "Fecha"
     lobby_date: "Descripción de fecha propuesta"
     general_remarks: "Observaciones generales"
@@ -99,7 +107,11 @@ es:
     meeting_lobby_activity_public_website: "Fecha en la cual el evento se verá en la página web pública"
     participants_uniqueness: "Existen titulares de agenda duplicados"
     position_not_in_participants: "El titular de agenda se ha incluido también como asistente"
+    lobby_general_remarks_title: "Observaciones generales Gestor de agendas"
     attachments: "Archivos adjuntos"
+    attachments_description: "Descripción de archivos adjuntos"
+    attachments_public: "Archivos adjuntos públicos"
+    attachments_private: "Archivos adjuntos privados"
     only_pdf: "Solo PDF"
     name: "Nombre"
     file: "Archivo"
@@ -110,10 +122,11 @@ es:
     description: "Descripción"
     new_event: "Nuevo evento"
     edit_event: "Editar evento"
-
+    add_agents: "Añadir agentes"
+    add_interests: "Añadir intereses"
+    show_company: "Ver datos organización"
     activity: "Registro de Actividad"
     entries: "Registros"
-
     change_password: "Cambiar contraseña"
     password: "Contraseña"
     new_password: "Nueva contraseña"
@@ -135,6 +148,19 @@ es:
       placeholder_position: "Posición en el listado de preguntas"
       info_position: "Añade el número donde quieras que salga la pregunta. Dejando el campo vacío, la pregunta se posicionará al final del listado."
     send: "Enviar"
+    cancel_event: Cancelar evento
+    canceled_event: Evento cancelado
+    cancel_reason_yes: Si
+    cancel_reason_no: "No"
+    reasons: Razones
+
+
+    status:
+      requested: "Solicitada"
+      accepted: "Aceptada"
+      done: "Realizada"
+      declined: "Rechazada"
+      canceled: "Cancelada"
 
   backend_header:
     open_gov: "Gobierno abierto"

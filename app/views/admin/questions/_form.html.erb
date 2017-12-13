@@ -18,9 +18,8 @@
       <%= f.label :answer, t('backend.faq.answer') %>
       <%= f.text_area :answer, class: 'tinymce'%>
       <%= f.label :position, t('backend.faq.position') %>
-      <%= f.number_field :position, value: (@question.id ? @question.position : nil), placeholder: t("backend.faq.placeholder_position") %>
+      <%= f.number_field :position, value: (@question.id ? @question.position : nil), placeholder: t("backend.faq.placeholder_position"), min: 0 %>
       <i><%= t("backend.faq.info_position") %></i>
   </fieldset>
   <%= submit_tag t('backend.send'), :class=> "button radius success right" %>
 <% end %>
-<%= tinymce :language => I18n.locale %>

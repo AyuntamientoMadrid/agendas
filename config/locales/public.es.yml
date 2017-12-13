@@ -15,6 +15,7 @@ es:
     open_data_url: "http://datos.madrid.es"
     btn_public_agenda: "Agendas públicas"
     btn_organizations: "Consulta de registro"
+    btn_login: "Entrar"
   main:
     title: "Agendas públicas"
     any_errors: "¿Hay algún error en esta página?"
@@ -40,9 +41,13 @@ es:
       order_by: "Orden"
       scheduled: "Fecha"
       score: "Relevancia"
-      sort_by: "Ordernar por"
+      sort_by: "Ordenar por"
       filter_by: "Filtrar por"
-      descending: "Orden descendente"
+      name_asc: "Alfabético ascendente"
+      name_desc: "Alfabético descendente"
+      inscription_date_asc: "Fecha de inscripción ascendente"
+      inscription_date_desc: "Fecha de inscripción descendente"
+      agent: "Nombre o apellido del agente"
   show:
     participants: "Asisten"
     location: "Lugar"

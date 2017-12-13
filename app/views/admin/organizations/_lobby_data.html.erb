@@ -14,12 +14,12 @@
     </div>
     <div class="small-12 columns">
       <%= f.label :subvention, t('backend.lobbies_data.subvention') %>
-      <%= f.check_box :subvention %> Si
+      <%= f.check_box :subvention %> <%= t('backend.lobbies_data.subvention_yes') %>
       <%= form_field_errors(f, :subvention) %>
     </div>
     <div class="small-12 columns">
-      <%= f.label :contract, t('backend.lobbies_data.subvention') %>
-      <%= f.check_box :contract %> Si
+      <%= f.label :contract, t('backend.lobbies_data.contract') %>
+      <%= f.check_box :contract %> <%= t('backend.lobbies_data.contract_yes') %>
       <%= form_field_errors(f, :contract) %>
     </div>
   </div>

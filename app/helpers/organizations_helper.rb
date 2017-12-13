@@ -1,5 +1,5 @@
 module OrganizationsHelper
-  def oganizations_index_subtitle
+  def organizations_index_subtitle
     t "organizations.subtitle.default" if params[:order].blank? || params[:order] == :created_at
   end
 
@@ -21,4 +21,19 @@ module OrganizationsHelper
     "#{rooturl}#{url.gsub(rooturl, "").gsub("1", "organization_id")}"
   end
 
+  def search_by_filter?
+    (params[:interests].present? || params[:category].present? || params[:keyword].present?)
+  end
+  
+  def organization_status
+    canceled_true = @organization.canceled_at
+
+    if canceled_true.present?
+      '<span class="label alert">Baja </span>'.html_safe
+    elsif  @organization.invalidate.present?
+      '<span class="label warning">inhabilitado</span>'.html_safe
+    else
+      '<span class="label success">Activo</span>'.html_safe
+    end
+  end
 end

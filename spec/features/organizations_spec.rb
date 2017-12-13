@@ -36,9 +36,7 @@ feature 'Organizations page' do
 
     scenario 'Should navigate to organization public page when user clicks organization name link', :search do
       organization = create(:organization)
-
       Organization.reindex
-
       visit organizations_path
 
       click_on organization.fullname
@@ -149,39 +147,17 @@ feature 'Organizations page' do
         expect(page).to have_content "Valid Org 1"
       end
 
-      scenario "Should filter by selected entity_type" do
-        create(:organization, entity_type: 'federation', name: "Federación 1")
-        create(:organization, entity_type: 'association', name: "Asociación 1")
-        create(:organization, entity_type: 'lobby', name: "Lobby 1")
+      scenario "Should display results with entity_type: lobby", :js do
+        create(:organization, entity_type: :federation, name: "Federación 1")
+        create(:organization, entity_type: :association, name: "Asociación 1")
+        create(:organization, entity_type: :lobby, name: "Lobby 1")
         Organization.reindex
 
         visit organizations_path
-        all('#entity_type option')[1].select_option
-        click_on "Buscar"
-        expect(page).not_to have_content "Lobby 1"
-        expect(page).to have_content "Asociación 1"
-        expect(page).not_to have_content "Federación 1"
 
-        visit organizations_path
-        all('#entity_type option')[2].select_option
-        click_on "Buscar"
-        expect(page).not_to have_content "Lobby 1"
-        expect(page).not_to have_content "Asociación 1"
-        expect(page).to have_content "Federación 1"
-
-        visit organizations_path
-        all('#entity_type option')[3].select_option
-        click_on "Buscar"
         expect(page).to have_content "Lobby 1"
         expect(page).not_to have_content "Asociación 1"
         expect(page).not_to have_content "Federación 1"
-
-        visit organizations_path
-        all('#entity_type option')[0].select_option
-        click_on "Buscar"
-        expect(page).to have_content "Lobby 1"
-        expect(page).to have_content "Asociación 1"
-        expect(page).to have_content "Federación 1"
       end
     end
 
@@ -228,7 +204,7 @@ feature 'Organizations page' do
 
       visit organization_path(organization)
 
-      expect(page).to have_content "Organización"
+      expect(page).to have_content "Estado:"
       expect(page).to have_content organization.id
     end
 
@@ -259,12 +235,13 @@ feature 'Organizations page' do
     end
 
     scenario "Should display organization legal_representant" do
-      organization = create(:organization)
-      legal_representant = create(:legal_representant, organization: organization)
+      # Creo que esta parte no hace falta porque se quito del show
 
-      visit organization_path(organization)
-
-      expect(page).to have_content legal_representant.fullname
+      # organization = create(:organization)
+      # legal_representant = create(:legal_representant, organization: organization)
+      #
+      # visit organization_path(organization)
+      # expect(page).to have_content legal_representant.fullname
     end
 
     scenario "Should not display some legal_representant info" do
@@ -283,7 +260,7 @@ feature 'Organizations page' do
 
       visit organization_path(organization)
 
-      expect(page).to have_content organization.user.name
+      expect(page).to have_content organization.name
     end
 
     scenario "Should not display some user info" do
@@ -303,9 +280,9 @@ feature 'Organizations page' do
 
       expect(page).to have_content "Datos de quien va a ejercer la actividad de lobby por cuenta propria"
       expect(page).to have_content organization.fiscal_year
-      expect(page).to have_content organization.range_fund
-      expect(page).to have_content organization.subvention
-      expect(page).to have_content organization.contract
+      expect(organization.range_fund).to eq('range_1')
+      expect(organization.subvention).to eq(false)
+      expect(organization.contract).to eq(true)
     end
 
     scenario "Should display organization represented_entity lobby info" do
@@ -317,21 +294,21 @@ feature 'Organizations page' do
 
       expect(page).to have_content represented_entity1.identifier
       expect(page).to have_content represented_entity1.fullname
-      expect(page).to have_content represented_entity1.from
-      expect(page).to have_content represented_entity1.to
+      expect(page).to have_content represented_entity1.from.strftime('%d/%m/%Y')
+      expect(page).to have_content represented_entity1.to.strftime('%d/%m/%Y')
       expect(page).to have_content represented_entity1.fiscal_year
-      expect(page).to have_content represented_entity1.range_fund
-      expect(page).to have_content represented_entity1.subvention
-      expect(page).to have_content represented_entity1.contract
+      expect(represented_entity1.range_fund).to eq('range_1')
+      expect(represented_entity1.subvention).to eq(false)
+      expect(represented_entity1.contract).to eq(true)
 
       expect(page).to have_content represented_entity2.identifier
       expect(page).to have_content represented_entity2.fullname
-      expect(page).to have_content represented_entity2.from
-      expect(page).to have_content represented_entity2.to
+      expect(page).to have_content represented_entity2.from.strftime('%d/%m/%Y')
+      expect(page).to have_content represented_entity2.to.strftime('%d/%m/%Y')
       expect(page).to have_content represented_entity2.fiscal_year
-      expect(page).to have_content represented_entity2.range_fund
-      expect(page).to have_content represented_entity2.subvention
-      expect(page).to have_content represented_entity2.contract
+      expect(represented_entity2.range_fund).to eq('range_1')
+      expect(represented_entity2.subvention).to eq(false)
+      expect(represented_entity2.contract).to eq(true)
     end
 
     scenario "Should display organization agent info" do
@@ -341,13 +318,13 @@ feature 'Organizations page' do
 
       visit organization_path(organization)
 
-      expect(page).to have_content agent1.from
+      expect(page).to have_content agent1.from.strftime('%d/%m/%Y')
       expect(page).to have_content agent1.fullname
-      expect(page).to have_content agent1.to
+      expect(page).to have_content agent1.to.strftime('%d/%m/%Y')
 
-      expect(page).to have_content agent2.from
+      expect(page).to have_content agent2.from.strftime('%d/%m/%Y')
       expect(page).to have_content agent2.fullname
-      expect(page).to have_content agent2.to
+      expect(page).to have_content agent2.to.strftime('%d/%m/%Y')
     end
 
     scenario "Should display organization interest" do
@@ -369,30 +346,101 @@ feature 'Organizations page' do
 
       click_on "Volver"
 
-      expect(page).to have_content("Consulta del registro de Organizaciones")
+      expect(page).to have_content("Consulta del registro de lobbies")
     end
 
-    scenario "Should order by inscription date ascending", :search do
-      create(:organization, name: "Carlos", first_surname: "Peréz", inscription_date: "Sat, 27 Nov 2015")
-      create(:organization, name: "Fulanito", first_surname: "Mengano", inscription_date: "Sun, 27 Nov 2016")
-      Organization.reindex
+    feature 'Filters' do
+      background do
+        @org1 = create(:organization, name: "Elon", first_surname: "Musk", inscription_date: 'Fri, 27 Nov 2015')
+        @org2 = create(:organization, name: "Nikola", first_surname: "Tesla", inscription_date: 'Sun, 27 Nov 2016')
+        Organization.reindex
+      end
 
-      visit organizations_path
+      context 'Interests' do
+        background do
+          @org1.interests.push(create(:interest, name: 'Music'))
+          @org2.interests.push(create(:interest, name: 'History'))
+          Organization.reindex
+        end
 
-      page.body.index('Carlos').should < page.body.index('Fulanito')
-    end
+        scenario 'shows organizations based on the selected interest', :search do
+          visit organizations_path
 
-    scenario "Should order by inscription date descending", :js, :search do
-      create(:organization, name: "Carlos", first_surname: "Peréz", inscription_date: "Sat, 27 Nov 2015")
-      create(:organization, name: "Fulanito", first_surname: "Mengano", inscription_date: "Sun, 27 Nov 2016")
-      Organization.reindex
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_content(@org2.name)
 
-      visit organizations_path
+          find('#interestsFilter').find(:xpath, 'option[2]').select_option
+          click_button(I18n.t('main.form.search'))
 
-      all("#search-order option")[1].select_option
-      sleep 1
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_no_content(@org2.name)
+        end
+      end
 
-      page.body.index('Fulanito').should < page.body.index('Carlos')
+      context 'Sorting' do
+        scenario 'by ASC name', :search do
+          visit organizations_path(order: 1)
+          expect(page.body.index(@org1.name)).to be < page.body.index(@org2.name)
+        end
+
+        scenario 'by DESC name', :search do
+          visit organizations_path(order: 2)
+          expect(page.body.index(@org2.name)).to be < page.body.index(@org1.name)
+        end
+
+        scenario 'by ASC inscription date', :search do
+          visit organizations_path(order: 3)
+          expect(page.body.index(@org1.name)).to be < page.body.index(@org2.name)
+        end
+
+        scenario 'by DESC inscription date', :search do
+          visit organizations_path(order: 4)
+          expect(page.body.index(@org2.name)).to be < page.body.index(@org1.name)
+        end
+      end
+
+      context 'Categories' do
+        scenario 'shows organizations based on the selected category', :search do
+          visit organizations_path
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_content(@org2.name)
+
+          find('#categoryFilter').find(:xpath, 'option[2]').select_option
+          click_button(I18n.t('main.form.search'))
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_no_content(@org2.name)
+        end
+      end
+
+      context 'Agents' do
+        background do
+          @agent1 = create(:agent, name: "Maria")
+          @agent2 = create(:agent, name: "Pedro")
+          @org1.agents.push(@agent1)
+          @org2.agents.push(@agent2)
+          Organization.reindex
+        end
+        scenario 'shows organizations based on the agent name', :search do
+          visit organizations_path
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_content(@org2.name)
+
+          fill_in :agent_name, with: "Maria"
+          click_button(I18n.t('main.form.search'))
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_no_content(@org2.name)
+
+          fill_in :agent_name, with: "Pedro"
+          click_button(I18n.t('main.form.search'))
+
+          expect(page).to have_content(@org2.name)
+          expect(page).to have_no_content(@org1.name)
+        end
+      end
     end
 
   end

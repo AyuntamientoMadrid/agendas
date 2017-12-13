@@ -1,18 +1,40 @@
 <div class="small-12 large-4 columns">
-  <p><%= t "organizations.description" %></p>
+  <p><%= t("organizations.description") %></p>
   <br>
 
   <%= form_tag organizations_path, method: :get do %>
     <%= hidden_field_tag :order, params[:order] %>
     <div class="mb20">
-      <%= text_field_tag :keyword, params[:keyword], placeholder: t('main.form.keyword') %>
+      <%= text_field_tag :keyword, params[:keyword], placeholder: t("main.form.keyword") %>
     </div>
+
     <div class="mb20">
-      <%= select_tag :entity_type, options_for_select(Organization.entity_types.keys.map{|type| [t("organizations.show.#{type}"), type]}, params[:entity_type]),prompt: t('main.form.filter_by'), class: 'dropdown'%>
+      <%= select_tag :interests,
+                     options_for_select(Interest.all.map {
+                       |interest| [interest.name, interest.id]
+                     }, params[:interests]),
+                     id: "interestsFilter",
+                     prompt: t("main.form.filter_by"),
+                     class: "dropdown" %>
     </div>
+
     <div class="mb20">
-      <%= link_to t('main.form.reset'), organizations_path, class: 'button secondary' %>
-      <%= submit_tag t('main.form.search'), class: 'button', name: nil %>
+      <%= select_tag :category,
+                     options_for_select(Category.where(display: true).all.map {
+                       |category| [category.name, category.id]
+                     }, params[:category]),
+                     id: "categoryFilter",
+                     prompt: t("main.form.filter_by"),
+                     class: "dropdown" %>
+    </div>
+
+    <div class="mb20">
+      <%= text_field_tag :agent_name, params[:agent_name], placeholder: t("main.form.agent") %>
+    </div>
+
+    <div class="mb20">
+      <%= link_to t("main.form.reset"), organizations_path, class: "button secondary" %>
+      <%= submit_tag t("main.form.search"), class: "button" %>
     </div>
   <% end %>
 </div>

@@ -27,6 +27,14 @@
       </div>
     </div>
     <div class="mb20">
+          <div class="small-1 columns left">
+      <%= check_box_tag(:lobby_activity, value = "1", checked = check_filter_lobby_activity , id: "lobby_activity")%>
+    </div>
+    <div class="small-11 columns left mb40">
+      <%= label_tag(:lobby_activity, t("backend.lobby_activity")) %>
+    </div>
+    </div>
+    <div class="mb20">
       <%= link_to t('main.form.reset'), root_path, class: 'button secondary' %>
       <%= submit_tag t('main.form.search'), class: 'button', name: nil %>
     </div>

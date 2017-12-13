@@ -43,6 +43,7 @@ es:
     managed_positions: "Agendas"
     manage_agendas: "Asignación de Agendas"
     lobby: "Lobby"
+    lobby_activity: "Lobby Activity"
 
     holders: "Titulares"
     holder: "Titular"
@@ -69,16 +70,23 @@ es:
     must_have_position: "Es necesario añadir al menos un cargo"
 
     events: "Eventos"
-    event: "Evento"
     event_history_updates: "Última actualización"
     event_update_user: "Usuario"
     event_update_date: "Fecha"
+    event:
+      title: 'Event'
+      event_agent_needed: "There should be at least one agent on lobby events"
+      not_available_agents: "Not available agents."
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"
         person: "Ó por titular/asistente"
         placeholder_person: "Búsqueda por titulares y asistentes"
         button: "Buscar"
+        status: "Search by status"
+        tool_tips_multiple_selection: "Para seleccionar más estados debes mantener apretado SHIFT en una PC o COMMAND en una Mac"
+        multiple_selection: "¿Selección múltiple?"
+    pending: "Pending"
     date: "Fecha"
     lobby_date: "Descripción de fecha propuesta"
     general_remarks: "Observaciones generales"
@@ -97,7 +105,12 @@ es:
     meeting_lobby_activity_public_website: "Fecha en la cual el evento se verá en la página web pública"
     participants_uniqueness: "Existen titulares de agenda duplicados"
     position_not_in_participants: "El titular de agenda se ha incluido también como asistente"
+    lobby_general_remarks_title: "Observaciones generales Gestor de agendas"
+    position_not_in_participants: "El titular de agenda se ha incluido también como asistente"
     attachments: "Archivos adjuntos"
+    attachments_description: "Descripción de archivos adjuntos"
+    attachments_public: "Archivos adjuntos públicos"
+    attachments_private: "Archivos adjuntos privados"
     only_pdf: "Solo PDF"
     name: "Nombre"
     file: "Archivo"
@@ -108,6 +121,9 @@ es:
     description: "Descripción"
     new_event: "Nuevo evento"
     edit_event: "Editar evento"
+    add_agents: "Añadir agentes"
+    add_interests: "Añadir intereses"
+    show_company: "Ver datos organización"
 
     activity: "Registro de Actividad"
     entries: "Registros"
@@ -131,6 +147,18 @@ es:
       position: "Position"
       info_position: "Add the position number where you want this question appear. If you let it blank, the question will be positioned at the end of the list."
     send: "Send"
+    cancel_event: Cancel event
+    canceled_event: Canceled event
+    cancel_reason_yes: Yes
+    cancel_reason_no: No
+    reasons: Reasons
+
+    status:
+      requested: "Requested"
+      accepted: "Accepted"
+      done: "Done"
+      declined: "Rejected"
+      canceled: "Canceled"
 
   backend_header:
     open_gov: "Gobierno abierto"

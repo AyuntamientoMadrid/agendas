@@ -1,22 +1,24 @@
 <%= form_for [:admin, @organization], html: {class: 'organization-form'} do |f| %>
 
-  <%= render 'organization_errors', f:f %>
-  <%= render 'reference', f:f %>
-  <%= render 'data', f:f %>
-  <%= render 'legal_representant', f:f %>
-  <%= render 'user', f:f %>
-  <%= render 'lobby_data', f:f %>
-  <%= render 'represented_entities', f:f %>
-  <%= render 'interests', f:f %>
-  <%= render 'agents', f:f %>
-  <%= render 'terms', f:f %>
+  <%= hidden_field_tag 'show', params[:show] if params[:show] %>
+
+  <%= render 'organization_errors', f:f if current_user.admin? %>
+  <%= render 'reference', f:f if current_user.admin? %>
+  <%= render 'data', f:f if current_user.admin? %>
+  <%= render 'legal_representant', f:f if current_user.admin? %>
+  <%= render 'user', f:f if current_user.admin? %>
+  <%= render 'lobby_data', f:f if current_user.admin? %>
+  <%= render 'represented_entities', f:f if current_user.admin? %>
+  <%= render 'interests', f:f if current_user.admin? || show_partial?('interests') %>
+  <%= render 'agents', f:f if current_user.admin? || show_partial?('agents') %>
+  <%= render 'terms', f:f if current_user.admin? %>
 
   <div class="row">
     <div class="small-8 column">
       &nbsp
     </div>
     <div class="small-2 column">
-      <% if @organization.id %>
+      <% if @organization.id && current_user.admin? %>
         <% if @organization.invalidate %>
           <%= link_to t('backend.validate'), admin_organization_path(@organization, organization: {invalidate: false}), method: :put, :class=> "button radius success right" %>
         <% else %>

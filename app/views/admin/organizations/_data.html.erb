@@ -33,7 +33,7 @@
     </div>
     <div class="small-12 columns">
       <%= f.label :category_id, t('backend.identifying_data.category_id') %>
-      <%= f.select :category_id, options_for_select(Category.all.map{|c| [c.name, c.id]}), prompt: t('backend.none') %>
+      <%= f.select :category_id, options_for_select(Category.where(display: true).map{|c| [c.name, c.id]}), prompt: t('backend.none') %>
       <%= form_field_errors(f, :category_id) %>
     </div>
     <div class="small-12 columns">
@@ -97,6 +97,7 @@
       <%= form_field_errors(f, :description) %>
     </div>
     <div class="small-12 columns">
+      <br />
       <%= f.label :registered_lobbies, t('backend.identifying_data.registered_lobbies_title') %>
       <%= f.select :registered_lobbies, Organization.registered_lobbies.keys.map {|key| [t("backend.identifying_data.registered_lobbies.#{key}"), key]} %>
       <%= form_field_errors(f, :registered_lobbies) %>
