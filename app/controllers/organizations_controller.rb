@@ -35,7 +35,7 @@ class OrganizationsController < ApplicationController
     end
 
     def set_organization
-      if current_user.admin?
+      if current_user.try(:admin?)
         @organization = Organization.find(params[:id])
       else
         @organization = Organization.validated.find(params[:id])

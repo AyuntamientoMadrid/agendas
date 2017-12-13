@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171210174630) do
+ActiveRecord::Schema.define(version: 20171213171029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -224,12 +224,12 @@ ActiveRecord::Schema.define(version: 20171210174630) do
     t.integer  "registered_lobbies"
     t.integer  "fiscal_year"
     t.integer  "range_fund"
-    t.boolean  "subvention"
-    t.boolean  "contract"
+    t.boolean  "subvention",            default: false
+    t.boolean  "contract",              default: false
     t.boolean  "denied_public_data"
     t.boolean  "denied_public_events"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "inscription_reference"
     t.date     "inscription_date"
     t.integer  "entity_type"
