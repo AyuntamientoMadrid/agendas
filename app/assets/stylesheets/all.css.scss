@@ -6927,9 +6927,12 @@ header{
   .header__title strong {
     font-size: 24px;
   }
-@media only screen and (max-width: 40em) {
-  .header__title strong {
-    display: none; } }
+
+// @media only screen and (max-width: 40em) {
+//   .header__title strong {
+//     display: none;
+//   }
+// }
 
 /*
 	FOOTER
@@ -7484,7 +7487,7 @@ ul.accordion{
     font-size: 0;
     line-height: 0;
   }
-  
+
   &:hover:before,
   &:hover:after {
     visibility: visible;
@@ -7509,5 +7512,59 @@ header .top-bar-section .right li:not(.has-form) a:not(.button) {
   &:hover{
     background: rgb(255, 255, 255);
     color: rgb(0, 74, 131);
+  }
+}
+
+header .top-bar{
+  .right{
+    background: #003df6;
+  }
+}
+
+@media only screen and (max-width: 40em) {
+
+  .top-bar-section{
+      .active{}
+  }
+
+  .top-bar.expanded .toggle-topbar a span::after {
+    box-shadow: 0 0 0 1px #fff, 0 7px 0 1px #fff, 0 14px 0 1px #fff;
+  }
+  .header__imago{
+    max-width: 52px;
+  }
+  .header__title{
+    font-size: 15px;
+    padding: 0;
+
+    strong{
+      font-size: 16px;
+      line-height: 1;
+      margin-top: 17px;
+      border-right: 0;
+    }
+  }
+  .top-bar-section ul li a.active{
+      background: #0000e1;
+  }
+
+  header .top-bar{
+    .divider{
+      border-color: #042ba5;
+    }
+  }
+
+  header .top-bar,
+  .top-bar.expanded {
+    background: #003df6;
+  }
+
+  header .top-bar-section{
+    margin-top: 70px;
+    background: #003df6;
+  }
+  .top-bar .name h1{
+    font-size: 1rem;
+    line-height: 1;
   }
 }

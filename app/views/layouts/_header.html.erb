@@ -1,8 +1,5 @@
 <header class="header" role="banner">
   <div class="row hide-for-small-only">
-    <div class="small-6 columns">
-      <%#= language_selection %>
-    </div>
     <div class="small-6 columns text-right">
       <ul class="header__menu">
         <li><a href="<%= t('header.participation_url') %>" target="_blank"><%= t('header.participation') %></a></li>
@@ -22,9 +19,7 @@
           <% end %>
         </div>
         <section class="top-bar-section">
-
           <ul class="right">
-
             <% if user_signed_in? %>
               <li>
                 <%= link_to destroy_user_session_path, method: :delete do %>
@@ -36,21 +31,12 @@
                 <a href="<%= admin_path %>"><%= t('header.btn_login') %></a>
                 <%#= link_to 'Registrarse', root_path, class: "button" %>
               </li>
-              <!-- <li>
-                <%#= link_to 'Registrarse', root_path, class: "button" %>
-              </li> -->
             <% end %>
-            <!-- <li class="btn-public-agenda <%= current_page?(root_path) && 'active' %>">
-              <%= link_to t('header.btn_public_agenda'), root_path %>
-            </li>
-            <li class="btn-organizations <%= current_page?(organizations_path) && 'active' %>">
-              <%= link_to t('header.btn_organizations'), organizations_path %>
-            </li> -->
           </ul>
         </section>
       </div>
     </div>
-    <div class="sub_top_bar_box">
+    <div class="sub_top_bar_box hide-for-small-only">
       <div class="row">
         <div class="small-12 columns">
           <ul class="inline-list">
@@ -74,19 +60,55 @@
 
   <nav class="top-bar show-for-small-only" data-topbar role="navigation">
     <div class="header__base">
-      <h1 class="header__title"><strong><%= t('header.open_goverment') %></strong> <%= link_to t('header.transparency'),root_path %></h1>
+      <%= image_tag 'header_logo_madrid.png', class: 'header__imago', alt:'¡Madrid'%>
+      <h1 class="header__title">
+        <strong> <%= t('header.open_goverment') %> <br /> <%= t('header.transparency') %> </strong>
+      </h1>
     </div>
     <div class="toggle-topbar menu-icon"><a href="#"><span></span></a></div>
     <section class="top-bar-section">
       <ul>
-        <%#= language_selection %>
-        <li><a href="<%= t('header.participation_url') %>" target="_blank"><%= t('header.participation') %></a></a></li>
-        <li><a href="<%= t('header.transparency_url') %>" target="_blank"><%= t('header.transparency') %></a></li>
-        <li><a href="<%= t('header.open_data_url') %>" target="_blank"><%= t('header.open_data') %></a></li>
-        <li class="btn-public-agenda <%= current_page?(root_path) && 'active' %>">
+        <% if user_signed_in? %>
+          <li>
+            <%= link_to destroy_user_session_path, method: :delete do %>
+              <%= t("backend.logout")%>
+            <% end %>
+          </li>
+        <% else %>
+          <li>
+            <a href="<%= admin_path %>"><%= t('header.btn_login') %></a>
+            <%#= link_to 'Registrarse', root_path, class: "button" %>
+          </li>
+        <% end %>
+        <li class="divider"></li>
+        <li>
+          <%= link_to 'Inicio', root_path, class: current_class(root_path)  %>
+        </li>
+        <li>
+          <%= link_to 'Agendas', visitors_path, class: current_class(visitors_path) %>
+        </li>
+        <li>
+          <%= link_to 'Registro de lobbies', registration_lobbies_index_path, class: current_class(registration_lobbies_index_path) || current_class(organizations_path)  %>
+        </li>
+        <li>
+          <%= link_to 'Huella normativa', nil %>
+        </li>
+      </ul>
+      <ul>
+        <li class="divider"></li>
+        <li>
+          <a href="<%= t('header.participation_url') %>" target="_blank"><%= t('header.participation') %></a>
+        </li>
+        <li>
+          <a href="<%= t('header.transparency_url') %>" target="_blank"><%= t('header.transparency') %></a>
+        </li>
+        <li>
+          <a href="<%= t('header.open_data_url') %>" target="_blank"><%= t('header.open_data') %></a>
+        </li>
+        <li class="btn-public-agenda">
           <%= link_to t('header.btn_public_agenda'), root_path %>
         </li>
-        <li class="btn-organizations <%= current_page?(organizations_path) && 'active' %>">
+        <li class="btn-organizations">
           <%= link_to t('header.btn_organizations'), organizations_path %>
         </li>
       </ul>
