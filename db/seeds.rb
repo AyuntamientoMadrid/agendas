@@ -32,12 +32,12 @@ interests = ['Actividad económica y empresarial',
              'Vivienda']
 
 interests.each do |name|
-  Interest.create(name: name)
+  Interest.find_or_create_by(name: name)
 end
 puts "Interests created ✅"
 
 # Categories
-names = ['Consultoría profesional y despachos de abogados', 'Empresas', 'Asociaciones/Fundaciones',
+names = ['Consultoría profesional y despachos de abogados', 'Empresas', 'Asociaciones', 'Fundaciones',
          'Sindicatos y organizaciones profesionales', 'Organizaciones empresariales',
          'ONGs y plataformas sin personalidad jurídica',
          'Universidades y centros de investigación',
@@ -45,7 +45,7 @@ names = ['Consultoría profesional y despachos de abogados', 'Empresas', 'Asocia
          'Iglesia y otras confesiones', 'Otro tipo de sujetos']
 
 names.each do |name|
-  Category.find_or_create_by(name: name)
+  Category.find_or_create_by(name: name, display: true)
 end
 puts "Categories created ✅"
 

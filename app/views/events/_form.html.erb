@@ -82,10 +82,10 @@
         <div class="lobby-organization-autocomplete">
           <%= t('backend.meeting_lobby_activity_organization') %>
           <% if current_user.lobby? %>
-            <%= f.hidden_field :organization_reference_id, :value => current_user.organization_id %>
+            <%= f.hidden_field :organization_id, :value => current_user.organization_id %>
             <%= f.autocomplete_field :organization_name, autocomplete_organization_name_organizations_path, :update_elements => {}, placeholder: t('backend.meeting_lobby_activity_input'), value: current_user.organization.name, readonly: true %>
           <% else %>
-            <%= f.hidden_field :organization_reference_id %>
+            <%= f.hidden_field :organization_id %>
             <%= f.autocomplete_field :organization_name, autocomplete_organization_name_organizations_path, :update_elements => {}, placeholder: t('backend.meeting_lobby_activity_input') %>
           <% end %>
         </div>

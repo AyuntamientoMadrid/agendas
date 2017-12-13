@@ -82,29 +82,29 @@ Attachment.create(title: 'PDF Attachment', file: File.open('./spec/fixtures/dumm
 Attachment.create(title: 'JPG Attachment', file: File.open('./spec/fixtures/dummy.jpg'), public: true, event: registration_offices)
 
 #Interests
-interest_1 = Interest.create(name:"Actividad económica y empresarial")
-interest_2 = Interest.create(name:"Actividad normativa y de regulación")
-interest_3 = Interest.create(name:"Administración de personal y recursos humanos")
-interest_4 = Interest.create(name:"Administración electrónica")
-interest_5 = Interest.create(name:"Administración económica, financiera y tributaria de la Ciudad")
-interest_6 = Interest.create(name:"Atención a la ciudadanía")
-interest_7 = Interest.create(name:"Comercio")
-interest_8 = Interest.create(name:"Consumo")
-interest_9 = Interest.create(name:"Cultura (bibliotecas, archivos, museos, patrimonio histórico artístico, etc.)")
-interest_10 = Interest.create(name:"Deportes")
-interest_11 = Interest.create(name:"Desarrollo tecnológico")
-interest_12 = Interest.create(name:"Educación y Juventud")
-interest_13 = Interest.create(name:"Emergencias y seguridad")
-interest_14 = Interest.create(name:"Empleo")
-interest_15 = Interest.create(name:"Medio Ambiente")
-interest_16 = Interest.create(name:"Medios de comunicación")
-interest_17 = Interest.create(name:"Movilidad, transporte y aparcamientos")
-interest_18 = Interest.create(name:"Salud")
-interest_19 = Interest.create(name:"Servicios sociales")
-interest_20 = Interest.create(name:"Transparencia y participación ciudadana")
-interest_21 = Interest.create(name:"Turismo")
-interest_22 = Interest.create(name:"Urbanismo")
-interest_23 = Interest.create(name:"Vivienda")
+interest_1 = Interest.find_or_create_by(name:"Actividad económica y empresarial")
+interest_2 = Interest.find_or_create_by(name:"Actividad normativa y de regulación")
+interest_3 = Interest.find_or_create_by(name:"Administración de personal y recursos humanos")
+interest_4 = Interest.find_or_create_by(name:"Administración electrónica")
+interest_5 = Interest.find_or_create_by(name:"Administración económica, financiera y tributaria de la Ciudad")
+interest_6 = Interest.find_or_create_by(name:"Atención a la ciudadanía")
+interest_7 = Interest.find_or_create_by(name:"Comercio")
+interest_8 = Interest.find_or_create_by(name:"Consumo")
+interest_9 = Interest.find_or_create_by(name:"Cultura (bibliotecas, archivos, museos, patrimonio histórico artístico, etc.)")
+interest_10 = Interest.find_or_create_by(name:"Deportes")
+interest_11 = Interest.find_or_create_by(name:"Desarrollo tecnológico")
+interest_12 = Interest.find_or_create_by(name:"Educación y Juventud")
+interest_13 = Interest.find_or_create_by(name:"Emergencias y seguridad")
+interest_14 = Interest.find_or_create_by(name:"Empleo")
+interest_15 = Interest.find_or_create_by(name:"Medio Ambiente")
+interest_16 = Interest.find_or_create_by(name:"Medios de comunicación")
+interest_17 = Interest.find_or_create_by(name:"Movilidad, transporte y aparcamientos")
+interest_18 = Interest.find_or_create_by(name:"Salud")
+interest_19 = Interest.find_or_create_by(name:"Servicios sociales")
+interest_20 = Interest.find_or_create_by(name:"Transparencia y participación ciudadana")
+interest_21 = Interest.find_or_create_by(name:"Turismo")
+interest_22 = Interest.find_or_create_by(name:"Urbanismo")
+interest_23 = Interest.find_or_create_by(name:"Vivienda")
 
 # Categories
 names = ['Consultoría profesional y despachos de abogados', 'Empresas', 'Asociaciones/Fundaciones',
@@ -115,7 +115,7 @@ names = ['Consultoría profesional y despachos de abogados', 'Empresas', 'Asocia
          'Iglesia y otras confesiones', 'Otro tipo de sujetos']
 
 names.each do |name|
-  Category.create(name: name, display: true)
+  Category.find_or_create_by(name: name, display: true)
 end
 
 #Category
@@ -125,37 +125,37 @@ category_3 = Category.third
 
 # Organization
 user_lobby_1 = User.create(password: '12345678', email: 'lobby@agendas.dev', first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
-organization_1 = Organization.create(name: Faker::Company.name, inscription_date: Date.current - 1.year, denied_public_data: false, denied_public_events: false, user: user_lobby_1, category: category_1, reference: 'W45Y')
+organization_1 = Organization.create(name: Faker::Company.name, entity_type: 2, inscription_date: Date.current - 1.year, denied_public_data: false, denied_public_events: false, user: user_lobby_1, category: category_1, reference: 'W45Y')
 
 user_lobby_2 = User.create(password: '12345678', email: 'lob_by@agendas.dev', first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
-organization_2 = Organization.create(name: Faker::Company.name, inscription_date: Date.current - 2.years, denied_public_data: false, denied_public_events: false, user: user_lobby_2, category: category_2)
+organization_2 = Organization.create(name: Faker::Company.name, entity_type: 2, inscription_date: Date.current - 2.years, denied_public_data: false, denied_public_events: false, user: user_lobby_2, category: category_2)
 
 user_lobby_3 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
-organization_3 = Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_3, category: category_3)
+organization_3 = Organization.create(name: Faker::Company.name, entity_type: 2, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_3, category: category_3)
 
 user_lobby_4 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
-organization_4 = Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_4, category: category_1)
+organization_4 = Organization.create(name: Faker::Company.name, entity_type: 2, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_4, category: category_1)
 
 user_lobby_5 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
-organization_5 = Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_5, category: category_2)
+organization_5 = Organization.create(name: Faker::Company.name, entity_type: 2, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_5, category: category_2)
 
 user_lobby_6 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
-organization_6 = Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_6, category: category_1)
+organization_6 = Organization.create(name: Faker::Company.name, entity_type: 2, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_6, category: category_1)
 
 user_lobby_7 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
-organization_7 = Organization.create(name: Faker::Company.name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_7, category: category_3)
+organization_7 = Organization.create(name: Faker::Company.name, entity_type: 2, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_7, category: category_3)
 
 user_lobby_8 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
-organization_8 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_8, category: category_2)
+organization_8 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, entity_type: 2, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_8, category: category_2)
 
 user_lobby_9 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
-organization_9 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_9, category: category_3)
+organization_9 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, entity_type: 2, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_9, category: category_3)
 
 user_lobby_10 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
-organization_10 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_10, category: category_1)
+organization_10 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, entity_type: 2, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_10, category: category_1)
 
 user_lobby_11 = User.create(password: '12345678', email: Faker::Internet.email, first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
-organization_11 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_11, category: category_2)
+organization_11 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, entity_type: 2, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_11, category: category_2)
 
 #Legal Representant
 LegalRepresentant.create(identifier: "43138883z", name: "Name", first_surname: "Surname", email: "email@legal.com", organization: organization_1)
