@@ -4,11 +4,11 @@
   <figure>
     <%= image_tag 'homepage/agendas.png', class: '', alt:'Agenda públicas'%>
     <div class="content">
-      <p><strong>Agenda públicas</strong></p>
+      <p><strong><%= t'home.agendas_title' %></strong></p>
       <p>
-        Actividad pública de la Alcadesa, concejalas y concejales, titulares de cargos de dirección y personal eventual de gabinete.
+        <%= t'home.agendas_description' %>
       </p>
-      <%= link_to 'Acceder', root_path  %>
+      <%= link_to t('btn_access'), visitors_path  %>
     </div>
   </figure>
 </div>
@@ -17,11 +17,11 @@
   <figure>
     <%= image_tag 'homepage/lobby-register.jpg', class: '', alt:'Registro de Lobbies'%>
     <div class="content">
-      <p><strong>Registro de Lobbies</strong></p>
+      <p><strong><%= t'home.register_lobby_title' %> </strong></p>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <%= t'home.register_lobby_description' %>
       </p>
-      <%= link_to 'Acceder', organizations_path  %>
+      <%= link_to t('btn_access'), organizations_path  %>
     </div>
   </figure>
 </div>
@@ -30,11 +30,11 @@
   <figure>
     <%= image_tag 'homepage/normative-footprint.jpg', class: '', alt:'Huella normativa'%>
     <div class="content">
-      <p><strong>Huella normativa</strong></p>
+      <p><strong><%= t'home.regulations_title' %></strong></p>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <%= t'home.regulations_description' %>
       </p>
-      <%= link_to 'Acceder', root_path  %>
+      <%= link_to t('btn_access'), root_path  %>
     </div>
   </figure>
 </div>
@@ -42,8 +42,6 @@
 <div class="small-12 column">
   <hr />
   <p>
-  Texto generico sobre el portal.
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+    <%= t'home.generic_text' %>
   </p>
 </div>

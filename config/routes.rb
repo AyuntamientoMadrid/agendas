@@ -50,6 +50,8 @@ Rails.application.routes.draw do
 
   resources :activities
 
+  resources :infringement_emails, only: [:new, :create]
+
   namespace :admin do
     resources :organizations
     resources :questions

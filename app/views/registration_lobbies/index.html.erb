@@ -4,11 +4,11 @@
     <figure>
       <%= image_tag 'homepage/agendas.png', class: '', alt:'Agenda públicas'%>
       <div class="content">
-        <p><strong>Consulta de registro</strong></p>
+        <p><strong><%= t 'registration_lobbies.registry_query_title' %></strong></p>
         <p>
-          Actividad pública de la Alcadesa, concejalas y concejales, titulares de cargos de dirección y personal eventual de gabinete.
+          <%= t 'registration_lobbies.registry_query_description' %>
         </p>
-        <%= link_to 'Acceder', organizations_path  %>
+        <%= link_to t('btn_access'), organizations_path  %>
       </div>
     </figure>
   </div>
@@ -17,11 +17,11 @@
     <figure>
       <%= image_tag 'homepage/drop-out.jpg', class: '', alt:'Registro de Lobbies'%>
       <div class="content">
-        <p><strong>Alta y bajas</strong></p>
+        <p><strong><%= t'subscribe_unsubscribe.subscribe_unsubscribe_title' %></strong></p>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <%= t'subscribe_unsubscribe.subscribe_unsubscribe_description' %>
         </p>
-        <%= link_to 'Acceder', organizations_path  %>
+        <%= link_to t('btn_access'), organizations_path  %>
       </div>
     </figure>
   </div>
@@ -30,11 +30,11 @@
     <figure>
       <%= image_tag 'homepage/regulations.jpg', class: '', alt:'Huella normativa'%>
       <div class="content">
-        <p><strong>Código de conducta y normativa</strong></p>
+        <p><strong><%= t'normative.normative_title' %></strong></p>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <%= t'normative.normative_description' %>
         </p>
-        <%= link_to 'Acceder', root_path  %>
+        <%= link_to t('btn_access'), code_of_conduct_path  %>
       </div>
     </figure>
   </div>
@@ -46,11 +46,11 @@
     <figure>
       <%= image_tag 'homepage/faq.jpg', class: '', alt:'Huella normativa'%>
       <div class="content">
-        <p><strong>Preguntas frecuentes</strong></p>
+        <p><strong><%= t'questions.question_title' %></strong></p>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <%= t'questions.question_description' %>
         </p>
-        <%= link_to 'Acceder', faq_path  %>
+        <%= link_to t('btn_access'), faq_path  %>
       </div>
     </figure>
   </div>
@@ -59,11 +59,11 @@
     <figure>
       <%= image_tag 'homepage/breaches.jpg', class: '', alt:'Huella normativa'%>
       <div class="content">
-        <p><strong>Buzon de incumplimientos</strong></p>
+        <p><strong><%= t'defaults_mailbox.mailbox_title' %></strong></p>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <%= t'defaults_mailbox.mailbox_description' %>
         </p>
-        <%= link_to 'Acceder', root_path  %>
+        <%= link_to t('btn_access'), root_path  %>
       </div>
     </figure>
   </div>
@@ -71,8 +71,7 @@
   <div class="small-12 column">
     <hr />
     <p>
-      Texto explicativo del registro de lobby  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+      <%= t'generic_style' %>
     </p>
   </div>
 </div>
