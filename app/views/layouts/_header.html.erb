@@ -60,10 +60,12 @@
 
   <nav class="top-bar show-for-small-only" data-topbar role="navigation">
     <div class="header__base">
-      <%= image_tag 'header_logo_madrid.png', class: 'header__imago', alt:'¡Madrid'%>
-      <h1 class="header__title">
-        <strong> <%= t('header.open_goverment') %> <br /> <%= t('header.transparency') %> </strong>
-      </h1>
+      <%= link_to root_path do %>
+        <%= image_tag 'header_logo_madrid.png', class: 'header__imago', alt:'¡Madrid'%>
+        <h1 class="header__title">
+          <strong> <%= t('header.open_goverment') %> <br /> <%= t('header.transparency') %> </strong>
+        </h1>
+      <% end %>
     </div>
     <div class="toggle-topbar menu-icon"><a href="#"><span></span></a></div>
     <section class="top-bar-section">
