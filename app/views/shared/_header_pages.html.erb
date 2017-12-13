@@ -1,23 +1,23 @@
 <% if params[:controller] == 'homepage' %>
   <div>
     <div class="header-title">
-      <h1><strong>Transparencia en la Toma de decisiones</strong></h1>
-      <lead>El Ayuntamiento de Madrid abre sus decisiones a la Ciudadanía, consúltalas.</lead>
+      <h1><strong><%= t('header.title_home') %></strong></h1>
+      <lead><%= t('header.lead_home') %></lead>
     </div>
   </div>
 <% elsif params[:controller] == 'registration_lobbies' %>
   <div>
     <div class="header-title">
-      <h1><strong>¿Por qué un registro de lobbies del<br /> Ayuntamiento de Madrid?</strong></h1>
-      <lead>Lorem ipsum dolor sit amet, consectetur adipiscing elit, <br />sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</lead>
+      <h1><strong><%= t('header.title_registration_lobbies_html') %></strong></h1>
+      <lead><%= t('header.lead_registration_lobbies_html') %></lead>
     </div>
   </div>
 <% elsif params[:controller] == 'visitors' %>
   <div>
     <div class="header-title">
       <div class="row">
-        <strong>¿ Que son las agendas públicas ?</strong><br />
-        <lead>Lorem ipsum dolor sit amet, consectetur adipiscing elit, <br />sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</lead>
+        <h1><strong><%= t('header.title_visitors_html') %></strong></h1>
+        <lead><%= t('header.lead_visitors_html') %></lead>
       </div>
     </div>
   </div>

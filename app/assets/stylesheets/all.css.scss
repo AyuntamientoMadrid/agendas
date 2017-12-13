@@ -6831,6 +6831,7 @@ header{
   .top-bar-section{
     .right{
       margin-top: 1rem;
+      margin-right: 1rem;
       li{
         background: transparent;
         &.active:not(.has-form) a:not(.button){
@@ -7327,6 +7328,7 @@ select {
 
     a{
       color:#fff;
+      font-size: 0.8rem;
       &:hover{
         text-decoration: underline;
       }
@@ -7340,7 +7342,7 @@ select {
 .header-title{
   background: #f5f7f8;
   text-align: center;
-  padding: 1.6rem 0;
+  padding: 1.6rem 1rem;
   h1{
     text-transform: uppercase;
     font-size: 2.1rem;
@@ -7523,10 +7525,6 @@ header .top-bar{
 
 @media only screen and (max-width: 40em) {
 
-  .top-bar-section{
-      .active{}
-  }
-
   .top-bar.expanded .toggle-topbar a span::after {
     box-shadow: 0 0 0 1px #fff, 0 7px 0 1px #fff, 0 14px 0 1px #fff;
   }
@@ -7566,5 +7564,8 @@ header .top-bar{
   .top-bar .name h1{
     font-size: 1rem;
     line-height: 1;
+  }
+  .header-title h1{
+    font-size: 1.3rem;
   }
 }
