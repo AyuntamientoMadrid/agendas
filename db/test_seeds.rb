@@ -107,7 +107,7 @@ interest_22 = Interest.find_or_create_by(name:"Urbanismo")
 interest_23 = Interest.find_or_create_by(name:"Vivienda")
 
 # Categories
-names = ['Consultoría profesional y despachos de abogados', 'Empresas', 'Asociaciones/Fundaciones',
+names = ['Consultoría profesional y despachos de abogados', 'Empresas', 'Asociaciones', 'Fundaciones',
          'Sindicatos y organizaciones profesionales', 'Organizaciones empresariales',
          'ONGs y plataformas sin personalidad jurídica',
          'Universidades y centros de investigación',
