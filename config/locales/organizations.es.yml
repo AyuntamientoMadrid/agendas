@@ -62,7 +62,16 @@ es:
       agents_to: "Fecha de fin de representación"
 
       interests_title: "Area de interés"
+      
+    new:
+      title: Alta en el registro de lobbies
 
+    edit:
+      title: Modificación en el registro de lobbies
+
+    delete:
+      title: Baja en el registro de lobbies
+      
   backend:
     new_organization_title: "Nueva organización"
     reference:

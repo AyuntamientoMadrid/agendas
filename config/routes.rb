@@ -42,7 +42,10 @@ Rails.application.routes.draw do
     post 'order_questions', to: 'questions#order', as: 'order_questions'
   end
 
-  resources :organizations do
+  get '/organizations/edit', to: 'organizations#edit', as: 'edit_organization'
+  get '/organizations/destroy', to: 'organizations#destroy', as: 'destroy_organization'
+  get '/organizations/new', to: 'organizations#new', as: 'new_organization'
+  resources :organizations, except: [:new, :edit, :destroy] do
     get :autocomplete_organization_name, :on => :collection
     resources :represented_entities, only: :index, format: :json
     resources :agents, only: :index, format: :json
