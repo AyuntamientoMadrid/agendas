@@ -42,13 +42,13 @@ class PublicOrganizationImporter
   end
 
   def self.associations_mapping
-    { "entity_type" => 0,
+    { "entity_type" => :association,
       "fields" => { "neighbourhood" => "Barrio",
                     "district" => "Distrito" } }
   end
 
   def self.federations_mapping
-    { "entity_type" => 1,
+    { "entity_type" => :federation,
       "fields" => { "associations_count" => "Asoc. Totales",
                     "members_count" => "Socios Totales" } }
   end

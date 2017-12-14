@@ -6,7 +6,7 @@ class OrganizationsController < ApplicationController
 
   def index
     @organizations = search(params)
-    @paginated_organizations = Organization.lobbies.validated.all.where(id: @organizations.hits.map(&:primary_key))
+    @paginated_organizations = Organization.lobbies.validated.where(id: @organizations.hits.map(&:primary_key))
     @paginated_organizations = @paginated_organizations.reorder(sorting_option(params[:order]))
   end
 
@@ -26,7 +26,9 @@ class OrganizationsController < ApplicationController
   private
 
     def search(params)
-      Organization.lobbies.validated.search do
+      Organization.search do
+        with(:entity_type_id, 2)
+        with(:invalidate, false)
         fulltext params[:keyword] if params[:keyword].present?
         with(:interest_ids, params[:interests]) if params[:interests].present?
         with(:category_id, params[:category]) if params[:category].present?

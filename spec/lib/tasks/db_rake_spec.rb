@@ -12,6 +12,6 @@ describe "db:test_seeds" do
     expect(Manage.count).to eq(2)
     expect(Attendee.count).to eq(3)
     expect(Attachment.count).to eq(2)
-    expect(Organization.count).to eq(11)
+    expect(Organization.count).to eq(41)
   end
 end
