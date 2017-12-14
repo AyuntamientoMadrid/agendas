@@ -1899,12 +1899,12 @@ button, .button {
   display: inline-block;
   padding: 1rem 2rem 1.0625rem 2rem;
   font-size: 1rem;
-  background-color: #0077b9;
-  border-color: #005f94;
+  background-color: #003df6;
+  // border-color: #0000e1;
   color: #FFFFFF;
   transition: background-color 300ms ease-out; }
 button:hover, button:focus, .button:hover, .button:focus {
-  background-color: #005f94; }
+  background-color: #0000e1; }
 button:hover, button:focus, .button:hover, .button:focus {
   color: #FFFFFF; }
 button.secondary, .button.secondary {
@@ -1972,13 +1972,13 @@ button.round, .button.round {
   border-radius: 1000px; }
 button.disabled, button[disabled], .button.disabled, .button[disabled] {
   background-color: #0077b9;
-  border-color: #005f94;
+  border-color: #0000e1;
   color: #FFFFFF;
   box-shadow: none;
   cursor: default;
   opacity: 0.7; }
 button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
-  background-color: #005f94; }
+  background-color: #0000e1; }
 button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
   color: #FFFFFF; }
 button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
@@ -4913,11 +4913,11 @@ meta.foundation-mq-topbar {
   padding-left: 0.9375rem;
   padding-right: 0.9375rem;
   background-color: #0077b9;
-  border-color: #005f94;
+  border-color: #0000e1;
   color: #FFFFFF; }
 // .top-bar-section ul li > a.button:hover,
 // .top-bar-section ul li > a.button:focus {
-//   background-color: #005f94;
+//   background-color: #0000e1;
 // }
 .top-bar-section ul li > a.button:hover,
 .top-bar-section ul li > a.button:focus {
@@ -4968,10 +4968,10 @@ meta.foundation-mq-topbar {
   padding-left: 0.9375rem;
   padding-right: 0.9375rem;
   background-color: #0077b9;
-  border-color: #005f94;
+  border-color: #0000e1;
   color: #FFFFFF; }
 .top-bar-section ul li > button:hover, .top-bar-section ul li > button:focus {
-  background-color: #005f94; }
+  background-color: #0000e1; }
 .top-bar-section ul li > button:hover, .top-bar-section ul li > button:focus {
   color: #FFFFFF; }
 .top-bar-section ul li > button.secondary {
@@ -7601,4 +7601,12 @@ header .top-bar{
     width: 100%;
     margin-left: 0;
   }
+}
+
+#admin_menu{
+  margin-left: 0;
+  li{
+    padding-left: 1rem;
+  }
+
 }
