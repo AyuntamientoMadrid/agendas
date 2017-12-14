@@ -75,3 +75,28 @@ es:
     consul_url: https://github.com/consul/consul
     open_source: software libre
     open_source_url: http://www.gnu.org/licenses/agpl-3.0.html
+  infringement_mailbox:
+    title: "Buzón de incumplimientos"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer semper id justo non aliquet. Sed semper faucibus mi, vitae rutrum nulla euismod eu. Donec et dignissim ligula. Aenean quis efficitur ex. Sed quis purus dui. Aliquam sed dui purus. Phasellus auctor augue scelerisque ligula ullamcorper, vitae convallis purus varius. Integer in tempor eros, eu posuere nisl. Nulla et urna posuere, porttitor diam eu, tincidunt felis. Fusce finibus lobortis nibh. Vestibulum a nunc egestas, luctus nisl vel, imperdiet dui. Integer et leo vitae eros tincidunt venenatis. Cras tristique tempus justo non varius. Integer mollis placerat diam in luctus."
+    legend: "Comunicar al administrador de manera anónima"
+    subject_title: "Asunto"
+    subject_placeholder: "Título del incumplimiento"
+    link_title: "Enlace"
+    link_placeholder: "Ej: www.agenda.es/enlace"
+    link_info: "Copia y pega el enlace para que los administradores puedan acceder con más facilidad al contenido."
+    attachment_title: "Archivo"
+    attachment_button: "Subir imagen"
+    attachment_info: "Puedes subir imágenes .jpg, .png y.bmp, o un archivo .zip o .rar, con un máximo de 3 megas."
+    description_title: "Descripción"
+    contact_option_title: "Si lo desea puede añadir los datos de contacto:"
+    name: "Nombre"
+    name_placeholder: "Añade tu nombre"
+    first_surname: "Apellido"
+    first_surname_placeholder: "Añade tu apellido"
+    email: "Email"
+    email_placeholder: "Añade tu email"
+    phone: "Teléfono"
+    phone_placeholder: "Añade tu teléfono"
+    send: "Enviar"
+    sent: "Email enviado correctamente"
+    error: "El fichero %{error}"

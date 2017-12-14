@@ -19,6 +19,7 @@
 //= require organizations
 //= require respond.min
 //= require rem.min
+//= require tinymce
 
 $(function() {
   $(document).foundation();

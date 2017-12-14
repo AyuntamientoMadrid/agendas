@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   get '/import', to: 'users#import', as: 'import'
   get '/faq', to: 'questions#index', as: 'faq'
 
-  # Static pages
+  resources :infringement_emails, only: [:new, :create]
+  
   scope module: 'static_pages' do
     get '/rules', to: :rules
     get '/about_lobbies', to: :about_lobbies
@@ -50,5 +51,7 @@ Rails.application.routes.draw do
     resources :represented_entities, only: :index, format: :json
     resources :agents, only: :index, format: :json
   end
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
 end
