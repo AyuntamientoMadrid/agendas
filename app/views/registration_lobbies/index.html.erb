@@ -1,12 +1,12 @@
 <% content_for(:body_class) { 'registration-lobbies' } %>
-<div class="row">
+<div class="row" data-equalizer>
   <div class="small-12 medium-4 column">
-    <figure>
-      <%= image_tag 'homepage/query-documents.jpg', class: '', alt:'Agenda públicas'%>
+    <figure data-equalizer-watch>
+      <%= image_tag 'homepage/query-documents.jpg', alt: t('registration_lobbies_index.registration_lobbies.registry_query_title') %>
       <div class="content">
-        <p><strong><%= t 'registration_lobbies.registry_query_title' %></strong></p>
+        <p><strong><%= t 'registration_lobbies_index.registration_lobbies.registry_query_title' %></strong></p>
         <p>
-          <%= t 'registration_lobbies.registry_query_description' %>
+          <%= t 'registration_lobbies_index.registration_lobbies.registry_query_description' %>
         </p>
         <%= link_to t('btn_access'), organizations_path  %>
       </div>
@@ -14,41 +14,41 @@
   </div>
 
   <div class="small-12 medium-4 column">
-    <figure>
-      <%= image_tag 'homepage/drop-out.jpg', class: '', alt:'Registro de Lobbies'%>
+    <figure data-equalizer-watch>
+      <%= image_tag 'homepage/drop-out.jpg', alt: t('registration_lobbies_index.subscribe_unsubscribe.subscribe_unsubscribe_title')%>
       <div class="content">
-        <p><strong><%= t'subscribe_unsubscribe.subscribe_unsubscribe_title' %></strong></p>
+        <p><strong><%= t'registration_lobbies_index.subscribe_unsubscribe.subscribe_unsubscribe_title' %></strong></p>
         <p>
-          <%= t'subscribe_unsubscribe.subscribe_unsubscribe_description' %>
+          <%= t'registration_lobbies_index.subscribe_unsubscribe.subscribe_unsubscribe_description' %>
         </p>
-        <%= link_to t('btn_access'), organizations_path  %>
+        <%= link_to t('btn_access'), 'https://sede.madrid.es', taget: 'blank'  %>
       </div>
     </figure>
   </div>
 
   <div class="small-12 medium-4 column">
-    <figure>
-      <%= image_tag 'homepage/regulations.jpg', class: '', alt:'Huella normativa'%>
+    <figure data-equalizer-watch>
+      <%= image_tag 'homepage/regulations.jpg', alt: t('registration_lobbies_index.normative.normative_title') %>
       <div class="content">
-        <p><strong><%= t'normative.normative_title' %></strong></p>
+        <p><strong><%= t'registration_lobbies_index.normative.normative_title' %></strong></p>
         <p>
-          <%= t'normative.normative_description' %>
+          <%= t'registration_lobbies_index.normative.normative_description' %>
         </p>
-        <%= link_to t('btn_access'), code_of_conduct_path  %>
+        <%= link_to t('btn_access'), faq_path  %>
       </div>
     </figure>
   </div>
 </div>
 
-<div class="row">
+<div class="row" data-equalizer>
   <br />
   <div class="small-12 medium-4 column">
-    <figure>
-      <%= image_tag 'homepage/faq.jpg', class: '', alt:'Huella normativa'%>
+    <figure data-equalizer-watch>
+      <%= image_tag 'homepage/faq.jpg', alt: t('registration_lobbies_index.questions.question_title') %>
       <div class="content">
-        <p><strong><%= t'questions.question_title' %></strong></p>
+        <p><strong><%= t'registration_lobbies_index.questions.question_title' %></strong></p>
         <p>
-          <%= t'questions.question_description' %>
+          <%= t'registration_lobbies_index.questions.question_description' %>
         </p>
         <%= link_to t('btn_access'), faq_path  %>
       </div>
@@ -56,12 +56,25 @@
   </div>
 
   <div class="small-12 medium-4 column">
-    <figure>
-      <%= image_tag 'homepage/breaches.jpg', class: '', alt:'Huella normativa'%>
+    <figure data-equalizer-watch>
+      <%= image_tag 'homepage/stats.jpg',  alt: t('registration_lobbies_index.stats.stats_title') %>
       <div class="content">
-        <p><strong><%= t'defaults_mailbox.mailbox_title' %></strong></p>
+        <p><strong><%= t'registration_lobbies_index.stats.stats_title' %></strong></p>
         <p>
-          <%= t'defaults_mailbox.mailbox_description' %>
+          <%= t'registration_lobbies_index.stats.stats_description' %>
+        </p>
+        <%= link_to t('btn_access'), 'falta link'  %>
+      </div>
+    </figure>
+  </div>
+
+  <div class="small-12 medium-4 column">
+    <figure data-equalizer-watch>
+      <%= image_tag 'homepage/breaches.jpg', alt: t('registration_lobbies_index.defaults_mailbox.mailbox_title') %>
+      <div class="content">
+        <p><strong><%= t'registration_lobbies_index.defaults_mailbox.mailbox_title' %></strong></p>
+        <p>
+          <%= t'registration_lobbies_index.defaults_mailbox.mailbox_description' %>
         </p>
         <%= link_to t('btn_access'), new_infringement_email_path  %>
       </div>
@@ -71,7 +84,17 @@
   <div class="small-12 column">
     <hr />
     <p>
-      <%= t'generic_style' %>
+      <strong><%= t'registration_lobbies_index.generic_text_title' %></strong>
+    </p>
+    <p>
+      <%= t'registration_lobbies_index.generic_text_block_first' %>
+    </p>
+    <p>
+      <%= t'registration_lobbies_index.generic_text_block_second' %>
+    </p>
+    <p>
+      <%= t'registration_lobbies_index.generic_text_block_third_html' %>
+
     </p>
   </div>
 </div>

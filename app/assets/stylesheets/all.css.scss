@@ -6483,7 +6483,9 @@ ul, li {
   list-style-type: none;
   padding-left: 0;
   margin-bottom: 0;
-  margin-top: 0; }
+  margin-top: 0;
+  font-size: 14px;
+}
 
 a {
   transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1); }
@@ -7394,6 +7396,17 @@ select {
   }
 }
 
+.home-page{
+  .content-text{
+    ul{
+      padding-left: 1rem;
+      li{
+        list-style-type:circle;
+      }
+    }
+  }
+}
+
 #lobby-activity-event #event-category{
   display: inline-block;
 }
@@ -7608,5 +7621,4 @@ header .top-bar{
   li{
     padding-left: 1rem;
   }
-
 }

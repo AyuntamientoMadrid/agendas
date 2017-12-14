@@ -1,47 +1,59 @@
 <% content_for(:body_class) { 'home-page' } %>
 
-<div class="small-12 medium-4 column">
-  <figure>
-    <%= image_tag 'homepage/agendas.png', class: '', alt:'Agenda públicas'%>
-    <div class="content">
-      <p><strong><%= t'home.agendas_title' %></strong></p>
-      <p>
-        <%= t'home.agendas_description' %>
-      </p>
-      <%= link_to t('btn_access'), visitors_path  %>
-    </div>
-  </figure>
+<div data-equalizer>
+  <div class="small-12 medium-4 column">
+    <figure data-equalizer-watch>
+      <%= image_tag 'homepage/agendas.jpg', alt: t('home.agendas_title') %>
+      <div class="content">
+        <p><strong><%= t'home.agendas_title' %></strong></p>
+        <p>
+          <%= t'home.agendas_description' %>
+        </p>
+        <%= link_to t('btn_access'), visitors_path  %>
+      </div>
+    </figure>
+  </div>
+  <div class="small-12 medium-4 column">
+    <figure data-equalizer-watch>
+      <%= image_tag 'homepage/lobby-register.jpg', alt: t('home.register_lobby_title') %>
+      <div class="content">
+        <p><strong><%= t'home.register_lobby_title' %> </strong></p>
+        <p>
+          <%= t'home.register_lobby_description' %>
+        </p>
+        <%= link_to t('btn_access'), organizations_path  %>
+      </div>
+    </figure>
+  </div>
+  <div class="small-12 medium-4 column">
+    <figure data-equalizer-watch>
+      <%= image_tag 'homepage/normative-footprint.jpg', alt: t('home.regulations_title')%>
+      <div class="content">
+        <p><strong><%= t'home.regulations_title' %></strong></p>
+        <p>
+            <%= t'home.regulations_description' %>
+        </p>
+        <%= link_to t('btn_access'), 'https://transparencia.madrid.es/portales/transparencia/es/Informacion-juridica/Huella-normativa?vgnextfmt=default&vgnextchannel=4099508929a56510VgnVCM1000008a4a900aRCRD', target: 'blank'  %>
+      </div>
+    </figure>
+  </div>
 </div>
 
-<div class="small-12 medium-4 column">
-  <figure>
-    <%= image_tag 'homepage/lobby-register.jpg', class: '', alt:'Registro de Lobbies'%>
-    <div class="content">
-      <p><strong><%= t'home.register_lobby_title' %> </strong></p>
-      <p>
-        <%= t'home.register_lobby_description' %>
-      </p>
-      <%= link_to t('btn_access'), organizations_path  %>
-    </div>
-  </figure>
-</div>
-
-<div class="small-12 medium-4 column">
-  <figure>
-    <%= image_tag 'homepage/normative-footprint.jpg', class: '', alt:'Huella normativa'%>
-    <div class="content">
-      <p><strong><%= t'home.regulations_title' %></strong></p>
-      <p>
-          <%= t'home.regulations_description' %>
-      </p>
-      <%= link_to t('btn_access'), rules_path  %>
-    </div>
-  </figure>
-</div>
-
-<div class="small-12 column">
+<div class="small-12 column content-text">
   <hr />
   <p>
-    <%= t'home.generic_text' %>
+    <strong><%= t'home.generic_text_title' %></strong><br />
+    <%= t'home.generic_text_block_1_html' %>
+  </p>
+
+  <ul>
+    <li><%= t'home.generic_text_list_first' %></li>
+    <li><%= t'home.generic_text_list_second' %></li>
+    <li><%= t'home.generic_text_list_third' %></li>
+  </ul>
+
+  <p>
+    <br />
+    <%= t'home.generic_text_finish_html' %>
   </p>
 </div>

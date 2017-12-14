@@ -8,6 +8,9 @@
     <%= f.label :subject, t('infringement_mailbox.subject_title') %>
     <%= f.text_field :subject, placeholder: t('infringement_mailbox.subject_placeholder') %>
 
+    <%= f.label :description, t('infringement_mailbox.description_title') %>
+    <%= f.text_area :description, class: 'tinymce'%>
+    <br>
     <%= f.invisible_captcha :subsubject %>
 
     <%= f.label :link, t('infringement_mailbox.link_title') %>
@@ -18,11 +21,6 @@
       <%= f.label :attachment, t('infringement_mailbox.attachment_title') %>
       <%= f.file_field :attachment %>
       <span class="form-info"><%= t('infringement_mailbox.attachment_info') %></span>
-    </div>
-
-    <div>
-    <%= f.label :description, t('infringement_mailbox.description_title') %>
-    <%= f.text_area :description, class: 'tinymce'%>
     </div>
 
     <div>
@@ -43,6 +41,34 @@
       <%= f.label :phone, t('infringement_mailbox.phone') %>
       <%= f.text_field :phone, placeholder: t('infringement_mailbox.phone_placeholder') %>
     </div>
+    <hr />
+    <p>
+      <%= t('infringement_mailbox.text_block_first_html') %>
+    </p>
+    <p>
+      <%= t('infringement_mailbox.text_block_second_html') %>
+    </p>
+    <p>
+      <%= t('infringement_mailbox.text_block_third.title') %>
+      <ul>
+        <li>
+          <%= t('infringement_mailbox.text_block_third.first') %>
+        </li>
+        <li>
+          <%= t('infringement_mailbox.text_block_third.second') %>
+        </li>
+        <li>
+          <%= t('infringement_mailbox.text_block_third.third') %>
+        </li>
+        <li>
+          <%= t('infringement_mailbox.text_block_third.four') %>
+        </li>
+      </ul>
+    </p>
+    <p>
+      <%= t('infringement_mailbox.text_block_fourth') %>
+    </p>
+
   </fieldset>
   <%= f.submit t('infringement_mailbox.send'), class: "button radius success right" %>
 <% end %>

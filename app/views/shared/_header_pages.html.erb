@@ -2,7 +2,7 @@
   <div>
     <div class="header-title">
       <h1><strong><%= t('header.title_home') %></strong></h1>
-      <lead><%= t('header.lead_home') %></lead>
+      <lead><%= t('header.lead_home_html') %></lead>
     </div>
   </div>
 <% elsif params[:controller] == 'registration_lobbies' %>
@@ -16,8 +16,10 @@
   <div>
     <div class="header-title">
       <div class="row">
-        <strong><%= t('header.title_visitors_html') %></strong><br />
-        <lead><%= t('header.lead_visitors_html') %></lead>
+        <div class="small-12 columns">
+          <strong><%= t('header.title_visitors_html') %></strong><br />
+          <lead><%= t('header.lead_visitors_html') %></lead>
+        </div>
       </div>
     </div>
   </div>
