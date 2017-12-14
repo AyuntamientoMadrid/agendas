@@ -124,6 +124,7 @@
         </a>
         <div id="panel5" class="content">
           <% if @organization.represented_entities.each do |represented_entity| %>
+          <div class="represented-entities-block">
             <p>
               <strong><%= t('organizations.show.represented_entity_identifier') %>: </strong>
               <br />
@@ -162,6 +163,8 @@
               <br />
               <%= t(represented_entity.contract.to_s) %>
             </p>
+          </div>
+
             <% end.empty? %>
               <%= t('organizations.show.no_results') %>
             <% end %>

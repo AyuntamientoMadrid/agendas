@@ -42,7 +42,11 @@ class OrganizationsController < ApplicationController
     end
 
     def set_organization
-      @organization = Organization.validated.find(params[:id])
+      if current_user.try(:admin?)
+        @organization = Organization.find(params[:id])
+      else
+        @organization = Organization.validated.find(params[:id])
+      end
     end
 
     def get_autocomplete_items(parameters)

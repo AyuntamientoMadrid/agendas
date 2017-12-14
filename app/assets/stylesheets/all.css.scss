@@ -7359,6 +7359,14 @@ ul.accordion{
   .active .accordion-icon:before {
     content: "-";
   }
+
+  .represented-entities-block {
+    border-bottom: 1px solid #e6e6e6;
+    margin-bottom: 1rem;
+    &:last-child {
+      border: 0;
+    }
+  }
 }
 
 #search_form{
