@@ -3,8 +3,8 @@
 es:
   devise:
     sign_in: "Entrar"
-    email: "Email"
-    password: "Contraseña"
+    email: "email"
+    password: "password"
     forgot_password: "¿ Contraseña olvidada ?"
     remember: "Recordar en este ordenador"
     password_reset_instructions: "Le enviaremos instrucciones de restablecimiento de contraseña"
