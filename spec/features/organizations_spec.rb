@@ -161,6 +161,29 @@ feature 'Organizations page' do
       end
     end
 
+  scenario "Should display organizations with event with lobby_activity", :search do
+        organization_one = create(:organization, entity_type: :lobby, name: "Organizacion 1")
+        organization_two = create(:organization, entity_type: :lobby, name: "No lobby activity")
+        event=create(:event,organization: organization_one)
+        event.lobby_activity = true
+        event.event_agents << create(:event_agent)
+        event.save!
+        event_two = create(:event, lobby_activity: false, organization: organization_two)
+        event_two.lobby_activity = false
+        event_two.event_agents << create(:event_agent)
+        event_two.save!
+        Organization.reindex
+
+        visit organizations_path
+
+        find(:css, "#lobby_activity[value='1']").set(true)
+        click_button(I18n.t('main.form.search'))
+
+        expect(page).to have_content "Organizacion 1"
+        expect(page).not_to have_content "No lobby activity"
+  end
+
+
     scenario 'Should be go to show page when click on organization', :search do
       organization = create(:organization)
       Organization.reindex

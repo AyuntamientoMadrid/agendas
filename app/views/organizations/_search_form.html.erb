@@ -27,7 +27,14 @@
                      prompt: t("main.form.filter_by"),
                      class: "dropdown" %>
     </div>
-
+    <div class="row">
+      <div class="small-1 columns center">
+        <%= check_box_tag(:lobby_activity, value = "1", checked = check_filter_lobby_activity , id: "lobby_activity")%>
+      </div>
+      <div class="small-11 columns right">
+        <%= label_tag(:lobby_activity, t("backend.lobby_activity")) %>
+      </div>
+    </div>
     <div class="mb20">
       <%= text_field_tag :agent_name, params[:agent_name], placeholder: t("main.form.agent") %>
     </div>

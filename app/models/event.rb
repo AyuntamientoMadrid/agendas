@@ -95,6 +95,7 @@ class Event < ActiveRecord::Base
     time :scheduled
     boolean :lobby_activity
     date :published_at
+    integer :organization_id
 
     text :area_title do
       self.position.area.title
