@@ -7,3 +7,10 @@ es:
       text2: "Ha sido cancelado por la siguiente razón:"
       canceled_at: "A día %{canceled_at}"
       thanks: "Un saludo"
+    decline_event:
+      subject: "Declinado evento: %{title}"
+      welcome: "Hola %{name}"
+      text1: "El evento: %{title}"
+      text2: "Ha sido declinado por %{name}, por la siguiente razón:"
+      declined_at: "A día %{declined_at}"
+      thanks: "Un saludo"

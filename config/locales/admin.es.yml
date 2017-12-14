@@ -81,6 +81,8 @@ es:
       title: "Evento"
       event_agent_needed: "En los eventos de lobbies hace falta, al menos, un agente."
       not_available_agents: "No hay agentes disponibles."
+      reasons_needed: "Debe dar alguna razon para cancelar el evento"
+      decline_reasons_needed: "Debe dar alguna razon para declinar el evento"
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"
@@ -155,14 +157,16 @@ es:
     cancel_reason_yes: Si
     cancel_reason_no: "No"
     reasons: Razones
-
-
     status:
       requested: "Solicitada"
       accepted: "Aceptada"
       done: "Realizada"
       declined: "Rechazada"
       canceled: "Cancelada"
+    decline_event: Declinar evento
+    declined_event: Evento declinado
+    decline_reason_yes: Si
+    decline_reason_no: "No"
 
   backend_header:
     open_gov: "Gobierno abierto"

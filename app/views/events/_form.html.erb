@@ -180,36 +180,61 @@
       </div>
     </fieldset>
 
-    <fieldset class="cancel-reason-activity">
-      <% canceled_event = canceled_event(f.object) %>
-      <% if canceled_event %>
-        <legend><%= t('backend.canceled_event') %></legend>
-        <% unless f.object.reasons.blank? %>
-          <%= f.label :reasons, t('backend.reasons') %>
-          <br/>
-          <%= raw f.object.reasons %>
-        <% end  %>
-      <% else %>
-        <legend><%= t('backend.cancel_event') %></legend>
-        <%= f.radio_button :cancel, true, checked: canceled_event %>
-        <%= f.label :cancel, t('backend.cancel_reason_yes'), value: true %>
-        <%= f.radio_button :cancel, false, checked: !canceled_event %>
-        <%= f.label :cancel, t('backend.cancel_reason_no'), value: false %>
-        <div class="small-12 error-radio-buttons"></div>
-        <div id="cancel-reason" style="display: none">
-          <div class="row">
-            <div class="small-12 columns">
-              <%= f.label :reasons, t('backend.reasons') %>
-              <%= f.text_area :reasons, class: 'tinymce' %>
+    <% if f.object.user != current_user %>
+      <fieldset class="cancel-reason-activity">
+        <% canceled_event = canceled_event(f.object) %>
+        <% if canceled_event %>
+          <legend><%= t('backend.canceled_event') %></legend>
+          <% unless f.object.reasons.blank? %>
+            <%= f.label :reasons, t('backend.reasons') %>
+            <br/>
+            <%= raw f.object.reasons %>
+          <% end  %>
+        <% else %>
+          <legend><%= t('backend.cancel_event') %></legend>
+          <%= f.radio_button :cancel, true, checked: canceled_event %>
+          <%= f.label :cancel, t('backend.cancel_reason_yes'), value: true %>
+          <%= f.radio_button :cancel, false, checked: !canceled_event %>
+          <%= f.label :cancel, t('backend.cancel_reason_no'), value: false %>
+          <div class="small-12 error-radio-buttons"></div>
+          <div id="cancel-reason" style="display: none">
+            <div class="row">
+              <div class="small-12 columns">
+                <%= f.label :reasons, t('backend.reasons') %>
+                <%= f.text_area :reasons, class: 'tinymce' %>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
-    </fieldset>
+        <% end %>
+      </fieldset>
+
+      <fieldset class="decline-reason-activity">
+        <% declined_event = declined_event(f.object) %>
+        <% if declined_event %>
+          <legend><%= t('backend.declined_event') %></legend>
+          <%= f.label :reasons, t('backend.reasons') %>
+          <br/>
+          <%= raw f.object.declined_reasons %>
+        <% else %>
+          <legend><%= t('backend.decline_event') %></legend>
+          <%= f.radio_button :decline, true, checked: declined_event %>
+          <%= f.label :decline, t('backend.decline_reason_yes'), value: true %>
+          <%= f.radio_button :decline, false, checked: !declined_event %>
+          <%= f.label :decline, t('backend.decline_reason_no'), value: false %>
+          <div class="small-12 error-radio-buttons"></div>
+          <div id="decline-reason" style="display: none">
+            <div class="row">
+              <div class="small-12 columns">
+                <%= f.label :declined_reasons, t('backend.reasons') %>
+                <%= f.text_area :declined_reasons, class: 'tinymce' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </fieldset>
+    <% end %>
 
   <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
 <% end %>
-
-
 
 <%= javascript_include_tag 'events'%>

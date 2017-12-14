@@ -1,4 +1,10 @@
 $(function(){
+  $('#decline_link').bind('click', function(e){
+    e.preventDefault();
+    $('#decline_link').hide();
+    $('#decline-reason').show();
+  });
+
   $('.fdatepicker').fdatepicker({
     format: "<%= I18n.translate('datepicker-format-time') %>",
     pickTime: true,
@@ -12,6 +18,17 @@ $(function(){
     if ($(element).is(':checked') && (agent == '' ||
       typeof(agent) == 'undefined' ||
       agent == "<%= I18n.translate('backend.event.not_available_agents')%>" ))
+      {return false }
+    else
+      { return true }
+  }, "<%= I18n.translate('backend.event.event_agent_needed')%>");
+
+
+  $.validator.addMethod("checkMessage", function(value, element, arg){
+    tinyMCE.triggerSave();
+    id = "#event_" + arg
+    content = $(id).val();
+    if ($(element).is(':checked') && (content == ''))
       {return false }
     else
       { return true }
@@ -49,6 +66,12 @@ $(function(){
           },
           "event[published_at]" : {
             required : true
+          },
+          "event[decline]" : {
+            checkMessage : "declined_reasons"
+          },
+          "event[cancel]" : {
+            checkMessage : "reasons"
           }
       },
 
@@ -82,12 +105,22 @@ $(function(){
           },
           "event[event_agents_attributes][0][name]" : {
             valueNotEquals: "<%= I18n.translate('backend.event.event_agent_needed')%>"
+          },
+          "event[decline]" : {
+            checkMessage : "<%= I18n.translate('backend.event.decline_reasons_needed')%>"
+          },
+          "event[cancel]" : {
+            checkMessage : "<%= I18n.translate('backend.event.reasons_needed')%>"
           }
       },
 
       errorPlacement : function(error, element) {
         error.insertAfter(element);
-        if (element.attr("name") == "event[lobby_activity]" ){
+        if (element.attr("name") == "event[cancel]" ){
+          error.appendTo('.cancel-reason-activity .error-radio-buttons');
+        } else if (element.attr("name") == "event[decline]" ){
+          error.appendTo('.decline-reason-activity .error-radio-buttons');
+        } else if (element.attr("name") == "event[lobby_activity]" ){
           error.appendTo('.meeting-lobby-activity .error-radio-buttons');
         } else if (element.attr("name") == "event[attachments_attributes][0][public]" ) {
           error.appendTo('.attachments-public .error-radio-buttons');
@@ -141,6 +174,20 @@ $(function(){
 
   $("#event_cancel_false").click(function(){
     $("#cancel-reason").hide();
+  });
+
+  $('#decline-reason').hide();
+
+  $("#event_decline_true").click(function(){
+    $("#decline-reason").show();
+  });
+
+  if ($("#event_decline_true").is(":checked")) {
+    $("#decline-reason").show();
+  };
+
+  $("#event_decline_false").click(function(){
+    $("#decline-reason").hide();
   });
 
 });
