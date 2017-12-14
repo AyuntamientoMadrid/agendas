@@ -10,4 +10,14 @@ class EventMailer < ApplicationMailer
     mail(to: user.email, subject: subject)
   end
 
+  def decline(event)
+    @lobby_name = event.lobby_user_name
+    @reasons = event.declined_reasons
+    @event_title = event.title
+    @name = event.user.full_name
+    @declined_at = l event.declined_at, format: :short
+    subject = t('mailers.decline_event.subject', title: @event_title)
+    mail(to: event.lobby_contact_email, subject: subject)
+  end
+
 end

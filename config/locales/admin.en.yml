@@ -79,6 +79,8 @@ es:
       title: 'Event'
       event_agent_needed: "There should be at least one agent on lobby events"
       not_available_agents: "Not available agents."
+      reasons_needed: "You must provide some reasons to cancel the event"
+      decline_reasons_needed: "You must provide some reasons to decline the event"
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"
@@ -154,13 +156,16 @@ es:
     cancel_reason_yes: Yes
     cancel_reason_no: No
     reasons: Reasons
-
     status:
       requested: "Requested"
       accepted: "Accepted"
       done: "Done"
       declined: "Rejected"
       canceled: "Canceled"
+    decline_event: Decline evento
+    declined_event: Event declined
+    decline_reason_yes: Yes
+    decline_reason_no: No
 
   backend_header:
     open_gov: "Gobierno abierto"

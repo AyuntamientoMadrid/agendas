@@ -45,7 +45,7 @@ class EventsController < AdminController
 
   def event_params
     params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, :search_title, :search_person,
-                                  :lobby_activity, :notes, :status, :reasons, :published_at, :cancel, :organization_id,
+                                  :lobby_activity, :notes, :status, :reasons, :published_at, :cancel, :decline, :declined_reasons,:organization_id,
                                   :organization_name, :lobby_scheduled, :general_remarks, :lobby_contact_firstname,
                                   :lobby_contact_lastname, :lobby_contact_phone, :lobby_contact_email, :lobby_general_remarks,
                                   event_represented_entities_attributes: [:id, :name, :_destroy],
@@ -89,7 +89,6 @@ class EventsController < AdminController
     person = params[:search_person]
     title = params[:search_title]
     status = enum_status(params[:status])
-    
     params_searches = {}
     params_searches[:title] = title unless title.blank?
     params_searches[:lobby_activity] = "1" unless params[:lobby_activity].blank?

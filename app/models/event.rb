@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
   include PublicActivity::Model
 
-  attr_accessor :cancel
+  attr_accessor :cancel, :decline
 
   tracked owner: Proc.new { |controller, model| controller.present? ? controller.current_user : model.user }
   tracked title: Proc.new { |controller, model| controller.present? ? controller.get_title : model.title }
@@ -12,10 +12,12 @@ class Event < ActiveRecord::Base
   validates :title, :position, :location, presence: true
   validates_inclusion_of :lobby_activity, :in => [true, false]
   validate :participants_uniqueness, :position_not_in_participants, :role_validate_published_at, :role_validate_scheduled
-  validates_with EventAgentExistenceValidator
+  validates :reasons, presence: true, if: Proc.new { |a| !a.canceled_at.blank? }
+  validates :declined_reasons, presence: true, if: Proc.new { |a| !a.declined_at.blank? }
 
   before_create :set_status
-  before_save :cancel_event
+  before_validation :decline_event
+  before_validation :cancel_event
 
   belongs_to :user
   belongs_to :position
@@ -51,11 +53,19 @@ class Event < ActiveRecord::Base
   scope :organization_id, ->(organization) { where(organization_id: organization) }
   scope :published, ->{ where("published_at <= ? AND status != ?", Time.zone.today, 4) }
   enum status: { requested: 0, accepted: 1, done: 2, declined: 3, canceled: 4 }
+
   def cancel_event
     return unless cancel == 'true' && canceled_at.nil?
     self.canceled_at = Time.zone.today
     self.status = 'canceled'
     EventMailer.cancel(self).deliver_now
+  end
+
+  def decline_event
+    return unless decline == 'true' && declined_at.nil?
+    self.declined_at = Time.zone.today
+    self.status = 'declined'
+    EventMailer.decline(self).deliver_now
   end
 
   def self.managed_by(user)
@@ -158,6 +168,10 @@ class Event < ActiveRecord::Base
     attributes.slice(*SUPPORTED_FILTERS).reduce(all) do |scope, (key, value)|
       value.present? ? scope.send(key, value) : scope
     end
+  end
+
+  def lobby_user_name
+    "#{lobby_contact_firstname} #{lobby_contact_lastname}"
   end
 
   private
