@@ -26,7 +26,7 @@
 
 $(function() {
   $(document).foundation();
-
+  
   tinymce.init({
     selector: 'textarea',
     language : 'es'
