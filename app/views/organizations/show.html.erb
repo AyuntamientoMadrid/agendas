@@ -212,5 +212,22 @@
             </ul>
         </div>
       </li>
+      <li class="accordion-navigation">
+        <a href="#panel8">
+          <%= t('organizations.show.events_title') %>
+          <span class="fa accordion-icon"></span>
+        </a>
+          <div id="panel8" class="content">
+            <ul>
+              <% if @organization.events.each do |event| %>
+                <li>
+                  <p><%= link_to event.title, event_path(event) %></p>
+                </li>
+              <% end.empty? %>
+                <%= t('organizations.show.no_results') %>
+              <% end %>
+            </ul>
+        </div>
+      </li>
     </ul>
 </div>

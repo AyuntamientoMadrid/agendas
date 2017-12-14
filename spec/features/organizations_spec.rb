@@ -363,6 +363,19 @@ feature 'Organizations page' do
       expect(page).to have_content interest2.name
     end
 
+    scenario "Should display organization event" do
+      organization = create(:organization)
+      event1 = create(:event)
+      event2 = create(:event)
+      organization.events << event1
+      organization.events << event2
+
+      visit organization_path(organization)
+
+      expect(page).to have_content event1.title
+      expect(page).to have_content event2.title
+    end
+
     scenario "Should return to organizations index page" do
       organization = create(:organization)
       visit organization_path(organization)
