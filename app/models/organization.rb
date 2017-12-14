@@ -2,7 +2,7 @@ class Organization < ActiveRecord::Base
 
   enum registered_lobbies: [:no_record, :generalitat_catalunya, :cnmc, :europe_union, :others]
   enum range_fund: [:range_1, :range_2, :range_3, :range_4]
-  enum entity_type: [:association, :federation, :lobby]
+  enum entity_type: { association: 0, federation: 1, lobby: 2 }
   validates :inscription_reference, uniqueness: true, allow_blank: true, allow_nil: true
   validates :name, :category_id, presence: true
 
@@ -28,6 +28,7 @@ class Organization < ActiveRecord::Base
 
   searchable do
     text :name, :first_surname, :second_surname, :description
+    integer :entity_type_id
     time :created_at
     boolean :invalidate
     time :inscription_date
@@ -46,6 +47,10 @@ class Organization < ActiveRecord::Base
   scope :validated, -> { where('invalidate = ?', false) }
   scope :lobbies, -> { where('entity_type = ?', 2) }
   scope :full_like, ->(name) { where("identifier ilike ? OR name ilike ?", name, name) }
+
+  def entity_type_id
+    Organization.entity_types[self.entity_type]
+  end
 
   def fullname
     str = name
