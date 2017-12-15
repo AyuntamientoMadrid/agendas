@@ -194,16 +194,36 @@ describe Event do
 
   end
 
-  describe "organizations' events" do
+  describe "lobby organizations' events" do
     let!(:organization_user) { create(:user, :lobby) }
 
-    it "should create event with status on_request" do
+    it "lobby user should create event with status on_request" do
+      event = create(:event, title: 'Event on request', user: organization_user)
+      event.save
+      expect(event.status).to eq('requested')
+    end
+  end
+
+  describe "regular organizations' events" do
+    let!(:organization_user) { create(:user, :user) }
+
+    it "regular user should create event with status accepted" do
       event = create(:event, title: 'Event on request', user: organization_user)
       event.save
 
-      expect(event.status).to eq('requested')
+      expect(event.status).to eq('accepted')
     end
+  end
 
+  describe "regular organizations' events" do
+    let!(:organization_user) { create(:user, :admin) }
+
+    it "admin user should create event with status accepted" do
+      event = create(:event, title: 'Event on request', user: organization_user)
+      event.save
+
+      expect(event.status).to eq('accepted')
+    end
   end
 
 end

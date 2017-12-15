@@ -199,7 +199,12 @@ class Event < ActiveRecord::Base
     end
 
     def set_status
-      self.status = "requested" if self.user.lobby?
+      if self.user.lobby?
+        self.status = "requested"
+      else
+        self.status = "accepted"
+        self.accepted_at = Time.zone.today
+      end
     end
 
     def role_validate_published_at
