@@ -29,14 +29,14 @@ class OrganizationsController < ApplicationController
       Organization.search do
         with(:entity_type_id, 2)
         with(:invalidate, false)
-        fulltext params[:keyword] if params[:keyword].present?
         with(:interest_ids, params[:interests]) if params[:interests].present?
         with(:category_id, params[:category]) if params[:category].present?
         with(:lobby_activity, true) if params[:lobby_activity].present?
         any do
-          fulltext(params[:agent_name], :fields => [:agent_name]) if params[:agent_name].present?
-          fulltext(params[:agent_name], :fields => [:agent_first_surname]) if params[:agent_name].present?
-          fulltext(params[:agent_name], :fields => [:agent_second_surname]) if params[:agent_name].present?
+          fulltext params[:keyword] if params[:keyword].present?
+          fulltext(params[:keyword], :fields => [:agent_name]) if params[:keyword].present?
+          fulltext(params[:keyword], :fields => [:agent_first_surname]) if params[:keyword].present?
+          fulltext(params[:keyword], :fields => [:agent_second_surname]) if params[:keyword].present?
         end
         order_by :created_at, :desc
         paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 10
