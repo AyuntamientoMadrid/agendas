@@ -42,8 +42,14 @@
           <%= f.label :scheduled, t('backend.date') %>
           <%= f.text_field :scheduled, class: 'fdatepicker' %>
         <% end %>
-        <%= f.label :position_id, t('backend.main_position') %>
-        <%= f.select :position_id, @positions.map{|position| [position.holder.full_name_comma+' - '+position.title, position.id]}, prompt: t('backend.select') %>
+        <% if current_user.lobby? %>
+          <%= f.label :name_holder, t('backend.main_position') %>
+          <%= f.autocomplete_field :holder_title,  autocomplete_position_title_positions_path ,:update_elements => {:id => '#position_id'} , placeholder: t('backend.holder_input') , value: holder_name_by_position_id(@event.position_id) %>
+          <%= hidden_field_tag "event[position_id]" , "" , {:id => "position_id"} %>
+        <% else %>
+          <%= f.label :position_id, t('backend.main_position') %>
+          <%= f.select :position_id, @positions.map{|position| [position.holder.full_name_comma+' - '+position.title, position.id]}, prompt: t('backend.select') %>
+        <% end %>
       </div>
     </fieldset>
 

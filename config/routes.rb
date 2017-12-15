@@ -41,16 +41,11 @@ Rails.application.routes.draw do
   match 'admin/update_password', to: 'admin/passwords#update', as: 'update_password', via: [:patch, :put]
 
   resources :users
-
   resources :events
-
-  resources :holders
-
   resources :areas
-
   resources :activities
-
   resources :infringement_emails, only: [:new, :create]
+  resources :holders
 
   namespace :admin do
     resources :organizations
@@ -58,6 +53,9 @@ Rails.application.routes.draw do
     post 'order_questions', to: 'questions#order', as: 'order_questions'
   end
 
+  resources :positions do
+    get :autocomplete_position_title, :on => :collection
+  end
   get '/organizations/edit', to: 'organizations#edit', as: 'edit_organization'
   get '/organizations/destroy', to: 'organizations#destroy', as: 'destroy_organization'
   get '/organizations/new', to: 'organizations#new', as: 'new_organization'

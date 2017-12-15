@@ -611,7 +611,7 @@ feature 'Events' do
         expect(page).to have_selector('#event_description')
         expect(page).to have_selector('#event_general_remarks')
         expect(page).to have_selector('#event_lobby_scheduled')
-        expect(page).to have_selector('#event_position_id')
+        expect(page).to have_selector('#position_id', :visible => false)
         expect(page).to have_selector('#event_lobby_activity_true')
         expect(page).to have_selector('#event_lobby_activity_false')
         expect(page).to have_selector('#event_lobby_contact_firstname')
@@ -651,7 +651,8 @@ feature 'Events' do
         within('#new_event_agent') do
           select @agent.name
         end
-        select "#{@position.holder.full_name_comma} - #{@position.title}", from: :event_position_id
+        choose_autocomplete :event_position_title, with: @position.title, select: @position.title
+        find("#position_id", :visible => false).set(@position.id)
         click_button I18n.t('backend.save')
 
         expect(page).to have_content 'Registro creado correctamente'
@@ -692,9 +693,9 @@ feature 'Events' do
         within('#new_event_agent') do
           select @agent.name
         end
-        select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
+        choose_autocomplete :event_position_title, with: new_position.title, select: new_position.title
+        find("#position_id", :visible => false).set(new_position.id)
         click_button "Guardar"
-
         event = Event.where(title: "Title").first
         expect(page).to have_content "Registro creado correctamente"
         expect(event.title).to eq "Title"
@@ -838,7 +839,7 @@ feature 'Events' do
       end
 
       scenario "User can cancel events", :js do
-        event = create(:event, organization: @organization)
+        event = create(:event, organization: @organization, position: @position)
         visit edit_event_path(event)
 
         page.find_by_id("cancel-reason", visible: false)
@@ -846,6 +847,7 @@ feature 'Events' do
         page.find_by_id("cancel-reason", visible: true)
         editor = page.find_by_id('cancel-reason')
         editor.native.send_keys 'test'
+        find("#position_id", :visible => false).set(@position.id)
 
         click_button "Guardar"
 
@@ -859,6 +861,7 @@ feature 'Events' do
         page.find_by_id("cancel-reason", visible: false)
         page.choose('event_cancel_true')
         page.find_by_id("cancel-reason", visible: true)
+        find("#position_id", :visible => false).set(@position.id)
 
         click_button "Guardar"
 
@@ -882,6 +885,7 @@ feature 'Events' do
         page.find_by_id("decline-reason", visible: true)
         editor = page.find_by_id('decline-reason')
         editor.native.send_keys 'test'
+        find("#position_id", :visible => false).set(@position.id)
 
         click_button "Guardar"
 
@@ -933,18 +937,23 @@ feature 'Events' do
       end
 
       scenario 'Lobby user can update lobby contact info', :js do
+        position = create(:position)
         event = create(:event, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
                                lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123',
-                               lobby_contact_email: 'lobbyemail@email.com', organization: @organization)
+                               lobby_contact_email: 'lobbyemail@email.com', organization: @organization,
+                               position: position)
         visit edit_event_path(event)
 
         fill_in :event_lobby_contact_firstname, with: 'new lobbyname'
         fill_in :event_lobby_contact_lastname, with: 'new lobylastname'
         fill_in :event_lobby_contact_phone, with: '900878787'
         fill_in :event_lobby_contact_email, with: 'new_loby@email.com'
+        find("#position_id", :visible => false).set(@position.id)
+
         click_button 'Guardar'
 
         event.reload
+
         expect(event.lobby_contact_firstname).to eq 'new lobbyname'
         expect(event.lobby_contact_lastname).to eq 'new lobylastname'
         expect(event.lobby_contact_phone).to eq '900878787'
