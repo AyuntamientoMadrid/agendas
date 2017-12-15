@@ -611,7 +611,7 @@ feature 'Events' do
         expect(page).to have_selector('#event_description')
         expect(page).to have_selector('#event_general_remarks')
         expect(page).to have_selector('#event_lobby_scheduled')
-        expect(page).to have_selector('#position_id' , :visible => false)
+        expect(page).to have_selector('#position_id', :visible => false)
         expect(page).to have_selector('#event_lobby_activity_true')
         expect(page).to have_selector('#event_lobby_activity_false')
         expect(page).to have_selector('#event_lobby_contact_firstname')
@@ -839,7 +839,7 @@ feature 'Events' do
       end
 
       scenario "User can cancel events", :js do
-        event = create(:event, organization: @organization , position: @position)
+        event = create(:event, organization: @organization, position: @position)
         visit edit_event_path(event)
 
         page.find_by_id("cancel-reason", visible: false)

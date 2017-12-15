@@ -58,7 +58,7 @@ module Admin
       options_for_select(rev, selected)
     end
 
-    def holder_name_by_position_id (position_id)
+    def holder_name_by_position_id(position_id)
       holder_title = Position.find(position_id).full_name if position_id.present?
     end
   end
