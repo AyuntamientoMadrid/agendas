@@ -1,12 +1,7 @@
 Rails.application.routes.draw do
 
   # Public resources
-
-#  root to '/visitors', to: 'visitors#index', as: 'index'
-  #root to: 'visitors#index'
-  #root to: 'registration_lobbies#index'
   root to: 'homepage#index'
-
   get '/lang/:lang', to: 'application#change_language', as: 'change_language'
   get '/show/:id', to: 'visitors#show', as: 'show'
   get '/update_holders', to: 'visitors#update_holders', as: 'update_holders'
@@ -30,8 +25,6 @@ Rails.application.routes.draw do
   get 'registration_lobbies/index'
   get '/registration_lobbies', to: 'registration_lobbies#index', as: 'registration_lobbies'
   get '/visitors', to: 'visitors#index', as: 'visitors'
-
-  #get '/registration_lobbies', to: 'registration_lobbies#index', as: 'registration_lobbies'
 
   # Admin
   get "/admin", to: 'events#index', as: 'admin'
