@@ -12,14 +12,16 @@ Rails.application.routes.draw do
   get '/faq', to: 'questions#index', as: 'faq'
 
   resources :infringement_emails, only: [:new, :create]
+  get '/code_of_conduct', to: 'static_pages#code_of_conduct', as: 'code_of_conduct'
 
-  scope module: 'static_pages' do
-    get '/rules', to: '#rules', as: 'rules'
-    get '/about_lobbies', to: '#about_lobbies', as: 'about_lobbies'
-    get '/code_of_conduct', to: '#code_of_conduct', as: 'code_of_conduct'
-    get '/data_protection', to: '#data_protection', as: 'data_protection'
-    get '/regulatory_and_documentation', to: '#regulatory_and_documentation', as: 'regulatory_and_documentation'
-  end
+
+  # scope module: 'static_pages' do
+  #   get '/rules', to: '#rules', as: 'rules'
+  #   get '/about_lobbies', to: '#about_lobbies', as: 'about_lobbies'
+  #   get '/code_of_conduct', to: '#code_of_conduct', as: 'code_of_conduct'
+  #   get '/data_protection', to: '#data_protection', as: 'data_protection'
+  #   get '/regulatory_and_documentation', to: '#regulatory_and_documentation', as: 'regulatory_and_documentation'
+  # end
 
   get '/homepage', to: 'homepage#index', as: 'homepage'
   get 'registration_lobbies/index'
