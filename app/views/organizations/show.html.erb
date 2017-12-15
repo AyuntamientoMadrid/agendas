@@ -10,13 +10,13 @@
 </div>
 
 <div class="small-12 columns">
-    <ul class="accordion" data-accordion role = "tablist">
+    <ul class="accordion" role = "tablist">
       <li class="accordion-navigation active">
-        <a href="#panel1" class="accordion-title">
+        <div class="accordion-title">
           <%= t('organizations.show.identifying_data_title') %>
           <span class="accordion-icon"></span>
-        </a>
-        <div id="panel1" class="content active">
+        </div>
+        <div class="content active">
           <p>
             <strong><%= t('organizations.show.inscription_date') %>:
             <br />
@@ -83,12 +83,12 @@
           </p>
         </div>
       </li>
-      <li class="accordion-navigation">
-        <a href="#panel4">
+      <li class="accordion-navigation active">
+        <div class="accordion-title">
           <%= t('organizations.show.fiscal_year_title') %>
           <span class="accordion-icon"></span>
-        </a>
-        <div id="panel4" class="content">
+        </div>
+        <div class="content active">
 
           <% if @organization.fiscal_year.present? %>
             <p>
@@ -117,12 +117,12 @@
 
         </div>
       </li>
-      <li class="accordion-navigation">
-        <a href="#panel5">
+      <li class="accordion-navigation active">
+        <div class="accordion-title">
           <%= t('organizations.show.represented_entity_title') %>
           <span class="fa accordion-icon"></span>
-        </a>
-        <div id="panel5" class="content">
+        </div>
+        <div class="content active">
           <% if @organization.represented_entities.each do |represented_entity| %>
           <div class="represented-entities-block">
             <p>
@@ -170,12 +170,12 @@
             <% end %>
         </div>
       </li>
-      <li class="accordion-navigation">
-        <a href="#panel6">
+      <li class="accordion-navigation active">
+        <div class="accordion-title">
           <%= t('organizations.show.agents_title') %>
           <span class="fa accordion-icon"></span>
-        </a>
-          <div id="panel6" class="content">
+        </div>
+          <div class="content active">
             <% if @organization.agents.each do |agent| %>
               <p>
                 <strong><%= t('organizations.show.agents_fullname') %>: </strong>
@@ -195,12 +195,12 @@
             <% end %>
         </div>
       </li>
-      <li class="accordion-navigation">
-        <a href="#panel7">
+      <li class="accordion-navigation active">
+        <div class="accordion-title">
           <%= t('organizations.show.interests_title') %>
           <span class="fa accordion-icon"></span>
-        </a>
-          <div id="panel7" class="content">
+        </div>
+          <div class="content active">
             <ul>
               <% if @organization.interests.each do |interest| %>
                 <li>
@@ -212,12 +212,12 @@
             </ul>
         </div>
       </li>
-      <li class="accordion-navigation">
-        <a href="#panel8">
+      <li class="accordion-navigation active">
+        <div class="accordion-title">
           <%= t('organizations.show.events_title') %>
           <span class="fa accordion-icon"></span>
-        </a>
-          <div id="panel8" class="content">
+        </div>
+          <div class="content">
             <ul>
               <% if @organization.events.each do |event| %>
                 <li>

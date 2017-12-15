@@ -9,26 +9,27 @@
     </div>
 
     <div class="mb20">
-      <%= label_tag :area, t('main.form.filter_by_interests'), class: 'title-s' %>
-      <%= select_tag :interests,
-                     options_for_select(Interest.all.map {
-                       |interest| [interest.name, interest.id]
-                     }, params[:interests]),
-                     id: "interestsFilter",
-                     prompt: t("main.form.filter_by"),
-                     class: "dropdown" %>
-    </div>
-
-    <div class="mb20">
       <%= label_tag :area, t('main.form.filter_by_category'), class: 'title-s' %>
       <%= select_tag :category,
                      options_for_select(Category.where(display: true).all.map {
                        |category| [category.name, category.id]
                      }, params[:category]),
                      id: "categoryFilter",
-                     prompt: t("main.form.filter_by"),
+                     prompt: t("main.form.filter_by_category"),
                      class: "dropdown" %>
     </div>
+
+    <div class="mb20">
+      <%= label_tag :area, t('main.form.filter_by_interests'), class: 'title-s' %>
+      <%= select_tag :interests,
+                     options_for_select(Interest.all.map {
+                       |interest| [interest.name, interest.id]
+                     }, params[:interests]),
+                     id: "interestsFilter",
+                     prompt: t("main.form.filter_by_interests"),
+                     class: "dropdown" %>
+    </div>
+
     <div class="row">
       <div class="small-1 columns center">
         <%= check_box_tag(:lobby_activity, value = "1", checked = check_filter_lobby_activity , id: "lobby_activity")%>

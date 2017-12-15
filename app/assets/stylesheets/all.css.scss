@@ -7432,8 +7432,11 @@ ul.accordion{
   }
   .accordion-title{
     position: relative;
+    background: #EFEFEF;
+    color: #222222;
     display: block;
-    border: 1px solid #e6e6e6;
+    font-size: 1rem;
+    padding: 1rem;
   }
   .accordion-navigation{
 
@@ -7448,19 +7451,6 @@ ul.accordion{
       margin-left: 0;
       }
     }
-  }
-
-  .accordion-icon{
-    float: right;
-    color: #0077b9;
-    margin-right: 1rem;
-  }
-  .accordion-icon:before {
-    content: "+";
-    position: absolute;
-  }
-  .active .accordion-icon:before {
-    content: "-";
   }
 
   .represented-entities-block {
