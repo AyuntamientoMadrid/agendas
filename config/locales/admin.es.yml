@@ -47,6 +47,7 @@ es:
     manage_agendas: "Asignación de Agendas"
     lobby: "Lobby"
     lobby_activity: "Actividad de Lobby"
+    holder_input: "Buscar una persona por nombre"
 
     holders: "Titulares"
     holder: "Titular"

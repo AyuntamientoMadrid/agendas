@@ -2,6 +2,7 @@ class Event < ActiveRecord::Base
   include PublicActivity::Model
 
   attr_accessor :cancel, :decline
+  attr_accessor :holder_title
 
   tracked owner: Proc.new { |controller, model| controller.present? ? controller.current_user : model.user }
   tracked title: Proc.new { |controller, model| controller.present? ? controller.get_title : model.title }
