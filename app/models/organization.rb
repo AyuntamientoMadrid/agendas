@@ -37,7 +37,7 @@ class Organization < ActiveRecord::Base
     end
     integer :category_id
     integer :id
-    join(:lobby_activity,:target => Event, :type => :boolean, :join => { :from => :organization_id, :to => :id})
+    join(:lobby_activity, :target => Event, :type => :boolean, :join => { :from => :organization_id, :to => :id })
     join(:name, :prefix => "agent", :target => Agent, :type => :text, :join => { :from => :organization_id, :to => :id })
     join(:first_surname, :prefix => "agent", :target => Agent, :type => :text, :join => { :from => :organization_id, :to => :id })
     join(:second_surname, :prefix => "agent", :target => Agent, :type => :text, :join => { :from => :organization_id, :to => :id })

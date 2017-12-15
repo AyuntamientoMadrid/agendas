@@ -11,6 +11,7 @@ class Position < ActiveRecord::Base
   scope :previous, -> { where.not(to: nil) }
   scope :area_filtered, ->(area) { where(area_id: Area.find(area).subtree_ids) if area.present? }
   scope :full_like, lambda { |search_name| where("holder_id IN (?) OR title ILIKE ?", Holder.by_name(search_name).pluck(:id), "%#{search_name}%") }
+
   def events
     (titular_events + participants_events).uniq
   end
