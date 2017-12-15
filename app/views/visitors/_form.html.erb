@@ -1,5 +1,5 @@
 <div class="small-12 large-4 columns">
-  <%= form_tag root_path, method: :get do %>
+  <%= form_tag visitors_path, method: :get do %>
     <%= hidden_field_tag :order, params[:order] %>
     <div class="mb20">
       <%= text_field_tag :keyword, params[:keyword], placeholder: t('main.form.keyword') %>
@@ -26,14 +26,14 @@
         </div>
       </div>
     </div>
+
     <div class="mb20">
-          <div class="small-1 columns left">
-      <%= check_box_tag(:lobby_activity, value = "1", checked = check_filter_lobby_activity , id: "lobby_activity")%>
+      <div class="small-12 left mb20">
+        <%= check_box_tag(:lobby_activity, value = "1", checked = check_filter_lobby_activity , id: "lobby_activity")%>
+        <%= label_tag(:lobby_activity, t("backend.lobby_activity")) %>
+      </div>
     </div>
-    <div class="small-11 columns left mb40">
-      <%= label_tag(:lobby_activity, t("backend.lobby_activity")) %>
-    </div>
-    </div>
+
     <div class="mb20">
       <%= link_to t('main.form.reset'), root_path, class: 'button secondary' %>
       <%= submit_tag t('main.form.search'), class: 'button', name: nil %>

@@ -1,0 +1,2 @@
+module RegistrationLobbiesHelper
+end

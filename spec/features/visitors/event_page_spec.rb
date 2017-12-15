@@ -4,7 +4,7 @@ feature 'Event page' do
     event = create(:event, published_at: Time.zone.yesterday)
     Event.reindex
     Sunspot.commit
-    visit root_path
+    visit visitors_path
 
     click_link event.title
 
@@ -13,7 +13,7 @@ feature 'Event page' do
 
   scenario 'visit search by keyword and area result page', :search do
     event = create(:event, title: 'New event from Capybara', published_at: Time.zone.yesterday)
-    visit root_path
+    visit visitors_path
 
     fill_in :keyword, with: 'Capybara'
     select event.position.area.title, from: :area
@@ -24,7 +24,7 @@ feature 'Event page' do
 
   scenario 'visit non results search page' do
     event = create(:event, title: 'New not found event', published_at: Time.zone.yesterday)
-    visit root_path
+    visit visitors_path
 
     fill_in :keyword, with: 'Capybara'
     click_button I18n.t('main.form.search')
@@ -42,7 +42,7 @@ feature 'Event page' do
     Event.reindex
     Sunspot.commit
 
-    visit root_path
+    visit visitors_path
 
     expect(page).to have_content event1.title
     expect(page).to have_content event2.title
@@ -56,7 +56,7 @@ feature 'Event page' do
     event.event_agents << create(:event_agent)
     event.save!
 
-    visit root_path
+    visit visitors_path
     check 'lobby_activity'
     click_button I18n.t('backend.search.button')
 

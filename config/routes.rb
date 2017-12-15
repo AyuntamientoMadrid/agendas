@@ -1,24 +1,37 @@
 Rails.application.routes.draw do
 
   # Public resources
-  root to: 'visitors#index'
+
+#  root to '/visitors', to: 'visitors#index', as: 'index'
+  #root to: 'visitors#index'
+  #root to: 'registration_lobbies#index'
+  root to: 'homepage#index'
+
   get '/lang/:lang', to: 'application#change_language', as: 'change_language'
   get '/show/:id', to: 'visitors#show', as: 'show'
   get '/update_holders', to: 'visitors#update_holders', as: 'update_holders'
   get '/inicio.do', to: 'uweb_access#uweb_sign_in'
   get '/agenda/:holder/:full_name', to: 'visitors#agenda', as: 'agenda'
+
   get '/import', to: 'users#import', as: 'import'
   get '/faq', to: 'questions#index', as: 'faq'
 
   resources :infringement_emails, only: [:new, :create]
-  
+
   scope module: 'static_pages' do
-    get '/rules', to: :rules
-    get '/about_lobbies', to: :about_lobbies
-    get '/code_of_conduct', to: :code_of_conduct
-    get '/data_protection', to: :data_protection
-    get '/regulatory_and_documentation', to: :regulatory_and_documentation
+    get '/rules', to: '#rules', as: 'rules'
+    get '/about_lobbies', to: '#about_lobbies', as: 'about_lobbies'
+    get '/code_of_conduct', to: '#code_of_conduct', as: 'code_of_conduct'
+    get '/data_protection', to: '#data_protection', as: 'data_protection'
+    get '/regulatory_and_documentation', to: '#regulatory_and_documentation', as: 'regulatory_and_documentation'
   end
+
+  get '/homepage', to: 'homepage#index', as: 'homepage'
+  get 'registration_lobbies/index'
+  get '/registration_lobbies', to: 'registration_lobbies#index', as: 'registration_lobbies'
+  get '/visitors', to: 'visitors#index', as: 'visitors'
+
+  #get '/registration_lobbies', to: 'registration_lobbies#index', as: 'registration_lobbies'
 
   # Admin
   get "/admin", to: 'events#index', as: 'admin'
@@ -36,6 +49,8 @@ Rails.application.routes.draw do
   resources :areas
 
   resources :activities
+
+  resources :infringement_emails, only: [:new, :create]
 
   namespace :admin do
     resources :organizations

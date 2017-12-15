@@ -9,6 +9,7 @@
     </div>
 
     <div class="mb20">
+      <%= label_tag :area, t('main.form.filter_by_interests'), class: 'title-s' %>
       <%= select_tag :interests,
                      options_for_select(Interest.all.map {
                        |interest| [interest.name, interest.id]
@@ -19,6 +20,7 @@
     </div>
 
     <div class="mb20">
+      <%= label_tag :area, t('main.form.filter_by_category'), class: 'title-s' %>
       <%= select_tag :category,
                      options_for_select(Category.where(display: true).all.map {
                        |category| [category.name, category.id]

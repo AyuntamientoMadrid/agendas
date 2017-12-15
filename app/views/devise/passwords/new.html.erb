@@ -5,16 +5,16 @@
 </div>
 
 <div class="row">
-  <div class="small-4 large-centered columns">
+  <div class="small-12 medium-6 medium-centered columns">
+    <%= devise_error_messages! %>
     <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :role => 'form'}) do |f| %>
-      <h3>Forgot your password?</h3>
-      <p>We'll send password reset instructions.</p>
-      <%= devise_error_messages! %>
+      <h3><%= t'devise.forgot_password' %></h3>
+      <p><%= t'devise.password_reset_instructions' %></p>
       <div class="form-group">
         <%= f.label :email %>
         <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
       </div>
-       <%= f.submit 'Reset Password', :class => 'button right' %>
+       <%= f.submit t('devise.reset_password'), :class => 'button right' %>
     <% end %>
   </div>
 </div>
