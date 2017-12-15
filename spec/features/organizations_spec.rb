@@ -159,6 +159,19 @@ feature 'Organizations page' do
         expect(page).not_to have_content "Asociación 1"
         expect(page).not_to have_content "Federación 1"
       end
+
+      scenario "Should display events as lobby and status :done", :js do
+        organization = create(:organization, entity_type: :lobby)
+        event1 = create(:event, lobby_activity: true, status: 2, organization: organization)
+        event2 = create(:event, lobby_activity: true, status: 1, organization: organization)
+        event3 = create(:event, lobby_activity: false, organization: organization)
+        Organization.reindex
+
+        visit organizations_path
+
+        save_screenshot
+        expect(page).to have_content "Reuniones realizadas: 1"
+      end
     end
 
   scenario "Should display organizations with event with lobby_activity", :search do
@@ -255,16 +268,6 @@ feature 'Organizations page' do
       expect(page).not_to have_content organization.phones
       expect(page).not_to have_content organization.email
       expect(page).not_to have_content organization.registered_lobbies
-    end
-
-    scenario "Should display organization legal_representant" do
-      # Creo que esta parte no hace falta porque se quito del show
-
-      # organization = create(:organization)
-      # legal_representant = create(:legal_representant, organization: organization)
-      #
-      # visit organization_path(organization)
-      # expect(page).to have_content legal_representant.fullname
     end
 
     scenario "Should not display some legal_representant info" do

@@ -5,6 +5,7 @@ es:
   organizations:
     title: Consulta del registro de lobbies
     description: Consulte las organizaciones registradas.
+    events_as_lobby: Reuniones realizadas
     subtitle:
       default: Incorporaciones más recientes
 

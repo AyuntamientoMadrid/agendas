@@ -24,7 +24,7 @@ module OrganizationsHelper
   def search_by_filter?
     (params[:interests].present? || params[:category].present? || params[:keyword].present?)
   end
-  
+
   def organization_status
     canceled_true = @organization.canceled_at
 
@@ -36,4 +36,9 @@ module OrganizationsHelper
       '<span class="label success">Activo</span>'.html_safe
     end
   end
+
+  def events_as_lobby_by(organization)
+    organization.events.where(lobby_activity: true, status: 2).count
+  end
+
 end
