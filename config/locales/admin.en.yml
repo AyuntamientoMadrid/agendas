@@ -83,6 +83,7 @@ es:
       not_available_agents: "Not available agents."
       reasons_needed: "You must provide some reasons to cancel the event"
       decline_reasons_needed: "You must provide some reasons to decline the event"
+      accept_reasons_needed: "You must provide some reasons to accept the event"
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"
@@ -163,10 +164,15 @@ es:
       done: "Done"
       declined: "Rejected"
       canceled: "Canceled"
-    decline_event: Decline evento
+      accepted: "Accepted"
+    decline_event: Decline event
     declined_event: Event declined
     decline_reason_yes: Yes
     decline_reason_no: No
+    accept_event: Decline event
+    accepted_event: Event accepted
+    accept_reason_yes: Yes
+    accept_reason_no: No
 
   backend_header:
     open_gov: "Gobierno abierto"

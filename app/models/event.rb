@@ -1,8 +1,7 @@
 class Event < ActiveRecord::Base
   include PublicActivity::Model
 
-  attr_accessor :cancel, :decline
-  attr_accessor :holder_title
+  attr_accessor :cancel, :decline, :accept, :holder_title
 
   tracked owner: Proc.new { |controller, model| controller.present? ? controller.current_user : model.user }
   tracked title: Proc.new { |controller, model| controller.present? ? controller.get_title : model.title }
@@ -15,10 +14,12 @@ class Event < ActiveRecord::Base
   validate :participants_uniqueness, :position_not_in_participants, :role_validate_published_at, :role_validate_scheduled
   validates :reasons, presence: true, if: Proc.new { |a| !a.canceled_at.blank? }
   validates :declined_reasons, presence: true, if: Proc.new { |a| !a.declined_at.blank? }
+  validates :accepted_reasons, presence: true, if: Proc.new { |a| !a.accepted_at.blank? }
 
   before_create :set_status
   before_validation :decline_event
   before_validation :cancel_event
+  before_validation :accept_event
 
   belongs_to :user
   belongs_to :position
@@ -67,6 +68,13 @@ class Event < ActiveRecord::Base
     self.declined_at = Time.zone.today
     self.status = 'declined'
     EventMailer.decline(self).deliver_now
+  end
+
+  def accept_event
+    return unless accept == 'true' && accepted_at.nil?
+    self.accepted_at = Time.zone.today
+    self.status = 'accepted'
+    EventMailer.accept(self).deliver_now
   end
 
   def self.managed_by(user)

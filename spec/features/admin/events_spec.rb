@@ -976,6 +976,84 @@ feature 'Events' do
         expect(page).not_to have_selector "#event_cancel_true"
       end
 
+      scenario "User can decline events", :js do
+        event = create(:event, organization: @organization)
+        visit edit_event_path(event)
+
+        page.find_by_id("decline-reason", visible: false)
+        page.choose('event_decline_true')
+        page.find_by_id("decline-reason", visible: true)
+        editor = page.find_by_id('decline-reason')
+        editor.native.send_keys 'test'
+
+        click_button "Guardar"
+
+        expect(page).not_to have_selector "#event_decline_true"
+      end
+
+      scenario "User can't decline events without a reason", :js do
+        event = create(:event, organization: @organization)
+        visit edit_event_path(event)
+        page.find_by_id("decline-reason", visible: false)
+        page.choose('event_decline_true')
+        page.find_by_id("decline-reason", visible: true)
+
+        click_button "Guardar"
+
+        expect(page).to have_content I18n.t('backend.event.decline_reasons_needed'), count: 1
+      end
+
+      scenario "User can decline events only once!" do
+        event_requested = create(:event, title: 'Event on request', position: @position, status: 0,
+                                         declined_reasons: 'test', declined_at: Time.zone.today, organization: @organization)
+        visit edit_event_path(event_requested)
+
+        expect(page).not_to have_selector "#event_decline_true"
+      end
+
+      scenario "User can accept events only once!" do
+        event_requested = create(:event, title: 'Event on request', position: @position, status: 0,
+                                         accepted_reasons: 'test', accepted_at: Time.zone.today, organization: @organization)
+        visit edit_event_path(event_requested)
+
+        expect(page).not_to have_selector "#event_accept_true"
+      end
+
+      scenario "User can accept events", :js do
+        event = create(:event, organization: @organization)
+        visit edit_event_path(event)
+
+        page.find_by_id("accept-reason", visible: false)
+        page.choose('event_accept_true')
+        page.find_by_id("accept-reason", visible: true)
+        editor = page.find_by_id('accept-reason')
+        editor.native.send_keys 'test'
+
+        click_button "Guardar"
+
+        expect(page).not_to have_selector "#event_accept_true"
+      end
+
+      scenario "User can't accept events without a reason", :js do
+        event = create(:event, organization: @organization)
+        visit edit_event_path(event)
+        page.find_by_id("accept-reason", visible: false)
+        page.choose('event_accept_true')
+        page.find_by_id("accept-reason", visible: true)
+
+        click_button "Guardar"
+
+        expect(page).to have_content I18n.t('backend.event.accept_reasons_needed'), count: 1
+      end
+
+      scenario "User can accept events only once!" do
+        event_requested = create(:event, title: 'Event on request', position: @position, status: 0,
+                                         accepted_reasons: 'test', accepted_at: Time.zone.today, organization: @organization)
+        visit edit_event_path(event_requested)
+
+        expect(page).not_to have_selector "#event_accept_true"
+      end
+
       scenario 'Lobby user can see on page the name of the organization' do
         event = create(:event, organization_name: "Organization name", position: @position,
                                organization: @organization)

@@ -58,4 +58,8 @@ module ApplicationHelper
     !event.declined_at.nil?
   end
 
+  def accepted_event(event)
+    !event.accepted_at.nil?
+  end
+
 end

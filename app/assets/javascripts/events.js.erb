@@ -1,4 +1,11 @@
 $(function(){
+
+  $('#accept_link').bind('click', function(e){
+    e.preventDefault();
+    $('#accept_link').hide();
+    $('#accept-reason').show();
+  });
+
   $('#decline_link').bind('click', function(e){
     e.preventDefault();
     $('#decline_link').hide();
@@ -67,6 +74,9 @@ $(function(){
           "event[published_at]" : {
             required : true
           },
+          "event[accept]" : {
+            checkMessage : "accepted_reasons"
+          },
           "event[decline]" : {
             checkMessage : "declined_reasons"
           },
@@ -105,6 +115,9 @@ $(function(){
           },
           "event[event_agents_attributes][0][name]" : {
             valueNotEquals: "<%= I18n.translate('backend.event.event_agent_needed')%>"
+          },
+          "event[accept]" : {
+            checkMessage : "<%= I18n.translate('backend.event.accept_reasons_needed')%>"
           },
           "event[decline]" : {
             checkMessage : "<%= I18n.translate('backend.event.decline_reasons_needed')%>"
@@ -188,6 +201,20 @@ $(function(){
 
   $("#event_decline_false").click(function(){
     $("#decline-reason").hide();
+  });
+
+  $('#accept-reason').hide();
+
+  $("#event_accept_true").click(function(){
+    $("#accept-reason").show();
+  });
+
+  if ($("#event_accept_true").is(":checked")) {
+    $("#accept-reason").show();
+  };
+
+  $("#event_accept_false").click(function(){
+    $("#accept-reason").hide();
   });
 
 });

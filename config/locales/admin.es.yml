@@ -87,6 +87,7 @@ es:
       not_available_agents: "No hay agentes disponibles."
       reasons_needed: "Debe dar alguna razon para cancelar el evento"
       decline_reasons_needed: "Debe dar alguna razon para declinar el evento"
+      accept_reasons_needed: "Debe dar alguna razon para aceptar el evento"
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"
@@ -173,6 +174,10 @@ es:
     declined_event: Evento declinado
     decline_reason_yes: Si
     decline_reason_no: "No"
+    accept_event: Aceptar evento
+    accepted_event: Evento aceptado
+    accept_reason_yes: Si
+    accept_reason_no: "No"
 
   backend_header:
     open_gov: "Gobierno abierto"

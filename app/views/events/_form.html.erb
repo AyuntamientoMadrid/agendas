@@ -243,6 +243,31 @@
 
         <% end %>
       </fieldset>
+
+      <fieldset class="accept-reason-activity">
+        <% accepted_event = accepted_event(f.object) %>
+        <% if accepted_event %>
+          <legend><%= t('backend.accepted_event') %></legend>
+          <%= f.label :reasons, t('backend.reasons') %>
+          <br/>
+          <%= raw f.object.accepted_reasons %>
+        <% else %>
+          <legend><%= t('backend.accept_event') %></legend>
+          <%= f.radio_button :accept, true, checked: accepted_event %>
+          <%= f.label :accept, t('backend.accept_reason_yes'), value: true %>
+          <%= f.radio_button :accept, false, checked: !accepted_event %>
+          <%= f.label :accept, t('backend.accept_reason_no'), value: false %>
+          <div class="small-12 error-radio-buttons"></div>
+          <div id="accept-reason" style="display: none">
+            <div class="row">
+              <div class="small-12 columns">
+                <%= f.label :accepted_reasons, t('backend.reasons') %>
+                <%= f.text_area :accepted_reasons, class: 'tinymce' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </fieldset>
     <% end %>
 
   <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
