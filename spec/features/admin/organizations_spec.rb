@@ -1014,7 +1014,7 @@ feature 'Organization' do
   describe "Edit (remote)" do
 
     background do
-      user_admin = create(:user, :admin)
+      user_admin = create(:user, :lobby)
       signin(user_admin.email, user_admin.password)
     end
 
@@ -1030,7 +1030,7 @@ feature 'Organization' do
   describe "Destroy (remote)" do
 
     background do
-      user_admin = create(:user, :admin)
+      user_admin = create(:user, :lobby)
       signin(user_admin.email, user_admin.password)
     end
 
