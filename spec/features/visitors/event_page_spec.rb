@@ -109,7 +109,18 @@ feature 'Event page' do
       expect(page).to have_content event.event_represented_entities.first.name
     end
 
-  end
+    scenario 'Display event lobby agents when organization have canceled_at' do
+      event = create(:event, title: 'Lobby event')
+      event.lobby_activity = true
+      event.event_agents << create(:event_agent)
+      event.save!
+      event.organization.update(canceled_at: Date.current)
 
+      visit show_path(event)
+
+      expect(page).to have_content event.event_agents.first.name
+    end
+
+  end
 
 end
