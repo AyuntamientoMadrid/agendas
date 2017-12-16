@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171213171029) do
+ActiveRecord::Schema.define(version: 20171216181904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -287,10 +287,10 @@ ActiveRecord::Schema.define(version: 20171213171029) do
     t.integer  "organization_id"
     t.integer  "fiscal_year"
     t.integer  "range_fund"
-    t.boolean  "subvention"
-    t.boolean  "contract"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.boolean  "subvention",      default: false
+    t.boolean  "contract",        default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   add_index "represented_entities", ["organization_id"], name: "index_represented_entities_on_organization_id", using: :btree
