@@ -19,6 +19,17 @@ feature 'Organizations page' do
       expect(page).to have_content I18n.l(organization.inscription_date, format: :complete)
     end
 
+    scenario 'Should show only organization with canceled_at nil', :search do
+      organization1 = create(:organization, canceled_at: nil)
+      organization2 = create(:organization, canceled_at: Date.current)
+      Organization.reindex
+
+      visit organizations_path
+
+      expect(page).to have_content organization1.name
+      expect(page).not_to have_content organization2.name
+    end
+
     scenario 'Should not show paginator when there are less than 10 results' do
       visit organizations_path
 
@@ -169,12 +180,134 @@ feature 'Organizations page' do
 
         visit organizations_path
 
-        save_screenshot
         expect(page).to have_content "Reuniones realizadas: 1"
       end
     end
 
-  scenario "Should display organizations with event with lobby_activity", :search do
+    feature 'Filters' do
+      background do
+        @org1 = create(:organization, name: "Elon", first_surname: "Musk", inscription_date: 'Fri, 27 Nov 2015')
+        @org2 = create(:organization, name: "Nikola", first_surname: "Tesla", inscription_date: 'Sun, 27 Nov 2016')
+        Organization.reindex
+      end
+
+      context 'Interests' do
+        background do
+          @org1.interests.push(create(:interest, name: 'Music'))
+          @org2.interests.push(create(:interest, name: 'History'))
+          Organization.reindex
+        end
+
+        scenario 'shows organizations based on the selected interest', :search do
+          visit organizations_path
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_content(@org2.name)
+
+          find('#interestsFilter').find(:xpath, 'option[2]').select_option
+          click_button(I18n.t('main.form.search'))
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_no_content(@org2.name)
+        end
+      end
+
+      context 'Sorting' do
+        scenario 'by ASC name', :search do
+          visit organizations_path(order: 1)
+          expect(page.body.index(@org1.name)).to be < page.body.index(@org2.name)
+        end
+
+        scenario 'by DESC name', :search do
+          visit organizations_path(order: 2)
+          expect(page.body.index(@org2.name)).to be < page.body.index(@org1.name)
+        end
+
+        scenario 'by ASC inscription date', :search do
+          visit organizations_path(order: 3)
+          expect(page.body.index(@org1.name)).to be < page.body.index(@org2.name)
+        end
+
+        scenario 'by DESC inscription date', :search do
+          visit organizations_path(order: 4)
+          expect(page.body.index(@org2.name)).to be < page.body.index(@org1.name)
+        end
+      end
+
+      context 'Categories' do
+        scenario 'shows organizations based on the selected category', :search do
+          visit organizations_path
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_content(@org2.name)
+
+          find('#categoryFilter').find(:xpath, 'option[2]').select_option
+          click_button(I18n.t('main.form.search'))
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_no_content(@org2.name)
+        end
+      end
+
+      context 'Agents' do
+
+        background do
+          @agent1 = create(:agent, name: "Maria")
+          @agent2 = create(:agent, name: "Pedro")
+          @org1.agents.push(@agent1)
+          @org2.agents.push(@agent2)
+          Organization.reindex
+        end
+
+        scenario 'shows organizations based on the agent name', :search do
+          visit organizations_path
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_content(@org2.name)
+
+          fill_in :keyword, with: "Maria"
+          click_button(I18n.t('main.form.search'))
+
+          expect(page).to have_content(@org1.name)
+          expect(page).to have_no_content(@org2.name)
+
+          fill_in :keyword, with: "Pedro"
+          click_button(I18n.t('main.form.search'))
+
+          expect(page).to have_content(@org2.name)
+          expect(page).to have_no_content(@org1.name)
+        end
+
+        scenario 'not shows organizations invalidate based on the agent name', :search do
+          @org1.update(invalidate: true)
+          Organization.reindex
+          visit organizations_path
+
+          expect(page).not_to have_content(@org1.name)
+
+          fill_in :keyword, with: "Maria"
+          click_button(I18n.t('main.form.search'))
+
+          expect(page).not_to have_content(@org1.name)
+        end
+
+        scenario 'not shows organizations with canceled_at based on the agent name', :search do
+          @org1.update(canceled_at: Date.current)
+          Organization.reindex
+          visit organizations_path
+
+          expect(page).not_to have_content(@org1.name)
+
+          fill_in :keyword, with: "Maria"
+          click_button(I18n.t('main.form.search'))
+
+          expect(page).not_to have_content(@org1.name)
+        end
+
+      end
+    end
+
+    scenario "Should display organizations with event with lobby_activity", :search do
         organization_one = create(:organization, entity_type: :lobby, name: "Organizacion 1")
         organization_two = create(:organization, entity_type: :lobby, name: "No lobby activity")
         event=create(:event,organization: organization_one)
@@ -195,7 +328,6 @@ feature 'Organizations page' do
         expect(page).to have_content "Organizacion 1"
         expect(page).not_to have_content "No lobby activity"
   end
-
 
     scenario 'Should be go to show page when click on organization', :search do
       organization = create(:organization)
@@ -386,100 +518,6 @@ feature 'Organizations page' do
       click_on "Volver"
 
       expect(page).to have_content("Consulta del registro de lobbies")
-    end
-
-    feature 'Filters' do
-      background do
-        @org1 = create(:organization, name: "Elon", first_surname: "Musk", inscription_date: 'Fri, 27 Nov 2015')
-        @org2 = create(:organization, name: "Nikola", first_surname: "Tesla", inscription_date: 'Sun, 27 Nov 2016')
-        Organization.reindex
-      end
-
-      context 'Interests' do
-        background do
-          @org1.interests.push(create(:interest, name: 'Music'))
-          @org2.interests.push(create(:interest, name: 'History'))
-          Organization.reindex
-        end
-
-        scenario 'shows organizations based on the selected interest', :search do
-          visit organizations_path
-
-          expect(page).to have_content(@org1.name)
-          expect(page).to have_content(@org2.name)
-
-          find('#interestsFilter').find(:xpath, 'option[2]').select_option
-          click_button(I18n.t('main.form.search'))
-
-          expect(page).to have_content(@org1.name)
-          expect(page).to have_no_content(@org2.name)
-        end
-      end
-
-      context 'Sorting' do
-        scenario 'by ASC name', :search do
-          visit organizations_path(order: 1)
-          expect(page.body.index(@org1.name)).to be < page.body.index(@org2.name)
-        end
-
-        scenario 'by DESC name', :search do
-          visit organizations_path(order: 2)
-          expect(page.body.index(@org2.name)).to be < page.body.index(@org1.name)
-        end
-
-        scenario 'by ASC inscription date', :search do
-          visit organizations_path(order: 3)
-          expect(page.body.index(@org1.name)).to be < page.body.index(@org2.name)
-        end
-
-        scenario 'by DESC inscription date', :search do
-          visit organizations_path(order: 4)
-          expect(page.body.index(@org2.name)).to be < page.body.index(@org1.name)
-        end
-      end
-
-      context 'Categories' do
-        scenario 'shows organizations based on the selected category', :search do
-          visit organizations_path
-
-          expect(page).to have_content(@org1.name)
-          expect(page).to have_content(@org2.name)
-
-          find('#categoryFilter').find(:xpath, 'option[2]').select_option
-          click_button(I18n.t('main.form.search'))
-
-          expect(page).to have_content(@org1.name)
-          expect(page).to have_no_content(@org2.name)
-        end
-      end
-
-      context 'Agents' do
-        background do
-          @agent1 = create(:agent, name: "Maria")
-          @agent2 = create(:agent, name: "Pedro")
-          @org1.agents.push(@agent1)
-          @org2.agents.push(@agent2)
-          Organization.reindex
-        end
-        scenario 'shows organizations based on the agent name', :search do
-          visit organizations_path
-
-          expect(page).to have_content(@org1.name)
-          expect(page).to have_content(@org2.name)
-
-          fill_in :keyword, with: "Maria"
-          click_button(I18n.t('main.form.search'))
-
-          expect(page).to have_content(@org1.name)
-          expect(page).to have_no_content(@org2.name)
-
-          fill_in :keyword, with: "Pedro"
-          click_button(I18n.t('main.form.search'))
-
-          expect(page).to have_content(@org2.name)
-          expect(page).to have_no_content(@org1.name)
-        end
-      end
     end
 
   end

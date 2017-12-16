@@ -27,6 +27,7 @@ class OrganizationsController < ApplicationController
 
     def search(params)
       Organization.search do
+        with(:canceled_at, nil)
         with(:entity_type_id, 2)
         with(:invalidate, false)
         with(:interest_ids, params[:interests]) if params[:interests].present?

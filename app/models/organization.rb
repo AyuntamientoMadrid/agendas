@@ -29,6 +29,7 @@ class Organization < ActiveRecord::Base
   searchable do
     text :name, :first_surname, :second_surname, :description
     integer :entity_type_id
+    time :canceled_at
     time :created_at
     boolean :invalidate
     time :inscription_date
