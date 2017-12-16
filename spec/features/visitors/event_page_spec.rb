@@ -80,13 +80,19 @@ feature 'Event page' do
 
     scenario 'Display event attachments public' do
       event = create(:event, title: 'Lobby event')
-      attachment1 = create(:attachment, public: true, event: event)
-      attachment2 = create(:attachment, public: false, event: event)
+      attachment_public = create(:attachment, public: true, event: event)
+      attachment_old = create(:attachment, event: event)
+      attachment_private = create(:attachment, public: false, event: event)
+      attachment_old.update_column(:public, nil)
 
       visit show_path(event)
 
-      expect(page).to have_content attachment1.title
-      expect(page).not_to have_content attachment2.title
+      expect(page).to have_content attachment_public.title
+      expect(page).to have_content attachment_public.description
+      expect(page).to have_content attachment_old.title
+      expect(page).to have_content attachment_old.description
+      expect(page).not_to have_content attachment_private.title
+      expect(page).not_to have_content attachment_private.description
     end
 
     scenario 'Display event lobby info' do

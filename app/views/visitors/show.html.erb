@@ -83,8 +83,9 @@
     </div>
     <div class="small-12 large-7 end columns">
       <% @event.attachments.each do |attachment| %>
-        <% if attachment.public %>
+        <% unless attachment.public == false %>
           <p class="post__text mb20"><%= link_to attachment.title, attachment.file.url,target: :blank %></p>
+          <%= attachment.description %>
         <% end %>
       <% end %>
     </div>

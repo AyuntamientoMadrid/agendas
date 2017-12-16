@@ -108,8 +108,8 @@
     <div class="small-6 columns"><strong><%= t('backend.contact_person.surnames') %></strong></div>
   </div>
   <div class="row">
-    <div class="small-6 columns"><%= @user.first_name %></div>
-    <div class="small-6 columns"><%= @user.last_name %></div>
+    <div class="small-6 columns"><%= @organization.user.first_name %></div>
+    <div class="small-6 columns"><%= @organization.user.last_name %></div>
   </div>
   <br>
   <div class="row">
@@ -117,8 +117,8 @@
     <div class="small-6 columns"><strong><%= t('backend.contact_person.email') %></strong></div>
   </div>
   <div class="row">
-    <div class="small-6 columns"><%= @user.phones %></div>
-    <div class="small-6 columns"><%= @user.email %></div>
+    <div class="small-6 columns"><%= @organization.user.phones %></div>
+    <div class="small-6 columns"><%= @organization.user.email %></div>
   </div>
 </fieldset>
 

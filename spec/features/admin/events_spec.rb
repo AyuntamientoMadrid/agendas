@@ -137,12 +137,38 @@ feature 'Events' do
 
       scenario 'visit show event page' do
         event = create(:event, title: 'New event from Capybara')
+        attachment_public = create(:attachment, public: true, event: event)
+        attachment_old = create(:attachment, event: event)
+        attachment_private = create(:attachment, public: false, event: event)
+        attachment_old.update_column(:public, nil)
         visit events_path
 
         click_link event.title
 
+        expect(page).to have_content event.position.holder.full_name
         expect(page).to have_content event.title
+        expect(page).to have_content event.location
+        expect(page).to have_content event.scheduled.strftime(I18n.t('time.formats.short'))
+        expect(page).to have_content event.title
+        expect(page).to have_content attachment_public.description
+        expect(page).to have_content attachment_old.description
+        expect(page).to have_content attachment_private.description
       end
+
+      scenario 'Display event lobby info' do
+        event = create(:event, title: 'Lobby event')
+        event.lobby_activity = true
+        event.event_agents << create(:event_agent)
+        event.event_represented_entities << create(:event_represented_entity)
+        event.save!
+
+        visit event_path(event)
+
+        expect(page).to have_content event.organization.name
+        expect(page).to have_content event.event_agents.first.name
+        expect(page).to have_content event.event_represented_entities.first.name
+      end
+
     end
 
     describe "edit" do
