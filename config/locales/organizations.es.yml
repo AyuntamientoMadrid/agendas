@@ -3,7 +3,7 @@ es:
   "false": "No"
 
   organizations:
-    title: Consulta del registro de lobbies
+    title: Consulta del Registro de Lobbies
     description: Consulte las organizaciones registradas.
     events_as_lobby: Reuniones realizadas
     subtitle:
@@ -67,13 +67,13 @@ es:
       events_title: "Eventos"
 
     new:
-      title: Alta en el registro de lobbies
+      title: Alta en el Registro de Lobbies
 
     edit:
-      title: Modificación en el registro de lobbies
+      title: Modificación en el Registro de Lobbies
 
     delete:
-      title: Baja en el registro de lobbies
+      title: Baja en el Registro de Lobbies
 
   backend:
     new_organization_title: "Nueva organización"
@@ -107,7 +107,7 @@ es:
         no_record: "Ninguno"
         generalitat_catalunya: "Generalidad catalunya"
         cnmc: "CNMC"
-        europe_union: "Europe union"
+        europe_union: "Unión Europea"
         others: "Otro"
 
     legal_representant:
@@ -146,6 +146,7 @@ es:
     represented_entities:
       add_represented_entities: "Añadir Entidades a las que se representa"
       title_fieldset: "Datos personas o entidades sin personalidad a quien se va a representar"
+      company: "Empresa"
       identifier: "DNI, NIF, NIE"
       name: "Nombre o razón social"
       first_surname: "Primer apellido"
@@ -167,6 +168,7 @@ es:
     agents:
       add_association: "Añadir Agentes"
       title_fieldset: "Agentes (personas habilitadas por el lobby para reunirse)"
+      agents: "Agente"
       identifier: "DNI, NIE, NIF, Pasaporte"
       name: "Nombre"
       first_surname: "Primer apellido"

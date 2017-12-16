@@ -43,6 +43,13 @@
           <small><%= event.position.title %></small>
         </td>
         <td class="event_actions">
+
+          <%= link_to event_path(event),
+                      target: :_blank,
+                      title: t('organizations.show.title') do %>
+            <i class="step fi-eye size-24"></i>
+          <% end %>
+
           <%= link_to edit_event_path(event), title: t('backend.edit') do %>
               <i class="step fi-page-edit size-24"></i>
             <% end if can? :edit, event %>

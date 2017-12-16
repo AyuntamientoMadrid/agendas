@@ -148,11 +148,11 @@
             <p>
               <strong><%= t('organizations.show.represented_entity_subvention') %> : </strong>
               <br />
-              <%= t(represented_entity.subvention.to_s) %>
+              <%= t(represented_entity.subvention.to_s) if @organization.subvention? %>
             </p>
             <p><strong><%= t('organizations.show.represented_entity_contract') %> : </strong>
               <br />
-              <%= t(represented_entity.contract.to_s) %>
+              <%= t(represented_entity.contract.to_s) if @organization.contract? %>
             </p>
           </div>
             <% end %>

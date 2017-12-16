@@ -27,10 +27,16 @@
                   <%= t("backend.logout")%>
                 <% end %>
               </li>
+              <li>
+                <%= link_to '/admin' do %>
+                  <%= t("backend.btn_admin")%>
+                <% end %>
+              </li>
             <% else %>
               <li>
-                <a href="<%= admin_path %>" class="button"><%= t('header.btn_login') %></a>
-                <%#= link_to 'Registrarse', root_path, class: "button" %>
+                <% if current_page?(registration_lobbies_index_path) || current_page?(organizations_path) %>
+                  <a href="<%= admin_path %>" class="button"><%= t('header.btn_login') %></a>
+                <% end %>
               </li>
             <% end %>
           </ul>
@@ -51,7 +57,10 @@
               <%= link_to t('header.btn_registration_lobbies'), registration_lobbies_index_path, class: current_class(registration_lobbies_index_path) || current_class(organizations_path)  %>
             </li>
             <li>
-              <%= link_to t('header.btn_regulations'), nil %>
+              <%= link_to t('header.btn_regulations'), 'https://transparencia.madrid.es/portales/transparencia/es/Informacion-juridica/Huella-normativa?vgnextfmt=default&vgnextchannel=4099508929a56510VgnVCM1000008a4a900aRCRD', target: 'blank' %>
+            </li>
+            <li>
+              <%= link_to t('header.btn_help'), nil %>
             </li>
           </ul>
         </div>

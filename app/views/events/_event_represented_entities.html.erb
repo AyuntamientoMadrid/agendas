@@ -7,14 +7,16 @@
       <%= render 'event_represented_entities_fields', f: represented_entity %>
     <% end %>
   </div>
-  <div class="small-12 columns">
-    <%= link_to_add_association t('backend.add'), f, :event_represented_entities,
-                               partial: "event_represented_entities_fields",
-                               id: "event_represented_entities_link",
-                               class: "button tiny radius info",
-                               data:  {
-                                 association_insertion_node: "#nested-event-represented-entities",
-                                 association_insertion_method: "append"
-                               } %>
-  </div>
+
+    <div class="small-12 columns">
+      <%= link_to_add_association t('backend.add'), f, :event_represented_entities,
+                                 partial: "event_represented_entities_fields",
+                                 id: "event_represented_entities_link",
+                                 class: "button tiny radius info",
+                                 data:  {
+                                   association_insertion_node: "#nested-event-represented-entities",
+                                   association_insertion_method: "append"
+                                 } %>
+    </div>
+
 </div>

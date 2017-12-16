@@ -2,6 +2,7 @@ es:
   site_title: "Ayuntamiento de Madrid > Transparencia > Agendas"
   site_description: "Pendiente de definir"
   back: "Volver"
+
   header:
     page_language: "Idioma de la página"
     spanish: "Español"
@@ -20,6 +21,7 @@ es:
     btn_agenda: "Agenda"
     btn_registration_lobbies: "Registro de lobbies"
     btn_regulations: "Huella normativa"
+    btn_help: "Ayuda"
     title_home: "Transparencia en la Toma de decisiones"
     lead_home_html: "El Ayuntamiento de Madrid quiere que la toma de decisiones de sus máximos responsables sea un proceso abierto y transparente.<br> A continuación puedes consultar todos los detalles."
     title_registration_lobbies_html: "Registro de Lobbies de la Ciudad de Madrid"
@@ -65,7 +67,7 @@ es:
   btn_access: "Acceder"
 
   main:
-    title: "Agendas públicas"
+    title: "Registro de Lobbies"
     any_errors: "¿Hay algún error en esta página?"
     get_updates: "Recibe actualizaciones de esta lista"
     share: "Compartir"
