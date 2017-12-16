@@ -63,4 +63,47 @@ feature 'Event page' do
     expect(page).to have_content "Test for check lobby_activity for visitors"
   end
 
+  describe 'show' do
+
+    scenario 'Display event mandatory info' do
+      event = create(:event, title: 'Lobby event')
+
+      visit show_path(event)
+
+      expect(page).to have_content event.title
+      expect(page).to have_content event.location
+      expect(page).to have_content event.description
+      expect(page).to have_content event.position.holder.first_name
+      expect(page).to have_content event.position.title.custom_titleize
+      expect(page).to have_content event.position.area.title.custom_titleize
+    end
+
+    scenario 'Display event attachments public' do
+      event = create(:event, title: 'Lobby event')
+      attachment1 = create(:attachment, public: true, event: event)
+      attachment2 = create(:attachment, public: false, event: event)
+
+      visit show_path(event)
+
+      expect(page).to have_content attachment1.title
+      expect(page).not_to have_content attachment2.title
+    end
+
+    scenario 'Display event lobby info' do
+      event = create(:event, title: 'Lobby event')
+      event.lobby_activity = true
+      event.event_agents << create(:event_agent)
+      event.event_represented_entities << create(:event_represented_entity)
+      event.save!
+
+      visit show_path(event)
+
+      expect(page).to have_content event.organization.name
+      expect(page).to have_content event.event_agents.first.name
+      expect(page).to have_content event.event_represented_entities.first.name
+    end
+
+  end
+
+
 end
