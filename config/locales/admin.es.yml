@@ -1,5 +1,6 @@
 es:
   backend:
+    menu_title: "Gestión del lobby"
     close: "Cerrar"
     logout: "Salir"
     access_denied: "No dispone de privilegios suficientes para realizar esta operación"
@@ -126,9 +127,10 @@ es:
     description: "Descripción"
     new_event: "Nuevo evento"
     edit_event: "Editar evento"
-    add_agents: "Añadir agentes"
-    add_interests: "Añadir intereses"
-    show_company: "Ver datos organización"
+    edit_agents: "Editar agentes"
+    edit_title_interests: "Editar áreas de interés"
+    add_interests: "Editar intereses"
+    show_company: "Ver datos lobby"
     activity: "Registro de Actividad"
     entries: "Registros"
     change_password: "Cambiar contraseña"

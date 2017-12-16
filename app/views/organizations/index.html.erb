@@ -53,13 +53,14 @@
     <% @paginated_organizations.each do |organization| %>
       <%= render organization %>
     <% end %>
+    <%= paginate @organizations.hits %>
   </div>
 </div>
 
 <div class="row">
   <div class="small-12 columns mb20">
     <div class="text-left">
-      <%= paginate @organizations.hits %>
+
     </div>
   </div>
 </div>

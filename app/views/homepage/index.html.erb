@@ -3,37 +3,48 @@
 <div data-equalizer>
   <div class="small-12 medium-4 column">
     <figure data-equalizer-watch>
-      <%= image_tag 'homepage/agendas.jpg', alt: t('home.agendas_title') %>
+      <%= link_to visitors_path  do %>
+        <%= image_tag 'homepage/agendas.jpg', alt: t('home.agendas_title') %>
+      <% end %>
       <div class="content">
-        <p><strong><%= t'home.agendas_title' %></strong></p>
+        <%= link_to visitors_path  do %>
+          <p><strong><%= t'home.agendas_title' %></strong></p>
+        <% end %>
         <p>
           <%= t'home.agendas_description' %>
         </p>
-        <%= link_to t('btn_access'), visitors_path  %>
       </div>
     </figure>
   </div>
   <div class="small-12 medium-4 column">
     <figure data-equalizer-watch>
-      <%= image_tag 'homepage/lobby-register.jpg', alt: t('home.register_lobby_title') %>
+      <%= link_to organizations_path do %>
+        <%= image_tag 'homepage/lobby-register.jpg', alt: t('home.register_lobby_title') %>
+      <% end %>
       <div class="content">
-        <p><strong><%= t'home.register_lobby_title' %> </strong></p>
+        <%= link_to organizations_path do %>
+          <p><strong><%= t'home.register_lobby_title' %> </strong></p>
+        <% end %>
         <p>
           <%= t'home.register_lobby_description' %>
         </p>
-        <%= link_to t('btn_access'), organizations_path  %>
+
       </div>
     </figure>
   </div>
   <div class="small-12 medium-4 column">
     <figure data-equalizer-watch>
-      <%= image_tag 'homepage/normative-footprint.jpg', alt: t('home.regulations_title')%>
+      <%= link_to 'https://transparencia.madrid.es/portales/transparencia/es/Informacion-juridica/Huella-normativa?vgnextfmt=default&vgnextchannel=4099508929a56510VgnVCM1000008a4a900aRCRD', target: 'blank' do  %>
+        <%= image_tag 'homepage/normative-footprint.jpg', alt: t('home.regulations_title')%>
+      <% end %>
+
       <div class="content">
-        <p><strong><%= t'home.regulations_title' %></strong></p>
+        <%= link_to 'https://transparencia.madrid.es/portales/transparencia/es/Informacion-juridica/Huella-normativa?vgnextfmt=default&vgnextchannel=4099508929a56510VgnVCM1000008a4a900aRCRD', target: 'blank' do  %>
+          <p><strong><%= t'home.regulations_title' %></strong></p>
+        <% end %>
         <p>
-            <%= t'home.regulations_description' %>
+          <%= t'home.regulations_description' %>
         </p>
-        <%= link_to t('btn_access'), 'https://transparencia.madrid.es/portales/transparencia/es/Informacion-juridica/Huella-normativa?vgnextfmt=default&vgnextchannel=4099508929a56510VgnVCM1000008a4a900aRCRD', target: 'blank'  %>
       </div>
     </figure>
   </div>

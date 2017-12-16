@@ -66,7 +66,7 @@
       <strong><%= t('backend.identifying_data.province') %></strong>: <%= @organization.province %>
     </div>
     <div class="small-12 columns">
-      <strong><%= t('backend.identifying_data.description') %></strong>: <%= @organization.description %>
+      <strong><%= t('backend.identifying_data.description') %></strong>: <%= @organization.description.html_safe if @organization.description.present?%>
     </div>
     <div class="small-12 columns">
       <strong><%= t('backend.identifying_data.registered_lobbies_title') %></strong>: <%= t("backend.identifying_data.registered_lobbies.#{@organization.registered_lobbies}") %>
@@ -170,7 +170,7 @@
         <div class="small-6 columns"><strong><%= t('backend.represented_entities.fiscal_year') %></strong></div>
       </div>
       <div class="row">
-        <div class="small-6 columns"><%= represented_entity.from %></div>
+        <div class="small-6 columns"><%= represented_entity.from.strftime("%d/%m/%Y") if represented_entity.from.present? %></div>
         <div class="small-6 columns"><%= represented_entity.fiscal_year %></div>
       </div>
       <br>
@@ -228,12 +228,12 @@
       <div class="small-6 columns"><strong><%= t('backend.agents.to') %></strong></div>
     </div>
     <div class="row">
-      <div class="small-6 columns"><%= agent.from %></div>
-      <div class="small-6 columns"><%= agent.to %></div>
+      <div class="small-6 columns"><%= agent.from.strftime("%d/%m/%Y") if agent.from.present? %></div>
+      <div class="small-6 columns"><%= agent.to.strftime("%d/%m/%Y") if agent.to.present? %></div>
     </div>
     <br>
     <div class="row">
-      <div class="small-12 columns"><strong><%= t('backend.agents.public_assignments') %></strong></div>
+      <div class="small-12 columns"><strong><%= t('backend.agents.public_assignments_only_show') %></strong></div>
     </div>
     <div class="row">
       <div class="small-12 columns"><%= agent.public_assignments.html_safe %></div>
@@ -242,7 +242,7 @@
   <% end %>
 </fieldset>
 
-<fieldset>
+<fieldset class="terms-fieldset">
   <legend><%= t('backend.terms.title_fieldset') %></legend>
   <div class="row">
     <div class="small-12 column">
@@ -250,14 +250,11 @@
       <br />
       <%= check_box_tag :denied_public_data, nil, @organization.denied_public_data, disabled: true %> Confirmar
       <br />
-
       <small><%= t('backend.terms.denied_public_events') %></small>
       <br />
       <%= check_box_tag :denied_public_events, nil, @organization.denied_public_events, disabled: true %> Confirmar
       <br />
-
       <small><%= t('backend.terms.last_text') %></small>
-
     </div>
   </div>
 </fieldset>

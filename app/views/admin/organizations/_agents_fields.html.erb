@@ -38,12 +38,13 @@
 
   <div class="small-12 columns">
     <%= f.label :public_assignments, t('backend.agents.public_assignments') %>
+    <br />
     <%= f.text_area :public_assignments %>
     <%= form_field_errors(f, :public_assignments) %>
   </div>
 
   <div class="small-12 columns">
-    <small><%= t('backend.agents.only_fill_if_answer') %> </small>
+    <br />
     <%= link_to_remove_association "Eliminar", f, class: "button tiny radius alert right" %>
     <hr />
   </div>

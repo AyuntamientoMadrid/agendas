@@ -31,7 +31,7 @@ en:
       association: 'Asociación'
       legal_representant_title: "Representante legal"
       legal_representant_name: "Nombres/Apellidos o Razón Social"
-      display_user_title: "Persona fisica de contacto"
+      display_user_title: "Persona física de contacto"
       user_name: "Nombre/Apellidos"
       fiscal_year_title: "Datos de quien va a ejercer la actividad de lobby por cuenta propia"
       fiscal_year: "Ejercicio anual"
@@ -115,7 +115,7 @@ en:
       email: "Correo electrónico"
 
     contact_person:
-      title_fieldset: "Persona fisica de contacto"
+      title_fieldset: "Persona física de contacto"
       name: "Nombre"
       surnames: "Apellidos"
       phone: "Teléfono"
@@ -137,7 +137,7 @@ en:
 
     represented_entities:
       add_represented_entities: "Añadir Entidades a las que se representa"
-      title_fieldset: "Datos personas o entidades sin personalidad a quines se va a representar"
+      title_fieldset: "Datos personas o entidades sin personalidad a quien se va a representar"
       identifier: "DNI, NIF, NIE"
       name: "Nombre o razón social"
       first_surname: "Primer apellido"
@@ -160,14 +160,14 @@ en:
     agents:
       add_association: "Añadir Agentes"
       title_fieldset: "Agentes"
-      identifier: "DNI, NIE, NIF"
+      identifier: "DNI, NIE, NIF, Pasaporte"
       name: "Nombre"
       first_surname: "Primer apellido"
       second_surname: "Segundo apellido"
       from: "Desde"
       to: "Hasta"
-      public_assignments: "¿Las personas fisicas que van actuar por cuenta de quien se inscribe han trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe en los dos años previos a la fecha de presentaciòn de la declaración responsable?"
-      only_fill_if_answer: "Solo rellenar el campo en caso de cumplir la pregunta."
+      public_assignments: "¿Esta persona ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe, en algún momento de los dos años previos a la fecha desde la que va actuar por cuenta de quien se inscribe? En caso afirmativo, indique los datos (organismo, puesto o cargo y las fechas en las que lo desempeñó)"
+      public_assignments_only_show: "¿Esta persona ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe, en algún momento de los dos años previos a la fecha desde la que va actuar por cuenta de quien se inscribe?"
 
     terms:
       title_fieldset: "Aceptacion condiciones declaración responsable"
