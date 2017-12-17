@@ -945,8 +945,8 @@ feature 'Organization' do
   describe "Lobby" do
 
     background do
-      organization = create(:organization)
-      @lobby = create(:user, :lobby, organization: organization)
+      @lobby = create(:user, :lobby)
+      organization = create(:organization, user: @lobby)
       signin(@lobby.email, @lobby.password)
 
       @interest = create(:interest)

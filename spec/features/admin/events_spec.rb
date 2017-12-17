@@ -53,6 +53,18 @@ feature 'Events' do
         expect(page).not_to have_selector('#event_lobby_scheduled')
       end
 
+      scenario 'visit new event form and not render canceled option' do
+        visit new_event_path
+
+        expect(page).not_to have_content('Cancelar evento')
+      end
+
+      scenario 'visit new event form and not render rejected option' do
+        visit new_event_path
+
+        expect(page).not_to have_content('Rechazar evento')
+      end
+
     end
 
     describe "edit" do
@@ -119,6 +131,21 @@ feature 'Events' do
         expect(page).to have_content("General remark")
       end
 
+      scenario 'visit edit event form and render canceled option' do
+        event = create(:event, position: @position)
+
+        visit edit_event_path(event)
+
+        expect(page).to have_content('Cancelar evento')
+      end
+
+      scenario 'visit edit event form and render rejected option' do
+        event = create(:event, position: @position)
+
+        visit edit_event_path(event)
+
+        expect(page).to have_content('Rechazar evento')
+      end
 
     end
 
@@ -205,6 +232,43 @@ feature 'Events' do
           expect(page).to have_selector("input[value='lobbyemail@email.com']")
         end
       end
+
+      scenario "User can decline events", :js do
+        skip('Related issue #162')
+        event = create(:event, position: @position)
+        visit edit_event_path(event)
+
+        page.find_by_id("decline-reason", visible: false)
+        page.choose('event_decline_true')
+        page.find_by_id("decline-reason", visible: true)
+        editor = page.find_by_id('decline-reason')
+        editor.native.send_keys 'test'
+
+        click_button "Guardar"
+
+        expect(page).not_to have_selector "#event_decline_true"
+      end
+
+      scenario "User can't decline events without a reason", :js do
+        event = create(:event)
+        visit edit_event_path(event)
+        page.find_by_id("decline-reason", visible: false)
+        page.choose('event_decline_true')
+        page.find_by_id("decline-reason", visible: true)
+
+        click_button "Guardar"
+
+        expect(page).to have_content I18n.t('backend.event.decline_reasons_needed'), count: 1
+      end
+
+      scenario "User can decline events only once!" do
+        event_requested = create(:event, title: 'Event on request', position: @position, status: 0,
+                                         declined_reasons: 'test', declined_at: Time.zone.today)
+        visit edit_event_path(event_requested)
+
+        expect(page).not_to have_selector "#event_decline_true"
+      end
+
     end
 
     describe "index" do
@@ -654,6 +718,18 @@ feature 'Events' do
         expect(page).not_to have_selector('#event_scheduled')
         expect(page).not_to have_selector('#event_published_at')
       end
+
+      scenario 'visit new event form and not render canceled option' do
+        visit new_event_path
+
+        expect(page).not_to have_content('Cancelar evento')
+      end
+
+      scenario 'visit new event form and not render rejected option' do
+        visit new_event_path
+
+        expect(page).not_to have_content('Rechazar evento')
+      end
     end
 
     describe "Create" do
@@ -902,42 +978,6 @@ feature 'Events' do
         expect(page).not_to have_selector "#event_cancel_true"
       end
 
-      scenario "User can decline events", :js do
-        event = create(:event, organization: @organization)
-        visit edit_event_path(event)
-
-        page.find_by_id("decline-reason", visible: false)
-        page.choose('event_decline_true')
-        page.find_by_id("decline-reason", visible: true)
-        editor = page.find_by_id('decline-reason')
-        editor.native.send_keys 'test'
-        find("#position_id", :visible => false).set(@position.id)
-
-        click_button "Guardar"
-
-        expect(page).not_to have_selector "#event_decline_true"
-      end
-
-      scenario "User can't decline events without a reason", :js do
-        event = create(:event, organization: @organization)
-        visit edit_event_path(event)
-        page.find_by_id("decline-reason", visible: false)
-        page.choose('event_decline_true')
-        page.find_by_id("decline-reason", visible: true)
-
-        click_button "Guardar"
-
-        expect(page).to have_content I18n.t('backend.event.decline_reasons_needed'), count: 1
-      end
-
-      scenario "User can decline events only once!" do
-        event_requested = create(:event, title: 'Event on request', position: @position, status: 0,
-                                         declined_reasons: 'test', declined_at: Time.zone.today, organization: @organization)
-        visit edit_event_path(event_requested)
-
-        expect(page).not_to have_selector "#event_decline_true"
-      end
-
       scenario 'Lobby user can see on page the name of the organization' do
         event = create(:event, organization_name: "Organization name", position: @position,
                                organization: @organization)
@@ -986,6 +1026,21 @@ feature 'Events' do
         expect(event.lobby_contact_email).to eq 'new_loby@email.com'
       end
 
+      scenario 'visit edit event form and render canceled option' do
+        event = create(:event)
+
+        visit edit_event_path(event)
+
+        expect(page).to have_content('Cancelar evento')
+      end
+
+      scenario 'visit edit event form and not render rejected option' do
+        event = create(:event)
+
+        visit edit_event_path(event)
+
+        expect(page).not_to have_content('Rechazar evento')
+      end
     end
 
   end
