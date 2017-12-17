@@ -1,4 +1,11 @@
 es:
+  status:
+    requested: "Pedido"
+    accepted: "Aceptado"
+    done: "Hecho"
+    declined: "Rechazado"
+    canceled: "Cenceld"
+
   errors:
     format: "%{attribute}  %{message}"
     messages: &errors_messages

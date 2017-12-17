@@ -274,7 +274,7 @@ feature 'Events' do
     describe "index" do
 
       scenario 'visit search by title' do
-        event = create(:event, title: 'New event from Capybara')
+        event = create(:event, title: 'Nueva solicitud')
         visit events_path
 
         fill_in :search_title, with: 'Capybara'
@@ -284,7 +284,7 @@ feature 'Events' do
       end
 
       scenario 'visit search by person' do
-        event = create(:event, title: 'New event from Capybara')
+        event = create(:event, title: 'Nueva solicitud')
         name = event.position.holder.first_name
         visit events_path
 
@@ -635,7 +635,7 @@ feature 'Events' do
             end
           end
 
-          scenario "When radio lobby lobby activity is set to true, only can save selecting an agent", :js do
+          scenario "When radio lobby activity is set to true, only can save selecting an agent", :js do
             new_position = create(:position)
             organization = create(:organization)
             agent = create(:agent, organization: organization)
@@ -652,7 +652,6 @@ feature 'Events' do
               select agent.name
             end
             click_button "Guardar"
-
             expect(page).to have_content "Registro creado correctamente"
           end
 
@@ -756,7 +755,6 @@ feature 'Events' do
         choose_autocomplete :event_position_title, with: @position.title, select: @position.title
         find("#position_id", :visible => false).set(@position.id)
         click_button I18n.t('backend.save')
-
         expect(page).to have_content 'Registro creado correctamente'
       end
 
@@ -937,7 +935,7 @@ feature 'Events' do
         fill_in :event_title, with: "Editar evento"
         click_button "Guardar"
 
-        expect(page).to have_content "Eventos"
+        expect(page).to have_content "Solicitud de evento"
       end
 
       scenario "User can cancel events", :js do
@@ -1054,9 +1052,9 @@ feature 'Events' do
       signin(user_admin.email, user_admin.password)
     end
 
-    scenario 'filter events by one status on multiselect' do
-      create(:event, title: 'Test for check status requested', status: 0)
-      create(:event, title: 'Test for check status accepted', status: 1)
+    scenario 'filter events by one status on multiselect', :js do
+      create(:event, title: 'Test for check status requested', status: 0, lobby_activity: true)
+      create(:event, title: 'Test for check status accepted', status: 1, lobby_activity: true)
       visit events_path
 
       select "Solicitada", from: :status
@@ -1067,9 +1065,9 @@ feature 'Events' do
     end
 
     scenario 'filter events by more than one status on multiselect' do
-      create(:event, title: 'Test for check status requested', status: 0)
-      create(:event, title: 'Test for check status accepted', status: 1)
-      create(:event, title: 'Test for check status done', status: 2)
+      create(:event, title: 'Test for check status requested', status: 0, lobby_activity: true)
+      create(:event, title: 'Test for check status accepted', status: 1, lobby_activity: true)
+      create(:event, title: 'Test for check status done', status: 2, lobby_activity: true)
       visit events_path
 
       select "Solicitada", from: :status

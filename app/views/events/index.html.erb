@@ -14,6 +14,7 @@
         <th><%= t('backend.event.title')%></th>
         <th><%= t('backend.holder')%></th>
         <th><%= t('backend.actions')%></th>
+        <th><%= t('backend.state')%></th>
       </tr>
     </thead>
     <tfoot>
@@ -22,6 +23,7 @@
         <th><%= t('backend.event.title')%></th>
         <th><%= t('backend.holder')%></th>
         <th><%= t('backend.actions')%></th>
+        <th><%= t('backend.state')%></th>
       </tr>
     </tfoot>
     <tbody>
@@ -43,6 +45,13 @@
           <small><%= event.position.title %></small>
         </td>
         <td class="event_actions">
+
+          <%= link_to event_path(event),
+                      target: :_blank,
+                      title: t('organizations.show.title') do %>
+            <i class="step fi-eye size-24"></i>
+          <% end %>
+
           <%= link_to edit_event_path(event), title: t('backend.edit') do %>
               <i class="step fi-page-edit size-24"></i>
             <% end if can? :edit, event %>
@@ -53,6 +62,9 @@
           <%= link_to event.attachments.first.file.url, target: :_blank do %>
             <i class="step fi-archive size-24"></i>
           <% end if event.attachments.size > 0 %>
+        </td>
+        <td class="event_actions">
+          <%= t("status.#{event.status}") %>
         </td>
       </tr>
       <% end %>

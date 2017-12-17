@@ -31,9 +31,9 @@ en:
       association: 'Asociación'
       legal_representant_title: "Representante legal"
       legal_representant_name: "Nombres/Apellidos o Razón Social"
-      display_user_title: "Persona fisica de contacto"
+      display_user_title: "Persona física de contacto"
       user_name: "Nombre/Apellidos"
-      fiscal_year_title: "Datos de quien va a ejercer la actividad de lobby por cuenta propria"
+      fiscal_year_title: "Datos de quien va a ejercer la actividad de lobby por cuenta propia"
       fiscal_year: "Ejercicio anual"
       range_fund: "Fondos dedicados a la actividad e lobby"
       subvention: "Ayudas y/o subvenciones recibidas del Ayto"
@@ -54,7 +54,7 @@ en:
       agents_from: "Fecha de inicio de representación"
       agents_to: "Fecha de fin de representación"
 
-      interests_title: "Area de interés"
+      interests_title: "Área de interés"
 
       events_title: "Events"
 
@@ -101,7 +101,7 @@ en:
         no_record: "Ninguno"
         generalitat_catalunya: "Generalidad catalunya"
         cnmc: "CNMC"
-        europe_union: "Europe union"
+        europe_union: "Unión Europea"
         others: "Otro"
 
     legal_representant:
@@ -115,7 +115,7 @@ en:
       email: "Correo electrónico"
 
     contact_person:
-      title_fieldset: "Persona fisica de contacto"
+      title_fieldset: "Persona física de contacto"
       name: "Nombre"
       surnames: "Apellidos"
       phone: "Teléfono"
@@ -137,7 +137,7 @@ en:
 
     represented_entities:
       add_represented_entities: "Añadir Entidades a las que se representa"
-      title_fieldset: "Datos personas o entidades sin personalidad a quines se va a representar"
+      title_fieldset: "Datos personas o entidades sin personalidad a quien se va a representar"
       identifier: "DNI, NIF, NIE"
       name: "Nombre o razón social"
       first_surname: "Primer apellido"
@@ -155,19 +155,19 @@ en:
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
 
     interest:
-      title_fieldset: "Area de Interés"
+      title_fieldset: "Área de Interés"
 
     agents:
       add_association: "Añadir Agentes"
       title_fieldset: "Agentes"
-      identifier: "DNI, NIE, NIF"
+      identifier: "DNI, NIE, NIF, Pasaporte"
       name: "Nombre"
       first_surname: "Primer apellido"
       second_surname: "Segundo apellido"
       from: "Desde"
       to: "Hasta"
-      public_assignments: "¿Las personas fisicas que van actuar por cuenta de quien se inscribe han trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe en los dos años previos a la fecha de presentaciòn de la declaración responsable?"
-      only_fill_if_answer: "Solo rellenar el campo en caso de cumplir la pregunta."
+      public_assignments: "¿Esta persona ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe, en algún momento de los dos años previos a la fecha desde la que va actuar por cuenta de quien se inscribe? En caso afirmativo, indique los datos (organismo, puesto o cargo y las fechas en las que lo desempeñó)"
+      public_assignments_only_show: "¿Esta persona ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe, en algún momento de los dos años previos a la fecha desde la que va actuar por cuenta de quien se inscribe?"
 
     terms:
       title_fieldset: "Aceptacion condiciones declaración responsable"

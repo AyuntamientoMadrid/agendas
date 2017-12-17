@@ -14,7 +14,7 @@ $(function(){
   });
 
   $.validator.addMethod("valueNotEquals", function(value, element, arg){
-    agent = $("#nested-event-agents div.small-12.medium-6.columns select").val();
+    agent = $("#nested-event-agents div.small-12.medium-8.columns select").val();
     delete_agents = $("#nested-event-agents .nested-fields.agents:visible").length
     if (($("#event_lobby_activity_true").is(':checked')) && ((delete_agents == 0) || (agent == '' ||
       typeof(agent) == 'undefined' ||

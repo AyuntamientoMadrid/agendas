@@ -14,10 +14,10 @@
   <%= render 'terms', f:f if current_user.admin? %>
 
   <div class="row">
-    <div class="small-8 column">
+    <div class="small-4 medium-6 large-8 column">
       &nbsp
     </div>
-    <div class="small-2 column">
+    <div class="small-4 medium-3 large-2 column">
       <% if @organization.id && current_user.admin? %>
         <% if @organization.invalidate %>
           <%= link_to t('backend.validate'), admin_organization_path(@organization, organization: {invalidate: false}), method: :put, :class=> "button radius success right" %>
@@ -26,7 +26,7 @@
         <% end %>
       <% end %>
     </div>
-    <div class="small-2 column">
+    <div class="small-4 medium-3 large-2 column">
       <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
     </div>
   </div>

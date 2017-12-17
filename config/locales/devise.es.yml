@@ -3,11 +3,11 @@
 es:
   devise:
     sign_in: "Entrar"
-    email: "email"
-    password: "password"
-    forgot_password: "¿ Contraseña olvidada ?"
+    email: "Correo electrónico"
+    password: "Contraseña"
+    forgot_password: "¿ Olvidó contraseña ?"
     remember: "Recordar en este ordenador"
-    password_reset_instructions: "Le enviaremos instrucciones de restablecimiento de contraseña"
+    password_reset_instructions: "Te enviaremos instrucciones de restablecimiento de contraseña"
     reset_password: "Restablecer la contraseña"
     confirmations:
       confirmed: "Tu cuenta ha sido confirmada."

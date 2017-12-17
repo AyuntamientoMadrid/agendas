@@ -367,13 +367,20 @@ feature 'Organizations page' do
 
   describe "Show" do
 
-    scenario "Should display organization title and id" do
-      organization = create(:organization)
+    describe "organization status" do
+      scenario "Should display organization status active" do
+        organization = create(:organization)
 
-      visit organization_path(organization)
+        visit organization_path(organization)
+        expect(page).to have_content "Estado: Activo"
+      end
 
-      expect(page).to have_content "Estado:"
-      expect(page).to have_content organization.id
+      scenario "Should display organization canceled" do
+        organization = create(:organization, canceled_at: Date.current)
+
+        visit organization_path(organization)
+        expect(page).to have_content "Estado: Baja"
+      end
     end
 
     scenario "Should display organization data" do
@@ -436,7 +443,7 @@ feature 'Organizations page' do
 
       visit organization_path(organization)
 
-      expect(page).to have_content "Datos de quien va a ejercer la actividad de lobby por cuenta propria"
+      expect(page).to have_content "Datos de quien va a ejercer la actividad de lobby por cuenta propia"
       expect(page).to have_content organization.fiscal_year
       expect(organization.range_fund).to eq('range_1')
       expect(organization.subvention).to eq(false)
@@ -517,7 +524,7 @@ feature 'Organizations page' do
 
       click_on "Volver"
 
-      expect(page).to have_content("Consulta del registro de lobbies")
+      expect(page).to have_content("Consulta del Registro de Lobbies")
     end
 
   end

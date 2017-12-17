@@ -2,6 +2,7 @@ es:
   site_title: "Ayuntamiento de Madrid > Transparencia > Agendas"
   site_description: "Pendiente de definir"
   back: "Volver"
+
   header:
     page_language: "Idioma de la página"
     spanish: "Español"
@@ -20,6 +21,7 @@ es:
     btn_agenda: "Agenda"
     btn_registration_lobbies: "Registro de lobbies"
     btn_regulations: "Huella normativa"
+    btn_help: "Ayuda"
     title_home: "Transparencia en la Toma de decisiones"
     lead_home_html: "El Ayuntamiento de Madrid quiere que la toma de decisiones de sus máximos responsables sea un proceso abierto y transparente.<br> A continuación puedes consultar todos los detalles."
     title_registration_lobbies_html: "Registro de Lobbies de la Ciudad de Madrid"
@@ -65,7 +67,7 @@ es:
   btn_access: "Acceder"
 
   main:
-    title: "Agendas públicas"
+    title: "Registro de Lobbies"
     any_errors: "¿Hay algún error en esta página?"
     get_updates: "Recibe actualizaciones de esta lista"
     share: "Compartir"
@@ -96,8 +98,8 @@ es:
       inscription_date_asc: "Fecha de inscripción ascendente"
       inscription_date_desc: "Fecha de inscripción descendente"
       agent: "Nombre o apellido del agente"
-      filter_by_interests: "Filtrar por intereses"
-      filter_by_category: "Filtrar por categorias"
+      filter_by_interests: "Filtrar por área de interés"
+      filter_by_category: "Filtrar por categoría del lobby"
   show:
     participants: "Asisten"
     location: "Lugar"
@@ -138,15 +140,13 @@ es:
     email_placeholder: "Añade tu email"
     phone: "Teléfono"
     phone_placeholder: "Añade tu teléfono"
-    text_block_first_html: "La información que se envíe a través de este formulario será comunicada a la Comisión de Seguimiento de la Ordenanza de Transparencia."
-    text_block_second_html: "<strong>Posibles causas de incumplimiento:</strong><br />La ordenanza de transparencia de la Ciudad de Madrid, establece en su CAPÍTULO VI. Registro de lobbies, y en su artículo 37.1, lo siguiente:"
-    text_block_third:
-      title: "La inscripción en el Registro de lobbies supone las siguientes obligaciones:"
+    text_block_first_html: "La Ordenanza de Transparencia de la Ciudad de Madrid exige a quienes estén inscritos en el Registro de Lobbies cumplir con un Código de Conducta que incluye las siguientes obligaciones:"
+    text_block_second:
       first: "a) Aceptar que la información proporcionada se haga pública."
       second: "b) No obtener ni tratar de obtener la información o influir en la toma de decisiones de forma deshonesta."
       third: "c) Proporcionar información actualizada y no engañosa en el momento de inscribirse en el Registro y de mantenerla actualizada, y garantizar que la que se suministre en cumplimiento de lo dispuesto en esta ordenanza es correcta y fidedigna."
       four: "d) No incitar a los titulares de los órganos directivos a incumplir lo dispuesto en este capítulo."
-    text_block_fourth: "Si consideras que se han incumplido alguna de estas obligaciones, o si consideras que se ha producido una reunión con objeto de lobby de una entidad o persona que no esté inscrita en dicho registro, puedes comunicarlo al Ayuntamiento."
+    text_block_fourth_html: "Si tienes conocimiento de que alguna de las personas o entidades inscritas en el Registro ha incumplido alguna de estas obligaciones o si consideras que se ha llevado a cabo alguna actividad de lobby por parte personas o entidades no inscritas, puedes hacérnoslo saber utilizando el siguiente formulario: <br>Los mensajes que se reciban se pondrán en conocimiento de la <a href='https://transparencia.madrid.es/portales/transparencia/es/Portada/Que-es-transparencia-/Comision-de-Seguimiento-de-la-Ordenanza-de-Transparencia?vgnextfmt=default&vgnextoid=7b632ecbb1f2c510VgnVCM2000001f4a900aRCRD&vgnextchannel=9f14003bba020610VgnVCM1000001d4a900aRCRD' target='blank'>Comisión de Seguimiento de la Ordenanza de Transparencia de la Ciudad de Madrid.</a>"
     send: "Enviar"
     sent: "Email enviado correctamente"
     error: "El fichero %{error}"

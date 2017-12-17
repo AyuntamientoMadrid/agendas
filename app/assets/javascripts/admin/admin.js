@@ -26,9 +26,9 @@
 
 $(function() {
   $(document).foundation();
-  
+
   tinymce.init({
-    selector: 'textarea',
+    selector : "textarea:not(.mceNoEditor)",
     language : 'es'
   });
 });

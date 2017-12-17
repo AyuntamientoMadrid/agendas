@@ -11,7 +11,7 @@
       <h3><%= t'devise.forgot_password' %></h3>
       <p><%= t'devise.password_reset_instructions' %></p>
       <div class="form-group">
-        <%= f.label :email %>
+        <%= f.label t('devise.email') %>
         <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
       </div>
        <%= f.submit t('devise.reset_password'), :class => 'button right' %>

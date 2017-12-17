@@ -1,4 +1,11 @@
 en:
+  status:
+    requested: "Requested"
+    accepted: "Accepted"
+    done: "Done"
+    declined: "Declined"
+    canceled: "Canceled"
+
   errors:
     format: "%{attribute} %{message}"
 
@@ -64,4 +71,4 @@ en:
       event/attachments:
         title: "Archivo adjunto: Título"
         file: "Archivo adjunto: Archivo"
-        public: "Archivo adjunto: Privacidad"        
+        public: "Archivo adjunto: Privacidad"

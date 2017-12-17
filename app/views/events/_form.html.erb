@@ -115,6 +115,7 @@
         <% end %>
 
         <%= render 'event_represented_entities', f:f %>
+        <hr />
         <%= render 'event_agents', f:f %>
 
       </div>
@@ -128,7 +129,7 @@
         <% end %>
       </div>
       <div class="small-12 column">
-        <%= link_to_add_association t('backend.add'), f, :attendees, :class => "button radius tiny info right add-attendee",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attendees' %>
+        <%= link_to_add_association t('backend.add'), f, :attendees, :class => "button radius tiny info add-attendee right",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attendees' %>
       </div>
     </fieldset>
 
@@ -141,7 +142,7 @@
         <% end %>
       </div>
       <div class="small-12 columns">
-        <%= link_to_add_association t('backend.add'), f, :attachments, :class => "button radius tiny info right add-attachment",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attachments' %>
+        <%= link_to_add_association t('backend.add'), f, :attachments, :class => "button radius tiny info add-attachment right",'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#attachments' %>
       </div>
     </fieldset>
 
@@ -230,6 +231,7 @@
           <%= f.radio_button :decline, false, checked: !declined_event %>
           <%= f.label :decline, t('backend.decline_reason_no'), value: false %>
           <div class="small-12 error-radio-buttons"></div>
+
           <div id="decline-reason" style="display: none">
             <div class="row">
               <div class="small-12 columns">
@@ -238,6 +240,7 @@
               </div>
             </div>
           </div>
+
         <% end %>
       </fieldset>
     <% end %>
