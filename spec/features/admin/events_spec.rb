@@ -176,10 +176,10 @@ feature 'Events' do
       scenario 'edit event and modify title', :js do
         event = create(:event, title: 'Test event')
         visit edit_event_path(event)
-        # save_screenshot
+
         fill_in :event_title, with: 'New event modified from Capybara'
         click_button I18n.t 'backend.save'
-        # save_screenshot
+
         expect(page).to have_content 'New event modified from Capybara'
       end
 

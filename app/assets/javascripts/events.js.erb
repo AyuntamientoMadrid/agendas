@@ -16,14 +16,13 @@ $(function(){
   $.validator.addMethod("valueNotEquals", function(value, element, arg){
     agent = $("#nested-event-agents div.small-12.medium-6.columns select").val();
     delete_agents = $("#nested-event-agents .nested-fields.agents:visible").length
-    if ($(element).is(':checked') && (delete_agents == 0) || (agent == '' ||
+    if (($("#event_lobby_activity_true").is(':checked')) && ((delete_agents == 0) || (agent == '' ||
       typeof(agent) == 'undefined' ||
-      agent == "<%= I18n.translate('backend.event.not_available_agents')%>" ))
-      {return false }
+      agent == "<%= I18n.translate('backend.event.not_available_agents')%>" )))
+      { return false }
     else
       { return true }
   }, "<%= I18n.translate('backend.event.event_agent_needed')%>");
-
 
   $.validator.addMethod("checkMessage", function(value, element, arg){
     tinyMCE.triggerSave();
