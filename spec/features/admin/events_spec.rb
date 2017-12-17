@@ -1052,9 +1052,9 @@ feature 'Events' do
       signin(user_admin.email, user_admin.password)
     end
 
-    scenario 'filter events by one status on multiselect' do
-      create(:event, title: 'Test for check status requested', status: 0)
-      create(:event, title: 'Test for check status accepted', status: 1)
+    scenario 'filter events by one status on multiselect', :js do
+      create(:event, title: 'Test for check status requested', status: 0, lobby_activity: true)
+      create(:event, title: 'Test for check status accepted', status: 1, lobby_activity: true)
       visit events_path
 
       select "Solicitada", from: :status
@@ -1065,9 +1065,9 @@ feature 'Events' do
     end
 
     scenario 'filter events by more than one status on multiselect' do
-      create(:event, title: 'Test for check status requested', status: 0)
-      create(:event, title: 'Test for check status accepted', status: 1)
-      create(:event, title: 'Test for check status done', status: 2)
+      create(:event, title: 'Test for check status requested', status: 0, lobby_activity: true)
+      create(:event, title: 'Test for check status accepted', status: 1, lobby_activity: true)
+      create(:event, title: 'Test for check status done', status: 2, lobby_activity: true)
       visit events_path
 
       select "Solicitada", from: :status
