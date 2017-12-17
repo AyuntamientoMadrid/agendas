@@ -25,13 +25,13 @@ module OrganizationsHelper
     (params[:interests].present? || params[:category].present? || params[:keyword].present?)
   end
 
-  def organization_status
-    canceled_true = @organization.canceled_at
+  def organization_status(organization)
+    canceled_true = organization.canceled_at
 
     if canceled_true.present?
       '<span class="label alert">Baja </span>'.html_safe
     elsif  @organization.invalidate.present?
-      '<span class="label warning">inhabilitado</span>'.html_safe
+      '<span class="label warning">Inhabilitado</span>'.html_safe
     else
       '<span class="label success">Activo</span>'.html_safe
     end

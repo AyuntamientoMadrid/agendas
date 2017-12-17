@@ -635,7 +635,7 @@ feature 'Events' do
             end
           end
 
-          scenario "When radio lobby lobby activity is set to true, only can save selecting an agent", :js do
+          scenario "When radio lobby activity is set to true, only can save selecting an agent", :js do
             new_position = create(:position)
             organization = create(:organization)
             agent = create(:agent, organization: organization)
@@ -652,7 +652,6 @@ feature 'Events' do
               select agent.name
             end
             click_button "Guardar"
-
             expect(page).to have_content "Registro creado correctamente"
           end
 
@@ -756,7 +755,6 @@ feature 'Events' do
         choose_autocomplete :event_position_title, with: @position.title, select: @position.title
         find("#position_id", :visible => false).set(@position.id)
         click_button I18n.t('backend.save')
-
         expect(page).to have_content 'Registro creado correctamente'
       end
 

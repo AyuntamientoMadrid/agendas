@@ -4,7 +4,7 @@
     <h2 class="post__title-big"><%= @organization.name %></h2>
     <p>
       <strong><%= t('organizations.show.state') %>:</strong>
-      <%= organization_status %>
+      <%= organization_status(@organization) %>
     </p>
   </div>
 </div>
