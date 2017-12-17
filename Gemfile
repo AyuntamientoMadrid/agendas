@@ -42,6 +42,7 @@ gem 'rollbar', '>= 2.15.5'
 gem 'premailer-rails'
 gem 'wash_out'
 gem 'whenever', :require => false
+gem 'rubyntlm'
 
 group :development do
   gem 'better_errors', '~> 2.1.1'
