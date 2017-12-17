@@ -274,7 +274,7 @@ feature 'Events' do
     describe "index" do
 
       scenario 'visit search by title' do
-        event = create(:event, title: 'New event from Capybara')
+        event = create(:event, title: 'Nueva solicitud')
         visit events_path
 
         fill_in :search_title, with: 'Capybara'
@@ -284,7 +284,7 @@ feature 'Events' do
       end
 
       scenario 'visit search by person' do
-        event = create(:event, title: 'New event from Capybara')
+        event = create(:event, title: 'Nueva solicitud')
         name = event.position.holder.first_name
         visit events_path
 
@@ -937,7 +937,7 @@ feature 'Events' do
         fill_in :event_title, with: "Editar evento"
         click_button "Guardar"
 
-        expect(page).to have_content "Eventos"
+        expect(page).to have_content "Solicitud de evento"
       end
 
       scenario "User can cancel events", :js do

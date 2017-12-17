@@ -507,7 +507,7 @@ feature 'Organization' do
             click_on "Añadir Agentes"
 
             within "#new_agent" do
-              fill_in "DNI, NIE, NIF", with: "43138883z"
+              fill_in "DNI, NIE, NIF, Pasaporte", with: "43138883z"
               fill_in "Nombre", with: "Name"
               fill_in "Desde", with: Date.current
             end
@@ -989,7 +989,7 @@ feature 'Organization' do
     scenario 'Cannot add agents if any mandatory field is empty', :js do
       visit admin_path
 
-      click_link I18n.t("backend.add_agents")
+      #click_link I18n.t("backend.add_agents")
 
       expect(page).to have_content I18n.t("backend.agents.title_fieldset")
 

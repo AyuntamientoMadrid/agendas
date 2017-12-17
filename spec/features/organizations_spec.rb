@@ -436,7 +436,7 @@ feature 'Organizations page' do
 
       visit organization_path(organization)
 
-      expect(page).to have_content "Datos de quien va a ejercer la actividad de lobby por cuenta propria"
+      expect(page).to have_content "Datos de quien va a ejercer la actividad de lobby por cuenta propia"
       expect(page).to have_content organization.fiscal_year
       expect(organization.range_fund).to eq('range_1')
       expect(organization.subvention).to eq(false)
@@ -517,7 +517,7 @@ feature 'Organizations page' do
 
       click_on "Volver"
 
-      expect(page).to have_content("Consulta del registro de lobbies")
+      expect(page).to have_content("Consulta del Registro de Lobbies")
     end
 
   end
