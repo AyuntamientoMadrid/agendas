@@ -39,6 +39,7 @@ gem 'turbolinks', '~> 2.5.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'rails4-autocomplete'
 gem 'wash_out'
+gem 'rubyntlm'
 
 group :development do
   gem 'better_errors', '~> 2.1.1'
