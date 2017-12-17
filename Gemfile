@@ -20,6 +20,7 @@ gem 'kaminari', '~> 1.0.1'
 gem 'newrelic_rpm', '~> 3.13.2.302'
 gem 'paperclip', '~> 4.3', '>= 4.3.7'
 gem 'pg', '~> 0.18.3'
+gem 'premailer-rails'
 gem 'progress_bar', '~> 1.1.0'
 gem 'public_activity', '~> 1.4.2'
 gem 'rails', '4.2.10'
@@ -43,6 +44,7 @@ gem 'premailer-rails'
 gem 'wash_out'
 gem 'whenever', :require => false
 gem 'rubyntlm'
+gem 'wash_out'
 
 group :development do
   gem 'better_errors', '~> 2.1.1'
