@@ -26,7 +26,7 @@
       <%= label_tag :status, t('backend.search.status'), class: 'title-s' %>
       <small><a href="#" data-tooltip-custom="<%= t("backend.search.tool_tips_multiple_selection") %>"><%= t("backend.search.multiple_selection") %></a></small>
       <%= select_tag :status, event_status_search_options(params[:status]) , { multiple: true }  %>
-      <%= check_box_tag(:lobby_activity, value = "1", checked = true , id: "lobby_activity")%>
+      <%= check_box_tag(:lobby_activity, value = "1", checked = check_filter_lobby_activity , id: "lobby_activity")%>
       <%= label_tag(:lobby_activity, t("backend.lobby_activity")) %>
       <input type="submit" class="expanded button tiny radius right" value="<%= t("backend.search.button") %>">
     </div>

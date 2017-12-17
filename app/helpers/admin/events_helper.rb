@@ -17,7 +17,7 @@ module Admin
       if event.lobby_contact_firstname.present?
         firstname = event.lobby_contact_firstname
       elsif current_user.lobby?
-        firstname = current_user.name
+        firstname = current_user.first_name
       else
         firstname
       end

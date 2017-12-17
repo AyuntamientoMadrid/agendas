@@ -811,7 +811,7 @@ feature 'Events' do
         visit new_event_path
 
         within ".lobby-contact-info" do
-          expect(page).to have_selector("input[value='#{@organization_user.name}']")
+          expect(page).to have_selector("input[value='#{@organization_user.first_name}']")
           expect(page).to have_selector("input[value='#{@organization_user.last_name}']")
           expect(page).to have_selector("input[value='#{@organization_user.phones}']")
           expect(page).to have_selector("input[value='#{@organization_user.email}']")
