@@ -10,6 +10,7 @@ es:
     cancel: "Cancelar"
     action: "Acción"
     actions: "Acciones"
+    state: "Estado"
     add: "Añadir"
     back: "Volver"
     none: "Ninguno"

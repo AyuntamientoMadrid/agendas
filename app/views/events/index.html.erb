@@ -14,6 +14,7 @@
         <th><%= t('backend.event.title')%></th>
         <th><%= t('backend.holder')%></th>
         <th><%= t('backend.actions')%></th>
+        <th><%= t('backend.state')%></th>
       </tr>
     </thead>
     <tfoot>
@@ -22,6 +23,7 @@
         <th><%= t('backend.event.title')%></th>
         <th><%= t('backend.holder')%></th>
         <th><%= t('backend.actions')%></th>
+        <th><%= t('backend.state')%></th>
       </tr>
     </tfoot>
     <tbody>
@@ -60,6 +62,9 @@
           <%= link_to event.attachments.first.file.url, target: :_blank do %>
             <i class="step fi-archive size-24"></i>
           <% end if event.attachments.size > 0 %>
+        </td>
+        <td class="event_actions">
+          <%= t("status.#{event.status}") %>
         </td>
       </tr>
       <% end %>
