@@ -131,6 +131,25 @@ feature 'Organization' do
         expect(page).to have_field('organization_name', with: organization.name)
       end
 
+      scenario 'Should show organization with canceled_at nil', :search do
+        organization1 = create(:organization, canceled_at: nil)
+        Organization.reindex
+
+        visit admin_organizations_path
+
+        expect(page).to have_content organization1.name
+      end
+
+      scenario 'Should show organization with invalidate true', :search do
+        organization1 = create(:organization)
+        organization1.update(invalidate: true)
+        Organization.reindex
+
+        visit admin_organizations_path
+
+        expect(page).to have_content organization1.name
+      end
+
     end
 
     describe "New" do
@@ -927,6 +946,7 @@ feature 'Organization' do
 
     background do
       @lobby = create(:user, :lobby)
+      organization = create(:organization, user: @lobby)
       signin(@lobby.email, @lobby.password)
 
       @interest = create(:interest)

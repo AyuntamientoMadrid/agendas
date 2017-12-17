@@ -60,6 +60,41 @@
   <% @event.attachments.each do |attachment| %>
   <div class="row">
     <div class="small-12 columns"><%= link_to attachment.title, attachment.file.url, target: :blank %></div>
+    <div class="small-12 columns"><%= attachment.description %></div>
   </div>
   <% end %>
 </fieldset>
+
+<% if @event.lobby_activity %>
+  <fieldset>
+    <legend>Datos del lobby</legend>
+    <div class="row">
+      <div class="small-12 columns"><strong>Nombre de la organización:</strong></div>
+    </div>
+    <div class="row">
+      <%= @event.organization.fullname %>
+    </div>
+
+    <div class="row">
+      <div class="small-12">
+        <strong class="post__subtitle">Agentes:</strong>
+      </div>
+      <div class="small-12">
+        <% @event.event_agents.each do |agent| %>
+          <%= agent.name %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12">
+        <strong class="post__subtitle">Empresas repesentadas:</strong>
+      </div>
+      <div class="small-12">
+        <% @event.event_represented_entities.each do |represented_entity| %>
+          <%= represented_entity.name %></p>
+        <% end %>
+      </div>
+    </div>
+  </fieldset>
+<% end %>

@@ -163,7 +163,7 @@ es:
       done: "Realizada"
       declined: "Rechazada"
       canceled: "Cancelada"
-    decline_event: Declinar evento
+    decline_event: Rechazar evento
     declined_event: Evento declinado
     decline_reason_yes: Si
     decline_reason_no: "No"

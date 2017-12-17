@@ -77,16 +77,54 @@
 </div>
 
 <% if @event.attachments.count > 0 %>
-<div class="row mb40">
-  <div class="small-12 large-3 columns">
-    <strong class="post__subtitle"><%= t('show.documentation')%></strong>
+  <div class="row mb40">
+    <div class="small-12 large-3 columns">
+      <strong class="post__subtitle"><%= t('show.documentation')%></strong>
+    </div>
+    <div class="small-12 large-7 end columns">
+      <% @event.attachments.each do |attachment| %>
+        <% unless attachment.public == false %>
+          <p class="post__text mb20"><%= link_to attachment.title, attachment.file.url,target: :blank %></p>
+          <%= attachment.description %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
-  <div class="small-12 large-7 end columns">
-    <% @event.attachments.each do |attachment| %>
-      <p class="post__text mb20"><%= link_to attachment.title, attachment.file.url,target: :blank %></p>
-    <% end %>
+<% end %>
+
+<% if @event.lobby_activity %>
+ Información del lobby:
+  <div class="row mb40">
+    <div class="small-12 large-3 columns">
+      <strong class="post__subtitle">Nombre:</strong>
+    </div>
+    <div class="small-12 large-7 end columns">
+      <%= link_to @event.organization.name, organization_path(@event.organization) %>
+    </div>
   </div>
-</div>
+
+  <div class="row mb40">
+    <div class="small-12 large-3 columns">
+      <strong class="post__subtitle">Agentes:</strong>
+    </div>
+    <div class="small-12 large-7 end columns">
+      <% @event.event_agents.each do |agent| %>
+        <%= agent.name %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row mb40">
+    <div class="small-12 large-3 columns">
+      <strong class="post__subtitle">Empresas repesentadas:</strong>
+    </div>
+    <div class="small-12 large-7 end columns">
+      <% @event.event_represented_entities.each do |represented_entity| %>
+        <%= represented_entity.name %></p>
+      <% end %>
+    </div>
+  </div>
+
 <% end %>
 
 <!--

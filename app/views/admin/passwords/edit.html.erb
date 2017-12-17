@@ -3,7 +3,7 @@
 <%= form_for(current_user, url: update_password_path, html: { class: 'admin-form'}) do |f| %>
   <% if current_user.errors.any? %>
     <div class="panel callout radius">
-      <strong><%= t('activerecord.errors.template.header', :model => User.model_name.human, :count => current_user.errors.count) %></strong>
+      <strong><%= t('activerecord.errors.template.header', :model => user_by_role(current_user), :count => current_user.errors.count) %></strong>
       <ul>
         <% current_user.errors.full_messages.each do |msg| %>
             <li><%= msg %></li>

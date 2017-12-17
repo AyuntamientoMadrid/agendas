@@ -63,4 +63,64 @@ feature 'Event page' do
     expect(page).to have_content "Test for check lobby_activity for visitors"
   end
 
+  describe 'show' do
+
+    scenario 'Display event mandatory info' do
+      event = create(:event, title: 'Lobby event')
+
+      visit show_path(event)
+
+      expect(page).to have_content event.title
+      expect(page).to have_content event.location
+      expect(page).to have_content event.description
+      expect(page).to have_content event.position.holder.first_name
+      expect(page).to have_content event.position.title.custom_titleize
+      expect(page).to have_content event.position.area.title.custom_titleize
+    end
+
+    scenario 'Display event attachments public' do
+      event = create(:event, title: 'Lobby event')
+      attachment_public = create(:attachment, public: true, event: event)
+      attachment_old = create(:attachment, event: event)
+      attachment_private = create(:attachment, public: false, event: event)
+      attachment_old.update_column(:public, nil)
+
+      visit show_path(event)
+
+      expect(page).to have_content attachment_public.title
+      expect(page).to have_content attachment_public.description
+      expect(page).to have_content attachment_old.title
+      expect(page).to have_content attachment_old.description
+      expect(page).not_to have_content attachment_private.title
+      expect(page).not_to have_content attachment_private.description
+    end
+
+    scenario 'Display event lobby info' do
+      event = create(:event, title: 'Lobby event')
+      event.lobby_activity = true
+      event.event_agents << create(:event_agent)
+      event.event_represented_entities << create(:event_represented_entity)
+      event.save!
+
+      visit show_path(event)
+
+      expect(page).to have_content event.organization.name
+      expect(page).to have_content event.event_agents.first.name
+      expect(page).to have_content event.event_represented_entities.first.name
+    end
+
+    scenario 'Display event lobby agents when organization have canceled_at' do
+      event = create(:event, title: 'Lobby event')
+      event.lobby_activity = true
+      event.event_agents << create(:event_agent)
+      event.save!
+      event.organization.update(canceled_at: Date.current)
+
+      visit show_path(event)
+
+      expect(page).to have_content event.event_agents.first.name
+    end
+
+  end
+
 end

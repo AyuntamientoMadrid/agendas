@@ -45,7 +45,7 @@
         <% if current_user.lobby? %>
           <%= f.label :name_holder, t('backend.main_position') %>
           <%= f.autocomplete_field :holder_title,  autocomplete_position_title_positions_path ,:update_elements => {:id => '#position_id'} , placeholder: t('backend.holder_input') , value: holder_name_by_position_id(@event.position_id) %>
-          <%= hidden_field_tag "event[position_id]" , "" , {:id => "position_id"} %>
+          <%= f.hidden_field :position_id, {:id => "position_id"} %>
         <% else %>
           <%= f.label :position_id, t('backend.main_position') %>
           <%= f.select :position_id, @positions.map{|position| [position.holder.full_name_comma+' - '+position.title, position.id]}, prompt: t('backend.select') %>
@@ -186,7 +186,7 @@
       </div>
     </fieldset>
 
-    <% if f.object.user != current_user %>
+    <% if event_edit? %>
       <fieldset class="cancel-reason-activity">
         <% canceled_event = canceled_event(f.object) %>
         <% if canceled_event %>
@@ -213,7 +213,9 @@
           </div>
         <% end %>
       </fieldset>
+    <% end %>
 
+    <% if admin_or_mananger_edit? %>
       <fieldset class="decline-reason-activity">
         <% declined_event = declined_event(f.object) %>
         <% if declined_event %>

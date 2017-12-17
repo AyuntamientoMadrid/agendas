@@ -53,6 +53,18 @@ feature 'Events' do
         expect(page).not_to have_selector('#event_lobby_scheduled')
       end
 
+      scenario 'visit new event form and not render canceled option' do
+        visit new_event_path
+
+        expect(page).not_to have_content('Cancelar evento')
+      end
+
+      scenario 'visit new event form and not render rejected option' do
+        visit new_event_path
+
+        expect(page).not_to have_content('Rechazar evento')
+      end
+
     end
 
     describe "edit" do
@@ -119,6 +131,21 @@ feature 'Events' do
         expect(page).to have_content("General remark")
       end
 
+      scenario 'visit edit event form and render canceled option' do
+        event = create(:event, position: @position)
+
+        visit edit_event_path(event)
+
+        expect(page).to have_content('Cancelar evento')
+      end
+
+      scenario 'visit edit event form and render rejected option' do
+        event = create(:event, position: @position)
+
+        visit edit_event_path(event)
+
+        expect(page).to have_content('Rechazar evento')
+      end
 
     end
 
@@ -137,12 +164,38 @@ feature 'Events' do
 
       scenario 'visit show event page' do
         event = create(:event, title: 'New event from Capybara')
+        attachment_public = create(:attachment, public: true, event: event)
+        attachment_old = create(:attachment, event: event)
+        attachment_private = create(:attachment, public: false, event: event)
+        attachment_old.update_column(:public, nil)
         visit events_path
 
         click_link event.title
 
+        expect(page).to have_content event.position.holder.full_name
         expect(page).to have_content event.title
+        expect(page).to have_content event.location
+        expect(page).to have_content event.scheduled.strftime(I18n.t('time.formats.short'))
+        expect(page).to have_content event.title
+        expect(page).to have_content attachment_public.description
+        expect(page).to have_content attachment_old.description
+        expect(page).to have_content attachment_private.description
       end
+
+      scenario 'Display event lobby info' do
+        event = create(:event, title: 'Lobby event')
+        event.lobby_activity = true
+        event.event_agents << create(:event_agent)
+        event.event_represented_entities << create(:event_represented_entity)
+        event.save!
+
+        visit event_path(event)
+
+        expect(page).to have_content event.organization.name
+        expect(page).to have_content event.event_agents.first.name
+        expect(page).to have_content event.event_represented_entities.first.name
+      end
+
     end
 
     describe "edit" do
@@ -150,10 +203,10 @@ feature 'Events' do
       scenario 'edit event and modify title', :js do
         event = create(:event, title: 'Test event')
         visit edit_event_path(event)
-        # save_screenshot
+
         fill_in :event_title, with: 'New event modified from Capybara'
         click_button I18n.t 'backend.save'
-        # save_screenshot
+
         expect(page).to have_content 'New event modified from Capybara'
       end
 
@@ -179,6 +232,43 @@ feature 'Events' do
           expect(page).to have_selector("input[value='lobbyemail@email.com']")
         end
       end
+
+      scenario "User can decline events", :js do
+        skip('Related issue #162')
+        event = create(:event, position: @position)
+        visit edit_event_path(event)
+
+        page.find_by_id("decline-reason", visible: false)
+        page.choose('event_decline_true')
+        page.find_by_id("decline-reason", visible: true)
+        editor = page.find_by_id('decline-reason')
+        editor.native.send_keys 'test'
+
+        click_button "Guardar"
+
+        expect(page).not_to have_selector "#event_decline_true"
+      end
+
+      scenario "User can't decline events without a reason", :js do
+        event = create(:event)
+        visit edit_event_path(event)
+        page.find_by_id("decline-reason", visible: false)
+        page.choose('event_decline_true')
+        page.find_by_id("decline-reason", visible: true)
+
+        click_button "Guardar"
+
+        expect(page).to have_content I18n.t('backend.event.decline_reasons_needed'), count: 1
+      end
+
+      scenario "User can decline events only once!" do
+        event_requested = create(:event, title: 'Event on request', position: @position, status: 0,
+                                         declined_reasons: 'test', declined_at: Time.zone.today)
+        visit edit_event_path(event_requested)
+
+        expect(page).not_to have_selector "#event_decline_true"
+      end
+
     end
 
     describe "index" do
@@ -628,6 +718,18 @@ feature 'Events' do
         expect(page).not_to have_selector('#event_scheduled')
         expect(page).not_to have_selector('#event_published_at')
       end
+
+      scenario 'visit new event form and not render canceled option' do
+        visit new_event_path
+
+        expect(page).not_to have_content('Cancelar evento')
+      end
+
+      scenario 'visit new event form and not render rejected option' do
+        visit new_event_path
+
+        expect(page).not_to have_content('Rechazar evento')
+      end
     end
 
     describe "Create" do
@@ -876,42 +978,6 @@ feature 'Events' do
         expect(page).not_to have_selector "#event_cancel_true"
       end
 
-      scenario "User can decline events", :js do
-        event = create(:event, organization: @organization)
-        visit edit_event_path(event)
-
-        page.find_by_id("decline-reason", visible: false)
-        page.choose('event_decline_true')
-        page.find_by_id("decline-reason", visible: true)
-        editor = page.find_by_id('decline-reason')
-        editor.native.send_keys 'test'
-        find("#position_id", :visible => false).set(@position.id)
-
-        click_button "Guardar"
-
-        expect(page).not_to have_selector "#event_decline_true"
-      end
-
-      scenario "User can't decline events without a reason", :js do
-        event = create(:event, organization: @organization)
-        visit edit_event_path(event)
-        page.find_by_id("decline-reason", visible: false)
-        page.choose('event_decline_true')
-        page.find_by_id("decline-reason", visible: true)
-
-        click_button "Guardar"
-
-        expect(page).to have_content I18n.t('backend.event.decline_reasons_needed'), count: 1
-      end
-
-      scenario "User can decline events only once!" do
-        event_requested = create(:event, title: 'Event on request', position: @position, status: 0,
-                                         declined_reasons: 'test', declined_at: Time.zone.today, organization: @organization)
-        visit edit_event_path(event_requested)
-
-        expect(page).not_to have_selector "#event_decline_true"
-      end
-
       scenario 'Lobby user can see on page the name of the organization' do
         event = create(:event, organization_name: "Organization name", position: @position,
                                organization: @organization)
@@ -960,6 +1026,21 @@ feature 'Events' do
         expect(event.lobby_contact_email).to eq 'new_loby@email.com'
       end
 
+      scenario 'visit edit event form and render canceled option' do
+        event = create(:event)
+
+        visit edit_event_path(event)
+
+        expect(page).to have_content('Cancelar evento')
+      end
+
+      scenario 'visit edit event form and not render rejected option' do
+        event = create(:event)
+
+        visit edit_event_path(event)
+
+        expect(page).not_to have_content('Rechazar evento')
+      end
     end
 
   end
