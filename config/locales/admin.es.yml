@@ -1,6 +1,7 @@
 es:
   backend:
-    menu_title: "Gestión del lobby"
+    menu_admin: " Administración"
+    menu_lobby: "Gestión del lobby"
     close: "Cerrar"
     logout: "Salir"
     btn_admin: "Administración"
