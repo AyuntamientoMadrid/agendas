@@ -231,6 +231,7 @@
           <%= f.radio_button :decline, false, checked: !declined_event %>
           <%= f.label :decline, t('backend.decline_reason_no'), value: false %>
           <div class="small-12 error-radio-buttons"></div>
+
           <div id="decline-reason" style="display: none">
             <div class="row">
               <div class="small-12 columns">
@@ -239,6 +240,7 @@
               </div>
             </div>
           </div>
+
         <% end %>
       </fieldset>
     <% end %>
