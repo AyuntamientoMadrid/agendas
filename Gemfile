@@ -45,6 +45,7 @@ gem 'wash_out'
 gem 'whenever', :require => false
 gem 'rubyntlm'
 gem 'wash_out'
+gem 'rubyntlm'
 
 group :development do
   gem 'better_errors', '~> 2.1.1'
