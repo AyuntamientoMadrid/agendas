@@ -25,6 +25,7 @@ gem 'public_activity', '~> 1.4.2'
 gem 'rails', '4.2.10'
 gem 'rails-i18n', '~> 4.0', '>= 4.0.9'
 gem 'rails4-autocomplete'
+gem 'rollbar', '>= 2.15.5'
 gem 'rubyzip', '~> 1.2', '>= 1.2.1'
 gem 'sass-rails', '~> 5.0'
 gem 'savon', '~> 2.11.1'
@@ -39,6 +40,7 @@ gem 'turnout', '~> 2.4.1'
 gem 'uglifier', '>= 1.3.0'
 gem 'rollbar', '>= 2.15.5'
 gem 'premailer-rails'
+gem 'wash_out'
 gem 'whenever', :require => false
 
 group :development do
