@@ -76,7 +76,7 @@ feature 'Passwords' do
 
   context 'Lobby' do
     background do
-      @lobby  = create(:user, :lobby)
+      @lobby = create(:user, :lobby)
       login_as(@lobby)
       visit edit_password_path(@lobby)
     end
