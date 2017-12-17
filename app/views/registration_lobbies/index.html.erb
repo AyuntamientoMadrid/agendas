@@ -35,8 +35,8 @@
 
   <div class="small-12 medium-4 column">
     <figure data-equalizer-watch>
-      <%= link_to faq_path(:anchor => 'faq_24') do %> <!-- 24 is the id position of the question assigned in the backend. It's not a good idea because if changed the position after scroll in the wrong position --->
-        <%= image_tag 'homepage/regulations.jpg', alt: t('registration_lobbies_index.normative.normative_title') %>
+      <%= link_to faq_path(:anchor => 'faq_24') do %>
+        <% image_tag 'homepage/regulations.jpg', alt: t('registration_lobbies_index.normative.normative_title') %>
       <% end %>
       <div class="content">
         <%= link_to faq_path(:anchor => 'faq_24') do %>
@@ -55,7 +55,7 @@
   <div class="small-12 medium-4 column">
     <figure data-equalizer-watch>
       <%= link_to faq_path  do %>
-        <%= image_tag 'homepage/faq.jpg', alt: t('registration_lobbies_index.questions.question_title') %>
+        <% image_tag 'homepage/faq.jpg', alt: t('registration_lobbies_index.questions.question_title') %>
       <% end %>
       <div class="content">
         <%= link_to faq_path  do %>
@@ -71,7 +71,7 @@
   <div class="small-12 medium-4 column">
     <figure data-equalizer-watch>
       <%= link_to 'falta link' do %>
-        <%= image_tag 'homepage/stats.jpg',  alt: t('registration_lobbies_index.stats.stats_title') %>
+        <% image_tag 'homepage/stats.jpg',  alt: t('registration_lobbies_index.stats.stats_title') %>
       <% end %>
       <div class="content">
         <%= link_to 'falta link' do %>
@@ -87,7 +87,7 @@
   <div class="small-12 medium-4 column">
     <figure data-equalizer-watch>
       <%= link_to new_infringement_email_path do %>
-        <%= image_tag 'homepage/breaches.jpg', alt: t('registration_lobbies_index.defaults_mailbox.mailbox_title') %>
+        <% image_tag 'homepage/breaches.jpg', alt: t('registration_lobbies_index.defaults_mailbox.mailbox_title') %>
       <% end %>
       <div class="content">
         <%= link_to new_infringement_email_path do %>

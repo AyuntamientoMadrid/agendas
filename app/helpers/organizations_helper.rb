@@ -30,7 +30,7 @@ module OrganizationsHelper
 
     if canceled_true.present?
       '<span class="label alert">Baja </span>'.html_safe
-    elsif  @organization.invalidate.present?
+    elsif organization.invalidate.present?
       '<span class="label warning">Inhabilitado</span>'.html_safe
     else
       '<span class="label success">Activo</span>'.html_safe
