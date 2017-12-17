@@ -5,7 +5,7 @@ namespace :export do
   desc "Exports organizations to public/export/lobbies.csv,
         public/export/lobbies.xls and public/export/lobbies.json"
   task organizations: :environment do
-    folder = Rails.root.join('tmp', 'export')
+    folder = Rails.root.join('public', 'export')
     FileUtils.mkdir_p folder unless Dir.exist?(folder)
 
     exporter = PublicOrganizationExporter.new
@@ -18,7 +18,7 @@ namespace :export do
   desc "Exports organizations' events to public/export/agendas.csv,
         public/export/agendas.xls and public/export/agendas.json"
   task agendas: :environment do
-    folder = Rails.root.join('tmp', 'export')
+    folder = Rails.root.join('public', 'export')
     FileUtils.mkdir_p folder unless Dir.exist?(folder)
 
     exporter = EventsExporter.new
