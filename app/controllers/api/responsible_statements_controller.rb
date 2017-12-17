@@ -3,7 +3,9 @@ require 'nokogiri'
 module Api
   class ResponsibleStatementsController < ApplicationController
     soap_service namespace: "http://wsintbrg.bareg.iam",
-                 wsdl_style: :document
+                 wsdl_style: :document,
+                 wsse_username: "username",
+                 wsse_password: "password"
 
     before_filter :parse_request, only: :inicioExpediente
     soap_action "inicioExpediente",

@@ -2,15 +2,46 @@ require 'spec_helper'
 require 'savon'
 
 describe Api::ResponsibleStatementsController do
-  HTTPI.adapter = :rack
-  HTTPI::Adapter::Rack.mount 'application', Agendas::Application
+
+  let!(:application_base) { "http://application" }
+
+  before do
+    HTTPI.adapter = :rack
+    HTTPI::Adapter::Rack.mount 'application', Agendas::Application
+  end
 
   describe "inicioExpediente" do
 
+    describe "Authentication" do
+      it "Should deny access when no username defined" do
+        client = Savon::Client.new(
+                  wsdl: application_base + api_responsible_statements_wsdl_path,
+                  wsse_auth: ["", "password"])
+
+        expect { client.call(:inicio_expediente, message: {}) }.to raise_error(Savon::SOAPFault, '(Server) Unauthorized')
+      end
+
+      it "Should deny access when no password defined" do
+        client = Savon::Client.new(
+                  wsdl: application_base + api_responsible_statements_wsdl_path,
+                  wsse_auth: ["username", ""])
+
+        expect { client.call(:inicio_expediente, message: {}) }.to raise_error(Savon::SOAPFault, '(Server) Unauthorized')
+      end
+
+      it "Should accept conections when password and user well defined" do
+        client = Savon::Client.new(
+                  wsdl: application_base + api_responsible_statements_wsdl_path,
+                  wsse_auth: ["username", "password"])
+
+        expect { client.call(:inicio_expediente, message: {}) }.not_to raise_error
+      end
+    end
+
     it "Should return error when codTipoExpediente is not provided" do
-      application_base = "http://application"
       client = Savon::Client.new(
-                wsdl: application_base + api_responsible_statements_wsdl_path)
+                wsdl: application_base + api_responsible_statements_wsdl_path,
+                wsse_auth: ["username", "password"])
 
       response = client.call(:inicio_expediente, message: {})
 
@@ -22,9 +53,9 @@ describe Api::ResponsibleStatementsController do
     end
 
     it "Should return error when xmlDatosEntrada is not provided" do
-      application_base = "http://application"
       client = Savon::Client.new(
-                wsdl: application_base + api_responsible_statements_wsdl_path)
+                wsdl: application_base + api_responsible_statements_wsdl_path,
+                wsse_auth: ["username", "password"])
 
       response = client.call(:inicio_expediente,
                              message: { codTipoExpediente: "1234" })
@@ -37,9 +68,9 @@ describe Api::ResponsibleStatementsController do
     end
 
     it "Should return error when usuario is not provided" do
-      application_base = "http://application"
       client = Savon::Client.new(
-                wsdl: application_base + api_responsible_statements_wsdl_path)
+                wsdl: application_base + api_responsible_statements_wsdl_path,
+                wsse_auth: ["username", "password"])
 
       response = client.call(:inicio_expediente,
                              message: {
@@ -55,9 +86,9 @@ describe Api::ResponsibleStatementsController do
 
     it "Should return success when organization could be created" do
       skip "until implementation"
-      application_base = "http://application"
       client = Savon::Client.new(
-                wsdl: application_base + api_responsible_statements_wsdl_path)
+                wsdl: application_base + api_responsible_statements_wsdl_path,
+                wsse_auth: ["username", "password"])
 
       response = client.call(:inicio_expediente,
                              message: {
