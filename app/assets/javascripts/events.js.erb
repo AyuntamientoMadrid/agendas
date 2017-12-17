@@ -14,8 +14,9 @@ $(function(){
   });
 
   $.validator.addMethod("valueNotEquals", function(value, element, arg){
-    agent = $("#new_event_agent > div > div.small-12.medium-6.columns > select").val();
-    if ($(element).is(':checked') && (agent == '' ||
+    agent = $("#nested-event-agents div.small-12.medium-6.columns select").val();
+    delete_agents = $("#nested-event-agents .nested-fields.agents:visible").length
+    if ($(element).is(':checked') && (delete_agents == 0) || (agent == '' ||
       typeof(agent) == 'undefined' ||
       agent == "<%= I18n.translate('backend.event.not_available_agents')%>" ))
       {return false }
