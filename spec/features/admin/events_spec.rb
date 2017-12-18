@@ -528,6 +528,45 @@ feature 'Events' do
             expect(page).to have_selector "#attachments .remove_fields", count: 2
           end
 
+          scenario 'Should save attachment when it has valid content type', :js do
+            new_position = create(:position)
+            visit new_event_path
+
+            fill_in :event_title, with: "Title"
+            fill_in :event_location, with: "Location"
+            fill_in :event_scheduled, with: DateTime.current
+            select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
+            choose :event_lobby_activity_false
+            fill_in :event_published_at, with: Date.current
+            find('.add-attachment').click
+            attachment = all(".attachment-file").first
+            attach_file attachment[:id], "spec/fixtures/dummy.pdf"
+            input_title = find(".attachment-title")
+            fill_in input_title[:id], with: "Dummy pdf"
+            click_on "Guardar"
+
+            expect(page).to have_link "Dummy pdf"
+          end
+
+          scenario 'Should not save attachment when it has invalid content type', :js do
+            new_position = create(:position)
+            visit new_event_path
+
+            fill_in :event_title, with: "Title"
+            fill_in :event_location, with: "Location"
+            fill_in :event_scheduled, with: DateTime.current
+            select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
+            choose :event_lobby_activity_false
+            fill_in :event_published_at, with: Date.current
+            find('.add-attachment').click
+            attachment = all(".attachment-file").first
+            attach_file attachment[:id], "spec/fixtures/dummy.xml"
+            input_title = find(".attachment-title")
+            fill_in input_title[:id], with: "Dummy xml"
+            click_on "Guardar"
+
+            expect(page).to have_content "Archivo adjunto: Archivo El archivo proporcionado está en un formato no permitido. Los siguientes formatos de archivo son permitidos: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."
+          end
         end
 
       end

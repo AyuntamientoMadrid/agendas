@@ -28,6 +28,7 @@ es:
     review_errors: "Por favor corrija los siguientes errores antes de continuar"
     sync: "Sincronizar con UWEB"
     export: "Exportar"
+    allowed_file_content_types: "Uploaded file has wrong content type. Allowed content types are the following: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."    
 
     contributors: "Contribuidores"
     new_user: "Nuevo usuario"
