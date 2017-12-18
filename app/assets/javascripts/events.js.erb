@@ -293,9 +293,9 @@ function fill_agents_select_options() {
         var select = $('#nested-event-agents select:last');
         if (agents.length > 0)  {
           $.each(agents, function(id, agent){
-            select.append($('<option>', { value: agent.name, text: agent.name }));
+            select.append($('<option>', { value: agent.name+" "+agent.first_surname+" "+agent.second_surname, text: agent.name+" "+agent.first_surname+" "+agent.second_surname }));
             if (agents.length == 1) {
-              $('#nested-event-agents select').val(agent.name);
+              $('#nested-event-agents select').val(agent.name+" "+agent.first_surname+" "+agent.second_surname);
             }
           });
         }else {
