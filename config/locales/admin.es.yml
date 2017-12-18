@@ -10,6 +10,7 @@ es:
     edit: "Editar"
     delete: "Eliminar"
     save: "Guardar"
+    exit_without_save: "Salir sin grabar"
     save_request: "Enviar la solicitud"
     cancel: "Cancelar"
     action: "Acción"
