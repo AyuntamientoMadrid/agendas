@@ -12,11 +12,11 @@ class Event < ActiveRecord::Base
 
   validates :title, :position, :location, presence: true
   validates_inclusion_of :lobby_activity, :in => [true, false]
-  validate :participants_uniqueness, :position_not_in_participants, :role_validate_published_at, :role_validate_scheduled
+  validate :participants_uniqueness, :position_not_in_participants, :role_validate_scheduled
   validates :reasons, presence: true, if: Proc.new { |a| !a.canceled_at.blank? }
   validates :declined_reasons, presence: true, if: Proc.new { |a| !a.declined_at.blank? }
 
-  before_create :set_status
+  before_create :set_status, :set_published_at
   before_validation :decline_event
   before_validation :cancel_event
 
@@ -194,9 +194,8 @@ class Event < ActiveRecord::Base
       self.status = "requested" if self.user.lobby?
     end
 
-    def role_validate_published_at
-      return if self.user.lobby? || self.published_at.present?
-      errors.add(:base, "Fecha de publicación no puede estar en blanco")
+    def set_published_at
+      self.published_at = Date.current if (!self.user.lobby? && self.published_at.blank?)
     end
 
     def role_validate_scheduled

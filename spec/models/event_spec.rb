@@ -35,7 +35,7 @@ describe Event do
   it "Should be invalid if event not published_at" do
     event.published_at = nil
 
-    expect(event).not_to be_valid
+    expect(event).to be_valid
   end
 
   it "Should be invalid if event not location" do
