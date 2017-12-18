@@ -162,7 +162,7 @@
 
     <% unless current_user.lobby? %>
       <fieldset>
-        <legend><%= t('backend.lobby_general_remarks_title') %></legend>
+        <legend><%= t('backend.manager_general_remarks_title') %></legend>
         <%= f.text_area :manager_general_remarks, class: 'tinymce' %>
       </fieldset>
     <% end %>
