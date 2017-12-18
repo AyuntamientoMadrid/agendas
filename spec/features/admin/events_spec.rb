@@ -1084,8 +1084,8 @@ feature 'Events' do
 
     scenario "User user incorrect accept tests", :js do
       event = create(:event, organization: @organization, user: @organization_user)
-      event.status = 'requested'
-      event.save!
+      event.update(status: 'requested')
+
       visit edit_event_path(event)
 
       click_link I18n.t('backend.accept_event')
@@ -1097,9 +1097,7 @@ feature 'Events' do
 
     scenario "User incorrect cancel tests", :js do
       event = create(:event, organization: @organization, user: @organization_user)
-      event.status = 'requested'
-      event.save!
-
+      event.update(status: 'accepted')
       visit edit_event_path(event)
 
       click_link I18n.t('backend.cancel_event')
@@ -1110,8 +1108,8 @@ feature 'Events' do
 
     scenario "User incorrect decline tests", :js do
       event = create(:event, organization: @organization, user: @organization_user)
-      event.status = 'requested'
-      event.save!
+      event.update(status: 'requested')
+
       visit edit_event_path(event)
 
       click_link I18n.t('backend.decline_event')
@@ -1122,11 +1120,30 @@ feature 'Events' do
 
     scenario "An use can accept or decline an event only once", :js do
       event = create(:event, organization: @organization, user: @organization_user)
-      event.status = 'accepted'
+      event.update(status: 'accepted')
+
       visit edit_event_path(event)
 
       expect(find_link(I18n.t('backend.accept_event'))[:disabled]).to eq "disabled"
       expect(find_link(I18n.t('backend.decline_event'))[:disabled]).to eq "disabled"
+    end
+
+    scenario "An use can cancel only accepted events", :js do
+      event = create(:event, organization: @organization, user: @organization_user)
+      event.update(status: 'accepted')
+
+      visit edit_event_path(event)
+
+      expect(find_link(I18n.t('backend.cancel_event'))[:disabled]).not_to eq "disabled"
+    end
+
+    scenario "An use can't cancel not accepted events", :js do
+      event = create(:event, organization: @organization, user: @organization_user)
+      event.update(status: 'requested')
+
+      visit edit_event_path(event)
+
+      expect(find_link(I18n.t('backend.cancel_event'))[:disabled]).to eq "disabled"
     end
 
   end

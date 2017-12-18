@@ -9,6 +9,8 @@ class Event < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
 
+  validates_with CancelEventValidator
+
   validates :title, :position, :location, presence: true
   validates_inclusion_of :lobby_activity, :in => [true, false]
   validate :participants_uniqueness, :position_not_in_participants, :role_validate_published_at, :role_validate_scheduled
@@ -17,9 +19,9 @@ class Event < ActiveRecord::Base
   validates :accepted_reasons, presence: {message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, if: Proc.new { |a| !a.accepted_at.blank? || (a.current_user && !a.current_user.lobby?)}
 
   before_create :set_status
-  before_validation :decline_event
-  before_validation :cancel_event
-  before_validation :accept_event
+  after_validation :decline_event
+  after_validation :cancel_event
+  after_validation :accept_event
 
   belongs_to :user
   belongs_to :position
@@ -57,7 +59,7 @@ class Event < ActiveRecord::Base
   enum status: { requested: 0, accepted: 1, done: 2, declined: 3, canceled: 4 }
 
   def cancel_event
-    return unless cancel == 'true' && canceled_at.nil?
+    return unless cancel == 'true' && canceled_at.nil? && status == 'accepted'
     self.canceled_at = Time.zone.today
     self.status = 'canceled'
     EventMailer.cancel(self).deliver_now

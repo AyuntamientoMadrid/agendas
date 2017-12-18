@@ -5,6 +5,7 @@ feature 'Events Mailer' do
     background do
       clear_emails
       @event = create(:event, title: 'New event from Capybara', user: create(:user))
+      @event.update(status: 'accepted')
       @event.cancel = 'true'
       @event.reasons = 'test'
       @event.save!

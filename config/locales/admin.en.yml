@@ -177,6 +177,7 @@ es:
     accept_reason_yes: Yes
     accept_reason_no: No
     lobby_not_allowed_neither_empty_mail: 'check that the user is not a lobby and that the text with the reasons is not empty'
+    cancel_only_accepted: Only can be cancelled accepted events
 
   backend_header:
     open_gov: "Gobierno abierto"

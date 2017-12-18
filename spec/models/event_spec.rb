@@ -226,4 +226,27 @@ describe Event do
     end
   end
 
+  describe "only can be canceled accepted events" do
+    let!(:organization_user) { create(:user, :user) }
+
+    it "accepted events can be canceled" do
+      event = create(:event, title: 'Event on request', user: organization_user)
+
+      event.canceled_at = Time.zone.today
+      event.reasons     = 'test'
+
+      expect(event).to be_valid
+    end
+
+    it "accepted events can be canceled" do
+      event = create(:event, title: 'Event on request', user: organization_user)
+      event.status = 'done'
+      event.canceled_at = Time.zone.today
+      event.reasons = 'test'
+
+      expect(event).not_to be_valid
+    end
+
+  end
+
 end
