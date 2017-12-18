@@ -106,9 +106,6 @@ $(function(){
           "event[lobby_activity]" : {
             valueNotEquals: "<%= I18n.translate('backend.event.not_available_agents')%>"
           },
-          "event[published_at]" : {
-            required : true
-          },
           "event[accept]" : {
             checkMessage : "accepted_reasons"
           },
@@ -143,9 +140,6 @@ $(function(){
             required : "<%= I18n.translate('backend.mandatory_field')%>"
           },
           "event[attachments_attributes][0][public]" : {
-            required : "<%= I18n.translate('backend.mandatory_field')%>"
-          },
-          "event[published_at]" : {
             required : "<%= I18n.translate('backend.mandatory_field')%>"
           },
           "event[event_agents_attributes][0][name]" : {
