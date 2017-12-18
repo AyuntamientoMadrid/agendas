@@ -29,11 +29,8 @@ class Attachment < ActiveRecord::Base
 
   private
 
-  # This is because paperclip duplicates error messages
-  # See: https://github.com/thoughtbot/paperclip/pull/1554 and
-  # https://github.com/thoughtbot/paperclip/commit/2aeb491fa79df886a39c35911603fad053a201c0
   def cleanup_paperclip_duplicate_errors
-    errors.delete(:file)
+    errors.delete(:file_content_type)
   end
 
 end

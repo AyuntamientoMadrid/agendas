@@ -70,5 +70,5 @@ en:
         company: "Asistente: Organización"
       event/attachments:
         title: "Archivo adjunto: Título"
-        file: "Archivo adjunto: Archivo"
+        file: "Archivo adjunto:"
         public: "Archivo adjunto: Privacidad"
