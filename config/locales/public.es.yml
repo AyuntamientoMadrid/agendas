@@ -68,6 +68,7 @@ es:
 
   main:
     title: "Registro de Lobbies"
+    title_agents: "Agendas públicas"
     any_errors: "¿Hay algún error en esta página?"
     get_updates: "Recibe actualizaciones de esta lista"
     share: "Compartir"
@@ -88,6 +89,7 @@ es:
       any: "Todos"
       search: "Buscar"
       reset: "Cancelar"
+      clear: "Limpiar"
       order_by: "Orden"
       scheduled: "Fecha"
       score: "Relevancia"

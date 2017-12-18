@@ -8,10 +8,6 @@ module Admin
       (current_user.admin? || current_user.user?) && params[:action] == "edit"
     end
 
-    def event_edit?
-      params[:action] == "edit"
-    end
-
     def calculate_firstname(event)
       if event.lobby_contact_firstname.present?
         event.lobby_contact_firstname

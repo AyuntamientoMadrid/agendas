@@ -4,8 +4,9 @@
   </h1>
   <p>
     <%= I18n.l organization.inscription_date, format: :complete %>
-    <span class="bullet">&nbsp;&bull;&nbsp;</span>
-    <%= "#{t('organizations.events_as_lobby')}: #{events_as_lobby_by(organization)}" %>
-
+      <% if events_as_lobby_by(organization) > 0  %>
+        <span class="bullet">&nbsp;&bull;&nbsp;</span>
+        <%= "#{t('organizations.events_as_lobby')}: #{events_as_lobby_by(organization)}" %>
+      <% end %>
   </p>
 </article>

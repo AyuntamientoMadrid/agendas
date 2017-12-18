@@ -35,7 +35,7 @@ describe Event do
   it "Should be invalid if event not published_at" do
     event.published_at = nil
 
-    expect(event).not_to be_valid
+    expect(event).to be_valid
   end
 
   it "Should be invalid if event not location" do
@@ -194,14 +194,57 @@ describe Event do
 
   end
 
-  describe "organizations' events" do
+  describe "lobby organizations' events" do
     let!(:organization_user) { create(:user, :lobby) }
 
-    it "should create event with status on_request" do
+    it "lobby user should create event with status on_request" do
+      event = create(:event, title: 'Event on request', user: organization_user)
+      event.save
+      expect(event.status).to eq('requested')
+    end
+  end
+
+  describe "regular organizations' events" do
+    let!(:organization_user) { create(:user, :user) }
+
+    it "regular user should create event with status accepted" do
       event = create(:event, title: 'Event on request', user: organization_user)
       event.save
 
-      expect(event.status).to eq('requested')
+      expect(event.status).to eq('accepted')
+    end
+  end
+
+  describe "regular organizations' events" do
+    let!(:organization_user) { create(:user, :admin) }
+
+    it "admin user should create event with status accepted" do
+      event = create(:event, title: 'Event on request', user: organization_user)
+      event.save
+
+      expect(event.status).to eq('accepted')
+    end
+  end
+
+  describe "only can be canceled accepted events" do
+    let!(:organization_user) { create(:user, :user) }
+
+    it "accepted events can be canceled" do
+      event = create(:event, title: 'Event on request', user: organization_user)
+
+      event.canceled_at = Time.zone.today
+      event.reasons     = 'test'
+
+      expect(event).to be_valid
+    end
+
+    it "accepted events can be canceled" do
+      event = create(:event, title: 'Event on request', user: organization_user)
+      event.status = 'done'
+      event.canceled_at = Time.zone.today
+      event.reasons = 'test'
+
+      expect(event).not_to be_valid
     end
 
   end

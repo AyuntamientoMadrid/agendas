@@ -10,6 +10,7 @@ es:
     edit: "Editar"
     delete: "Eliminar"
     save: "Guardar"
+    save_request: "Enviar la solicitud"
     cancel: "Cancelar"
     action: "Acción"
     actions: "Acciones"
@@ -17,6 +18,7 @@ es:
     add: "Añadir"
     back: "Volver"
     none: "Ninguno"
+    select: "Seleccionar"
     frontend: "Zona pública"
     basic_data: "Datos"
     change_password: "Cambiar contraseña"
@@ -72,6 +74,7 @@ es:
     position: "Cargo"
     area: "Unidad"
     main_position: "Titular de la agenda"
+    main_position_help_text: "Introduzca apellido, nombre o cargo de la persona con la que se quiere reunir"
     positions: "Histórico de cargos"
     contributed_by: "Gestionado por"
     new_position: "Nuevo cargo"
@@ -85,9 +88,11 @@ es:
     event:
       title: "Evento"
       event_agent_needed: "En los eventos de lobbies hace falta, al menos, un agente."
+      add_agents: "Es necesario añadir algún agente para poder solicitar una reunión"
       not_available_agents: "No hay agentes disponibles."
       reasons_needed: "Debe dar alguna razon para cancelar el evento"
-      decline_reasons_needed: "Debe dar alguna razon para declinar el evento"
+      decline_reasons_needed: "Debe dar alguna razon para rechazar el evento"
+      accept_reasons_needed: "Debe dar alguna razon para aceptar el evento"
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"
@@ -118,9 +123,9 @@ es:
     position_not_in_participants: "El titular de agenda se ha incluido también como asistente"
     manager_general_remarks_title: "Observaciones generales Gestor de agendas"
     attachments: "Archivos adjuntos"
-    attachments_description: "Descripción de archivos adjuntos"
-    attachments_public: "Archivos adjuntos públicos"
-    attachments_private: "Archivos adjuntos privados"
+    attachments_description: "Descripción de archivo adjunto"
+    attachments_public: "Archivos adjuntos público"
+    attachments_private: "Archivos adjuntos privado"
     attachments_download: "Descarga los archivos adjuntos"
     only_pdf: "Solo PDF"
     name: "Nombre"
@@ -164,7 +169,10 @@ es:
     canceled_event: Evento cancelado
     cancel_reason_yes: Si
     cancel_reason_no: "No"
-    reasons: Razones
+    reasons: Razones de cancelación
+    decline_reasons: Razones de rechazo
+    accept_reasons: Razones de aceptación
+    event_actions: Acciones sobre el evento
     status:
       requested: "Solicitada"
       accepted: "Aceptada"
@@ -175,6 +183,12 @@ es:
     declined_event: Evento declinado
     decline_reason_yes: Si
     decline_reason_no: "No"
+    accept_event: Aceptar evento
+    accepted_event: Evento aceptado
+    accept_reason_yes: Si
+    accept_reason_no: "No"
+    lobby_not_allowed_neither_empty_mail: 'verificar que el usuario no sea un lobby y que el texto con los motivos no esté vacío'
+    cancel_only_accepted: solo se pueden cancelar eventos aceptados
 
   backend_header:
     open_gov: "Gobierno abierto"

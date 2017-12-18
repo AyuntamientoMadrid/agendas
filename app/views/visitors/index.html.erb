@@ -3,7 +3,9 @@
 <div class="row">
   <div class="small-12 columns">
     <%= link_to t('backend.faq.questions'), faq_path, class: 'right' %>
-    <h2 class="title-l"><%= t('main.title')%></h2>
+    <h2 class="title-l">
+      <%= t('main.title_agents')%>
+    </h2>
   </div>
 </div>
 
@@ -47,11 +49,6 @@
       <%= paginate @events.hits %>
     </div>
   </div>
-  <!--
-  <div class="small-12 large-4 columns">
-    <p><%= link_to t('main.any_errors'), '' %></p>
-  </div>
-  -->
 </div>
 
 
