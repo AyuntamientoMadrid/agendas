@@ -29,6 +29,14 @@ describe Api::ResponsibleStatementsController do
         expect { client.call(:inicio_expediente, message: {}) }.to raise_error(Savon::SOAPFault, '(Server) Unauthorized')
       end
 
+      it "Should deny access when bad usernmae and password supplied" do
+        client = Savon::Client.new(
+                  wsdl: application_base + api_responsible_statements_wsdl_path,
+                  wsse_auth: ["other_username", "bad_password"])
+
+        expect { client.call(:inicio_expediente, message: {}) }.to raise_error(Savon::SOAPFault, '(Server) Unauthorized')
+      end      
+
       it "Should accept conections when password and user well defined" do
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path,
