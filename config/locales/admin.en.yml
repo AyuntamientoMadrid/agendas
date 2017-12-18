@@ -157,7 +157,10 @@ es:
     canceled_event: Canceled event
     cancel_reason_yes: Yes
     cancel_reason_no: No
-    reasons: Reasons
+    reasons: Cancellation Reasons
+    decline_reasons: Declination Reasons
+    accept_reasons: Acceptation Reasons
+    event_actions: Event actions
     status:
       requested: "Requested"
       accepted: "Accepted"
@@ -173,6 +176,7 @@ es:
     accepted_event: Event accepted
     accept_reason_yes: Yes
     accept_reason_no: No
+    lobby_not_allowed_neither_empty_mail: 'check that the user is not a lobby and that the text with the reasons is not empty'
 
   backend_header:
     open_gov: "Gobierno abierto"

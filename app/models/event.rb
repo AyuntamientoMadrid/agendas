@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
   include PublicActivity::Model
 
-  attr_accessor :cancel, :decline, :accept, :holder_title
+  attr_accessor :cancel, :decline, :accept, :holder_title, :current_user
 
   tracked owner: Proc.new { |controller, model| controller.present? ? controller.current_user : model.user }
   tracked title: Proc.new { |controller, model| controller.present? ? controller.get_title : model.title }
@@ -12,9 +12,9 @@ class Event < ActiveRecord::Base
   validates :title, :position, :location, presence: true
   validates_inclusion_of :lobby_activity, :in => [true, false]
   validate :participants_uniqueness, :position_not_in_participants, :role_validate_published_at, :role_validate_scheduled
-  validates :reasons, presence: true, if: Proc.new { |a| !a.canceled_at.blank? }
-  validates :declined_reasons, presence: true, if: Proc.new { |a| !a.declined_at.blank? }
-  validates :accepted_reasons, presence: true, if: Proc.new { |a| !a.accepted_at.blank? }
+  validates :reasons, presence: {message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, if: Proc.new { |a| !a.canceled_at.blank? }
+  validates :declined_reasons, presence: {message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, if: Proc.new { |a| !a.declined_at.blank? || (a.current_user && !a.current_user.lobby?)}
+  validates :accepted_reasons, presence: {message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, if: Proc.new { |a| !a.accepted_at.blank? || (a.current_user && !a.current_user.lobby?)}
 
   before_create :set_status
   before_validation :decline_event
@@ -203,7 +203,6 @@ class Event < ActiveRecord::Base
         self.status = "requested"
       else
         self.status = "accepted"
-        self.accepted_at = Time.zone.today
       end
     end
 

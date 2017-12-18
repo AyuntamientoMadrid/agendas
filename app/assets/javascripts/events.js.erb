@@ -1,15 +1,50 @@
 $(function(){
 
+  function toggle_hidden(id) {
+    var hiddenField = $(id),
+        val = hiddenField.val();
+    hiddenField.val(val === "true" ? "false" : "true");
+  }
+
+  function cancel_hidden(id) {
+    var hiddenField = $(id)
+    hiddenField.val("false");
+  }
+
   $('#accept_link').bind('click', function(e){
     e.preventDefault();
-    $('#accept_link').hide();
-    $('#accept-reason').show();
+
+    cancel_hidden('#event_decline')
+    cancel_hidden('#event_cancel')
+    toggle_hidden('#event_accept')
+
+    $('#cancel-reason').hide()
+    $('#decline-reason').hide()
+    $('#accept-reason').toggle();
   });
 
   $('#decline_link').bind('click', function(e){
     e.preventDefault();
-    $('#decline_link').hide();
-    $('#decline-reason').show();
+
+    toggle_hidden('#event_decline')
+    cancel_hidden('#event_cancel')
+    cancel_hidden('#event_accept')
+
+    $('#cancel-reason').hide()
+    $('#accept-reason').hide()
+    $('#decline-reason').toggle();
+  });
+
+  $('#cancel_link').bind('click', function(e){
+    e.preventDefault();
+
+    cancel_hidden('#event_decline')
+    toggle_hidden('#event_cancel')
+    cancel_hidden('#event_accept')
+
+    $('#decline-reason').hide()
+    $('#accept-reason').hide()
+    $('#cancel-reason').toggle();
   });
 
   $('.fdatepicker').fdatepicker({
@@ -35,7 +70,7 @@ $(function(){
     tinyMCE.triggerSave();
     id = "#event_" + arg
     content = $(id).val();
-    if ($(element).is(':checked') && (content == ''))
+    if (($(element).val() == 'true') && (content == ''))
       {return false }
     else
       { return true }

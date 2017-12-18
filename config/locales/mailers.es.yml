@@ -8,10 +8,10 @@ es:
       canceled_at: "A día %{canceled_at}"
       thanks: "Un saludo"
     decline_event:
-      subject: "Declinado evento: %{title}"
+      subject: "Rechazado evento: %{title}"
       welcome: "Hola %{name}"
       text1: "El evento: %{title}"
-      text2: "Ha sido declinado por %{name}, por la siguiente razón:"
+      text2: "Ha sido rechazado por %{name}, por la siguiente razón:"
       declined_at: "A día %{declined_at}"
       thanks: "Un saludo"
     accept_event:

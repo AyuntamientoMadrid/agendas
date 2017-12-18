@@ -50,16 +50,4 @@ module ApplicationHelper
     end
   end
 
-  def canceled_event(event)
-    !event.canceled_at.nil?
-  end
-
-  def declined_event(event)
-    !event.declined_at.nil?
-  end
-
-  def accepted_event(event)
-    !event.accepted_at.nil?
-  end
-
 end
