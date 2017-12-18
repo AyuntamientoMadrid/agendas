@@ -507,7 +507,7 @@ feature 'Events' do
             attach_file attachment[:id], "spec/fixtures/dummy.pdf"
             input_title = find(".attachment-title")
             fill_in input_title[:id], with: "Dummy pdf"
-            click_on "Guardar"
+            click_on "Enviar la solicitud"
 
             expect(page).to have_link "Dummy pdf"
           end
@@ -527,7 +527,7 @@ feature 'Events' do
             attach_file attachment[:id], "spec/fixtures/dummy.xml"
             input_title = find(".attachment-title")
             fill_in input_title[:id], with: "Dummy xml"
-            click_on "Guardar"
+            click_on "Enviar la solicitud"
 
             expect(page).to have_content "Archivo adjunto: Archivo El archivo proporcionado está en un formato no permitido. Los siguientes formatos de archivo son permitidos: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."
           end
@@ -1129,7 +1129,7 @@ feature 'Events' do
 
       click_link I18n.t('backend.accept_event')
 
-      click_button I18n.t('backend.save')
+      click_button "Enviar la solicitud"
 
       expect(page).to have_content I18n.translate('backend.event.accept_reasons_needed')
     end
@@ -1140,7 +1140,7 @@ feature 'Events' do
       visit edit_event_path(event)
 
       click_link I18n.t('backend.cancel_event')
-      click_button I18n.t('backend.save')
+      click_button "Enviar la solicitud"
 
       expect(page).to have_content I18n.translate('backend.event.reasons_needed')
     end
@@ -1152,7 +1152,7 @@ feature 'Events' do
       visit edit_event_path(event)
 
       click_link I18n.t('backend.decline_event')
-      click_button I18n.t('backend.save')
+      click_button "Enviar la solicitud"
 
       expect(page).to have_content I18n.translate('backend.event.decline_reasons_needed')
     end
