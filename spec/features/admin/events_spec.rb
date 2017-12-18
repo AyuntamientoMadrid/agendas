@@ -219,7 +219,7 @@ feature 'Events' do
         visit edit_event_path(event)
 
         fill_in :event_title, with: 'New event modified from Capybara'
-        click_button "Enviar la solicitud"
+        click_button "Guardar"
 
         expect(page).to have_content 'New event modified from Capybara'
       end
@@ -322,7 +322,7 @@ feature 'Events' do
       scenario 'Visit new admin event page and create event without mandatory fields and display error', :js do
         visit new_event_path
 
-        click_button "Enviar la solicitud"
+        click_button "Guardar"
 
         expect(page).to have_content "Este campo es obligatorio", count: 4
       end
@@ -337,7 +337,7 @@ feature 'Events' do
         select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
         choose :event_lobby_activity_false
         fill_in :event_published_at, with: Date.current
-        click_button "Enviar la solicitud"
+        click_button "Guardar"
 
         expect(page).to have_content "Registro creado correctamente"
       end
@@ -353,7 +353,7 @@ feature 'Events' do
         select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
         choose :event_lobby_activity_false
         fill_in :event_published_at, with: Date.current
-        click_button "Enviar la solicitud"
+        click_button "Guardar"
 
         event = Event.where(title: "Title").first
         expect(page).to have_content "Registro creado correctamente"
@@ -386,7 +386,7 @@ feature 'Events' do
             within "#participants" do
               find("option[value='1']").select_option
             end
-            click_button "Enviar la solicitud"
+            click_button "Guardar"
 
             expect(page).to have_content "Registro creado correctamente"
           end
@@ -434,7 +434,7 @@ feature 'Events' do
             fill_in :event_published_at, with: Date.current
             find('.add-attendee').click
             find(".attendee-name").set("Name")
-            click_button "Enviar la solicitud"
+            click_button "Guardar"
 
             expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
             expect(page).to have_content "2 errores impidieron guardar este evento"
@@ -456,7 +456,7 @@ feature 'Events' do
             find(".attendee-name").set("Name")
             find(".attendee-position").set("Position")
             find(".attendee-company").set("Company")
-            click_button "Enviar la solicitud"
+            click_button "Guardar"
 
             expect(page).to have_content "Registro creado correctamente"
           end
@@ -534,7 +534,7 @@ feature 'Events' do
             attach_file attachment[:id], "spec/fixtures/dummy.pdf"
             input_title = find(".attachment-title")
             fill_in input_title[:id], with: "Dummy pdf"
-            click_on "Enviar la solicitud"
+            click_on "Guardar"
 
             expect(page).to have_link "Dummy pdf"
           end
@@ -554,7 +554,7 @@ feature 'Events' do
             attach_file attachment[:id], "spec/fixtures/dummy.xml"
             input_title = find(".attachment-title")
             fill_in input_title[:id], with: "Dummy xml"
-            click_on "Enviar la solicitud"
+            click_on "Guardar"
 
             expect(page).to have_content "Archivo adjunto: Archivo El archivo proporcionado está en un formato no permitido. Los siguientes formatos de archivo son permitidos: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."
           end
@@ -681,7 +681,7 @@ feature 'Events' do
             within('#new_event_agent') do
               select "#{agent.name} #{agent.first_surname} #{agent.second_surname}"
             end
-            click_button "Enviar la solicitud"
+            click_button "Guardar"
             expect(page).to have_content "Registro creado correctamente"
           end
 
@@ -695,7 +695,7 @@ feature 'Events' do
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             fill_in :event_published_at, with: Date.current
             choose :event_lobby_activity_true
-            click_button "Enviar la solicitud"
+            click_button "Guardar"
 
             expect(page).to have_content I18n.translate('backend.event.event_agent_needed'), count: 1
           end
@@ -1165,7 +1165,7 @@ feature 'Events' do
 
       click_link I18n.t('backend.accept_event')
 
-      click_button "Enviar la solicitud"
+      click_button "Guardar"
 
       expect(page).to have_content I18n.translate('backend.event.accept_reasons_needed')
     end
@@ -1176,7 +1176,7 @@ feature 'Events' do
       visit edit_event_path(event)
 
       click_link I18n.t('backend.cancel_event')
-      click_button "Enviar la solicitud"
+      click_button "Guardar"
 
       expect(page).to have_content I18n.translate('backend.event.reasons_needed')
     end
@@ -1188,7 +1188,7 @@ feature 'Events' do
       visit edit_event_path(event)
 
       click_link I18n.t('backend.decline_event')
-      click_button "Enviar la solicitud"
+      click_button "Guardar"
 
       expect(page).to have_content I18n.translate('backend.event.decline_reasons_needed')
     end

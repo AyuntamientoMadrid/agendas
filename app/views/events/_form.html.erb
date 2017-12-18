@@ -196,14 +196,14 @@
       <fieldset class="reason-activity-actions">
         <legend><%= t('backend.event_actions') %></legend>
         <div class="row">
-          <div class="small-10 columns">
+          <div class="small-12 columns">
             <% if !current_user.lobby? %>
-              <%= link_to t('backend.accept_event'), '#', :class => "button radius success", disabled: !declinable_or_aceptable_event?(f.object), id: "accept_link" %>
-              <%= link_to t('backend.decline_event'), '#', :class => "button radius warning", disabled: !declinable_or_aceptable_event?(f.object), id: "decline_link" %>
+              <%= link_to t('backend.accept_event'), '#', :class => "button radius success small", disabled: !declinable_or_aceptable_event?(f.object), id: "accept_link" %>
+              <%= link_to t('backend.decline_event'), '#', :class => "button radius warning small", disabled: !declinable_or_aceptable_event?(f.object), id: "decline_link" %>
               <%= f.hidden_field :accept, value: 'false' if declinable_or_aceptable_event?(f.object) %>
               <%= f.hidden_field :decline, value: 'false' if declinable_or_aceptable_event?(f.object) %>
             <% end %>
-            <%= link_to t('backend.cancel_event'), '#', :class => "button radius alert", disabled: !cancelable_event?(f.object), id: "cancel_link" %>
+            <%= link_to t('backend.cancel_event'), '#', :class => "button radius alert small", disabled: !cancelable_event?(f.object), id: "cancel_link" %>
             <%= f.hidden_field :cancel, value: 'false' if cancelable_event?(f.object) %>
           </div>
         </div>
@@ -240,8 +240,14 @@
         <% end %>
       </fieldset>
     <% end %>
-
-  <%= submit_tag t('backend.save_request'), :class=> "button radius success right" %>
+    <div class="buttons-bottom">
+      <% if current_user.lobby? %>
+        <%= submit_tag t('backend.save_request'), :class=> "button radius success right" %>
+      <% else %>
+        <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
+        <%= link_to t('backend.exit_without_save'), events_path, class: "button radius alert right" %>
+      <% end %>
+    </div>
 <% end %>
 
 <%= javascript_include_tag 'events'%>
