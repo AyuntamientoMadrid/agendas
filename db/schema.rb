@@ -135,6 +135,8 @@ ActiveRecord::Schema.define(version: 20171216181904) do
     t.integer  "organization_id"
     t.date     "declined_at"
     t.string   "declined_reasons"
+    t.date     "accepted_at"
+    t.string   "accepted_reasons"
   end
 
   add_index "events", ["position_id"], name: "index_events_on_position_id", using: :btree

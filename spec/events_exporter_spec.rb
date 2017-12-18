@@ -30,6 +30,8 @@ describe EventsExporter do
       expect(row).to include(event.reasons)
       expect(row).to include(event.published_at)
       expect(row).to include(event.canceled_at)
+      expect(row).to include(event.accepted_at)
+      expect(row).to include(event.declined_at)
       expect(row).to include(event.organization_name)
       expect(row).to include(event.lobby_scheduled)
       expect(row).to include(event.general_remarks)
