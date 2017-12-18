@@ -18,8 +18,8 @@ feature 'Events' do
 
       scenario 'Should allow to download all attachments from event attachments dropdown', :js do
         event = create(:event, position: @position)
-        attachment= create(:attachment, event: event, title: "An amazing attachment title")
-        attachment= create(:attachment, event: event, title: "Other title")
+        create(:attachment, event: event, title: "An amazing attachment title")
+        create(:attachment, event: event, title: "Other title")
         visit events_path
 
         within "#event_#{event.id}" do
@@ -332,8 +332,8 @@ feature 'Events' do
 
       scenario 'Should allow to download all attachments from event attachments dropdown', :js do
         event = create(:event)
-        attachment= create(:attachment, event: event, title: "An amazing attachment title")
-        attachment= create(:attachment, event: event, title: "Other title")
+        create(:attachment, event: event, title: "An amazing attachment title")
+        create(:attachment, event: event, title: "Other title")
         visit events_path
 
         within "#event_#{event.id}" do
