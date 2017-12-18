@@ -173,9 +173,13 @@ feature 'Organizations page' do
 
       scenario "Should display events as lobby and status :done", :js do
         organization = create(:organization, entity_type: :lobby)
-        event1 = create(:event, lobby_activity: true, status: 2, organization: organization)
-        event2 = create(:event, lobby_activity: true, status: 1, organization: organization)
+        event1 = create(:event, lobby_activity: true, organization: organization)
+        event2 = create(:event, lobby_activity: true, organization: organization)
         event3 = create(:event, lobby_activity: false, organization: organization)
+        event3.update(status: :requested)
+        event2.update(status: :accepted)
+        event1.update(status: :done)
+
         Organization.reindex
 
         visit organizations_path

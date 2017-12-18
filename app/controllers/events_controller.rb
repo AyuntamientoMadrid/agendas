@@ -18,8 +18,7 @@ class EventsController < AdminController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @event.user = current_user
@@ -45,8 +44,8 @@ class EventsController < AdminController
 
   def event_params
     params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, :search_title, :search_person,
-                                  :lobby_activity, :notes, :status, :reasons, :published_at, :cancel, :decline, :declined_reasons,:organization_id,
-                                  :organization_name, :lobby_scheduled, :general_remarks, :lobby_contact_firstname,
+                                  :lobby_activity, :notes, :status, :reasons, :published_at, :cancel, :decline, :declined_reasons, :organization_id,
+                                  :organization_name, :lobby_scheduled, :general_remarks, :lobby_contact_firstname, :accept, :accepted_reasons,
                                   :lobby_contact_lastname, :lobby_contact_phone, :lobby_contact_email, :manager_general_remarks,
                                   event_represented_entities_attributes: [:id, :name, :_destroy],
                                   event_agents_attributes: [:id, :name, :_destroy],
@@ -78,7 +77,7 @@ class EventsController < AdminController
 
   def find_holder_id_by_name(name)
     holder_ids = Holder.by_name(name).pluck(:id)
-    array_position = Position.where("positions.holder_id IN (?)", holder_ids)
+    Position.where("positions.holder_id IN (?)", holder_ids)
   end
 
   def enum_status(array_status)

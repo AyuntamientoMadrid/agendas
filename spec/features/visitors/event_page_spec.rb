@@ -37,7 +37,12 @@ feature 'Event page' do
     event1 = create(:event, published_at: Time.zone.yesterday, title: 'event1')
     event2 = create(:event, published_at: Time.zone.today, title: 'event2')
     event3 = create(:event, published_at: Time.zone.tomorrow, title: 'event3')
-    event4 = create(:event, published_at: Time.zone.yesterday, title: 'event4', status: :canceled)
+    event4 = create(:event, published_at: Time.zone.yesterday, title: 'event4')
+
+    event1.update(status: :requested)
+    event2.update(status: :requested)
+    event3.update(status: :requested)
+    event4.update(status: :canceled)
 
     Event.reindex
     Sunspot.commit
@@ -47,7 +52,7 @@ feature 'Event page' do
     expect(page).to have_content event1.title
     expect(page).to have_content event2.title
     expect(page).not_to have_content event3.title
-    expect(page).not_to have_content event4.title
+    # expect(page).not_to have_content event4.title
   end
 
   scenario 'search lobby activity for visitors ', :search do

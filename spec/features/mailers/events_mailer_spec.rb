@@ -5,6 +5,7 @@ feature 'Events Mailer' do
     background do
       clear_emails
       @event = create(:event, title: 'New event from Capybara', user: create(:user))
+      @event.update(status: 'accepted')
       @event.cancel = 'true'
       @event.reasons = 'test'
       @event.save!
@@ -34,6 +35,27 @@ feature 'Events Mailer' do
 
     scenario 'decline event mail' do
       expect(current_email).to have_content I18n.t('mailers.decline_event.text1', title: @event.title)
+    end
+
+  end
+
+  describe "Accept Event" do
+
+    background do
+      clear_emails
+      @event = create(:event, title: 'New event from Capybara',
+        user: create(:user, :lobby))
+      @event.lobby_contact_firstname = 'test_name'
+      @event.lobby_contact_lastname = 'test_other_name'
+      @event.lobby_contact_email = 'test_lobby_mail'
+      @event.accept = 'true'
+      @event.accepted_reasons = 'test'
+      @event.save!
+      open_email(@event.lobby_contact_email)
+    end
+
+    scenario 'accept event mail' do
+      expect(current_email).to have_content I18n.t('mailers.accept_event.text1', title: @event.title)
     end
 
   end
