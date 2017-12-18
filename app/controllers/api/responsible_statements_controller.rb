@@ -24,11 +24,12 @@ module Api
                 }
     def inicioExpediente
       responsible_statement = Nokogiri.XML(params[:xmlDatosEntrada])
-      # build organization from received responsible statement, save and respond
+      #TODO:  build organization from received responsible statement, save and respond
+      puts responsible_statement
 
       render soap: {
-        codRetorno: "codRetorno",
-        descError: "descError",
+        codRetorno: "",
+        descError: "OK",
         idExpediente: "idExpediente",
         refExpediente: "refExpediente",
       }
