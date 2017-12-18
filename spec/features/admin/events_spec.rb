@@ -324,7 +324,7 @@ feature 'Events' do
 
         click_button "Enviar la solicitud"
 
-        expect(page).to have_content "Este campo es obligatorio", count: 5
+        expect(page).to have_content "Este campo es obligatorio", count: 4
       end
 
       scenario 'Visit new admin event page and create organization with the minimum permitted fields', :js do
