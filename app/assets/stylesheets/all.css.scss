@@ -7637,7 +7637,7 @@ fieldset.attachments{
   hr:last-child{
     display: none;
   }
-}    
+}
 
 .visit-organizations-list{
   select {
@@ -7690,6 +7690,56 @@ fieldset.attachments{
   padding: 0;
 }
 
+.buttons-bottom{
+  a{
+    margin-right: 3px;
+  }
+}
+
+.reason-activity-actions{
+  .alert,
+  button.disabled.alert,
+  button[disabled].alert,
+  .button.disabled.alert,
+  .button[disabled].alert{
+    background-color: transparent;
+    color: #cf2a0e;
+    background: transparent;
+    border: 1px solid #cf2a0e;
+    cursor: not-allowed;
+  }
+
+  .warning,
+  button.disabled.warning,
+  button[disabled].warning,
+  .button.disabled.warning,
+  .button[disabled].warning{
+    background-color: transparent;
+    color: #f08a24;
+    background: transparent;
+    border: 1px solid #f08a24;
+    cursor: not-allowed;
+  }
+
+  .success,
+  button.disabled.success,
+  button[disabled].success,
+  .button.disabled.success,
+  .button[disabled].success{
+    background-color: transparent;
+    color: #43AC6A;
+    background: transparent;
+    border: 1px solid #43AC6A;
+    cursor: not-allowed;
+  }
+
+  .alert,
+  .warning,
+  .success{
+    cursor: pointer;
+  }
+}
+
 @media only screen and (min-width: 40.0625em) {
   .visit-organizations-list{
     .title-s{
@@ -7729,5 +7779,10 @@ fieldset.attachments{
   .order-select{
     padding: 0;
     margin-bottom:0;
+  }
+  .reason-activity-actions{
+    a{
+      display: block;
+    }
   }
 }
