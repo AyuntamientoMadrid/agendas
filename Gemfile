@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-ruby '2.3.5'
 
 gem 'ancestry', '~> 2.1.0'
 gem 'cancancan', '~> 1.13.1'
