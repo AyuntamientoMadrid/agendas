@@ -556,7 +556,7 @@ feature 'Events' do
             fill_in input_title[:id], with: "Dummy xml"
             click_on "Enviar la solicitud"
 
-            expect(page).to have_content "Archivo adjunto: Archivo El archivo proporcionado está en un formato no permitido. Los siguientes formatos de archivo son permitidos: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."
+            expect(page).to have_content "Archivo adjunto: Privacidad no está incluido en la lista Attachments file content type El archivo proporcionado está en un formato no permitido. Los siguientes formatos de archivo son permitidos: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."
           end
         end
 
