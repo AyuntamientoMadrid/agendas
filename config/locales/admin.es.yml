@@ -10,6 +10,7 @@ es:
     edit: "Editar"
     delete: "Eliminar"
     save: "Guardar"
+    save_request: "Enviar la solicitud"
     cancel: "Cancelar"
     action: "Acción"
     actions: "Acciones"
