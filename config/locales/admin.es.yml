@@ -84,6 +84,7 @@ es:
     event:
       title: "Evento"
       event_agent_needed: "En los eventos de lobbies hace falta, al menos, un agente."
+      add_agents: "Es necesario añadir algún agente para poder solicitar una reunión"
       not_available_agents: "No hay agentes disponibles."
       reasons_needed: "Debe dar alguna razon para cancelar el evento"
       decline_reasons_needed: "Debe dar alguna razon para declinar el evento"

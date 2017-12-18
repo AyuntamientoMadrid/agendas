@@ -729,6 +729,15 @@ feature 'Events' do
 
         expect(page).not_to have_content('Rechazar evento')
       end
+
+      scenario 'visit new event with organization without agents and redirect to edit_agents' do
+        @agent.destroy
+
+        visit new_event_path
+
+        expect(page).to have_content('Editar agentes')
+        expect(page).to have_content('Es necesario añadir algún agente para poder solicitar una reunión')
+      end
     end
 
     describe "Create" do
