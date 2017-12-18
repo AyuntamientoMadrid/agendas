@@ -7632,3 +7632,9 @@ header .top-bar{
   font-size: 0.7rem;
   font-style: italic;
 }
+
+fieldset.attachments{
+  hr:last-child{
+    display: none;
+  }
+}
