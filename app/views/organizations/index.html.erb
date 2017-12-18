@@ -8,22 +8,19 @@
 
 <div class="row">
   <%= render 'search_form' %>
-
   <div class="small-12 columns mb40">
     <% if params[:keyword].present? %>
       <%= render "shared/search_keywords",
                  collection: @organizations,
                  keyword: params[:keyword] %>
     <% end %>
-
     <div class="medium-7 columns">
       <% unless search_by_filter? %>
         <p><strong class="result-l"><%= organizations_index_subtitle %></strong></p>
       <% end %>
     </div>
-
-    <div class="medium-5 columns mb20">
-      <div class="medium-9 columns">
+    <div class="small-12 medium-5 columns order-select">
+      <div class="small-12 medium-9 columns">
         <label for="right-label" class="title-xs">
           <%= t("main.form.order_by") %>
         </label>
@@ -38,24 +35,24 @@
                         id: "search-order",
                         class: "select-sm" %>
       </div>
-      <div class="medium-3 columns export">
+      <div class="small-12 medium-3 columns export no-padding">
         <%= export_link(current_url(format: :csv)) %>
       </div>
     </div>
-
-    <div class="small-12 columns">
+    <div class="small-12 columns mb20">
       <div class="text-left">
         <%= paginate @organizations.hits %>
       </div>
     </div>
-    <div class="small-12 columns">
+    <div class="small-12 columns mb20 list-organizations">
       <% @paginated_organizations.each do |organization| %>
         <%= render organization %>
       <% end %>
+    </div>
+    <div class="small-12 columns">
       <%= paginate @organizations.hits %>
     </div>
   </div>
 </div>
-
 
 <%= javascript_include_tag "search_form" %>

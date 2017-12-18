@@ -7346,12 +7346,10 @@ select {
 
 .top_bar_box {
   padding: 35px 0 100px;
-  //background: #004A83;
   background: #003df6;
   padding: 0;
 }
 .sub_top_bar_box{
-  // background: #0363a7;
   background: #0000e1;
   ul{
     margin-bottom:0;
@@ -7369,7 +7367,6 @@ select {
     }
   }
 }
-
 .header-title{
   background: #f5f7f8;
   text-align: center;
@@ -7637,8 +7634,8 @@ header .top-bar{
   }
 
   .button.small{
-    padding-left: 1.3rem;
-    padding-right: 1.3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .result-l,
@@ -7646,6 +7643,20 @@ header .top-bar{
     margin-top: 1.3rem;
   }
 
+  .export{
+    a{
+      margin-top:0.6rem;
+      span{
+        display: inline-block;
+        font-size: 13px;
+        margin-left:3px;
+        margin-right:3px;
+      }
+    }
+  }
+  .list-organizations{
+    padding: 0;
+  }
   .box .post{
     border-bottom: 0;
     margin-bottom:0;
@@ -7664,4 +7675,47 @@ header .top-bar{
 
 .no-padding{
   padding: 0;
+}
+
+@media only screen and (min-width: 40.0625em) {
+  .visit-organizations-list{
+    .title-s{
+      font-size: 13px;
+    }
+    .order-select{
+      padding: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 40em) {
+  .buttons-action{
+    padding: 0;
+  }
+}
+
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+  .visit-organizations-list{
+    border:2px solid red;
+    .title-s{
+      font-size: 12px;
+    }
+    .buttons-action{
+      text-align: right;
+      .button.small {
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
+      }
+    }
+    .result-l{
+      font-size: 1.4rem;
+    }
+  }
+}
+
+@media screen and (max-width: 39.9375em) {
+  .order-select{
+    padding: 0;
+    margin-bottom:0;
+  }
 }

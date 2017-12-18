@@ -2,14 +2,14 @@
   <%= form_tag organizations_path, method: :get do %>
     <%= hidden_field_tag :order, params[:order] %>
 
-    <div class="medium-4 columns">
+    <div class="small-12 medium-12 large-4 columns">
       <%= label_tag :area, t("organizations.description"), class: 'title-s' %>
       <%= text_field_tag :keyword, params[:keyword], placeholder: t("main.form.keyword") %>
       <%= check_box_tag(:lobby_activity, value = "1", checked = check_filter_lobby_activity , id: "lobby_activity")%>
       <%= label_tag(:lobby_activity, t("backend.lobby_activity")) %>
     </div>
 
-    <div class="medium-3 columns">
+    <div class="small-12 medium-6 large-3 columns">
       <%= label_tag :area, t('main.form.filter_by_category'), class: 'title-s' %>
       <%= select_tag :category,
                      options_for_select(Category.where(display: true).all.map {
@@ -20,7 +20,7 @@
                      class: "dropdown" %>
     </div>
 
-    <div class="medium-3 columns">
+    <div class="small-12 medium-6 large-3 columns">
       <%= label_tag :area, t('main.form.filter_by_interests'), class: 'title-s' %>
       <%= select_tag :interests,
                      options_for_select(Interest.all.map {
@@ -31,7 +31,7 @@
                      class: "dropdown" %>
     </div>
 
-    <div class="medium-2 columns no-padding">
+    <div class="small-12 medium-12 large-2 columns buttons-action text-right">
       <br />
       <%= link_to t("main.form.clear"), organizations_path, class: "button secondary small" %>
       <%= submit_tag t("main.form.search"), class: "button small" %>
