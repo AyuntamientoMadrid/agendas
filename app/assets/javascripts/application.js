@@ -23,4 +23,9 @@
 
 $(function() {
   $(document).foundation();
+  
+  tinymce.init({
+    selector : "textarea:not(.mceNoEditor)",
+    language : 'es'
+  });
 });
