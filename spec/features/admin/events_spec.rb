@@ -205,7 +205,7 @@ feature 'Events' do
         visit edit_event_path(event)
 
         fill_in :event_title, with: 'New event modified from Capybara'
-        click_button I18n.t 'backend.save'
+        click_button "Enviar la solicitud"
 
         expect(page).to have_content 'New event modified from Capybara'
       end
@@ -256,7 +256,7 @@ feature 'Events' do
         page.choose('event_decline_true')
         page.find_by_id("decline-reason", visible: true)
 
-        click_button "Guardar"
+        click_button "Enviar la solicitud"
 
         expect(page).to have_content I18n.t('backend.event.decline_reasons_needed'), count: 1
       end
@@ -331,7 +331,7 @@ feature 'Events' do
       scenario 'Visit new admin event page and create event without mandatory fields and display error', :js do
         visit new_event_path
 
-        click_button "Guardar"
+        click_button "Enviar la solicitud"
 
         expect(page).to have_content "Este campo es obligatorio", count: 5
       end
@@ -346,7 +346,7 @@ feature 'Events' do
         select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
         choose :event_lobby_activity_false
         fill_in :event_published_at, with: Date.current
-        click_button "Guardar"
+        click_button "Enviar la solicitud"
 
         expect(page).to have_content "Registro creado correctamente"
       end
@@ -362,7 +362,7 @@ feature 'Events' do
         select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
         choose :event_lobby_activity_false
         fill_in :event_published_at, with: Date.current
-        click_button "Guardar"
+        click_button "Enviar la solicitud"
 
         event = Event.where(title: "Title").first
         expect(page).to have_content "Registro creado correctamente"
@@ -395,7 +395,7 @@ feature 'Events' do
             within "#participants" do
               find("option[value='1']").select_option
             end
-            click_button "Guardar"
+            click_button "Enviar la solicitud"
 
             expect(page).to have_content "Registro creado correctamente"
           end
@@ -443,7 +443,7 @@ feature 'Events' do
             fill_in :event_published_at, with: Date.current
             find('.add-attendee').click
             find(".attendee-name").set("Name")
-            click_button "Guardar"
+            click_button "Enviar la solicitud"
 
             expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
             expect(page).to have_content "2 errores impidieron guardar este evento"
@@ -465,7 +465,7 @@ feature 'Events' do
             find(".attendee-name").set("Name")
             find(".attendee-position").set("Position")
             find(".attendee-company").set("Company")
-            click_button "Guardar"
+            click_button "Enviar la solicitud"
 
             expect(page).to have_content "Registro creado correctamente"
           end
@@ -651,7 +651,7 @@ feature 'Events' do
             within('#new_event_agent') do
               select agent.name
             end
-            click_button "Guardar"
+            click_button "Enviar la solicitud"
             expect(page).to have_content "Registro creado correctamente"
           end
 
@@ -665,7 +665,7 @@ feature 'Events' do
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             fill_in :event_published_at, with: Date.current
             choose :event_lobby_activity_true
-            click_button "Guardar"
+            click_button "Enviar la solicitud"
 
             expect(page).to have_content I18n.translate('backend.event.event_agent_needed'), count: 1
           end
@@ -754,14 +754,14 @@ feature 'Events' do
         end
         choose_autocomplete :event_position_title, with: @position.title, select: @position.title
         find("#position_id", :visible => false).set(@position.id)
-        click_button I18n.t('backend.save')
+        click_button "Enviar la solicitud"
         expect(page).to have_content 'Registro creado correctamente'
       end
 
       scenario 'Visit new event page and create event without mandatory fields and display error', :js do
         visit new_event_path
 
-        click_button "Guardar"
+        click_button "Enviar la solicitud"
 
         expect(page).to have_content "Este campo es obligatorio", count: 3
       end
@@ -795,7 +795,7 @@ feature 'Events' do
         end
         choose_autocomplete :event_position_title, with: new_position.title, select: new_position.title
         find("#position_id", :visible => false).set(new_position.id)
-        click_button "Guardar"
+        click_button "Enviar la solicitud"
         event = Event.where(title: "Title").first
         expect(page).to have_content "Registro creado correctamente"
         expect(event.title).to eq "Title"
@@ -933,7 +933,7 @@ feature 'Events' do
         click_link "Editar"
 
         fill_in :event_title, with: "Editar evento"
-        click_button "Guardar"
+        click_button "Enviar la solicitud"
 
         expect(page).to have_content "Solicitud de evento"
       end
@@ -949,7 +949,7 @@ feature 'Events' do
         editor.native.send_keys 'test'
         find("#position_id", :visible => false).set(@position.id)
 
-        click_button "Guardar"
+        click_button "Enviar la solicitud"
 
         expect(page).not_to have_selector "#event_cancel_true"
       end
@@ -963,7 +963,7 @@ feature 'Events' do
         page.find_by_id("cancel-reason", visible: true)
         find("#position_id", :visible => false).set(@position.id)
 
-        click_button "Guardar"
+        click_button "Enviar la solicitud"
 
         expect(page).to have_content I18n.t('backend.event.reasons_needed'), count: 1
       end
@@ -1014,7 +1014,7 @@ feature 'Events' do
         fill_in :event_lobby_contact_email, with: 'new_loby@email.com'
         find("#position_id", :visible => false).set(@position.id)
 
-        click_button 'Guardar'
+        click_button "Enviar la solicitud"
 
         event.reload
 
