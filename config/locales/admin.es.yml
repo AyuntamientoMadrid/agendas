@@ -71,6 +71,7 @@ es:
     position: "Cargo"
     area: "Unidad"
     main_position: "Titular de la agenda"
+    main_position_help_text: "Introduzca apellido, nombre o cargo de la persona con la que se quiere reunir"
     positions: "Histórico de cargos"
     contributed_by: "Gestionado por"
     new_position: "Nuevo cargo"

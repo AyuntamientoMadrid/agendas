@@ -44,6 +44,7 @@
         <% end %>
         <% if current_user.lobby? %>
           <%= f.label :name_holder, t('backend.main_position') %>
+          <span class="help-text"><%= t('backend.main_position_help_text') %></span>
           <%= f.autocomplete_field :holder_title,  autocomplete_position_title_positions_path ,:update_elements => {:id => '#position_id'} , placeholder: t('backend.holder_input') , value: holder_name_by_position_id(@event.position_id) %>
           <%= f.hidden_field :position_id, {:id => "position_id"} %>
         <% else %>
