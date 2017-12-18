@@ -7637,7 +7637,9 @@ header .top-bar{
     padding-left: 1rem;
     padding-right: 1rem;
   }
-
+  .result-l{
+    font-weight: normal;
+  }
   .result-l,
   .export {
     margin-top: 1.3rem;
@@ -7696,7 +7698,6 @@ header .top-bar{
 
 @media screen and (min-width: 40em) and (max-width: 63.9375em) {
   .visit-organizations-list{
-    border:2px solid red;
     .title-s{
       font-size: 12px;
     }

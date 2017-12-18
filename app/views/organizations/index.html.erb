@@ -16,11 +16,11 @@
     <% end %>
     <div class="medium-7 columns">
       <% unless search_by_filter? %>
-        <p><strong class="result-l"><%= organizations_index_subtitle %></strong></p>
+        <p><span class="result-l"><%= organizations_index_subtitle %></span></p>
       <% end %>
     </div>
     <div class="small-12 medium-5 columns order-select">
-      <div class="small-12 medium-9 columns">
+      <div class="small-12 medium-8 columns">
         <label for="right-label" class="title-xs">
           <%= t("main.form.order_by") %>
         </label>
@@ -35,7 +35,7 @@
                         id: "search-order",
                         class: "select-sm" %>
       </div>
-      <div class="small-12 medium-3 columns export no-padding">
+      <div class="small-12 medium-4 columns export no-padding">
         <%= export_link(current_url(format: :csv)) %>
       </div>
     </div>
