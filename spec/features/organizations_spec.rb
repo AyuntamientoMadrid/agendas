@@ -30,14 +30,14 @@ feature 'Organizations page' do
       expect(page).not_to have_content organization2.name
     end
 
-    scenario 'Should not show paginator when there are less than 10 results' do
+    scenario 'Should not show paginator when there are less than 20 results' do
       visit organizations_path
 
       expect(page).not_to have_selector ".pagination"
     end
 
-    scenario 'Should show paginator when there are more than 11 results', :search do
-      create_list(:organization, 11)
+    scenario 'Should show paginator when there are more than 20 results', :search do
+      create_list(:organization, 21)
       Organization.reindex
 
       visit organizations_path
@@ -117,7 +117,7 @@ feature 'Organizations page' do
         fill_in :keyword, with: "Fulanito"
         expect(find('#keyword').value).to eq "Fulanito"
         click_on "Buscar"
-        click_on "Cancelar"
+        click_on "Limpiar"
 
         expect(find('#keyword').value).to eq nil
       end
