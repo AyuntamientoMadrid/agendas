@@ -32,6 +32,7 @@ es:
     review_errors: "Por favor corrija los siguientes errores antes de continuar"
     sync: "Sincronizar con UWEB"
     export: "Exportar"
+    allowed_file_content_types: "El archivo proporcionado está en un formato no permitido. Los siguientes formatos de archivo son permitidos: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."
 
     contributors: "Contribuidores"
     new_user: "Nuevo usuario"
@@ -87,7 +88,8 @@ es:
       add_agents: "Es necesario añadir algún agente para poder solicitar una reunión"
       not_available_agents: "No hay agentes disponibles."
       reasons_needed: "Debe dar alguna razon para cancelar el evento"
-      decline_reasons_needed: "Debe dar alguna razon para declinar el evento"
+      decline_reasons_needed: "Debe dar alguna razon para rechazar el evento"
+      accept_reasons_needed: "Debe dar alguna razon para aceptar el evento"
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"
@@ -163,7 +165,10 @@ es:
     canceled_event: Evento cancelado
     cancel_reason_yes: Si
     cancel_reason_no: "No"
-    reasons: Razones
+    reasons: Razones de cancelación
+    decline_reasons: Razones de rechazo
+    accept_reasons: Razones de aceptación
+    event_actions: Acciones sobre el evento
     status:
       requested: "Solicitada"
       accepted: "Aceptada"
@@ -174,6 +179,12 @@ es:
     declined_event: Evento declinado
     decline_reason_yes: Si
     decline_reason_no: "No"
+    accept_event: Aceptar evento
+    accepted_event: Evento aceptado
+    accept_reason_yes: Si
+    accept_reason_no: "No"
+    lobby_not_allowed_neither_empty_mail: 'verificar que el usuario no sea un lobby y que el texto con los motivos no esté vacío'
+    cancel_only_accepted: solo se pueden cancelar eventos aceptados
 
   backend_header:
     open_gov: "Gobierno abierto"

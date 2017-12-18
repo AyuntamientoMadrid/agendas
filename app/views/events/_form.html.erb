@@ -187,23 +187,43 @@
       </div>
     </fieldset>
 
-    <% if event_edit? %>
-      <fieldset class="cancel-reason-activity">
-        <% canceled_event = canceled_event(f.object) %>
-        <% if canceled_event %>
-          <legend><%= t('backend.canceled_event') %></legend>
-          <% unless f.object.reasons.blank? %>
-            <%= f.label :reasons, t('backend.reasons') %>
-            <br/>
-            <%= raw f.object.reasons %>
-          <% end  %>
-        <% else %>
-          <legend><%= t('backend.cancel_event') %></legend>
-          <%= f.radio_button :cancel, true, checked: canceled_event %>
-          <%= f.label :cancel, t('backend.cancel_reason_yes'), value: true %>
-          <%= f.radio_button :cancel, false, checked: !canceled_event %>
-          <%= f.label :cancel, t('backend.cancel_reason_no'), value: false %>
-          <div class="small-12 error-radio-buttons"></div>
+    <% unless  f.object.new_record? %>
+      <fieldset class="reason-activity-actions">
+        <legend><%= t('backend.event_actions') %></legend>
+        <div class="row">
+          <div class="small-10 columns">
+            <% if !current_user.lobby? %>
+              <%= link_to t('backend.accept_event'), '#', :class => "button radius success", disabled: !declinable_or_aceptable_event?(f.object), id: "accept_link" %>
+              <%= link_to t('backend.decline_event'), '#', :class => "button radius warning", disabled: !declinable_or_aceptable_event?(f.object), id: "decline_link" %>
+              <%= f.hidden_field :accept, value: 'false' if declinable_or_aceptable_event?(f.object) %>
+              <%= f.hidden_field :decline, value: 'false' if declinable_or_aceptable_event?(f.object) %>
+            <% end %>
+            <%= link_to t('backend.cancel_event'), '#', :class => "button radius alert", disabled: !cancelable_event?(f.object), id: "cancel_link" %>
+            <%= f.hidden_field :cancel, value: 'false' if cancelable_event?(f.object) %>
+          </div>
+        </div>
+
+        <% if !current_user.lobby? %>
+          <% if declinable_or_aceptable_event?(f.object) %>
+            <div id="accept-reason" style="display: none">
+              <div class="row">
+                <div class="small-12 columns">
+                  <%= f.label :accepted_reasons, t('backend.accept_reasons') %>
+                  <%= f.text_area :accepted_reasons, class: 'tinymce' %>
+                </div>
+              </div>
+            </div>
+            <div id="decline-reason" style="display: none">
+              <div class="row">
+                <div class="small-12 columns">
+                  <%= f.label :declined_reasons, t('backend.decline_reasons') %>
+                  <%= f.text_area :declined_reasons, class: 'tinymce' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+        <% if cancelable_event?(f.object) %>
           <div id="cancel-reason" style="display: none">
             <div class="row">
               <div class="small-12 columns">
@@ -212,35 +232,6 @@
               </div>
             </div>
           </div>
-        <% end %>
-      </fieldset>
-    <% end %>
-
-    <% if admin_or_mananger_edit? %>
-      <fieldset class="decline-reason-activity">
-        <% declined_event = declined_event(f.object) %>
-        <% if declined_event %>
-          <legend><%= t('backend.declined_event') %></legend>
-          <%= f.label :reasons, t('backend.reasons') %>
-          <br/>
-          <%= raw f.object.declined_reasons %>
-        <% else %>
-          <legend><%= t('backend.decline_event') %></legend>
-          <%= f.radio_button :decline, true, checked: declined_event %>
-          <%= f.label :decline, t('backend.decline_reason_yes'), value: true %>
-          <%= f.radio_button :decline, false, checked: !declined_event %>
-          <%= f.label :decline, t('backend.decline_reason_no'), value: false %>
-          <div class="small-12 error-radio-buttons"></div>
-
-          <div id="decline-reason" style="display: none">
-            <div class="row">
-              <div class="small-12 columns">
-                <%= f.label :declined_reasons, t('backend.reasons') %>
-                <%= f.text_area :declined_reasons, class: 'tinymce' %>
-              </div>
-            </div>
-          </div>
-
         <% end %>
       </fieldset>
     <% end %>

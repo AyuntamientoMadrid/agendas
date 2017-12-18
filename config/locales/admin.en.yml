@@ -28,6 +28,7 @@ es:
     review_errors: "Por favor corrija los siguientes errores antes de continuar"
     sync: "Sincronizar con UWEB"
     export: "Exportar"
+    allowed_file_content_types: "Uploaded file has wrong content type. Allowed content types are the following: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."    
 
     contributors: "Contribuidores"
     new_user: "Nuevo usuario"
@@ -83,6 +84,7 @@ es:
       not_available_agents: "Not available agents."
       reasons_needed: "You must provide some reasons to cancel the event"
       decline_reasons_needed: "You must provide some reasons to decline the event"
+      accept_reasons_needed: "You must provide some reasons to accept the event"
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"
@@ -156,17 +158,27 @@ es:
     canceled_event: Canceled event
     cancel_reason_yes: Yes
     cancel_reason_no: No
-    reasons: Reasons
+    reasons: Cancellation Reasons
+    decline_reasons: Declination Reasons
+    accept_reasons: Acceptation Reasons
+    event_actions: Event actions
     status:
       requested: "Requested"
       accepted: "Accepted"
       done: "Done"
       declined: "Rejected"
       canceled: "Canceled"
-    decline_event: Decline evento
+      accepted: "Accepted"
+    decline_event: Decline event
     declined_event: Event declined
     decline_reason_yes: Yes
     decline_reason_no: No
+    accept_event: Decline event
+    accepted_event: Event accepted
+    accept_reason_yes: Yes
+    accept_reason_no: No
+    lobby_not_allowed_neither_empty_mail: 'check that the user is not a lobby and that the text with the reasons is not empty'
+    cancel_only_accepted: Only can be cancelled accepted events
 
   backend_header:
     open_gov: "Gobierno abierto"
