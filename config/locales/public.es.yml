@@ -88,6 +88,7 @@ es:
       any: "Todos"
       search: "Buscar"
       reset: "Cancelar"
+      clear: "Limpiar"
       order_by: "Orden"
       scheduled: "Fecha"
       score: "Relevancia"
