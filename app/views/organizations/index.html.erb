@@ -15,7 +15,9 @@
                  keyword: params[:keyword] %>
     <% end %>
     <div class="medium-7 columns">
-      <% unless search_by_filter? %>
+      <% if search_by_filter? %>
+        <p><span class="result-l"><%= t("organizations.results_title") %></h2></span></p>
+      <% else %>
         <p><span class="result-l"><%= organizations_index_subtitle %></span></p>
       <% end %>
     </div>

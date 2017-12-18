@@ -6,6 +6,7 @@ en:
     title: Organizations registry
     description: Consult the organizations registered.
     events_as_lobby: Reuniones realizadas
+    results_title: Resultados de la búsqueda
     subtitle:
       default: Last registered organizations
 
