@@ -631,7 +631,7 @@ feature 'Events' do
             choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
 
             within ".agents-block" do
-              expect(page).to have_selector("option[value='#{agent.name}']")
+              expect(page).to have_selector("option[value='#{agent.name} #{agent.first_surname} #{agent.second_surname}']")
             end
           end
 
@@ -649,7 +649,7 @@ feature 'Events' do
             choose :event_lobby_activity_true
             choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
             within('#new_event_agent') do
-              select agent.name
+              select "#{agent.name} #{agent.first_surname} #{agent.second_surname}"
             end
             click_button "Guardar"
             expect(page).to have_content "Registro creado correctamente"
@@ -759,7 +759,7 @@ feature 'Events' do
         fill_in :event_location, with: 'New location'
         choose_autocomplete :event_organization_name, with: @organization.name, select: @organization.name
         within('#new_event_agent') do
-          select @agent.name
+          select "#{@agent.name} #{@agent.first_surname} #{@agent.second_surname}"
         end
         choose_autocomplete :event_position_title, with: @position.title, select: @position.title
         find("#position_id", :visible => false).set(@position.id)
@@ -800,7 +800,7 @@ feature 'Events' do
         tinymce_fill_in(:event_lobby_scheduled, "Lobby scheduled proposal")
         choose_autocomplete :event_organization_name, with: @organization.name, select: @organization.name
         within('#new_event_agent') do
-          select @agent.name
+          select "#{@agent.name} #{@agent.first_surname} #{@agent.second_surname}"
         end
         choose_autocomplete :event_position_title, with: new_position.title, select: new_position.title
         find("#position_id", :visible => false).set(new_position.id)
@@ -894,7 +894,7 @@ feature 'Events' do
             end
 
             within ".agents-block" do
-              expect(page).to have_selector("option[value='#{agent.name}']")
+              expect(page).to have_selector("option[value='#{agent.name} #{agent.first_surname} #{agent.second_surname}']")
             end
           end
 
