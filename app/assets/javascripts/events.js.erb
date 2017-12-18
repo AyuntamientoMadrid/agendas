@@ -182,12 +182,14 @@ $(function(){
 
   $("#event_lobby_activity_true").click(function(){
     $(".lobby-organization-autocomplete").show();
+    $('.lobby-scheduled').show();
   });
 
   if ($("#event_lobby_activity_true").is(":checked")) {
     fill_autocomplete_organization_name();
     fill_represented_entities_select_options();
     fill_agents_select_options();
+    $('.lobby-scheduled').show();
     if ($("#new_event").length > 0) {
       $('#event_represented_entities_link').trigger('click');
       $('#event_agents_link').trigger('click');
@@ -196,6 +198,7 @@ $(function(){
     $(".lobby-organization-autocomplete").hide();
     $('.represented-entities-block').hide();
     $('.agents-block').hide();
+    $('.lobby-scheduled').hide();
     fill_autocomplete_organization_name();
     fill_represented_entities_select_options();
     fill_agents_select_options();
@@ -205,6 +208,7 @@ $(function(){
     $(".lobby-organization-autocomplete").hide();
     $('.represented-entities-block').hide();
     $('.agents-block').hide();
+    $('.lobby-scheduled').hide();
     $("#lobby-activity-event #category-block").hide();
     $('#event_organization_name').val('');
     $('#lobby-activity-event .link_to_remove_association').trigger('click');

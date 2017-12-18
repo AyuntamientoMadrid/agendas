@@ -7628,6 +7628,17 @@ header .top-bar{
   }
 }
 
+.help-text{
+  font-size: 0.7rem;
+  font-style: italic;
+}
+
+fieldset.attachments{
+  hr:last-child{
+    display: none;
+  }
+}    
+
 .visit-organizations-list{
   select {
     height: 2.8rem;

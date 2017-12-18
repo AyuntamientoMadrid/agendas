@@ -23,68 +23,19 @@
       </fieldset>
     <% end %>
 
-    <fieldset>
-      <legend><%= t('backend.basic_data') %></legend>
-      <div class="small-12 columns">
-        <%= f.label :title, t('backend.title') %>
-        <%= f.text_field :title %>
-        <%= f.label :location, t('backend.location') %>
-        <%= f.text_field :location %>
-        <%= f.label :description, t('backend.description') %>
-        <%= f.text_area :description, class: 'tinymce' %>
-        <br />
-        <% if current_user.lobby? || admin_or_mananger_edit? %>
-          <%= f.label :lobby_scheduled, t('backend.lobby_date') %>
-          <%= f.text_area :lobby_scheduled, class: 'tinymce' %>
-          <br />
-        <% end %>
-        <% unless current_user.lobby? %>
-          <%= f.label :scheduled, t('backend.date') %>
-          <%= f.text_field :scheduled, class: 'fdatepicker' %>
-        <% end %>
-        <% if current_user.lobby? %>
-          <%= f.label :name_holder, t('backend.main_position') %>
-          <%= f.autocomplete_field :holder_title,  autocomplete_position_title_positions_path ,:update_elements => {:id => '#position_id'} , placeholder: t('backend.holder_input') , value: holder_name_by_position_id(@event.position_id) %>
-          <%= f.hidden_field :position_id, {:id => "position_id"} %>
-        <% else %>
-          <%= f.label :position_id, t('backend.main_position') %>
-          <%= f.select :position_id, @positions.map{|position| [position.holder.full_name_comma+' - '+position.title, position.id]}, prompt: t('backend.select') %>
-        <% end %>
-      </div>
-    </fieldset>
-
-    <% unless current_user.lobby? %>
-      <fieldset><!-- Participants -->
-        <legend><%= t('backend.participants') %></legend>
-        <div class="small-12 columns">
-          <div class="row">
-            <div class="small-10 columns"><%= t('backend.name') %></div>
-            <div class="small-2 columns"></div>
-          </div>
-
-          <div id="participants">
-            <%= f.fields_for :participants do |participant| %>
-                <%= render 'participant_fields', f: participant %>
-            <% end %>
-          </div>
-          <%= link_to_add_association t('backend.add'), f, :participants, :class => "button radius tiny info right add-participant", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#participants' %>
-        </div>
-      </fieldset>
-    <% end %>
-
     <fieldset class="meeting-lobby-activity">
-      <legend><%= t('backend.meeting_lobby_activity') %></legend>
-      <% if current_user.lobby? %>
-        <%= f.radio_button :lobby_activity, true, checked: true %>
-      <% else %>
-        <%= f.radio_button :lobby_activity, true %>
-      <% end %>
-      <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_yes'), value: true %>
-      <%= f.radio_button :lobby_activity, false, disabled: current_user.lobby? %>
-      <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_no'), value: false %>
-      <div class="small-12 error-radio-buttons"></div>
-
-      <div id="lobby-activity-event">
+      <div class="small-12 columns">
+        <legend><%= t('backend.meeting_lobby_activity') %></legend>
+        <% if current_user.lobby? %>
+          <%= f.radio_button :lobby_activity, true, checked: true %>
+        <% else %>
+          <%= f.radio_button :lobby_activity, true %>
+        <% end %>
+        <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_yes'), value: true %>
+        <%= f.radio_button :lobby_activity, false, disabled: current_user.lobby? %>
+        <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_no'), value: false %>
+        <div class="small-12 error-radio-buttons"></div>
+        <div id="lobby-activity-event">
         <div class="lobby-organization-autocomplete">
           <%= t('backend.meeting_lobby_activity_organization') %>
           <% if current_user.lobby? %>
@@ -119,7 +70,60 @@
         <%= render 'event_agents', f:f %>
 
       </div>
+      </div>
     </fieldset>
+
+    <fieldset>
+      <legend><%= t('backend.basic_data') %></legend>
+      <div class="small-12 columns">
+        <%= f.label :title, t('backend.title') %>
+        <%= f.text_field :title %>
+        <%= f.label :location, t('backend.location') %>
+        <%= f.text_field :location %>
+        <%= f.label :description, t('backend.description') %>
+        <%= f.text_area :description, class: 'tinymce' %>
+        <br />
+        <% if current_user.lobby? || admin_or_mananger_edit? %>
+          <div class="lobby-scheduled">
+            <%= f.label :lobby_scheduled, t('backend.lobby_date') %>
+            <%= f.text_area :lobby_scheduled, class: 'tinymce' %>
+            <br />
+          </div>
+        <% end %>
+        <% unless current_user.lobby? %>
+          <%= f.label :scheduled, t('backend.date') %>
+          <%= f.text_field :scheduled, class: 'fdatepicker' %>
+        <% end %>
+        <% if current_user.lobby? %>
+          <%= f.label :name_holder, t('backend.main_position') %>
+          <span class="help-text"><%= t('backend.main_position_help_text') %></span>
+          <%= f.autocomplete_field :holder_title,  autocomplete_position_title_positions_path ,:update_elements => {:id => '#position_id'} , placeholder: t('backend.holder_input') , value: holder_name_by_position_id(@event.position_id) %>
+          <%= f.hidden_field :position_id, {:id => "position_id"} %>
+        <% else %>
+          <%= f.label :position_id, t('backend.main_position') %>
+          <%= f.select :position_id, @positions.map{|position| [position.holder.full_name_comma+' - '+position.title, position.id]}, prompt: t('backend.select') %>
+        <% end %>
+      </div>
+    </fieldset>
+
+    <% unless current_user.lobby? %>
+      <fieldset><!-- Participants -->
+        <legend><%= t('backend.participants') %></legend>
+        <div class="small-12 columns">
+          <div class="row">
+            <div class="small-10 columns"><%= t('backend.name') %></div>
+            <div class="small-2 columns"></div>
+          </div>
+
+          <div id="participants">
+            <%= f.fields_for :participants do |participant| %>
+                <%= render 'participant_fields', f: participant %>
+            <% end %>
+          </div>
+          <%= link_to_add_association t('backend.add'), f, :participants, :class => "button radius tiny info right add-participant", 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#participants' %>
+        </div>
+      </fieldset>
+    <% end %>
 
     <fieldset><!-- Attendees -->
       <legend><%= t('backend.attendees') %></legend>
@@ -150,6 +154,7 @@
       <fieldset>
         <legend><%= t('backend.meeting_lobby_activity_public_website') %></legend>
         <%= f.text_field :published_at, class: 'fdatepicker' %>
+        <p class="help-text">Si deja este campo en blanco, cuando pulse Aceptar este evento se verá en la zona pública.</p>
       </fieldset>
     <% end %>
 
@@ -236,7 +241,7 @@
       </fieldset>
     <% end %>
 
-  <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
+  <%= submit_tag t('backend.save_request'), :class=> "button radius success right" %>
 <% end %>
 
 <%= javascript_include_tag 'events'%>
