@@ -121,6 +121,7 @@ es:
     attachments_description: "Descripción de archivos adjuntos"
     attachments_public: "Archivos adjuntos públicos"
     attachments_private: "Archivos adjuntos privados"
+    attachments_download: "Descarga los archivos adjuntos"
     only_pdf: "Solo PDF"
     name: "Nombre"
     file: "Archivo"

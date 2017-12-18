@@ -28,7 +28,7 @@ es:
     review_errors: "Por favor corrija los siguientes errores antes de continuar"
     sync: "Sincronizar con UWEB"
     export: "Exportar"
-    allowed_file_content_types: "Uploaded file has wrong content type. Allowed content types are the following: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."    
+    allowed_file_content_types: "Uploaded file has wrong content type. Allowed content types are the following: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."
 
     contributors: "Contribuidores"
     new_user: "Nuevo usuario"
@@ -118,6 +118,7 @@ es:
     attachments_description: "Descripción de archivos adjuntos"
     attachments_public: "Archivos adjuntos públicos"
     attachments_private: "Archivos adjuntos privados"
+    attachments_download: "Download event attachments"
     only_pdf: "Solo PDF"
     name: "Nombre"
     file: "Archivo"

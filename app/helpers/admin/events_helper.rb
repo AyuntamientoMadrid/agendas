@@ -65,5 +65,10 @@ module Admin
     def holder_name_by_position_id (position_id)
       holder_title = Position.find(position_id).full_name if position_id.present?
     end
+
+    def event_attachments_download_dropdown_id(event)
+      "event_#{event.id}_attachments_dropdown"
+    end
+
   end
 end

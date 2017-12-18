@@ -16,6 +16,19 @@ feature 'Events' do
         expect(page).to have_content I18n.t 'backend.events'
       end
 
+      scenario 'Should allow to download all attachments from event attachments dropdown', :js do
+        event = create(:event, position: @position)
+        attachment= create(:attachment, event: event, title: "An amazing attachment title")
+        attachment= create(:attachment, event: event, title: "Other title")
+        visit events_path
+
+        within "#event_#{event.id}" do
+          find('.attachments-dropdown').click
+        end
+
+        expect(page).to have_link "An amazing attachment title"
+        expect(page).to have_link "Other title"
+      end
     end
 
     describe "new" do
@@ -315,6 +328,20 @@ feature 'Events' do
         click_button I18n.t('backend.search.button')
 
         expect(page).to have_content "Test for check lobby_activity"
+      end
+
+      scenario 'Should allow to download all attachments from event attachments dropdown', :js do
+        event = create(:event)
+        attachment= create(:attachment, event: event, title: "An amazing attachment title")
+        attachment= create(:attachment, event: event, title: "Other title")
+        visit events_path
+
+        within "#event_#{event.id}" do
+          find('.attachments-dropdown').click
+        end
+
+        expect(page).to have_link "An amazing attachment title"
+        expect(page).to have_link "Other title"
       end
 
     end
