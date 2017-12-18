@@ -1,6 +1,6 @@
 es:
   status:
-    requested: "Pedido"
+    requested: "solicitado"
     accepted: "Aceptado"
     done: "Hecho"
     declined: "Rechazado"
