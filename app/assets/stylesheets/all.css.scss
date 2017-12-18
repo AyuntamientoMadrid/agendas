@@ -338,7 +338,10 @@ table.event{
     width: 16rem;
   }
   td.event_actions {
-    width: 6rem;
+    width: 8rem;
+    a{
+      margin-right:3px;
+    }
   }
 }
 

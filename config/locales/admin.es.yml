@@ -1,6 +1,7 @@
 es:
   backend:
-    menu_title: "Gestión del lobby"
+    menu_admin: " Administración"
+    menu_lobby: "Gestión del lobby"
     close: "Cerrar"
     logout: "Salir"
     btn_admin: "Administración"
@@ -114,7 +115,7 @@ es:
     meeting_lobby_activity_public_website: "Fecha en la cual el evento se verá en la página web pública"
     participants_uniqueness: "Existen titulares de agenda duplicados"
     position_not_in_participants: "El titular de agenda se ha incluido también como asistente"
-    lobby_general_remarks_title: "Observaciones generales Gestor de agendas"
+    manager_general_remarks_title: "Observaciones generales Gestor de agendas"
     attachments: "Archivos adjuntos"
     attachments_description: "Descripción de archivos adjuntos"
     attachments_public: "Archivos adjuntos públicos"

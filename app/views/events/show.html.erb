@@ -3,11 +3,25 @@
 <%= link_to t('backend.back'), events_path , :class=> "button tiny radius" %>
 <fieldset>
   <legend><%= t('backend.basic_data') %></legend>
-  <p><strong><%= t('backend.holder') %>:</strong> <%= @event.position.holder.full_name %></p>
-  <p><strong><%= t('backend.title') %>:</strong> <%= @event.title %></p>
-  <p><strong><%= t('backend.location') %>:</strong> <%= @event.location %></p>
-  <p><strong><%= t('backend.date') %>:</strong> <%= @event.scheduled.strftime(t('time.formats.short')) if @event.scheduled.present? %></p>
-  <p><strong><%= t('backend.description') %>:</strong><%= @event.description.html_safe if @event.description.present? %></p>
+  <strong><%= t('backend.holder') %>:</strong>
+  <br />
+  <%= @event.position.holder.full_name %>
+  <br />
+  <strong><%= t('backend.title') %>:</strong>
+  <br />
+  <%= @event.title %>
+  <br />
+  <strong><%= t('backend.location') %>:</strong>
+  <br />
+  <%= @event.location %>
+  <br />
+  <strong><%= t('backend.date') %>:</strong>
+  <br />
+  <%= @event.scheduled.strftime(t('time.formats.short')) if @event.scheduled.present? %>
+  <br />
+  <strong><%= t('backend.description') %>:</strong>
+  <br />
+  <%= @event.description.html_safe if @event.description.present? %>
 </fieldset>
 <% if @event.user.present? %>
 <fieldset>
@@ -60,7 +74,7 @@
   <% @event.attachments.each do |attachment| %>
   <div class="row">
     <div class="small-12 columns"><%= link_to attachment.title, attachment.file.url, target: :blank %></div>
-    <div class="small-12 columns"><%= attachment.description %></div>
+    <div class="small-12 columns"><%= attachment.description.html_safe %></div>
   </div>
   <% end %>
 </fieldset>
@@ -69,28 +83,21 @@
   <fieldset>
     <legend>Datos del lobby</legend>
     <div class="row">
-      <div class="small-12 columns"><strong>Nombre de la organización:</strong></div>
-    </div>
-    <div class="row">
-      <%= @event.organization.fullname %>
-    </div>
-
-    <div class="row">
-      <div class="small-12">
-        <strong class="post__subtitle">Agentes:</strong>
+      <div class="small-12 columns">
+        <strong>Nombre de la organización:</strong>
+        <br />
+        <%= @event.organization.fullname %>
       </div>
-      <div class="small-12">
+      <div class="small-12 columns">
+        <strong>Agentes:</strong>
+        <br>
         <% @event.event_agents.each do |agent| %>
           <%= agent.name %></p>
         <% end %>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="small-12">
-        <strong class="post__subtitle">Empresas repesentadas:</strong>
-      </div>
-      <div class="small-12">
+      <div class="small-12 columns">
+        <strong>Empresas repesentadas:</strong>
+        <br />
         <% @event.event_represented_entities.each do |represented_entity| %>
           <%= represented_entity.name %></p>
         <% end %>
