@@ -68,7 +68,7 @@ es:
 
   main:
     title: "Registro de Lobbies"
-    title_agents: "Agendas pública"
+    title_agents: "Agendas públicas"
     any_errors: "¿Hay algún error en esta página?"
     get_updates: "Recibe actualizaciones de esta lista"
     share: "Compartir"
