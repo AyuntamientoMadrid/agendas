@@ -52,7 +52,6 @@ feature 'Event page' do
     expect(page).to have_content event1.title
     expect(page).to have_content event2.title
     expect(page).not_to have_content event3.title
-    # expect(page).not_to have_content event4.title
   end
 
   scenario 'search lobby activity for visitors ', :search do
@@ -66,6 +65,38 @@ feature 'Event page' do
     click_button I18n.t('backend.search.button')
 
     expect(page).to have_content "Test for check lobby_activity for visitors"
+  end
+
+  scenario "When search by holder need display his events as participant", :search do
+    position = create(:position)
+    event = create(:event, position: position, title: "Acting as participant")
+    create(:event, position: position, title: "Not involved event")
+    participant = create(:participant, event_id: event.id)
+    Event.reindex
+    Sunspot.commit
+
+    visit visitors_path
+    select "#{participant.position.holder.full_name_comma}", from: :holder
+    click_button I18n.t('backend.search.button')
+
+    expect(page).to have_content "Acting as participant"
+    expect(page).not_to have_content "Not involved event"
+  end
+
+  scenario "When search by holder need display his events as position", :search do
+    position = create(:position)
+    event1 = create(:event, position: position, title: "Acting as participant")
+    participant = create(:participant, event_id: event1.id)
+    create(:event, position: position, title: "Not involved event")
+    Event.reindex
+    Sunspot.commit
+
+    visit visitors_path
+    select "#{participant.position.holder.full_name_comma}", from: :holder
+    click_button I18n.t('backend.search.button')
+
+    expect(page).to have_content "Acting as participant"
+    expect(page).not_to have_content "Not involved event"
   end
 
   describe 'show' do
