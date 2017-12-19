@@ -7679,6 +7679,15 @@ fieldset.interest{
 
 
 .visit-organizations-list{
+  .results-block{
+    padding: 1rem;
+    background: #ececec;
+    margin-bottom: 1rem;
+    p{
+      margin-bottom:0;
+    }
+  }
+
   select {
     height: 2.8rem;
     font-size: 11px;
