@@ -3,7 +3,7 @@
 <div class="row">
   <div class="small-12 columns">
     <%= link_to t('backend.faq.questions'), faq_path, class: 'right' %>
-    <h2 class="title-l">
+    <h2 class="title-l mb20">
       <%= t('main.title_agents')%>
     </h2>
   </div>
@@ -19,21 +19,17 @@
       <%= show_headline(params) %>
     </div>
 
-    <div class="tools">
-      <%= t('main.get_updates')%><a href="<%= current_url(:format=>:atom)%>"><span class="icon icon__feed"></span> feed</a>
-      <%= export_link(current_url(format: :csv)) %>
-    </div>
+    <div class="small-12 columns tools">
+      <div class="mb20">
+        <%= t('main.get_updates')%><a href="<%= current_url(:format=>:atom)%>"><span class="icon icon__feed"></span> feed</a>
+        <%= export_link(current_url(format: :csv)) %>
+      </div>
 
-    <div class="row">
-      <div class="small-8 columns mb20">
-        <div class="row">
-          <div class="small-3 columns">
-            <label for="right-label" class="inline title-xs"><%= t('main.form.order_by')%></label>
-          </div>
-          <div class="small-9 columns">
-            <%= select_tag :order, options_for_select({t('main.form.scheduled') => :scheduled ,t('main.form.score') => :score},params[:order]), id: 'search-order', class: 'select-sm' %>
-          </div>
-        </div>
+      <div class="small-9 columns text-right">
+        <label for="right-label" class="inline title-xs"><%= t('main.form.order_by')%></label>
+      </div>
+      <div class="small-3 columns  no-padding">
+        <%= select_tag :order, options_for_select({t('main.form.scheduled') => :scheduled ,t('main.form.score') => :score},params[:order]), id: 'search-order', class: 'select-sm' %>
       </div>
     </div>
 

@@ -7,6 +7,7 @@ class OrganizationsController < ApplicationController
   def index
     @organizations = search(params)
     @paginated_organizations = Organization.lobbies.validated.where(id: @organizations.hits.map(&:primary_key))
+    params[:order] ||= 4
     @paginated_organizations = @paginated_organizations.reorder(sorting_option(params[:order]))
 
   end
@@ -66,6 +67,8 @@ class OrganizationsController < ApplicationController
       when '3'
         'inscription_date ASC'
       when '4'
+        'inscription_date DESC'
+      else
         'inscription_date DESC'
       end
     end

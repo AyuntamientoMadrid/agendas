@@ -3,7 +3,7 @@
   <div class="row">
     <div class="small-12 medium-6 columns">
       <%= f.label :fiscal_year, t('backend.lobbies_data.fiscal_year') %>
-      <%= f.number_field :fiscal_year %>
+      <%= f.number_field :fiscal_year, min: 0 %>
       <%= form_field_errors(f, :fiscal_year) %>
     </div>
     <div class="small-12 medium-6 columns">
