@@ -39,7 +39,6 @@ class OrganizationsController < ApplicationController
           fulltext(params[:keyword], :fields => [:agent_first_surname]) if params[:keyword].present?
           fulltext(params[:keyword], :fields => [:agent_second_surname]) if params[:keyword].present?
         end
-        order_by :created_at, :desc
         paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 20
       end
     end
