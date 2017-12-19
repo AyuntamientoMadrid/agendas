@@ -8,6 +8,7 @@ class OrganizationsController < ApplicationController
     @organizations = search(params)
     @paginated_organizations = Organization.lobbies.validated.where(id: @organizations.hits.map(&:primary_key))
     @paginated_organizations = @paginated_organizations.reorder(sorting_option(params[:order]))
+
   end
 
   def show

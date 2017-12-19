@@ -1,7 +1,7 @@
 <div class="row">
   <div class="small-12 columns">
     <%= link_to t('backend.back'), organizations_path , class: "button tiny radius" %>
-    <h2 class="post__title-big"><%= @organization.name %></h2>
+    <h1 class="title-l"><%= @organization.name %></h1>
     <p>
       <strong><%= t('organizations.show.state') %>:</strong>
       <%= organization_status(@organization) %>

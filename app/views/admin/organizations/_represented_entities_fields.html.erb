@@ -40,7 +40,9 @@
 
     <div class="small-12 medium-6 columns">
       <%= f.label :range_fund, t('backend.represented_entities.range_fund_title') %>
-      <%= f.select :range_fund, Organization.range_funds.keys.map {|key| [t("backend.represented_entities.range_fund.#{key}"), key]} %>
+      <%= f.select :range_fund, Organization.range_funds.keys.map {
+        |key| [t("backend.represented_entities.range_fund.#{key}"), key]},
+        {:include_blank => t("backend.represented_entities.range_fund.select")} %>
       <%= form_field_errors(f, :range_fund) %>
     </div>
 

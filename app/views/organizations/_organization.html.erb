@@ -4,7 +4,12 @@
   </h1>
   <p>
     <%= I18n.l organization.inscription_date, format: :complete %>
-      <% if events_as_lobby_by(organization) > 0  %>
+      <%# if events_as_lobby_by(organization) > 1  %>
+        <!-- <span class="bullet">&nbsp;&bull;&nbsp;</span> -->
+        <%#= "#{t('organizations.events_as_lobby')}: #{events_as_lobby_by(organization)}" %>
+      <%# end %>
+
+      <% if events_as_lobby_by(organization)%>
         <span class="bullet">&nbsp;&bull;&nbsp;</span>
         <%= "#{t('organizations.events_as_lobby')}: #{events_as_lobby_by(organization)}" %>
       <% end %>

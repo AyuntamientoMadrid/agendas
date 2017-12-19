@@ -1,7 +1,7 @@
 <% content_for(:body_class) { 'visit-organizations-list' } %>
 <div class="row">
   <div class="small-12 columns">
-    <h2 class="small-12 columns title-l mb40">
+    <h2 class="small-12 columns title-l mb20">
       <%= t("organizations.title") %></h2>
   </div>
 </div>
@@ -14,15 +14,15 @@
                  collection: @organizations,
                  keyword: params[:keyword] %>
     <% end %>
-    <div class="medium-7 columns">
+    <div class="medium-8 columns">
       <% if search_by_filter? %>
         <p><span class="result-l"><%= t("organizations.results_title") %></h2></span></p>
       <% else %>
         <p><span class="result-l"><%= organizations_index_subtitle %></span></p>
       <% end %>
     </div>
-    <div class="small-12 medium-5 columns order-select">
-      <div class="small-12 medium-8 columns">
+    <div class="small-12 medium-4 columns order-select">
+      <div class="small-12 medium-9 columns">
         <label for="right-label" class="title-xs">
           <%= t("main.form.order_by") %>
         </label>
@@ -33,11 +33,11 @@
                           t("main.form.inscription_date_asc") => 3,
                           t("main.form.inscription_date_desc") => 4
                         }, params[:order]),
-                        include_blank: true,
+                        include_blank: t("main.form.select"),
                         id: "search-order",
                         class: "select-sm" %>
       </div>
-      <div class="small-12 medium-4 columns export no-padding">
+      <div class="small-12 medium-3 columns export no-padding">
         <%= export_link(current_url(format: :csv)) %>
       </div>
     </div>
