@@ -17,12 +17,11 @@
           <span class="accordion-icon"></span>
         </div>
         <div class="content active">
-
           <% if @organization.inscription_date.present? %>
             <p>
               <strong><%= t('organizations.show.inscription_date') %>
               </strong>
-              <%= @organization.inscription_date.strftime("%d/%m/%Y") %>
+              <%= I18n.l @organization.inscription_date %>
             </p>
           <% end %>
 
@@ -30,7 +29,7 @@
             <p>
               <strong><%= t('organizations.show.updated_at') %>
               </strong>
-              <%= @organization.updated_at.strftime("%d/%m/%Y") %>
+              <%= I18n.l @organization.updated_at, format: "%d/%m/%Y" %>
             </p>
           <% end %>
 
@@ -38,7 +37,7 @@
             <p>
               <strong><%= t('organizations.show.canceled_at') %>
               </strong>
-              <%= @organization.canceled_at.strftime("%d/%m/%Y") if @organization.canceled_at? %>
+              <%= I18n.l @organization.canceled_at, format: "%d/%m/%Y" if @organization.canceled_at? %>
             </p>
           <% end %>
 
@@ -169,14 +168,14 @@
                 <% if represented_entity.from.present? %>
                   <p>
                     <strong><%= t('organizations.show.represented_entity_from') %>  </strong>
-                    <%= represented_entity.from.strftime("%d/%m/%Y") %>
+                    <%= I18n.l represented_entity.from %>
                   </p>
                 <% end %>
 
                 <% if represented_entity.to.present? %>
                   <p>
                     <strong><%= t('organizations.show.represented_entity_to') %>  </strong>
-                    <%= represented_entity.to %>
+                    <%= I18n.l represented_entity.to %>
                   </p>
                 <% end %>
 
@@ -227,11 +226,11 @@
                   <%= agent.fullname %>
                 </p>
                 <p><strong><%= t('organizations.show.agents_from') %></strong>
-                  <%= agent.from.strftime("%d/%m/%Y") if agent.from? %>
+                  <%= I18n.l agent.from if agent.from? %>
                 </p>
                 <% if agent.to.present? %>
                   <p><strong><%= t('organizations.show.agents_to') %></strong>
-                    <%= agent.to.strftime("%d/%m/%Y") %>
+                    <%= I18n.l agent.to if agent.to.present? %>
                   </p>
                 <% end %>
               <% end %>

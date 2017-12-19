@@ -18,7 +18,7 @@
     </p>
     <p>
       <strong><%= t('backend.date') %></strong>
-      <%= @event.scheduled.strftime(t('time.formats.short')) if @event.scheduled.present? %>
+      <%= I18n.l @event.scheduled, format: :short if @event.scheduled.present? %>
     </p>
     <p>
       <strong><%= t('backend.description') %></strong>
@@ -38,7 +38,7 @@
       <div class="small-6 columns">
         <p>
           <strong><%= t('backend.event_update_date') %></strong>
-          <%= @event.updated_at.strftime(t('time.formats.short')) if @event.updated_at.present? %>
+          <%= I18n.l @event.updated_at, format: :short if @event.updated_at.present? %>
         </p>
       </div>
     </div>

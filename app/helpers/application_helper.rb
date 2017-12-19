@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   def show_date(date)
-    output = date.present? ? date.strftime(t('date.formats.short')) : '----------'
+    output = date.present? ? I18n.l(date, format: :short) : '----------'
     output.html_safe
   end
 

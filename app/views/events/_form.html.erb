@@ -92,7 +92,7 @@
         <% end %>
         <% unless current_user.lobby? %>
           <%= f.label :scheduled, t('backend.date') %>
-          <%= f.text_field :scheduled, class: 'fdatepicker' %>
+          <%= f.text_field :scheduled, class: 'fdatepicker', value: f.object.scheduled.present? ? I18n.l(f.object.scheduled, format: :short) : nil %>
         <% end %>
         <% if current_user.lobby? %>
           <%= f.label :name_holder, t('backend.main_position') %>

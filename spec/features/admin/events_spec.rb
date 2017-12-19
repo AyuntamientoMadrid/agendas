@@ -189,7 +189,7 @@ feature 'Events' do
         expect(page).to have_content event.position.holder.full_name
         expect(page).to have_content event.title
         expect(page).to have_content event.location
-        expect(page).to have_content event.scheduled.strftime(I18n.t('time.formats.short'))
+        expect(page).to have_content I18n.l(event.scheduled, format: :short)
         expect(page).to have_content event.title
         expect(page).to have_content attachment_public.description
         expect(page).to have_content attachment_old.description
