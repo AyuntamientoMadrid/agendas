@@ -169,8 +169,8 @@ Agent.create(identifier: "43138882z", name: "Name1", from: Date.yesterday, organ
 Agent.create(identifier: "43138881z", name: "Name2", from: Date.yesterday, organization: organization_1)
 
 #Represented Entities
-RepresentedEntity.create(identifier: "43138880z", name: "Name3", from: Date.yesterday, fiscal_year: 2017, organization: organization_1)
-RepresentedEntity.create(identifier: "43138879z", name: "Name4", from: Date.yesterday, fiscal_year: 2017, organization: organization_1)
+RepresentedEntity.create(identifier: "43138880z", name: "Name3", from: Date.yesterday, fiscal_year: 2017, organization: organization_1, range_fund: :range_2)
+RepresentedEntity.create(identifier: "43138879z", name: "Name4", from: Date.yesterday, fiscal_year: 2017, organization: organization_1, range_fund: :range_3)
 
 #OrganizationInterest
 OrganizationInterest.create(organization: organization_1, interest: interest_1)
