@@ -1,6 +1,10 @@
 module OrganizationsHelper
   def organizations_index_subtitle
-    t "organizations.subtitle.default" if params[:order].blank? || params[:order] == :created_at
+    if params[:order].blank? || params[:order] == :created_at || params[:order] == '4'
+      t "organizations.subtitle.default"
+    elsif params[:order] == '1' || params[:order] == '2' || params[:order] == '3'
+      t "organizations.results_title"
+    end
   end
 
   def organization_represented_entities_url_pattern(format)
