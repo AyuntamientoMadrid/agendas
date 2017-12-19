@@ -1,9 +1,9 @@
 module OrganizationsHelper
   def organizations_index_subtitle
-    if params[:order].blank? || params[:order] == :created_at || params[:order] == '4'
-      t "organizations.subtitle.default"
-    elsif params[:order] == '1' || params[:order] == '2' || params[:order] == '3'
+    if params[:order] == '1' || params[:order] == '2' || params[:order] == '3'
       t "organizations.results_title"
+    else
+      t "organizations.subtitle.default"
     end
   end
 
