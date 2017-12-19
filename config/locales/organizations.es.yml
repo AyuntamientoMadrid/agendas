@@ -9,6 +9,7 @@ es:
     results_title: Resultados de la búsqueda
     subtitle:
       default: Incorporaciones más recientes
+      order_results: Ordenacion de los resultado
 
     show:
       state: "Estado"

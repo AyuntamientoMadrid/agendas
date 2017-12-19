@@ -1,15 +1,12 @@
-<div class="row">
-  <div class="small-12 columns mb10">
-    <p>
-      <strong class="result-l mb20"><%= collection.total%></strong>
-      <strong><%= t('main.results')%></strong>
-      <span class="keywords"><%= t('main.with_keyword')%>
-        <strong><%= keyword %></strong>
-        <a id="delete-keywords" href="#">
-          <span class="icon icon__delete"><%= t('main.delete')%>
-          </span>
-        </a>
-      </span>
-    </p>
-  </div>
+<div class="small-12 columns mb10">
+  <p>
+    <strong><%= collection.total%> <%= t('main.results')%></strong>
+    <span class="keywords"><%= t('main.with_keyword')%>
+      <strong><%= keyword %></strong>
+      <a id="delete-keywords" href="#">
+        <span class="icon icon__delete"><%= t('main.delete')%>
+        </span>
+      </a>
+    </span>
+  </p>
 </div>
