@@ -135,7 +135,7 @@ es:
     company: "Organización"
     companies: "Organizaciones"
     new_company: "Nueva organización"
-    description: "Descripción"
+    description: "Finalidad y objetivos de quien se inscribe"
     title_event: "Solicitud de evento"
     new_event: "Nueva solicitud"
     edit_event: "Editar evento"

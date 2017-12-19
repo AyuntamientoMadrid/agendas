@@ -95,6 +95,7 @@ es:
       score: "Relevancia"
       sort_by: "Ordenar por"
       filter_by: "Filtrar por"
+      select: "Seleccionar"
       name_asc: "Alfabético ascendente"
       name_desc: "Alfabético descendente"
       inscription_date_asc: "Fecha de inscripción ascendente"

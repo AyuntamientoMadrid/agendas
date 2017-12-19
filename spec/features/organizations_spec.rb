@@ -376,14 +376,14 @@ feature 'Organizations page' do
         organization = create(:organization)
 
         visit organization_path(organization)
-        expect(page).to have_content "Estado: Activo"
+        expect(page).to have_content "Estado Activo"
       end
 
       scenario "Should display organization canceled" do
         organization = create(:organization, canceled_at: Date.current)
 
         visit organization_path(organization)
-        expect(page).to have_content "Estado: Baja"
+        expect(page).to have_content "Estado Baja"
       end
     end
 

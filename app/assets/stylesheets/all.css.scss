@@ -7027,8 +7027,8 @@ header{
 
 .title-l {
   color: black;
-  font-size: 44px;
-  font-weight: 700;
+  font-size: 30px;
+  //font-weight: 700;
   line-height: 48px;
   font-family: 'Open Sans';
   display: block;
@@ -7091,6 +7091,9 @@ body {
     font-size: 13px;
     line-height: 17px; } }
 
+.mb10 {
+  margin-bottom: 10px !important;
+}
 .mb20 {
   margin-bottom: 20px !important; }
 
@@ -7146,14 +7149,19 @@ input[type="text"].fdatepicker, input[type="password"].fdatepicker, input[type="
   line-height: 20px;
   padding: 15px 0;
   border-top: 1px solid #f2f2f2;
-  margin-bottom: 20px; }
+  border-bottom: 1px solid #f2f2f2;
+}
 @media only screen and (max-width: 40em) {
   .tools {
-    margin-top: 20px; } }
+    margin-top: 20px;
+  }
+}
+
 .tools a {
-  font-weight: bold;
+  font-weight: normal;
   display: inline-block;
-  margin-left: 15px; }
+  margin-left: 15px;
+}
 
 .box .post {
   border-bottom: 1px solid #f2f2f2;
@@ -7288,7 +7296,6 @@ button, a {
 }
 .title-l {
   font-weight: 700;
-  // margin-bottom: 70px;
 }
 select {
   height: 3.1125rem;
@@ -7376,9 +7383,22 @@ select {
     font-size: 2.1rem;
   }
 }
+
 .visitors-events{
   .header-title{
     text-align: left;
+  }
+  .event{
+    .post__title{
+      font-weight: normal;
+    }
+    p{
+      font-size: 13px;
+    }
+  }
+  .result-l{
+    font-weight: normal;
+    font-size: 24px;
   }
 }
 
@@ -7451,7 +7471,12 @@ ul.accordion{
       background-color: #fefefe;
       color: #0a0a0a;
       ul{
-      margin-left: 0;
+        margin-left: 0;
+      }
+      p strong{
+        // margin-bottom: 5px;
+        display: block;
+        font-weight: 600;
       }
     }
   }
@@ -7621,6 +7646,13 @@ header .top-bar{
   }
 }
 
+.event-show-admin{
+  p strong{
+    display: block;
+    font-weight: 600;
+  }
+}
+
 .represented-entities-block,
 .agents-block {
   .link_to_remove_association{
@@ -7638,6 +7670,13 @@ fieldset.attachments{
     display: none;
   }
 }
+fieldset.interest{
+  .checkbox{
+    float: left;
+    margin-right: 10px;
+  }
+}
+
 
 .visit-organizations-list{
   .results-block{
@@ -7651,15 +7690,24 @@ fieldset.attachments{
 
   select {
     height: 2.8rem;
+    font-size: 11px;
+    padding-left: 10px;
+  }
+  #keyword{
+    height: 2.8rem;
+    font-size: 11px;
   }
 
   .button.small{
     padding-left: 1rem;
     padding-right: 1rem;
   }
+
   .result-l{
     font-weight: normal;
+    font-size: 24px;
   }
+
   .result-l,
   .export {
     margin-top: 1.3rem;
@@ -7667,7 +7715,6 @@ fieldset.attachments{
 
   .export{
     a{
-      margin-top:0.6rem;
       span{
         display: inline-block;
         font-size: 13px;
@@ -7682,10 +7729,19 @@ fieldset.attachments{
   .box .post{
     border-bottom: 0;
     margin-bottom:0;
-    padding: 1.6rem 1rem;
+    padding: 1rem;
+    .post__title{
+      font-weight: normal;
+    }
+    p{
+      font-size: 13px;
+    }
   }
 
   article{
+    h1{
+      font-size: 15px;
+    }
     &:nth-child(odd){
       background: #f8f8f8;
     }
@@ -7749,6 +7805,13 @@ fieldset.attachments{
   }
 }
 
+.organizaion-lobby-show{
+  strong{
+    display: block;
+    font-weight: 600;
+  }
+}
+
 @media only screen and (min-width: 40.0625em) {
   .visit-organizations-list{
     .title-s{
@@ -7769,7 +7832,7 @@ fieldset.attachments{
 @media screen and (min-width: 40em) and (max-width: 63.9375em) {
   .visit-organizations-list{
     .title-s{
-      font-size: 12px;
+      font-size: 11px;
     }
     .buttons-action{
       text-align: right;

@@ -1,134 +1,152 @@
-<h3><%= @event.title %></h3>
-<%= link_to t('backend.edit'), edit_event_path(@event), :class=> "button tiny radius success" if can? :edit, @event%>
-<%= link_to t('backend.back'), events_path , :class=> "button tiny radius" %>
-<fieldset>
-  <legend><%= t('backend.basic_data') %></legend>
-  <strong><%= t('backend.holder') %>:</strong>
-  <p><%= @event.position.holder.full_name %></p>
-  <strong><%= t('backend.title') %>:</strong>
-  <p><%= @event.title %></p>
-  <strong><%= t('backend.location') %>:</strong>
-  <p><%= @event.location %></p>
-  <strong><%= t('backend.date') %>:</strong>
-  <p><%= @event.scheduled.strftime(t('time.formats.short')) if @event.scheduled.present? %></p>
-  <strong><%= t('backend.description') %>:</strong>
-  <%= @event.description.html_safe if @event.description.present? %>
-</fieldset>
-<% if @event.user.present? %>
-<fieldset>
-  <legend><%= t('backend.event_history_updates') %></legend>
-  <div class="row">
-    <div class="small-6 columns"><strong><%= t('backend.event_update_user') %></strong></div>
-    <div class="small-6 columns"><strong><%= t('backend.event_update_date') %></strong></div>
-  </div>
-  <div class="row">
-    <div class="small-6 columns">
-      <p><%= @event.user.full_name %></p>
-    </div>
-    <div class="small-6 columns">
-      <p><%= @event.updated_at.strftime(t('time.formats.short')) if @event.updated_at.present? %></p>
-    </div>
-  </div>
-</fieldset>
-<% end %>
-<fieldset>
-  <legend><%= t('backend.participants') %></legend>
-  <div class="row">
-    <div class="small-4 columns">
-      <strong><%= t('backend.name') %></strong>
-    </div>
-    <div class="small-4 columns">
-      <strong><%= t('backend.position') %></strong>
-    </div>
-    <div class="small-4 columns">
-      <strong><%= t('backend.area') %></strong>
-    </div>
-  </div>
-  <% @event.participants.each do |participant| %>
-  <div class="row">
-    <div class="small-4 columns">
-      <p><%= participant.position.holder.full_name %></p>
-    </div>
-    <div class="small-4 columns">
-      <p><%= participant.position.title %></p>
-    </div>
-    <div class="small-4 columns">
-      <p><%= participant.position.area.title %></p>
-    </div>
-  </div>
-  <% end %>
-</fieldset>
-<fieldset>
-  <legend><%= t('backend.attendees') %></legend>
-  <div class="row">
-    <div class="small-4 columns">
-      <strong><%= t('backend.name') %></strong>
-    </div>
-    <div class="small-4 columns">
-      <strong><%= t('backend.position') %></strong>
-    </div>
-    <div class="small-4 columns">
-      <strong><%= t('backend.company') %></strong>
-    </div>
-  </div>
-  <% @event.attendees.each do |attendee| %>
-  <div class="row">
-    <div class="small-4 columns">
-      <p><%= attendee.name %></p>
-    </div>
-    <div class="small-4 columns">
-      <p><%= attendee.position %></p>
-    </div>
-    <div class="small-4 columns">
-      <p><%= attendee.company %></p>
-    </div>
-  </div>
-  <% end %>
-</fieldset>
-<fieldset class="attachments">
-  <legend><%= t('backend.attachments') %></legend>
-
-  <% @event.attachments.each do |attachment| %>
-  <div class="row">
-    <div class="small-12 columns">
-      <%= link_to attachment.title, attachment.file.url, target: :blank %>
-    </div>
-    <div class="small-12 columns">
-      <%= attachment.description.html_safe %>
-    </div>
-    <div class="small-12 columns">
-      <p><%= attachment.public ? "Público" : "Privado" %></p>
-    </div>
-  </div>
-  <hr />
-  <% end %>
-</fieldset>
-
-<% if @event.lobby_activity %>
+<div class="event-show-admin">
+  <h3><%= @event.title %></h3>
+  <%= link_to t('backend.edit'), edit_event_path(@event), :class=> "button tiny radius success" if can? :edit, @event%>
+  <%= link_to t('backend.back'), events_path , :class=> "button tiny radius" %>
   <fieldset>
-    <legend>Datos del lobby</legend>
+    <legend><%= t('backend.basic_data') %></legend>
+    <p>
+      <strong><%= t('backend.holder') %></strong>
+      <%= @event.position.holder.full_name %>
+    </p>
+    <p>
+      <strong><%= t('backend.title') %></strong>
+      <%= @event.title %>
+    </p>
+    <p>
+      <strong><%= t('backend.location') %></strong>
+      <%= @event.location %>
+    </p>
+    <p>
+      <strong><%= t('backend.date') %></strong>
+      <%= @event.scheduled.strftime(t('time.formats.short')) if @event.scheduled.present? %>
+    </p>
+    <p>
+      <strong><%= t('backend.description') %></strong>
+      <%= @event.description.html_safe if @event.description.present? %>
+    </p>
+  </fieldset>
+  <% if @event.user.present? %>
+  <fieldset>
+    <legend><%= t('backend.event_history_updates') %></legend>
     <div class="row">
-      <div class="small-12 columns">
-        <strong>Nombre de la organización:</strong>
-        <br />
-        <p><%= @event.organization.fullname %></p>
+      <div class="small-6 columns">
+        <p>
+          <strong><%= t('backend.event_update_user') %></strong>
+          <%= @event.user.full_name %>
+        </p>
       </div>
-      <div class="small-12 columns">
-        <br />
-        <strong>Agentes:</strong>
-        <br>
-        <% @event.event_agents.each do |agent| %>
-          <p><%= agent.name %></p></p>
-        <% end %>
-        <hr />
-      </div>
-      <div class="small-12 columns">
-        <strong>Empresas repesentadas:</strong>
-        <br />
-        <% @event.event_represented_entities.each do |represented_entity| %>
-          <p><%= represented_entity.name %></p>
-        <% end %>
+      <div class="small-6 columns">
+        <p>
+          <strong><%= t('backend.event_update_date') %></strong>
+          <%= @event.updated_at.strftime(t('time.formats.short')) if @event.updated_at.present? %>
+        </p>
       </div>
     </div>
   </fieldset>
-<% end %>
+  <% end %>
+  <fieldset>
+    <legend><%= t('backend.participants') %></legend>
+    <div class="row">
+      <% @event.participants.each do |participant| %>
+        <div class="small-4 columns">
+          <p>
+            <strong><%= t('backend.name') %></strong>
+            <%= participant.position.holder.full_name %>
+          </p>
+        </div>
+        <div class="small-4 columns">
+          <p>
+            <strong><%= t('backend.position') %></strong>
+            <%= participant.position.title %>
+          </p>
+        </div>
+        <div class="small-4 columns">
+          <p>
+            <strong><%= t('backend.area') %></strong>
+            <%= participant.position.area.title %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </fieldset>
+
+  <fieldset>
+    <legend><%= t('backend.attendees') %></legend>
+
+    <div class="row">
+      <% @event.attendees.each do |attendee| %>
+        <div class="small-4 columns">
+          <p>
+            <strong><%= t('backend.name') %></strong>
+            <%= attendee.name %>
+          </p>
+        </div>
+        <div class="small-4 columns">
+          <p>
+            <strong><%= t('backend.position') %></strong>
+            <%= attendee.position %>
+          </p>
+        </div>
+        <div class="small-4 columns">
+          <p>
+            <strong><%= t('backend.company') %></strong>
+            <%= attendee.company %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+
+  </fieldset>
+  <fieldset class="attachments">
+    <legend><%= t('backend.attachments') %></legend>
+    <% @event.attachments.each do |attachment| %>
+    <div class="row">
+      <div class="small-12 columns">
+        <p>
+          <strong><%= t('backend.attachments') %></strong>
+          <%= link_to attachment.title, attachment.file.url, target: :blank %>
+        </p>
+      </div>
+      <div class="small-12 columns">
+        <p>
+          <strong><%= t('backend.attachments_description') %></strong>
+          <%= attachment.description.html_safe %>
+        </p>
+      </div>
+      <div class="small-12 columns">
+        <p><%= attachment.public ? "Público" : "Privado" %></p>
+      </div>
+    </div>
+    <hr />
+    <% end %>
+  </fieldset>
+
+  <% if @event.lobby_activity %>
+    <fieldset>
+      <legend>Datos del lobby</legend>
+      <div class="row">
+        <div class="small-12 columns">
+          <p>
+            <strong>Nombre de la organización:</strong>
+            <%= @event.organization.fullname %>
+          </p>
+        </div>
+        <div class="small-12 columns">
+          <strong>Agentes:</strong>
+          <br>
+          <% @event.event_agents.each do |agent| %>
+            <p><%= agent.name %></p></p>
+          <% end %>
+          <hr />
+        </div>
+        <div class="small-12 columns">
+          <strong>Empresas repesentadas:</strong>
+          <br />
+          <% @event.event_represented_entities.each do |represented_entity| %>
+            <p><%= represented_entity.name %></p>
+          <% end %>
+        </div>
+      </div>
+    </fieldset>
+  <% end %>
+</div>
