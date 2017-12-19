@@ -6,7 +6,7 @@ class UwebAccessController < ApplicationController
        @uweb_api.get_user_status(params[:clave_usuario],params[:fecha_conexion]).zero? &&
        @user = User.find_by(user_key: params[:clave_usuario])
       sign_in(:user, @user)
-      redirect_to events_path
+      redirect_to @events_path
     else
       redirect_to root_path
     end

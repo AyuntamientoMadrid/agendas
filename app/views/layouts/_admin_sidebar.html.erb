@@ -16,11 +16,23 @@
       </a>
     </li>
     <% end %>
-    <li class="<%= active_menu('events') %>">
-      <a href="<%= events_path %>">
-        <i class="fi-calendar size-18"> <%= t("backend.events")%></i>
+    <% if current_user.user? %>
+    <li class="<%= active_menu('events', nil, 'tray') %>">
+      <a href="<%= @events_path %>">
+        <i class="fi-calendar size-18">
+          <%= t("backend.event_tray") %>
+        </i>
       </a>
     </li>
+    <% else %>
+    <li class="<%= active_menu('events') %>">
+      <a href="<%= @events_path %>">
+        <i class="fi-calendar size-18">
+          <%= t("organizations.show.events_title") %>
+        </i>
+      </a>
+    </li>
+    <% end %>
     <% if current_user.admin? %>
     <li class="<%= active_menu('admin/organizations') %>">
       <a href="<%= admin_organizations_path %>">
@@ -41,6 +53,13 @@
     <li class="<%= active_menu('admin/organizations', 'show') %>">
       <a href="<%= admin_organization_path(id: current_user.organization_id) %>">
         <i class="fi-book size-18"> <%= t("backend.show_company") %></i>
+      </a>
+    </li>
+    <% end %>
+    <% if current_user.user? %>
+    <li class="<%= active_menu('events', nil, 'events') %>">
+      <a href="<%= events_path(event_fixed_filters['events']) %>">
+        <i class="fi-book size-18"> <%= t("backend.events") %></i>
       </a>
     </li>
     <% end %>
@@ -113,3 +132,4 @@
     </li>
   </ul>
 </nav>
+

@@ -245,7 +245,7 @@
         <%= submit_tag t('backend.save_request'), :class=> "button radius success right" %>
       <% else %>
         <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
-        <%= link_to t('backend.exit_without_save'), events_path, class: "button radius alert right" %>
+        <%= link_to t('backend.exit_without_save'), @events_path, class: "button radius alert right" %>
       <% end %>
     </div>
 <% end %>

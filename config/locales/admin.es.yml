@@ -144,6 +144,7 @@ es:
     edit_agents: "Editar agentes"
     edit_title_interests: "Editar áreas de interés"
     add_interests: "Editar intereses"
+    event_tray: Bandeja de solicitudes
     show_company: "Ver datos lobby"
     activity: "Registro de Actividad"
     entries: "Registros"
