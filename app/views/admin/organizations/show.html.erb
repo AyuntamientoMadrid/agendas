@@ -301,7 +301,7 @@
           <div class="small-6 medium-6 columns mb10">
             <p>
               <strong><%= t('backend.represented_entities.from') %></strong>
-              <%= represented_entity.from.strftime("%d/%m/%Y") if represented_entity.from.present? %>
+              <%= I18n.l represented_entity.from if represented_entity.from.present? %>
             </p>
           </div>
           <div class="small-6 medium-6 columns mb10">
@@ -398,13 +398,13 @@
         <div class="small-3 medium-6 columns mb10">
           <p>
             <strong><%= t('backend.agents.from') %></strong>
-            <%= agent.from.strftime("%d/%m/%Y") if agent.from.present? %>
+            <%= I18n.l agent.from if agent.from.present? %>
           </p>
         </div>
         <div class="small-3 medium-6 columns mb10">
           <p>
             <strong><%= t('backend.agents.to') %></strong>
-            <%= agent.to.strftime("%d/%m/%Y") if agent.to.present? %>
+            <%= I18n.l agent.to if agent.to.present? %>
           </p>
         </div>
       </div>

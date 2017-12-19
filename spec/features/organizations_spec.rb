@@ -463,8 +463,8 @@ feature 'Organizations page' do
 
       expect(page).to have_content represented_entity1.identifier
       expect(page).to have_content represented_entity1.fullname
-      expect(page).to have_content represented_entity1.from.strftime('%d/%m/%Y')
-      expect(page).to have_content represented_entity1.to.strftime('%d/%m/%Y')
+      expect(page).to have_content I18n.l(represented_entity1.from)
+      expect(page).to have_content I18n.l(represented_entity1.to)
       expect(page).to have_content represented_entity1.fiscal_year
       expect(represented_entity1.range_fund).to eq('range_1')
       expect(represented_entity1.subvention).to eq(false)
@@ -472,8 +472,8 @@ feature 'Organizations page' do
 
       expect(page).to have_content represented_entity2.identifier
       expect(page).to have_content represented_entity2.fullname
-      expect(page).to have_content represented_entity2.from.strftime('%d/%m/%Y')
-      expect(page).to have_content represented_entity2.to.strftime('%d/%m/%Y')
+      expect(page).to have_content I18n.l(represented_entity2.from)
+      expect(page).to have_content I18n.l(represented_entity2.to)
       expect(page).to have_content represented_entity2.fiscal_year
       expect(represented_entity2.range_fund).to eq('range_1')
       expect(represented_entity2.subvention).to eq(false)
@@ -487,13 +487,13 @@ feature 'Organizations page' do
 
       visit organization_path(organization)
 
-      expect(page).to have_content agent1.from.strftime('%d/%m/%Y')
+      expect(page).to have_content I18n.l(agent1.from)
       expect(page).to have_content agent1.fullname
-      expect(page).to have_content agent1.to.strftime('%d/%m/%Y')
+      expect(page).to have_content I18n.l(agent1.to)
 
-      expect(page).to have_content agent2.from.strftime('%d/%m/%Y')
+      expect(page).to have_content I18n.l(agent2.from)
       expect(page).to have_content agent2.fullname
-      expect(page).to have_content agent2.to.strftime('%d/%m/%Y')
+      expect(page).to have_content I18n.l(agent2.to)
     end
 
     scenario "Should display organization interest" do

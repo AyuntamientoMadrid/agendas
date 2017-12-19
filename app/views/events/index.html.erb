@@ -31,8 +31,8 @@
       <tr id="<%= dom_id(event) %>">
         <td class="event_date">
           <% if event.scheduled.present? %>
-            <%= event.scheduled.to_time.strftime(t('time.formats.short')) %>
-            <span class="hide"><%= event.scheduled.strftime(t('time.formats.custom')) %></span>
+            <%= I18n.l event.scheduled, format: :short %>
+            <span class="hide"><%= I18n.l event.scheduled, format: :custom %></span>
             <% else %>
             <span><%= t('backend.pending') %></span>
           <% end %>
