@@ -128,12 +128,16 @@
           <%= @organization.description.html_safe if @organization.description.present? %>
         </p>
       </div>
-      <div class="small-12 columns mb10">
-        <p>
-          <strong><%= t('backend.identifying_data.registered_lobbies_title') %></strong>
-          <%= t("backend.identifying_data.registered_lobbies.#{@organization.registered_lobbies}") %>
-        </p>
-      </div>
+
+        <div class="small-12 columns mb10">
+          <p>
+            <strong><%= t('backend.identifying_data.registered_lobbies_title') %></strong>
+            <% if @organization.registered_lobbies.present? %>
+              <%= t("backend.identifying_data.registered_lobbies.#{@organization.registered_lobbies}") %>
+            <% end %>
+          </p>
+        </div>
+
     </div>
   </fieldset>
 
@@ -232,7 +236,9 @@
       <div class="small-6 medium-6 columns mb10">
         <p>
           <strong><%= t('backend.lobbies_data.range_fund_title') %></strong>
-          <%= t("backend.lobbies_data.range_fund.#{@organization.range_fund}") %>
+          <% if @organization.range_fund.present? %>
+            <%= t("backend.lobbies_data.range_fund.#{@organization.range_fund}") %>
+          <% end %>
         </p>
       </div>
       <div class="small-6 medium-6 columns mb10">
