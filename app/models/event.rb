@@ -138,8 +138,8 @@ class Event < ActiveRecord::Base
       self.position.holder.last_name
     end
 
-    integer :holder_id do
-      self.position.holder.id
+    integer :holder_id, multiple: true do
+      self.participants.collect(&:position).collect(&:holder_id) << self.position.holder.id
     end
 
     text :holder_position do
