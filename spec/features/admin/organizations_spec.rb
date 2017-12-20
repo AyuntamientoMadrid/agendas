@@ -146,9 +146,12 @@ feature 'Organization' do
         expect(page).to have_content organization1.name
       end
 
-      scenario 'Should show organization with invalidate true', :search do
+      scenario 'Should show invalidated organizations', :search do
         organization1 = create(:organization)
-        organization1.update(invalidate: true)
+
+        organization1.update(invalidated_at: Time.zone.today)
+        organization1.update(invalidated_reasons: 'test')
+
         Organization.reindex
 
         visit admin_organizations_path
@@ -567,16 +570,29 @@ feature 'Organization' do
         organization = create(:organization)
         visit edit_admin_organization_path(organization)
 
-        expect(page).to have_content "Invalidar"
+        expect(find_link(I18n.t('organizations.validate'))[:disabled]).to eq "disabled"
+        expect(find_link(I18n.t('organizations.invalidate'))[:disabled]).not_to eq "disabled"
       end
 
-      scenario "Should show validate button on invalid organization" do
+      scenario "User incorrect invalidate tests", :js do
         organization = create(:organization)
-        organization.update(invalidate: true)
+        visit edit_admin_organization_path(organization)
+
+        click_link I18n.t('organizations.invalidate')
+        click_button "Guardar"
+
+        expect(page).to have_content I18n.translate('event.cancel_reasons_needed')
+      end
+
+      scenario "Should show validate buttons on invalid organization" do
+        organization = create(:organization)
+        organization.update(invalidated_reasons: 'test')
+        organization.update(invalidated_at: Time.zone.today)
 
         visit edit_admin_organization_path(organization)
 
-        expect(page).to have_content "Validar"
+        expect(find_link(I18n.t('organizations.validate'))[:disabled]).not_to eq "disabled"
+        expect(find_link(I18n.t('organizations.invalidate'))[:disabled]).to eq "disabled"
       end
 
       scenario 'Visit edit admin organization page and remove mandatory fields from organization should display error' do

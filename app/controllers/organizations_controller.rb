@@ -44,7 +44,7 @@ class OrganizationsController < ApplicationController
             fulltext(params[:keyword], :fields => [:agent_name]) if params[:keyword].present?
             fulltext(params[:keyword], :fields => [:agent_first_surname]) if params[:keyword].present?
             fulltext(params[:keyword], :fields => [:agent_second_surname]) if params[:keyword].present?
-            with(:invalidate, false) if params[:keyword].present?
+            with(:invalidated_at, nil) if params[:keyword].present?
             with(:canceled_at, nil) if params[:keyword].present?
           end
         end

@@ -33,7 +33,8 @@ feature 'Organizations page' do
     scenario "Should show invalidated organizations", :search do
       create(:organization, name: "Valid Org 1")
       organization = create(:organization, name: "Invalid Org 2")
-      organization.update(invalidate: true)
+      organization.update(invalidated_reasons: 'test')
+      organization.update(invalidated_at: Time.zone.today)
 
       Organization.reindex
 
@@ -87,6 +88,7 @@ feature 'Organizations page' do
         Organization.reindex
 
         visit organizations_path
+
         fill_in :keyword, with: "Mengano"
         click_on "Buscar"
 
@@ -156,6 +158,19 @@ feature 'Organizations page' do
         find('#delete-keywords').click
         expect(page).not_to have_content "1 Resultados con la palabra Hola"
         expect(find('#keyword').value).to eq ""
+      end
+
+      scenario "Shouldn't show invalidated organizations" do
+        create(:organization, name: "Valid Org 1")
+        organization = create(:organization, name: "Invalid Org 2")
+        organization.update(invalidated_reasons: 'test')
+        organization.update(invalidated_at: Time.zone.today)
+
+        Organization.reindex
+
+        visit organizations_path
+        expect(page).to have_content "Invalid Org 2"
+        expect(page).to have_content "Valid Org 1"
       end
 
       scenario "Should display results with entity_type: lobby", :js do
@@ -337,7 +352,9 @@ feature 'Organizations page' do
         end
 
         scenario 'not shows organizations invalidate based on the agent name', :search do
-          @org1.update(invalidate: true)
+          @org1.update(invalidated_reasons: 'test')
+          @org1.update(invalidated_at: Time.zone.today)
+
           Organization.reindex
           visit organizations_path
 
@@ -379,7 +396,6 @@ feature 'Organizations page' do
       Organization.reindex
 
       visit organizations_path
-
       find(:css, "#lobby_activity[value='1']").set(true)
       click_button(I18n.t('main.form.search'))
 

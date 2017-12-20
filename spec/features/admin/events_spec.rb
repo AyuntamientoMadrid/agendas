@@ -1223,7 +1223,7 @@ feature 'Events' do
 
       click_button "Guardar"
 
-      expect(page).to have_content I18n.translate('backend.event.accept_reasons_needed')
+      expect(page).to have_content I18n.translate('event.accept_reasons_needed')
     end
 
     scenario "User incorrect cancel tests", :js do
@@ -1234,7 +1234,7 @@ feature 'Events' do
       click_link I18n.t('backend.cancel_event')
       click_button "Guardar"
 
-      expect(page).to have_content I18n.translate('backend.event.reasons_needed')
+      expect(page).to have_content I18n.translate('event.cancel_reasons_needed')
     end
 
     scenario "User incorrect decline tests", :js do
@@ -1246,7 +1246,7 @@ feature 'Events' do
       click_link I18n.t('backend.decline_event')
       click_button "Guardar"
 
-      expect(page).to have_content I18n.translate('backend.event.decline_reasons_needed')
+      expect(page).to have_content I18n.translate('event.decline_reasons_needed')
     end
 
     scenario "An use can accept or decline an event only once", :js do

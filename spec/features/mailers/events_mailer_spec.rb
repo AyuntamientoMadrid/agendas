@@ -7,7 +7,7 @@ feature 'Events Mailer' do
       @event = create(:event, title: 'New event from Capybara', user: create(:user))
       @event.update(status: 'accepted')
       @event.cancel = 'true'
-      @event.reasons = 'test'
+      @event.canceled_reasons = 'test'
       @event.save!
       open_email(@event.user.email)
     end

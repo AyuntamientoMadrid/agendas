@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 20171220163623) do
     t.integer  "status",                  default: 0
     t.boolean  "lobby_activity"
     t.text     "notes"
-    t.string   "reasons"
+    t.string   "canceled_reasons"
     t.date     "published_at"
     t.date     "canceled_at"
     t.string   "organization_name"
@@ -243,9 +243,10 @@ ActiveRecord::Schema.define(version: 20171220163623) do
     t.integer  "associations_count"
     t.integer  "members_count"
     t.string   "approach"
-    t.boolean  "invalidate"
+    t.datetime "invalidated_at"
     t.datetime "canceled_at"
     t.string   "country"
+    t.string   "invalidated_reasons"
   end
 
   add_index "organizations", ["category_id"], name: "index_organizations_on_category_id", using: :btree

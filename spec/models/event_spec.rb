@@ -233,7 +233,7 @@ describe Event do
       event = create(:event, title: 'Event on request', user: organization_user)
 
       event.canceled_at = Time.zone.today
-      event.reasons     = 'test'
+      event.canceled_reasons     = 'test'
 
       expect(event).to be_valid
     end
@@ -242,7 +242,7 @@ describe Event do
       event = create(:event, title: 'Event on request', user: organization_user)
       event.status = 'done'
       event.canceled_at = Time.zone.today
-      event.reasons = 'test'
+      event.canceled_reasons = 'test'
 
       expect(event).not_to be_valid
     end

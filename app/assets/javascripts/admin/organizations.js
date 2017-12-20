@@ -15,6 +15,27 @@ $(function(){
     $("#legal_representant_link").hide();
   }
 
+  function toggle_hidden(id) {
+    var hiddenField = $(id),
+        val = hiddenField.val();
+    hiddenField.val(val === "true" ? "false" : "true");
+  }
+
+  $('#invalidate_link').bind('click', function(e){
+    e.preventDefault();
+
+    toggle_hidden('#organization_invalidate')
+    $('#invalidate-reason').toggle();
+  });
+
+  $('#validate_link').bind('click', function(e){
+    e.preventDefault();
+
+    toggle_hidden('#organization_validate')
+    $('#invalidate-reason').hide();
+    $('#validate_link').toggleClass('success');
+  });
+
 });
 
 function restore_legal_representant(e){

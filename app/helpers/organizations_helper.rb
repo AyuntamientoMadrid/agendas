@@ -30,9 +30,7 @@ module OrganizationsHelper
   end
 
   def organization_status(organization)
-    canceled_true = organization.canceled_at
-
-    if canceled_true.present?
+    if organization.canceled?
       '<span class="label alert">Baja </span>'.html_safe
     elsif organization.invalidate.present?
       if current_user.present? && current_user.admin?

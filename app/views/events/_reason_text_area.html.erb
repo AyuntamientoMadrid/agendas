@@ -1,0 +1,11 @@
+<%= f.hidden_field hidden_label, value: 'false' if comprobation %>
+<% if defined?(id)  && comprobation %>
+  <div id="<%= id %>" style="display: none">
+    <div class="row">
+      <div class="small-12 columns">
+        <%= f.label label, msg %>
+        <%= f.text_area label, class: 'tinymce' %>
+      </div>
+    </div>
+  </div>
+<% end %>
