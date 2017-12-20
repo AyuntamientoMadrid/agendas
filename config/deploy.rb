@@ -40,3 +40,16 @@ set(:config_files, %w(
   secrets.yml
   unicorn.rb
 ))
+
+namespace :deploy do
+  # Check right version of deploy branch
+  before :deploy, "deploy:check_revision"
+  # Run test aund continue only if passed
+  # before :deploy, "deploy:run_tests"
+  # Compile assets locally and then rsync
+  after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
+  after :finishing, 'deploy:cleanup'
+  # Restart unicorn
+  after 'deploy:publishing', 'deploy:restart'
+  after 'deploy:restart', 'sidekiq:restart'
+end
