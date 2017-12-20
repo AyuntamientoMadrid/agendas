@@ -245,8 +245,8 @@ ActiveRecord::Schema.define(version: 20171220163623) do
     t.string   "approach"
     t.datetime "invalidated_at"
     t.datetime "canceled_at"
-    t.string   "country"
     t.string   "invalidated_reasons"
+    t.string   "country"
   end
 
   add_index "organizations", ["category_id"], name: "index_organizations_on_category_id", using: :btree

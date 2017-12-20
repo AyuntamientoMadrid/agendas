@@ -164,7 +164,7 @@ describe Event do
   describe ".searches" do
     let!(:holder) { create(:holder, :with_position, first_name: "John", last_name: "Doe") }
     let!(:event) { create(:event, position: holder.current_position, title: "Some amazing title",
-                                  lobby_activity: false ,status: "accepted") }
+                                  lobby_activity: false, status: "accepted") }
 
     it "Should return events by given holder name" do
       params = {}
@@ -233,7 +233,7 @@ describe Event do
       event = create(:event, title: 'Event on request', user: organization_user)
 
       event.canceled_at = Time.zone.today
-      event.canceled_reasons     = 'test'
+      event.canceled_reasons = 'test'
 
       expect(event).to be_valid
     end

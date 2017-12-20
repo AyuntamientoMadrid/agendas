@@ -138,7 +138,7 @@ feature 'Events' do
     describe "edit" do
 
       scenario 'manager user can see on page the name of the organization' do
-        event = create(:event, user: @user_manager,  organization_name: "Organization name", position: @position)
+        event = create(:event, user: @user_manager, organization_name: "Organization name", position: @position)
 
         visit edit_event_path(event)
 
@@ -147,7 +147,7 @@ feature 'Events' do
       end
 
       scenario 'manager user can see on page lobby contact info' do
-        event = create(:event, user: @user_manager,  organization_name: "Organization name", position: @position, lobby_contact_firstname: "name",
+        event = create(:event, user: @user_manager, organization_name: "Organization name", position: @position, lobby_contact_firstname: "name",
                                lobby_contact_lastname: "lastname", lobby_contact_phone: "971466655", lobby_contact_email: "lobby@email.com")
 
         visit edit_event_path(event)
@@ -161,7 +161,7 @@ feature 'Events' do
       end
 
       scenario 'visit edit event form and render lobby fields' do
-        event = create(:event, user: @user_manager,  organization_name: "Organization name", position: @position)
+        event = create(:event, user: @user_manager, organization_name: "Organization name", position: @position)
 
         visit edit_event_path(event)
 
@@ -184,10 +184,10 @@ feature 'Events' do
       end
 
       scenario 'visit edit event form and render correct lobby values' do
-        event = create(:event, user: @user_manager,  organization_name: "Organization name", position: @position,
-                       lobby_contact_firstname: 'name', lobby_contact_lastname: 'lastname',
-                       lobby_contact_phone: '971466655', lobby_contact_email: 'lobby@email.com',
-                       lobby_scheduled: 'Day 17', general_remarks: 'General remark')
+        event = create(:event, user: @user_manager, organization_name: "Organization name", position: @position,
+                               lobby_contact_firstname: 'name', lobby_contact_lastname: 'lastname',
+                               lobby_contact_phone: '971466655', lobby_contact_email: 'lobby@email.com',
+                               lobby_scheduled: 'Day 17', general_remarks: 'General remark')
 
         visit edit_event_path(event)
 
@@ -271,7 +271,7 @@ feature 'Events' do
     describe "edit" do
 
       scenario 'edit event and modify title', :js do
-        event = create(:event, user: @user_admin,  title: 'Test event')
+        event = create(:event, user: @user_admin, title: 'Test event')
         visit edit_event_path(event)
 
         fill_in :event_title, with: 'New event modified from Capybara'
@@ -290,7 +290,7 @@ feature 'Events' do
       end
 
       scenario 'admin user can see on page lobby contact info' do
-        event = create(:event, user: @user_admin,  organization_name: "Organization name", lobby_contact_firstname: 'lobyname',
+        event = create(:event, user: @user_admin, organization_name: "Organization name", lobby_contact_firstname: 'lobyname',
                                lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123', lobby_contact_email: 'lobbyemail@email.com')
 
         visit edit_event_path(event)
@@ -307,7 +307,7 @@ feature 'Events' do
     describe "index" do
 
       scenario 'visit search by title' do
-        event = create(:event, user: @user_admin,  title: 'New event from Capybara')
+        event = create(:event, user: @user_admin, title: 'New event from Capybara')
         visit events_path
 
         fill_in :search_title, with: 'Capybara'
@@ -317,7 +317,7 @@ feature 'Events' do
       end
 
       scenario 'visit search by person' do
-        event = create(:event, user: @user_admin,  title: 'New event from Capybara')
+        event = create(:event, user: @user_admin, title: 'New event from Capybara')
         name = event.position.holder.first_name
         visit events_path
 
@@ -328,7 +328,7 @@ feature 'Events' do
       end
 
       scenario 'visit non results search page' do
-        create(:event, user: @user_admin,  title: 'New not found event')
+        create(:event, user: @user_admin, title: 'New not found event')
         visit events_path
 
         fill_in :search_title, with: 'Search keywords'
@@ -338,7 +338,7 @@ feature 'Events' do
       end
 
       scenario 'search lobby activity' do
-        event = create(:event, user: @user_admin,  title: 'Test for check lobby_activity')
+        event = create(:event, user: @user_admin, title: 'Test for check lobby_activity')
         event.lobby_activity = true
         event.event_agents << create(:event_agent)
         event.save!
@@ -389,7 +389,7 @@ feature 'Events' do
 
         fill_in :event_title, with: "Title"
         fill_in :event_location, with: "Location"
-        fill_in :event_scheduled, with: DateTime.current
+        fill_in :event_scheduled, with: Time.zone.now
         select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
         choose :event_lobby_activity_false
         fill_in :event_published_at, with: Date.current
@@ -432,7 +432,7 @@ feature 'Events' do
 
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
-            fill_in :event_scheduled, with: DateTime.current
+            fill_in :event_scheduled, with: Time.zone.now
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
@@ -484,7 +484,7 @@ feature 'Events' do
 
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
-            fill_in :event_scheduled, with: DateTime.current
+            fill_in :event_scheduled, with: Time.zone.now
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
@@ -504,7 +504,7 @@ feature 'Events' do
 
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
-            fill_in :event_scheduled, with: DateTime.current
+            fill_in :event_scheduled, with: Time.zone.now
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
@@ -581,7 +581,7 @@ feature 'Events' do
 
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
-            fill_in :event_scheduled, with: DateTime.current
+            fill_in :event_scheduled, with: Time.zone.now
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
@@ -601,7 +601,7 @@ feature 'Events' do
 
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
-            fill_in :event_scheduled, with: DateTime.current
+            fill_in :event_scheduled, with: Time.zone.now
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
@@ -729,7 +729,7 @@ feature 'Events' do
 
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
-            fill_in :event_scheduled, with: DateTime.current
+            fill_in :event_scheduled, with: Time.zone.now
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             fill_in :event_published_at, with: Date.current
             choose :event_lobby_activity_true
@@ -747,7 +747,7 @@ feature 'Events' do
 
             fill_in :event_title, with: "Title"
             fill_in :event_location, with: "Location"
-            fill_in :event_scheduled, with: DateTime.current
+            fill_in :event_scheduled, with: Time.zone.now
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             fill_in :event_published_at, with: Date.current
             choose :event_lobby_activity_true
@@ -771,7 +771,7 @@ feature 'Events' do
     end
 
     scenario 'visit index event page' do
-      event = create(:event, user: @organization_user,  title: 'New event for lobbies',
+      event = create(:event, user: @organization_user, title: 'New event for lobbies',
                       position: @position, organization_id: @organization.id)
       visit events_path
       expect(page).to have_content event.title
@@ -994,9 +994,9 @@ feature 'Events' do
     describe "Edit" do
 
       scenario "Edit buttons enabled for events on_request" do
-        event_requested = create(:event, user: @organization_user,  title: 'Event on request', position: @position,
+        event_requested = create(:event, user: @organization_user, title: 'Event on request', position: @position,
                                          organization: @organization)
-        event_accepted = create(:event, user: @organization_user,  title: 'Event accepted', position: @position,
+        event_accepted = create(:event, user: @organization_user, title: 'Event accepted', position: @position,
                                         organization: @organization)
         event_requested.status = 0
         event_accepted.status = 1
@@ -1011,9 +1011,9 @@ feature 'Events' do
       end
 
       scenario "Edit buttons enabled for events on_request on show view" do
-        event_requested = create(:event, user: @organization_user,  title: 'Event on request', position: @position,
+        event_requested = create(:event, user: @organization_user, title: 'Event on request', position: @position,
                                          organization: @organization)
-        event_accepted = create(:event, user: @organization_user,  title: 'Event accepted', position: @position,
+        event_accepted = create(:event, user: @organization_user, title: 'Event accepted', position: @position,
                                         organization: @organization)
         event_requested.status = 0
         event_accepted.status = 1
@@ -1030,7 +1030,7 @@ feature 'Events' do
       end
 
       scenario "User can edit events", :js do
-        event_requested = create(:event, user: @organization_user,  title: 'Event on request', position: @position,
+        event_requested = create(:event, user: @organization_user, title: 'Event on request', position: @position,
                                          status: 0, organization: @organization)
 
         visit event_path(event_requested)
@@ -1044,7 +1044,7 @@ feature 'Events' do
       end
 
       scenario 'Lobby user can see on page the name of the organization' do
-        event = create(:event, user: @organization_user,  organization_name: "Organization name", position: @position,
+        event = create(:event, user: @organization_user, organization_name: "Organization name", position: @position,
                                organization: @organization)
 
         visit edit_event_path(event)
@@ -1053,7 +1053,7 @@ feature 'Events' do
       end
 
       scenario 'Lobby user can see lobby contact info' do
-        event = create(:event, user: @organization_user,  organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
+        event = create(:event, user: @organization_user, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
                                lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123',
                                lobby_contact_email: 'lobbyemail@email.com', organization: @organization)
 
@@ -1069,7 +1069,7 @@ feature 'Events' do
 
       scenario 'Lobby user can update lobby contact info', :js do
         position = create(:position)
-        event = create(:event, user: @organization_user,  organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
+        event = create(:event, user: @organization_user, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
                                lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123',
                                lobby_contact_email: 'lobbyemail@email.com', organization: @organization,
                                position: position)
@@ -1112,8 +1112,8 @@ feature 'Events' do
     end
 
     scenario 'filter events by one status on multiselect', :js do
-      event1 = create(:event, user: @user_admin,  title: 'Test for check status requested', lobby_activity: true)
-      event2 = create(:event, user: @user_admin,  title: 'Test for check status accepted', lobby_activity: true)
+      event1 = create(:event, user: @user_admin, title: 'Test for check status requested', lobby_activity: true)
+      event2 = create(:event, user: @user_admin, title: 'Test for check status accepted', lobby_activity: true)
       event1.status = 0
       event2.status = 1
       event1.save
@@ -1128,9 +1128,9 @@ feature 'Events' do
     end
 
     scenario 'filter events by more than one status on multiselect' do
-      event1 = create(:event, user: @user_admin,  title: 'Test for check status requested', lobby_activity: true)
-      event2 = create(:event, user: @user_admin,  title: 'Test for check status accepted', lobby_activity: true)
-      event3 = create(:event, user: @user_admin,  title: 'Test for check status done', lobby_activity: true)
+      event1 = create(:event, user: @user_admin, title: 'Test for check status requested', lobby_activity: true)
+      event2 = create(:event, user: @user_admin, title: 'Test for check status accepted', lobby_activity: true)
+      event3 = create(:event, user: @user_admin, title: 'Test for check status done', lobby_activity: true)
       event1.status = 0
       event2.status = 1
       event3.status = 2

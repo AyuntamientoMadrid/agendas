@@ -23,7 +23,7 @@ feature 'Events Mailer' do
     background do
       clear_emails
       @event = create(:event, title: 'New event from Capybara',
-        user: create(:user, :lobby))
+                              user: create(:user, :lobby))
       @event.lobby_contact_firstname = 'test_name'
       @event.lobby_contact_lastname = 'test_other_name'
       @event.lobby_contact_email = 'test_lobby_mail'
@@ -44,7 +44,7 @@ feature 'Events Mailer' do
     background do
       clear_emails
       @event = create(:event, title: 'New event from Capybara',
-        user: create(:user, :lobby))
+                              user: create(:user, :lobby))
       @event.lobby_contact_firstname = 'test_name'
       @event.lobby_contact_lastname = 'test_other_name'
       @event.lobby_contact_email = 'test_lobby_mail'

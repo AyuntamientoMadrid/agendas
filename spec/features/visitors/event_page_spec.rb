@@ -76,7 +76,7 @@ feature 'Event page' do
     Sunspot.commit
 
     visit visitors_path
-    select "#{participant.position.holder.full_name_comma}", from: :holder
+    select participant.position.holder.full_name_comma, from: :holder
     click_button I18n.t('backend.search.button')
 
     expect(page).to have_content "Acting as participant"
@@ -92,7 +92,7 @@ feature 'Event page' do
     Sunspot.commit
 
     visit visitors_path
-    select "#{participant.position.holder.full_name_comma}", from: :holder
+    select participant.position.holder.full_name_comma, from: :holder
     click_button I18n.t('backend.search.button')
 
     expect(page).to have_content "Acting as participant"

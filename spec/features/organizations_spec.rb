@@ -385,7 +385,7 @@ feature 'Organizations page' do
     scenario "Should display organizations with event with lobby_activity", :search do
       organization_one = create(:organization, entity_type: :lobby, name: "Organizacion 1")
       organization_two = create(:organization, entity_type: :lobby, name: "No lobby activity")
-      event=create(:event,organization: organization_one)
+      event = create(:event, organization: organization_one)
       event.lobby_activity = true
       event.event_agents << create(:event_agent)
       event.save!

@@ -17,7 +17,7 @@ class Attachment < ActiveRecord::Base
      'application/doc', 'application/docx', 'application/xls', 'application/xlsx', 'application/x-soffice', 'application/octet-stream'],
     message: I18n.t('backend.allowed_file_content_types')
 
-    after_validation :cleanup_paperclip_duplicate_errors
+  after_validation :cleanup_paperclip_duplicate_errors
 
   Paperclip.interpolates :normalized_file_name do |attachment, style|
     attachment.instance.normalized_file_name
@@ -29,8 +29,8 @@ class Attachment < ActiveRecord::Base
 
   private
 
-  def cleanup_paperclip_duplicate_errors
-    errors.delete(:file_content_type)
-  end
+    def cleanup_paperclip_duplicate_errors
+      errors.delete(:file_content_type)
+    end
 
 end

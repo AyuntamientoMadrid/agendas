@@ -33,7 +33,7 @@ namespace :questions do
                   ["¿Qué otras ciudades o instituciones cuentan con un registro de lobbies?", "Actualmente funcionan registros similares en la Comunidad Autónoma de Cataluña y en la Comisión Nacional de los Mercados y de la Competencia (en este caso, la inscripción es voluntaria). Algunas Comunidades Autónomas, como Castilla-La Mancha, lo incluyen en su normativa, pero aún no funciona."]]
 
     questions.each_with_index do |faq, index|
-      Question.create(title: faq[0], answer: faq[1], position: index + 1 )
+      Question.create(title: faq[0], answer: faq[1], position: index + 1)
     end
   end
 

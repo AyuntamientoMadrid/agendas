@@ -57,7 +57,7 @@ class OrganizationsController < ApplicationController
     end
 
     def get_autocomplete_items(parameters)
-      items = Organization.full_like("%#{parameters[:term]}%")
+      Organization.full_like("%#{parameters[:term]}%")
     end
 
     def sorting_option(option)

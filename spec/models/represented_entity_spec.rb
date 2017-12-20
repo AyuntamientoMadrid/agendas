@@ -64,14 +64,14 @@ describe RepresentedEntity do
 
       it "should return all represented_entities by organization" do
         organization = create(:organization)
-        represented_entity_1 = create(:represented_entity, organization: organization)
-        represented_entity_2 = create(:represented_entity, organization: organization)
+        represented_entity1 = create(:represented_entity, organization: organization)
+        represented_entity2 = create(:represented_entity, organization: organization)
 
         represented_entities = RepresentedEntity.by_organization(organization)
 
         expect(represented_entities.count).to eq(2)
-        expect(represented_entities).to include represented_entity_1
-        expect(represented_entities).to include represented_entity_2
+        expect(represented_entities).to include represented_entity1
+        expect(represented_entities).to include represented_entity2
       end
 
     end

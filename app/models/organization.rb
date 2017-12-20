@@ -7,7 +7,7 @@ class Organization < ActiveRecord::Base
   enum entity_type: { association: 0, federation: 1, lobby: 2 }
   validates :inscription_reference, uniqueness: true, allow_blank: true, allow_nil: true
   validates :name, :category_id, presence: true
-  validates :invalidated_reasons, presence: {message: I18n.t('event.cancel_reasons_needed') }, if: Proc.new { |a| !a.invalidated_at.blank? }
+  validates :invalidated_reasons, presence: { message: I18n.t('event.cancel_reasons_needed') }, if: Proc.new { |a| a.invalidated_at }
 
   has_many :represented_entities, dependent: :destroy, inverse_of: :organization
   has_many :agents, dependent: :destroy
@@ -27,7 +27,7 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :represented_entities, allow_destroy: true
   accepts_nested_attributes_for :agents, allow_destroy: true, reject_if: :all_blank
 
-  after_create :set_inscription_date
+  before_create :set_inscription_date
   before_validation :invalidate_organization, :validate_organization
 
   searchable do
@@ -57,7 +57,7 @@ class Organization < ActiveRecord::Base
   scope :full_like, ->(name) { where("identifier ilike ? OR name ilike ?", name, name) }
 
   def entity_type_id
-    Organization.entity_types[self.entity_type]
+    Organization.entity_types[entity_type]
   end
 
   def invalidate_organization
@@ -88,7 +88,6 @@ class Organization < ActiveRecord::Base
 
   def set_inscription_date
     self.inscription_date = Date.current if inscription_date.blank?
-    save
   end
 
   def interest?(id)
@@ -96,11 +95,11 @@ class Organization < ActiveRecord::Base
   end
 
   def invalidated?
-    !self.invalidated_at.nil?
+    !invalidated_at.nil?
   end
 
   def canceled?
-    !self.canceled_at.nil?
+    !canceled_at.nil?
   end
 
 

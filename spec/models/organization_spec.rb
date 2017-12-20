@@ -88,7 +88,6 @@ describe Organization do
       organization.inscription_date = nil
 
       organization.save
-
       expect(organization.inscription_date).to eq(Date.current)
     end
 
