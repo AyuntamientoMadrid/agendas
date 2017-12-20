@@ -56,40 +56,45 @@
       <%= f.text_field :number %>
       <%= form_field_errors(f, :number) %>
     </div>
-    <div class="small-12 medium-3 columns">
+    <div class="small-12 medium-4 columns">
       <%= f.label :gateway, t('backend.identifying_data.gateway') %>
       <%= f.text_field :gateway %>
       <%= form_field_errors(f, :gateway) %>
     </div>
-    <div class="small-12 medium-3 columns">
+    <div class="small-12 medium-4 columns">
       <%= f.label :stairs, t('backend.identifying_data.stairs') %>
       <%= f.text_field :stairs %>
       <%= form_field_errors(f, :stairs) %>
     </div>
-    <div class="small-12 medium-3 columns">
+    <div class="small-12 medium-4 columns">
       <%= f.label :floor, t('backend.identifying_data.floor') %>
       <%= f.text_field :floor %>
       <%= form_field_errors(f, :floor) %>
     </div>
-    <div class="small-12 medium-3 columns">
+    <div class="small-12 medium-4 columns">
       <%= f.label :door, t('backend.identifying_data.door') %>
       <%= f.text_field :door %>
       <%= form_field_errors(f, :door) %>
     </div>
-    <div class="small-12 medium-3 columns">
+    <div class="small-12 medium-4 columns">
       <%= f.label :postal_code, t('backend.identifying_data.postal_code') %>
       <%= f.text_field :postal_code %>
       <%= form_field_errors(f, :postal_code) %>
     </div>
-    <div class="small-12 medium-3 columns">
+    <div class="small-12 medium-4 columns">
       <%= f.label :town, t('backend.identifying_data.town') %>
       <%= f.text_field :town %>
       <%= form_field_errors(f, :town) %>
     </div>
-    <div class="small-12 medium-3 columns">
+    <div class="small-12 medium-4 columns">
       <%= f.label :province, t('backend.identifying_data.province') %>
       <%= f.text_field :province %>
       <%= form_field_errors(f, :province) %>
+    </div>
+    <div class="small-12 medium-4 columns">
+      <%= f.label :country, t('backend.identifying_data.country') %>
+      <%= f.text_field :country %>
+      <%= form_field_errors(f, :country) %>
     </div>
     <div class="small-12 columns">
       <%= f.label :description, t('backend.identifying_data.description') %>

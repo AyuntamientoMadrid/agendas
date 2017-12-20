@@ -27,7 +27,7 @@ es:
       address: "Domicilio"
       province: "Provincia"
       category: "Categoría"
-      description: "Finalidad y objetivos"
+      description: "Finalidad y Objetivos"
       web: "Página web"
       lobby: 'Lobbie'
       federation: 'Federación'
@@ -102,7 +102,8 @@ es:
       postal_code: "CP"
       town: "Municipio"
       province: "Provincia"
-      description: "Finalidad y objetivos"
+      country: "País"
+      description: "Finalidad y Objetivos"
       registered_lobbies_title: "¿Está inscrito en algún otro registro?"
       registered_lobbies:
         no_record: "Ninguno"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171216181904) do
+ActiveRecord::Schema.define(version: 20171220163623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -245,6 +245,7 @@ ActiveRecord::Schema.define(version: 20171216181904) do
     t.string   "approach"
     t.boolean  "invalidate"
     t.datetime "canceled_at"
+    t.string   "country"
   end
 
   add_index "organizations", ["category_id"], name: "index_organizations_on_category_id", using: :btree
