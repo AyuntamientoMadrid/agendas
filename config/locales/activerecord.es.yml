@@ -38,7 +38,7 @@ es:
     attributes:
       organization:
         name: "Nombre"
-        category_id: "Categoria"
+        category_id: "Categoría"
       organization/legal_representant:
         identifier: "Representante Legal: Identificador"
         name: "Representante Legal: Nombre"

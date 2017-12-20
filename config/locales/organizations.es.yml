@@ -77,9 +77,9 @@ es:
       title: Baja en el Registro de Lobbies
 
   backend:
-    new_organization_title: "Nueva organización"
+    new_organization_title: "Nuevo lobby"
     reference:
-      title_fieldset: "Referencia de la declaracíon responsable"
+      title_fieldset: "Referencia de la declaración responsable"
       title: "Número de anotación en registro"
 
     identifying_data:
@@ -90,9 +90,9 @@ es:
       second_surname: "Segundo apellido"
       phones: "Teléfono(s)"
       email: "Correo electrónico"
-      category_id: "Categoria"
+      category_id: "Categoría"
       web: "Pagina web"
-      address_type: "Tipo de via"
+      address_type: "Tipo de vía"
       address: "Domicilio"
       number: "Num"
       gateway: "Portal"
@@ -103,7 +103,7 @@ es:
       town: "Municipio"
       province: "Provincia"
       description: "Descripción"
-      registered_lobbies_title: "¿Esta inscrito en algún otro registro?"
+      registered_lobbies_title: "¿Está inscrito en algún otro registro?"
       registered_lobbies:
         no_record: "Ninguno"
         generalitat_catalunya: "Generalidad catalunya"
@@ -166,7 +166,7 @@ es:
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
 
     interest:
-      title_fieldset: "Area de Interés"
+      title_fieldset: "Área de Interés"
 
     agents:
       add_association: "Añadir Agentes"
@@ -182,7 +182,7 @@ es:
       public_assignments_only_show: "¿Esta persona ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe, en algún momento de los dos años previos a la fecha desde la que va actuar por cuenta de quien se inscribe?"
 
     terms:
-      title_fieldset: "Aceptacion condiciones declaración responsable"
+      title_fieldset: "Aceptación condiciones declaración responsable"
       denied_public_data: "Los datos personales recogidos serán incorporados y tratados por el Ayuntamiento de Madrid en el  fichero REGISTRO DE LOBBIES cuya finalidad es la de “Gestión de lobbies”. Estos datos serán objeto de publicación, de conformidad con el art. 35 de la Ordenanza de Transparencia de la Ciudad de Madrid, salvo que se oponga a ello por causa justificada, para la cual deberá marcar la siguiente casilla"
       denied_public_events: "Así mismo, en caso de mantener reuniones y encuentros con concejales, personal directivo y personal eventual sus datos se incorporarán también al fichero GESTIÓN DE AGENDAS cuya finalidad es la de “Facilitar la gestión y publicidad de las agendas de los concejales, personal directivo y personal eventual del Ayuntamiento de Madrid”. Estos datos serán objeto de publicación, de conformidad con el art. 8 de la Ordenanza de Transparencia de la Ciudad de Madrid, salvo que se oponga a ello por causa justificada, para la cual deberá marcar la siguiente casilla"
       last_text: "El Órgano responsable de ambos ficheros es la Dirección General de Transparencia y Atención a la Ciudadanía, con domicilio en C/ Alcalá 45, 28014 Madrid, ante la cual la persona interesada podrá ejercer los derechos de acceso, rectificación, cancelación y oposición. Con carácter general los datos recogidos no podrán ser cedidos a terceros salvo en los supuesto previstos en el artículo 11 de la Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal. Todo lo cual se informa en el cumplimiento del artículo 5 de la citada Ley Orgánica 15/1999."

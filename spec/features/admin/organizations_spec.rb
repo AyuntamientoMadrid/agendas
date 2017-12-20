@@ -133,7 +133,7 @@ feature 'Organization' do
           find('a[title="Editar"]').click
         end
 
-        expect(page).to have_content "Referencia de la declaracíon responsable"
+        expect(page).to have_content "Referencia de la declaración responsable"
         #expect(page).to have_field('organization_name', with: organization.name)
       end
 

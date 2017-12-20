@@ -117,7 +117,7 @@ es:
     meeting_lobby_activity_no: "no"
     meeting_lobby_activity_organization: "Lobby"
     meeting_lobby_activity_input: "Buscar una organización o persona fīsica por nombre o dni"
-    meeting_lobby_category: "Categoria: "
+    meeting_lobby_category: "Categoría: "
     meeting_lobby_activity_represented_entities: "Empresas Representadas"
     meeting_lobby_activity_agents: "Agentes"
     meeting_lobby_activity_public_website: "Fecha en la cual el evento se verá en la página web pública"
