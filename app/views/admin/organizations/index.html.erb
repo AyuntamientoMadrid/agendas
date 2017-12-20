@@ -3,6 +3,7 @@
     <h1>
       <%= t('backend.companies') %> (<%= @organizations.total %>)
     </h1>
+    <%= link_to t('backend.export'), organizations_path(:format=>:csv), :class => "button tiny radius success" %>
   </div>
 
   <div class=" small-12 medium-4 column">
