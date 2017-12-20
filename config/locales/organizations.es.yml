@@ -81,6 +81,8 @@ es:
     reference:
       title_fieldset: "Referencia de la declaración responsable"
       title: "Número de anotación en registro"
+    placeholder:
+      phones: "Puede añadir más de un teléfono"
 
     identifying_data:
       title_fieldset: "Datos identificativos"
@@ -113,7 +115,7 @@ es:
         others: "Otro"
 
     legal_representant:
-      add_legal_representative: "Añadir legal representant"
+      add_legal_representative: "Añadir representante legal"
       title_fieldset: "Representante legal"
       identifier: "DNI/NIF/NIE/Pasaporte"
       name: "Nombre o razón social"
@@ -147,7 +149,7 @@ es:
       contract_yes: "Si"
 
     represented_entities:
-      add_represented_entities: "Añadir Entidades a las que se representa"
+      add_represented_entities: "Añadir Entidades/personas a las que se representa"
       title_fieldset: "Datos personas o entidades sin personalidad a quien se va a representar"
       company: "Empresa"
       identifier: "DNI/NIF/NIE/Pasaporte"

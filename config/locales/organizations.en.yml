@@ -107,7 +107,7 @@ en:
         others: "Otro"
 
     legal_representant:
-      add_legal_representative: "Añadir legal representant"
+      add_legal_representative: "Añadir representante legal"
       title_fieldset: "Representante legal"
       identifier: "DNI/NIF/NIE/Pasaporte"
       name: "Nombre o razón social"
@@ -138,7 +138,7 @@ en:
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
 
     represented_entities:
-      add_represented_entities: "Añadir Entidades a las que se representa"
+      add_represented_entities: "Añadir Entidades/personas a las que se representa"
       title_fieldset: "Datos personas o entidades sin personalidad a quien se va a representar"
       identifier: "DNI/NIF/NIE/Pasaporte"
       name: "Nombre o razón social"

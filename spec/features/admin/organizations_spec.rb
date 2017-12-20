@@ -163,8 +163,8 @@ feature 'Organization' do
       scenario 'Visit new admin organization page and display content' do
         visit new_admin_organization_path
 
-        expect(page).to have_content "Añadir legal representant"
-        expect(page).to have_content "Añadir Entidades a las que se representa"
+        expect(page).to have_content "Añadir representante legal"
+        expect(page).to have_content "Añadir Entidades/personas a las que se representa"
         expect(page).to have_content "Añadir Agentes"
         expect(page).to have_button "Guardar"
       end
@@ -339,7 +339,7 @@ feature 'Organization' do
             fill_in :organization_user_attributes_email, with: "user@email.com"
             fill_in :organization_user_attributes_password, with: "password"
             fill_in :organization_user_attributes_password_confirmation, with: "password"
-            click_on "Añadir legal representant"
+            click_on "Añadir representante legal"
             fill_in :organization_legal_representant_attributes_identifier, with: "43138883z"
             fill_in :organization_legal_representant_attributes_name, with: "Name"
             fill_in :organization_legal_representant_attributes_first_surname, with: "First name"
@@ -360,7 +360,7 @@ feature 'Organization' do
             fill_in :organization_user_attributes_email, with: "user@email.com"
             fill_in :organization_user_attributes_password, with: "password"
             fill_in :organization_user_attributes_password_confirmation, with: "password"
-            click_on "Añadir legal representant"
+            click_on "Añadir representante legal"
             fill_in :organization_legal_representant_attributes_identifier, with: "43138883z"
             fill_in :organization_legal_representant_attributes_name, with: "43138883z"
             fill_in :organization_legal_representant_attributes_first_surname, with: "43138883z"
@@ -373,16 +373,16 @@ feature 'Organization' do
           scenario 'Only add one legal representant', :js do
             visit new_admin_organization_path
 
-            click_on "Añadir legal representant"
+            click_on "Añadir representante legal"
 
-            expect(page).not_to have_content "Añadir legal representant"
+            expect(page).not_to have_content "Añadir representante legal"
           end
 
           scenario 'Display remove button after add one legal representant', :js do
             visit new_admin_organization_path
 
             expect(page).not_to have_selector "#new_legal_representant .remove_fields"
-            click_on "Añadir legal representant"
+            click_on "Añadir representante legal"
 
             expect(page).to have_selector "#new_legal_representant .remove_fields"
           end
@@ -403,7 +403,7 @@ feature 'Organization' do
             fill_in :organization_user_attributes_password, with: "password"
             fill_in :organization_user_attributes_password_confirmation, with: "password"
 
-            click_on "Añadir Entidades a las que se representa"
+            click_on "Añadir Entidades/personas a las que se representa"
 
             within "#new_represented_entity" do
               fill_in "DNI/NIF/NIE/Pasaporte", with: "43138883z"
@@ -429,7 +429,7 @@ feature 'Organization' do
             fill_in :organization_user_attributes_password, with: "password"
             fill_in :organization_user_attributes_password_confirmation, with: "password"
 
-            click_on "Añadir Entidades a las que se representa"
+            click_on "Añadir Entidades/personas a las que se representa"
 
             within "#new_represented_entity" do
               fill_in "DNI/NIF/NIE/Pasaporte", with: "43138883z"
@@ -446,16 +446,16 @@ feature 'Organization' do
           scenario 'Can adding more than one represented entity' do
             visit new_admin_organization_path
 
-            click_on "Añadir Entidades a las que se representa"
+            click_on "Añadir Entidades/personas a las que se representa"
 
-            expect(page).to have_content "Añadir Entidades a las que se representa"
+            expect(page).to have_content "Añadir Entidades/personas a las que se representa"
           end
 
           scenario 'Display remove button after add represented entity', :js do
             visit new_admin_organization_path
 
             expect(page).not_to have_selector "#new_represented_entity .remove_fields"
-            click_on "Añadir Entidades a las que se representa"
+            click_on "Añadir Entidades/personas a las que se representa"
 
             expect(page).to have_selector "#new_represented_entity .remove_fields"
           end
@@ -464,8 +464,8 @@ feature 'Organization' do
             visit new_admin_organization_path
 
             expect(page).not_to have_selector "#new_represented_entity .remove_fields"
-            click_on "Añadir Entidades a las que se representa"
-            click_on "Añadir Entidades a las que se representa"
+            click_on "Añadir Entidades/personas a las que se representa"
+            click_on "Añadir Entidades/personas a las que se representa"
 
             expect(page).to have_selector "#new_represented_entity .remove_fields", count: 2
           end
@@ -805,10 +805,9 @@ feature 'Organization' do
             click_button "Guardar"
 
             expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
-            expect(page).to have_content "4 errores impidieron guardar este Organization"
+            expect(page).to have_content "3 errores impidieron guardar este Organization"
             expect(page).to have_content "Entidad Representada: Identificador no puede estar en blanco"
             expect(page).to have_content "Entidad Representada: Nombre no puede estar en blanco"
-            expect(page).to have_content "Entidad Representada: Año fiscal no puede estar en blanco"
             expect(page).to have_content "Entidad Representada: Fecha de inicio no puede estar en blanco"
           end
 

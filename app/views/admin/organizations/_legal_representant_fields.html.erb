@@ -26,7 +26,7 @@
 
   <div class="small-12 medium-6 columns">
     <%= f.label :phones, t('backend.legal_representant.phones') %>
-    <%= f.text_field :phones %>
+    <%= f.text_field :phones, placeholder: t('backend.placeholder.phones') %>
     <%= form_field_errors(f, :phones) %>
   </div>
 
