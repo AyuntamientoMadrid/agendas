@@ -3,20 +3,20 @@
   <%= paginate @activities%>
   <table class="event">
     <thead>
-    <tr>
-      <th><%= t('backend.date')%></th>
-      <th><%= t('backend.user')%></th>
-      <th><%= t('backend.event')%></th>
-      <th><%= t('backend.action')%></th>
-    </tr>
+      <tr>
+        <th><%= t('backend.date')%></th>
+        <th><%= t('backend.user')%></th>
+        <th><%= t('organizations.show.events_title')%></th>
+        <th><%= t('backend.action')%></th>
+      </tr>
     </thead>
     <tfoot>
-    <tr>
-      <th><%= t('backend.date')%></th>
-      <th><%= t('backend.user')%></th>
-      <th><%= t('backend.event')%></th>
-      <th><%= t('backend.action')%></th>
-    </tr>
+      <tr>
+        <th><%= t('backend.date')%></th>
+        <th><%= t('backend.user')%></th>
+        <th><%= t('organizations.show.events_title')%></th>
+        <th><%= t('backend.action')%></th>
+      </tr>
     </tfoot>
     <tbody>
     <% @activities.each do |activity| %>
