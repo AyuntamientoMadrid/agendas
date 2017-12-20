@@ -14,6 +14,7 @@ describe Api::ResponsibleStatementsController do
 
     describe "Authentication" do
       it "Should deny access when no username defined" do
+        skip "Until authentication reactivation"
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path,
                   wsse_auth: ["", "password"])
@@ -22,6 +23,7 @@ describe Api::ResponsibleStatementsController do
       end
 
       it "Should deny access when no password defined" do
+        skip "Until authentication reactivation"
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path,
                   wsse_auth: ["username", ""])
@@ -30,12 +32,13 @@ describe Api::ResponsibleStatementsController do
       end
 
       it "Should deny access when bad usernmae and password supplied" do
+        skip "Until authentication reactivation"
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path,
                   wsse_auth: ["other_username", "bad_password"])
 
         expect { client.call(:inicio_expediente, message: {}) }.to raise_error(Savon::SOAPFault, '(Server) Unauthorized')
-      end      
+      end
 
       it "Should accept conections when password and user well defined" do
         client = Savon::Client.new(
