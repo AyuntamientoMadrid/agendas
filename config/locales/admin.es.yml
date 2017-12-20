@@ -1,7 +1,8 @@
 es:
   backend:
-    menu_admin: " Administración"
-    menu_lobby: "Gestión del lobby"
+    menu_admin: "Administrador"
+    menu_lobby: "Lobby"
+    menu_user: "Gestor agenda"
     close: "Cerrar"
     logout: "Salir"
     btn_admin: "Administración"
@@ -54,6 +55,7 @@ es:
     managed_positions: "Agendas"
     manage_agendas: "Asignación de Agendas"
     lobby: "Lobby"
+    lobby_show: "Ver lobby"
     lobby_activity: "Actividad de Lobby"
     holder_input: "Buscar una persona por nombre"
 
@@ -116,7 +118,7 @@ es:
     meeting_lobby_activity_no: "no"
     meeting_lobby_activity_organization: "Lobby"
     meeting_lobby_activity_input: "Buscar una organización o persona fīsica por nombre o dni"
-    meeting_lobby_category: "Categoria: "
+    meeting_lobby_category: "Categoría: "
     meeting_lobby_activity_represented_entities: "Empresas Representadas"
     meeting_lobby_activity_agents: "Agentes"
     meeting_lobby_activity_public_website: "Fecha en la cual el evento se verá en la página web pública"
@@ -133,8 +135,8 @@ es:
     file: "Archivo"
     title: "Título"
     company: "Organización"
-    companies: "Organizaciones"
-    new_company: "Nueva organización"
+    companies: "Lobbies"
+    new_company: "Nuevo lobby"
     description: "Finalidad y objetivos de quien se inscribe"
     title_event: "Solicitud de evento"
     new_event: "Nueva solicitud"

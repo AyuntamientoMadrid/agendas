@@ -19,8 +19,8 @@
   </div>
 
   <div class="small-12 medium-6 columns">
-    <%= f.label :phones, t('backend.contact_person.phone') %>
-    <%= f.text_field :phones %>
+    <%= f.label :phones, t('backend.identifying_data.phones') %>
+    <%= f.text_field :phones, placeholder: t('backend.placeholder.phones') %>
     <%= form_field_errors(f, :phones) %>
   </div>
 

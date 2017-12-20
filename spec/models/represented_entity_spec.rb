@@ -29,7 +29,7 @@ describe RepresentedEntity do
   it "should not be valid whitout fiscal_year" do
     represented_entity.fiscal_year = nil
 
-    expect(represented_entity).not_to be_valid
+    expect(represented_entity).to be_valid
   end
 
   describe "#fullname" do

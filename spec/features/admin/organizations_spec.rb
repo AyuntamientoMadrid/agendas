@@ -9,7 +9,7 @@ feature 'Organization' do
     scenario 'Visit admin page and display organization button on sidebar' do
       visit admin_path
 
-      expect(page).to have_content "Organizaciones"
+      expect(page).to have_content "Lobbies"
     end
 
     describe "Index" do
@@ -81,7 +81,7 @@ feature 'Organization' do
           fill_in :keyword, with: "Organization name"
           click_on "Buscar"
 
-          expect(page).to have_content "Organizaciones (1)"
+          expect(page).to have_content "Lobbies (1)"
         end
 
         scenario "Should reset search form when user clicks reset form button" do
@@ -97,22 +97,28 @@ feature 'Organization' do
           expect(find('#keyword').value).to eq nil
         end
 
+        scenario "Should display export link" do
+          visit admin_organizations_path
+
+          expect(page).to have_link 'Exportar'
+        end
+
       end
 
       scenario 'visit admin page and organization button render organization index', :search do
         Organization.reindex
         visit admin_path
 
-        click_link "Organizaciones"
+        click_link "Lobbies"
 
-        expect(page).to have_content "Nueva organización"
+        expect(page).to have_content "Nuevo lobby"
         expect(page).to have_content "#{I18n.t 'backend.companies'} (3)"
       end
 
       scenario 'visit admin index organization page and new organization link render organization new' do
         visit admin_organizations_path
 
-        click_link "Nueva organización"
+        click_link "Nuevo lobby"
 
         expect(current_path).to eq(new_admin_organization_path)
       end
@@ -127,7 +133,7 @@ feature 'Organization' do
           find('a[title="Editar"]').click
         end
 
-        expect(page).to have_content "Referencia de la declaracíon responsable"
+        expect(page).to have_content "Referencia de la declaración responsable"
         #expect(page).to have_field('organization_name', with: organization.name)
       end
 
@@ -157,8 +163,8 @@ feature 'Organization' do
       scenario 'Visit new admin organization page and display content' do
         visit new_admin_organization_path
 
-        expect(page).to have_content "Añadir legal representant"
-        expect(page).to have_content "Añadir Entidades a las que se representa"
+        expect(page).to have_content "Añadir representante legal"
+        expect(page).to have_content "Añadir Entidades/personas a las que se representa"
         expect(page).to have_content "Añadir Agentes"
         expect(page).to have_button "Guardar"
       end
@@ -333,7 +339,7 @@ feature 'Organization' do
             fill_in :organization_user_attributes_email, with: "user@email.com"
             fill_in :organization_user_attributes_password, with: "password"
             fill_in :organization_user_attributes_password_confirmation, with: "password"
-            click_on "Añadir legal representant"
+            click_on "Añadir representante legal"
             fill_in :organization_legal_representant_attributes_identifier, with: "43138883z"
             fill_in :organization_legal_representant_attributes_name, with: "Name"
             fill_in :organization_legal_representant_attributes_first_surname, with: "First name"
@@ -354,7 +360,7 @@ feature 'Organization' do
             fill_in :organization_user_attributes_email, with: "user@email.com"
             fill_in :organization_user_attributes_password, with: "password"
             fill_in :organization_user_attributes_password_confirmation, with: "password"
-            click_on "Añadir legal representant"
+            click_on "Añadir representante legal"
             fill_in :organization_legal_representant_attributes_identifier, with: "43138883z"
             fill_in :organization_legal_representant_attributes_name, with: "43138883z"
             fill_in :organization_legal_representant_attributes_first_surname, with: "43138883z"
@@ -367,16 +373,16 @@ feature 'Organization' do
           scenario 'Only add one legal representant', :js do
             visit new_admin_organization_path
 
-            click_on "Añadir legal representant"
+            click_on "Añadir representante legal"
 
-            expect(page).not_to have_content "Añadir legal representant"
+            expect(page).not_to have_content "Añadir representante legal"
           end
 
           scenario 'Display remove button after add one legal representant', :js do
             visit new_admin_organization_path
 
             expect(page).not_to have_selector "#new_legal_representant .remove_fields"
-            click_on "Añadir legal representant"
+            click_on "Añadir representante legal"
 
             expect(page).to have_selector "#new_legal_representant .remove_fields"
           end
@@ -397,10 +403,10 @@ feature 'Organization' do
             fill_in :organization_user_attributes_password, with: "password"
             fill_in :organization_user_attributes_password_confirmation, with: "password"
 
-            click_on "Añadir Entidades a las que se representa"
+            click_on "Añadir Entidades/personas a las que se representa"
 
             within "#new_represented_entity" do
-              fill_in "DNI, NIF, NIE", with: "43138883z"
+              fill_in "DNI/NIF/NIE/Pasaporte", with: "43138883z"
               fill_in "Nombre o razón social", with: "Name"
               fill_in "Ejercicio anual", with: 2017
               fill_in "Fecha de inicio de la representaciòn", with: nil
@@ -423,10 +429,10 @@ feature 'Organization' do
             fill_in :organization_user_attributes_password, with: "password"
             fill_in :organization_user_attributes_password_confirmation, with: "password"
 
-            click_on "Añadir Entidades a las que se representa"
+            click_on "Añadir Entidades/personas a las que se representa"
 
             within "#new_represented_entity" do
-              fill_in "DNI, NIF, NIE", with: "43138883z"
+              fill_in "DNI/NIF/NIE/Pasaporte", with: "43138883z"
               fill_in "Nombre o razón social", with: "Name"
               fill_in "Ejercicio anual", with: 2017
               fill_in "Fecha de inicio de la representaciòn", with: Date.current
@@ -440,16 +446,16 @@ feature 'Organization' do
           scenario 'Can adding more than one represented entity' do
             visit new_admin_organization_path
 
-            click_on "Añadir Entidades a las que se representa"
+            click_on "Añadir Entidades/personas a las que se representa"
 
-            expect(page).to have_content "Añadir Entidades a las que se representa"
+            expect(page).to have_content "Añadir Entidades/personas a las que se representa"
           end
 
           scenario 'Display remove button after add represented entity', :js do
             visit new_admin_organization_path
 
             expect(page).not_to have_selector "#new_represented_entity .remove_fields"
-            click_on "Añadir Entidades a las que se representa"
+            click_on "Añadir Entidades/personas a las que se representa"
 
             expect(page).to have_selector "#new_represented_entity .remove_fields"
           end
@@ -458,8 +464,8 @@ feature 'Organization' do
             visit new_admin_organization_path
 
             expect(page).not_to have_selector "#new_represented_entity .remove_fields"
-            click_on "Añadir Entidades a las que se representa"
-            click_on "Añadir Entidades a las que se representa"
+            click_on "Añadir Entidades/personas a las que se representa"
+            click_on "Añadir Entidades/personas a las que se representa"
 
             expect(page).to have_selector "#new_represented_entity .remove_fields", count: 2
           end
@@ -799,10 +805,9 @@ feature 'Organization' do
             click_button "Guardar"
 
             expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
-            expect(page).to have_content "4 errores impidieron guardar este Organization"
+            expect(page).to have_content "3 errores impidieron guardar este Organization"
             expect(page).to have_content "Entidad Representada: Identificador no puede estar en blanco"
             expect(page).to have_content "Entidad Representada: Nombre no puede estar en blanco"
-            expect(page).to have_content "Entidad Representada: Año fiscal no puede estar en blanco"
             expect(page).to have_content "Entidad Representada: Fecha de inicio no puede estar en blanco"
           end
 
@@ -937,7 +942,7 @@ feature 'Organization' do
     scenario 'Visit manager backend page and not display organization button on sidebar' do
       visit admin_path
 
-      expect(page).not_to have_content "Organizaciones"
+      expect(page).not_to have_content "Lobbies"
     end
 
   end
@@ -955,7 +960,7 @@ feature 'Organization' do
     scenario 'Visit lobby backend page and not display organization button on sidebar' do
       visit admin_path
 
-      expect(page).not_to have_content "Organizaciones"
+      expect(page).not_to have_content "Lobbies"
     end
 
     scenario 'Has edit organization buttons on sidebar' do

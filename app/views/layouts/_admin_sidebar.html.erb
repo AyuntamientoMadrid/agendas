@@ -3,8 +3,10 @@
     <li>
       <% if current_user.admin? %>
         <%= t('backend.menu_admin') %>
-      <% else %>
+      <% elsif current_user.lobby? %>
         <%= t('backend.menu_lobby') %>
+      <% else %>
+        <%= t('backend.menu_manager') %>
       <% end %>
     </li>
     <% if current_user.admin? %>

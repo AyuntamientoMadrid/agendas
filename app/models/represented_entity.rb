@@ -4,7 +4,7 @@ class RepresentedEntity < ActiveRecord::Base
 
   belongs_to :organization
 
-  validates :identifier, :name, :fiscal_year, :from, presence: true
+  validates :identifier, :name, :from, presence: true
 
   def fullname
     str = name

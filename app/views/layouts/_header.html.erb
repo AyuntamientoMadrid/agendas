@@ -14,10 +14,10 @@
     <div class="row">
       <div class="small-12 columns hide-for-small-only">
         <div class="header__base medium-6 columns">
-          <%= link_to root_path do %>
+          <%= link_to "https://transparencia.madrid.es" do %>
             <%= image_tag 'header_logo_madrid.png', class: 'header__imago', alt:'¡Madrid'%>
-            <h1 class="header__title"><strong><%= t('header.transparency') %></strong><%= t('header.open_goverment') %></h1>
           <% end %>
+          <h1 class="header__title"><strong><%= t('header.open_goverment') %></strong><%= link_to t('header.transparency'), "https://transparencia.madrid.es" %></h1>
         </div>
         <section class="top-bar-section">
           <ul class="right">
@@ -70,13 +70,12 @@
 
   <nav class="top-bar show-for-small-only" data-topbar role="navigation">
     <div class="header__base">
-      <%= link_to root_path do %>
+      <%= link_to "https://transparencia.madrid.es" do %>
         <%= image_tag 'header_logo_madrid.png', class: 'header__imago', alt:'¡Madrid'%>
-        <h1 class="header__title">
-          <strong> <%= t('header.open_goverment') %> <br /> <%= t('header.transparency') %> </strong>
-        </h1>
       <% end %>
+      <h1 class="header__title"><strong> <%= t('header.open_goverment') %> <br /> <%= link_to t('header.transparency'), "https://transparencia.madrid.es" %> </strong></h1>
     </div>
+
     <div class="toggle-topbar menu-icon"><a href="#"><span></span></a></div>
     <section class="top-bar-section">
       <ul>
