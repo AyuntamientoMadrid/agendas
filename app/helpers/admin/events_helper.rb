@@ -5,7 +5,8 @@ module Admin
     end
 
     def admin_or_mananger_edit?
-      (current_user.admin? || current_user.user?) && params[:action] == "edit"
+      (current_user.admin? || current_user.user?) &&
+      (params[:action] == "edit" || params[:action] == "update")
     end
 
     def calculate_firstname(event)
