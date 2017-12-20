@@ -31,4 +31,12 @@ feature 'Sign in', :devise do
     expect(page).to have_link("Regístrate", href: "https://sede.madrid.es")
   end
 
+  scenario 'should not allow soft deleted user' do
+    user = FactoryGirl.create(:user, deleted_at: DateTime.current)
+
+    signin(user.email, user.password)
+
+    expect(page).to have_content "Tu cuenta ha sido bloqueada."
+  end
+
 end

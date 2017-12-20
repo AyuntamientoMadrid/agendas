@@ -186,6 +186,59 @@ feature 'Organizations page' do
 
         expect(page).to have_content "Reuniones realizadas: 1"
       end
+
+      scenario "Should filter by given keyword over organization agents name and show result" do
+        organization = create(:organization, name: "Fulanito", entity_type: :lobby)
+        create(:organization, name: "Menganito", entity_type: :lobby)
+        agent = create(:agent)
+        organization.agents << agent
+        Organization.reindex
+
+        visit organizations_path
+        fill_in :keyword, with: "#{agent.name}"
+        click_on "Buscar"
+
+        within "#organization_#{organization.id}" do
+          expect(page).to have_content "Fulanito"
+        end
+        expect(page).not_to have_content "Menganito"
+      end
+
+      scenario "Should filter by given keyword over canceled organization agents name and not display result" do
+        agent = create(:agent)
+        organization_canceled = create(:organization, name: "Fulanito", entity_type: :lobby, canceled_at: Date.yesterday)
+        organization_valid = create(:organization, name: "Menganito", entity_type: :lobby)
+        organization_canceled.agents << agent
+        organization_valid.agents << agent
+        Organization.reindex
+
+        visit organizations_path
+        fill_in :keyword, with: "#{agent.name}"
+        click_on "Buscar"
+
+        within "#organization_#{organization_valid.id}" do
+          expect(page).to have_content "Menganito"
+        end
+        expect(page).not_to have_content "Fulatino"
+      end
+
+      scenario "Should filter by given keyword over invalid organization agents name and not display result" do
+        agent = create(:agent)
+        organization_invalid = create(:organization, name: "Fulanito", entity_type: :lobby, invalidate: true)
+        organization_valid = create(:organization, name: "Menganito", entity_type: :lobby)
+        organization_invalid.agents << agent
+        organization_valid.agents << agent
+        Organization.reindex
+
+        visit organizations_path
+        fill_in :keyword, with: "#{agent.name}"
+        click_on "Buscar"
+
+        within "#organization_#{organization_valid.id}" do
+          expect(page).to have_content "Menganito"
+        end
+        expect(page).not_to have_content "Fulatino"
+      end
     end
 
     feature 'Filters' do

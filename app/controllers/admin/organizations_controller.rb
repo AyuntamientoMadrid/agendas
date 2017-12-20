@@ -49,7 +49,7 @@ module Admin
     def destroy
       @organization = Organization.find(params[:id])
       @organization.canceled_at = Time.zone.now
-      User.soft_destroy(@organization)
+      @organization.user.soft_deleted
 
       if @organization.save
         redirect_to admin_organizations_path,
