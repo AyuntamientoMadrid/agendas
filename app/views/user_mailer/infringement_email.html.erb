@@ -1,4 +1,4 @@
-<%= t('mailer.infringement_email.link_html', link: @email.link) %>
+<%= t'mailer.infringement_email.link_html', link: @email.link if @email.link.present? %>
 
 <%= @email.description.html_safe %>
 <hr />
