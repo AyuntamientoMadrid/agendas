@@ -21,8 +21,3 @@ Rails.application.config.assets.precompile += %w( events.js )
 Rails.application.config.assets.precompile += %w( holders.js )
 Rails.application.config.assets.precompile += %w( users.js )
 Rails.application.config.assets.precompile += %w( admin.css )
-
-# Loads app/assets/images/custom before app/assets/images
-images_path = Rails.application.config.assets.paths
-images_path = images_path.insert(0, Rails.root.join("app", "assets", "images", "homepage").to_s)
-images_path = images_path.insert(1, Rails.root.join("app", "assets", "images", "icons").to_s)
