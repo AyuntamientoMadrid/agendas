@@ -78,7 +78,7 @@ en:
 
     identifying_data:
       title_fieldset: "Datos identificativos"
-      identifier: "DNI, NIF, NIE"
+      identifier: "DNI/NIF/NIE/Pasaporte"
       name: "Nombre o razón social"
       first_surname: "Primer apellido"
       second_surname: "Segundo apellido"
@@ -108,7 +108,7 @@ en:
     legal_representant:
       add_legal_representative: "Añadir legal representant"
       title_fieldset: "Representante legal"
-      identifier: "DNI, NIF, NIE"
+      identifier: "DNI/NIF/NIE/Pasaporte"
       name: "Nombre o razón social"
       first_surname: "Primer apellido"
       second_surname: "Segundo apellido"
@@ -139,7 +139,7 @@ en:
     represented_entities:
       add_represented_entities: "Añadir Entidades a las que se representa"
       title_fieldset: "Datos personas o entidades sin personalidad a quien se va a representar"
-      identifier: "DNI, NIF, NIE"
+      identifier: "DNI/NIF/NIE/Pasaporte"
       name: "Nombre o razón social"
       first_surname: "Primer apellido"
       second_surname: "Segundo apellido"

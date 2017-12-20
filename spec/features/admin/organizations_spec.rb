@@ -406,7 +406,7 @@ feature 'Organization' do
             click_on "Añadir Entidades a las que se representa"
 
             within "#new_represented_entity" do
-              fill_in "DNI, NIF, NIE", with: "43138883z"
+              fill_in "DNI/NIF/NIE/Pasaporte", with: "43138883z"
               fill_in "Nombre o razón social", with: "Name"
               fill_in "Ejercicio anual", with: 2017
               fill_in "Fecha de inicio de la representaciòn", with: nil
@@ -432,7 +432,7 @@ feature 'Organization' do
             click_on "Añadir Entidades a las que se representa"
 
             within "#new_represented_entity" do
-              fill_in "DNI, NIF, NIE", with: "43138883z"
+              fill_in "DNI/NIF/NIE/Pasaporte", with: "43138883z"
               fill_in "Nombre o razón social", with: "Name"
               fill_in "Ejercicio anual", with: 2017
               fill_in "Fecha de inicio de la representaciòn", with: Date.current
