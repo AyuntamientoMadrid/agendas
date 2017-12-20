@@ -9,7 +9,7 @@ feature 'Organization' do
     scenario 'Visit admin page and display organization button on sidebar' do
       visit admin_path
 
-      expect(page).to have_content "Organizaciones"
+      expect(page).to have_content "Lobbies"
     end
 
     describe "Index" do
@@ -81,7 +81,7 @@ feature 'Organization' do
           fill_in :keyword, with: "Organization name"
           click_on "Buscar"
 
-          expect(page).to have_content "Organizaciones (1)"
+          expect(page).to have_content "Lobbies (1)"
         end
 
         scenario "Should reset search form when user clicks reset form button" do
@@ -97,22 +97,28 @@ feature 'Organization' do
           expect(find('#keyword').value).to eq nil
         end
 
+        scenario "Should display export link" do
+          visit admin_organizations_path
+
+          expect(page).to have_link 'Exportar'
+        end
+
       end
 
       scenario 'visit admin page and organization button render organization index', :search do
         Organization.reindex
         visit admin_path
 
-        click_link "Organizaciones"
+        click_link "Lobbies"
 
-        expect(page).to have_content "Nueva organización"
+        expect(page).to have_content "Nuevo lobby"
         expect(page).to have_content "#{I18n.t 'backend.companies'} (3)"
       end
 
       scenario 'visit admin index organization page and new organization link render organization new' do
         visit admin_organizations_path
 
-        click_link "Nueva organización"
+        click_link "Nuevo lobby"
 
         expect(current_path).to eq(new_admin_organization_path)
       end
@@ -937,7 +943,7 @@ feature 'Organization' do
     scenario 'Visit manager backend page and not display organization button on sidebar' do
       visit admin_path
 
-      expect(page).not_to have_content "Organizaciones"
+      expect(page).not_to have_content "Lobbies"
     end
 
   end
@@ -955,7 +961,7 @@ feature 'Organization' do
     scenario 'Visit lobby backend page and not display organization button on sidebar' do
       visit admin_path
 
-      expect(page).not_to have_content "Organizaciones"
+      expect(page).not_to have_content "Lobbies"
     end
 
     scenario 'Has edit organization buttons on sidebar' do
