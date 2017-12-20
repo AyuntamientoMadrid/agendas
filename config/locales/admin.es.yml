@@ -54,6 +54,7 @@ es:
     managed_positions: "Agendas"
     manage_agendas: "Asignación de Agendas"
     lobby: "Lobby"
+    lobby_show: "Ver lobby"
     lobby_activity: "Actividad de Lobby"
     holder_input: "Buscar una persona por nombre"
 
