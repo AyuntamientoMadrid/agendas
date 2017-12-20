@@ -4,6 +4,7 @@ en:
     page_language: "Idioma de la página"
     spanish: "Español"
     english: "Inglés"
+    open_goverment: "Toma de Decisiones"
   main:
     form:
       keyword: "Search by keywork or agent name"
