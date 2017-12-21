@@ -14,8 +14,7 @@ describe Api::ResponsibleStatementsController do
 
     it "Should return error when codTipoExpdiente is not provided" do
       client = Savon::Client.new(
-                wsdl: application_base + api_responsible_statements_wsdl_path,
-                wsse_auth: ["username", "password"])
+                wsdl: application_base + api_responsible_statements_wsdl_path)
 
       response = client.call(:inicio_expediente, message: {})
 
@@ -28,8 +27,7 @@ describe Api::ResponsibleStatementsController do
 
     it "Should return error when xmlDatosEntrada is not provided" do
       client = Savon::Client.new(
-                wsdl: application_base + api_responsible_statements_wsdl_path,
-                wsse_auth: ["username", "password"])
+                wsdl: application_base + api_responsible_statements_wsdl_path)
 
       response = client.call(:inicio_expediente,
                              message: { codTipoExpdiente: "1234" })
@@ -43,8 +41,7 @@ describe Api::ResponsibleStatementsController do
 
     it "Should return error when usuario is not provided" do
       client = Savon::Client.new(
-                wsdl: application_base + api_responsible_statements_wsdl_path,
-                wsse_auth: ["username", "password"])
+                wsdl: application_base + api_responsible_statements_wsdl_path)
 
       response = client.call(:inicio_expediente,
                              message: {
@@ -61,8 +58,7 @@ describe Api::ResponsibleStatementsController do
     it "Should return success when organization could be created" do
       skip "until implementation"
       client = Savon::Client.new(
-                wsdl: application_base + api_responsible_statements_wsdl_path,
-                wsse_auth: ["username", "password"])
+                wsdl: application_base + api_responsible_statements_wsdl_path)
 
       response = client.call(:inicio_expediente,
                              message: {
