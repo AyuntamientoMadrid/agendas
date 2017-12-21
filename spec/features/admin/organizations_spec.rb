@@ -1062,6 +1062,18 @@ feature 'Organization' do
       expect(page).to have_content 'no puede estar en blanco'
     end
 
+    scenario 'Can not destroy agents', :js do
+      visit admin_path
+
+      click_link I18n.t("backend.edit_agents")
+      click_link I18n.t('backend.agents.add_association')
+
+      within '#nested-agents' do
+        expect(page).not_to have_content 'Eliminar'
+      end
+    end
+
+
     scenario 'Can add interests' do
       visit admin_path
 
