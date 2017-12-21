@@ -38,6 +38,18 @@ gem 'turbolinks', '~> 2.5.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'rails4-autocomplete'
 
+group :development, :test do
+  gem 'bullet', '~> 4.14.9'
+  gem 'byebug', '~> 6.0.2'
+  gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'launchy', '~> 2.4.3'
+  gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
+  gem 'rubocop', '~> 0.51.0', require: false
+  gem 'thin', '~> 1.7.2'
+  gem 'spring', '~> 2.0.1'
+  gem 'spring-commands-rspec', '~> 1.0.4'
+end
+
 group :development do
   gem 'better_errors', '~> 2.1.1'
   gem 'capistrano', '~> 3.4.0', require: false
@@ -45,22 +57,10 @@ group :development do
   gem 'capistrano-rails', '~> 1.1.0', require: false
   gem 'capistrano-rails-console', require: false
   gem 'capistrano-rvm', '~> 0.1.1', require: false
-  gem 'jazz_hands', :git => 'https://github.com/nixme/jazz_hands.git', branch: 'bring-your-own-debugger'
   gem 'letter_opener_web', '~> 1.3.1'
   gem 'quiet_assets', '~> 1.1.0'
   gem 'rails_layout', '~> 1.0.26'
-  gem 'spring-commands-rspec', '~> 1.0.4'
-  gem 'web-console', '~> 2.0'
-end
-
-group :development, :test do
-  gem 'bullet', '~> 4.14.9'
-  gem 'byebug', '~> 6.0.2'
-  gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
-  gem 'rubocop', '~> 0.51.0', require: false
-  gem 'spring', '~> 1.4.0'
-  gem 'thin', '~> 1.7.2'
+  gem 'web-console', '~> 3.3.0'
 end
 
 group :test do
@@ -68,7 +68,6 @@ group :test do
   gem 'capybara-email', '~> 2.5.0'
   gem 'coveralls', require: false
   gem 'database_cleaner', '~> 1.5.0'
-  gem 'launchy', '~> 2.4.3'
   gem 'poltergeist', '~> 1.15.0'
   gem 'simplecov', '~> 0.10.0'
   gem 'sunspot-rails-tester', '~> 1.0.0'
