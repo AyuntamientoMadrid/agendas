@@ -375,7 +375,7 @@ feature 'Organization' do
 
             click_on "Añadir representante legal"
 
-            expect(page).not_to have_content "Añadir representante legal"
+            expect(page).to have_selector("#legal_representant_link", visible: false)
           end
 
           scenario 'Display remove button after add one legal representant', :js do

@@ -1,5 +1,4 @@
 feature 'Events' do
-  include Admin::SidebarHelper
   describe 'user manager', type: :feature do
 
     background do
@@ -44,7 +43,9 @@ feature 'Events' do
         event9.update(status: :canceled)
         event10.update(status: :declined)
 
-        visit events_path(event_fixed_filters['events'])
+        visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
+                          "status" => ["requested", "declined"], "lobby_activity" => "1",
+                          "controller" => "events", "action" => "index" )
 
         click_link I18n.t("backend.events")
         expect(find_link(I18n.t("backend.event_tray")).first(:xpath, ".//..")[:class]).not_to eq "active"

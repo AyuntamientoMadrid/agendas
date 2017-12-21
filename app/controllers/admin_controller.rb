@@ -15,9 +15,9 @@ class AdminController < ApplicationController
 
   def events_root_path
     if current_user.user?
-      @events_path = events_path({"utf8"=>"✓", "search_title"=>"", "search_person"=>"",
-                              "status"=>["requested", "declined"], "lobby_activity"=>"1",
-                              "controller"=>"events", "action"=>"index"})
+      @events_path = events_path({utf8:"✓", search_title:"", search_person:"",
+                              status:["requested", "declined"], lobby_activity:"1",
+                              controller:"events", action:"index"})
     else
       @events_path = events_path
     end
