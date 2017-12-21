@@ -1,7 +1,8 @@
 es:
   backend:
-    menu_admin: " Administración"
-    menu_lobby: "Gestión del lobby"
+    menu_admin: "Administrador"
+    menu_lobby: "Lobby"
+    menu_user: "Gestor agenda"
     close: "Cerrar"
     logout: "Salir"
     btn_admin: "Administración"
@@ -10,6 +11,8 @@ es:
     edit: "Editar"
     delete: "Eliminar"
     save: "Guardar"
+    exit_without_save: "Salir sin grabar"
+    save_request: "Enviar la solicitud"
     cancel: "Cancelar"
     action: "Acción"
     actions: "Acciones"
@@ -17,6 +20,7 @@ es:
     add: "Añadir"
     back: "Volver"
     none: "Ninguno"
+    select: "Seleccionar"
     frontend: "Zona pública"
     basic_data: "Datos"
     change_password: "Cambiar contraseña"
@@ -33,6 +37,8 @@ es:
     sync: "Sincronizar con UWEB"
     export: "Exportar"
     delete_attachment: "Eliminar adjunto"
+    allowed_file_content_types: "El archivo proporcionado está en un formato no permitido. Los siguientes formatos de archivo son permitidos: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."
+
 
     contributors: "Contribuidores"
     new_user: "Nuevo usuario"
@@ -51,6 +57,7 @@ es:
     managed_positions: "Agendas"
     manage_agendas: "Asignación de Agendas"
     lobby: "Lobby"
+    lobby_show: "Ver lobby"
     lobby_activity: "Actividad de Lobby"
     holder_input: "Buscar una persona por nombre"
 
@@ -72,6 +79,7 @@ es:
     position: "Cargo"
     area: "Unidad"
     main_position: "Titular de la agenda"
+    main_position_help_text: "Introduzca apellido, nombre o cargo de la persona con la que se quiere reunir"
     positions: "Histórico de cargos"
     contributed_by: "Gestionado por"
     new_position: "Nuevo cargo"
@@ -85,9 +93,11 @@ es:
     event:
       title: "Evento"
       event_agent_needed: "En los eventos de lobbies hace falta, al menos, un agente."
+      add_agents: "Es necesario añadir algún agente para poder solicitar una reunión"
       not_available_agents: "No hay agentes disponibles."
       reasons_needed: "Debe dar alguna razon para cancelar el evento"
-      decline_reasons_needed: "Debe dar alguna razon para declinar el evento"
+      decline_reasons_needed: "Debe dar alguna razon para rechazar el evento"
+      accept_reasons_needed: "Debe dar alguna razon para aceptar el evento"
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"
@@ -110,7 +120,7 @@ es:
     meeting_lobby_activity_no: "no"
     meeting_lobby_activity_organization: "Lobby"
     meeting_lobby_activity_input: "Buscar una organización o persona fīsica por nombre o dni"
-    meeting_lobby_category: "Categoria: "
+    meeting_lobby_category: "Categoría: "
     meeting_lobby_activity_represented_entities: "Empresas Representadas"
     meeting_lobby_activity_agents: "Agentes"
     meeting_lobby_activity_public_website: "Fecha en la cual el evento se verá en la página web pública"
@@ -118,23 +128,25 @@ es:
     position_not_in_participants: "El titular de agenda se ha incluido también como asistente"
     manager_general_remarks_title: "Observaciones generales Gestor de agendas"
     attachments: "Archivos adjuntos"
-    attachments_description: "Descripción de archivos adjuntos"
-    attachments_public: "Archivos adjuntos públicos"
-    attachments_private: "Archivos adjuntos privados"
+    attachments_description: "Descripción de archivo adjunto"
+    attachments_public: "Archivos adjuntos público"
+    attachments_private: "Archivos adjuntos privado"
+    attachments_download: "Descarga los archivos adjuntos"
     only_pdf: "Solo PDF"
     name: "Nombre"
     file: "Archivo"
     title: "Título"
     company: "Organización"
-    companies: "Organizaciones"
-    new_company: "Nueva organización"
-    description: "Descripción"
+    companies: "Lobbies"
+    new_company: "Nuevo lobby"
+    description: "Finalidad y objetivos de quien se inscribe"
     title_event: "Solicitud de evento"
     new_event: "Nueva solicitud"
     edit_event: "Editar evento"
     edit_agents: "Editar agentes"
     edit_title_interests: "Editar áreas de interés"
     add_interests: "Editar intereses"
+    event_tray: Bandeja de solicitudes
     show_company: "Ver datos lobby"
     activity: "Registro de Actividad"
     entries: "Registros"
@@ -163,7 +175,10 @@ es:
     canceled_event: Evento cancelado
     cancel_reason_yes: Si
     cancel_reason_no: "No"
-    reasons: Razones
+    reasons: Razones de cancelación
+    decline_reasons: Razones de rechazo
+    accept_reasons: Razones de aceptación
+    event_actions: Acciones sobre el evento
     status:
       requested: "Solicitada"
       accepted: "Aceptada"
@@ -175,6 +190,12 @@ es:
     decline_reason_yes: Si
     decline_reason_no: "No"
     open_file: "Abrir archivo"
+    accept_event: Aceptar evento
+    accepted_event: Evento aceptado
+    accept_reason_yes: Si
+    accept_reason_no: "No"
+    lobby_not_allowed_neither_empty_mail: 'verificar que el usuario no sea un lobby y que el texto con los motivos no esté vacío'
+    cancel_only_accepted: solo se pueden cancelar eventos aceptados
 
   backend_header:
     open_gov: "Gobierno abierto"

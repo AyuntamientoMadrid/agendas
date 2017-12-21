@@ -1,8 +1,50 @@
 $(function(){
+
+  function toggle_hidden(id) {
+    var hiddenField = $(id),
+        val = hiddenField.val();
+    hiddenField.val(val === "true" ? "false" : "true");
+  }
+
+  function cancel_hidden(id) {
+    var hiddenField = $(id)
+    hiddenField.val("false");
+  }
+
+  $('#accept_link').bind('click', function(e){
+    e.preventDefault();
+
+    cancel_hidden('#event_decline')
+    cancel_hidden('#event_cancel')
+    toggle_hidden('#event_accept')
+
+    $('#cancel-reason').hide()
+    $('#decline-reason').hide()
+    $('#accept-reason').toggle();
+  });
+
   $('#decline_link').bind('click', function(e){
     e.preventDefault();
-    $('#decline_link').hide();
-    $('#decline-reason').show();
+
+    toggle_hidden('#event_decline')
+    cancel_hidden('#event_cancel')
+    cancel_hidden('#event_accept')
+
+    $('#cancel-reason').hide()
+    $('#accept-reason').hide()
+    $('#decline-reason').toggle();
+  });
+
+  $('#cancel_link').bind('click', function(e){
+    e.preventDefault();
+
+    cancel_hidden('#event_decline')
+    toggle_hidden('#event_cancel')
+    cancel_hidden('#event_accept')
+
+    $('#decline-reason').hide()
+    $('#accept-reason').hide()
+    $('#cancel-reason').toggle();
   });
 
   $('.fdatepicker').fdatepicker({
@@ -28,7 +70,7 @@ $(function(){
     tinyMCE.triggerSave();
     id = "#event_" + arg
     content = $(id).val();
-    if ($(element).is(':checked') && (content == ''))
+    if (($(element).val() == 'true') && (content == ''))
       {return false }
     else
       { return true }
@@ -64,8 +106,8 @@ $(function(){
           "event[lobby_activity]" : {
             valueNotEquals: "<%= I18n.translate('backend.event.not_available_agents')%>"
           },
-          "event[published_at]" : {
-            required : true
+          "event[accept]" : {
+            checkMessage : "accepted_reasons"
           },
           "event[decline]" : {
             checkMessage : "declined_reasons"
@@ -100,11 +142,11 @@ $(function(){
           "event[attachments_attributes][0][public]" : {
             required : "<%= I18n.translate('backend.mandatory_field')%>"
           },
-          "event[published_at]" : {
-            required : "<%= I18n.translate('backend.mandatory_field')%>"
-          },
           "event[event_agents_attributes][0][name]" : {
             valueNotEquals: "<%= I18n.translate('backend.event.event_agent_needed')%>"
+          },
+          "event[accept]" : {
+            checkMessage : "<%= I18n.translate('backend.event.accept_reasons_needed')%>"
           },
           "event[decline]" : {
             checkMessage : "<%= I18n.translate('backend.event.decline_reasons_needed')%>"
@@ -134,12 +176,14 @@ $(function(){
 
   $("#event_lobby_activity_true").click(function(){
     $(".lobby-organization-autocomplete").show();
+    $('.lobby-scheduled').show();
   });
 
   if ($("#event_lobby_activity_true").is(":checked")) {
     fill_autocomplete_organization_name();
     fill_represented_entities_select_options();
     fill_agents_select_options();
+    $('.lobby-scheduled').show();
     if ($("#new_event").length > 0) {
       $('#event_represented_entities_link').trigger('click');
       $('#event_agents_link').trigger('click');
@@ -148,6 +192,7 @@ $(function(){
     $(".lobby-organization-autocomplete").hide();
     $('.represented-entities-block').hide();
     $('.agents-block').hide();
+    $('.lobby-scheduled').hide();
     fill_autocomplete_organization_name();
     fill_represented_entities_select_options();
     fill_agents_select_options();
@@ -157,6 +202,7 @@ $(function(){
     $(".lobby-organization-autocomplete").hide();
     $('.represented-entities-block').hide();
     $('.agents-block').hide();
+    $('.lobby-scheduled').hide();
     $("#lobby-activity-event #category-block").hide();
     $('#event_organization_name').val('');
     $('#lobby-activity-event .link_to_remove_association').trigger('click');
@@ -188,6 +234,20 @@ $(function(){
 
   $("#event_decline_false").click(function(){
     $("#decline-reason").hide();
+  });
+
+  $('#accept-reason').hide();
+
+  $("#event_accept_true").click(function(){
+    $("#accept-reason").show();
+  });
+
+  if ($("#event_accept_true").is(":checked")) {
+    $("#accept-reason").show();
+  };
+
+  $("#event_accept_false").click(function(){
+    $("#accept-reason").hide();
   });
 
 });
@@ -227,9 +287,9 @@ function fill_agents_select_options() {
         var select = $('#nested-event-agents select:last');
         if (agents.length > 0)  {
           $.each(agents, function(id, agent){
-            select.append($('<option>', { value: agent.name, text: agent.name }));
+            select.append($('<option>', { value: agent.name+" "+agent.first_surname+" "+agent.second_surname, text: agent.name+" "+agent.first_surname+" "+agent.second_surname }));
             if (agents.length == 1) {
-              $('#nested-event-agents select').val(agent.name);
+              $('#nested-event-agents select').val(agent.name+" "+agent.first_surname+" "+agent.second_surname);
             }
           });
         }else {

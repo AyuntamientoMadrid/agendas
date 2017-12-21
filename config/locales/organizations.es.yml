@@ -4,8 +4,9 @@ es:
 
   organizations:
     title: Consulta del Registro de Lobbies
-    description: Consulte las organizaciones registradas.
+    description: Consulte los lobbies registradas.
     events_as_lobby: Reuniones realizadas
+    results_title: Resultados
     subtitle:
       default: Incorporaciones más recientes
 
@@ -26,7 +27,7 @@ es:
       address: "Domicilio"
       province: "Provincia"
       category: "Categoría"
-      description: "Finalidad y objetivos"
+      description: "Finalidad y Objetivos"
       web: "Página web"
       lobby: 'Lobbie'
       federation: 'Federación'
@@ -76,22 +77,24 @@ es:
       title: Baja en el Registro de Lobbies
 
   backend:
-    new_organization_title: "Nueva organización"
+    new_organization_title: "Nuevo lobby"
     reference:
-      title_fieldset: "Referencia de la declaracíon responsable"
+      title_fieldset: "Referencia de la declaración responsable"
       title: "Número de anotación en registro"
+    placeholder:
+      phones: "Puede añadir más de un teléfono"
 
     identifying_data:
       title_fieldset: "Datos identificativos"
-      identifier: "DNI, NIF, NIE"
+      identifier: "DNI/NIF/NIE/Pasaporte"
       name: "Nombre o razón social"
       first_surname: "Primer apellido"
       second_surname: "Segundo apellido"
       phones: "Teléfono(s)"
       email: "Correo electrónico"
-      category_id: "Categoria"
+      category_id: "Categoría"
       web: "Pagina web"
-      address_type: "Tipo de via"
+      address_type: "Tipo de vía"
       address: "Domicilio"
       number: "Num"
       gateway: "Portal"
@@ -101,8 +104,9 @@ es:
       postal_code: "CP"
       town: "Municipio"
       province: "Provincia"
-      description: "Descripción"
-      registered_lobbies_title: "¿Esta inscrito en algún otro registro?"
+      country: "País"
+      description: "Finalidad y Objetivos"
+      registered_lobbies_title: "¿Está inscrito en algún otro registro?"
       registered_lobbies:
         no_record: "Ninguno"
         generalitat_catalunya: "Generalidad catalunya"
@@ -111,9 +115,9 @@ es:
         others: "Otro"
 
     legal_representant:
-      add_legal_representative: "Añadir legal representant"
+      add_legal_representative: "Añadir representante legal"
       title_fieldset: "Representante legal"
-      identifier: "DNI, NIF, NIE"
+      identifier: "DNI/NIF/NIE/Pasaporte"
       name: "Nombre o razón social"
       first_surname: "Primer apellido"
       second_surname: "Segundo apellido"
@@ -134,6 +138,7 @@ es:
       fiscal_year: "Ejercicio anual"
       range_fund_title: "Fondos"
       range_fund:
+        select: "Seleccionar"
         range_1: "Inferiores a 9.999 euros"
         range_2: "De 10.000 a 24.999 euros"
         range_3: "De 25.000 a 49.000 euros"
@@ -144,10 +149,10 @@ es:
       contract_yes: "Si"
 
     represented_entities:
-      add_represented_entities: "Añadir Entidades a las que se representa"
+      add_represented_entities: "Añadir Entidades/personas a las que se representa"
       title_fieldset: "Datos personas o entidades sin personalidad a quien se va a representar"
       company: "Empresa"
-      identifier: "DNI, NIF, NIE"
+      identifier: "DNI/NIF/NIE/Pasaporte"
       name: "Nombre o razón social"
       first_surname: "Primer apellido"
       second_surname: "Segundo apellido"
@@ -155,6 +160,7 @@ es:
       fiscal_year: "Ejercicio anual"
       range_fund_title: "Fondos"
       range_fund:
+        select: "Seleccionar"
         range_1: "Inferiores a 9.999 euros"
         range_2: "De 10.000 a 24.999 euros"
         range_3: "De 25.000 a 49.000 euros"
@@ -163,7 +169,7 @@ es:
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
 
     interest:
-      title_fieldset: "Area de Interés"
+      title_fieldset: "Área de Interés"
 
     agents:
       add_association: "Añadir Agentes"
@@ -180,7 +186,7 @@ es:
       allow_public_data: "Acredito el consentimiento expreso de esta persona para que sus datos meramente identificativos puedan hacerse públicos"
 
     terms:
-      title_fieldset: "Aceptacion condiciones declaración responsable"
+      title_fieldset: "Aceptación condiciones declaración responsable"
       denied_public_data: "Los datos personales recogidos serán incorporados y tratados por el Ayuntamiento de Madrid en el  fichero REGISTRO DE LOBBIES cuya finalidad es la de “Gestión de lobbies”. Estos datos serán objeto de publicación, de conformidad con el art. 35 de la Ordenanza de Transparencia de la Ciudad de Madrid, salvo que se oponga a ello por causa justificada, para la cual deberá marcar la siguiente casilla"
       denied_public_events: "Así mismo, en caso de mantener reuniones y encuentros con concejales, personal directivo y personal eventual sus datos se incorporarán también al fichero GESTIÓN DE AGENDAS cuya finalidad es la de “Facilitar la gestión y publicidad de las agendas de los concejales, personal directivo y personal eventual del Ayuntamiento de Madrid”. Estos datos serán objeto de publicación, de conformidad con el art. 8 de la Ordenanza de Transparencia de la Ciudad de Madrid, salvo que se oponga a ello por causa justificada, para la cual deberá marcar la siguiente casilla"
       last_text: "El Órgano responsable de ambos ficheros es la Dirección General de Transparencia y Atención a la Ciudadanía, con domicilio en C/ Alcalá 45, 28014 Madrid, ante la cual la persona interesada podrá ejercer los derechos de acceso, rectificación, cancelación y oposición. Con carácter general los datos recogidos no podrán ser cedidos a terceros salvo en los supuesto previstos en el artículo 11 de la Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal. Todo lo cual se informa en el cumplimiento del artículo 5 de la citada Ley Orgánica 15/1999."

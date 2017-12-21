@@ -42,7 +42,7 @@ en:
     attributes:
       organization:
         name: "Nombre"
-        category_id: "Categoria"
+        category_id: "Categoría"
       organization/legal_representant:
         identifier: "Representante Legal: Identificador"
         name: "Representante Legal: Nombre"
@@ -70,5 +70,5 @@ en:
         company: "Asistente: Organización"
       event/attachments:
         title: "Archivo adjunto: Título"
-        file: "Archivo adjunto: Archivo"
+        file: "Archivo adjunto:"
         public: "Archivo adjunto: Privacidad"

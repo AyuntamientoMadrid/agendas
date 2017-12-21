@@ -1,66 +1,58 @@
+<% content_for(:body_class) { 'visit-organizations-list' } %>
 <div class="row">
   <div class="small-12 columns">
-    <h2 class="title-l"><%= t("organizations.title") %></h2>
+    <h2 class="small-12 columns title-l mb20">
+      <%= t("organizations.title") %></h2>
   </div>
 </div>
 
 <div class="row">
   <%= render 'search_form' %>
-  <div class="small-12 large-7 large-ofsset-1 columns mb40">
+  <div class="small-12 columns mb40">
     <% if params[:keyword].present? %>
       <%= render "shared/search_keywords",
                  collection: @organizations,
                  keyword: params[:keyword] %>
     <% end %>
-
-    <div class="row">
-      <% unless search_by_filter? %>
-        <p><strong class="result-l mb20"><%= organizations_index_subtitle %></strong></p>
+    <div class="medium-8 columns">
+      <% if search_by_filter? %>
+        <p><span class="result-l"><%= t("organizations.results_title") %></h2></span></p>
+      <% else %>
+        <p><span class="result-l"><%= organizations_index_subtitle %></span></p>
       <% end %>
+    </div>
+    <div class="small-12 medium-4 columns order-select">
+      <div class="small-12 medium-9 columns">
+        <label for="right-label" class="title-xs">
+          <%= t("main.form.order_by") %>
+        </label>
+         <%= select_tag :order,
+                        options_for_select({
+                          t("main.form.name_asc") => 1,
+                          t("main.form.name_desc") => 2,
+                          t("main.form.inscription_date_asc") => 3,
+                          t("main.form.inscription_date_desc") => 4
+                        }, params[:order]),
+                        include_blank: t("main.form.select"),
+                        id: "search-order",
+                        class: "select-sm" %>
       </div>
-
-    <div class="row">
-      <div class="tools">
-        <div class="small-2 columns mb20">
-          <label for="right-label" class="inline title-xs"><%= t("main.form.order_by") %></label>
-        </div>
-        <div class="small-7 columns">
-           <%= select_tag :order,
-                          options_for_select({
-                            t("main.form.name_asc") => 1,
-                            t("main.form.name_desc") => 2,
-                            t("main.form.inscription_date_asc") => 3,
-                            t("main.form.inscription_date_desc") => 4
-                          }, params[:order]),
-                          include_blank: true,
-                          id: "search-order",
-                          class: "select-sm" %>
-        </div>
-        <div class="small-3 columns">
-          <%= export_link(current_url(format: :csv)) %>
-        </div>
+      <div class="small-12 medium-3 columns export no-padding">
+        <%= export_link(current_url(format: :csv)) %>
       </div>
     </div>
-
-    <div class="row">
-      <div class="small-12 columns mb20">
-        <div class="text-left">
-          <%= paginate @organizations.hits %>
-        </div>
+    <div class="small-12 columns mb20">
+      <div class="text-left">
+        <%= paginate @organizations.hits %>
       </div>
     </div>
-
-    <% @paginated_organizations.each do |organization| %>
-      <%= render organization %>
-    <% end %>
-    <%= paginate @organizations.hits %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="small-12 columns mb20">
-    <div class="text-left">
-
+    <div class="small-12 columns mb20 list-organizations">
+      <% @paginated_organizations.each do |organization| %>
+        <%= render organization %>
+      <% end %>
+    </div>
+    <div class="small-12 columns">
+      <%= paginate @organizations.hits %>
     </div>
   </div>
 </div>

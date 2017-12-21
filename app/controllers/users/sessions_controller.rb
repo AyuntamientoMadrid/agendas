@@ -1,5 +1,5 @@
 class Users::SessionsController < Devise::SessionsController
-  layout 'admin'
+  # layout 'admin'
 # before_filter :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -7,10 +7,15 @@ class Users::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  #POST /resource/sign_in
+  def create
+    if current_user.try(:deleted_at)
+      sign_out(current_user)
+      redirect_to new_user_session_path, alert: t('devise.failure.locked')
+    else
+      super
+    end
+  end
 
   # DELETE /resource/sign_out
   # def destroy

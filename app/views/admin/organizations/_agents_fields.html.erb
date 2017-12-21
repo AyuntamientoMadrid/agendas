@@ -42,6 +42,7 @@
     <%= f.text_area :public_assignments, class: 'mceNoEditor' %>
     <%= form_field_errors(f, :public_assignments) %>
   </div>
+
   <div>
     <hr>
     <div class="small-12 columns">
@@ -86,5 +87,14 @@
     <%= link_to_remove_association "Eliminar", f, class: "button tiny radius alert right" %>
     <hr />
   </div>
+
+  <% if current_user.admin? %>
+    <div class="small-12 columns">
+      <br />
+      <%= link_to_remove_association "Eliminar", f, class: "button tiny radius alert right" %>
+      <hr />
+    </div>
+  <% end %>
+
 
 </div>

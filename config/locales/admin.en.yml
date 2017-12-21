@@ -29,6 +29,7 @@ es:
     sync: "Sincronizar con UWEB"
     export: "Exportar"
     delete_attachment: "Delete attachment"
+    allowed_file_content_types: "Uploaded file has wrong content type. Allowed content types are the following: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."
 
     contributors: "Contribuidores"
     new_user: "Nuevo usuario"
@@ -84,6 +85,7 @@ es:
       not_available_agents: "Not available agents."
       reasons_needed: "You must provide some reasons to cancel the event"
       decline_reasons_needed: "You must provide some reasons to decline the event"
+      accept_reasons_needed: "You must provide some reasons to accept the event"
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"
@@ -106,7 +108,7 @@ es:
     meeting_lobby_activity_no: "no"
     meeting_lobby_activity_organization: "Organización"
     meeting_lobby_activity_input: "Buscar una organización o persona fīsica por nombre o dni"
-    meeting_lobby_category: "Categoria: "
+    meeting_lobby_category: "Categoría: "
     meeting_lobby_activity_represented_entities: "Empresas Representadas"
     meeting_lobby_activity_agents: "Agentes"
     meeting_lobby_activity_public_website: "Fecha en la cual el evento se verá en la página web pública"
@@ -118,18 +120,20 @@ es:
     attachments_description: "Descripción de archivos adjuntos"
     attachments_public: "Archivos adjuntos públicos"
     attachments_private: "Archivos adjuntos privados"
+    attachments_download: "Download event attachments"
     only_pdf: "Solo PDF"
     name: "Nombre"
     file: "Archivo"
     title: "Título"
     company: "Organización"
-    companies: "Organizaciones"
-    new_company: "Nueva organización"
+    companies: "Lobbies"
+    new_company: "Nuevo lobby"
     description: "Descripción"
     new_event: "Nuevo evento"
     edit_event: "Editar evento"
     edit_agents: "Editar agentes"
-    add_interests: "“Editar intereses"
+    add_interests: "Editar intereses"
+    event_tray: Event tray
     edit_title_interests: "Editar áreas de interés"
     show_company: "Ver datos organización"
     activity: "Registro de Actividad"
@@ -157,18 +161,28 @@ es:
     canceled_event: Canceled event
     cancel_reason_yes: Yes
     cancel_reason_no: No
-    reasons: Reasons
+    reasons: Cancellation Reasons
+    decline_reasons: Declination Reasons
+    accept_reasons: Acceptation Reasons
+    event_actions: Event actions
     status:
       requested: "Requested"
       accepted: "Accepted"
       done: "Done"
       declined: "Rejected"
       canceled: "Canceled"
-    decline_event: Decline evento
+      accepted: "Accepted"
+    decline_event: Decline event
     declined_event: Event declined
     decline_reason_yes: Yes
     decline_reason_no: No
     open_file: "Open file"
+    accept_event: Decline event
+    accepted_event: Event accepted
+    accept_reason_yes: Yes
+    accept_reason_no: No
+    lobby_not_allowed_neither_empty_mail: 'check that the user is not a lobby and that the text with the reasons is not empty'
+    cancel_only_accepted: Only can be cancelled accepted events
 
   backend_header:
     open_gov: "Gobierno abierto"

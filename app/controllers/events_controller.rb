@@ -11,20 +11,25 @@ class EventsController < AdminController
     @event = Event.new(event_params)
     @event.user = current_user
     if @event.save
-      redirect_to events_path, notice: t('backend.successfully_created_record')
+      redirect_to @events_path, notice: t('backend.successfully_created_record')
     else
       flash[:alert] = t('backend.review_errors')
       render :new
     end
   end
 
-  def edit
+  def new
+    if current_user.lobby? && current_user.organization.agents.empty?
+      redirect_to edit_admin_organization_path(id: current_user.organization_id, show: 'agents'), alert: t('backend.event.add_agents')
+    end
   end
+
+  def edit; end
 
   def update
     @event.user = current_user
     if @event.update_attributes(event_params)
-      redirect_to events_path, notice: t('backend.successfully_updated_record')
+      redirect_to @events_path, notice: t('backend.successfully_updated_record')
     else
       set_holders
       flash[:alert] = t('backend.review_errors')
@@ -34,7 +39,7 @@ class EventsController < AdminController
 
   def destroy
     @event.destroy
-    redirect_to events_path, notice: t('backend.successfully_destroyed_record')
+    redirect_to @events_path, notice: t('backend.successfully_destroyed_record')
   end
 
   def get_title
@@ -45,8 +50,8 @@ class EventsController < AdminController
 
   def event_params
     params.require(:event).permit(:title, :description, :location, :scheduled, :position_id, :search_title, :search_person,
-                                  :lobby_activity, :notes, :status, :reasons, :published_at, :cancel, :decline, :declined_reasons,:organization_id,
-                                  :organization_name, :lobby_scheduled, :general_remarks, :lobby_contact_firstname,
+                                  :lobby_activity, :notes, :status, :reasons, :published_at, :cancel, :decline, :declined_reasons, :organization_id,
+                                  :organization_name, :lobby_scheduled, :general_remarks, :lobby_contact_firstname, :accept, :accepted_reasons,
                                   :lobby_contact_lastname, :lobby_contact_phone, :lobby_contact_email, :manager_general_remarks,
                                   event_represented_entities_attributes: [:id, :name, :_destroy],
                                   event_agents_attributes: [:id, :name, :_destroy],
@@ -78,7 +83,7 @@ class EventsController < AdminController
 
   def find_holder_id_by_name(name)
     holder_ids = Holder.by_name(name).pluck(:id)
-    array_position = Position.where("positions.holder_id IN (?)", holder_ids)
+    Position.where("positions.holder_id IN (?)", holder_ids)
   end
 
   def enum_status(array_status)

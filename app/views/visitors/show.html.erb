@@ -83,7 +83,7 @@
             <% @event.attachments.each do |attachment| %>
               <% unless attachment.public == false %>
                 <p><%= link_to attachment.title, attachment.file.url,target: :blank %></p>
-                <%= attachment.description.html_safe %>
+                <%= attachment.description.html_safe if attachment.description.present? %>
               <% end %>
             <% end %>
           </div>
@@ -100,6 +100,7 @@
             <br />
             <%= link_to @event.organization.name, organization_path(@event.organization) %>
 
+            <br />
             <br />
             <strong>Agentes:</strong>
             <br />

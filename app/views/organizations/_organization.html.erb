@@ -1,11 +1,13 @@
 <article id="<%= dom_id(organization)%>" class="post organization">
-  <h1 class="organization_name post__title">
+  <h2 class="organization_name post__title">
     <%= link_to organization.fullname, organization_path(organization), title: t("organizations.show.title") %>
-  </h1>
+  </h2>
   <p>
     <%= I18n.l organization.inscription_date, format: :complete %>
-    <span class="bullet">&nbsp;&bull;&nbsp;</span>
-    <%= "#{t('organizations.events_as_lobby')}: #{events_as_lobby_by(organization)}" %>
 
+      <% if events_as_lobby_by(organization) > 0 %>
+        <span class="bullet">&nbsp;&bull;&nbsp;</span>
+        <%= "#{t('organizations.events_as_lobby')}: #{events_as_lobby_by(organization)}" %>
+      <% end %>
   </p>
 </article>

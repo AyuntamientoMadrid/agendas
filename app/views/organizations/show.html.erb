@@ -1,9 +1,9 @@
 <div class="row">
   <div class="small-12 columns">
     <%= link_to t('backend.back'), organizations_path , class: "button tiny radius" %>
-    <h2 class="post__title-big"><%= @organization.name %></h2>
+    <h1 class="title-l"><%= @organization.name %></h1>
     <p>
-      <strong><%= t('organizations.show.state') %>:</strong>
+      <strong><%= t('organizations.show.state') %></strong>
       <%= organization_status(@organization) %>
     </p>
   </div>
@@ -17,96 +17,132 @@
           <span class="accordion-icon"></span>
         </div>
         <div class="content active">
-          <p>
-            <strong><%= t('organizations.show.inscription_date') %>:
-            <br />
-            </strong>
-            <%= @organization.inscription_date.strftime("%d/%m/%Y") %>
-          </p>
-          <p>
-            <strong><%= t('organizations.show.updated_at') %>:
-            <br />
-            </strong>
-            <%= @organization.updated_at.strftime("%d/%m/%Y") %>
-          </p>
-          <p>
-            <strong><%= t('organizations.show.canceled_at') %>:
-            <br />
-            </strong>
-            <%= @organization.canceled_at.strftime("%d/%m/%Y") if @organization.canceled_at? %>
-          </p>
-          <p>
-            <strong><%= t('organizations.show.identifier') %>:
-            <br />
-            </strong><%= @organization.identifier %>
-          </p>
-          <p>
-            <strong><%= t('organizations.show.name') %>: </strong>
-            <br />
-            <%= @organization.name %></p>
-          <p>
-            <strong><%= t('organizations.show.postal_code') %>: </strong>
-            <br />
-            <%= @organization.postal_code %></p>
-          <p><strong>
-            <%= t('organizations.show.town') %>: </strong>
-            <br />
-            <%= @organization.town %></p>
-          <p>
-            <strong><%= t('organizations.show.address') %>: </strong>
-            <br />
-            <%= @organization.address %>
-          </p>
-          <p><strong><%= t('organizations.show.province') %>: </strong>
-            <br />
-            <%= @organization.province %>
-          </p>
-          <p><strong><%= t('organizations.show.category') %>: </strong>
-            <br />
-            <%= @organization.category.name  %>
-          </p>
-          <p><strong><%= t('organizations.show.description') %>: </strong>
-            <br />
-            <%= @organization.description.html_safe if @organization.description? %>
-          </p>
-          <p><strong><%= t('organizations.show.web') %>: </strong>
-            <br />
-            <%= @organization.web %>
-          </p>
+          <% if @organization.inscription_date.present? %>
+            <p>
+              <strong><%= t('organizations.show.inscription_date') %>
+              </strong>
+              <%= I18n.l @organization.inscription_date %>
+            </p>
+          <% end %>
+
+          <% if @organization.updated_at.present? %>
+            <p>
+              <strong><%= t('organizations.show.updated_at') %>
+              </strong>
+              <%= I18n.l @organization.updated_at, format: "%d/%m/%Y" %>
+            </p>
+          <% end %>
+
+          <% if @organization.canceled_at.present? %>
+            <p>
+              <strong><%= t('organizations.show.canceled_at') %>
+              </strong>
+              <%= I18n.l @organization.canceled_at, format: "%d/%m/%Y" if @organization.canceled_at? %>
+            </p>
+          <% end %>
+
+          <% if @organization.identifier.present? %>
+            <p>
+              <strong><%= t('organizations.show.identifier') %>
+              </strong><%= @organization.identifier %>
+            </p>
+          <% end %>
+
+          <% if @organization.name.present? %>
+            <p>
+              <strong><%= t('organizations.show.name') %> </strong>
+              <%= @organization.name %>
+            </p>
+          <% end %>
+
+          <% if @organization.postal_code.present? %>
+            <p>
+              <strong><%= t('organizations.show.postal_code') %> </strong>
+              <%= @organization.postal_code %>
+            </p>
+          <% end %>
+
+          <% if @organization.town.present? %>
+            <p>
+              <strong><%= t('organizations.show.town') %> </strong>
+              <%= @organization.town %>
+            </p>
+          <% end %>
+
+          <% if @organization.address.present? %>
+            <p>
+              <strong><%= t('organizations.show.address') %> </strong>
+              <%= @organization.address %>
+            </p>
+          <% end %>
+
+          <% if @organization.province.present? %>
+            <p><strong><%= t('organizations.show.province') %> </strong>
+              <%= @organization.province %>
+            </p>
+          <% end %>
+
+          <% if @organization.category.name.present? %>
+            <p>
+              <strong><%= t('organizations.show.category') %> </strong>
+              <%= @organization.category.name  %>
+            </p>
+          <% end %>
+
+          <% if @organization.description.present? %>
+            <p>
+              <strong><%= t('organizations.show.description') %> </strong>
+              <%= @organization.description.html_safe if @organization.description? %>
+            </p>
+          <% end %>
+
+          <% if @organization.web.present? %>
+            <p>
+              <strong><%= t('organizations.show.web') %> </strong>
+              <%= @organization.web %>
+            </p>
+          <% end %>
         </div>
       </li>
+
       <li class="accordion-navigation active">
         <div class="accordion-title">
           <%= t('organizations.show.fiscal_year_title') %>
           <span class="accordion-icon"></span>
         </div>
+
         <div class="content active">
           <% if @organization.fiscal_year.present? %>
             <p>
-              <strong><%= t('organizations.show.fiscal_year') %>: </strong>
-              <br />
-              <%= @organization.fiscal_year if @organization.fiscal_year? %>
+              <strong><%= t('organizations.show.fiscal_year') %> </strong>
+              <%= @organization.fiscal_year %>
             </p>
+
             <p>
-              <strong><%= t('organizations.show.range_fund_title') %>: </strong>
-              <br />
+              <strong><%= t('organizations.show.range_fund_title') %> </strong>
               <%= t("organizations.show.range_fund.#{@organization.range_fund}") %>
             </p>
-            <p>
-              <strong><%= t('organizations.show.subvention') %> : </strong>
-              <br />
-              <%= t(@organization.subvention.to_s) if @organization.subvention? %>
-            </p>
-            <p>
-              <strong><%= t('organizations.show.contract') %> </strong>
-              <br />
-              <%= t(@organization.contract.to_s) if @organization.contract? %>
-            </p>
+
+            <% if @organization.subvention.present? %>
+              <p>
+                <strong><%= t('organizations.show.subvention') %>  </strong>
+                <%= t(@organization.subvention.to_s) %>
+              </p>
+            <% end %>
+
+            <% if @organization.contract.present? %>
+              <p>
+                <strong><%= t('organizations.show.contract') %> </strong>
+                <%= t(@organization.contract.to_s) if @organization.contract? %>
+              </p>
+            <% end %>
+
           <% else %>
             <%= t('organizations.show.no_results') %>
           <% end %>
         </div>
       </li>
+
       <li class="accordion-navigation active">
         <div class="accordion-title">
           <%= t('organizations.show.represented_entity_title') %>
@@ -116,78 +152,96 @@
           <% if @organization.represented_entities.present? %>
             <% @organization.represented_entities.each do |represented_entity| %>
               <div class="represented-entities-block">
-            <p>
-              <strong><%= t('organizations.show.represented_entity_identifier') %>: </strong>
-              <br />
-              <%= represented_entity.identifier %>
-            </p>
-            <p>
-              <strong><%= t('organizations.show.represented_entity_fullname') %>: </strong>
-              <br /><%= represented_entity.fullname %>
-            </p>
-            <p>
-              <strong><%= t('organizations.show.represented_entity_from') %> : </strong>
-              <br />
-              <%= represented_entity.from.strftime("%d/%m/%Y") %>
-            </p>
-            <p>
-              <strong><%= t('organizations.show.represented_entity_to') %> : </strong>
-              <br />
-              <%= represented_entity.to if represented_entity.to.present? %>
-            </p>
-            <p>
-              <strong><%= t('organizations.show.represented_entity_range_fund') %> : </strong>
-              <br />
-              <%= t("organizations.show.range_fund.#{represented_entity.range_fund}") %>
-            </p>
-            <p>
-              <strong><%= t('organizations.show.represented_entity_fiscal_year') %> : </strong>
-              <br />
-              <%= represented_entity.fiscal_year %>
-            </p>
-            <p>
-              <strong><%= t('organizations.show.represented_entity_subvention') %> : </strong>
-              <br />
-              <%= t(represented_entity.subvention.to_s) if @organization.subvention? %>
-            </p>
-            <p><strong><%= t('organizations.show.represented_entity_contract') %> : </strong>
-              <br />
-              <%= t(represented_entity.contract.to_s) if @organization.contract? %>
-            </p>
-          </div>
+                <% if represented_entity.identifier.present? %>
+                  <p>
+                    <strong><%= t('organizations.show.represented_entity_identifier') %> </strong>
+                    <%= represented_entity.identifier %>
+                  </p>
+                <% end %>
+
+                <% if represented_entity.fullname.present? %>
+                  <p>
+                    <strong><%= t('organizations.show.represented_entity_fullname') %> </strong><%= represented_entity.fullname %>
+                  </p>
+                <% end %>
+
+                <% if represented_entity.from.present? %>
+                  <p>
+                    <strong><%= t('organizations.show.represented_entity_from') %>  </strong>
+                    <%= I18n.l represented_entity.from %>
+                  </p>
+                <% end %>
+
+                <% if represented_entity.to.present? %>
+                  <p>
+                    <strong><%= t('organizations.show.represented_entity_to') %>  </strong>
+                    <%= I18n.l represented_entity.to %>
+                  </p>
+                <% end %>
+
+                <% if represented_entity.range_fund.present? %>
+                  <p>
+                    <strong><%= t('organizations.show.represented_entity_range_fund') %> </strong>
+                    <%= t("organizations.show.range_fund.#{represented_entity.range_fund}") %>
+                  </p>
+                <% end %>
+
+                <% if represented_entity.fiscal_year.present? %>
+                  <p>
+                    <strong><%= t('organizations.show.represented_entity_fiscal_year') %> </strong>
+                    <%= represented_entity.fiscal_year %>
+                  </p>
+                <% end %>
+
+                <% if @organization.subvention.present? %>
+                  <p>
+                    <strong><%= t('organizations.show.represented_entity_subvention') %> </strong>
+                    <%= t(represented_entity.subvention.to_s) %>
+                  </p>
+                <% end %>
+
+                <% if @organization.contract.present? %>
+                  <p><strong><%= t('organizations.show.represented_entity_contract') %> </strong>
+                    <%= t(represented_entity.contract.to_s) %>
+                  </p>
+                <% end %>
+              </div>
             <% end %>
           <% else %>
             <%= t('organizations.show.no_results') %>
           <% end %>
         </div>
       </li>
-      <li class="accordion-navigation active">
-        <div class="accordion-title">
-          <%= t('organizations.show.agents_title') %>
-          <span class="fa accordion-icon"></span>
-        </div>
-          <div class="content active">
-            <% if @organization.agents.present? %>
-              <% @organization.agents.each do |agent| %>
-                <p>
-                  <strong><%= t('organizations.show.agents_fullname') %>: </strong>
-                  <br />
-                  <%= agent.fullname %>
-                </p>
-                <p><strong><%= t('organizations.show.agents_from') %> : </strong>
-                  <br />
-                  <%= agent.from.strftime("%d/%m/%Y") if agent.from? %>
-                </p>
-                <p><strong><%= t('organizations.show.agents_to') %> : </strong>
-                  <br />
-                  <%= agent.to.strftime("%d/%m/%Y") if agent.to.present? %>
-                </p>
+
+      <% if (!@organization.invalidate && @organization.canceled_at.blank?) || current_user.try(:admin?) %>
+        <li class="accordion-navigation active">
+          <div class="accordion-title">
+            <%= t('organizations.show.agents_title') %>
+            <span class="fa accordion-icon"></span>
+          </div>
+            <div class="content active">
+              <% if @organization.agents.present? %>
+                <% @organization.agents.each do |agent| %>
+                  <p>
+                    <strong><%= t('organizations.show.agents_fullname') %></strong>
+                    <%= agent.fullname %>
+                  </p>
+                  <p><strong><%= t('organizations.show.agents_from') %></strong>
+                    <%= I18n.l agent.from if agent.from? %>
+                  </p>
+                  <% if agent.to.present? %>
+                    <p><strong><%= t('organizations.show.agents_to') %></strong>
+                      <%= I18n.l agent.to if agent.to.present? %>
+                    </p>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <%= t('organizations.show.no_results') %>
               <% end %>
-            <% else %>
-              <%= t('organizations.show.no_results') %>
-            <% end %>
-        </div>
-      </li>
+          </div>
+        </li>
+      <% end %>
+
       <li class="accordion-navigation active">
         <div class="accordion-title">
           <%= t('organizations.show.interests_title') %>
@@ -207,6 +261,7 @@
             </ul>
         </div>
       </li>
+
       <li class="accordion-navigation active">
         <div class="accordion-title">
           <%= t('organizations.show.events_title') %>

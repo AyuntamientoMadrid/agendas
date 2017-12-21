@@ -2,20 +2,88 @@ feature 'Events' do
   describe 'user manager', type: :feature do
 
     background do
-      user_manager = create(:user, :user)
+      @organization = create(:organization)
+      @user_manager = create(:user, :user, organization: @organization)
       @position = create(:position)
-      user_manager.manages.create(holder_id: @position.holder_id)
-      signin(user_manager.email, user_manager.password)
+      @agent = create(:agent, organization: @organization)
+      @user_manager.manages.create(holder_id: @position.holder_id)
+      signin(@user_manager.email, @user_manager.password)
     end
 
     describe "index" do
 
       scenario 'visit the events index page' do
-        visit events_path
-
+        visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
+                          "status" => ["requested", "declined"], "lobby_activity" => "1",
+                          "controller" => "events", "action" => "index" )
         expect(page).to have_content I18n.t 'backend.events'
+        expect(page).to have_content I18n.t 'backend.event_tray'
       end
 
+      scenario 'The liks from the menu should filter properly' do
+        event1 = create(:event, position: @position,  title: '1 requested with lobby', lobby_activity: true)
+        event2 = create(:event, position: @position,  title: '2 accepted with lobby', lobby_activity: true)
+        event3 = create(:event, position: @position,  title: '3 done with lobby', lobby_activity: true)
+        event4 = create(:event, position: @position,  title: '4 canceled with lobby', lobby_activity: true)
+        event5 = create(:event, position: @position,  title: '5 declined with lobby', lobby_activity: true)
+        event6 = create(:event, position: @position,  title: '6 requested')
+        event7 = create(:event, position: @position,  title: '7 accepted')
+        event8 = create(:event, position: @position,  title: '8 done')
+        event9 = create(:event, position: @position,  title: '9 canceled')
+        event10 = create(:event, position: @position,  title: '10 declined')
+
+        event1.update(status: :requested)
+        event2.update(status: :accepted)
+        event3.update(status: :done)
+        event4.update(status: :canceled)
+        event5.update(status: :declined)
+        event6.update(status: :requested)
+        event7.update(status: :accepted)
+        event8.update(status: :done)
+        event9.update(status: :canceled)
+        event10.update(status: :declined)
+
+        visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
+                          "status" => ["requested", "declined"], "lobby_activity" => "1",
+                          "controller" => "events", "action" => "index" )
+
+        click_link I18n.t("backend.events")
+        expect(find_link(I18n.t("backend.event_tray")).first(:xpath, ".//..")[:class]).not_to eq "active"
+        expect(find_link(I18n.t("backend.events")).first(:xpath, ".//..")[:class]).to eq "active"
+
+        [event2, event3, event4, event7, event8, event9].each do |evnt|
+          expect(page).to have_content evnt.title
+        end
+        [event1, event5, event6, event10].each do |evnt|
+          expect(page).not_to have_content evnt.title
+        end
+
+        click_link I18n.t("backend.event_tray")
+        expect(find_link(I18n.t("backend.event_tray")).first(:xpath, ".//..")[:class]).to eq "active"
+        expect(find_link(I18n.t("backend.events")).first(:xpath, ".//..")[:class]).not_to eq "active"
+
+        [event1, event5].each do |evnt|
+          expect(page).to have_content evnt.title
+        end
+        [event2, event3, event4, event6, event7, event8, event9, event10].each do |evnt|
+          expect(page).not_to have_content evnt.title
+        end
+
+      end
+
+      scenario 'Should allow to download all attachments from event attachments dropdown', :js do
+        event = create(:event, position: @position)
+        create(:attachment, event: event, title: "An amazing attachment title")
+        create(:attachment, event: event, title: "Other title")
+        visit events_path
+
+        within "#event_#{event.id}" do
+          find('.attachments-dropdown').click
+        end
+
+        expect(page).to have_link "An amazing attachment title"
+        expect(page).to have_link "Other title"
+      end
     end
 
     describe "new" do
@@ -70,7 +138,7 @@ feature 'Events' do
     describe "edit" do
 
       scenario 'manager user can see on page the name of the organization' do
-        event = create(:event, organization_name: "Organization name", position: @position)
+        event = create(:event, user: @user_manager,  organization_name: "Organization name", position: @position)
 
         visit edit_event_path(event)
 
@@ -79,7 +147,7 @@ feature 'Events' do
       end
 
       scenario 'manager user can see on page lobby contact info' do
-        event = create(:event, organization_name: "Organization name", position: @position, lobby_contact_firstname: "name",
+        event = create(:event, user: @user_manager,  organization_name: "Organization name", position: @position, lobby_contact_firstname: "name",
                                lobby_contact_lastname: "lastname", lobby_contact_phone: "971466655", lobby_contact_email: "lobby@email.com")
 
         visit edit_event_path(event)
@@ -93,7 +161,7 @@ feature 'Events' do
       end
 
       scenario 'visit edit event form and render lobby fields' do
-        event = create(:event, organization_name: "Organization name", position: @position)
+        event = create(:event, user: @user_manager,  organization_name: "Organization name", position: @position)
 
         visit edit_event_path(event)
 
@@ -116,7 +184,7 @@ feature 'Events' do
       end
 
       scenario 'visit edit event form and render correct lobby values' do
-        event = create(:event, organization_name: "Organization name", position: @position,
+        event = create(:event, user: @user_manager,  organization_name: "Organization name", position: @position,
                        lobby_contact_firstname: 'name', lobby_contact_lastname: 'lastname',
                        lobby_contact_phone: '971466655', lobby_contact_email: 'lobby@email.com',
                        lobby_scheduled: 'Day 17', general_remarks: 'General remark')
@@ -133,10 +201,12 @@ feature 'Events' do
 
       scenario 'visit edit event form and render canceled option' do
         event = create(:event, position: @position)
+        event.status = 'requested'
+        event.save
 
         visit edit_event_path(event)
 
-        expect(page).to have_content('Cancelar evento')
+        expect(find_link(I18n.t('backend.accept_event'))[:disabled]).not_to eq "disabled"
       end
 
       scenario 'visit edit event form and render rejected option' do
@@ -154,16 +224,16 @@ feature 'Events' do
   describe 'user admin' do
 
     background do
-      user_admin = create(:user, :admin)
+      @user_admin = create(:user, :admin)
       @position = create(:position)
-      user_admin.manages.create(holder_id: @position.holder_id)
-      signin(user_admin.email, user_admin.password)
+      @user_admin.manages.create(holder_id: @position.holder_id)
+      signin(@user_admin.email, @user_admin.password)
     end
 
     describe "show" do
 
       scenario 'visit show event page' do
-        event = create(:event, title: 'New event from Capybara')
+        event = create(:event, user: @user_admin, title: 'New event from Capybara')
         attachment_public = create(:attachment, public: true, event: event)
         attachment_old = create(:attachment, event: event)
         attachment_private = create(:attachment, public: false, event: event)
@@ -175,7 +245,7 @@ feature 'Events' do
         expect(page).to have_content event.position.holder.full_name
         expect(page).to have_content event.title
         expect(page).to have_content event.location
-        expect(page).to have_content event.scheduled.strftime(I18n.t('time.formats.short'))
+        expect(page).to have_content I18n.l(event.scheduled, format: :short)
         expect(page).to have_content event.title
         expect(page).to have_content attachment_public.description
         expect(page).to have_content attachment_old.description
@@ -201,11 +271,11 @@ feature 'Events' do
     describe "edit" do
 
       scenario 'edit event and modify title', :js do
-        event = create(:event, title: 'Test event')
+        event = create(:event, user: @user_admin,  title: 'Test event')
         visit edit_event_path(event)
 
         fill_in :event_title, with: 'New event modified from Capybara'
-        click_button I18n.t 'backend.save'
+        click_button "Guardar"
 
         expect(page).to have_content 'New event modified from Capybara'
       end
@@ -220,7 +290,7 @@ feature 'Events' do
       end
 
       scenario 'admin user can see on page lobby contact info' do
-        event = create(:event, organization_name: "Organization name", lobby_contact_firstname: 'lobyname',
+        event = create(:event, user: @user_admin,  organization_name: "Organization name", lobby_contact_firstname: 'lobyname',
                                lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123', lobby_contact_email: 'lobbyemail@email.com')
 
         visit edit_event_path(event)
@@ -232,49 +302,12 @@ feature 'Events' do
           expect(page).to have_selector("input[value='lobbyemail@email.com']")
         end
       end
-
-      scenario "User can decline events", :js do
-        skip('Related issue #162')
-        event = create(:event, position: @position)
-        visit edit_event_path(event)
-
-        page.find_by_id("decline-reason", visible: false)
-        page.choose('event_decline_true')
-        page.find_by_id("decline-reason", visible: true)
-        editor = page.find_by_id('decline-reason')
-        editor.native.send_keys 'test'
-
-        click_button "Guardar"
-
-        expect(page).not_to have_selector "#event_decline_true"
-      end
-
-      scenario "User can't decline events without a reason", :js do
-        event = create(:event)
-        visit edit_event_path(event)
-        page.find_by_id("decline-reason", visible: false)
-        page.choose('event_decline_true')
-        page.find_by_id("decline-reason", visible: true)
-
-        click_button "Guardar"
-
-        expect(page).to have_content I18n.t('backend.event.decline_reasons_needed'), count: 1
-      end
-
-      scenario "User can decline events only once!" do
-        event_requested = create(:event, title: 'Event on request', position: @position, status: 0,
-                                         declined_reasons: 'test', declined_at: Time.zone.today)
-        visit edit_event_path(event_requested)
-
-        expect(page).not_to have_selector "#event_decline_true"
-      end
-
     end
 
     describe "index" do
 
       scenario 'visit search by title' do
-        event = create(:event, title: 'Nueva solicitud')
+        event = create(:event, user: @user_admin,  title: 'New event from Capybara')
         visit events_path
 
         fill_in :search_title, with: 'Capybara'
@@ -284,7 +317,7 @@ feature 'Events' do
       end
 
       scenario 'visit search by person' do
-        event = create(:event, title: 'Nueva solicitud')
+        event = create(:event, user: @user_admin,  title: 'New event from Capybara')
         name = event.position.holder.first_name
         visit events_path
 
@@ -295,7 +328,7 @@ feature 'Events' do
       end
 
       scenario 'visit non results search page' do
-        create(:event, title: 'New not found event')
+        create(:event, user: @user_admin,  title: 'New not found event')
         visit events_path
 
         fill_in :search_title, with: 'Search keywords'
@@ -305,7 +338,7 @@ feature 'Events' do
       end
 
       scenario 'search lobby activity' do
-        event = create(:event, title: 'Test for check lobby_activity')
+        event = create(:event, user: @user_admin,  title: 'Test for check lobby_activity')
         event.lobby_activity = true
         event.event_agents << create(:event_agent)
         event.save!
@@ -315,6 +348,20 @@ feature 'Events' do
         click_button I18n.t('backend.search.button')
 
         expect(page).to have_content "Test for check lobby_activity"
+      end
+
+      scenario 'Should allow to download all attachments from event attachments dropdown', :js do
+        event = create(:event)
+        create(:attachment, event: event, title: "An amazing attachment title")
+        create(:attachment, event: event, title: "Other title")
+        visit events_path
+
+        within "#event_#{event.id}" do
+          find('.attachments-dropdown').click
+        end
+
+        expect(page).to have_link "An amazing attachment title"
+        expect(page).to have_link "Other title"
       end
 
     end
@@ -333,7 +380,7 @@ feature 'Events' do
 
         click_button "Guardar"
 
-        expect(page).to have_content "Este campo es obligatorio", count: 5
+        expect(page).to have_content "Este campo es obligatorio", count: 4
       end
 
       scenario 'Visit new admin event page and create organization with the minimum permitted fields', :js do
@@ -528,6 +575,45 @@ feature 'Events' do
             expect(page).to have_selector "#attachments .remove_fields", count: 2
           end
 
+          scenario 'Should save attachment when it has valid content type', :js do
+            new_position = create(:position)
+            visit new_event_path
+
+            fill_in :event_title, with: "Title"
+            fill_in :event_location, with: "Location"
+            fill_in :event_scheduled, with: DateTime.current
+            select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
+            choose :event_lobby_activity_false
+            fill_in :event_published_at, with: Date.current
+            find('.add-attachment').click
+            attachment = all(".attachment-file").first
+            attach_file attachment[:id], "spec/fixtures/dummy.pdf"
+            input_title = find(".attachment-title")
+            fill_in input_title[:id], with: "Dummy pdf"
+            click_on "Guardar"
+
+            expect(page).to have_link "Dummy pdf"
+          end
+
+          scenario 'Should not save attachment when it has invalid content type', :js do
+            new_position = create(:position)
+            visit new_event_path
+
+            fill_in :event_title, with: "Title"
+            fill_in :event_location, with: "Location"
+            fill_in :event_scheduled, with: DateTime.current
+            select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
+            choose :event_lobby_activity_false
+            fill_in :event_published_at, with: Date.current
+            find('.add-attachment').click
+            attachment = all(".attachment-file").first
+            attach_file attachment[:id], "spec/fixtures/dummy.xml"
+            input_title = find(".attachment-title")
+            fill_in input_title[:id], with: "Dummy xml"
+            click_on "Guardar"
+
+            expect(page).to have_content "Archivo adjunto: El archivo proporcionado está en un formato no permitido. Los siguientes formatos de archivo son permitidos: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."
+          end
         end
 
       end
@@ -631,7 +717,7 @@ feature 'Events' do
             choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
 
             within ".agents-block" do
-              expect(page).to have_selector("option[value='#{agent.name}']")
+              expect(page).to have_selector("option[value='#{agent.name} #{agent.first_surname} #{agent.second_surname}']")
             end
           end
 
@@ -649,7 +735,7 @@ feature 'Events' do
             choose :event_lobby_activity_true
             choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
             within('#new_event_agent') do
-              select agent.name
+              select "#{agent.name} #{agent.first_surname} #{agent.second_surname}"
             end
             click_button "Guardar"
             expect(page).to have_content "Registro creado correctamente"
@@ -685,7 +771,8 @@ feature 'Events' do
     end
 
     scenario 'visit index event page' do
-      event = create(:event, title: 'New event for lobbies', position: @position, organization_id: @organization.id)
+      event = create(:event, user: @organization_user,  title: 'New event for lobbies',
+                      position: @position, organization_id: @organization.id)
       visit events_path
       expect(page).to have_content event.title
     end
@@ -729,6 +816,15 @@ feature 'Events' do
 
         expect(page).not_to have_content('Rechazar evento')
       end
+
+      scenario 'visit new event with organization without agents and redirect to edit_agents' do
+        @agent.destroy
+
+        visit new_event_path
+
+        expect(page).to have_content('Editar agentes')
+        expect(page).to have_content('Es necesario añadir algún agente para poder solicitar una reunión')
+      end
     end
 
     describe "Create" do
@@ -750,18 +846,18 @@ feature 'Events' do
         fill_in :event_location, with: 'New location'
         choose_autocomplete :event_organization_name, with: @organization.name, select: @organization.name
         within('#new_event_agent') do
-          select @agent.name
+          select "#{@agent.name} #{@agent.first_surname} #{@agent.second_surname}"
         end
         choose_autocomplete :event_position_title, with: @position.title, select: @position.title
         find("#position_id", :visible => false).set(@position.id)
-        click_button I18n.t('backend.save')
+        click_button "Enviar la solicitud"
         expect(page).to have_content 'Registro creado correctamente'
       end
 
       scenario 'Visit new event page and create event without mandatory fields and display error', :js do
         visit new_event_path
 
-        click_button "Guardar"
+        click_button "Enviar la solicitud"
 
         expect(page).to have_content "Este campo es obligatorio", count: 3
       end
@@ -791,11 +887,11 @@ feature 'Events' do
         tinymce_fill_in(:event_lobby_scheduled, "Lobby scheduled proposal")
         choose_autocomplete :event_organization_name, with: @organization.name, select: @organization.name
         within('#new_event_agent') do
-          select @agent.name
+          select "#{@agent.name} #{@agent.first_surname} #{@agent.second_surname}"
         end
         choose_autocomplete :event_position_title, with: new_position.title, select: new_position.title
         find("#position_id", :visible => false).set(new_position.id)
-        click_button "Guardar"
+        click_button "Enviar la solicitud"
         event = Event.where(title: "Title").first
         expect(page).to have_content "Registro creado correctamente"
         expect(event.title).to eq "Title"
@@ -885,7 +981,7 @@ feature 'Events' do
             end
 
             within ".agents-block" do
-              expect(page).to have_selector("option[value='#{agent.name}']")
+              expect(page).to have_selector("option[value='#{agent.name} #{agent.first_surname} #{agent.second_surname}']")
             end
           end
 
@@ -898,10 +994,15 @@ feature 'Events' do
     describe "Edit" do
 
       scenario "Edit buttons enabled for events on_request" do
-        event_requested = create(:event, title: 'Event on request', position: @position, status: 0,
+        event_requested = create(:event, user: @organization_user,  title: 'Event on request', position: @position,
                                          organization: @organization)
-        event_accepted = create(:event, title: 'Event accepted', position: @position, status: 1,
+        event_accepted = create(:event, user: @organization_user,  title: 'Event accepted', position: @position,
                                         organization: @organization)
+        event_requested.status = 0
+        event_accepted.status = 1
+        event_requested.save!
+        event_accepted.save!
+
 
         visit events_path
 
@@ -910,10 +1011,14 @@ feature 'Events' do
       end
 
       scenario "Edit buttons enabled for events on_request on show view" do
-        event_requested = create(:event, title: 'Event on request', position: @position,
-                                         status: 0, organization: @organization)
-        event_accepted = create(:event, title: 'Event accepted', position: @position,
-                                        status: 1, organization: @organization)
+        event_requested = create(:event, user: @organization_user,  title: 'Event on request', position: @position,
+                                         organization: @organization)
+        event_accepted = create(:event, user: @organization_user,  title: 'Event accepted', position: @position,
+                                        organization: @organization)
+        event_requested.status = 0
+        event_accepted.status = 1
+        event_requested.save!
+        event_accepted.save!
 
         visit event_path(event_requested)
 
@@ -925,7 +1030,7 @@ feature 'Events' do
       end
 
       scenario "User can edit events", :js do
-        event_requested = create(:event, title: 'Event on request', position: @position,
+        event_requested = create(:event, user: @organization_user,  title: 'Event on request', position: @position,
                                          status: 0, organization: @organization)
 
         visit event_path(event_requested)
@@ -933,51 +1038,13 @@ feature 'Events' do
         click_link "Editar"
 
         fill_in :event_title, with: "Editar evento"
-        click_button "Guardar"
+        click_button "Enviar la solicitud"
 
         expect(page).to have_content "Solicitud de evento"
       end
 
-      scenario "User can cancel events", :js do
-        event = create(:event, organization: @organization, position: @position)
-        visit edit_event_path(event)
-
-        page.find_by_id("cancel-reason", visible: false)
-        page.choose('event_cancel_true')
-        page.find_by_id("cancel-reason", visible: true)
-        editor = page.find_by_id('cancel-reason')
-        editor.native.send_keys 'test'
-        find("#position_id", :visible => false).set(@position.id)
-
-        click_button "Guardar"
-
-        expect(page).not_to have_selector "#event_cancel_true"
-      end
-
-      scenario "User can't cancel events without a reason", :js do
-        event = create(:event, organization: @organization)
-        visit edit_event_path(event)
-
-        page.find_by_id("cancel-reason", visible: false)
-        page.choose('event_cancel_true')
-        page.find_by_id("cancel-reason", visible: true)
-        find("#position_id", :visible => false).set(@position.id)
-
-        click_button "Guardar"
-
-        expect(page).to have_content I18n.t('backend.event.reasons_needed'), count: 1
-      end
-
-      scenario "User can cancel events only once!" do
-        event_requested = create(:event, title: 'Event on request', position: @position, status: 0,
-                                         reasons: 'test', canceled_at: Time.zone.today, organization: @organization)
-        visit edit_event_path(event_requested)
-
-        expect(page).not_to have_selector "#event_cancel_true"
-      end
-
       scenario 'Lobby user can see on page the name of the organization' do
-        event = create(:event, organization_name: "Organization name", position: @position,
+        event = create(:event, user: @organization_user,  organization_name: "Organization name", position: @position,
                                organization: @organization)
 
         visit edit_event_path(event)
@@ -986,7 +1053,7 @@ feature 'Events' do
       end
 
       scenario 'Lobby user can see lobby contact info' do
-        event = create(:event, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
+        event = create(:event, user: @organization_user,  organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
                                lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123',
                                lobby_contact_email: 'lobbyemail@email.com', organization: @organization)
 
@@ -1002,7 +1069,7 @@ feature 'Events' do
 
       scenario 'Lobby user can update lobby contact info', :js do
         position = create(:position)
-        event = create(:event, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
+        event = create(:event, user: @organization_user,  organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
                                lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123',
                                lobby_contact_email: 'lobbyemail@email.com', organization: @organization,
                                position: position)
@@ -1014,7 +1081,7 @@ feature 'Events' do
         fill_in :event_lobby_contact_email, with: 'new_loby@email.com'
         find("#position_id", :visible => false).set(@position.id)
 
-        click_button 'Guardar'
+        click_button "Enviar la solicitud"
 
         event.reload
 
@@ -1024,16 +1091,8 @@ feature 'Events' do
         expect(event.lobby_contact_email).to eq 'new_loby@email.com'
       end
 
-      scenario 'visit edit event form and render canceled option' do
-        event = create(:event)
-
-        visit edit_event_path(event)
-
-        expect(page).to have_content('Cancelar evento')
-      end
-
       scenario 'visit edit event form and not render rejected option' do
-        event = create(:event)
+        event = create(:event, user: @organization_user)
 
         visit edit_event_path(event)
 
@@ -1046,15 +1105,19 @@ feature 'Events' do
   describe 'search by status' do
 
     background do
-      user_admin = create(:user, :admin)
+      @user_admin = create(:user, :admin)
       @position = create(:position)
-      user_admin.manages.create(holder_id: @position.holder_id)
-      signin(user_admin.email, user_admin.password)
+      @user_admin.manages.create(holder_id: @position.holder_id)
+      signin(@user_admin.email, @user_admin.password)
     end
 
     scenario 'filter events by one status on multiselect', :js do
-      create(:event, title: 'Test for check status requested', status: 0, lobby_activity: true)
-      create(:event, title: 'Test for check status accepted', status: 1, lobby_activity: true)
+      event1 = create(:event, user: @user_admin,  title: 'Test for check status requested', lobby_activity: true)
+      event2 = create(:event, user: @user_admin,  title: 'Test for check status accepted', lobby_activity: true)
+      event1.status = 0
+      event2.status = 1
+      event1.save
+      event2.save
       visit events_path
 
       select "Solicitada", from: :status
@@ -1065,9 +1128,15 @@ feature 'Events' do
     end
 
     scenario 'filter events by more than one status on multiselect' do
-      create(:event, title: 'Test for check status requested', status: 0, lobby_activity: true)
-      create(:event, title: 'Test for check status accepted', status: 1, lobby_activity: true)
-      create(:event, title: 'Test for check status done', status: 2, lobby_activity: true)
+      event1 = create(:event, user: @user_admin,  title: 'Test for check status requested', lobby_activity: true)
+      event2 = create(:event, user: @user_admin,  title: 'Test for check status accepted', lobby_activity: true)
+      event3 = create(:event, user: @user_admin,  title: 'Test for check status done', lobby_activity: true)
+      event1.status = 0
+      event2.status = 1
+      event3.status = 2
+      event1.save
+      event2.save
+      event3.save
       visit events_path
 
       select "Solicitada", from: :status
@@ -1077,6 +1146,135 @@ feature 'Events' do
       expect(page).to have_content "Test for check status requested"
       expect(page).to have_content "Test for check status accepted"
       expect(page).not_to have_content "Test for check status done"
+    end
+
+  end
+
+  describe 'Lobby user can only cancel an event tests' do
+
+    background do
+      @organization = create(:organization)
+      @organization_user = create(:user, :lobby, organization: @organization)
+      @position = create(:position)
+      @agent = create(:agent, organization: @organization)
+      @organization_user.manages.create(holder_id: @position.holder_id)
+      signin(@organization_user.email, @organization_user.password)
+    end
+
+    scenario "Lobby user can only cancel events", :js do
+      event = create(:event, organization: @organization, user: @organization_user)
+      visit edit_event_path(event)
+
+      expect(page).not_to have_content I18n.t('backend.accept_event')
+      expect(page).not_to have_content I18n.t('backend.decline_event')
+      expect(page).to have_content I18n.t('backend.cancel_event')
+    end
+
+  end
+
+  describe 'Admin user can accept, decline or cancel an event tests' do
+
+    background do
+      @organization = create(:organization)
+      @organization_user = create(:user, :admin, organization: @organization)
+      @position = create(:position)
+      @agent = create(:agent, organization: @organization)
+      @organization_user.manages.create(holder_id: @position.holder_id)
+      signin(@organization_user.email, @organization_user.password)
+    end
+
+    scenario "Admin user can accept, decline and cancel events", :js do
+      event = create(:event, organization: @organization, user: @organization_user)
+      visit edit_event_path(event)
+
+      expect(page).to have_content I18n.t('backend.accept_event')
+      expect(page).to have_content I18n.t('backend.decline_event')
+      expect(page).to have_content I18n.t('backend.cancel_event')
+    end
+  end
+
+  describe 'User user can accept, decline or cancel an event tests' do
+
+    background do
+      @organization = create(:organization)
+      @organization_user = create(:user, :admin, organization: @organization)
+      @position = create(:position)
+      @agent = create(:agent, organization: @organization)
+      @organization_user.manages.create(holder_id: @position.holder_id)
+      signin(@organization_user.email, @organization_user.password)
+    end
+
+    scenario "regular user can accept, decline and cancel events", :js do
+      event = create(:event, organization: @organization, user: @organization_user)
+      visit edit_event_path(event)
+
+      expect(page).to have_content I18n.t('backend.accept_event')
+      expect(page).to have_content I18n.t('backend.decline_event')
+      expect(page).to have_content I18n.t('backend.cancel_event')
+    end
+
+    scenario "User user incorrect accept tests", :js do
+      event = create(:event, organization: @organization, user: @organization_user)
+      event.update(status: 'requested')
+
+      visit edit_event_path(event)
+
+      click_link I18n.t('backend.accept_event')
+
+      click_button "Guardar"
+
+      expect(page).to have_content I18n.translate('backend.event.accept_reasons_needed')
+    end
+
+    scenario "User incorrect cancel tests", :js do
+      event = create(:event, organization: @organization, user: @organization_user)
+      event.update(status: 'accepted')
+      visit edit_event_path(event)
+
+      click_link I18n.t('backend.cancel_event')
+      click_button "Guardar"
+
+      expect(page).to have_content I18n.translate('backend.event.reasons_needed')
+    end
+
+    scenario "User incorrect decline tests", :js do
+      event = create(:event, organization: @organization, user: @organization_user)
+      event.update(status: 'requested')
+
+      visit edit_event_path(event)
+
+      click_link I18n.t('backend.decline_event')
+      click_button "Guardar"
+
+      expect(page).to have_content I18n.translate('backend.event.decline_reasons_needed')
+    end
+
+    scenario "An use can accept or decline an event only once", :js do
+      event = create(:event, organization: @organization, user: @organization_user)
+      event.update(status: 'accepted')
+
+      visit edit_event_path(event)
+
+      expect(find_link(I18n.t('backend.accept_event'))[:disabled]).to eq "disabled"
+      expect(find_link(I18n.t('backend.decline_event'))[:disabled]).to eq "disabled"
+    end
+
+    scenario "An use can cancel only accepted events", :js do
+      event = create(:event, organization: @organization, user: @organization_user)
+      event.update(status: 'accepted')
+
+      visit edit_event_path(event)
+
+      expect(find_link(I18n.t('backend.cancel_event'))[:disabled]).not_to eq "disabled"
+    end
+
+    scenario "An use can't cancel not accepted events", :js do
+      event = create(:event, organization: @organization, user: @organization_user)
+      event.update(status: 'requested')
+
+      visit edit_event_path(event)
+
+      expect(find_link(I18n.t('backend.cancel_event'))[:disabled]).to eq "disabled"
     end
 
   end

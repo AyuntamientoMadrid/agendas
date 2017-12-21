@@ -1,8 +1,7 @@
 class Event < ActiveRecord::Base
   include PublicActivity::Model
 
-  attr_accessor :cancel, :decline
-  attr_accessor :holder_title
+  attr_accessor :cancel, :decline, :accept, :holder_title, :current_user
 
   tracked owner: Proc.new { |controller, model| controller.present? ? controller.current_user : model.user }
   tracked title: Proc.new { |controller, model| controller.present? ? controller.get_title : model.title }
@@ -10,15 +9,20 @@ class Event < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
 
+  validates_with CancelEventValidator
+
   validates :title, :position, :location, presence: true
   validates_inclusion_of :lobby_activity, :in => [true, false]
-  validate :participants_uniqueness, :position_not_in_participants, :role_validate_published_at, :role_validate_scheduled
-  validates :reasons, presence: true, if: Proc.new { |a| !a.canceled_at.blank? }
-  validates :declined_reasons, presence: true, if: Proc.new { |a| !a.declined_at.blank? }
+  validate :participants_uniqueness, :position_not_in_participants, :role_validate_scheduled
+  validates :reasons, presence: {message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, if: Proc.new { |a| !a.canceled_at.blank? }
+  validates :declined_reasons, presence: {message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, if: Proc.new { |a| !a.declined_at.blank? || (a.current_user && !a.current_user.lobby?)}
+  validates :accepted_reasons, presence: {message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, if: Proc.new { |a| !a.accepted_at.blank? || (a.current_user && !a.current_user.lobby?)}
 
   before_create :set_status
-  before_validation :decline_event
-  before_validation :cancel_event
+  before_update :set_published_at
+  after_validation :decline_event
+  after_validation :cancel_event
+  after_validation :accept_event
 
   belongs_to :user
   belongs_to :position
@@ -56,7 +60,7 @@ class Event < ActiveRecord::Base
   enum status: { requested: 0, accepted: 1, done: 2, declined: 3, canceled: 4 }
 
   def cancel_event
-    return unless cancel == 'true' && canceled_at.nil?
+    return unless cancel == 'true' && canceled_at.nil? && status == 'accepted'
     self.canceled_at = Time.zone.today
     self.status = 'canceled'
     EventMailer.cancel(self).deliver_now
@@ -67,6 +71,13 @@ class Event < ActiveRecord::Base
     self.declined_at = Time.zone.today
     self.status = 'declined'
     EventMailer.decline(self).deliver_now
+  end
+
+  def accept_event
+    return unless accept == 'true' && accepted_at.nil?
+    self.accepted_at = Time.zone.today
+    self.status = 'accepted'
+    EventMailer.accept(self).deliver_now
   end
 
   def self.managed_by(user)
@@ -128,8 +139,8 @@ class Event < ActiveRecord::Base
       self.position.holder.last_name
     end
 
-    integer :holder_id do
-      self.position.holder.id
+    integer :holder_id, multiple: true do
+      self.participants.collect(&:position).collect(&:holder_id) << self.position.holder.id
     end
 
     text :holder_position do
@@ -191,12 +202,15 @@ class Event < ActiveRecord::Base
     end
 
     def set_status
-      self.status = "requested" if self.user.lobby?
+      if self.user.lobby?
+        self.status = "requested"
+      else
+        self.status = "accepted"
+      end
     end
 
-    def role_validate_published_at
-      return if self.user.lobby? || self.published_at.present?
-      errors.add(:base, "Fecha de publicación no puede estar en blanco")
+    def set_published_at
+      self.published_at = Date.current if (!self.user.lobby? && self.published_at.blank?)
     end
 
     def role_validate_scheduled

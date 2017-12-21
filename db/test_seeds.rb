@@ -158,7 +158,7 @@ user_lobby_11 = User.create(password: '12345678', email: Faker::Internet.email, 
 organization_11 = Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, entity_type: :federation, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_11, category: category_2)
 
 30.times do
-  Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, entity_type: :federation, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_11, category: category_2)
+  Organization.create(name: Faker::Name.name, first_surname: Faker::Name.last_name, second_surname: Faker::Name.last_name, entity_type: :lobby, inscription_date: Date.yesterday, denied_public_data: false, denied_public_events: false, user: user_lobby_11, category: category_2)
 end
 
 #Legal Representant
@@ -169,8 +169,8 @@ Agent.create(identifier: "43138882z", name: "Name1", from: Date.yesterday, organ
 Agent.create(identifier: "43138881z", name: "Name2", from: Date.yesterday, organization: organization_1)
 
 #Represented Entities
-RepresentedEntity.create(identifier: "43138880z", name: "Name3", from: Date.yesterday, fiscal_year: 2017, organization: organization_1)
-RepresentedEntity.create(identifier: "43138879z", name: "Name4", from: Date.yesterday, fiscal_year: 2017, organization: organization_1)
+RepresentedEntity.create(identifier: "43138880z", name: "Name3", from: Date.yesterday, fiscal_year: 2017, organization: organization_1, range_fund: :range_2)
+RepresentedEntity.create(identifier: "43138879z", name: "Name4", from: Date.yesterday, fiscal_year: 2017, organization: organization_1, range_fund: :range_3)
 
 #OrganizationInterest
 OrganizationInterest.create(organization: organization_1, interest: interest_1)

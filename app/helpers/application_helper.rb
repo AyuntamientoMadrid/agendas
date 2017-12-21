@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   def show_date(date)
-    output = date.present? ? date.strftime(t('date.formats.short')) : '----------'
+    output = date.present? ? I18n.l(date, format: :short) : '----------'
     output.html_safe
   end
 
@@ -42,17 +42,12 @@ module ApplicationHelper
   end
 
   def export_link(url)
-    link_to url, class: "right dib dn hide-for-small-only" do
-      content_tag(:span, "", class: "icon icon__export") + t('main.export')
+    link_to url, class: "right hide-for-small-only" do
+      content_tag(:div) do
+        concat(content_tag(:span, "", class: "icon icon__export"))
+        concat(content_tag(:span, t('main.export')))
+      end
     end
-  end
-
-  def canceled_event(event)
-    !event.canceled_at.nil?
-  end
-
-  def declined_event(event)
-    !event.declined_at.nil?
   end
 
 end

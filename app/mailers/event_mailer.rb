@@ -20,4 +20,14 @@ class EventMailer < ApplicationMailer
     mail(to: event.lobby_contact_email, subject: subject)
   end
 
+  def accept(event)
+    @lobby_name = event.lobby_user_name
+    @reasons = event.accepted_reasons
+    @event_title = event.title
+    @name = event.user.full_name
+    @accepted_at = l event.accepted_at, format: :short
+    subject = t('mailers.accept_event.subject', title: @event_title)
+    mail(to: event.lobby_contact_email, subject: subject)
+  end
+
 end
