@@ -2,8 +2,10 @@ feature 'Events' do
   describe 'user manager', type: :feature do
 
     background do
-      @user_manager = create(:user, :user)
+      @organization = create(:organization)
+      @user_manager = create(:user, :user, organization: @organization)
       @position = create(:position)
+      @agent = create(:agent, organization: @organization)
       @user_manager.manages.create(holder_id: @position.holder_id)
       signin(@user_manager.email, @user_manager.password)
     end
@@ -11,8 +13,62 @@ feature 'Events' do
     describe "index" do
 
       scenario 'visit the events index page' do
-        visit events_path
+        visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
+                          "status" => ["requested", "declined"], "lobby_activity" => "1",
+                          "controller" => "events", "action" => "index" )
         expect(page).to have_content I18n.t 'backend.events'
+        expect(page).to have_content I18n.t 'backend.event_tray'
+      end
+
+      scenario 'The liks from the menu should filter properly' do
+        event1 = create(:event, position: @position,  title: '1 requested with lobby', lobby_activity: true)
+        event2 = create(:event, position: @position,  title: '2 accepted with lobby', lobby_activity: true)
+        event3 = create(:event, position: @position,  title: '3 done with lobby', lobby_activity: true)
+        event4 = create(:event, position: @position,  title: '4 canceled with lobby', lobby_activity: true)
+        event5 = create(:event, position: @position,  title: '5 declined with lobby', lobby_activity: true)
+        event6 = create(:event, position: @position,  title: '6 requested')
+        event7 = create(:event, position: @position,  title: '7 accepted')
+        event8 = create(:event, position: @position,  title: '8 done')
+        event9 = create(:event, position: @position,  title: '9 canceled')
+        event10 = create(:event, position: @position,  title: '10 declined')
+
+        event1.update(status: :requested)
+        event2.update(status: :accepted)
+        event3.update(status: :done)
+        event4.update(status: :canceled)
+        event5.update(status: :declined)
+        event6.update(status: :requested)
+        event7.update(status: :accepted)
+        event8.update(status: :done)
+        event9.update(status: :canceled)
+        event10.update(status: :declined)
+
+        visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
+                          "status" => ["requested", "declined"], "lobby_activity" => "1",
+                          "controller" => "events", "action" => "index" )
+
+        click_link I18n.t("backend.events")
+        expect(find_link(I18n.t("backend.event_tray")).first(:xpath, ".//..")[:class]).not_to eq "active"
+        expect(find_link(I18n.t("backend.events")).first(:xpath, ".//..")[:class]).to eq "active"
+
+        [event2, event3, event4, event7, event8, event9].each do |evnt|
+          expect(page).to have_content evnt.title
+        end
+        [event1, event5, event6, event10].each do |evnt|
+          expect(page).not_to have_content evnt.title
+        end
+
+        click_link I18n.t("backend.event_tray")
+        expect(find_link(I18n.t("backend.event_tray")).first(:xpath, ".//..")[:class]).to eq "active"
+        expect(find_link(I18n.t("backend.events")).first(:xpath, ".//..")[:class]).not_to eq "active"
+
+        [event1, event5].each do |evnt|
+          expect(page).to have_content evnt.title
+        end
+        [event2, event3, event4, event6, event7, event8, event9, event10].each do |evnt|
+          expect(page).not_to have_content evnt.title
+        end
+
       end
 
       scenario 'Should allow to download all attachments from event attachments dropdown', :js do

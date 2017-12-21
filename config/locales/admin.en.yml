@@ -131,7 +131,8 @@ es:
     new_event: "Nuevo evento"
     edit_event: "Editar evento"
     edit_agents: "Editar agentes"
-    add_interests: "“Editar intereses"
+    add_interests: "Editar intereses"
+    event_tray: Event tray
     edit_title_interests: "Editar áreas de interés"
     show_company: "Ver datos organización"
     activity: "Registro de Actividad"
