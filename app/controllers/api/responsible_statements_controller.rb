@@ -8,7 +8,7 @@ module Api
     before_filter :parse_request, only: :inicioExpediente
     soap_action "inicioExpediente",
                 args: {
-                  codTipoExpediente: :string,
+                  codTipoExpdiente: :string,
                   xmlDatosEntrada: :string,
                   listDocs: [ idDocumento: :string ],
                   listFormatos: [ idTipoDocumento: :string ],
@@ -37,8 +37,8 @@ module Api
     private
 
     def parse_request
-      if params[:codTipoExpediente].blank?
-        render_error "codTipoExpediente cannot be blank"
+      if params[:codTipoExpdiente].blank?
+        render_error "codTipoExpdiente cannot be blank"
       elsif params[:xmlDatosEntrada].blank?
         render_error "xmlDatosEntrada cannot be blank"
       elsif params[:usuario].blank?
