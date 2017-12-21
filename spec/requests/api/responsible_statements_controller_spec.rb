@@ -12,7 +12,7 @@ describe Api::ResponsibleStatementsController do
 
   describe "inicioExpediente" do
 
-    it "Should return error when codTipoExpediente is not provided" do
+    it "Should return error when codTipoExpdiente is not provided" do
       client = Savon::Client.new(
                 wsdl: application_base + api_responsible_statements_wsdl_path)
 
@@ -20,7 +20,7 @@ describe Api::ResponsibleStatementsController do
 
       body = response.body[:inicio_expediente_response]
       expect(body[:cod_retorno]).to eq '0'
-      expect(body[:desc_error]).to  eq "codTipoExpediente cannot be blank"
+      expect(body[:desc_error]).to  eq "codTipoExpdiente cannot be blank"
       expect(body[:id_expediente]).to be_blank
       expect(body[:ref_expediente]).to  be_blank
     end
@@ -30,7 +30,7 @@ describe Api::ResponsibleStatementsController do
                 wsdl: application_base + api_responsible_statements_wsdl_path)
 
       response = client.call(:inicio_expediente,
-                             message: { codTipoExpediente: "1234" })
+                             message: { codTipoExpdiente: "1234" })
 
       body = response.body[:inicio_expediente_response]
       expect(body[:cod_retorno]).to eq '0'
@@ -45,7 +45,7 @@ describe Api::ResponsibleStatementsController do
 
       response = client.call(:inicio_expediente,
                              message: {
-                              codTipoExpediente: "1234",
+                              codTipoExpdiente: "1234",
                               xmlDatosEntrada: "sample" })
 
       body = response.body[:inicio_expediente_response]
@@ -62,7 +62,7 @@ describe Api::ResponsibleStatementsController do
 
       response = client.call(:inicio_expediente,
                              message: {
-                              codTipoExpediente: "1234",
+                              codTipoExpdiente: "1234",
                               xmlDatosEntrada: File.read("spec/fixtures/newResponsibleStatement.xml"),
                               usuario: "WFORM" })
 
