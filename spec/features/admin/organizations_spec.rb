@@ -930,6 +930,58 @@ feature 'Organization' do
 
     end
 
+    describe "Show" do
+
+      describe "organization status" do
+        scenario "Should display organization status active" do
+          organization = create(:organization)
+
+          visit organization_path(organization)
+
+          expect(page).to have_content "Estado Activo"
+        end
+
+        scenario "Should display organization canceled" do
+          organization = create(:organization, canceled_at: Date.current)
+
+          visit organization_path(organization)
+
+          expect(page).to have_content "Estado Baja"
+        end
+
+        scenario "Should display organization invalidate" do
+          organization = create(:organization)
+          organization.update(invalidate: true)
+
+          visit organization_path(organization)
+
+          expect(page).to have_content "Estado Inhabilitado"
+        end
+      end
+
+      scenario "Should display canceled organization and display agent info" do
+        organization = create(:organization, canceled_at: Date.current)
+        agent = create(:agent, organization: organization)
+
+        visit organization_path(organization)
+
+        expect(page).to have_content organization.name
+        expect(page).to have_content agent.fullname
+      end
+
+      scenario "Should display invalidate organization and displday agent info" do
+        organization = create(:organization)
+        agent = create(:agent, organization: organization)
+        organization.update(invalidate: true)
+
+        visit organization_path(organization)
+
+        expect(page).to have_content organization.name
+        expect(page).to have_content agent.fullname
+      end
+
+    end
+
   end
 
   describe "Manager" do
@@ -1009,6 +1061,18 @@ feature 'Organization' do
       expect(current_path).to eq(admin_organization_path(id: @lobby.organization_id))
       expect(page).to have_content 'no puede estar en blanco'
     end
+
+    scenario 'Can not destroy agents', :js do
+      visit admin_path
+
+      click_link I18n.t("backend.edit_agents")
+      click_link I18n.t('backend.agents.add_association')
+
+      within '#nested-agents' do
+        expect(page).not_to have_content 'Eliminar'
+      end
+    end
+
 
     scenario 'Can add interests' do
       visit admin_path

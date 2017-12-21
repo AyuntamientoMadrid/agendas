@@ -213,32 +213,34 @@
         </div>
       </li>
 
-      <li class="accordion-navigation active">
-        <div class="accordion-title">
-          <%= t('organizations.show.agents_title') %>
-          <span class="fa accordion-icon"></span>
-        </div>
-          <div class="content active">
-            <% if @organization.agents.present? %>
-              <% @organization.agents.each do |agent| %>
-                <p>
-                  <strong><%= t('organizations.show.agents_fullname') %></strong>
-                  <%= agent.fullname %>
-                </p>
-                <p><strong><%= t('organizations.show.agents_from') %></strong>
-                  <%= I18n.l agent.from if agent.from? %>
-                </p>
-                <% if agent.to.present? %>
-                  <p><strong><%= t('organizations.show.agents_to') %></strong>
-                    <%= I18n.l agent.to if agent.to.present? %>
+      <% if (!@organization.invalidate && @organization.canceled_at.blank?) || current_user.try(:admin?) %>
+        <li class="accordion-navigation active">
+          <div class="accordion-title">
+            <%= t('organizations.show.agents_title') %>
+            <span class="fa accordion-icon"></span>
+          </div>
+            <div class="content active">
+              <% if @organization.agents.present? %>
+                <% @organization.agents.each do |agent| %>
+                  <p>
+                    <strong><%= t('organizations.show.agents_fullname') %></strong>
+                    <%= agent.fullname %>
                   </p>
+                  <p><strong><%= t('organizations.show.agents_from') %></strong>
+                    <%= I18n.l agent.from if agent.from? %>
+                  </p>
+                  <% if agent.to.present? %>
+                    <p><strong><%= t('organizations.show.agents_to') %></strong>
+                      <%= I18n.l agent.to if agent.to.present? %>
+                    </p>
+                  <% end %>
                 <% end %>
+              <% else %>
+                <%= t('organizations.show.no_results') %>
               <% end %>
-            <% else %>
-              <%= t('organizations.show.no_results') %>
-            <% end %>
-        </div>
-      </li>
+          </div>
+        </li>
+      <% end %>
 
       <li class="accordion-navigation active">
         <div class="accordion-title">

@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   # Admin
   get "/admin", to: 'events#index', as: 'admin'
 
-  devise_for :users, controllers: { session: "users/sessions" }
+  devise_for :users, controllers: { sessions: "users/sessions" }
   get 'admin/edit_password', to: 'admin/passwords#edit', as: 'edit_password'
   match 'admin/update_password', to: 'admin/passwords#update', as: 'update_password', via: [:patch, :put]
 

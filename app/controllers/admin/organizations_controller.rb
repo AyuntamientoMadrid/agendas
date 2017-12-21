@@ -49,7 +49,7 @@ module Admin
     def destroy
       @organization = Organization.find(params[:id])
       @organization.canceled_at = Time.zone.now
-      User.soft_destroy(@organization)
+      @organization.user.soft_deleted
 
       if @organization.save
         redirect_to admin_organizations_path,
@@ -68,13 +68,13 @@ module Admin
                       :web, :address_type, :address, :number, :gateway, :stairs, :floor, :door,
                       :postal_code, :town, :province, :description, :registered_lobbies, :category_id,
                       :fiscal_year, :range_fund, :subvention, :contract, :denied_public_data, :denied_public_events, interest_ids: [],
-                                                                                                                     legal_representant_attributes: [:identifier, :name, :first_surname, :second_surname, :phones, :email, :_destroy],
-                                                                                                                     user_attributes: [:id, :first_name, :last_name, :role, :email, :active, :phones, :password, :password_confirmation],
-                                                                                                                     represented_entities_attributes: [:id, :identifier, :name, :first_surname, :second_surname,
-                                                                                                                                                       :from, :fiscal_year, :range_fund, :subvention, :contract, :_destroy],
-                                                                                                                     organization_interests_attributes: [:interest_ids],
-                                                                                                                     agents_attributes: [:id, :identifier, :name, :first_surname, :second_surname, :from,
-                                                                                                                                         :to, :public_assignments, :_destroy])
+                       legal_representant_attributes: [:identifier, :name, :first_surname, :second_surname, :phones, :email, :_destroy],
+                       user_attributes: [:id, :first_name, :last_name, :role, :email, :active, :phones, :password, :password_confirmation],
+                       represented_entities_attributes: [:id, :identifier, :name, :first_surname, :second_surname,
+                                                         :from, :fiscal_year, :range_fund, :subvention, :contract, :_destroy],
+                       organization_interests_attributes: [:interest_ids],
+                       agents_attributes: [:id, :identifier, :name, :first_surname, :second_surname, :from,
+                                           :to, :public_assignments, :_destroy])
       end
 
       def set_organization
