@@ -28,6 +28,7 @@ es:
     review_errors: "Por favor corrija los siguientes errores antes de continuar"
     sync: "Sincronizar con UWEB"
     export: "Exportar"
+    delete_attachment: "Delete attachment"
 
     contributors: "Contribuidores"
     new_user: "Nuevo usuario"
@@ -167,6 +168,7 @@ es:
     declined_event: Event declined
     decline_reason_yes: Yes
     decline_reason_no: No
+    open_file: "Open file"
 
   backend_header:
     open_gov: "Gobierno abierto"

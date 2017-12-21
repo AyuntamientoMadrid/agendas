@@ -2,7 +2,7 @@ class Attachment < ActiveRecord::Base
 
   # Relations
   belongs_to :event
-
+  belongs_to :agent
   # Attachment
   has_attached_file :file,
       :path => ":rails_root/public/system/:attachment/:id/:style/:normalized_file_name",
@@ -20,8 +20,9 @@ class Attachment < ActiveRecord::Base
     message: I18n.t('backend.allowed_file_content_types')
 
   # Validations
-  validates :title, :file, presence: true
-  validates_inclusion_of :public, :in => [true, false]
+  validates_presence_of :title, if: -> { self.event.present? }
+  validates_presence_of :file
+  validates_inclusion_of :public, :in => [true, false] , if: -> { self.event.present? }
 
   def normalized_file_name
     "#{self.file_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')}"

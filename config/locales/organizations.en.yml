@@ -168,6 +168,7 @@ en:
       to: "Hasta"
       public_assignments: "¿Esta persona ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe, en algún momento de los dos años previos a la fecha desde la que va actuar por cuenta de quien se inscribe? En caso afirmativo, indique los datos (organismo, puesto o cargo y las fechas en las que lo desempeñó)"
       public_assignments_only_show: "¿Esta persona ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe, en algún momento de los dos años previos a la fecha desde la que va actuar por cuenta de quien se inscribe?"
+      allow_public_data: "I agree with this information about personal identifying data can be public. "
 
     terms:
       title_fieldset: "Aceptacion condiciones declaración responsable"

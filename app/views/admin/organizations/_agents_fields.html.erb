@@ -42,7 +42,45 @@
     <%= f.text_area :public_assignments, class: 'mceNoEditor' %>
     <%= form_field_errors(f, :public_assignments) %>
   </div>
+  <div>
+    <hr>
+    <div class="small-12 columns">
+      <%= f.label :allow_public_data, t('backend.agents.allow_public_data') %>
+      <br />
+    </div>
+    <div class="small-1 columns left">
+      <%= f.label :allow_public_data ,t('true') %>
+      <%= f.radio_button :allow_public_data, true  %>
+    </div>
+    <div class="small-3 columns left">
+      <%= f.label :allow_public_data ,t('false') %>
+      <%= f.radio_button :allow_public_data, false%>
+      <%= form_field_errors(f, :allow_public_data) %>
+    </div>
+  </div>
 
+  <div>
+    <hr>
+    <div class="small-12 columns">
+      <%=label :attachment, t('backend.attachments') %>
+    </div>
+    <br>
+    <div id="attachment">
+      <%= if f.object.attachment.present?
+            unless f.object.attachment._destroy
+              f.fields_for :attachment do |attachment|
+                render 'attachment_fields', f: attachment
+              end
+            else
+              f.file_field "attachment_attributes[file]", class: "attachment-file"
+            end
+          else
+            f.file_field "attachment_attributes[file]", class: "attachment-file"
+          end %>
+    </div>
+
+
+  </div>
   <div class="small-12 columns">
     <br />
     <%= link_to_remove_association "Eliminar", f, class: "button tiny radius alert right" %>

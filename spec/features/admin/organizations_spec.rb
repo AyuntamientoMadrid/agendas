@@ -510,10 +510,11 @@ feature 'Organization' do
               fill_in "DNI, NIE, NIF, Pasaporte", with: "43138883z"
               fill_in "Nombre", with: "Name"
               fill_in "Desde", with: Date.current
+              find(:css, "input[id^='organization_agents_attributes_'][id$='_allow_public_data_false']").set(true)
+              find(:css, "input[id^='organization_agents_attributes_'][id$='_attachment_attributes[file]']").set('/spec/fixtures/dummy.jpg')
             end
 
             click_button "Guardar"
-
             expect(page).to have_content "Registro creado correctamente"
           end
 
@@ -878,7 +879,9 @@ feature 'Organization' do
 
           scenario 'Update organization with valid represented entity' do
             organization = create(:organization)
+            attachment = create(:attachment)
             agent = create(:agent, organization: organization)
+
             new_date = Time.zone.today
             visit edit_admin_organization_path(organization)
 
@@ -966,9 +969,9 @@ feature 'Organization' do
       expect(page).to have_content I18n.t("backend.show_company")
     end
 
-    scenario 'Can add agents', :js do
+    scenario 'Can add agents', :search , :js do
       visit admin_path
-
+      organization = create(:organization)
       click_link I18n.t("backend.edit_agents")
 
       expect(page).to have_content I18n.t("backend.agents.title_fieldset")
@@ -976,12 +979,16 @@ feature 'Organization' do
       click_link I18n.t('backend.agents.add_association')
 
       expect(page).to have_content I18n.t('backend.agents.identifier')
-
+      Capybara.ignore_hidden_elements = false
       find(:css, "input[id^='organization_agents_attributes_'][id$='_name']").set("Nombre Agente 1")
-      find(:css, "input[id^='organization_agents_attributes_'][id$='_identifier']").set("12345678S")
+      find(:css, "input[id^='organization_agents_attributes_'][id$='_identifier']").set("12345678")
       find(:css, "input[id^='organization_agents_attributes_'][id$='_from']").set("01/01/2017")
+      find(:css, "input[id^='organization_agents_attributes_'][id$='_attachment_attributes[file]']").set('/spec/fixtures/dummy.jpg')
+      choice = find(:css, "input[id^='organization_agents_attributes_'][id$='_allow_public_data_false']")
+      attachment_element = find(:css, "input[id^='organization_agents_attributes_'][id$='_attachment_attributes[file]']")
+      choose(choice[:id])
+      page.attach_file(attachment_element[:id], Rails.root + 'spec/fixtures/dummy.jpg')
       click_button 'Guardar'
-
       expect(current_path).to eq(admin_organization_path(id: @lobby.organization_id))
       expect(page).to have_content 'Nombre Agente 1'
     end
