@@ -30,6 +30,18 @@ feature 'Organizations page' do
       expect(page).not_to have_content organization2.name
     end
 
+    scenario "Should show invalidated organizations", :search do
+      create(:organization, name: "Valid Org 1")
+      organization = create(:organization, name: "Invalid Org 2")
+      organization.update(invalidate: true)
+
+      Organization.reindex
+
+      visit organizations_path
+      expect(page).to have_content "Invalid Org 2"
+      expect(page).to have_content "Valid Org 1"
+    end
+
     scenario 'Should not show paginator when there are less than 20 results' do
       visit organizations_path
 
@@ -146,18 +158,6 @@ feature 'Organizations page' do
         expect(find('#keyword').value).to eq ""
       end
 
-      scenario "Shouldn't show invalidated organizations" do
-        create(:organization, name: "Valid Org 1")
-        organization = create(:organization, name: "Invalid Org 2")
-        organization.update(invalidate: true)
-
-        Organization.reindex
-
-        visit organizations_path
-        expect(page).not_to have_content "Invalid Org 2"
-        expect(page).to have_content "Valid Org 1"
-      end
-
       scenario "Should display results with entity_type: lobby", :js do
         create(:organization, entity_type: :federation, name: "Federación 1")
         create(:organization, entity_type: :association, name: "Asociación 1")
@@ -224,7 +224,8 @@ feature 'Organizations page' do
 
       scenario "Should filter by given keyword over invalid organization agents name and not display result" do
         agent = create(:agent)
-        organization_invalid = create(:organization, name: "Fulanito", entity_type: :lobby, invalidate: true)
+        organization_invalid = create(:organization, name: "Fulanito", entity_type: :lobby)
+        organization_invalid.update(invalidate: true)
         organization_valid = create(:organization, name: "Menganito", entity_type: :lobby)
         organization_invalid.agents << agent
         organization_valid.agents << agent
@@ -340,7 +341,7 @@ feature 'Organizations page' do
           Organization.reindex
           visit organizations_path
 
-          expect(page).not_to have_content(@org1.name)
+          expect(page).to have_content(@org1.name)
 
           fill_in :keyword, with: "Maria"
           click_button(I18n.t('main.form.search'))
@@ -429,6 +430,7 @@ feature 'Organizations page' do
         organization = create(:organization)
 
         visit organization_path(organization)
+
         expect(page).to have_content "Estado Activo"
       end
 
@@ -436,6 +438,16 @@ feature 'Organizations page' do
         organization = create(:organization, canceled_at: Date.current)
 
         visit organization_path(organization)
+
+        expect(page).to have_content "Estado Baja"
+      end
+
+      scenario "Should display organization invalidate" do
+        organization = create(:organization)
+        organization.update(invalidate: true)
+
+        visit organization_path(organization)
+
         expect(page).to have_content "Estado Baja"
       end
     end
@@ -547,6 +559,27 @@ feature 'Organizations page' do
       expect(page).to have_content I18n.l(agent2.from)
       expect(page).to have_content agent2.fullname
       expect(page).to have_content I18n.l(agent2.to)
+    end
+
+    scenario "Should display canceled organization but not display agent info" do
+      organization = create(:organization, canceled_at: Date.current)
+      agent = create(:agent, organization: organization)
+
+      visit organization_path(organization)
+
+      expect(page).to have_content organization.name
+      expect(page).not_to have_content agent.fullname
+    end
+
+    scenario "Should display invalidate organization but not display agent info" do
+      organization = create(:organization)
+      agent = create(:agent, organization: organization)
+      organization.update(invalidate: true)
+
+      visit organization_path(organization)
+
+      expect(page).to have_content organization.name
+      expect(page).not_to have_content agent.fullname
     end
 
     scenario "Should display organization interest" do

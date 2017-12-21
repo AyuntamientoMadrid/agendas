@@ -930,6 +930,37 @@ feature 'Organization' do
 
     end
 
+    describe "Show" do
+
+      describe "organization status" do
+        scenario "Should display organization status active" do
+          organization = create(:organization)
+
+          visit organization_path(organization)
+
+          expect(page).to have_content "Estado Activo"
+        end
+
+        scenario "Should display organization canceled" do
+          organization = create(:organization, canceled_at: Date.current)
+
+          visit organization_path(organization)
+
+          expect(page).to have_content "Estado Baja"
+        end
+
+        scenario "Should display organization invalidate" do
+          organization = create(:organization)
+          organization.update(invalidate: true)
+
+          visit organization_path(organization)
+
+          expect(page).to have_content "Estado Inhabilitado"
+        end
+      end
+
+    end
+
   end
 
   describe "Manager" do
