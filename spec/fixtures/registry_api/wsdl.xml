@@ -1,0 +1,896 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://implementacion" xmlns:impl="http://implementacion" xmlns:intf="http://implementacion" xmlns:tns2="http://attachments.axis.apache.org" xmlns:tns3="http://retorno" xmlns:tns4="http://excepciones" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <schema targetNamespace="http://implementacion" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns2="http://attachments.axis.apache.org" xmlns:tns3="http://retorno" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://retorno"/>
+   <import namespace="http://attachments.axis.apache.org"/>
+   <element name="adjuntarDocumentosAnotacionResponse">
+    <complexType>
+     <sequence>
+      <element name="adjuntarDocumentosAnotacionReturn" nillable="true" type="tns3:AdjuntarDocumentosXML"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="generarNumerosAnotacion">
+    <complexType>
+     <sequence>
+      <element name="Aplicacion" nillable="true" type="xsd:string"/>
+      <element name="Sentido" nillable="true" type="xsd:string"/>
+      <element name="NumAnotaciones" nillable="true" type="xsd:string"/>
+      <element name="Usuario" nillable="true" type="xsd:string"/>
+      <element name="Oficina" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="generarNumerosAnotacionResponse">
+    <complexType>
+     <sequence>
+      <element name="generarNumerosAnotacionReturn" nillable="true" type="tns3:NumeracionXML"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="generarAnotacionDocumentacionDigitalizada">
+    <complexType>
+     <sequence>
+      <element name="Aplicacion" nillable="true" type="xsd:string"/>
+      <element name="Sentido" nillable="true" type="xsd:string"/>
+      <element name="Usuario" nillable="true" type="xsd:string"/>
+      <element name="Oficina" nillable="true" type="xsd:string"/>
+      <element name="NumAnotacion" nillable="true" type="xsd:string"/>
+      <element name="Documento" nillable="true" type="tns2:OctetStream"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="generarAnotacionDocumentacionDigitalizadaResponse">
+    <complexType>
+     <sequence>
+      <element name="generarAnotacionDocumentacionDigitalizadaReturn" nillable="true" type="tns3:DigitalizacionXML"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="crearAnotacion">
+    <complexType>
+     <sequence>
+      <element name="Canal" nillable="true" type="xsd:string"/>
+      <element name="Aplicacion" nillable="true" type="xsd:string"/>
+      <element name="Libreria" nillable="true" type="xsd:string"/>
+      <element name="Programa" nillable="true" type="xsd:string"/>
+      <element name="Filler" nillable="true" type="xsd:string"/>
+      <element name="CodOficina" nillable="true" type="xsd:string"/>
+      <element name="Sentido" nillable="true" type="xsd:string"/>
+      <element name="Clase" nillable="true" type="xsd:string"/>
+      <element name="Tema" nillable="true" type="xsd:string"/>
+      <element name="CodViaEmplazamiento" nillable="true" type="xsd:string"/>
+      <element name="CodEdificioEmplazamiento" nillable="true" type="xsd:string"/>
+      <element name="TipoViaEmplazamiento" nillable="true" type="xsd:string"/>
+      <element name="NombreEmplazamiento" nillable="true" type="xsd:string"/>
+      <element name="NumeroEmplazamiento" nillable="true" type="xsd:string"/>
+      <element name="FechaPresentacion" nillable="true" type="xsd:string"/>
+      <element name="HoraPresentacion" nillable="true" type="xsd:string"/>
+      <element name="Expediente" nillable="true" type="xsd:string"/>
+      <element name="CodOrgDependenciaDestino" nillable="true" type="xsd:string"/>
+      <element name="CodOrgDependenciaRemitente" nillable="true" type="xsd:string"/>
+      <element name="CodOficinaDestino" nillable="true" type="xsd:string"/>
+      <element name="ObservacionesAnotacion" nillable="true" type="xsd:string"/>
+      <element name="TipoSujeto" nillable="true" type="xsd:string"/>
+      <element name="Apellido1" nillable="true" type="xsd:string"/>
+      <element name="Apellido2" nillable="true" type="xsd:string"/>
+      <element name="Nombre" nillable="true" type="xsd:string"/>
+      <element name="TipoDocumento" nillable="true" type="xsd:string"/>
+      <element name="Documento" nillable="true" type="xsd:string"/>
+      <element name="RazonSocial" nillable="true" type="xsd:string"/>
+      <element name="Empresa" nillable="true" type="xsd:string"/>
+      <element name="Telefono1" nillable="true" type="xsd:string"/>
+      <element name="Telefono2" nillable="true" type="xsd:string"/>
+      <element name="Fax" nillable="true" type="xsd:string"/>
+      <element name="Email" nillable="true" type="xsd:string"/>
+      <element name="TipoVia1" nillable="true" type="xsd:string"/>
+      <element name="NombreVia1" nillable="true" type="xsd:string"/>
+      <element name="NombreApp1" nillable="true" type="xsd:string"/>
+      <element name="NumeroVia1" nillable="true" type="xsd:string"/>
+      <element name="CalApp1" nillable="true" type="xsd:string"/>
+      <element name="Escalera1" nillable="true" type="xsd:string"/>
+      <element name="Piso1" nillable="true" type="xsd:string"/>
+      <element name="Puerta1" nillable="true" type="xsd:string"/>
+      <element name="Local1" nillable="true" type="xsd:string"/>
+      <element name="CodPostal1" nillable="true" type="xsd:string"/>
+      <element name="Poblacion1" nillable="true" type="xsd:string"/>
+      <element name="Provincia1" nillable="true" type="xsd:string"/>
+      <element name="Pais1" nillable="true" type="xsd:string"/>
+      <element name="TipoVia2" nillable="true" type="xsd:string"/>
+      <element name="NombreVia2" nillable="true" type="xsd:string"/>
+      <element name="NombreApp2" nillable="true" type="xsd:string"/>
+      <element name="NumeroVia2" nillable="true" type="xsd:string"/>
+      <element name="CalApp2" nillable="true" type="xsd:string"/>
+      <element name="Escalera2" nillable="true" type="xsd:string"/>
+      <element name="Piso2" nillable="true" type="xsd:string"/>
+      <element name="Puerta2" nillable="true" type="xsd:string"/>
+      <element name="Local2" nillable="true" type="xsd:string"/>
+      <element name="CodPostal2" nillable="true" type="xsd:string"/>
+      <element name="Poblacion2" nillable="true" type="xsd:string"/>
+      <element name="Provincia2" nillable="true" type="xsd:string"/>
+      <element name="Pais2" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="crearAnotacionResponse">
+    <complexType>
+     <sequence>
+      <element name="crearAnotacionReturn" nillable="true" type="tns3:RespuestaXML"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="altaAnotacion">
+    <complexType>
+     <sequence>
+      <element name="Aplicacion" nillable="true" type="xsd:string"/>
+      <element name="CodOficina" nillable="true" type="xsd:string"/>
+      <element name="Sentido" nillable="true" type="xsd:string"/>
+      <element name="Clase" nillable="true" type="xsd:string"/>
+      <element name="Tema" nillable="true" type="xsd:string"/>
+      <element name="CodViaEmplazamiento" nillable="true" type="xsd:string"/>
+      <element name="CodEdificioEmplazamiento" nillable="true" type="xsd:string"/>
+      <element name="TipoViaEmplazamiento" nillable="true" type="xsd:string"/>
+      <element name="NombreEmplazamiento" nillable="true" type="xsd:string"/>
+      <element name="NumeroEmplazamiento" nillable="true" type="xsd:string"/>
+      <element name="Expediente" nillable="true" type="xsd:string"/>
+      <element name="CodIntDependenciaReceptora" nillable="true" type="xsd:string"/>
+      <element name="CodIntDependenciaEmisora" nillable="true" type="xsd:string"/>
+      <element name="CodOficinaDestino" nillable="true" type="xsd:string"/>
+      <element name="ObservacionesAnotacion" nillable="true" type="xsd:string"/>
+      <element name="TipoSujeto" nillable="true" type="xsd:string"/>
+      <element name="Apellido1" nillable="true" type="xsd:string"/>
+      <element name="Apellido2" nillable="true" type="xsd:string"/>
+      <element name="Nombre" nillable="true" type="xsd:string"/>
+      <element name="TipoDocumento" nillable="true" type="xsd:string"/>
+      <element name="Documento" nillable="true" type="xsd:string"/>
+      <element name="RazonSocial" nillable="true" type="xsd:string"/>
+      <element name="Empresa" nillable="true" type="xsd:string"/>
+      <element name="Telefono1" nillable="true" type="xsd:string"/>
+      <element name="Telefono2" nillable="true" type="xsd:string"/>
+      <element name="Fax" nillable="true" type="xsd:string"/>
+      <element name="Email" nillable="true" type="xsd:string"/>
+      <element name="TipoVia1" nillable="true" type="xsd:string"/>
+      <element name="NombreVia1" nillable="true" type="xsd:string"/>
+      <element name="NombreApp1" nillable="true" type="xsd:string"/>
+      <element name="NumeroVia1" nillable="true" type="xsd:string"/>
+      <element name="CalApp1" nillable="true" type="xsd:string"/>
+      <element name="Escalera1" nillable="true" type="xsd:string"/>
+      <element name="Piso1" nillable="true" type="xsd:string"/>
+      <element name="Puerta1" nillable="true" type="xsd:string"/>
+      <element name="Local1" nillable="true" type="xsd:string"/>
+      <element name="CodPostal1" nillable="true" type="xsd:string"/>
+      <element name="Poblacion1" nillable="true" type="xsd:string"/>
+      <element name="Provincia1" nillable="true" type="xsd:string"/>
+      <element name="Pais1" nillable="true" type="xsd:string"/>
+      <element name="TipoVia2" nillable="true" type="xsd:string"/>
+      <element name="NombreVia2" nillable="true" type="xsd:string"/>
+      <element name="NombreApp2" nillable="true" type="xsd:string"/>
+      <element name="NumeroVia2" nillable="true" type="xsd:string"/>
+      <element name="CalApp2" nillable="true" type="xsd:string"/>
+      <element name="Escalera2" nillable="true" type="xsd:string"/>
+      <element name="Piso2" nillable="true" type="xsd:string"/>
+      <element name="Puerta2" nillable="true" type="xsd:string"/>
+      <element name="Local2" nillable="true" type="xsd:string"/>
+      <element name="CodPostal2" nillable="true" type="xsd:string"/>
+      <element name="Poblacion2" nillable="true" type="xsd:string"/>
+      <element name="Provincia2" nillable="true" type="xsd:string"/>
+      <element name="Pais2" nillable="true" type="xsd:string"/>
+      <element name="Tramite" nillable="true" type="impl:Tramite"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="altaAnotacionResponse">
+    <complexType>
+     <sequence>
+      <element name="altaAnotacionReturn" nillable="true" type="tns3:RespuestaXML"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getAnotacionesDeInteresado">
+    <complexType>
+     <sequence>
+      <element name="Aplicacion" nillable="true" type="xsd:string"/>
+      <element name="TipoDeDocumento" nillable="true" type="xsd:string"/>
+      <element name="NumeroDeDocumento" nillable="true" type="xsd:string"/>
+      <element name="Apellido1" nillable="true" type="xsd:string"/>
+      <element name="Apellido2" nillable="true" type="xsd:string"/>
+      <element name="Nombre" nillable="true" type="xsd:string"/>
+      <element name="RazonSocial" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getAnotacionesDeInteresadoResponse">
+    <complexType>
+     <sequence>
+      <element name="getAnotacionesDeInteresadoReturn" nillable="true" type="tns3:AnotacionesInteresadoXML"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getDatosAnotacion">
+    <complexType>
+     <sequence>
+      <element name="Aplicacion" nillable="true" type="xsd:string"/>
+      <element name="Sentido" nillable="true" type="xsd:string"/>
+      <element name="NumAnotacion" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getDatosAnotacionResponse">
+    <complexType>
+     <sequence>
+      <element name="getDatosAnotacionReturn" nillable="true" type="tns3:AnotacionXML"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getDocumentoAnotacion">
+    <complexType>
+     <sequence>
+      <element name="Aplicacion" nillable="true" type="xsd:string"/>
+      <element name="CodigoDocumento" nillable="true" type="xsd:string"/>
+      <element name="Sentido" nillable="true" type="xsd:string"/>
+      <element name="NumAnotacion" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getDocumentoAnotacionResponse">
+    <complexType>
+     <sequence>
+      <element name="getDocumentoAnotacionReturn" nillable="true" type="tns3:DocumentoXML"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="crearRelacionVRD">
+    <complexType>
+     <sequence>
+      <element name="Aplicacion" nillable="true" type="xsd:string"/>
+      <element name="Sentido" nillable="true" type="xsd:string"/>
+      <element name="NumAnotacion" nillable="true" type="xsd:string"/>
+      <element name="IdVRD" nillable="true" type="xsd:string"/>
+      <element name="NumAdjuntos" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="crearRelacionVRDResponse">
+    <complexType>
+     <sequence>
+      <element name="crearRelacionVRDReturn" nillable="true" type="tns3:RetornoXML"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="crearRelacionAnotacionDocumento">
+    <complexType>
+     <sequence>
+      <element name="Aplicacion" nillable="true" type="xsd:string"/>
+      <element name="Sentido" nillable="true" type="xsd:string"/>
+      <element name="NumAnotacion" nillable="true" type="xsd:string"/>
+      <element name="IdDocumento" nillable="true" type="xsd:string"/>
+      <element name="NumAdjuntos" nillable="true" type="xsd:string"/>
+      <element name="Descripcion" nillable="true" type="xsd:string"/>
+      <element name="TipoDocumento" nillable="true" type="xsd:string"/>
+      <element name="GestorDocumental" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="crearRelacionAnotacionDocumentoResponse">
+    <complexType>
+     <sequence>
+      <element name="crearRelacionAnotacionDocumentoReturn" nillable="true" type="tns3:RetornoXML"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="crearRelacionDocumentum">
+    <complexType>
+     <sequence>
+      <element name="Aplicacion" nillable="true" type="xsd:string"/>
+      <element name="Sentido" nillable="true" type="xsd:string"/>
+      <element name="NumAnotacion" nillable="true" type="xsd:string"/>
+      <element name="ListaDocumentos" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="crearRelacionDocumentumResponse">
+    <complexType>
+     <sequence>
+      <element name="crearRelacionDocumentumReturn" nillable="true" type="tns3:RelacionDocumentumXML"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="anularNumeroAnotacion">
+    <complexType>
+     <sequence>
+      <element name="Aplicacion" nillable="true" type="xsd:string"/>
+      <element name="Sentido" nillable="true" type="xsd:string"/>
+      <element name="NumAnotacion" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="anularNumeroAnotacionResponse">
+    <complexType>
+     <sequence>
+      <element name="anularNumeroAnotacionReturn" nillable="true" type="tns3:RetornoXML"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="adjuntarDocumentosAnotacion">
+    <complexType>
+     <sequence>
+      <element name="Aplicacion" nillable="true" type="xsd:string"/>
+      <element name="Sentido" nillable="true" type="xsd:string"/>
+      <element name="NumAnotacion" nillable="true" type="xsd:string"/>
+      <element name="DocumentosAdjuntos" nillable="true" type="impl:ArrayOfDocumentoAdjunto"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="DocumentoAdjunto">
+    <sequence>
+     <element name="secuencial" type="xsd:int"/>
+     <element name="extension" nillable="true" type="xsd:string"/>
+     <element name="fechaDocumento" nillable="true" type="xsd:string"/>
+     <element name="tipoFirma" nillable="true" type="xsd:string"/>
+     <element name="secuenciaDocumentoFirmado" type="xsd:int"/>
+     <element name="obtenerCSV" nillable="true" type="xsd:string"/>
+     <element name="firmarDocumento" nillable="true" type="xsd:string"/>
+     <element name="devolverDocumento" nillable="true" type="xsd:string"/>
+     <element name="descripcion" nillable="true" type="xsd:string"/>
+     <element name="documento" nillable="true" type="tns2:OctetStream"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfDocumentoAdjunto">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="DocumentoAdjunto" nillable="true" type="impl:DocumentoAdjunto"/>
+    </sequence>
+   </complexType>
+   <complexType name="DocumentoAdjuntoRetorno">
+    <sequence>
+     <element name="secuencial" type="xsd:int"/>
+     <element name="identificador" nillable="true" type="xsd:string"/>
+     <element name="codigoCSV" nillable="true" type="xsd:string"/>
+     <element name="documento" type="xsd:base64Binary"/>
+    </sequence>
+   </complexType>
+   <complexType name="Anotacion">
+    <sequence>
+     <element name="numAnotacion" nillable="true" type="xsd:string"/>
+     <element name="fechaAnotacion" nillable="true" type="xsd:string"/>
+     <element name="horaAnotacion" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Tramite">
+    <sequence>
+     <element name="descripcionTramite" nillable="true" type="xsd:string"/>
+     <element name="formularios" nillable="true" type="impl:ArrayOfFormulario"/>
+    </sequence>
+   </complexType>
+   <complexType name="Formulario">
+    <sequence>
+     <element name="descripcion" nillable="true" type="xsd:string"/>
+     <element name="tipoExpediente" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfFormulario">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="Formulario" nillable="true" type="impl:Formulario"/>
+    </sequence>
+   </complexType>
+   <complexType name="AnotacionRegistro">
+    <sequence>
+     <element name="sentido" nillable="true" type="xsd:string"/>
+     <element name="numAnotacion" nillable="true" type="xsd:string"/>
+     <element name="fechaAnotacion" nillable="true" type="xsd:string"/>
+     <element name="horaAnotacion" nillable="true" type="xsd:string"/>
+     <element name="oficina" nillable="true" type="xsd:string"/>
+     <element name="descCanal" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Interesado">
+    <sequence>
+     <element name="codInteresado" nillable="true" type="xsd:string"/>
+     <element name="tipoDocumento" nillable="true" type="xsd:string"/>
+     <element name="documento" nillable="true" type="xsd:string"/>
+     <element name="tipoSujeto" nillable="true" type="xsd:string"/>
+     <element name="apellido1" nillable="true" type="xsd:string"/>
+     <element name="apellido2" nillable="true" type="xsd:string"/>
+     <element name="nombre" nillable="true" type="xsd:string"/>
+     <element name="razonSocial" nillable="true" type="xsd:string"/>
+     <element name="empresa" nillable="true" type="xsd:string"/>
+     <element name="telefono1" nillable="true" type="xsd:string"/>
+     <element name="telefono2" nillable="true" type="xsd:string"/>
+     <element name="fax" nillable="true" type="xsd:string"/>
+     <element name="email" nillable="true" type="xsd:string"/>
+     <element name="observacionesInteresado" nillable="true" type="xsd:string"/>
+     <element name="domicilioFiscal" nillable="true" type="impl:DomicilioFiscal"/>
+     <element name="domicilioNotificacion" nillable="true" type="impl:DomicilioNotificacion"/>
+    </sequence>
+   </complexType>
+   <complexType name="DomicilioFiscal">
+    <sequence>
+     <element name="codViaFiscal" nillable="true" type="xsd:string"/>
+     <element name="codEdificioFiscal" nillable="true" type="xsd:string"/>
+     <element name="numViaFiscal" nillable="true" type="xsd:string"/>
+     <element name="escaleraFiscal" nillable="true" type="xsd:string"/>
+     <element name="plantaFiscal" nillable="true" type="xsd:string"/>
+     <element name="puertaFiscal" nillable="true" type="xsd:string"/>
+     <element name="localFiscal" nillable="true" type="xsd:string"/>
+     <element name="tipoViaFiscal" nillable="true" type="xsd:string"/>
+     <element name="nombreViaFiscal" nillable="true" type="xsd:string"/>
+     <element name="nombreAppFiscal" nillable="true" type="xsd:string"/>
+     <element name="calificadorFiscal" nillable="true" type="xsd:string"/>
+     <element name="numeroFiscal" nillable="true" type="xsd:string"/>
+     <element name="codigoPostalFiscal" nillable="true" type="xsd:string"/>
+     <element name="poblacionFiscal" nillable="true" type="xsd:string"/>
+     <element name="provinciaFiscal" nillable="true" type="xsd:string"/>
+     <element name="paisFiscal" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="DomicilioNotificacion">
+    <sequence>
+     <element name="codViaNotificacion" nillable="true" type="xsd:string"/>
+     <element name="codEdificioNotificacion" nillable="true" type="xsd:string"/>
+     <element name="numViaNotificacion" nillable="true" type="xsd:string"/>
+     <element name="escaleraNotificacion" nillable="true" type="xsd:string"/>
+     <element name="plantaNotificacion" nillable="true" type="xsd:string"/>
+     <element name="puertaNotificacion" nillable="true" type="xsd:string"/>
+     <element name="localNotificacion" nillable="true" type="xsd:string"/>
+     <element name="tipoViaNotificacion" nillable="true" type="xsd:string"/>
+     <element name="nombreViaNotificacion" nillable="true" type="xsd:string"/>
+     <element name="nombreAppNotificacion" nillable="true" type="xsd:string"/>
+     <element name="calificadorNotificacion" nillable="true" type="xsd:string"/>
+     <element name="numeroNotificacion" nillable="true" type="xsd:string"/>
+     <element name="codigoPostalNotificacion" nillable="true" type="xsd:string"/>
+     <element name="poblacionNotificacion" nillable="true" type="xsd:string"/>
+     <element name="provinciaNotificacion" nillable="true" type="xsd:string"/>
+     <element name="paisNotificacion" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Documento">
+    <sequence>
+     <element name="codigo" nillable="true" type="xsd:string"/>
+     <element name="descripcion" nillable="true" type="xsd:string"/>
+     <element name="tipoDocumento" nillable="true" type="xsd:string"/>
+     <element name="numAdjuntos" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+    <schema targetNamespace="http://attachments.axis.apache.org" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <complexType name="OctetStream">
+    <sequence>
+     <element name="bytes" type="xsd:base64Binary"/>
+    </sequence>
+   </complexType>
+  </schema>
+    <schema targetNamespace="http://retorno" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://implementacion" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://implementacion"/>
+   <complexType name="AdjuntarDocumentosXML">
+    <sequence>
+     <element name="documentosAdjuntos" nillable="true" type="tns3:ArrayOf_1527246003_nillable_DocumentoAdjuntoRetorno"/>
+     <element name="retorno" type="xsd:boolean"/>
+     <element name="codigoError" nillable="true" type="xsd:string"/>
+     <element name="descError" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_1527246003_nillable_DocumentoAdjuntoRetorno">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="DocumentoAdjuntoRetorno" nillable="true" type="impl:DocumentoAdjuntoRetorno"/>
+    </sequence>
+   </complexType>
+   <complexType name="NumeracionXML">
+    <sequence>
+     <element name="numAnotaciones" nillable="true" type="xsd:string"/>
+     <element name="anotaciones" nillable="true" type="tns3:ArrayOf_1527246003_nillable_Anotacion"/>
+     <element name="retorno" type="xsd:boolean"/>
+     <element name="codigoError" nillable="true" type="xsd:string"/>
+     <element name="descError" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_1527246003_nillable_Anotacion">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="Anotacion" nillable="true" type="impl:Anotacion"/>
+    </sequence>
+   </complexType>
+   <complexType name="DigitalizacionXML">
+    <sequence>
+     <element name="CSV" nillable="true" type="xsd:string"/>
+     <element name="retorno" type="xsd:boolean"/>
+     <element name="codigoError" nillable="true" type="xsd:string"/>
+     <element name="descError" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="RespuestaXML">
+    <sequence>
+     <element name="anotacion" nillable="true" type="xsd:string"/>
+     <element name="codInteresado" nillable="true" type="xsd:string"/>
+     <element name="fechaCreacion" nillable="true" type="xsd:string"/>
+     <element name="horaCreacion" nillable="true" type="xsd:string"/>
+     <element name="codigoError" nillable="true" type="xsd:string"/>
+     <element name="descError" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="AnotacionesInteresadoXML">
+    <sequence>
+     <element name="numAnotaciones" nillable="true" type="xsd:string"/>
+     <element name="anotaciones" nillable="true" type="tns3:ArrayOf_1527246003_nillable_AnotacionRegistro"/>
+     <element name="retorno" type="xsd:boolean"/>
+     <element name="codigoError" nillable="true" type="xsd:string"/>
+     <element name="descError" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_1527246003_nillable_AnotacionRegistro">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="AnotacionRegistro" nillable="true" type="impl:AnotacionRegistro"/>
+    </sequence>
+   </complexType>
+   <complexType name="AnotacionXML">
+    <sequence>
+     <element name="oficina" nillable="true" type="xsd:string"/>
+     <element name="codIntOficina" nillable="true" type="xsd:string"/>
+     <element name="descOficina" nillable="true" type="xsd:string"/>
+     <element name="sentido" nillable="true" type="xsd:string"/>
+     <element name="nivel" nillable="true" type="xsd:string"/>
+     <element name="numAnotacion" nillable="true" type="xsd:string"/>
+     <element name="estado" nillable="true" type="xsd:string"/>
+     <element name="codClaseDocumento" nillable="true" type="xsd:string"/>
+     <element name="descClaseDocumento" nillable="true" type="xsd:string"/>
+     <element name="codTema" nillable="true" type="xsd:string"/>
+     <element name="descTema" nillable="true" type="xsd:string"/>
+     <element name="codViaEmplazamiento" nillable="true" type="xsd:string"/>
+     <element name="codEdificioEmplazamiento" nillable="true" type="xsd:string"/>
+     <element name="numeroEmplazamiento" nillable="true" type="xsd:string"/>
+     <element name="claseViaEmplazamiento" nillable="true" type="xsd:string"/>
+     <element name="nombreViaEmplazamiento" nillable="true" type="xsd:string"/>
+     <element name="fechaPresentacion" nillable="true" type="xsd:string"/>
+     <element name="horaPresentacion" nillable="true" type="xsd:string"/>
+     <element name="fechaAlta" nillable="true" type="xsd:string"/>
+     <element name="fechaEntradaDependencia" nillable="true" type="xsd:string"/>
+     <element name="fechaEntradaOficina" nillable="true" type="xsd:string"/>
+     <element name="expediente" nillable="true" type="xsd:string"/>
+     <element name="codIntDependenciaReceptora" nillable="true" type="xsd:string"/>
+     <element name="codOrgDependenciaReceptora" nillable="true" type="xsd:string"/>
+     <element name="descLargaDependenciaReceptora" nillable="true" type="xsd:string"/>
+     <element name="descCortaDependenciaReceptora" nillable="true" type="xsd:string"/>
+     <element name="codIntDependenciaEmisora" nillable="true" type="xsd:string"/>
+     <element name="codOrgDependenciaEmisora" nillable="true" type="xsd:string"/>
+     <element name="descLargaDependenciaEmisora" nillable="true" type="xsd:string"/>
+     <element name="descCortaDependenciaEmisora" nillable="true" type="xsd:string"/>
+     <element name="usuario" nillable="true" type="xsd:string"/>
+     <element name="codOficinaDestino" nillable="true" type="xsd:string"/>
+     <element name="descLargaOficinaDestino" nillable="true" type="xsd:string"/>
+     <element name="descCortaOficinaDestino" nillable="true" type="xsd:string"/>
+     <element name="observaciones" nillable="true" type="xsd:string"/>
+     <element name="interesado" nillable="true" type="impl:Interesado"/>
+     <element name="documentos" nillable="true" type="tns3:ArrayOf_1527246003_nillable_Documento"/>
+     <element name="codigoError" nillable="true" type="xsd:string"/>
+     <element name="descError" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_1527246003_nillable_Documento">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="Documento" nillable="true" type="impl:Documento"/>
+    </sequence>
+   </complexType>
+   <complexType name="DocumentoXML">
+    <sequence>
+     <element name="retorno" type="xsd:boolean"/>
+     <element name="documento" type="xsd:base64Binary"/>
+     <element name="numAdjuntos" nillable="true" type="xsd:string"/>
+     <element name="descripcion" nillable="true" type="xsd:string"/>
+     <element name="codigoError" nillable="true" type="xsd:string"/>
+     <element name="descError" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="RetornoXML">
+    <sequence>
+     <element name="retorno" type="xsd:boolean"/>
+     <element name="codigoError" nillable="true" type="xsd:string"/>
+     <element name="descError" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="RelacionDocumentumXML">
+    <sequence>
+     <element name="retorno" type="xsd:boolean"/>
+     <element name="codigoError" nillable="true" type="xsd:string"/>
+     <element name="descError" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+    <schema targetNamespace="http://excepciones" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <complexType name="SoapException">
+    <sequence>
+     <element name="descripcion" nillable="true" type="xsd:string"/>
+     <element name="codigo" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="SoapException" nillable="true" type="tns4:SoapException"/>
+  </schema>
+  </wsdl:types>
+  <wsdl:message name="adjuntarDocumentosAnotacionRequest">
+    <wsdl:part element="intf:adjuntarDocumentosAnotacion" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="crearRelacionAnotacionDocumentoResponse">
+    <wsdl:part element="intf:crearRelacionAnotacionDocumentoResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="crearAnotacionResponse">
+    <wsdl:part element="intf:crearAnotacionResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="generarNumerosAnotacionRequest">
+    <wsdl:part element="intf:generarNumerosAnotacion" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="crearRelacionDocumentumResponse">
+    <wsdl:part element="intf:crearRelacionDocumentumResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getDatosAnotacionResponse">
+    <wsdl:part element="intf:getDatosAnotacionResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="altaAnotacionResponse">
+    <wsdl:part element="intf:altaAnotacionResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="altaAnotacionRequest">
+    <wsdl:part element="intf:altaAnotacion" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="generarNumerosAnotacionResponse">
+    <wsdl:part element="intf:generarNumerosAnotacionResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="adjuntarDocumentosAnotacionResponse">
+    <wsdl:part element="intf:adjuntarDocumentosAnotacionResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="anularNumeroAnotacionResponse">
+    <wsdl:part element="intf:anularNumeroAnotacionResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getAnotacionesDeInteresadoRequest">
+    <wsdl:part element="intf:getAnotacionesDeInteresado" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="generarAnotacionDocumentacionDigitalizadaRequest">
+    <wsdl:part element="intf:generarAnotacionDocumentacionDigitalizada" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="crearRelacionDocumentumRequest">
+    <wsdl:part element="intf:crearRelacionDocumentum" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="anularNumeroAnotacionRequest">
+    <wsdl:part element="intf:anularNumeroAnotacion" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="crearRelacionVRDResponse">
+    <wsdl:part element="intf:crearRelacionVRDResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getDocumentoAnotacionRequest">
+    <wsdl:part element="intf:getDocumentoAnotacion" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="crearRelacionVRDRequest">
+    <wsdl:part element="intf:crearRelacionVRD" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="crearAnotacionRequest">
+    <wsdl:part element="intf:crearAnotacion" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="generarAnotacionDocumentacionDigitalizadaResponse">
+    <wsdl:part element="intf:generarAnotacionDocumentacionDigitalizadaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getDatosAnotacionRequest">
+    <wsdl:part element="intf:getDatosAnotacion" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="SoapException">
+    <wsdl:part element="tns4:SoapException" name="fault"/>
+  </wsdl:message>
+  <wsdl:message name="getDocumentoAnotacionResponse">
+    <wsdl:part element="intf:getDocumentoAnotacionResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="crearRelacionAnotacionDocumentoRequest">
+    <wsdl:part element="intf:crearRelacionAnotacionDocumento" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getAnotacionesDeInteresadoResponse">
+    <wsdl:part element="intf:getAnotacionesDeInteresadoResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="WsRegistroImpl">
+    <wsdl:operation name="adjuntarDocumentosAnotacion">
+      <wsdl:input message="intf:adjuntarDocumentosAnotacionRequest" name="adjuntarDocumentosAnotacionRequest"/>
+      <wsdl:output message="intf:adjuntarDocumentosAnotacionResponse" name="adjuntarDocumentosAnotacionResponse"/>
+      <wsdl:fault message="intf:SoapException" name="SoapException"/>
+    </wsdl:operation>
+    <wsdl:operation name="generarNumerosAnotacion">
+      <wsdl:input message="intf:generarNumerosAnotacionRequest" name="generarNumerosAnotacionRequest"/>
+      <wsdl:output message="intf:generarNumerosAnotacionResponse" name="generarNumerosAnotacionResponse"/>
+      <wsdl:fault message="intf:SoapException" name="SoapException"/>
+    </wsdl:operation>
+    <wsdl:operation name="generarAnotacionDocumentacionDigitalizada">
+      <wsdl:input message="intf:generarAnotacionDocumentacionDigitalizadaRequest" name="generarAnotacionDocumentacionDigitalizadaRequest"/>
+      <wsdl:output message="intf:generarAnotacionDocumentacionDigitalizadaResponse" name="generarAnotacionDocumentacionDigitalizadaResponse"/>
+      <wsdl:fault message="intf:SoapException" name="SoapException"/>
+    </wsdl:operation>
+    <wsdl:operation name="crearAnotacion">
+      <wsdl:input message="intf:crearAnotacionRequest" name="crearAnotacionRequest"/>
+      <wsdl:output message="intf:crearAnotacionResponse" name="crearAnotacionResponse"/>
+      <wsdl:fault message="intf:SoapException" name="SoapException"/>
+    </wsdl:operation>
+    <wsdl:operation name="altaAnotacion">
+      <wsdl:input message="intf:altaAnotacionRequest" name="altaAnotacionRequest"/>
+      <wsdl:output message="intf:altaAnotacionResponse" name="altaAnotacionResponse"/>
+      <wsdl:fault message="intf:SoapException" name="SoapException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getAnotacionesDeInteresado">
+      <wsdl:input message="intf:getAnotacionesDeInteresadoRequest" name="getAnotacionesDeInteresadoRequest"/>
+      <wsdl:output message="intf:getAnotacionesDeInteresadoResponse" name="getAnotacionesDeInteresadoResponse"/>
+      <wsdl:fault message="intf:SoapException" name="SoapException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getDatosAnotacion">
+      <wsdl:input message="intf:getDatosAnotacionRequest" name="getDatosAnotacionRequest"/>
+      <wsdl:output message="intf:getDatosAnotacionResponse" name="getDatosAnotacionResponse"/>
+      <wsdl:fault message="intf:SoapException" name="SoapException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentoAnotacion">
+      <wsdl:input message="intf:getDocumentoAnotacionRequest" name="getDocumentoAnotacionRequest"/>
+      <wsdl:output message="intf:getDocumentoAnotacionResponse" name="getDocumentoAnotacionResponse"/>
+      <wsdl:fault message="intf:SoapException" name="SoapException"/>
+    </wsdl:operation>
+    <wsdl:operation name="crearRelacionVRD">
+      <wsdl:input message="intf:crearRelacionVRDRequest" name="crearRelacionVRDRequest"/>
+      <wsdl:output message="intf:crearRelacionVRDResponse" name="crearRelacionVRDResponse"/>
+      <wsdl:fault message="intf:SoapException" name="SoapException"/>
+    </wsdl:operation>
+    <wsdl:operation name="crearRelacionAnotacionDocumento">
+      <wsdl:input message="intf:crearRelacionAnotacionDocumentoRequest" name="crearRelacionAnotacionDocumentoRequest"/>
+      <wsdl:output message="intf:crearRelacionAnotacionDocumentoResponse" name="crearRelacionAnotacionDocumentoResponse"/>
+      <wsdl:fault message="intf:SoapException" name="SoapException"/>
+    </wsdl:operation>
+    <wsdl:operation name="crearRelacionDocumentum">
+      <wsdl:input message="intf:crearRelacionDocumentumRequest" name="crearRelacionDocumentumRequest"/>
+      <wsdl:output message="intf:crearRelacionDocumentumResponse" name="crearRelacionDocumentumResponse"/>
+      <wsdl:fault message="intf:SoapException" name="SoapException"/>
+    </wsdl:operation>
+    <wsdl:operation name="anularNumeroAnotacion">
+      <wsdl:input message="intf:anularNumeroAnotacionRequest" name="anularNumeroAnotacionRequest"/>
+      <wsdl:output message="intf:anularNumeroAnotacionResponse" name="anularNumeroAnotacionResponse"/>
+      <wsdl:fault message="intf:SoapException" name="SoapException"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WsRegistroImplSoapBinding" type="intf:WsRegistroImpl">
+<wsaw:UsingAddressing wsdl:required="false"/>
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="adjuntarDocumentosAnotacion">
+      <wsdlsoap:operation soapAction="adjuntarDocumentosAnotacion"/>
+      <wsdl:input name="adjuntarDocumentosAnotacionRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="adjuntarDocumentosAnotacionResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SoapException">
+        <wsdlsoap:fault name="SoapException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="generarNumerosAnotacion">
+      <wsdlsoap:operation soapAction="generarNumerosAnotacion"/>
+      <wsdl:input name="generarNumerosAnotacionRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="generarNumerosAnotacionResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SoapException">
+        <wsdlsoap:fault name="SoapException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="generarAnotacionDocumentacionDigitalizada">
+      <wsdlsoap:operation soapAction="generarAnotacionDocumentacionDigitalizada"/>
+      <wsdl:input name="generarAnotacionDocumentacionDigitalizadaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="generarAnotacionDocumentacionDigitalizadaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SoapException">
+        <wsdlsoap:fault name="SoapException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="crearAnotacion">
+      <wsdlsoap:operation soapAction="crearAnotacion"/>
+      <wsdl:input name="crearAnotacionRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="crearAnotacionResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SoapException">
+        <wsdlsoap:fault name="SoapException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="altaAnotacion">
+      <wsdlsoap:operation soapAction="altaAnotacion"/>
+      <wsdl:input name="altaAnotacionRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="altaAnotacionResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SoapException">
+        <wsdlsoap:fault name="SoapException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getAnotacionesDeInteresado">
+      <wsdlsoap:operation soapAction="getAnotacionesDeInteresado"/>
+      <wsdl:input name="getAnotacionesDeInteresadoRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAnotacionesDeInteresadoResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SoapException">
+        <wsdlsoap:fault name="SoapException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDatosAnotacion">
+      <wsdlsoap:operation soapAction="getDatosAnotacion"/>
+      <wsdl:input name="getDatosAnotacionRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getDatosAnotacionResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SoapException">
+        <wsdlsoap:fault name="SoapException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentoAnotacion">
+      <wsdlsoap:operation soapAction="getDocumentoAnotacion"/>
+      <wsdl:input name="getDocumentoAnotacionRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getDocumentoAnotacionResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SoapException">
+        <wsdlsoap:fault name="SoapException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="crearRelacionVRD">
+      <wsdlsoap:operation soapAction="crearRelacionVRD"/>
+      <wsdl:input name="crearRelacionVRDRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="crearRelacionVRDResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SoapException">
+        <wsdlsoap:fault name="SoapException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="crearRelacionAnotacionDocumento">
+      <wsdlsoap:operation soapAction="crearRelacionAnotacionDocumento"/>
+      <wsdl:input name="crearRelacionAnotacionDocumentoRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="crearRelacionAnotacionDocumentoResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SoapException">
+        <wsdlsoap:fault name="SoapException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="crearRelacionDocumentum">
+      <wsdlsoap:operation soapAction="crearRelacionDocumentum"/>
+      <wsdl:input name="crearRelacionDocumentumRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="crearRelacionDocumentumResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SoapException">
+        <wsdlsoap:fault name="SoapException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="anularNumeroAnotacion">
+      <wsdlsoap:operation soapAction="anularNumeroAnotacion"/>
+      <wsdl:input name="anularNumeroAnotacionRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="anularNumeroAnotacionResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SoapException">
+        <wsdlsoap:fault name="SoapException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WsRegistroImplService">
+    <wsdl:port binding="intf:WsRegistroImplSoapBinding" name="WsRegistroImpl">
+      <wsdlsoap:address location="http://pre6intra.munimadrid.es:8090/ServicioWebRegistro/services/WsRegistroImpl"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -2,12 +2,12 @@ class MadridApi
 
   attr_accessor :client, :request
 
-  def response(method,params)
+  def response(method, params)
     client.call(method, message: request(params)).body if end_point_available?
   end
 
-  def data(method,params)
-    response(method,params)[(method.to_s+'_response').to_sym][(method.to_s+'_return').to_sym]
+  def data(method, params)
+    response(method, params)[(method.to_s + '_response').to_sym][(method.to_s + '_return').to_sym]
   end
 
   def end_point_available?
