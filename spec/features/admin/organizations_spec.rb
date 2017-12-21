@@ -959,6 +959,27 @@ feature 'Organization' do
         end
       end
 
+      scenario "Should display canceled organization and display agent info" do
+        organization = create(:organization, canceled_at: Date.current)
+        agent = create(:agent, organization: organization)
+
+        visit organization_path(organization)
+
+        expect(page).to have_content organization.name
+        expect(page).to have_content agent.fullname
+      end
+
+      scenario "Should display invalidate organization and displday agent info" do
+        organization = create(:organization)
+        agent = create(:agent, organization: organization)
+        organization.update(invalidate: true)
+
+        visit organization_path(organization)
+
+        expect(page).to have_content organization.name
+        expect(page).to have_content agent.fullname
+      end
+
     end
 
   end

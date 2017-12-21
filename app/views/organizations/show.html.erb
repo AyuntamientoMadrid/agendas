@@ -213,7 +213,7 @@
         </div>
       </li>
 
-      <% if !@organization.invalidate && @organization.canceled_at.blank? %>
+      <% if (!@organization.invalidate && @organization.canceled_at.blank?) || current_user.try(:admin?) %>
         <li class="accordion-navigation active">
           <div class="accordion-title">
             <%= t('organizations.show.agents_title') %>

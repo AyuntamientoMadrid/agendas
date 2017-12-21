@@ -27,7 +27,7 @@ feature 'Organizations page' do
       visit organizations_path
 
       expect(page).to have_content organization1.name
-      expect(page).not_to have_content organization2.name
+      expect(page).to have_content organization2.name
     end
 
     scenario "Should show invalidated organizations", :search do
@@ -354,7 +354,7 @@ feature 'Organizations page' do
           Organization.reindex
           visit organizations_path
 
-          expect(page).not_to have_content(@org1.name)
+          expect(page).to have_content(@org1.name)
 
           fill_in :keyword, with: "Maria"
           click_button(I18n.t('main.form.search'))

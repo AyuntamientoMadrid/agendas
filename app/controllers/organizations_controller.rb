@@ -29,12 +29,10 @@ class OrganizationsController < ApplicationController
 
     def search(params)
       Organization.search do
-        with(:canceled_at, nil)
         with(:entity_type_id, 2)
         with(:interest_ids, params[:interests]) if params[:interests].present?
         with(:category_id, params[:category]) if params[:category].present?
         with(:lobby_activity, true) if params[:lobby_activity].present?
-
         any do
           any do
             fulltext params[:keyword] if params[:keyword].present?
@@ -47,6 +45,7 @@ class OrganizationsController < ApplicationController
             fulltext(params[:keyword], :fields => [:agent_first_surname]) if params[:keyword].present?
             fulltext(params[:keyword], :fields => [:agent_second_surname]) if params[:keyword].present?
             with(:invalidate, false) if params[:keyword].present?
+            with(:canceled_at, nil) if params[:keyword].present?
           end
         end
         paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 20
@@ -54,11 +53,7 @@ class OrganizationsController < ApplicationController
     end
 
     def set_organization
-      # if current_user.try(:admin?)
-        @organization = Organization.find(params[:id])
-      # else
-      #   @organization = Organization.validated.find(params[:id])
-      # end
+      @organization = Organization.find(params[:id])
     end
 
     def get_autocomplete_items(parameters)

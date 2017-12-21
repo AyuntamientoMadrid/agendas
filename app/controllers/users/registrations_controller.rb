@@ -5,16 +5,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   layout "admin"
 
   #GET /resource/sign_up
-  def new
-    debugger
-    super
-  end
-
-  POST /resource
-  def create
-    debugger
-    super
-  end
+  # def new
+  #   super
+  # end
+  #
+  # POST /resource
+  # def create
+  #   super
+  # end
 
   # GET /resource/edit
   def edit
