@@ -517,7 +517,7 @@ feature 'Organization' do
               fill_in "Nombre", with: "Name"
               fill_in "Desde", with: Date.current
               find(:css, "input[id^='organization_agents_attributes_'][id$='_allow_public_data_false']").set(true)
-              find(:css, "input[id^='organization_agents_attributes_'][id$='_attachment_attributes[file]']").set('/spec/fixtures/dummy.jpg')
+              find("input[type=file]").set("spec/fixtures/dummy.jpg")
             end
 
             click_button "Guardar"

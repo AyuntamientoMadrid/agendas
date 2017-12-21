@@ -1,4 +1,5 @@
 feature 'Events' do
+  include Admin::SidebarHelper
   describe 'user manager', type: :feature do
 
     background do
@@ -43,9 +44,7 @@ feature 'Events' do
         event9.update(status: :canceled)
         event10.update(status: :declined)
 
-        visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
-                          "status" => ["requested", "declined"], "lobby_activity" => "1",
-                          "controller" => "events", "action" => "index" )
+        visit events_path(event_fixed_filters['events'])
 
         click_link I18n.t("backend.events")
         expect(find_link(I18n.t("backend.event_tray")).first(:xpath, ".//..")[:class]).not_to eq "active"
@@ -586,13 +585,14 @@ feature 'Events' do
             choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
             find('.add-attachment').click
-            attachment = all(".attachment-file").first
-            attach_file attachment[:id], "spec/fixtures/dummy.pdf"
+            find("input[type=file]").set("spec/fixtures/dummy.pdf")
             input_title = find(".attachment-title")
             fill_in input_title[:id], with: "Dummy pdf"
             click_on "Guardar"
 
-            expect(page).to have_link "Dummy pdf"
+            within "#event_#{Event.last.id}_attachments_dropdown", visible: false do
+              expect(page).to have_link "Dummy pdf", visible: false
+            end
           end
 
           scenario 'Should not save attachment when it has invalid content type', :js do
