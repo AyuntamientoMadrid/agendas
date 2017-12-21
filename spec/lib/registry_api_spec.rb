@@ -42,6 +42,18 @@ describe RegistryApi do
       expect{ service.get_documento_anotacion(message) }.to raise_exception(Savon::HTTPError)
     end
 
+    it "return error response when document not found by given CodigoDocumento" do
+      message = { Aplicacion: "incorrect_name", CodigoDocumento: "0901ffd68013878f",
+                  Sentido: "E", NumAnotacion: "AAAA20170000990" }
+      soap_fault = File.read("spec/fixtures/registry_api/bad_annotation_number_response.xml")
+      response = { code: 500, headers: {}, body: soap_fault }
+      savon.expects(:get_documento_anotacion).with(message: message).returns(response)
+
+      service = RegistryApi.new
+
+      expect{ service.get_documento_anotacion(message) }.to raise_exception(Savon::HTTPError)
+    end
+
     it "return successful response from remote registry when " do
       message = { Aplicacion: "correct_name", CodigoDocumento: "0901ffd68013878f",
                   Sentido: "E", NumAnotacion: "AAAA20170000990" }
@@ -49,7 +61,7 @@ describe RegistryApi do
       savon.expects(:get_documento_anotacion).with(message: message).returns(fixture)
 
       service = RegistryApi.new
-      
+
       response = service.get_documento_anotacion(message)
       expect(response).to be_successful
     end
