@@ -167,13 +167,13 @@
       <div class="row">
         <div class="small-12 columns">
           <p>
-            <strong>Nombre de la organización:</strong>
+            <strong>Nombre del lobby: </strong>
             <%= @event.organization.fullname %>
           </p>
           <hr />
         </div>
         <div class="small-12 columns">
-          <strong>Agentes:</strong>
+          <strong>Agentes (personas que se reúnen):</strong>
           <br>
           <% @event.event_agents.each do |agent| %>
             <p><%= agent.name %></p></p>
@@ -181,7 +181,7 @@
           <hr />
         </div>
         <div class="small-12 columns">
-          <strong>Empresas repesentadas:</strong>
+          <strong>Empresas/personas físicas representadas:</strong>
           <br />
           <% @event.event_represented_entities.each do |represented_entity| %>
             <p><%= represented_entity.name %></p>
