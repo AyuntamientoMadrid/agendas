@@ -19,7 +19,7 @@ es:
     btn_login: "Entrar"
     btn_home: "Portada"
     btn_agenda: "Agenda"
-    btn_registration_lobbies: "Registro de lobbies"
+    btn_registration_lobbies: "Registro de Lobbies"
     btn_regulations: "Huella normativa"
     btn_help: "Ayuda"
     title_home: "Transparencia en la Toma de decisiones"
@@ -63,7 +63,7 @@ es:
     generic_text_title: "Sobre el Registro de Lobbies de la Ciudad de Madrid"
     generic_text_block_first: "El Ayuntamiento de Madrid da un paso más en transparencia al poner en marcha el Registro de Lobbies, un espacio en el que debe inscribirse cualquier persona o entidad que pretenda influir en la normativa, políticas municipales y la toma de decisiones de impacto general o colectivo."
     generic_text_block_second: "Las reuniones con los máximos responsables de la ciudad y la documentación asociada podrán consultarse en esta web gratuita y pública."
-    generic_text_block_third_html: "El principal objetivo del Registro de lobbies es democratizar la capacidad de influir. Conoce más detalles sobre esta iniciativa en nuestras <a href='/faq'>preguntas frecuentes.</a>"
+    generic_text_block_third_html: "El principal objetivo del Registro de Lobbies es democratizar la capacidad de influir. Conoce más detalles sobre esta iniciativa en nuestras <a href='/faq'>preguntas frecuentes.</a>"
   btn_access: "Acceder"
 
   main:
