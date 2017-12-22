@@ -2,7 +2,6 @@
   <div class="row hide-for-small-only">
     <div class="small-12 columns text-right">
       <ul class="header__menu">
-
         <li><a href="<%= t('header.transparency_url') %>" target="_blank"><%= t('header.transparency') %></a></li>
         <li><a href="<%= t('header.open_data_url') %>" target="_blank"><%= t('header.open_data') %></a></li>
         <li><a href="<%= t('header.participation_url') %>" target="_blank"><%= t('header.participation') %></a></li>
@@ -46,16 +45,16 @@
         <div class="small-12 columns">
           <ul class="inline-list">
             <li>
-              <%= link_to t('header.btn_home'), root_path, class: current_class(root_path)  %>
+              <%= link_to t('header.btn_home'), root_path, class: current_class(root_path), access_key: 0  %>
             </li>
             <li>
-              <%= link_to t('header.btn_agenda'), visitors_path, class: current_class(visitors_path) %>
+              <%= link_to t('header.btn_agenda'), visitors_path, class: current_class(visitors_path), access_key: 1 %>
             </li>
             <li>
-              <%= link_to t('header.btn_registration_lobbies'), registration_lobbies_index_path, class: current_class(registration_lobbies_index_path) || current_class(organizations_path)  %>
+              <%= link_to t('header.btn_registration_lobbies'), registration_lobbies_index_path, class: current_class(registration_lobbies_index_path) || current_class(organizations_path), access_key: 2  %>
             </li>
             <li>
-              <%= link_to t('header.btn_regulations'), 'https://transparencia.madrid.es/portales/transparencia/es/Informacion-juridica/Huella-normativa?vgnextfmt=default&vgnextchannel=4099508929a56510VgnVCM1000008a4a900aRCRD', target: 'blank' %>
+              <%= link_to t('header.btn_regulations'), 'https://transparencia.madrid.es/portales/transparencia/es/Informacion-juridica/Huella-normativa?vgnextfmt=default&vgnextchannel=4099508929a56510VgnVCM1000008a4a900aRCRD', target: 'blank', access_key: 3 %>
             </li>
           </ul>
         </div>
