@@ -67,14 +67,14 @@ module Admin
               .permit(:reference, :identifier, :name, :first_surname, :second_surname, :phones, :email, :invalidate,
                       :web, :address_type, :address, :number, :gateway, :stairs, :floor, :door,
                       :postal_code, :town, :province, :description, :category_id,
-                      :fiscal_year, :range_fund, :subvention, :contract,:country, :denied_public_data, :denied_public_events, interest_ids: [],
+                      :fiscal_year, :range_fund, :subvention, :contract, :country, :denied_public_data, :denied_public_events, interest_ids: [],
                        legal_representant_attributes: [:identifier, :name, :first_surname, :second_surname, :phones, :email, :_destroy],
                        user_attributes: [:id, :first_name, :last_name, :role, :email, :active, :phones, :password, :password_confirmation],
                        represented_entities_attributes: [:id, :identifier, :name, :first_surname, :second_surname,
                                                          :from, :fiscal_year, :range_fund, :subvention, :contract, :_destroy],
                        organization_interests_attributes: [:interest_ids],
                        agents_attributes: [:id, :identifier, :name, :first_surname, :second_surname, :from,
-                                           :to, :public_assignments, :_destroy],registered_lobby_ids: [])
+                                           :to, :public_assignments, :_destroy], registered_lobby_ids: [])
       end
 
       def set_organization

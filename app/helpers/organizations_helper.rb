@@ -50,9 +50,9 @@ module OrganizationsHelper
   end
 
   def options_for_registered_lobby
-    rl=RegisteredLobby.all.select("id","name")
-    result ={}
-    rl.map {|e| result[t("backend.identifying_data.registered_lobbies.#{e.name}")] = e.id }
+    registered_lobbies = RegisteredLobby.all.select("id","name")
+    result = {}
+    registered_lobbies.map { |rl| result[t("backend.identifying_data.registered_lobbies.#{rl.name}")] = rl.id }
     result
   end
 
