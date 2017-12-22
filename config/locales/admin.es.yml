@@ -177,11 +177,11 @@ es:
     accept_reasons: Razones de aceptación
     event_actions: Acciones sobre el evento
     status:
-      requested: "Solicitada"
-      accepted: "Aceptada"
-      done: "Realizada"
-      declined: "Rechazada"
-      canceled: "Cancelada"
+      requested: "Solicitado"
+      accepted: "Aceptado"
+      done: "Realizado"
+      declined: "Rechazado"
+      canceled: "Cancelado"
     decline_event: Rechazar evento
     declined_event: Evento declinado
     decline_reason_yes: Si

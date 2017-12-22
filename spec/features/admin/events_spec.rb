@@ -832,7 +832,7 @@ feature 'Events' do
       scenario 'visit new event page', :js do
         visit events_path
 
-        click_link I18n.t('backend.new_event')
+        click_link I18n.t('backend.new_requeseted_event')
 
         expect(page).to have_content I18n.t('backend.new_event')
       end
@@ -1040,7 +1040,7 @@ feature 'Events' do
         fill_in :event_title, with: "Editar evento"
         click_button "Enviar la solicitud"
 
-        expect(page).to have_content "Solicitud de evento"
+        expect(page).to have_content "Solicitudes de evento"
       end
 
       scenario 'Lobby user can see on page the name of the organization' do
@@ -1120,7 +1120,7 @@ feature 'Events' do
       event2.save
       visit events_path
 
-      select "Solicitada", from: :status
+      select "Solicitado", from: :status
       click_button I18n.t('backend.search.button')
 
       expect(page).to have_content "Test for check status requested"
@@ -1139,8 +1139,8 @@ feature 'Events' do
       event3.save
       visit events_path
 
-      select "Solicitada", from: :status
-      select "Aceptada", from: :status
+      select "Solicitado", from: :status
+      select "Aceptado", from: :status
       click_button I18n.t('backend.search.button')
 
       expect(page).to have_content "Test for check status requested"
