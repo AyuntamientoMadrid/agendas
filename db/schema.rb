@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171222090536) do
+ActiveRecord::Schema.define(version: 20171222163720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,6 +204,16 @@ ActiveRecord::Schema.define(version: 20171222090536) do
   add_index "organization_interests", ["interest_id"], name: "index_organization_interests_on_interest_id", using: :btree
   add_index "organization_interests", ["organization_id"], name: "index_organization_interests_on_organization_id", using: :btree
 
+  create_table "organization_registered_lobbies", force: :cascade do |t|
+    t.integer  "organization_id"
+    t.integer  "registered_lobby_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "organization_registered_lobbies", ["organization_id"], name: "index_organization_registered_lobbies_on_organization_id", using: :btree
+  add_index "organization_registered_lobbies", ["registered_lobby_id"], name: "index_organization_registered_lobbies_on_registered_lobby_id", using: :btree
+
   create_table "organizations", force: :cascade do |t|
     t.string   "reference"
     t.string   "identifier"
@@ -283,15 +293,6 @@ ActiveRecord::Schema.define(version: 20171222090536) do
 
   create_table "registered_lobbies", force: :cascade do |t|
     t.text     "name"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.integer  "organization_id"
-  end
-
-  add_index "registered_lobbies", ["organization_id"], name: "index_registered_lobbies_on_organization_id", using: :btree
-
-  create_table "registered_lobby", force: :cascade do |t|
-    t.text     "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -353,12 +354,13 @@ ActiveRecord::Schema.define(version: 20171222090536) do
   add_foreign_key "manages", "users"
   add_foreign_key "organization_interests", "interests"
   add_foreign_key "organization_interests", "organizations"
+  add_foreign_key "organization_registered_lobbies", "organizations"
+  add_foreign_key "organization_registered_lobbies", "registered_lobbies"
   add_foreign_key "organizations", "categories"
   add_foreign_key "participants", "events"
   add_foreign_key "participants", "positions"
   add_foreign_key "positions", "areas"
   add_foreign_key "positions", "holders"
-  add_foreign_key "registered_lobbies", "organizations"
   add_foreign_key "represented_entities", "organizations"
   add_foreign_key "users", "organizations"
 end
