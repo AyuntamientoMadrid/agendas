@@ -103,9 +103,10 @@
     </div>
     <div class="small-12 columns">
       <br />
-      <%= f.label :registered_lobbies, t('backend.identifying_data.registered_lobbies_title') %>
-      <%= f.select :registered_lobbies, Organization.registered_lobbies.keys.map {|key| [t("backend.identifying_data.registered_lobbies.#{key}"), key]} %>
-      <%= form_field_errors(f, :registered_lobbies) %>
+      <%= f.label :registered_lobby_ids, t('backend.identifying_data.registered_lobbies_title') %>
+      <%= f.select :registered_lobby_ids, options_for_registered_lobby, {}, { :multiple => true} %>
+
+      <%= form_field_errors(f, :registered_lobby) %>
     </div>
   </div>
 </fieldset>

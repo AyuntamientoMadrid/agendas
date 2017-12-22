@@ -1,6 +1,5 @@
 class Organization < ActiveRecord::Base
 
-  enum registered_lobbies: [:no_record, :generalitat_catalunya, :cnmc, :europe_union, :others]
   enum range_fund: [:range_1, :range_2, :range_3, :range_4]
   enum entity_type: { association: 0, federation: 1, lobby: 2 }
   validates :inscription_reference, uniqueness: true, allow_blank: true, allow_nil: true
@@ -14,6 +13,7 @@ class Organization < ActiveRecord::Base
   has_many :contracts, dependent: :destroy
   has_many :funds, dependent: :destroy
   has_many :events
+  has_many :registered_lobbies
   has_one :comunication_representant, dependent: :destroy
   has_one :user, dependent: :destroy
   has_one :legal_representant, dependent: :destroy
@@ -23,7 +23,7 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :represented_entities, allow_destroy: true
   accepts_nested_attributes_for :agents, allow_destroy: true, reject_if: :all_blank
-
+  accepts_nested_attributes_for :registered_lobbies, allow_destroy: true, reject_if: :all_blank
   after_create :set_inscription_date, :set_invalidate
 
   searchable do

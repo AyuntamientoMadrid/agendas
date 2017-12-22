@@ -49,4 +49,11 @@ module OrganizationsHelper
     organization.events.where(lobby_activity: true, status: 2).count
   end
 
+  def options_for_registered_lobby
+    rl=RegisteredLobby.all.select("id","name")
+    result ={}
+    rl.map {|e| result[t("backend.identifying_data.registered_lobbies.#{e.name}")] = e.id }
+    result
+  end
+
 end

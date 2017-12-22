@@ -201,6 +201,7 @@ feature 'Organization' do
 
       scenario 'Should create organization with data fields' do
         new_category = create(:category)
+        new_registered_lobby = create(:registered_lobby)
         visit new_admin_organization_path
 
         fill_in :organization_identifier, with: "New identifier"
@@ -212,7 +213,8 @@ feature 'Organization' do
         select new_category.name, from: :organization_category_id
         fill_in :organization_web, with: "www.new_web.com"
         fill_in :organization_description, with: "New description"
-        select "Generalidad catalunya", from: :organization_registered_lobbies
+        select "Generalitat Catalunya", from: :organization_registered_lobby_ids
+
         # mandatory user fields
         fill_in :organization_user_attributes_first_name, with: "user first name"
         fill_in :organization_user_attributes_last_name, with: "user last name"
@@ -232,7 +234,7 @@ feature 'Organization' do
         expect(organization.category.name).to eq new_category.name
         expect(organization.web).to eq "www.new_web.com"
         expect(organization.description).to eq "New description"
-        expect(organization.registered_lobbies).to eq "generalitat_catalunya"
+        expect(organization.registered_lobbies.first.name).to eq "Generalitat Catalunya"
       end
 
       scenario 'Should create organization with address fields' do
@@ -324,6 +326,16 @@ feature 'Organization' do
         expect(organization.denied_public_events).to eq true
       end
 
+      scenario 'Should show registred lobbies' do
+        create(:category)
+        organization = create(:organization)
+        create(:registered_lobby, name: "European Country")
+        create(:registered_lobby, name: "Local Lobby")
+        visit new_admin_organization_path
+        organization.reload
+        expect(page).to have_content "European Country"
+        expect(page).to have_content "Local Lobby"
+      end
       describe "Nested fields" do
 
         describe "Legal Representant" do
@@ -592,6 +604,7 @@ feature 'Organization' do
       scenario 'Should update data organization fields' do
         new_category = create(:category)
         organization = create(:organization)
+        new_registered_lobby = create(:registered_lobby, name: "New Registered Lobby")
         visit edit_admin_organization_path(organization)
 
         fill_in :organization_identifier, with: "New identifier"
@@ -603,10 +616,12 @@ feature 'Organization' do
         select new_category.name, from: :organization_category_id
         fill_in :organization_web, with: "www.new_web.com"
         fill_in :organization_description, with: "New description"
-        select "Generalidad catalunya", from: :organization_registered_lobbies
+        page.select new_registered_lobby.name, from: :organization_registered_lobby_ids
+
         click_button "Guardar"
 
         organization.reload
+
         expect(page).to have_content "Registro actualizado correctamente"
         expect(organization.identifier).to eq "New identifier"
         expect(organization.name).to eq "New name"
@@ -617,7 +632,7 @@ feature 'Organization' do
         expect(organization.category.name).to eq new_category.name
         expect(organization.web).to eq "www.new_web.com"
         expect(organization.description).to eq "New description"
-        expect(organization.registered_lobbies).to eq "generalitat_catalunya"
+        expect(organization.registered_lobbies.first.name).to eq "New Registered Lobby"
       end
 
       scenario 'Should update address organization fields' do

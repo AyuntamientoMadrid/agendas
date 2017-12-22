@@ -176,3 +176,9 @@ RepresentedEntity.create(identifier: "43138879z", name: "Name4", from: Date.yest
 OrganizationInterest.create(organization: organization_1, interest: interest_1)
 OrganizationInterest.create(organization: organization_1, interest: interest_2)
 OrganizationInterest.create(organization: organization_1, interest: interest_3)
+
+RegisteredLobby.create(name: "no_record")
+RegisteredLobby.create(name: "generalitat_catalunya")
+RegisteredLobby.create(name: "cnmc")
+RegisteredLobby.create(name: "europe_union")
+RegisteredLobby.create(name: "others")
