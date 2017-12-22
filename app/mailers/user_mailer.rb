@@ -1,5 +1,10 @@
 class UserMailer < ApplicationMailer
 
+  def welcome(user)
+    @user = user
+    mail(to: @user.email, subject: t('mailers.welcome_organization.subject'))
+  end
+
   def infringement_email(email, attachment)
     @email = email
     admin_emails = User.admin.collect(&:email).join(",")
@@ -7,4 +12,5 @@ class UserMailer < ApplicationMailer
 
     mail(bcc: admin_emails, subject: @email.subject)
   end
+
 end
