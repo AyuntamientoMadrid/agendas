@@ -723,7 +723,7 @@ feature 'Events' do
 
           scenario "When radio lobby activity is set to true, only can save selecting an agent", :js do
             new_position = create(:position)
-            organization = create(:organization)
+            organization = create(:organization, name: "New oganization with agents")
             agent = create(:agent, organization: organization)
             visit new_event_path
 

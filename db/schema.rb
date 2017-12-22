@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171222163720) do
+ActiveRecord::Schema.define(version: 20171222190324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -245,7 +245,7 @@ ActiveRecord::Schema.define(version: 20171222163720) do
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.string   "inscription_reference"
-    t.date     "inscription_date"
+    t.datetime "inscription_date"
     t.integer  "entity_type"
     t.string   "neighbourhood"
     t.string   "district"
@@ -257,6 +257,7 @@ ActiveRecord::Schema.define(version: 20171222163720) do
     t.datetime "canceled_at"
     t.string   "invalidated_reasons"
     t.string   "country"
+    t.date     "modification_date"
   end
 
   add_index "organizations", ["category_id"], name: "index_organizations_on_category_id", using: :btree

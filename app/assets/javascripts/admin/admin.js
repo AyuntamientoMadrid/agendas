@@ -31,4 +31,5 @@ $(function() {
     selector : "textarea:not(.mceNoEditor)",
     language : 'es'
   });
+
 });
