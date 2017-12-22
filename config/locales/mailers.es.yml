@@ -21,3 +21,30 @@ es:
       text2: "Ha sido aceptado por %{name}, por la siguiente razón:"
       accepted_at: "A día %{accepted_at}"
       thanks: "Un saludo"
+    create_event:
+      subject: "Creado evento: %{title}"
+      welcome: "Hola %{name}"
+      text1: "El evento: %{title}"
+      text2: "Ha sido Creado por %{name}"
+      accepted_at: "A día %{accepted_at}"
+      thanks: "Un saludo"
+    create_organization:
+      subject: "Creado lobby: %{title}"
+      welcome: "Hola %{name}"
+      text1: "Ha sido creado el lobby: %{title}"
+      thanks: "Un saludo"
+    delete_organization:
+      subject: "Creado lobby: %{title}"
+      welcome: "Hola %{name}"
+      text1: "Ha sido Borrado el lobby: %{title}"
+      thanks: "Un saludo"
+    invalidate_organization:
+      subject: "Creado lobby: %{title}"
+      welcome: "Hola %{name}"
+      text1: "Ha sido invalidado el lobby: %{title}"
+      thanks: "Un saludo"
+    update_organization:
+      subject: "Actualizado lobby: %{title}"
+      welcome: "Hola %{name}"
+      text1: "Ha sido actualizado el lobby: %{title}"
+      thanks: "Un saludo"

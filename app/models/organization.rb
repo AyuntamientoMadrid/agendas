@@ -12,13 +12,14 @@ class Organization < ActiveRecord::Base
   has_many :agents, dependent: :destroy
   has_many :organization_interests, dependent: :destroy
   has_many :interests, through: :organization_interests, dependent: :destroy
-  has_many :subventions, dependent: :destroy
-  has_many :contracts, dependent: :destroy
-  has_many :funds, dependent: :destroy
+  # These not exists!!!
+  # has_many :subventions, dependent: :destroy
+  # has_many :contracts, dependent: :destroy
+  # has_many :funds, dependent: :destroy
   has_many :events
   has_many :organization_registered_lobbies, dependent: :destroy
   has_many :registered_lobbies, through: :organization_registered_lobbies, dependent: :destroy
-  has_one :comunication_representant, dependent: :destroy
+  # has_one :comunication_representant, dependent: :destroy
   has_one :user, dependent: :destroy
   has_one :legal_representant, dependent: :destroy
   belongs_to :category
@@ -28,8 +29,10 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :represented_entities, allow_destroy: true
   accepts_nested_attributes_for :registered_lobbies, allow_destroy: true, reject_if: :all_blank
 
-  before_create :set_inscription_date
   before_validation :invalidate_organization, :validate_organization
+  after_create :set_inscription_date, :send_create_mail
+  before_destroy :send_delete_mail
+
 
   searchable do
     text :name, :first_surname, :second_surname, :description
@@ -56,6 +59,22 @@ class Organization < ActiveRecord::Base
   scope :validated, -> { where('invalidated_at is null') }
   scope :lobbies, -> { where('entity_type = ?', 2) }
   scope :full_like, ->(name) { where("(identifier ilike ? OR name ilike ?) AND entity_type = ?", name, name, 2) }
+
+  def send_create_mail
+    OrganizationMailer.create(self).deliver_now
+  end
+
+  def send_delete_mail
+    OrganizationMailer.delete(self).deliver_now
+  end
+
+  def send_invalidate_mail
+    OrganizationMailer.invalidate(self).deliver_now
+  end
+
+  def send_update_mail
+    OrganizationMailer.update(self).deliver_now
+  end
 
   def entity_type_id
     Organization.entity_types[entity_type]
@@ -89,6 +108,13 @@ class Organization < ActiveRecord::Base
 
   def set_inscription_date
     self.inscription_date = Date.current if inscription_date.blank?
+    save
+  end
+
+  def set_invalidate
+    self.invalidate = false
+    save
+    send_invalidate_mail
   end
 
   def interest?(id)
