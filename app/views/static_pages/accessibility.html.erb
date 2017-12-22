@@ -1,141 +1,132 @@
 <div class="small-12 column">
-  <h1>Accesibilidad</h1>
-  <p>La accesibilidad web se refiere a la posibilidad de acceso a la web y a sus contenidos por todas las personas, independientemente de las discapacidades (físicas, intelectuales o técnicas) que puedan presentar o de las que se deriven del contexto de uso (tecnológicas o ambientales).</p>
+  <h1><%= t "accessibility.title" %></h1>
+  <p><%= t "accessibility.description.part1" %></p>
 
-  <p>Cuando los sitios web están diseñados pensando en la accesibilidad, todos los usuarios pueden acceder en condiciones de igualdad a los contenidos, por ejemplo:</p>
+  <p><%= t "accessibility.description.part2" %></p>
 
   <ul>
-    <li>Proporcionando un texto alternativo a las imágenes, los usuarios invidentes o con problemas de visión pueden utilizar lectores especiales para acceder a la información. </li>
-    <li>Cuando los vídeos disponen de subtítulos, los usuarios con dificultades auditivas pueden entenderlos plenamente. </li>
-    <li>Si los contenidos están escritos en un lenguaje sencillo e ilustrados, los usuarios con problemas de aprendizaje están en mejores condiciones de entenderlos.</li>
-    <li>Si el usuario tiene problemas de movilidad y le cuesta usar el ratón, las alternativas con el teclado le ayudan en la navegación.</li>
+    <li><%= t "accessibility.features.alternative" %></li>
+    <li><%= t "accessibility.features.subtitles_html" %></li>
+    <li><%= t "accessibility.features.simple_contents_html" %></li>
+    <li><%= t "accessibility.features.movility_html" %></li>
   </ul>
 
-  <h2>"Atajos" de teclado</h2>
+  <h2><%= t "accessibility.keyboard.title" %></h2>
 
-  <p>Para poder navegar por este sitio web de forma accesible, se han programado un grupo de teclas de acceso rápido que recogen las principales secciones de interés general en los que está organizado el sitio.</p>
+  <p><%= t "accessibility.keyboard.description" %></p>
 
   <div class="small-12 medium-6">
     <table>
-      <caption class="show-for-sr">Atajos de teclado para el menú de navegación</caption>
+      <caption class="show-for-sr"><%= t "accessibility.keyboard.navigation.title" %></caption>
       <thead>
         <tr>
-          <th scope="col" class="text-center">Tecla</th>
-          <th scope="col">Página</th>
+          <th scope="col" class="text-center"><%= t "accessibility.keyboard.navigation.key" %></th>
+          <th scope="col"><%= t "accessibility.keyboard.navigation.page" %></th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td class="text-center">0</td>
-          <td>Portada</td>
+          <td><%= t "accessibility.keyboard.navigation.home" %></td>
         </tr>
         <tr>
           <td class="text-center">1</td>
-          <td>Agendas</td>
+          <td><%= t "accessibility.keyboard.navigation.agendas" %></td>
         </tr>
         <tr>
           <td class="text-center">2</td>
-          <td>Registro de lobbies</td>
+          <td><%= t "accessibility.keyboard.navigation.lobbies" %></td>
         </tr>
         <tr>
           <td class="text-center">3</td>
-          <td>Huella normativa</td>
+          <td><%= t "accessibility.keyboard.navigation.normative_fingerprint" %></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <p>Dependiendo del sistema operativo y del navegador que se utilice, la combinación de teclas será la siguiente:</p>
+  <p><%= t "accessibility.keyboard.shortcuts.description" %></p>
 
   <div class="small-12 medium-6">
     <table>
-      <caption class="show-for-sr">Combinación de teclas dependiendo del sistema operativo y navegador</caption>
+      <caption class="show-for-sr"><%= t "accessibility.keyboard.shortcuts.description" %></caption>
       <thead>
         <tr>
-          <th scope="col">Navegador</th>
-          <th scope="col">Combinación de teclas</th>
+          <th scope="col"><%= t "accessibility.keyboard.shortcuts.navigator" %></th>
+          <th scope="col"><%= t "accessibility.keyboard.shortcuts.shorcut" %></th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>Explorer</td>
-          <td>ALT + atajo y luego ENTER</td>
+          <td><%= t "accessibility.keyboard.shortcuts.explorer_shortcut" %></td>
         </tr>
         <tr>
           <td>Firefox</td>
-          <td>ALT + MAYÚSCULAS + atajo</td>
+          <td><%= t "accessibility.keyboard.shortcuts.firefox_shortcut" %></td>
         </tr>
         <tr>
           <td>Chrome</td>
-          <td>ALT + atajo (si es un MAC, CTRL + ALT + atajo)</td>
+          <td><%= t "accessibility.keyboard.shortcuts.chrome_shortcut" %></td>
         </tr>
         <tr>
           <td>Safari</td>
-          <td>ALT + atajo (si es un MAC, CMD + atajo)</td>
+          <td><%= t "accessibility.keyboard.shortcuts.safari_shortcut" %></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-    <p>Cuando los sitios web están diseñados pensando en la accesibilidad, todos los usuarios pueden acceder en condiciones de igualdad a los contenidos, por ejemplo:</p>
+  <h2><%= t "accessibility.text_size.title" %></h2>
+  <p><%= t "accessibility.text_size.description" %></p>
 
-    <ul>
-      <li>Proporcionando un texto alternativo a las imágenes, los usuarios invidentes o con problemas de visión pueden utilizar lectores especiales para acceder a la información. </li>
-      <li>Cuando los vídeos disponen de subtítulos, los usuarios con <strong>dificultades auditivas</strong> pueden entenderlos plenamente. </li>
-      <li>Si los contenidos están escritos en un lenguaje sencillo e ilustrados, los usuarios con problemas de <strong>aprendizaje</strong> están en mejores condiciones de entenderlos.</li>
-      <li>Si el usuario tiene problemas de <strong>movilidad</strong> y le cuesta usar el ratón, las alternativas con el teclado le ayudan en la navegación.</li>
-    </ul>
-
-    <h2>Tamaño del texto</h2>
-    <p>El diseño accesible de este sitio web permite que el usuario pueda elegir el tamaño del texto que le convenga. Esta acción puede llevarse a cabo de diferentes maneras según el navegador que se utilice.</p>
-
-    <div class="small-12 medium-6">
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Navegador</th>
-            <th scope="col">Acción a realizar </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Explorer</td>
-            <td>Ver &gt; Tamaño del texto</td>
-          </tr>
-          <tr>
-            <td>Firefox</td>
-            <td>Ver &gt; Tamaño</td>
-          </tr>
-          <tr>
-            <td>Chrome</td>
-            <td>Ajustes (icono) &gt; Opciones &gt; Avanzada &gt; Contenido web &gt; Tamaño fuente</td>
-          </tr>
-          <tr>
-            <td>Safari</td>
-            <td>Visualización &gt; ampliar/reducir</td>
-          </tr>
-          <tr>
-            <td>Opera</td>
-            <td>Ver &gt; escala</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p>Otra forma de modificar el tamaño de texto es utilizar los atajos de teclado definidos en los navegadores, en particular la combinación de teclas:</p>
-
-    <ul>
-      <li><code>CTRL y + (CMD y + en MAC)</code> para aumentar el tamaño del texto</li>
-      <li><code> CTRL y - (CMD y - en MAC)</code> para reducir el tamaño del texto</li>
-    </ul>
-
-    <h2>Compatibilidad con estándares y diseño visual</h2>
-
-    <p>Todas las páginas de este sitio web cumplen con las <strong>Pautas de Accesibilidad</strong> o Principios Generales de Diseño Accesible establecidas por el Grupo de Trabajo <abbr title="Web Accessibility Initiative" lang="en">WAI</abbr> perteneciente al W3C.</p>
-    <p>Continuamente trabajamos en mejorar la accesibilidad de este sitio web, no obstante, si detecta algún error o desea proponer alguna mejora en materia de accesibilidad, por favor contacte con nosotros.</p>
-
-    <p> <%= image_tag "logo_wcag1AA.gif", alt: "Logo accesbilidad AA" %></p>
-
-    <h2>Sugerencias y reclamaciones sobre accesibilidad</h2>
-    <p>Si detecta que algún documento de este sitio web no es accesible o si tiene alguna otra duda en relación a la accesibilidad de este sitio web, puede utilizar el <a href="https://www-s.munimadrid.es/SYR_003_WACiudadanos/iniciar.do?procedimiento=200">formulario de sugerencias</a> que el Ayuntamiento de Madrid pone a su disposición.</p>
+  <div class="small-12 medium-6">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col"><%= t "accessibility.keyboard.shortcuts.navigator" %></th>
+          <th scope="col"><%= t "accessibility.text_size.action_to_do" %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Explorer</td>
+          <td><%= t "accessibility.text_size.explorer" %></td>
+        </tr>
+        <tr>
+          <td>Firefox</td>
+          <td><%= t "accessibility.text_size.firefox" %></td>
+        </tr>
+        <tr>
+          <td>Chrome</td>
+          <td><%= t "accessibility.text_size.chrome" %></td>
+        </tr>
+        <tr>
+          <td>Safari</td>
+          <td><%= t "accessibility.text_size.safari" %></td>
+        </tr>
+        <tr>
+          <td>Opera</td>
+          <td><%= t "accessibility.text_size.opera" %></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+
+  <p><%= t "accessibility.text_size.commands.title" %></p>
+
+  <ul>
+    <li><%= t "accessibility.text_size.commands.increase_html" %></li>
+    <li><%= t "accessibility.text_size.commands.decrease_html" %></li>
+  </ul>
+
+  <h2><%= t "accessibility.compatibility.title" %></h2>
+
+  <p><%= t "accessibility.compatibility.description1_html" %></p>
+  <p><%= t "accessibility.compatibility.description2" %></p>
+
+  <p><%= image_tag "logo_wcag1AA.gif", alt: "Logo accesbilidad AA" %></p>
+
+  <h2><%= t "accessibility.suggestions.title" %></h2>
+  <p><%= t "accessibility.suggestions.description_html", link: "https://www-s.munimadrid.es/SYR_003_WACiudadanos/iniciar.do?procedimiento=200" %></p>
+</div>
