@@ -54,4 +54,12 @@ module OrganizationsHelper
     result
   end
 
+  def organization_back_button
+    if current_user.present? && current_user.admin?
+      admin_organizations_path
+    else
+      organizations_path
+    end
+  end
+
 end
