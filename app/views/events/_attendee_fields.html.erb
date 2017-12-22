@@ -1,9 +1,19 @@
-<div class="nested-fields">
+<div class="nested-fields small-12 columns">
   <div class="row">
-    <div class="small-4 columns"><%= f.text_field :name %></div>
-    <div class="small-3 columns"><%= f.text_field :position %></div>
-    <div class="small-3 columns"><%= f.text_field :company%></div>
-    <div class="small-2 columns">
+    <div class="small-12 show-for-medium-up">
+      <div class="medium-4 columns"><%= t('backend.name') %></div>
+      <div class="medium-3 columns"><%= t('backend.position') %></div>
+      <div class="medium-3 columns"><%= t('backend.company') %></div>
+      <div class="medium-2 columns"></div>
+    </div>
+
+    <div class="small-12 columns show-for-small-only"><%= t('backend.name') %></div>
+    <div class="small-12 medium-4 columns"><%= f.text_field :name, class: "attendee-name" %></div>
+    <div class="small-12 columns show-for-small-only"><%= t('backend.position') %></div>
+    <div class="small-12 medium-3 columns"><%= f.text_field :position, class: "attendee-position" %></div>
+    <div class="small-12 columns show-for-small-only"><%= t('backend.company') %></div>
+    <div class="small-12 medium-3 columns"><%= f.text_field :company, class: "attendee-company" %></div>
+    <div class="medium-2 columns">
         <%= link_to_remove_association t('backend.delete'), f, :class => "button tiny radius alert right" %>
     </div>
   </div>

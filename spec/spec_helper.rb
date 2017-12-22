@@ -1,6 +1,7 @@
 require 'coveralls'
 Coveralls.wear!('rails')
 require 'simplecov'
+require 'capybara/email/rspec'
 
 SimpleCov.start
 

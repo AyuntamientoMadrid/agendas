@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
          :validatable
-  enum role: [:user, :admin, :lobby]
+  enum role: { user: 0, admin: 1, lobby: 2 }
 
   after_initialize :set_default_role, if: :new_record?
   after_initialize :set_active, if: :new_record?
@@ -61,6 +61,14 @@ class User < ActiveRecord::Base
     user.password = SecureRandom.uuid
     user.role = role
     user
+  end
+
+  def soft_deleted
+    update_attribute(:deleted_at, Time.zone.now)
+  end
+
+  def self.lobby?
+    true if self.role == "lobby"
   end
 
 end

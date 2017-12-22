@@ -1,7 +1,13 @@
-<nav class="admin-sidebar">
+<nav class="admin-sidebar mb40">
   <ul id="admin_menu">
     <li>
-      Administración
+      <% if current_user.admin? %>
+        <%= t('backend.menu_admin') %>
+      <% elsif current_user.lobby? %>
+        <%= t('backend.menu_lobby') %>
+      <% else %>
+        <%= t('backend.menu_manager') %>
+      <% end %>
     </li>
     <% if current_user.admin? %>
     <li class="<%= active_menu('users') %>">
@@ -10,15 +16,50 @@
       </a>
     </li>
     <% end %>
-    <li class="<%= active_menu('events') %>">
-      <a href="<%= events_path %>">
-        <i class="fi-calendar size-18"> <%= t("backend.events")%></i>
+    <% if current_user.user? %>
+    <li class="<%= active_menu('events', nil, 'tray') %>">
+      <a href="<%= @events_path %>">
+        <i class="fi-calendar size-18">
+          <%= t("backend.event_tray") %>
+        </i>
       </a>
     </li>
+    <% else %>
+    <li class="<%= active_menu('events') %>">
+      <a href="<%= @events_path %>">
+        <i class="fi-calendar size-18">
+          <%= t("organizations.show.events_title") %>
+        </i>
+      </a>
+    </li>
+    <% end %>
     <% if current_user.admin? %>
     <li class="<%= active_menu('admin/organizations') %>">
       <a href="<%= admin_organizations_path %>">
         <i class="fi-book size-18"> <%= t("backend.companies")%></i>
+      </a>
+    </li>
+    <% elsif current_user.lobby? %>
+    <li class="<%= active_menu('admin/organizations', 'agents') %>">
+      <a href="<%= edit_admin_organization_path(id: current_user.organization_id, show: 'agents') %>">
+        <i class="fi-plus size-18"> <%= t("backend.edit_agents") %></i>
+      </a>
+    </li>
+    <li class="<%= active_menu('admin/organizations', 'interests') %>">
+      <a href="<%= edit_admin_organization_path(id: current_user.organization_id, show: 'interests') %>">
+        <i class="fi-plus size-18"> <%= t("backend.add_interests") %></i>
+      </a>
+    </li>
+    <li class="<%= active_menu('admin/organizations', 'show') %>">
+      <a href="<%= admin_organization_path(id: current_user.organization_id) %>">
+        <i class="fi-book size-18"> <%= t("backend.show_company") %></i>
+      </a>
+    </li>
+    <% end %>
+    <% if current_user.user? %>
+    <li class="<%= active_menu('events', nil, 'events') %>">
+      <a href="<%= events_path(event_fixed_filters['events']) %>">
+        <i class="fi-book size-18"> <%= t("backend.events") %></i>
       </a>
     </li>
     <% end %>
@@ -67,6 +108,20 @@
           <i class="fi-key size-18"> <%= t("backend.change_password")%></i>
       <% end %>
     </li>
+    <% if current_user.lobby? %>
+    <li class="<%= active_menu('organization/edit') %>">
+      <%= link_to edit_organization_path, target: "_blank" do %>
+          <i class="fi-page-edit size-18"> <%= t("backend.edit_organization")%></i>
+      <% end %>
+    </li>
+    <% end %>
+    <% if current_user.lobby? %>
+    <li class="<%= active_menu('organization/delete') %>">
+      <%= link_to destroy_organization_path, target: "_blank" do %>
+          <i class="fi-page-delete size-18"> <%= t("backend.delete_organization")%></i>
+      <% end %>
+    </li>
+    <% end %>
     <li>
       <%= link_to destroy_user_session_path, method: :delete do %>
           <i class="fi-arrow-left size-18">
@@ -77,3 +132,4 @@
     </li>
   </ul>
 </nav>
+

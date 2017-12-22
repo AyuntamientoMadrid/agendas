@@ -1,16 +1,15 @@
-<div class="row">
-  <div class="small-2 column faq_sidebar">
+<div class="small-12 medium-12 column">
+  <div class="medium-3 column faq_sidebar show-for-medium-up">
     <%= link_to t(:back), :back %>
-
     <% @questions.each do |question| %>
       <div><%= question.position %>. <%= question.title %></div>
     <% end %>
   </div>
-  <div class="small-10 column faq_box">
+  <div class="small-12 medium-9 column faq_box">
     <h1><%= t('backend.faq.questions') %></h1>
 
     <% @questions.each do |question| %>
-      <div class="faq_question_container">
+      <div class="faq_question_container" id='faq_<%= question.position %>'>
         <h2 class="faq_question"><%= question.position %>. <%= question.title %></h2>
         <%= question.answer.html_safe %>
       </div>

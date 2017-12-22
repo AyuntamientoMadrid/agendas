@@ -21,8 +21,14 @@
 //= require ../dependencies/foundation-datepicker
 //= require_tree ../dependencies/foundation-datepicker-locales
 //= require tinymce
+//= require autocomplete-rails
 //= require_tree .
 
 $(function() {
   $(document).foundation();
+
+  tinymce.init({
+    selector : "textarea:not(.mceNoEditor)",
+    language : 'es'
+  });
 });

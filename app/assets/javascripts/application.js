@@ -19,7 +19,13 @@
 //= require organizations
 //= require respond.min
 //= require rem.min
+//= require tinymce
 
 $(function() {
   $(document).foundation();
+  
+  tinymce.init({
+    selector : "textarea:not(.mceNoEditor)",
+    language : 'es'
+  });
 });

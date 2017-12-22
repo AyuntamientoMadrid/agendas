@@ -115,3 +115,26 @@ en:
     approach: approach
     legal_representant_full_name: legal representant full name
     user_name: user name
+    invalidate: invalidate
+  events_exporter:
+    title: título
+    description: descripción
+    scheduled: fecha
+    updated_at: última actualización
+    user_name: usuario
+    position_names: titular de la agenda
+    location: lugar
+    status: estado
+    notes: notas
+    reasons: razones
+    published_at: fecha pública
+    canceled_at: cancelado
+    lobby_activity: actividad de lobby
+    organization_name: organización
+    lobby_scheduled: descripción de fecha propuesta
+    general_remarks: observaciones generales
+    lobby_contact_firstname: nombre contacto
+    lobby_contact_lastname: apellido contacto
+    lobby_contact_email: email contacto
+    lobby_contact_phone: teléfono contacto
+    manager_general_remarks: observaciones generales del gestor

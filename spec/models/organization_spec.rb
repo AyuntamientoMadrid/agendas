@@ -35,10 +35,11 @@ describe Organization do
     expect(organization).not_to be_valid
   end
 
-  it "should not be valid whitout user" do
+  it "should be valid whitout user" do
+    #It changed due to the inclusion of Associations and Federations
     organization.user = nil
 
-    expect(organization).not_to be_valid
+    expect(organization).to be_valid
   end
 
   it "should not be valid without category defined" do
@@ -81,12 +82,6 @@ describe Organization do
     expect(organization.legal_representant_full_name).to eq(legal_representant_full_name)
   end
 
-  it "should have a correct user name" do
-    user_name = organization.user.full_name
-
-    expect(organization.user_name).to eq(user_name)
-  end
-
   describe "#set_inscription_date" do
 
     it "should set inscription_date with current date" do
@@ -103,6 +98,18 @@ describe Organization do
       organization.save
 
       expect(organization.inscription_date).to eq(Date.yesterday)
+    end
+
+  end
+
+  describe "#set_invalidate" do
+
+    it "should set inscription_date with current date" do
+      organization.invalidate = nil
+
+      organization.save
+
+      expect(organization.invalidate).to eq(false)
     end
 
   end

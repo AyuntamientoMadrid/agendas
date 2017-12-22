@@ -29,7 +29,7 @@ describe RepresentedEntity do
   it "should not be valid whitout fiscal_year" do
     represented_entity.fiscal_year = nil
 
-    expect(represented_entity).not_to be_valid
+    expect(represented_entity).to be_valid
   end
 
   describe "#fullname" do
@@ -56,6 +56,26 @@ describe RepresentedEntity do
 
       expect(represented_entity.fullname).to eq "Name FirstSurname SecondSurname"
     end
+  end
+
+  describe "scopes" do
+
+    describe "by_organization" do
+
+      it "should return all represented_entities by organization" do
+        organization = create(:organization)
+        represented_entity_1 = create(:represented_entity, organization: organization)
+        represented_entity_2 = create(:represented_entity, organization: organization)
+
+        represented_entities = RepresentedEntity.by_organization(organization)
+
+        expect(represented_entities.count).to eq(2)
+        expect(represented_entities).to include represented_entity_1
+        expect(represented_entities).to include represented_entity_2
+      end
+
+    end
+
   end
 
 end

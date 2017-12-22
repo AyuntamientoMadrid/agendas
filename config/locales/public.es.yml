@@ -2,21 +2,73 @@ es:
   site_title: "Ayuntamiento de Madrid > Transparencia > Agendas"
   site_description: "Pendiente de definir"
   back: "Volver"
+
   header:
     page_language: "Idioma de la página"
     spanish: "Español"
     english: "Inglés"
-    open_goverment: "Gobierno abierto"
+    open_goverment: "Toma de Decisiones"
     transparency: "Transparencia"
     participation: "Decide Madrid"
     open_data: "Datos abiertos"
-    transparency_url: "http://www.madrid.es/portaldetransparencia "
+    transparency_url: "https://transparencia.madrid.es"
     participation_url: "https://decide.madrid.es"
-    open_data_url: "http://datos.madrid.es"
+    open_data_url: "https://datos.madrid.es"
     btn_public_agenda: "Agendas públicas"
     btn_organizations: "Consulta de registro"
+    btn_login: "Entrar"
+    btn_home: "Portada"
+    btn_agenda: "Agenda"
+    btn_registration_lobbies: "Registro de lobbies"
+    btn_regulations: "Huella normativa"
+    btn_help: "Ayuda"
+    title_home: "Transparencia en la Toma de decisiones"
+    lead_home_html: "El Ayuntamiento de Madrid quiere que la toma de decisiones de sus máximos responsables sea un proceso abierto y transparente.<br> A continuación puedes consultar todos los detalles."
+    title_registration_lobbies_html: "Registro de Lobbies de la Ciudad de Madrid"
+    lead_registration_lobbies_html: "El Registro de Lobbies permite conocer con quiénes se reúnen los representantes del Ayuntamiento de Madrid y qué intereses defienden."
+    title_visitors_html: "Agendas públicas"
+    lead_visitors_html: "Aquí puedes consultar las reuniones que mantienen y los eventos en los que participan los máximos responsables del Ayuntamiento de Madrid y saber quiénes participan en el proceso de toma de decisiones."
+  home:
+    agendas_title: "Agendas y actividad pública"
+    agendas_description: "Consulta las reuniones y otras actividades en las que intervienen los máximos responsables públicos del Ayuntamiento de Madrid. Saber quiénes participan en la toma de decisiones es un pilar esencial de la transparencia."
+    register_lobby_title: "Registro de Lobbies"
+    register_lobby_description: "Este es el espacio donde deben inscribirse las personas y entidades que quieren influir en la elaboración de las normas, políticas y toma de decisiones municipales."
+    regulations_title: "Huella normativa"
+    regulations_description: "Aquí puedes conocer los diferentes documentos elaborados en el proceso de tramitación de las normas municipales."
+    generic_text_title: "Sobre el proceso de toma de decisiones"
+    generic_text_block_1_html: "La toma de decisiones públicas es un proceso que se compone de distintas fases y en el que participan diversos actores. Sea cual sea el tema sobre el que se quiere tomar una decisión, siempre debe perseguir el interés general. <br><br> El Ayuntamiento de Madrid abre a través de su portal de transparencia un espacio en el que se pueda hacer un seguimiento del proceso de toma de decisiones a través de tres mecanismos:"
+    generic_text_list_first: "Agendas públicas: Espacio en el que puedes consultar las reuniones que mantienen y los eventos en los que participan los máximos responsables del Ayuntamiento de Madrid. También saber quiénes participan en el proceso de toma de decisiones."
+    generic_text_list_second: "Registro de Lobbies de la Ciudad de Madrid: Conoce con qué personas y colectivos se reúnen los representantes del Ayuntamiento de Madrid y qué intereses defienden."
+    generic_text_list_third: "Huella normativa: este espacio donde puedes consultar los distintos documentos generados en la tramitación de los distintos textos normativos del Ayuntamiento de Madrid."
+    generic_text_finish_html: "Para saber más sobre el proceso de toma de decisiones del Ayuntamiento de Madrid consulta las <a href='/faq'> preguntas frecuentes.</a> "
+  registration_lobbies_index:
+    registration_lobbies:
+      registry_query_title: "Consulta de registro"
+      registry_query_description: "Conoce quiénes influyen las decisiones del Ayuntamiento y qué reuniones han mantenido."
+    subscribe_unsubscribe:
+      subscribe_unsubscribe_title: "Alta y bajas"
+      subscribe_unsubscribe_description: "En este espacio podrás darte de alta y de baja del registro así como modificar la información y datos facilitados al inscribirte."
+    normative:
+      normative_title: "Código de conducta, sanciones y normativa"
+      normative_description: "Conoce las obligaciones que implica la inscripción en el Registro de Lobbies."
+    questions:
+      question_title: "Preguntas frecuentes"
+      question_description: "En este espacio encontrarás todos los detalles sobre el funcionamiento del Registro de Lobbies."
+    stats:
+      stats_title: "Estadísticas"
+      stats_description: "Datos sobre el uso del Registro de Lobbies con las últimas incorporaciones y resto de inscritos."
+    defaults_mailbox:
+      mailbox_title: "Buzón de incumplimientos"
+      mailbox_description: "Si conoces algún caso de incumplimiento de las normas que rigen el Registro de Lobbies puedes comunicárnoslo."
+    generic_text_title: "Sobre el Registro de Lobbies de la Ciudad de Madrid"
+    generic_text_block_first: "El Ayuntamiento de Madrid da un paso más en transparencia al poner en marcha el Registro de Lobbies, un espacio en el que debe inscribirse cualquier persona o entidad que pretenda influir en la normativa, políticas municipales y la toma de decisiones de impacto general o colectivo."
+    generic_text_block_second: "Las reuniones con los máximos responsables de la ciudad y la documentación asociada podrán consultarse en esta web gratuita y pública."
+    generic_text_block_third_html: "El principal objetivo del Registro de lobbies es democratizar la capacidad de influir. Conoce más detalles sobre esta iniciativa en nuestras <a href='/faq'>preguntas frecuentes.</a>"
+  btn_access: "Acceder"
+
   main:
-    title: "Agendas públicas"
+    title: "Registro de Lobbies"
+    title_agents: "Agendas públicas"
     any_errors: "¿Hay algún error en esta página?"
     get_updates: "Recibe actualizaciones de esta lista"
     share: "Compartir"
@@ -29,7 +81,7 @@ es:
     back: "Volver al listado"
     form:
       title: "Utiliza estos filtros para buscar la información que más te interesa."
-      keyword: "Palabra clave"
+      keyword: "Palabra clave o nombre del agente"
       main_area: "Área/Distrito/Organismo autónomo"
       child_area: "Dirección general"
       holder: "Titular de la agenda"
@@ -37,9 +89,20 @@ es:
       any: "Todos"
       search: "Buscar"
       reset: "Cancelar"
+      clear: "Limpiar"
       order_by: "Orden"
       scheduled: "Fecha"
       score: "Relevancia"
+      sort_by: "Ordenar por"
+      filter_by: "Filtrar por"
+      select: "Seleccionar"
+      name_asc: "Alfabético ascendente"
+      name_desc: "Alfabético descendente"
+      inscription_date_asc: "Fecha de inscripción ascendente"
+      inscription_date_desc: "Fecha de inscripción descendente"
+      agent: "Nombre o apellido del agente"
+      filter_by_interests: "Filtrar por área de interés"
+      filter_by_category: "Filtrar por categoría del lobby"
   show:
     participants: "Asisten"
     location: "Lugar"
@@ -58,12 +121,52 @@ es:
     message:
       default: "Secret Code did not match with the Image"
       user: "The secret Image and code were different"
+  infringement_mailbox:
+    title: "Buzón de incumplimientos"
+    description: "Si conoces algún caso de incumplmiento de las normas por las que se rige el Registro de Lobbies y quieres hacérnoslo llegar  de manera anónima puedes hacerlo en el formulario que encontrarás a continuación."
+    legend: "Comunicar al administrador de manera anónima"
+    subject_title: "Asunto"
+    subject_placeholder: "Título del incumplimiento"
+    link_title: "Enlace"
+    link_placeholder: "Ej: www.agenda.es/enlace"
+    link_info: "Copia y pega el enlace para que los administradores puedan acceder con más facilidad al contenido."
+    attachment_title: "Archivo"
+    attachment_button: "Subir imagen"
+    attachment_info: "Puedes subir imágenes .jpg, .png y.bmp, o un archivo .zip o .rar, con un máximo de 3 megas."
+    description_title: "Descripción"
+    contact_option_title: "Si lo desea puede añadir los datos de contacto:"
+    name: "Nombre"
+    name_placeholder: "Añade tu nombre"
+    first_surname: "Apellido"
+    first_surname_placeholder: "Añade tu apellido"
+    email: "Email"
+    email_placeholder: "Añade tu email"
+    phone: "Teléfono"
+    phone_placeholder: "Añade tu teléfono"
+    text_block_first_html: "La Ordenanza de Transparencia de la Ciudad de Madrid exige a quienes estén inscritos en el Registro de Lobbies cumplir con un Código de Conducta que incluye las siguientes obligaciones:"
+    text_block_second:
+      first: "a) Aceptar que la información proporcionada se haga pública."
+      second: "b) No obtener ni tratar de obtener la información o influir en la toma de decisiones de forma deshonesta."
+      third: "c) Proporcionar información actualizada y no engañosa en el momento de inscribirse en el Registro y de mantenerla actualizada, y garantizar que la que se suministre en cumplimiento de lo dispuesto en esta ordenanza es correcta y fidedigna."
+      four: "d) No incitar a los titulares de los órganos directivos a incumplir lo dispuesto en este capítulo."
+    text_block_fourth_html: "Si tienes conocimiento de que alguna de las personas o entidades inscritas en el Registro ha incumplido alguna de estas obligaciones o si consideras que se ha llevado a cabo alguna actividad de lobby por parte personas o entidades no inscritas, puedes hacérnoslo saber utilizando el siguiente formulario: <br>Los mensajes que se reciban se pondrán en conocimiento de la <a href='https://transparencia.madrid.es/portales/transparencia/es/Portada/Que-es-transparencia-/Comision-de-Seguimiento-de-la-Ordenanza-de-Transparencia?vgnextfmt=default&vgnextoid=7b632ecbb1f2c510VgnVCM2000001f4a900aRCRD&vgnextchannel=9f14003bba020610VgnVCM1000001d4a900aRCRD' target='blank'>Comisión de Seguimiento de la Ordenanza de Transparencia de la Ciudad de Madrid.</a>"
+    send: "Enviar"
+    sent: "Email enviado correctamente"
+    error: "El fichero %{error}"
   footer:
-    description: Este portal usa la %{consul} que es %{open_source}. De Madrid, para el mundo entero.
-    open_data_text: Todos los datos del Ayuntamiento son tuyos.
-    participation_text: Decide cómo debe ser la ciudad de Madrid que quieres.
-    transparency_text: Obtén cualquier información sobre el Ayuntamiento de Madrid.
-    consul: aplicación Consul
-    consul_url: https://github.com/consul/consul
-    open_source: software libre
-    open_source_url: http://www.gnu.org/licenses/agpl-3.0.html
+    title_first_block: "Portal de Toma de decisiones"
+    description_first_block: "El Ayuntamiento de Madrid quiere que la toma de decisiones públicas de sus máximos responsables sea un proceso abierto y transparente."
+    btn_cover_page: "Portada"
+    btn_agendas: "Organización"
+    btn_registration: "Registro de Lobbies"
+    btn_normative: "Huella normativa"
+
+
+    title_third_block: "Otras webs del Ayuntamiento de Madrid"
+    footer_more_info:
+      first_block: "Ayuntamiento de Madrid 2017"
+    btn_accessibility: "Accesibilidad"
+    btn_contact: "Contactar"
+    btn_web_map: "Mapa  web"
+    btn_legal_warning: "Aviso legal"
+    btn_privacy_policy: "Politítica de privacidad"

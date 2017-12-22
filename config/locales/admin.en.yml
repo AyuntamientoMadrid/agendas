@@ -10,10 +10,13 @@ es:
     cancel: "Cancelar"
     action: "Acción"
     actions: "Acciones"
+    state: "Estado"
     add: "Añadir"
     back: "Volver"
     none: "Ninguno"
     frontend: "Zona pública"
+    edit_organization: Modify responsible declaration
+    delete_organization: Delete responsible declaration
     basic_data: "Datos"
     mandatory_field: "Este campo es obligatorio"
     successfully_updated_record: "Registro actualizado correctamente"
@@ -25,6 +28,7 @@ es:
     review_errors: "Por favor corrija los siguientes errores antes de continuar"
     sync: "Sincronizar con UWEB"
     export: "Exportar"
+    allowed_file_content_types: "Uploaded file has wrong content type. Allowed content types are the following: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."
 
     contributors: "Contribuidores"
     new_user: "Nuevo usuario"
@@ -43,6 +47,8 @@ es:
     managed_positions: "Agendas"
     manage_agendas: "Asignación de Agendas"
     lobby: "Lobby"
+    lobby_activity: "Lobby Activity"
+    holder_input: "Search a person by name"
 
     holders: "Titulares"
     holder: "Titular"
@@ -69,44 +75,75 @@ es:
     must_have_position: "Es necesario añadir al menos un cargo"
 
     events: "Eventos"
-    event: "Evento"
     event_history_updates: "Última actualización"
     event_update_user: "Usuario"
     event_update_date: "Fecha"
+    event:
+      title: 'Event'
+      event_agent_needed: "There should be at least one agent on lobby events"
+      not_available_agents: "Not available agents."
+      reasons_needed: "You must provide some reasons to cancel the event"
+      decline_reasons_needed: "You must provide some reasons to decline the event"
+      accept_reasons_needed: "You must provide some reasons to accept the event"
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"
         person: "Ó por titular/asistente"
         placeholder_person: "Búsqueda por titulares y asistentes"
         button: "Buscar"
+        status: "Search by status"
+        tool_tips_multiple_selection: "Para seleccionar más estados debes mantener apretado SHIFT en una PC o COMMAND en una Mac"
+        multiple_selection: "¿Selección múltiple?"
+    pending: "Pending"
     date: "Fecha"
+    lobby_date: "Descripción de fecha propuesta"
+    general_remarks: "Observaciones generales"
     delete_confirm: "Este evento se va a eliminar de todas las agendas en las que está anotado, tanto del convocante como de los asistentes. ¿Está seguro de eliminarlo?"
     location: "Lugar"
     attendees: "Otros asistentes"
     participants: "Asistentes titulares de agenda"
+    meeting_lobby_activity: "¿Es una reunión donde se hará actividad de Lobby?"
+    meeting_lobby_activity_yes: "si"
+    meeting_lobby_activity_no: "no"
+    meeting_lobby_activity_organization: "Organización"
+    meeting_lobby_activity_input: "Buscar una organización o persona fīsica por nombre o dni"
+    meeting_lobby_category: "Categoría: "
+    meeting_lobby_activity_represented_entities: "Empresas Representadas"
+    meeting_lobby_activity_agents: "Agentes"
+    meeting_lobby_activity_public_website: "Fecha en la cual el evento se verá en la página web pública"
     participants_uniqueness: "Existen titulares de agenda duplicados"
     position_not_in_participants: "El titular de agenda se ha incluido también como asistente"
+    manager_general_remarks_title: "Observaciones generales Gestor de agendas"
+    position_not_in_participants: "El titular de agenda se ha incluido también como asistente"
     attachments: "Archivos adjuntos"
+    attachments_description: "Descripción de archivos adjuntos"
+    attachments_public: "Archivos adjuntos públicos"
+    attachments_private: "Archivos adjuntos privados"
+    attachments_download: "Download event attachments"
     only_pdf: "Solo PDF"
     name: "Nombre"
     file: "Archivo"
     title: "Título"
     company: "Organización"
-    companies: "Organizaciones"
-    new_company: "Nueva organización"
+    companies: "Lobbies"
+    new_company: "Nuevo lobby"
     description: "Descripción"
     new_event: "Nuevo evento"
     edit_event: "Editar evento"
-
+    edit_agents: "Editar agentes"
+    add_interests: "Editar intereses"
+    event_tray: Event tray
+    edit_title_interests: "Editar áreas de interés"
+    show_company: "Ver datos organización"
     activity: "Registro de Actividad"
     entries: "Registros"
-
     change_password: "Change password"
     password: "Password"
     password_confirmation: "Repeat password"
     current_password: "Current password"
     modify: "Modify"
-
+    invalidate: Invalidate
+    validate: Validate
     faq:
       questions: "Frequent questions"
       new_question: "New question"
@@ -119,6 +156,31 @@ es:
       position: "Position"
       info_position: "Add the position number where you want this question appear. If you let it blank, the question will be positioned at the end of the list."
     send: "Send"
+    cancel_event: Cancel event
+    canceled_event: Canceled event
+    cancel_reason_yes: Yes
+    cancel_reason_no: No
+    reasons: Cancellation Reasons
+    decline_reasons: Declination Reasons
+    accept_reasons: Acceptation Reasons
+    event_actions: Event actions
+    status:
+      requested: "Requested"
+      accepted: "Accepted"
+      done: "Done"
+      declined: "Rejected"
+      canceled: "Canceled"
+      accepted: "Accepted"
+    decline_event: Decline event
+    declined_event: Event declined
+    decline_reason_yes: Yes
+    decline_reason_no: No
+    accept_event: Decline event
+    accepted_event: Event accepted
+    accept_reason_yes: Yes
+    accept_reason_no: No
+    lobby_not_allowed_neither_empty_mail: 'check that the user is not a lobby and that the text with the reasons is not empty'
+    cancel_only_accepted: Only can be cancelled accepted events
 
   backend_header:
     open_gov: "Gobierno abierto"

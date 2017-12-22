@@ -27,6 +27,7 @@ FactoryGirl.define do
     denied_public_data false
     denied_public_events false
     entity_type :lobby
+    invalidate false
     inscription_date { Date.current }
 
     trait :company do
@@ -49,6 +50,10 @@ FactoryGirl.define do
       name { Faker::Name.name }
       first_surname { Faker::Name.last_name }
       second_surname { Faker::Name.last_name }
+    end
+
+    trait :invalidate do
+      invalidate true
     end
 
   end

@@ -1,98 +1,120 @@
 <% content_for :title, t('site_title') + @event.title %>
-<div class="row">
-  <div class="small-12 large-12 columns">
-    <%= link_to '<< '+ t('main.back'), :back, class: 'right' %>
-  </div>
-</div>
-<div class="row">
-  <div class="small-12 large-8 columns">
 
-    <strong class="post__date"><%= I18n.l @event.scheduled, format: :complete %></strong>
-
-    <h2 class="post__title-big"><%= @event.title %></h2>
-
-    <div class="row mb40">
-      <div class="small-2 large-2 columns">
-        <%= social_share_button_tag(@event.title) %>
-      </div>
-      <div class="small-2 large-1 columns end"><a href="#" onclick="window.print();"><span class="icon icon__print">Imprimir</span></a></div>
-    </div>
-
-  </div>
-</div>
-
-<div class="row mb40">
-  <div class="small-12 large-3 columns">
-    <strong class="post__subtitle"><%= t('show.holder')%></strong>
-  </div>
-  <div class="small-12 large-7 end columns">
-    <p class="post__description">
-      <strong><%= show_agenda_link(@event.position.holder) %></strong>
-    </p>
-    <p><%= @event.position.title.custom_titleize %></p>
-    <p><%= @event.position.area.title.custom_titleize %></p>
-  </div>
-</div>
-
-<div class="row mb40">
-  <div class="small-12 large-3 columns">
-    <strong class="post__subtitle"><%= t('show.participants')%></strong>
-  </div>
-  <div class="small-12 large-7 end columns">
-    <% @event.attendees.each do |attendee|%>
-      <p class="post__description">
-        <strong><%= attendee.name %></strong>
-      </p>
-      <p><%= attendee.position %></p>
-      <p><%= attendee.company %></p>
-      <br />
-    <% end %>
-    <% @event.participants.each do |participant|%>
-    <p class="post__description">
-      <strong><%= show_agenda_link(participant.position.holder) %></strong>
-    </p>
-    <p><%= participant.position.title.custom_titleize %></p>
-    <p><%= participant.position.area.title.custom_titleize %></p>
-    <br />
-    <% end %>
-  </div>
-</div>
-
-<div class="row mb40">
-  <div class="small-12 large-3 columns">
-    <strong class="post__subtitle"><%= t('show.location')%></strong>
-  </div>
-  <div class="small-12 large-7 end columns">
-    <p class="post__text"><%= @event.location %></p>
-  </div>
-</div>
-
-<div class="row mb40">
-  <div class="small-12 large-3 columns">
-    <strong class="post__subtitle"><%= t('show.description')%></strong>
-  </div>
-  <div class="small-12 large-7 end columns">
-    <p class="post__text"><%= @event.description.html_safe%></p>
-  </div>
-</div>
-
-<% if @event.attachments.count > 0 %>
-<div class="row mb40">
-  <div class="small-12 large-3 columns">
-    <strong class="post__subtitle"><%= t('show.documentation')%></strong>
-  </div>
-  <div class="small-12 large-7 end columns">
-    <% @event.attachments.each do |attachment| %>
-      <p class="post__text mb20"><%= link_to attachment.title, attachment.file.url,target: :blank %></p>
-    <% end %>
-  </div>
-</div>
-<% end %>
-
-<!--
 <div class="row">
   <div class="small-12 columns">
-    <p><%= link_to t('main.any_errors'), '' %></p>
+    <%= link_to t('backend.back'), :back , class: "button tiny radius" %>
+    <h2 class="post__title-big"><%= @event.title %></h2>
+    <span><%= I18n.l @event.scheduled, format: :complete %></span>
   </div>
 </div>
--->
+
+<div class="row">
+  <br />
+  <div class="small-12  event_actions columns">
+    <%= social_share_button_tag(@event.title) %>
+    <a href="#" onclick="window.print();"><span class="icon icon__print">Imprimir</span></a>
+  </div>
+</div>
+
+<div class="small-12 columns">
+  <hr />
+  <ul class="accordion" role = "tablist">
+
+      <li class="accordion-navigation active">
+        <div class="accordion-title">
+          <strong><%= t('show.holder')%></strong>
+          <span class="accordion-icon"></span>
+        </div>
+        <div class="content active">
+          <strong><%= show_agenda_link(@event.position.holder) %></strong>
+          <p><%= @event.position.title.custom_titleize %></p>
+          <p><%= @event.position.area.title.custom_titleize %></p>
+        </div>
+      </li>
+
+      <li class="accordion-navigation active">
+        <div class="accordion-title">
+          <strong><%= t('show.participants')%></strong>
+        </div>
+        <div class="content active">
+          <% @event.attendees.each do |attendee|%>
+            <p>
+              <strong><%= attendee.name %></strong>
+            </p>
+            <p><%= attendee.position %></p>
+            <p><%= attendee.company %></p>
+            <br />
+          <% end %>
+          <% @event.participants.each do |participant|%>
+          <p>
+            <strong><%= show_agenda_link(participant.position.holder) %></strong>
+          </p>
+          <p><%= participant.position.title.custom_titleize %></p>
+          <p><%= participant.position.area.title.custom_titleize %></p>
+          <br />
+          <% end %>
+        </div>
+      </li>
+
+      <li class="accordion-navigation active">
+        <div class="accordion-title">
+          <strong><%= t('show.location')%></strong>
+        </div>
+        <div class="content active">
+          <p><%= @event.location %></p>
+        </div>
+      </li>
+
+      <li class="accordion-navigation active">
+        <div class="accordion-title">
+          <strong><%= t('show.description')%></strong>
+        </div>
+        <div class="content active">
+          <p><%= @event.description.html_safe if @event.description.present? %></p>
+        </div>
+      </li>
+
+      <% if @event.attachments.count > 0 %>
+        <li class="accordion-navigation active">
+          <div class="accordion-title">
+            <strong><%= t('show.documentation')%></strong>
+          </div>
+          <div class="content active">
+            <% @event.attachments.each do |attachment| %>
+              <% unless attachment.public == false %>
+                <p><%= link_to attachment.title, attachment.file.url,target: :blank %></p>
+                <%= attachment.description.html_safe if attachment.description.present? %>
+              <% end %>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+
+      <% if @event.lobby_activity %>
+        <li class="accordion-navigation active">
+          <div class="accordion-title">
+            <strong>Información del lobby:</strong>
+          </div>
+          <div class="content active">
+            <strong>Nombre:</strong>
+            <br />
+            <%= link_to @event.organization.name, organization_path(@event.organization) %>
+
+            <br />
+            <br />
+            <strong>Agentes:</strong>
+            <br />
+            <% @event.event_agents.each do |agent| %>
+              <%= agent.name %></p>
+            <% end %>
+            <br />
+            <strong>Empresas repesentadas:</strong>
+            <br />
+            <% @event.event_represented_entities.each do |represented_entity| %>
+              <%= represented_entity.name %></p>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+</div>

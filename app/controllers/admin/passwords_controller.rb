@@ -7,11 +7,12 @@ module Admin
 
     def update
       if current_user.update(password_params)
-        redirect_to root_path, notice: t("admin.passwords.update.notice")
+        sign_in(current_user, bypass: true)
+        flash.now[:notice] = t("admin.passwords.update.notice")
       else
         flash.now[:alert] = t("admin.passwords.update.alert")
-        render :edit
       end
+      render :edit
     end
 
     protected

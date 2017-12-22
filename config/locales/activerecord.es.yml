@@ -1,4 +1,11 @@
 es:
+  status:
+    requested: "solicitado"
+    accepted: "Aceptado"
+    done: "Hecho"
+    declined: "Rechazado"
+    canceled: "Cenceld"
+
   errors:
     format: "%{attribute}  %{message}"
     messages: &errors_messages
@@ -31,13 +38,14 @@ es:
     attributes:
       organization:
         name: "Nombre"
-        category_id: "Categoria"
+        category_id: "Categoría"
       organization/legal_representant:
         identifier: "Representante Legal: Identificador"
         name: "Representante Legal: Nombre"
         first_surname: "Representante Legal: Apellido"
         email: "Representante Legal: email"
       organization/user:
+        identifier: "Persona física de contacto: Identificador"
         first_name: "Persona física de contacto: Nombre"
         last_name: "Persona física de contacto: Apellidos"
         email: "Persona física de contacto: email"
@@ -52,4 +60,11 @@ es:
         identifier: "Agente: Identificador"
         name: "Agente: Nombre"
         from: "Agente: Fecha de inicio"
-
+      event/attendees:
+        name: "Asistente: Nombre"
+        position: "Asistente: Cargo"
+        company: "Asistente: Organización"
+      event/attachments:
+        title: "Archivo adjunto: Título"
+        file: "Archivo adjunto:"
+        public: "Archivo adjunto: Privacidad"

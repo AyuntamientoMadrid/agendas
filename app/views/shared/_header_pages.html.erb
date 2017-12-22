@@ -1,0 +1,26 @@
+<% if params[:controller] == 'homepage' %>
+  <div>
+    <div class="header-title">
+      <h1><strong><%= t('header.title_home') %></strong></h1>
+      <lead><%= t('header.lead_home_html') %></lead>
+    </div>
+  </div>
+<% elsif params[:controller] == 'registration_lobbies' %>
+  <div>
+    <div class="header-title">
+      <h1><strong><%= t('header.title_registration_lobbies_html') %></strong></h1>
+      <lead><%= t('header.lead_registration_lobbies_html') %></lead>
+    </div>
+  </div>
+<% elsif params[:controller] == 'visitors' %>
+  <div>
+    <div class="header-title">
+      <div class="row">
+        <div class="small-12 columns">
+          <strong><%= t('header.title_visitors_html') %></strong><br />
+          <lead><%= t('header.lead_visitors_html') %></lead>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

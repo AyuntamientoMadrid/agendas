@@ -1,0 +1,23 @@
+en:
+  mailers:
+    cancel_event:
+      subject: "Cancelled event: %{title}"
+      welcome: "Hello %{name}"
+      text1: "The event: %{title}"
+      text2: "Has been cancelled for the following reason:"
+      canceled_at: "On %{canceled_at}"
+      thanks: "Regards"
+    decline_event:
+      subject: "Declined event: %{title}"
+      welcome: "Hello %{name}"
+      text1: "The event: %{title}"
+      text2: "Has been declined by %{name}, for the following reason:"
+      declined_at: "On %{declined_at}"
+      thanks: "Regards"
+    accept_event:
+      subject: "Accepted event: %{title}"
+      welcome: "Hello %{name}"
+      text1: "The event: %{title}"
+      text2: "Has been accept by %{name}, for the following reason:"
+      accepted_at: "On %{accepted_at}"
+      thanks: "Regards"

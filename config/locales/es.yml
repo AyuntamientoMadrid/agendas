@@ -102,7 +102,7 @@ es:
     province: provincia
     phones: telefonos
     email: email
-    category_name: nombre de categoria
+    category_name: nombre de Categoría
     description: descripción
     web: web
     fiscal_year: año fiscal
@@ -123,3 +123,26 @@ es:
     approach: aproximación
     legal_representant_full_name: nombre y apellidos del representante legal
     user_name: nombre y apellidos
+    invalidate: invalidada
+  events_exporter:
+    title: título
+    description: descripción
+    scheduled: fecha
+    updated_at: última actualización
+    user_name: usuario
+    position_names: titular de la agenda
+    location: lugar
+    status: estado
+    notes: notas
+    reasons: razones
+    published_at: fecha pública
+    canceled_at: cancelado
+    lobby_activity: actividad de lobby
+    organization_name: organización
+    lobby_scheduled: descripción de fecha propuesta
+    general_remarks: observaciones generales
+    lobby_contact_firstname: nombre contacto
+    lobby_contact_lastname: apellido contacto
+    lobby_contact_email: email contacto
+    lobby_contact_phone: teléfono contacto
+    manager_general_remarks: observaciones generales del gestor

@@ -1,4 +1,52 @@
 $(function(){
+
+  function toggle_hidden(id) {
+    var hiddenField = $(id),
+        val = hiddenField.val();
+    hiddenField.val(val === "true" ? "false" : "true");
+  }
+
+  function cancel_hidden(id) {
+    var hiddenField = $(id)
+    hiddenField.val("false");
+  }
+
+  $('#accept_link').bind('click', function(e){
+    e.preventDefault();
+
+    cancel_hidden('#event_decline')
+    cancel_hidden('#event_cancel')
+    toggle_hidden('#event_accept')
+
+    $('#cancel-reason').hide()
+    $('#decline-reason').hide()
+    $('#accept-reason').toggle();
+  });
+
+  $('#decline_link').bind('click', function(e){
+    e.preventDefault();
+
+    toggle_hidden('#event_decline')
+    cancel_hidden('#event_cancel')
+    cancel_hidden('#event_accept')
+
+    $('#cancel-reason').hide()
+    $('#accept-reason').hide()
+    $('#decline-reason').toggle();
+  });
+
+  $('#cancel_link').bind('click', function(e){
+    e.preventDefault();
+
+    cancel_hidden('#event_decline')
+    toggle_hidden('#event_cancel')
+    cancel_hidden('#event_accept')
+
+    $('#decline-reason').hide()
+    $('#accept-reason').hide()
+    $('#cancel-reason').toggle();
+  });
+
   $('.fdatepicker').fdatepicker({
     format: "<%= I18n.translate('datepicker-format-time') %>",
     pickTime: true,
@@ -7,11 +55,37 @@ $(function(){
     weekStart: 1
   });
 
+  $.validator.addMethod("valueNotEquals", function(value, element, arg){
+    agent = $("#nested-event-agents div.small-12.medium-8.columns select").val();
+    delete_agents = $("#nested-event-agents .nested-fields.agents:visible").length
+    if (($("#event_lobby_activity_true").is(':checked')) && ((delete_agents == 0) || (agent == '' ||
+      typeof(agent) == 'undefined' ||
+      agent == "<%= I18n.translate('backend.event.not_available_agents')%>" )))
+      { return false }
+    else
+      { return true }
+  }, "<%= I18n.translate('backend.event.event_agent_needed')%>");
+
+  $.validator.addMethod("checkMessage", function(value, element, arg){
+    tinyMCE.triggerSave();
+    id = "#event_" + arg
+    content = $(id).val();
+    if (($(element).val() == 'true') && (content == ''))
+      {return false }
+    else
+      { return true }
+  }, "<%= I18n.translate('backend.event.event_agent_needed')%>");
+
   $(".admin-form").validate({
+
       ignore: [],
       errorElement: "small",
+
       rules : {
           "event[title]" : {
+              required : true
+          },
+          "event[location]" : {
               required : true
           },
           "event[scheduled]" : {
@@ -19,24 +93,235 @@ $(function(){
           },
           "event[position_id]" : {
               required : true
+          },
+          "event[attachments_attributes][0][title]" : {
+              required : true
+          },
+          "event[attachments_attributes][0][file]" : {
+            required : true
+          },
+          "event[attachments_attributes][0][public]" : {
+            required : true
+          },
+          "event[lobby_activity]" : {
+            valueNotEquals: "<%= I18n.translate('backend.event.not_available_agents')%>"
+          },
+          "event[accept]" : {
+            checkMessage : "accepted_reasons"
+          },
+          "event[decline]" : {
+            checkMessage : "declined_reasons"
+          },
+          "event[cancel]" : {
+            checkMessage : "reasons"
           }
       },
 
       messages : {
           "event[title]" : {
-              required : "<%= I18n.translate('backend.mandatory_field')%>"
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[location]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
           },
           "event[scheduled]" : {
-              required : "<%= I18n.translate('backend.mandatory_field')%>"
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
           },
           "event[position_id]" : {
-              required : "<%= I18n.translate('backend.mandatory_field')%>"
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[attachments_attributes][0][title]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[attachments_attributes][0][public]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[attachments_attributes][0][file]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[attachments_attributes][0][public]" : {
+            required : "<%= I18n.translate('backend.mandatory_field')%>"
+          },
+          "event[event_agents_attributes][0][name]" : {
+            valueNotEquals: "<%= I18n.translate('backend.event.event_agent_needed')%>"
+          },
+          "event[accept]" : {
+            checkMessage : "<%= I18n.translate('backend.event.accept_reasons_needed')%>"
+          },
+          "event[decline]" : {
+            checkMessage : "<%= I18n.translate('backend.event.decline_reasons_needed')%>"
+          },
+          "event[cancel]" : {
+            checkMessage : "<%= I18n.translate('backend.event.reasons_needed')%>"
           }
       },
 
       errorPlacement : function(error, element) {
-          error.insertAfter(element);
+        error.insertAfter(element);
+        if (element.attr("name") == "event[cancel]" ){
+          error.appendTo('.cancel-reason-activity .error-radio-buttons');
+        } else if (element.attr("name") == "event[decline]" ){
+          error.appendTo('.decline-reason-activity .error-radio-buttons');
+        } else if (element.attr("name") == "event[lobby_activity]" ){
+          error.appendTo('.meeting-lobby-activity .error-radio-buttons');
+        } else if (element.attr("name") == "event[attachments_attributes][0][public]" ) {
+          error.appendTo('.attachments-public .error-radio-buttons');
+        }
       }
   });
 
+  if( $('.admin-form #attachments .nested-fields').length > 0 ){
+    $(".admin-form").valid();
+  }
+
+  $("#event_lobby_activity_true").click(function(){
+    $(".lobby-organization-autocomplete").show();
+    $('.lobby-scheduled').show();
+  });
+
+  if ($("#event_lobby_activity_true").is(":checked")) {
+    fill_autocomplete_organization_name();
+    fill_represented_entities_select_options();
+    fill_agents_select_options();
+    $('.lobby-scheduled').show();
+    if ($("#new_event").length > 0) {
+      $('#event_represented_entities_link').trigger('click');
+      $('#event_agents_link').trigger('click');
+    }
+  } else {
+    $(".lobby-organization-autocomplete").hide();
+    $('.represented-entities-block').hide();
+    $('.agents-block').hide();
+    $('.lobby-scheduled').hide();
+    fill_autocomplete_organization_name();
+    fill_represented_entities_select_options();
+    fill_agents_select_options();
+  };
+
+  $("#event_lobby_activity_false").click(function(){
+    $(".lobby-organization-autocomplete").hide();
+    $('.represented-entities-block').hide();
+    $('.agents-block').hide();
+    $('.lobby-scheduled').hide();
+    $("#lobby-activity-event #category-block").hide();
+    $('#event_organization_name').val('');
+    $('#lobby-activity-event .link_to_remove_association').trigger('click');
+  });
+
+  $('#cancel-reason').hide();
+
+  $("#event_cancel_true").click(function(){
+    $("#cancel-reason").show();
+  });
+
+  if ($("#event_cancel_true").is(":checked")) {
+    $("#cancel-reason").show();
+  };
+
+  $("#event_cancel_false").click(function(){
+    $("#cancel-reason").hide();
+  });
+
+  $('#decline-reason').hide();
+
+  $("#event_decline_true").click(function(){
+    $("#decline-reason").show();
+  });
+
+  if ($("#event_decline_true").is(":checked")) {
+    $("#decline-reason").show();
+  };
+
+  $("#event_decline_false").click(function(){
+    $("#decline-reason").hide();
+  });
+
+  $('#accept-reason').hide();
+
+  $("#event_accept_true").click(function(){
+    $("#accept-reason").show();
+  });
+
+  if ($("#event_accept_true").is(":checked")) {
+    $("#accept-reason").show();
+  };
+
+  $("#event_accept_false").click(function(){
+    $("#accept-reason").hide();
+  });
+
 });
+
+function fill_represented_entities_select_options() {
+  $('#nested-event-represented-entities').bind('cocoon:after-insert', function() {
+    if ($('#event_organization_id').val()){
+      $.ajax({
+        method: "GET",
+        url: $('.represented-entities-block').data('new-url').replace('organization_id', $('#event_organization_id').val())
+      }).done(function( represented_entities ) {
+        var select = $('#nested-event-represented-entities select:last');
+        if (represented_entities.length > 0)  {
+          $.each(represented_entities, function(id, represented_entity){
+            select.append($('<option>', { value: represented_entity.name, text: represented_entity.name }));
+            if (represented_entities.length == 1) {
+              $('#nested-event-represented-entities select').val(represented_entity.name);
+            }
+          });
+        }else {
+          select.append($('<option>', { value: $('#event_organization_name').val(), text: $('#event_organization_name').val() }));
+          set_option = $('#event_organization_name').val()
+          $('#nested-event-represented-entities select').val(set_option);
+        }
+      });
+    }
+  });
+}
+
+function fill_agents_select_options() {
+  $('#nested-event-agents').bind('cocoon:after-insert', function() {
+    if ($('#event_organization_id').val()){
+      $.ajax({
+        method: "GET",
+        url: $('.agents-block').data('new-url').replace('organization_id', $('#event_organization_id').val())
+      }).done(function( agents ) {
+        var select = $('#nested-event-agents select:last');
+        if (agents.length > 0)  {
+          $.each(agents, function(id, agent){
+            select.append($('<option>', { value: agent.name+" "+agent.first_surname+" "+agent.second_surname, text: agent.name+" "+agent.first_surname+" "+agent.second_surname }));
+            if (agents.length == 1) {
+              $('#nested-event-agents select').val(agent.name+" "+agent.first_surname+" "+agent.second_surname);
+            }
+          });
+        }else {
+          select.append($('<option>', { value: "<%= I18n.translate('backend.event.not_available_agents')%>", text: "<%= I18n.translate('backend.event.not_available_agents')%>" }));
+          id_select_agent = $('#nested-event-agents select').attr('id');
+          set_option = $('select#' + id_select_agent + ' option').last().val();
+          $('#nested-event-agents select').val(set_option);
+        }
+      });
+    }
+  });
+}
+
+function fill_autocomplete_organization_name() {
+  $('#event_organization_name').bind('railsAutocomplete.select', function(event, data){
+    $('#nested-event-represented-entities .link_to_remove_association').trigger('click');
+    $('#nested-event-agents .link_to_remove_association').trigger('click');
+    $('#event_organization_id').val(data.item.id);
+    $('#event-category').empty();
+    if ($('#event_organization_id').val()){
+      $.ajax({
+        method: "GET",
+        url: $('#category-block').data('new-url').replace('organization_id', $('#event_organization_id').val())
+      }).done(function( category ) {
+        var div_category = $('#event-category');
+        div_category.append(category);
+      });
+      $("#category-block").show();
+    }
+    $('.represented-entities-block').show();
+    $('#event_represented_entities_link').trigger('click');
+    $('.agents-block').show();
+    $('#event_agents_link').trigger('click');
+  });
+}

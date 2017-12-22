@@ -1,36 +1,36 @@
 <div id="<%= dom_id(f.object) %>" class="nested-fields">
   <%= f.hidden_field :id %>
-  <div class="small-6 columns">
+  <div class="small-12 medium-6 columns">
     <%= f.label :identifier, t('backend.agents.identifier') %>
     <%= f.text_field :identifier %>
     <%= form_field_errors(f, :identifier) %>
   </div>
 
-  <div class="small-6 columns">
+  <div class="small-12 medium-6 columns">
     <%= f.label :name, t('backend.agents.name') %>
     <%= f.text_field :name %>
     <%= form_field_errors(f, :name) %>
   </div>
 
-  <div class="small-6 columns">
+  <div class="small-12 medium-6 columns">
     <%= f.label :first_surname, t('backend.agents.first_surname') %>
     <%= f.text_field :first_surname %>
     <%= form_field_errors(f, :first_surname) %>
   </div>
 
-  <div class="small-6 columns">
+  <div class="small-12 medium-6 columns">
     <%= f.label :second_surname, t('backend.agents.second_surname') %>
     <%= f.text_field :second_surname %>
     <%= form_field_errors(f, :second_surname) %>
   </div>
 
-  <div class="small-6 columns">
+  <div class="small-12 medium-6 columns">
     <%= f.label :from, t('backend.agents.from') %>
     <%= f.date_field :from %>
     <%= form_field_errors(f, :from) %>
   </div>
 
-  <div class="small-6 columns">
+  <div class="small-12 medium-6 columns">
     <%= f.label :to, t('backend.agents.to') %>
     <%= f.date_field :to %>
     <%= form_field_errors(f, :to) %>
@@ -38,14 +38,16 @@
 
   <div class="small-12 columns">
     <%= f.label :public_assignments, t('backend.agents.public_assignments') %>
-    <%= f.text_area :public_assignments %>
+    <br />
+    <%= f.text_area :public_assignments, class: 'mceNoEditor' %>
     <%= form_field_errors(f, :public_assignments) %>
   </div>
-
-  <div class="small-12 columns">
-    <small><%= t('backend.agents.only_fill_if_answer') %> </small>
-    <%= link_to_remove_association "Eliminar", f, class: "button tiny radius alert right" %>
-    <hr />
-  </div>
+  <% if current_user.admin? %>
+    <div class="small-12 columns">
+      <br />
+      <%= link_to_remove_association "Eliminar", f, class: "button tiny radius alert right" %>
+      <hr />
+    </div>
+  <% end %>
 
 </div>

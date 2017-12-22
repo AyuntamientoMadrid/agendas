@@ -1,27 +1,47 @@
 class Event < ActiveRecord::Base
   include PublicActivity::Model
 
+  attr_accessor :cancel, :decline, :accept, :holder_title, :current_user
+
   tracked owner: Proc.new { |controller, model| controller.present? ? controller.current_user : model.user }
   tracked title: Proc.new { |controller, model| controller.present? ? controller.get_title : model.title }
 
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
 
-  validates :title, :position, :scheduled, presence: true
-  validate :participants_uniqueness, :position_not_in_participants
+  validates_with CancelEventValidator
+
+  validates :title, :position, :location, presence: true
+  validates_inclusion_of :lobby_activity, :in => [true, false]
+  validate :participants_uniqueness, :position_not_in_participants, :role_validate_scheduled
+  validates :reasons, presence: {message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, if: Proc.new { |a| !a.canceled_at.blank? }
+  validates :declined_reasons, presence: {message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, if: Proc.new { |a| !a.declined_at.blank? || (a.current_user && !a.current_user.lobby?)}
+  validates :accepted_reasons, presence: {message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, if: Proc.new { |a| !a.accepted_at.blank? || (a.current_user && !a.current_user.lobby?)}
+
+  before_create :set_status
+  before_update :set_published_at
+  after_validation :decline_event
+  after_validation :cancel_event
+  after_validation :accept_event
 
   belongs_to :user
   belongs_to :position
+  belongs_to :organization
   has_many :participants, dependent: :destroy
   has_many :positions, through: :participants
   has_many :attachments, dependent: :destroy
   has_many :attendees, dependent: :destroy
+  has_many :event_represented_entities, dependent: :destroy, inverse_of: :event
+  has_many :event_agents, dependent: :destroy, inverse_of: :event
 
   accepts_nested_attributes_for :attendees, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :event_represented_entities, allow_destroy: true
+  accepts_nested_attributes_for :event_agents, allow_destroy: true
   accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
 
-  scope :by_title, lambda {|title| where("title ILIKE ?", "%#{title}%") }
+  SUPPORTED_FILTERS = [:title, :position_id, :lobby_activity, :status, :organization_id].freeze
+  scope :title, lambda {|title| where("title ILIKE ?", "%#{title}%") }
   scope :by_holders, lambda {|holder_ids|
     joins(:position).where("positions.holder_id IN (?)", holder_ids)
   }
@@ -32,6 +52,33 @@ class Event < ActiveRecord::Base
     holder_ids = Holder.by_name(name).pluck(:id)
     joins(:position).where("positions.holder_id IN (?)", holder_ids)
   }
+  scope :status, ->(status) { where("status IN (#{status})") }
+  scope :lobby_activity, ->(lobby_activity){ where(lobby_activity: lobby_activity) }
+  scope :position_id, ->(position) { where(position_id: position) }
+  scope :organization_id, ->(organization) { where(organization_id: organization) }
+  scope :published, ->{ where("published_at <= ? AND status != ?", Time.zone.today, 4) }
+  enum status: { requested: 0, accepted: 1, done: 2, declined: 3, canceled: 4 }
+
+  def cancel_event
+    return unless cancel == 'true' && canceled_at.nil? && status == 'accepted'
+    self.canceled_at = Time.zone.today
+    self.status = 'canceled'
+    EventMailer.cancel(self).deliver_now
+  end
+
+  def decline_event
+    return unless decline == 'true' && declined_at.nil?
+    self.declined_at = Time.zone.today
+    self.status = 'declined'
+    EventMailer.decline(self).deliver_now
+  end
+
+  def accept_event
+    return unless accept == 'true' && accepted_at.nil?
+    self.accepted_at = Time.zone.today
+    self.status = 'accepted'
+    EventMailer.accept(self).deliver_now
+  end
 
   def self.managed_by(user)
     holder_ids = Holder.managed_by(user.id).pluck(:id)
@@ -56,19 +103,21 @@ class Event < ActiveRecord::Base
     ability(user, 'participants_events')
   end
 
-  def self.searches(search_person, search_title)
-    if search_person.present? || search_title.present?
-      @events = by_holder_name(search_person).uniq if search_person.present?
-      @events = by_title(search_title) if search_title.present?
+  def self.searches(params)
+    if params.present?
+      events = filter(params)
     else
-      @events = all
+      events = all
     end
-    @events
+    events
   end
 
   searchable do
     text :title, :description
     time :scheduled
+    boolean :lobby_activity
+    date :published_at
+    integer :organization_id
 
     text :area_title do
       self.position.area.title
@@ -90,8 +139,8 @@ class Event < ActiveRecord::Base
       self.position.holder.last_name
     end
 
-    integer :holder_id do
-      self.position.holder.id
+    integer :holder_id, multiple: true do
+      self.participants.collect(&:position).collect(&:holder_id) << self.position.holder.id
     end
 
     text :holder_position do
@@ -114,6 +163,29 @@ class Event < ActiveRecord::Base
     return event_ids
   end
 
+  def position_names
+    names = ''
+    positions.each do |position|
+      names += position.holder.full_name_comma + ' - ' + position.title
+      names += ' / ' unless position == positions.last
+    end
+    return names
+  end
+
+  def user_name
+    user.full_name
+  end
+
+  def self.filter(attributes)
+    attributes.slice(*SUPPORTED_FILTERS).reduce(all) do |scope, (key, value)|
+      value.present? ? scope.send(key, value) : scope
+    end
+  end
+
+  def lobby_user_name
+    "#{lobby_contact_firstname} #{lobby_contact_lastname}"
+  end
+
   private
 
     def participants_uniqueness
@@ -128,4 +200,22 @@ class Event < ActiveRecord::Base
       return unless position && positions_ids.include?(position.id)
       errors.add(:base, I18n.t('backend.position_not_in_participants'))
     end
+
+    def set_status
+      if self.user.lobby?
+        self.status = "requested"
+      else
+        self.status = "accepted"
+      end
+    end
+
+    def set_published_at
+      self.published_at = Date.current if (!self.user.lobby? && self.published_at.blank?)
+    end
+
+    def role_validate_scheduled
+      return if self.user.lobby? || self.scheduled.present?
+      errors.add(:base, "Fecha del evento no puede estar en blanco")
+    end
+
 end

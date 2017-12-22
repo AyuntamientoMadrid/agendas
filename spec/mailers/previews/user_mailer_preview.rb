@@ -5,4 +5,5 @@ class UserMailerPreview < ActionMailer::Preview
     user = User.find(3)
     UserMailer.welcome(user)
   end
+
 end

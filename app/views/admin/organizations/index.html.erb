@@ -1,18 +1,28 @@
+<div class="row organizations-list">
+  <div class="small-12 medium-8 column">
+    <h1>
+      <%= t('backend.companies') %> (<%= @organizations.total %>)
+    </h1>
+    <%= link_to t('backend.export'), organizations_path(:format=>:csv), :class => "button tiny radius success" %>
+  </div>
 
-<h1>
-  <%= t('backend.companies') %> (<%= @organizations.total %>)
-  <%= link_to t('backend.new_company'), new_admin_organization_path, :class => "button radius warning right" if can? :create, Organization %>
-</h1>
+  <div class=" small-12 medium-4 column">
+    <%= link_to t('backend.new_company'),
+              new_admin_organization_path,
+              class: "button radius warning right" if can? :create, Organization %>
+  </div>
+</div>
 
 <%= render 'admin_search_form' %>
 
+<%= page_entries_info @organizations.hits, entry_name: t('backend.lobby') %>
 <%= paginate @organizations.hits %>
 
 <div class="small-12">
   <table class="small-12">
     <thead>
       <tr>
-        <th><%= t('backend.title')%></th>
+        <th><%= t('backend.lobby')%></th>
         <th class="right"><%= t('backend.actions')%></th>
       </tr>
     </thead>
@@ -26,12 +36,12 @@
       <% @paginated_organizations.each do |organization| %>
       <tr id="<%= dom_id(organization) %>" >
         <td>
-          <%= organization.fullname %>
+          <%= link_to organization.fullname, organization_path(organization) %>
         </td>
         <td class="right">
           <%= link_to organization_path(organization),
-                      target: :blank,
-                      title: t('organizations.show.title') do %>
+                      target: :_blank,
+                      title: t('backend.lobby_show') do %>
             <i class="step fi-eye size-24"></i>
           <% end %>
 
@@ -40,7 +50,8 @@
             <i class="step fi-page-edit size-24"></i>
           <% end if can? :edit, organization %>
 
-          <%= link_to admin_organization_path(organization), method: :delete,
+          <%= link_to admin_organization_path(organization),
+                      method: :delete,
                       data: { confirm: t("backend.delete_confirm") },
                       title: t('backend.delete') do %>
             <i class="step fi-page-delete size-24"></i>

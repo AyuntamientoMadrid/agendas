@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171124113029) do
+ActiveRecord::Schema.define(version: 20171220163623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,8 @@ ActiveRecord::Schema.define(version: 20171124113029) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
     t.integer  "event_id"
+    t.text     "description"
+    t.boolean  "public"
   end
 
   add_index "attachments", ["event_id"], name: "index_attachments_on_event_id", using: :btree
@@ -89,18 +91,52 @@ ActiveRecord::Schema.define(version: 20171124113029) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "display"
   end
+
+  create_table "event_agents", force: :cascade do |t|
+    t.integer "event_id"
+    t.string  "name"
+  end
+
+  add_index "event_agents", ["event_id"], name: "index_event_agents_on_event_id", using: :btree
+
+  create_table "event_represented_entities", force: :cascade do |t|
+    t.integer "event_id"
+    t.string  "name"
+  end
+
+  add_index "event_represented_entities", ["event_id"], name: "index_event_represented_entities_on_event_id", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.datetime "scheduled"
     t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "position_id"
     t.string   "location"
     t.string   "slug"
+    t.integer  "status",                  default: 0
+    t.boolean  "lobby_activity"
+    t.text     "notes"
+    t.string   "reasons"
+    t.date     "published_at"
+    t.date     "canceled_at"
+    t.string   "organization_name"
+    t.text     "lobby_scheduled"
+    t.text     "general_remarks"
+    t.string   "lobby_contact_firstname"
+    t.string   "lobby_contact_lastname"
+    t.string   "lobby_contact_email"
+    t.string   "lobby_contact_phone"
+    t.text     "manager_general_remarks"
+    t.integer  "organization_id"
+    t.date     "declined_at"
+    t.string   "declined_reasons"
+    t.date     "accepted_at"
+    t.string   "accepted_reasons"
   end
 
   add_index "events", ["position_id"], name: "index_events_on_position_id", using: :btree
@@ -187,26 +223,29 @@ ActiveRecord::Schema.define(version: 20171124113029) do
     t.string   "phones"
     t.string   "email"
     t.integer  "category_id"
-    t.string   "description"
+    t.string   "description",           default: ""
     t.string   "web"
     t.integer  "registered_lobbies"
     t.integer  "fiscal_year"
     t.integer  "range_fund"
-    t.boolean  "subvention"
-    t.boolean  "contract"
+    t.boolean  "subvention",            default: false
+    t.boolean  "contract",              default: false
     t.boolean  "denied_public_data"
     t.boolean  "denied_public_events"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "inscription_reference"
     t.date     "inscription_date"
-    t.string   "entity_type"
+    t.integer  "entity_type"
     t.string   "neighbourhood"
     t.string   "district"
     t.string   "scope"
     t.integer  "associations_count"
     t.integer  "members_count"
     t.string   "approach"
+    t.boolean  "invalidate"
+    t.datetime "canceled_at"
+    t.string   "country"
   end
 
   add_index "organizations", ["category_id"], name: "index_organizations_on_category_id", using: :btree
@@ -251,10 +290,10 @@ ActiveRecord::Schema.define(version: 20171124113029) do
     t.integer  "organization_id"
     t.integer  "fiscal_year"
     t.integer  "range_fund"
-    t.boolean  "subvention"
-    t.boolean  "contract"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.boolean  "subvention",      default: false
+    t.boolean  "contract",        default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   add_index "represented_entities", ["organization_id"], name: "index_represented_entities_on_organization_id", using: :btree
@@ -279,6 +318,7 @@ ActiveRecord::Schema.define(version: 20171124113029) do
     t.string   "user_key"
     t.string   "phones"
     t.integer  "organization_id"
+    t.datetime "deleted_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -288,6 +328,8 @@ ActiveRecord::Schema.define(version: 20171124113029) do
   add_foreign_key "agents", "organizations"
   add_foreign_key "attachments", "events"
   add_foreign_key "attendees", "events"
+  add_foreign_key "event_agents", "events"
+  add_foreign_key "event_represented_entities", "events"
   add_foreign_key "events", "positions"
   add_foreign_key "events", "users"
   add_foreign_key "legal_representants", "organizations"

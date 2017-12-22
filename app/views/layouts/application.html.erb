@@ -9,6 +9,7 @@
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
     <%= auto_discovery_link_tag :atom, root_path(format: :atom) %>
     <%= auto_discovery_link_tag :rss, root_path(format: :rss) %>
@@ -21,13 +22,16 @@
       <%= javascript_include_tag 'ie_lt9' %>
      <![endif]-->
   </head>
-  <body class="">
+  <body class="<%= yield (:body_class) %>">
     <%= render 'layouts/header' %>
     <%= render  'layouts/admin_messages' %>
+
+    <%= render  'shared/header_pages' %>
+
     <div id="main-content" class="main-content">
       <div class="row">
-        <div class="small-12">
-          <div class="box">
+        <div class="small-12 columns">
+          <div class="box small-12 box columns">
             <%= yield %>
           </div>
         </div>

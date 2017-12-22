@@ -2,6 +2,13 @@
 
 es:
   devise:
+    sign_in: "Entrar"
+    email: "Correo electrónico"
+    password: "Contraseña"
+    forgot_password: "¿Olvidaste tu contraseña?"
+    remember: "Recordar en este ordenador"
+    password_reset_instructions: "Te enviaremos instrucciones de restablecimiento de contraseña"
+    reset_password: "Restablecer la contraseña"
     confirmations:
       confirmed: "Tu cuenta ha sido confirmada."
       send_instructions: "Recibirás un correo electrónico en unos minutos con instrucciones sobre cómo restablecer tu contraseña."

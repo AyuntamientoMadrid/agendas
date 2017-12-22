@@ -1,24 +1,27 @@
 <fieldset>
   <legend><%= t('backend.lobbies_data.title_fieldset') %></legend>
   <div class="row">
-    <div class="small-6 columns">
+    <div class="small-12 medium-6 columns">
       <%= f.label :fiscal_year, t('backend.lobbies_data.fiscal_year') %>
-      <%= f.number_field :fiscal_year %>
+      <%= f.number_field :fiscal_year, min: 0 %>
       <%= form_field_errors(f, :fiscal_year) %>
     </div>
-    <div class="small-6 columns">
-      <%= f.label :range_fund, t('backend.lobbies_data.range_fund') %>
-      <%= f.select :range_fund, Organization.range_funds.keys.to_a %>
+    <div class="small-12 medium-6 columns">
+      <%= f.label :range_fund, t('backend.lobbies_data.range_fund_title') %>
+      <%= f.select :range_fund, Organization.range_funds.keys.map {
+        |key| [t("backend.lobbies_data.range_fund.#{key}"), key]},
+        {:include_blank => t("backend.lobbies_data.range_fund.select")} %>
+
       <%= form_field_errors(f, :range_fund) %>
     </div>
     <div class="small-12 columns">
       <%= f.label :subvention, t('backend.lobbies_data.subvention') %>
-      <%= f.check_box :subvention %> Si
+      <%= f.check_box :subvention %> <%= t('backend.lobbies_data.subvention_yes') %>
       <%= form_field_errors(f, :subvention) %>
     </div>
     <div class="small-12 columns">
-      <%= f.label :contract, t('backend.lobbies_data.subvention') %>
-      <%= f.check_box :contract %> Si
+      <%= f.label :contract, t('backend.lobbies_data.contract') %>
+      <%= f.check_box :contract %> <%= t('backend.lobbies_data.contract_yes') %>
       <%= form_field_errors(f, :contract) %>
     </div>
   </div>

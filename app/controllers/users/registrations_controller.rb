@@ -4,11 +4,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   layout "admin"
 
-  # GET /resource/sign_up
+  #GET /resource/sign_up
   # def new
   #   super
   # end
-
+  #
   # POST /resource
   # def create
   #   super

@@ -1,30 +1,77 @@
 <footer class="footer" role="contentinfo">
   <div class="row">
-    <div class="small-12 large-3 mb20 columns">
-      <h1 class="title-m"><strong><%= t('header.open_goverment') %></strong></h1>
+    <div class="small-12 medium-4 mb20 columns">
+      <strong><%= t('footer.title_first_block') %></strong>
       <p>
-        <%= t('footer.description',
-            open_source: link_to(t('footer.open_source'), t('footer.open_source_url'), target: '_blank'),
-            consul:  link_to(t('footer.consul'), t('footer.consul_url'), target: '_blank')).html_safe %>
+        <br />
+        <%= t('footer.description_first_block') %>
       </p>
     </div>
-    <div class="small-12 large-3 mb20 columns">
-      <h4 class="title-m">
-        <a href="<%= t('header.participation_url') %>" target="_blank"><%= t('header.participation') %></a>
-      </h4>
-      <p><%= t('footer.participation_text')%></p>
+    <div class="small-12 medium-4 medium-offset-1 mb20 columns">
+      <ul>
+        <li>
+          <%= link_to t('footer.btn_cover_page'), root_path  %>
+        </li>
+        <li>
+          <%= link_to t('footer.btn_agendas'), visitors_path  %>
+        </li>
+        <li>
+          <%= link_to t('footer.btn_registration'), registration_lobbies_path  %>
+        </li>
+        <li>
+          <%= link_to t('footer.btn_normative'), 'https://transparencia.madrid.es/portales/transparencia/es/Informacion-juridica/Huella-normativa?vgnextfmt=default&vgnextchannel=4099508929a56510VgnVCM1000008a4a900aRCRD' %>
+        </li>
+
+      </ul>
     </div>
-    <div class="small-12 large-3 mb20 columns">
-      <h4 class="title-m">
-        <a href="<%= t('header.transparency_url') %>" target="_blank"><%= t('header.transparency') %></a>
-      </h4>
-      <p><%= t('footer.transparency_text')%></p>
-    </div>
-    <div class="small-12 large-3 mb20 columns">
-      <h4 class="title-m">
-        <a href="<%= t('header.open_data_url') %>" target="_blank"><%= t('header.open_data') %></a>
-      </h4>
-      <p><%= t('footer.open_data_text')%></p>
+    <div class="small-12 medium-3 mb20 columns">
+      <strong><%= t('footer.title_third_block') %></strong>
+      <ul>
+        <li>
+          <%= link_to 'www.madrid.es', 'http://www.madrid.es', target: 'blank'  %>
+        </li>
+        <li>
+          <%= link_to 'sede.madrid.es', 'http://sede.madrid.es', target: 'blank'  %>
+        </li>
+        <li>
+          <%= link_to 'datos.madrid.es', 'http://datos.madrid.es', target: 'blank'  %>
+        </li>
+        <li>
+          <%= link_to 'decide.madrid.es', 'http://decide.madrid.es', target: 'blank'  %>
+        </li>
+        <li>
+          <%= link_to 'transparencia.madrid.es', 'http://transparencia.madrid.es', target: 'blank'  %>
+        </li>
+      </ul>
     </div>
   </div>
+
+  <div class="footer_more_info">
+    <div class="row">
+      <div class="small-12 medium-4 columns">
+        <%= t('footer.footer_more_info.first_block') %>
+      </div>
+      <div class="small-12 medium-8 columns">
+        <ul class="inline-list right">
+          <li>
+            <%= link_to t('footer.btn_accessibility'), 'Esperando texto'  %>
+          </li>
+          <li>
+            <%= link_to t('footer.btn_contact'), 'http://www.madrid.es/portales/munimadrid/es/Inicio/El-Ayuntamiento/Contactar?vgnextfmt=default&vgnextchannel=2ff5891b0ed86210VgnVCM2000000c205a0aRCRD', target: 'blank'  %>
+          </li>
+          <li>
+            <%= link_to t('footer.btn_web_map'), 'Crear sitemap con link clikable'  %>
+          </li>
+          <li>
+            <%= link_to t('footer.btn_legal_warning'), 'https://transparencia.madrid.es/portales/transparencia/es/Aviso-legal?vgnextfmt=default&vgnextchannel=20d8508929a56510VgnVCM1000008a4a900aRCRD', target: 'blank'  %>
+          </li>
+          <li>
+            <%= link_to t('footer.btn_privacy_policy'), 'http://www.madrid.es/portales/munimadrid/es/Inicio/Proteccion-de-datos?vgnextfmt=default&vgnextoid=2c241e7b0f578010VgnVCM100000dc0ca8c0RCRD&vgnextchannel=251f43db40317010VgnVCM100000dc0ca8c0RCRD' , target: 'blank' %>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
 </footer>

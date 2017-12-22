@@ -64,6 +64,39 @@ feature 'Passwords' do
 
       expect(page).to have_content('Confirmación de la contraseña no coincide')
     end
+
+    it "correct user role when can't reset an user's password" do
+      fill_in :user_password, with: 'new_password'
+      fill_in :user_password_confirmation, with: 'no_match'
+      click_button(I18n.t('backend.save'))
+
+      expect(page).to have_content('1 error impidió guardar este gestor de agenda')
+    end
+  end
+
+  context 'Lobby' do
+    background do
+      @lobby = create(:user, :lobby)
+      login_as(@lobby)
+      visit edit_password_path(@lobby)
+    end
+
+    it "correct user role when can't reset an user's password" do
+      fill_in :user_password, with: 'new_password'
+      fill_in :user_password_confirmation, with: 'no_match'
+      click_button(I18n.t('backend.save'))
+
+      expect(page).to have_content('1 error impidió guardar este Lobby')
+    end
+
+    it "When a user changes his password he does not lose the session" do
+      fill_in :user_password, with: 'new_password'
+      fill_in :user_password_confirmation, with: 'new_password'
+      click_button(I18n.t('backend.save'))
+
+      expect(page).to have_content('Contraseña actualizada correctamente.')
+      expect(page).to have_content('Cambiar contraseña')
+    end
   end
 
 end

@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.4.1'
 
 def deploysecret(key)
   @deploy_secrets_yml ||= YAML.load_file('config/deploy-secrets.yml')[fetch(:stage).to_s]
@@ -7,14 +7,14 @@ def deploysecret(key)
 end
 
 set :rails_env, fetch(:stage)
-set :rvm_ruby_version, '2.3.5'
+#set :rvm_ruby_version, '2.3.5'
 set :rvm_type, :user
 
 set :application, 'agendas'
 set :server_name, deploysecret(:server_name)
 set :full_app_name, fetch(:application)
 # If ssh access is restricted, probably you need to use https access
-set :repo_url, 'https://github.com/IAMCorporativos/agendas.git'
+set :repo_url, 'https://github.com/AyuntamientoMadrid/agendas.git'
 
 set :scm, :git
 set :revision, `git rev-parse --short #{fetch(:branch)}`.strip
@@ -40,7 +40,6 @@ set(:config_files, %w(
   secrets.yml
   unicorn.rb
 ))
-
 
 namespace :deploy do
   # Check right version of deploy branch

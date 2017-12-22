@@ -3,25 +3,25 @@
   <%= paginate @activities%>
   <table class="event">
     <thead>
-    <tr>
-      <th><%= t('backend.date')%></th>
-      <th><%= t('backend.user')%></th>
-      <th><%= t('backend.event')%></th>
-      <th><%= t('backend.action')%></th>
-    </tr>
+      <tr>
+        <th><%= t('backend.date')%></th>
+        <th><%= t('backend.user')%></th>
+        <th><%= t('organizations.show.events_title')%></th>
+        <th><%= t('backend.action')%></th>
+      </tr>
     </thead>
     <tfoot>
-    <tr>
-      <th><%= t('backend.date')%></th>
-      <th><%= t('backend.user')%></th>
-      <th><%= t('backend.event')%></th>
-      <th><%= t('backend.action')%></th>
-    </tr>
+      <tr>
+        <th><%= t('backend.date')%></th>
+        <th><%= t('backend.user')%></th>
+        <th><%= t('organizations.show.events_title')%></th>
+        <th><%= t('backend.action')%></th>
+      </tr>
     </tfoot>
     <tbody>
     <% @activities.each do |activity| %>
         <tr>
-          <td class="event_date"><%= activity.created_at.to_time.strftime(t('time.formats.short')) %></td>
+          <td class="event_date"><%= I18n.l activity.created_at, format: :short %></td>
           <td class="event_holder"><%= link_to activity.owner.full_name, user_path(activity.owner) if activity.owner.present? %></td>
           <td class="event_txt">
             <% if activity.trackable.present? %>

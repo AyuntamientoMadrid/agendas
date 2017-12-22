@@ -1,0 +1,444 @@
+<div class="organizaion-lobby-show">
+  <fieldset>
+    <legend><%= t('backend.reference.title_fieldset') %></legend>
+      <div class="row">
+        <div class="small-12 columns"><strong><%= t('backend.reference.title') %></strong></div>
+      </div>
+      <div class="row">
+        <div class="small-12 columns"><%= @organization.reference %></div>
+      </div>
+  </fieldset>
+
+  <fieldset>
+    <legend><%= t('backend.identifying_data.title_fieldset') %></legend>
+    <div class="row">
+      <div class="small-12 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.identifier') %></strong>
+          <%= @organization.identifier %>
+        </p>
+      </div>
+
+      <div class="small-12 medium-4 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.name') %></strong>
+          <%= @organization.name %>
+        </p>
+      </div>
+      <div class="small-12 medium-4 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.first_surname') %></strong>
+          <%= @organization.first_surname %>
+        </p>
+      </div>
+      <div class="small-12 medium-4 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.second_surname') %></strong>
+          <%= @organization.second_surname %>
+        </p>
+      </div>
+      <div class="small-12 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.phones') %></strong>
+          <%= @organization.phones %>
+        </p>
+      </div>
+      <div class="small-12 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.email') %></strong>
+          <%= @organization.email %>
+        </p>
+      </div>
+      <div class="small-12 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.category_id') %></strong>
+          <%= category_name(@organization.category_id) %>
+        </p>
+      </div>
+      <div class="small-12 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.web') %></strong>
+          <%= @organization.web %>
+        </p>
+      </div>
+
+      <div class="small-12 medium-12 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.address_type') %></strong>
+          <%= @organization.address_type %>
+        </p>
+      </div>
+      <div class="small-12 medium-4 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.address') %></strong>
+          <%= @organization.address %>
+        </p>
+      </div>
+      <div class="small-12 medium-4 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.number') %></strong>
+          <%= @organization.number %>
+        </p>
+      </div>
+      <div class="small-12 medium-4 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.gateway') %></strong>
+          <%= @organization.gateway %>
+        </p>
+      </div>
+      <div class="small-12 medium-4 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.stairs') %></strong>
+          <%= @organization.stairs %>
+        </p>
+      </div>
+      <div class="small-12 medium-4 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.floor') %></strong>
+          <%= @organization.floor %>
+        </p>
+      </div>
+      <div class="small-12 medium-4 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.door') %></strong>
+          <%= @organization.door %>
+        </p>
+      </div>
+      <div class="small-12 medium-4 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.postal_code') %></strong>
+          <%= @organization.postal_code %>
+        </p>
+      </div>
+      <div class="small-12 medium-4 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.town') %></strong>
+          <%= @organization.town %>
+        </p>
+      </div>
+      <div class="small-12 medium-4 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.province') %></strong>
+          <%= @organization.province %>
+        </p>
+      </div>
+      <div class="small-12 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.description') %></strong>
+          <%= @organization.description.html_safe if @organization.description.present? %>
+        </p>
+      </div>
+
+        <div class="small-12 columns mb10">
+          <p>
+            <strong><%= t('backend.identifying_data.registered_lobbies_title') %></strong>
+            <% if @organization.registered_lobbies.present? %>
+              <%= t("backend.identifying_data.registered_lobbies.#{@organization.registered_lobbies}") %>
+            <% end %>
+          </p>
+        </div>
+
+    </div>
+  </fieldset>
+
+  <% if @legal_representant %>
+    <fieldset>
+      <legend><%= t('backend.legal_representant.title_fieldset') %></legend>
+      <div class="row">
+        <div class="small-12 medium-6 columns mb10">
+          <p>
+            <strong><%= t('backend.legal_representant.identifier') %></strong>
+            <%= @legal_representant.identifier %>
+          </p>
+        </div>
+        <div class="small-12 medium-6 columns mb10">
+          <p>
+            <strong><%= t('backend.legal_representant.name') %></strong>
+            <%= @legal_representant.name %>
+          </p>
+        </div>
+        <div class="small-12 medium-6 columns mb10">
+          <p>
+            <strong><%= t('backend.legal_representant.first_surname') %></strong>
+            <%= @legal_representant.first_surname %>
+          </p>
+        </div>
+        <div class="small-12 medium-6 columns mb10">
+          <p>
+            <strong><%= t('backend.legal_representant.second_surname') %></strong>
+            <%= @legal_representant.second_surname %>
+          </p>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="small-6 columns mb10"><strong>
+          <p>
+            <strong><%= t('backend.legal_representant.phones') %></strong>
+            <%= @legal_representant.phones %>
+          </p>
+        </div>
+        <div class="small-6 columns mb10">
+          <p>
+            <strong><%= t('backend.legal_representant.email') %></strong>
+            <%= @legal_representant.email %>
+          </p>
+        </div>
+      </div>
+    </fieldset>
+  <% end %>
+
+  <fieldset>
+    <legend><%= t('backend.contact_person.title_fieldset') %></legend>
+
+    <div class="row">
+      <div class="small-6 medium-6 columns mb10">
+        <p>
+          <strong><%= t('backend.contact_person.name') %></strong>
+          <%= @organization.user.first_name %>
+        </p>
+      </div>
+      <div class="small-6 medium-6 columns mb10">
+        <p>
+          <strong><%= t('backend.contact_person.surnames') %></strong>
+          <%= @organization.user.last_name %>
+        </p>
+      </div>
+    </div>
+
+    <br>
+    <div class="row">
+      <div class="small-6 medium-6 columns mb10">
+        <p>
+          <strong><%= t('backend.contact_person.phone') %></strong>
+          <%= @organization.user.phones %>
+        </p>
+
+      </div>
+      <div class="small-6 medium-6 columns mb10">
+        <p>
+          <strong><%= t('backend.contact_person.email') %></strong>
+          <%= @organization.user.email %>
+        </p>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend><%= t('backend.lobbies_data.title_fieldset') %></legend>
+    <div class="row">
+      <div class="small-6 medium-6 columns mb10">
+        <p>
+          <strong><%= t('backend.lobbies_data.fiscal_year') %></strong>
+          <%= @organization.fiscal_year %>
+        </p>
+      </div>
+      <div class="small-6 medium-6 columns mb10">
+        <p>
+          <strong><%= t('backend.lobbies_data.range_fund_title') %></strong>
+          <% if @organization.range_fund.present? %>
+            <%= t("backend.lobbies_data.range_fund.#{@organization.range_fund}") %>
+          <% end %>
+        </p>
+      </div>
+      <div class="small-6 medium-6 columns mb10">
+        <p>
+          <strong><%= t('backend.lobbies_data.subvention') %></strong>
+          <%= @organization.subvention ? "Sí" : "No" %>
+        </p>
+      </div>
+      <div class="small-6 medium-6 columns mb10">
+        <p>
+          <strong><%= t('backend.lobbies_data.subvention') %></strong>
+          <%= @organization.contract ? "Sí" : "No" %>
+        </p>
+      </div>
+    </div>
+    <br>
+  </fieldset>
+
+  <% unless @represented_entities.empty? %>
+    <fieldset>
+      <legend><%= t('backend.represented_entities.title_fieldset') %></legend>
+      <% @represented_entities.each_with_index do |represented_entity, index|%>
+        <div class="row">
+          <div class="small-12 columns">
+            <p>
+              <i><strong><%= t('backend.represented_entities.company') %> <%= index + 1 %></strong></i>
+            </p>
+          </div>
+          <br />
+          <div class="small-6 medium-6 columns mb10">
+            <p>
+              <strong><%= t('backend.represented_entities.identifier') %></strong>
+              <%= represented_entity.identifier %>
+            </p>
+          </div>
+          <div class="small-6 medium-6 columns mb10">
+            <p>
+              <strong><%= t('backend.represented_entities.name') %></strong>
+              <%= represented_entity.name %>
+            </p>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="small-6 medium-6 columns mb10">
+            <p>
+              <strong><%= t('backend.represented_entities.first_surname') %></strong>
+              <%= represented_entity.first_surname %>
+            </p>
+          </div>
+          <div class="small-6 medium-6 columns mb10">
+            <p>
+              <strong><%= t('backend.represented_entities.second_surname') %></strong>
+              <%= represented_entity.second_surname %>
+            <p>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="small-6 medium-6 columns mb10">
+            <p>
+              <strong><%= t('backend.represented_entities.from') %></strong>
+              <%= I18n.l represented_entity.from if represented_entity.from.present? %>
+            </p>
+          </div>
+          <div class="small-6 medium-6 columns mb10">
+            <p>
+              <strong><%= t('backend.represented_entities.fiscal_year') %></strong>
+              <%= represented_entity.fiscal_year %>
+            </p>
+          </div>
+        </div>
+
+        <br>
+        <% if represented_entity.blank? %>
+          <div class="row">
+            <div class="small-12 columns">
+              <p>
+                <strong><%= t('backend.represented_entities.range_fund_title') %></strong>
+                <%= t("backend.represented_entities.range_fund.#{represented_entity.range_fund}") %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+
+        <br>
+        <div class="row">
+          <div class="small-6 medium-6 columns mb10">
+            <p>
+              <strong><%= t('backend.represented_entities.subvention') %></strong>
+              <%= represented_entity.subvention ? "Sí" : "No" %>
+            </p>
+          </div>
+          <div class="small-6 medium-6 columns mb10">
+            <p>
+              <strong><%= t('backend.represented_entities.contract') %></strong>
+              <%= represented_entity.contract ? "Sí" : "No" %>
+            </p>
+          </div>
+        </div>
+        <hr>
+      <% end %>
+    </fieldset>
+  <% end %>
+
+  <fieldset class="interest">
+    <legend><%= t('backend.interest.title_fieldset') %></legend>
+    <div class="row">
+      <div class="small-12 columns mb10">
+        <% Interest.all.each do |f| %>
+          <div class="small-12 medium-6 columns">
+            <p>
+              <%= check_box_tag "interest_#{f.id}", nil, @organization.interest?(f.id), disabled: true, class: 'checkbox' %>
+              <span><%= f.name %></span>
+            </p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend><%= t('backend.agents.title_fieldset') %></legend>
+    <% @agents.each_with_index do |agent, index| %>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <p>
+            <i><strong><%= t('backend.agents.agents') %> <%= index + 1  %></strong></i>
+          </p>
+        </div>
+        <br />
+        <div class="small-3 medium-6 columns mb10">
+          <p>
+            <strong><%= t('backend.agents.identifier') %></strong>
+            <%= agent.identifier %>
+          </p>
+        </div>
+        <div class="small-3 medium-6 columns mb10">
+          <p>
+            <strong><%= t('backend.agents.name') %></strong>
+            <%= agent.name %>
+          </p>
+        </div>
+        <div class="small-3 medium-6 columns mb10">
+          <p>
+            <strong><%= t('backend.agents.first_surname') %></strong>
+            <%= agent.first_surname %>
+          </p>
+        </div>
+        <div class="small-3 medium-6 columns mb10">
+          <p>
+            <strong><%= t('backend.agents.second_surname') %></strong>
+            <%= agent.second_surname %>
+          </p>
+        </div>
+        <div class="small-3 medium-6 columns mb10">
+          <p>
+            <strong><%= t('backend.agents.from') %></strong>
+            <%= I18n.l agent.from if agent.from.present? %>
+          </p>
+        </div>
+        <div class="small-3 medium-6 columns mb10">
+          <p>
+            <strong><%= t('backend.agents.to') %></strong>
+            <%= I18n.l agent.to if agent.to.present? %>
+          </p>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="small-12 columns">
+          <p>
+            <strong><%= t('backend.agents.public_assignments_only_show') %></strong>
+            <%= agent.public_assignments.html_safe if agent.public_assignments.present? %>
+          </p>
+        </div>
+      </div>
+      <hr>
+    <% end %>
+  </fieldset>
+
+  <fieldset class="terms-fieldset">
+    <legend><%= t('backend.terms.title_fieldset') %></legend>
+    <div class="row">
+      <div class="small-12 column">
+        <p><%= t('backend.terms.denied_public_data') %></p>
+        <p>
+          <%= check_box_tag :denied_public_data, nil, @organization.denied_public_data, disabled: true %> Confirmar
+        </p>
+        <br />
+        <p>
+          <%= t('backend.terms.denied_public_events') %>
+        </p>
+        <p>
+          <%= check_box_tag :denied_public_events, nil, @organization.denied_public_events, disabled: true %> Confirmar
+        </p>
+        <br />
+        <p><%= t('backend.terms.last_text') %></p>
+      </div>
+    </div>
+  </fieldset>
+</div>
