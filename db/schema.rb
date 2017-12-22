@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171220163623) do
+ActiveRecord::Schema.define(version: 20171222090536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -281,6 +281,21 @@ ActiveRecord::Schema.define(version: 20171220163623) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "registered_lobbies", force: :cascade do |t|
+    t.text     "name"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "organization_id"
+  end
+
+  add_index "registered_lobbies", ["organization_id"], name: "index_registered_lobbies_on_organization_id", using: :btree
+
+  create_table "registered_lobby", force: :cascade do |t|
+    t.text     "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "represented_entities", force: :cascade do |t|
     t.string   "identifier"
     t.string   "name"
@@ -343,6 +358,7 @@ ActiveRecord::Schema.define(version: 20171220163623) do
   add_foreign_key "participants", "positions"
   add_foreign_key "positions", "areas"
   add_foreign_key "positions", "holders"
+  add_foreign_key "registered_lobbies", "organizations"
   add_foreign_key "represented_entities", "organizations"
   add_foreign_key "users", "organizations"
 end

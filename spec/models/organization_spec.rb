@@ -4,11 +4,6 @@ describe Organization do
 
   let(:organization) { build(:organization) }
 
-  it { should respond_to(:generalitat_catalunya?) }
-  it { should respond_to(:cnmc?) }
-  it { should respond_to(:europe_union?) }
-  it { should respond_to(:others?) }
-
   it { should respond_to(:range_1?) }
   it { should respond_to(:range_2?) }
   it { should respond_to(:range_3?) }

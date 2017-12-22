@@ -164,3 +164,16 @@ answer: "Actualmente funcionan registros similares en la Comunidad Autónoma de 
 position: 28)
 
 puts "Faq created ✅"
+
+# RegisteredLobby
+registered_lobbies = ['no_record',
+                      'generalitat_catalunya',
+                      'cnmc',
+                      'europe_union',
+                      'others']
+
+
+registered_lobbies.each do |name|
+  RegisteredLobby.find_or_create_by(name: name)
+end
+puts "Registered lobbies created ✅"

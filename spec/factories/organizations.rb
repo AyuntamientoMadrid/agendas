@@ -19,7 +19,6 @@ FactoryGirl.define do
     association :category, factory: :category
     association :user, factory: :user
     web "www.organization.com"
-    registered_lobbies :generalitat_catalunya
     fiscal_year 2018
     range_fund :range_1
     subvention false
