@@ -200,43 +200,19 @@
             <% if !current_user.lobby? %>
               <%= link_to t('backend.accept_event'), '#', :class => "button radius success small", disabled: !declinable_or_aceptable_event?(f.object), id: "accept_link" %>
               <%= link_to t('backend.decline_event'), '#', :class => "button radius warning small", disabled: !declinable_or_aceptable_event?(f.object), id: "decline_link" %>
-              <%= f.hidden_field :accept, value: 'false' if declinable_or_aceptable_event?(f.object) %>
-              <%= f.hidden_field :decline, value: 'false' if declinable_or_aceptable_event?(f.object) %>
             <% end %>
             <%= link_to t('backend.cancel_event'), '#', :class => "button radius alert small", disabled: !cancelable_event?(f.object), id: "cancel_link" %>
-            <%= f.hidden_field :cancel, value: 'false' if cancelable_event?(f.object) %>
           </div>
         </div>
 
         <% if !current_user.lobby? %>
           <% if declinable_or_aceptable_event?(f.object) %>
-            <div id="accept-reason" style="display: none">
-              <div class="row">
-                <div class="small-12 columns">
-                  <%= f.label :accepted_reasons, t('backend.accept_reasons') %>
-                  <%= f.text_area :accepted_reasons, class: 'tinymce' %>
-                </div>
-              </div>
-            </div>
-            <div id="decline-reason" style="display: none">
-              <div class="row">
-                <div class="small-12 columns">
-                  <%= f.label :declined_reasons, t('backend.decline_reasons') %>
-                  <%= f.text_area :declined_reasons, class: 'tinymce' %>
-                </div>
-              </div>
-            </div>
+            <%= render partial: 'reason_text_area', locals: {id: "accept-reason", label: :accepted_reasons, msg: t('backend.accepted_reasons') , f: f, comprobation: declinable_or_aceptable_event?(f.object), hidden_label: :accept} %>
+            <%= render partial: 'reason_text_area', locals: {id: "decline-reason", label: :declined_reasons, msg: t('backend.declined_reasons') , f: f , comprobation: declinable_or_aceptable_event?(f.object), hidden_label: :decline} %>
           <% end %>
         <% end %>
         <% if cancelable_event?(f.object) %>
-          <div id="cancel-reason" style="display: none">
-            <div class="row">
-              <div class="small-12 columns">
-                <%= f.label :reasons, t('backend.reasons') %>
-                <%= f.text_area :reasons, class: 'tinymce' %>
-              </div>
-            </div>
-          </div>
+          <%= render partial: 'reason_text_area', locals: {id: "cancel-reason", label: :canceled_reasons, msg: t('backend.canceled_reasons') , f: f  , comprobation: cancelable_event?(f.object), hidden_label: :cancel} %>
         <% end %>
       </fieldset>
     <% end %>

@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 20171222090536) do
     t.integer  "status",                  default: 0
     t.boolean  "lobby_activity"
     t.text     "notes"
-    t.string   "reasons"
+    t.string   "canceled_reasons"
     t.date     "published_at"
     t.date     "canceled_at"
     t.string   "organization_name"
@@ -243,8 +243,9 @@ ActiveRecord::Schema.define(version: 20171222090536) do
     t.integer  "associations_count"
     t.integer  "members_count"
     t.string   "approach"
-    t.boolean  "invalidate"
+    t.datetime "invalidated_at"
     t.datetime "canceled_at"
+    t.string   "invalidated_reasons"
     t.string   "country"
   end
 

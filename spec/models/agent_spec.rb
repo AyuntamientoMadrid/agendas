@@ -75,7 +75,8 @@ describe Agent do
         # active organization means: invalidate <> true && canceled_at == nil
         organization = create(:organization)
         not_active_organization = create(:organization)
-        not_active_organization.update(invalidate: true)
+        not_active_organization.update(invalidated_reasons: 'test')
+        not_active_organization.update(invalidated_at: Time.zone.today)
 
         agent1 = create(:agent, organization: organization)
         agent2 = create(:agent, organization: organization)

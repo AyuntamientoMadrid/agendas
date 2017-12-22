@@ -14,5 +14,4 @@ describe EventAgent do
     expect(event_agent).not_to be_valid
   end
 
-
 end

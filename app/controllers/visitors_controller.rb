@@ -25,7 +25,9 @@ class VisitorsController < ApplicationController
 
   def get_events
     @events = search(params)
-    @paginated_events = Event.published.includes(:position => [:holder,:area]).where(id: @events.hits.map(&:primary_key)).order(scheduled: :desc)
+    @paginated_events = Event.published.includes(:position => [:holder,:area]).
+                              where(id: @events.hits.map(&:primary_key)).
+                              order(scheduled: :desc)
     @paginated_events =  @paginated_events.sort_by {|m| @events.hits.index(m.id)} if params[:order] == 'score'
   end
 

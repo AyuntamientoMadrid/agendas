@@ -1,0 +1,16 @@
+<% if !f.object.new_record? && current_user.admin? %>
+  <fieldset>
+    <legend><%= t('organizations.status') %></legend>
+    <div class="row">
+      <div class="small-4 medium-3 large-4 column">
+        <%= link_to t('organizations.invalidate'), '#', :class => "button radius alert small", disabled: f.object.invalidated?,  id: "invalidate_link" %>
+        <%= link_to t('organizations.validate'), '#', :class => "button radius success small", disabled: !f.object.invalidated?, id: "validate_link" %>
+      </div>
+      <div class="small-4 medium-6 large-6 column">
+        &nbsp
+      </div>
+    </div>
+    <%= render partial: 'events/reason_text_area', locals: {f: f, comprobation: f.object.invalidated?, hidden_label: :validate} %>
+    <%= render partial: 'events/reason_text_area', locals: {id: "invalidate-reason", label: :invalidated_reasons, msg: t('backend.invalidated_reasons') , f: f, comprobation: !f.object.invalidated?, hidden_label: :invalidate} %>
+  </fieldset>
+<% end %>

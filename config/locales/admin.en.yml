@@ -82,9 +82,6 @@ es:
       title: 'Event'
       event_agent_needed: "There should be at least one agent on lobby events"
       not_available_agents: "Not available agents."
-      reasons_needed: "You must provide some reasons to cancel the event"
-      decline_reasons_needed: "You must provide some reasons to decline the event"
-      accept_reasons_needed: "You must provide some reasons to accept the event"
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"
@@ -160,7 +157,7 @@ es:
     canceled_event: Canceled event
     cancel_reason_yes: Yes
     cancel_reason_no: No
-    reasons: Cancellation Reasons
+    canceled_reasons: Cancellation Reasons
     decline_reasons: Declination Reasons
     accept_reasons: Acceptation Reasons
     event_actions: Event actions
@@ -181,6 +178,8 @@ es:
     accept_reason_no: No
     lobby_not_allowed_neither_empty_mail: 'check that the user is not a lobby and that the text with the reasons is not empty'
     cancel_only_accepted: Only can be cancelled accepted events
+    invalidated_reasons: invalidation reasons
+    not_allowed_empty_reasons: You should give some reasons to inhabilitate the organization
 
   backend_header:
     open_gov: "Gobierno abierto"

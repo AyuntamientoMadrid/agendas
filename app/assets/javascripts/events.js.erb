@@ -113,7 +113,7 @@ $(function(){
             checkMessage : "declined_reasons"
           },
           "event[cancel]" : {
-            checkMessage : "reasons"
+            checkMessage : "canceled_reasons"
           }
       },
 
@@ -146,13 +146,13 @@ $(function(){
             valueNotEquals: "<%= I18n.translate('backend.event.event_agent_needed')%>"
           },
           "event[accept]" : {
-            checkMessage : "<%= I18n.translate('backend.event.accept_reasons_needed')%>"
+            checkMessage : "<%= I18n.translate('event.accept_reasons_needed')%>"
           },
           "event[decline]" : {
-            checkMessage : "<%= I18n.translate('backend.event.decline_reasons_needed')%>"
+            checkMessage : "<%= I18n.translate('event.decline_reasons_needed')%>"
           },
           "event[cancel]" : {
-            checkMessage : "<%= I18n.translate('backend.event.reasons_needed')%>"
+            checkMessage : "<%= I18n.translate('event.cancel_reasons_needed')%>"
           }
       },
 

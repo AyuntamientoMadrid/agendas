@@ -93,9 +93,6 @@ es:
       event_agent_needed: "En los eventos de lobbies hace falta, al menos, un agente."
       add_agents: "Es necesario añadir algún agente para poder solicitar una reunión"
       not_available_agents: "No hay agentes disponibles."
-      reasons_needed: "Debe dar alguna razon para cancelar el evento"
-      decline_reasons_needed: "Debe dar alguna razon para rechazar el evento"
-      accept_reasons_needed: "Debe dar alguna razon para aceptar el evento"
     search:
         title: "Búsqueda por título"
         placeholder_title: "Búsqueda por título"
@@ -154,7 +151,7 @@ es:
     new_password_confirmation: "Repetir nueva contraseña"
     current_password: "Contraseña actual"
     modify: "Modificar"
-    invalidate: Invalidar
+    invalidate: Inhabilitar
     validate: Validar
     faq:
       questions: "Preguntas frecuentes"
@@ -173,7 +170,7 @@ es:
     canceled_event: Evento cancelado
     cancel_reason_yes: Si
     cancel_reason_no: "No"
-    reasons: Razones de cancelación
+    canceled_reasons: Razones de cancelación
     decline_reasons: Razones de rechazo
     accept_reasons: Razones de aceptación
     event_actions: Acciones sobre el evento
@@ -193,6 +190,8 @@ es:
     accept_reason_no: "No"
     lobby_not_allowed_neither_empty_mail: 'verificar que el usuario no sea un lobby y que el texto con los motivos no esté vacío'
     cancel_only_accepted: solo se pueden cancelar eventos aceptados
+    not_allowed_empty_reasons: Debe dar alguna razón de inhabilitación
+    invalidated_reasons: Razon de inhabilitacion
 
   backend_header:
     open_gov: "Gobierno abierto"
