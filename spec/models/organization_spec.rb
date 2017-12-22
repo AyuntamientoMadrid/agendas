@@ -88,7 +88,6 @@ describe Organization do
       organization.inscription_date = nil
 
       organization.save
-
       expect(organization.inscription_date).to eq(Date.current)
     end
 
@@ -105,11 +104,12 @@ describe Organization do
   describe "#set_invalidate" do
 
     it "should set inscription_date with current date" do
-      organization.invalidate = nil
+      organization.invalidated_at = nil
+      organization.invalidated_reasons = nil
 
       organization.save
 
-      expect(organization.invalidate).to eq(false)
+      expect(organization.invalidated?).to eq(false)
     end
 
   end

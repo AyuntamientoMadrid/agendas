@@ -10,19 +10,19 @@ module OrganizationsHelper
   def organization_represented_entities_url_pattern(format)
     rooturl = root_url
     url = organization_represented_entities_url(organization_id: 1, format: format)
-    "#{rooturl}#{url.gsub(rooturl, "").gsub("1", "organization_id")}"
+    "#{rooturl}#{url.gsub(rooturl, '').gsub('1', 'organization_id')}"
   end
 
   def organization_agents_url_pattern(format)
     rooturl = root_url
     url = organization_agents_url(organization_id: 1, format: format)
-    "#{rooturl}#{url.gsub(rooturl, "").gsub("1", "organization_id")}"
+    "#{rooturl}#{url.gsub(rooturl, '').gsub('1', 'organization_id')}"
   end
 
   def organization_category_url_pattern
     rooturl = root_url
     url = organization_url(id: 1, format: :json)
-    "#{rooturl}#{url.gsub(rooturl, "").gsub("1", "organization_id")}"
+    "#{rooturl}#{url.gsub(rooturl, '').gsub('1', 'organization_id')}"
   end
 
   def search_by_filter?
@@ -30,11 +30,9 @@ module OrganizationsHelper
   end
 
   def organization_status(organization)
-    canceled_true = organization.canceled_at
-
-    if canceled_true.present?
+    if organization.canceled?
       '<span class="label alert">Baja </span>'.html_safe
-    elsif organization.invalidate.present?
+    elsif organization.invalidated?
       if current_user.present? && current_user.admin?
         '<span class="label warning">Inhabilitado</span>'.html_safe
       else

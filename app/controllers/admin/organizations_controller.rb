@@ -64,8 +64,8 @@ module Admin
 
       def organization_params
         params.require(:organization)
-              .permit(:reference, :identifier, :name, :first_surname, :second_surname, :phones, :email, :invalidate,
-                      :web, :address_type, :address, :number, :gateway, :stairs, :floor, :door,
+              .permit(:reference, :identifier, :name, :first_surname, :second_surname, :phones, :email, :invalidate, :invalidated_reasons,
+                      :web, :address_type, :address, :number, :gateway, :stairs, :floor, :door, :validate,
                       :postal_code, :town, :province, :description, :registered_lobbies, :category_id,
                       :fiscal_year, :range_fund, :subvention, :contract, :denied_public_data, :denied_public_events, interest_ids: [],
                        legal_representant_attributes: [:identifier, :name, :first_surname, :second_surname, :phones, :email, :_destroy],

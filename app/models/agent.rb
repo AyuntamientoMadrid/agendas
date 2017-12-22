@@ -12,7 +12,7 @@ class Agent < ActiveRecord::Base
   end
 
   scope :by_organization, ->(organization_id) { where(organization_id: organization_id) }
-  scope :from_active_organizations, -> { joins(:organization).where('canceled_at is NULL AND invalidate is FALSE') }
+  scope :from_active_organizations, -> { joins(:organization).where('canceled_at is NULL AND invalidated_at is NULL') }
 
   searchable do
     text :name, :first_surname, :second_surname

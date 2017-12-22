@@ -132,9 +132,8 @@ feature 'Organization' do
         within "#organization_#{organization.id}" do
           find('a[title="Editar"]').click
         end
-
-        expect(page).to have_content "Referencia de la declaración responsable"
-        #expect(page).to have_field('organization_name', with: organization.name)
+        expect(page).to have_content I18n.t("backend.reference.title_fieldset")
+        # expect(page).to have_field('organization_name', with: organization.name)
       end
 
       scenario 'Should show organization with canceled_at nil', :search do
@@ -146,9 +145,12 @@ feature 'Organization' do
         expect(page).to have_content organization1.name
       end
 
-      scenario 'Should show organization with invalidate true', :search do
+      scenario 'Should show invalidated organizations', :search do
         organization1 = create(:organization)
-        organization1.update(invalidate: true)
+
+        organization1.update(invalidated_at: Time.zone.today)
+        organization1.update(invalidated_reasons: 'test')
+
         Organization.reindex
 
         visit admin_organizations_path
@@ -567,16 +569,29 @@ feature 'Organization' do
         organization = create(:organization)
         visit edit_admin_organization_path(organization)
 
-        expect(page).to have_content "Invalidar"
+        expect(find_link(I18n.t('organizations.validate'))[:disabled]).to eq "disabled"
+        expect(find_link(I18n.t('organizations.invalidate'))[:disabled]).not_to eq "disabled"
       end
 
-      scenario "Should show validate button on invalid organization" do
+      scenario "User incorrect invalidate tests", :js do
         organization = create(:organization)
-        organization.update(invalidate: true)
+        visit edit_admin_organization_path(organization)
+
+        click_link I18n.t('organizations.invalidate')
+        click_button "Guardar"
+
+        expect(page).to have_content I18n.translate('event.cancel_reasons_needed')
+      end
+
+      scenario "Should show validate buttons on invalid organization" do
+        organization = create(:organization)
+        organization.update(invalidated_reasons: 'test')
+        organization.update(invalidated_at: Time.zone.today)
 
         visit edit_admin_organization_path(organization)
 
-        expect(page).to have_content "Validar"
+        expect(find_link(I18n.t('organizations.validate'))[:disabled]).not_to eq "disabled"
+        expect(find_link(I18n.t('organizations.invalidate'))[:disabled]).to eq "disabled"
       end
 
       scenario 'Visit edit admin organization page and remove mandatory fields from organization should display error' do
@@ -691,7 +706,7 @@ feature 'Organization' do
 
           scenario 'Try update organization with invalid legal representant and display error' do
             organization = create(:organization)
-            legal_representant = create(:legal_representant, organization: organization)
+            create(:legal_representant, organization: organization)
             visit edit_admin_organization_path(organization)
 
             fill_in :organization_legal_representant_attributes_email, with: nil
@@ -735,7 +750,7 @@ feature 'Organization' do
 
           scenario 'Update to blank legal representants fields', :js do
             organization = create(:organization)
-            legal_representant = create(:legal_representant, organization: organization)
+            create(:legal_representant, organization: organization)
             visit edit_admin_organization_path(organization)
 
             within "#nested-legal-representant-wrapper" do
@@ -794,7 +809,7 @@ feature 'Organization' do
 
           scenario 'Try update organization with invalid represented_entity and display error' do
             organization = create(:organization)
-            represented_entity = create(:represented_entity, organization: organization)
+            create(:represented_entity, organization: organization)
             visit edit_admin_organization_path(organization)
 
             fill_in :organization_represented_entities_attributes_0_name, with: nil
@@ -845,8 +860,7 @@ feature 'Organization' do
 
           scenario 'Update to blank represented entity fields', :js do
             organization = create(:organization)
-            represented_entity = create(:represented_entity, organization: organization)
-            new_date = Time.zone.today
+            create(:represented_entity, organization: organization)
             visit edit_admin_organization_path(organization)
 
             within "#nested-represented-entities" do
@@ -865,7 +879,7 @@ feature 'Organization' do
 
           scenario 'Try update organization with invalid agent and display error' do
             organization = create(:organization)
-            agent = create(:agent, organization: organization)
+            create(:agent, organization: organization)
             visit edit_admin_organization_path(organization)
 
             fill_in :organization_agents_attributes_0_name, with: nil
@@ -911,7 +925,7 @@ feature 'Organization' do
 
           scenario 'Update to blank represented entity fields', :js do
             organization = create(:organization)
-            agent = create(:agent, organization: organization)
+            create(:agent, organization: organization)
             new_date = Time.zone.today
             visit edit_admin_organization_path(organization)
 
@@ -951,7 +965,8 @@ feature 'Organization' do
 
         scenario "Should display organization invalidate" do
           organization = create(:organization)
-          organization.update(invalidate: true)
+          organization.update(invalidated_reasons: 'test')
+          organization.update(invalidated_at: Time.zone.today)
 
           visit organization_path(organization)
 
@@ -972,7 +987,8 @@ feature 'Organization' do
       scenario "Should display invalidate organization and displday agent info" do
         organization = create(:organization)
         agent = create(:agent, organization: organization)
-        organization.update(invalidate: true)
+        organization.update(invalidated_reasons: 'test')
+        organization.update(invalidated_at: Time.zone.today)
 
         visit organization_path(organization)
 
@@ -1005,7 +1021,7 @@ feature 'Organization' do
 
     background do
       @lobby = create(:user, :lobby)
-      organization = create(:organization, user: @lobby)
+      create(:organization, user: @lobby)
       signin(@lobby.email, @lobby.password)
 
       @interest = create(:interest)
