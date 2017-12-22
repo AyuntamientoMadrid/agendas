@@ -10,7 +10,7 @@ module Admin
     end
 
     def show_partial?(partial)
-      params[:show] ? params[:show] == partial && current_user.lobby? : true
+      params[:show] ? params[:show] == partial && current_user.lobby? : false
     end
   end
 end
