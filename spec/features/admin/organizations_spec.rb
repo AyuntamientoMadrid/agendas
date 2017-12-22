@@ -965,7 +965,8 @@ feature 'Organization' do
 
         scenario "Should display organization invalidate" do
           organization = create(:organization)
-          organization.update(invalidate: true)
+          organization.update(invalidated_reasons: 'test')
+          organization.update(invalidated_at: Time.zone.today)
 
           visit organization_path(organization)
 
@@ -986,7 +987,8 @@ feature 'Organization' do
       scenario "Should display invalidate organization and displday agent info" do
         organization = create(:organization)
         agent = create(:agent, organization: organization)
-        organization.update(invalidate: true)
+        organization.update(invalidated_reasons: 'test')
+        organization.update(invalidated_at: Time.zone.today)
 
         visit organization_path(organization)
 

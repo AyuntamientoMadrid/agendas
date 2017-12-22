@@ -32,7 +32,7 @@ module OrganizationsHelper
   def organization_status(organization)
     if organization.canceled?
       '<span class="label alert">Baja </span>'.html_safe
-    elsif organization.invalidate.present?
+    elsif organization.invalidated?
       if current_user.present? && current_user.admin?
         '<span class="label warning">Inhabilitado</span>'.html_safe
       else

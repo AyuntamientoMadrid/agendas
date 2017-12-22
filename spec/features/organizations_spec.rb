@@ -19,7 +19,7 @@ feature 'Organizations page' do
       expect(page).to have_content I18n.l(organization.inscription_date, format: :complete)
     end
 
-    scenario 'Should show only organization with canceled_at nil', :search do
+    scenario 'Should show organization with canceled_at nil', :search do
       organization1 = create(:organization, canceled_at: nil)
       organization2 = create(:organization, canceled_at: Date.current)
       Organization.reindex
@@ -160,7 +160,7 @@ feature 'Organizations page' do
         expect(find('#keyword').value).to eq ""
       end
 
-      scenario "Shouldn't show invalidated organizations" do
+      scenario "Should show invalidated organizations" do
         create(:organization, name: "Valid Org 1")
         organization = create(:organization, name: "Invalid Org 2")
         organization.update(invalidated_reasons: 'test')
@@ -240,7 +240,8 @@ feature 'Organizations page' do
       scenario "Should filter by given keyword over invalid organization agents name and not display result" do
         agent = create(:agent)
         organization_invalid = create(:organization, name: "Fulanito", entity_type: :lobby)
-        organization_invalid.update(invalidate: true)
+        organization_invalid.update(invalidated_reasons: 'test')
+        organization_invalid.update(invalidated_at: Time.zone.today)
         organization_valid = create(:organization, name: "Menganito", entity_type: :lobby)
         organization_invalid.agents << agent
         organization_valid.agents << agent
@@ -460,7 +461,8 @@ feature 'Organizations page' do
 
       scenario "Should display organization invalidate" do
         organization = create(:organization)
-        organization.update(invalidate: true)
+        organization.update(invalidated_reasons: 'test')
+        organization.update(invalidated_at: Time.zone.today)
 
         visit organization_path(organization)
 
@@ -590,7 +592,8 @@ feature 'Organizations page' do
     scenario "Should display invalidate organization but not display agent info" do
       organization = create(:organization)
       agent = create(:agent, organization: organization)
-      organization.update(invalidate: true)
+      organization.update(invalidated_reasons: 'test')
+      organization.update(invalidated_at: Time.zone.today)
 
       visit organization_path(organization)
 
