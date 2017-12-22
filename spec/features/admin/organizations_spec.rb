@@ -994,7 +994,9 @@ feature 'Organization' do
     scenario 'Visit manager backend page and not display organization button on sidebar' do
       visit admin_path
 
-      expect(page).not_to have_content "Lobbies"
+      within "#admin_menu" do
+        expect(page).not_to have_content "Lobbies"
+      end
     end
 
   end
@@ -1012,7 +1014,9 @@ feature 'Organization' do
     scenario 'Visit lobby backend page and not display organization button on sidebar' do
       visit admin_path
 
-      expect(page).not_to have_content "Lobbies"
+      within "#admin_menu" do
+        expect(page).not_to have_content "Lobbies"
+      end
     end
 
     scenario 'Has edit organization buttons on sidebar' do
