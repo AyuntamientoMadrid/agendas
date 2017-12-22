@@ -17,10 +17,10 @@
           <%= link_to "https://transparencia.madrid.es" do %>
             <%= image_tag 'header_logo_madrid.png', class: 'header__imago', alt:'¡Madrid'%>
           <% end %>
-          <h1 class="header__title"><strong><%= t('header.open_goverment') %></strong><%= link_to t('header.transparency'), "https://transparencia.madrid.es" %></h1>
+          <h1 class="header__title"><strong><%= link_to t('header.transparency'), "https://transparencia.madrid.es" %></strong><%= t('header.open_goverment') %></h1>
         </div>
         <section class="top-bar-section">
-          <ul class="right">
+          <ul class="right inline-list">
             <% if user_signed_in? %>
               <li>
                 <%= link_to destroy_user_session_path, method: :delete do %>
@@ -28,9 +28,7 @@
                 <% end %>
               </li>
               <li>
-                <%= link_to '/admin' do %>
-                  <%= t("backend.btn_admin")%>
-                <% end %>
+                <%= link_to t("backend.btn_admin"), admin_path, class: admin_current_class %>
               </li>
             <% else %>
               <li>
@@ -59,9 +57,6 @@
             <li>
               <%= link_to t('header.btn_regulations'), 'https://transparencia.madrid.es/portales/transparencia/es/Informacion-juridica/Huella-normativa?vgnextfmt=default&vgnextchannel=4099508929a56510VgnVCM1000008a4a900aRCRD', target: 'blank' %>
             </li>
-            <li>
-              <%= link_to t('header.btn_help'), nil %>
-            </li>
           </ul>
         </div>
       </div>
@@ -73,7 +68,7 @@
       <%= link_to "https://transparencia.madrid.es" do %>
         <%= image_tag 'header_logo_madrid.png', class: 'header__imago', alt:'¡Madrid'%>
       <% end %>
-      <h1 class="header__title"><strong> <%= t('header.open_goverment') %> <br /> <%= link_to t('header.transparency'), "https://transparencia.madrid.es" %> </strong></h1>
+      <h1 class="header__title"><strong> <%= link_to t('header.transparency'), "https://transparencia.madrid.es" %><br /> <%= t('header.open_goverment') %> </strong></h1>
     </div>
 
     <div class="toggle-topbar menu-icon"><a href="#"><span></span></a></div>
