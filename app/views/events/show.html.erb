@@ -10,7 +10,7 @@
   <strong><%= t('backend.location') %>:</strong>
   <p><%= @event.location %></p>
   <strong><%= t('backend.date') %>:</strong>
-  <p><%= @event.scheduled.strftime(t('time.formats.short')) if @event.scheduled.present? %></p>
+  <p><%= I18n.l(@event.scheduled, format: :short) if @event.scheduled.present? %></p>
   <strong><%= t('backend.description') %>:</strong>
   <%= @event.description.html_safe if @event.description.present? %>
 </fieldset>
@@ -26,7 +26,7 @@
       <p><%= @event.user.full_name %></p>
     </div>
     <div class="small-6 columns">
-      <p><%= @event.updated_at.strftime(t('time.formats.short')) if @event.updated_at.present? %></p>
+      <p><%= I18n.l(@event.updated_at, format: :short) if @event.updated_at.present? %></p>
     </div>
   </div>
 </fieldset>
