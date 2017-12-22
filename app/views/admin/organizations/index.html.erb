@@ -36,10 +36,10 @@
       <% @paginated_organizations.each do |organization| %>
       <tr id="<%= dom_id(organization) %>" >
         <td>
-          <%= link_to organization.fullname, organization_path(organization) %>
+          <%= link_to organization.fullname, admin_organization_path(organization) %>
         </td>
         <td class="right">
-          <%= link_to admin_organization_path(organization),
+          <%= link_to organization_path(organization),
                       target: :_blank,
                       title: t('backend.lobby_show') do %>
             <i class="step fi-eye size-24"></i>
