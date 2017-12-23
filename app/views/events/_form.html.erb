@@ -150,14 +150,6 @@
       </div>
     </fieldset>
 
-    <% unless current_user.lobby? %>
-      <fieldset>
-        <legend><%= t('backend.meeting_lobby_activity_public_website') %></legend>
-        <%= f.text_field :published_at, class: 'fdatepicker' %>
-        <p class="help-text">Si deja este campo en blanco, cuando pulse Aceptar este evento se verá en la zona pública.</p>
-      </fieldset>
-    <% end %>
-
     <% if current_user.lobby? || admin_or_mananger_edit? %>
       <fieldset>
         <legend><%= t('backend.general_remarks') %></legend>
@@ -220,8 +212,19 @@
       <% if current_user.lobby? %>
         <%= submit_tag t('backend.save_request'), :class=> "button radius success right" %>
       <% else %>
-        <%= submit_tag t('backend.save'), :class=> "button radius success right" %>
-        <%= link_to t('backend.exit_without_save'), @events_path, class: "button radius alert right" %>
+        <div class="row">
+          <div class="small-12 columns">
+            <fieldset>
+              <legend><%= t('backend.meeting_lobby_activity_public_website') %></legend>
+              <%= f.text_field :published_at, class: 'fdatepicker' %>
+              <p class="help-text">Si deja este campo en blanco, cuando pulse Aceptar este evento se verá en la zona pública.</p>
+            </fieldset>
+          </div>
+          <div class="small-12 columns">
+            <%= submit_tag t('backend.save'), :class=> "button radius success center right" %>
+            <%= link_to t('backend.exit_without_save'), @events_path, class: "button radius alert center right" %>
+          </div>
+        </div>
       <% end %>
     </div>
 <% end %>
