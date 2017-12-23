@@ -32,4 +32,12 @@ module EventsHelper
     end
   end
 
+  def reason_text(event)
+    if event.declined_reasons.present?
+      event.declined_reasons.html_safe
+    else
+      event.canceled_reasons.html_safe
+    end
+  end
+
 end

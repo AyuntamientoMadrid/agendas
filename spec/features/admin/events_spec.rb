@@ -242,6 +242,7 @@ feature 'Events' do
 
         click_link event.title
 
+        expect(page).to have_content t("status.#{event.status}")
         expect(page).to have_content event.position.holder.full_name
         expect(page).to have_content event.title
         expect(page).to have_content event.location
@@ -250,6 +251,25 @@ feature 'Events' do
         expect(page).to have_content attachment_public.description
         expect(page).to have_content attachment_old.description
         expect(page).to have_content attachment_private.description
+      end
+
+      scenario 'visit show event page and dispaly status and reasons' do
+        event = create(:event, user: @user_admin, title: 'New event from Capybara')
+        event.update(status: :declined, declined_reasons: "declined reasons")
+
+        visit event_path(event)
+
+        expect(page).to have_content I18n.t("status.#{event.status}")
+        expect(page).to have_content "Motivos"
+        expect(page).to have_content "declined reasons"
+      end
+
+      scenario 'visit show event page and not dispaly reasons' do
+        event = create(:event, user: @user_admin, title: 'New event from Capybara')
+
+        visit event_path(event)
+
+        expect(page).not_to have_content "Motivos"
       end
 
       scenario 'Display event lobby info' do

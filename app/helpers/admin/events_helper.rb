@@ -62,5 +62,6 @@ module Admin
     def event_attachments_download_dropdown_id(event)
       "event_#{event.id}_attachments_dropdown"
     end
+
   end
 end

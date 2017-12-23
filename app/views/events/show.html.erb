@@ -1,6 +1,22 @@
-<h3><%= @event.title %></h3>
-<%= link_to t('backend.edit'), edit_event_path(@event), :class=> "button tiny radius success" if can? :edit, @event%>
-<%= link_to t('backend.back'), :back , :class=> "button tiny radius" %>
+<div class="row">
+  <div class="small-12 columns">
+    <%= link_to t('backend.edit'), edit_event_path(@event), :class=> "button tiny radius success" if can? :edit, @event%>
+    <%= link_to t('backend.back'), :back , class: "button tiny radius" %>
+    <h1 class="title-l"><%= @event.title %></h1>
+    <p>
+      <strong><%= t('organizations.show.state') %></strong>
+      <span class="label success"><%= t("status.#{@event.status}") %></span>
+    </p>
+  </div>
+</div>
+
+<% if @event.status == "declined" ||  @event.status == "canceled"  %>
+  <fieldset>
+    <legend>Motivos: </legend>
+    <p> <%= reason_text(@event) %> </p>
+  </fieldset>
+<% end %>
+
 <fieldset>
   <legend><%= t('backend.basic_data') %></legend>
   <strong><%= t('backend.holder') %>:</strong>
@@ -11,7 +27,7 @@
   <p><%= @event.location %></p>
   <strong><%= t('backend.date') %>:</strong>
   <p><%= I18n.l(@event.scheduled, format: :short) if @event.scheduled.present? %></p>
-  <strong><%= t('backend.description') %>:</strong>
+  <strong><%= event_description(current_user) %>:</strong>
   <%= @event.description.html_safe if @event.description.present? %>
 </fieldset>
 <% if @event.user.present? %>
@@ -186,6 +202,12 @@
           <% @event.event_represented_entities.each do |represented_entity| %>
             <p><%= represented_entity.name %></p>
           <% end %>
+          <hr />
+        </div>
+        <div class="small-12 columns">
+          <strong>Observaciones:</strong>
+          <br />
+          <p><%= @event.general_remarks.html_safe if @event.general_remarks.present? %></p>
         </div>
       </div>
     </fieldset>
