@@ -380,7 +380,7 @@ feature 'Events' do
 
         click_button "Guardar"
 
-        expect(page).to have_content "Este campo es obligatorio", count: 4
+        expect(page).to have_content "Este campo es obligatorio", count: 3
       end
 
       scenario 'Visit new admin event page and create organization with the minimum permitted fields', :js do
@@ -859,7 +859,7 @@ feature 'Events' do
 
         click_button "Enviar la solicitud"
 
-        expect(page).to have_content "Este campo es obligatorio", count: 3
+        expect(page).to have_content "Este campo es obligatorio", count: 2
       end
 
       scenario 'Visit new event page and lobby_activity is checked and organization_name selected', :js do
