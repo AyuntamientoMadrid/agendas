@@ -3,27 +3,25 @@
   <div class="row">
     <div class="small-12 column">
       <%= f.label :certain_term do %>
+        <%= f.check_box :certain_term %>
         <small><%= t('backend.terms.certain_term') %></small>
-        <br />
-        <%= f.check_box :certain_term %> Confirmar
       <% end %>
 
       <%= f.label :code_of_conduct_term do %>
+        <%= f.check_box :code_of_conduct_term %>
         <small><%= t('backend.terms.code_of_conduct_term') %></small>
-        <br />
-        <%= f.check_box :code_of_conduct_term %> Confirmar
       <% end %>
 
       <%= f.label :gift_term do %>
-        <small><%= t('backend.terms.gift_term') %></small>
-        <br />
-        <%= f.check_box :gift_term %> Confirmar
+        <p>
+          <%= f.check_box :gift_term %>
+          <small><%= t('backend.terms.gift_term') %></small>
+        </p>
       <% end %>
 
       <%= f.label :lobby_term do %>
+        <%= f.check_box :lobby_term %>
         <small><%= t('backend.terms.lobby_term') %></small>
-        <br />
-        <%= f.check_box :lobby_term %> Confirmar
       <% end %>
 
     </div>
