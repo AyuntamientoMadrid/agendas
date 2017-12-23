@@ -24,4 +24,12 @@ module EventsHelper
     end
   end
 
+  def event_description(current_user)
+    if current_user.lobby?
+      t("backend.description_lobby")
+    else
+      t('backend.description')
+    end
+  end
+
 end

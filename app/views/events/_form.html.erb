@@ -80,7 +80,7 @@
         <%= f.text_field :title %>
         <%= f.label :location, t('backend.location') %>
         <%= f.text_field :location %>
-        <%= f.label :description, t('backend.description') %>
+        <%= f.label :description, event_description(current_user)%>
         <%= f.text_area :description, class: 'tinymce' %>
         <br />
         <% if current_user.lobby? || admin_or_mananger_edit? %>
