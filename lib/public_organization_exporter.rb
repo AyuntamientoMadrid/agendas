@@ -3,8 +3,8 @@ class PublicOrganizationExporter
             'address_type', 'address', 'number', 'gateway', 'stairs', 'floor',
             'door', 'postal_code', 'town', 'province', 'phones', 'email',
             'description', 'web', 'registered_lobbies', 'fiscal_year',
-            'range_fund', 'subvention', 'contract', 'denied_public_data',
-            'denied_public_events', 'inscription_reference', 'inscription_date',
+            'range_fund', 'subvention', 'contract', 'certain_term',
+            'code_of_conduct_term', 'gift_term', 'lobby_term', 'inscription_reference', 'inscription_date',
             'entity_type', 'neighbourhood', 'district', 'scope',
             'associations_count', 'members_count', 'approach',
             'legal_representant_full_name', 'user_name', 'invalidate'].freeze

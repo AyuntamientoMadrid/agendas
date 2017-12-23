@@ -2,19 +2,29 @@
   <legend><%= t('backend.terms.title_fieldset') %></legend>
   <div class="row">
     <div class="small-12 column">
-      <%= f.label :denied_public_data do %>
-        <small><%= t('backend.terms.denied_public_data') %></small>
+      <%= f.label :certain_term do %>
+        <small><%= t('backend.terms.certain_term') %></small>
         <br />
-        <%= f.check_box :denied_public_data %> Confirmar
+        <%= f.check_box :certain_term %> Confirmar
       <% end %>
 
-      <%= f.label :denied_public_events do %>
-        <small><%= t('backend.terms.denied_public_events') %></small>
+      <%= f.label :code_of_conduct_term do %>
+        <small><%= t('backend.terms.code_of_conduct_term') %></small>
         <br />
-        <%= f.check_box :denied_public_events %> Confirmar
+        <%= f.check_box :code_of_conduct_term %> Confirmar
       <% end %>
 
-      <small><%= t('backend.terms.last_text') %></small>
+      <%= f.label :gift_term do %>
+        <small><%= t('backend.terms.gift_term') %></small>
+        <br />
+        <%= f.check_box :gift_term %> Confirmar
+      <% end %>
+
+      <%= f.label :lobby_term do %>
+        <small><%= t('backend.terms.lobby_term') %></small>
+        <br />
+        <%= f.check_box :lobby_term %> Confirmar
+      <% end %>
 
     </div>
   </div>
