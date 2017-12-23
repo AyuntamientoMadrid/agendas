@@ -19,7 +19,7 @@ feature 'Organizations page' do
       expect(page).to have_content I18n.l(organization.inscription_date, format: :complete)
     end
 
-    scenario 'Should show only organization with canceled_at nil', :search do
+    scenario 'Should show organization with canceled_at nil', :search do
       organization1 = create(:organization, canceled_at: nil)
       organization2 = create(:organization, canceled_at: Date.current)
       Organization.reindex
@@ -33,7 +33,8 @@ feature 'Organizations page' do
     scenario "Should show invalidated organizations", :search do
       create(:organization, name: "Valid Org 1")
       organization = create(:organization, name: "Invalid Org 2")
-      organization.update(invalidate: true)
+      organization.update(invalidated_reasons: 'test')
+      organization.update(invalidated_at: Time.zone.today)
 
       Organization.reindex
 
@@ -87,6 +88,7 @@ feature 'Organizations page' do
         Organization.reindex
 
         visit organizations_path
+
         fill_in :keyword, with: "Mengano"
         click_on "Buscar"
 
@@ -158,6 +160,19 @@ feature 'Organizations page' do
         expect(find('#keyword').value).to eq ""
       end
 
+      scenario "Should show invalidated organizations" do
+        create(:organization, name: "Valid Org 1")
+        organization = create(:organization, name: "Invalid Org 2")
+        organization.update(invalidated_reasons: 'test')
+        organization.update(invalidated_at: Time.zone.today)
+
+        Organization.reindex
+
+        visit organizations_path
+        expect(page).to have_content "Invalid Org 2"
+        expect(page).to have_content "Valid Org 1"
+      end
+
       scenario "Should display results with entity_type: lobby", :js do
         create(:organization, entity_type: :federation, name: "Federación 1")
         create(:organization, entity_type: :association, name: "Asociación 1")
@@ -225,7 +240,8 @@ feature 'Organizations page' do
       scenario "Should filter by given keyword over invalid organization agents name and not display result" do
         agent = create(:agent)
         organization_invalid = create(:organization, name: "Fulanito", entity_type: :lobby)
-        organization_invalid.update(invalidate: true)
+        organization_invalid.update(invalidated_reasons: 'test')
+        organization_invalid.update(invalidated_at: Time.zone.today)
         organization_valid = create(:organization, name: "Menganito", entity_type: :lobby)
         organization_invalid.agents << agent
         organization_valid.agents << agent
@@ -337,7 +353,9 @@ feature 'Organizations page' do
         end
 
         scenario 'not shows organizations invalidate based on the agent name', :search do
-          @org1.update(invalidate: true)
+          @org1.update(invalidated_reasons: 'test')
+          @org1.update(invalidated_at: Time.zone.today)
+
           Organization.reindex
           visit organizations_path
 
@@ -368,7 +386,7 @@ feature 'Organizations page' do
     scenario "Should display organizations with event with lobby_activity", :search do
       organization_one = create(:organization, entity_type: :lobby, name: "Organizacion 1")
       organization_two = create(:organization, entity_type: :lobby, name: "No lobby activity")
-      event=create(:event,organization: organization_one)
+      event = create(:event, organization: organization_one)
       event.lobby_activity = true
       event.event_agents << create(:event_agent)
       event.save!
@@ -379,7 +397,6 @@ feature 'Organizations page' do
       Organization.reindex
 
       visit organizations_path
-
       find(:css, "#lobby_activity[value='1']").set(true)
       click_button(I18n.t('main.form.search'))
 
@@ -444,7 +461,8 @@ feature 'Organizations page' do
 
       scenario "Should display organization invalidate" do
         organization = create(:organization)
-        organization.update(invalidate: true)
+        organization.update(invalidated_reasons: 'test')
+        organization.update(invalidated_at: Time.zone.today)
 
         visit organization_path(organization)
 
@@ -574,7 +592,8 @@ feature 'Organizations page' do
     scenario "Should display invalidate organization but not display agent info" do
       organization = create(:organization)
       agent = create(:agent, organization: organization)
-      organization.update(invalidate: true)
+      organization.update(invalidated_reasons: 'test')
+      organization.update(invalidated_at: Time.zone.today)
 
       visit organization_path(organization)
 

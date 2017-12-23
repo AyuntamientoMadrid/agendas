@@ -118,10 +118,15 @@
     <% if current_user.lobby? %>
     <li class="<%= active_menu('organization/delete') %>">
       <%= link_to destroy_organization_path, target: "_blank" do %>
-          <i class="fi-page-delete size-18"> <%= t("backend.delete_organization")%></i>
+        <i class="fi-page-delete size-18"> <%= t("backend.delete_organization")%></i>
       <% end %>
     </li>
     <% end %>
+    <li>
+      <%= link_to nil, target: "_blank" do %>
+        <i class="fi-magnifying-glass size-18"> <%= t("header.btn_help")%></i>
+      <% end %>
+    </li>
     <li>
       <%= link_to destroy_user_session_path, method: :delete do %>
           <i class="fi-arrow-left size-18">

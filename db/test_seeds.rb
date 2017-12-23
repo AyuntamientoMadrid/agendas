@@ -39,27 +39,27 @@ open_government = Event.create(location: Faker::Address.street_address, title: '
                                description: 'El Gobierno Abierto tiene como objetivo que la ciudadanía colabore en la creación y mejora'\
                                ' de servicios públicos y en el robustecimiento de la transparencia y la rendición de cuentas.',
                                scheduled: rand(0..1) == 1 ? Faker::Time.forward(60, :day) : Faker::Time.backward(100, :morning),
-                               user: User.first, position: Position.first, lobby_activity: false, published_at: Date.today)
+                               user: User.first, position: Position.first, lobby_activity: false, published_at: Time.zone.today)
 registration_offices = Event.create(location: Faker::Address.street_address, title: 'Oficinas de registro',
                                     description: 'Las oficinas de registro son los lugares que utiliza el ciudadano para presentar las'\
                                     ' solicitudes, escritos y comunicaciones que van dirigidos a las Administraciones Públicas. Asimismo,'\
                                     ' es el lugar que utiliza la Administración para registrar los documentos que remite al ciudadano, a'\
                                     ' entidades privadas o a la propia Administración.',
                                     scheduled: rand(0..1) == 1 ? Faker::Time.forward(60, :day) : Faker::Time.backward(100, :morning),
-                                    user: user_without_holders, position: commerce_boss, lobby_activity: false, published_at: Date.today)
+                                    user: user_without_holders, position: commerce_boss, lobby_activity: false, published_at: Time.zone.today)
 online_registration = Event.create(location: Faker::Address.street_address, title: 'Registro Electrónico',
                                    description: 'El Registro Electrónico es un punto para la presentación de documentos para su'\
                                    ' tramitación con destino a cualquier órgano administrativo de la Administración General del Estado,'\
                                    ' Organismo público o Entidad vinculado o dependiente a éstos, de acuerdo a lo dispuesto en la Ley'\
                                    ' 39/2015 , de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas. ',
                                    scheduled: rand(0..1) == 1 ? Faker::Time.forward(60, :day) : Faker::Time.backward(100, :morning),
-                                   user: user_without_holders, position: proyect_boss, lobby_activity: false, published_at: Date.today)
+                                   user: user_without_holders, position: proyect_boss, lobby_activity: false, published_at: Time.zone.today)
 political_transparency = Event.create(location: Faker::Address.street_address, title: 'Transparencia política',
                                       description: 'Transparencia política es la obligación de los gobiernos de dar cuenta a los'\
                                       'ciudadanos de todos sus actos, especialmente del uso del dinero público y prevenir así los casos de'\
                                       ' corrupción',
                                       scheduled: rand(0..1) == 1 ? Faker::Time.forward(60, :day) : Faker::Time.backward(100, :morning),
-                                      user: user_without_holders, position: secretary, lobby_activity: false, published_at: Date.today)
+                                      user: user_without_holders, position: secretary, lobby_activity: false, published_at: Time.zone.today)
 
 # Participant
 Participant.create(position_id: commerce_boss.id, event_id: political_transparency.id)
@@ -176,3 +176,9 @@ RepresentedEntity.create(identifier: "43138879z", name: "Name4", from: Date.yest
 OrganizationInterest.create(organization: organization_1, interest: interest_1)
 OrganizationInterest.create(organization: organization_1, interest: interest_2)
 OrganizationInterest.create(organization: organization_1, interest: interest_3)
+
+RegisteredLobby.create(name: "no_record")
+RegisteredLobby.create(name: "generalitat_catalunya")
+RegisteredLobby.create(name: "cnmc")
+RegisteredLobby.create(name: "europe_union")
+RegisteredLobby.create(name: "others")

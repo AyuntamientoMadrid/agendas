@@ -1,0 +1,8 @@
+es:
+  mailers:
+    welcome_organization:
+      subject: "Bienvenido al registro de lobbies"
+      welcome: "Bienvenido %{name},"
+      text1: "Acabas de registrarte en el registro de lobbies."
+      text2: "Con el usuario: %{email} y la contraseña %{password} podrás solicitar reuniones para hacer lobby."
+      thanks: "Muchas gracias."

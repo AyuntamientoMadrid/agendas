@@ -7,6 +7,9 @@ en:
     description: Consult the organizations registered.
     events_as_lobby: Reuniones realizadas
     results_title: Resultados de la búsqueda
+    validate: validate
+    invalidate: invalidate
+    status: Organizaction status
     subtitle:
       default: Last registered organizations
 

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   get '/import', to: 'users#import', as: 'import'
   get '/faq', to: 'questions#index', as: 'faq'
+  # get '/faq', to: 'questions#index', as: 'faq'
 
   resources :infringement_emails, only: [:new, :create]
 
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
   # end
   #Yes work ?!?
   get '/code_of_conduct', to: 'static_pages#code_of_conduct', as: 'code_of_conduct'
+  get '/accessibility', to: 'static_pages#accessibility', as: 'accessibility'
 
   get '/homepage', to: 'homepage#index', as: 'homepage'
   get 'registration_lobbies/index'

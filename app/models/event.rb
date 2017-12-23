@@ -14,15 +14,11 @@ class Event < ActiveRecord::Base
   validates :title, :position, :location, presence: true
   validates_inclusion_of :lobby_activity, :in => [true, false]
   validate :participants_uniqueness, :position_not_in_participants, :role_validate_scheduled
-  validates :reasons, presence: {message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, if: Proc.new { |a| !a.canceled_at.blank? }
-  validates :declined_reasons, presence: {message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, if: Proc.new { |a| !a.declined_at.blank? || (a.current_user && !a.current_user.lobby?)}
-  validates :accepted_reasons, presence: {message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, if: Proc.new { |a| !a.accepted_at.blank? || (a.current_user && !a.current_user.lobby?)}
+  validates :canceled_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, allow_blank: false, if: Proc.new { |a| !a.canceled_at.blank? }
+  validates :accepted_reasons,:declined_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, allow_blank: false, if: Proc.new { |a| !a.declined_at.blank? || (a.current_user && !a.current_user.lobby?) }
 
-  before_create :set_status
-  before_update :set_published_at
-  after_validation :decline_event
-  after_validation :cancel_event
-  after_validation :accept_event
+  before_create :set_status, :set_published_at
+  after_validation :decline_event, :cancel_event, :accept_event
 
   belongs_to :user
   belongs_to :position

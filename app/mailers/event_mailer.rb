@@ -2,7 +2,7 @@ class EventMailer < ApplicationMailer
 
   def cancel(event)
     user = event.user
-    @reasons = event.reasons
+    @reasons = event.canceled_reasons
     @canceled_at = l event.canceled_at, format: :short
     @event_title = event.title
     @name = user.full_name

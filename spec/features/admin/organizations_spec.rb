@@ -132,9 +132,8 @@ feature 'Organization' do
         within "#organization_#{organization.id}" do
           find('a[title="Editar"]').click
         end
-
-        expect(page).to have_content "Referencia de la declaración responsable"
-        #expect(page).to have_field('organization_name', with: organization.name)
+        expect(page).to have_content I18n.t("backend.reference.title_fieldset")
+        # expect(page).to have_field('organization_name', with: organization.name)
       end
 
       scenario 'Should show organization with canceled_at nil', :search do
@@ -146,9 +145,12 @@ feature 'Organization' do
         expect(page).to have_content organization1.name
       end
 
-      scenario 'Should show organization with invalidate true', :search do
+      scenario 'Should show invalidated organizations', :search do
         organization1 = create(:organization)
-        organization1.update(invalidate: true)
+
+        organization1.update(invalidated_at: Time.zone.today)
+        organization1.update(invalidated_reasons: 'test')
+
         Organization.reindex
 
         visit admin_organizations_path
@@ -201,6 +203,7 @@ feature 'Organization' do
 
       scenario 'Should create organization with data fields' do
         new_category = create(:category)
+        new_registered_lobby = create(:registered_lobby)
         visit new_admin_organization_path
 
         fill_in :organization_identifier, with: "New identifier"
@@ -212,7 +215,8 @@ feature 'Organization' do
         select new_category.name, from: :organization_category_id
         fill_in :organization_web, with: "www.new_web.com"
         fill_in :organization_description, with: "New description"
-        select "Generalidad catalunya", from: :organization_registered_lobbies
+        select "Generalitat Catalunya", from: :organization_registered_lobby_ids
+
         # mandatory user fields
         fill_in :organization_user_attributes_first_name, with: "user first name"
         fill_in :organization_user_attributes_last_name, with: "user last name"
@@ -232,7 +236,7 @@ feature 'Organization' do
         expect(organization.category.name).to eq new_category.name
         expect(organization.web).to eq "www.new_web.com"
         expect(organization.description).to eq "New description"
-        expect(organization.registered_lobbies).to eq "generalitat_catalunya"
+        expect(organization.registered_lobbies.first.name).to eq "Generalitat Catalunya"
       end
 
       scenario 'Should create organization with address fields' do
@@ -324,6 +328,16 @@ feature 'Organization' do
         expect(organization.denied_public_events).to eq true
       end
 
+      scenario 'Should show registred lobbies' do
+        create(:category)
+        organization = create(:organization)
+        create(:registered_lobby, name: "European Country")
+        create(:registered_lobby, name: "Local Lobby")
+        visit new_admin_organization_path
+        organization.reload
+        expect(page).to have_content "European Country"
+        expect(page).to have_content "Local Lobby"
+      end
       describe "Nested fields" do
 
         describe "Legal Representant" do
@@ -568,16 +582,29 @@ feature 'Organization' do
         organization = create(:organization)
         visit edit_admin_organization_path(organization)
 
-        expect(page).to have_content "Invalidar"
+        expect(find_link(I18n.t('organizations.validate'))[:disabled]).to eq "disabled"
+        expect(find_link(I18n.t('organizations.invalidate'))[:disabled]).not_to eq "disabled"
       end
 
-      scenario "Should show validate button on invalid organization" do
+      scenario "User incorrect invalidate tests", :js do
         organization = create(:organization)
-        organization.update(invalidate: true)
+        visit edit_admin_organization_path(organization)
+
+        click_link I18n.t('organizations.invalidate')
+        click_button "Guardar"
+
+        expect(page).to have_content I18n.translate('event.cancel_reasons_needed')
+      end
+
+      scenario "Should show validate buttons on invalid organization" do
+        organization = create(:organization)
+        organization.update(invalidated_reasons: 'test')
+        organization.update(invalidated_at: Time.zone.today)
 
         visit edit_admin_organization_path(organization)
 
-        expect(page).to have_content "Validar"
+        expect(find_link(I18n.t('organizations.validate'))[:disabled]).not_to eq "disabled"
+        expect(find_link(I18n.t('organizations.invalidate'))[:disabled]).to eq "disabled"
       end
 
       scenario 'Visit edit admin organization page and remove mandatory fields from organization should display error' do
@@ -593,6 +620,7 @@ feature 'Organization' do
       scenario 'Should update data organization fields' do
         new_category = create(:category)
         organization = create(:organization)
+        new_registered_lobby = create(:registered_lobby, name: "New Registered Lobby")
         visit edit_admin_organization_path(organization)
 
         fill_in :organization_identifier, with: "New identifier"
@@ -604,10 +632,12 @@ feature 'Organization' do
         select new_category.name, from: :organization_category_id
         fill_in :organization_web, with: "www.new_web.com"
         fill_in :organization_description, with: "New description"
-        select "Generalidad catalunya", from: :organization_registered_lobbies
+        page.select new_registered_lobby.name, from: :organization_registered_lobby_ids
+
         click_button "Guardar"
 
         organization.reload
+
         expect(page).to have_content "Registro actualizado correctamente"
         expect(organization.identifier).to eq "New identifier"
         expect(organization.name).to eq "New name"
@@ -618,7 +648,7 @@ feature 'Organization' do
         expect(organization.category.name).to eq new_category.name
         expect(organization.web).to eq "www.new_web.com"
         expect(organization.description).to eq "New description"
-        expect(organization.registered_lobbies).to eq "generalitat_catalunya"
+        expect(organization.registered_lobbies.first.name).to eq "New Registered Lobby"
       end
 
       scenario 'Should update address organization fields' do
@@ -692,7 +722,7 @@ feature 'Organization' do
 
           scenario 'Try update organization with invalid legal representant and display error' do
             organization = create(:organization)
-            legal_representant = create(:legal_representant, organization: organization)
+            create(:legal_representant, organization: organization)
             visit edit_admin_organization_path(organization)
 
             fill_in :organization_legal_representant_attributes_email, with: nil
@@ -736,7 +766,7 @@ feature 'Organization' do
 
           scenario 'Update to blank legal representants fields', :js do
             organization = create(:organization)
-            legal_representant = create(:legal_representant, organization: organization)
+            create(:legal_representant, organization: organization)
             visit edit_admin_organization_path(organization)
 
             within "#nested-legal-representant-wrapper" do
@@ -795,7 +825,7 @@ feature 'Organization' do
 
           scenario 'Try update organization with invalid represented_entity and display error' do
             organization = create(:organization)
-            represented_entity = create(:represented_entity, organization: organization)
+            create(:represented_entity, organization: organization)
             visit edit_admin_organization_path(organization)
 
             fill_in :organization_represented_entities_attributes_0_name, with: nil
@@ -846,8 +876,7 @@ feature 'Organization' do
 
           scenario 'Update to blank represented entity fields', :js do
             organization = create(:organization)
-            represented_entity = create(:represented_entity, organization: organization)
-            new_date = Time.zone.today
+            create(:represented_entity, organization: organization)
             visit edit_admin_organization_path(organization)
 
             within "#nested-represented-entities" do
@@ -866,7 +895,7 @@ feature 'Organization' do
 
           scenario 'Try update organization with invalid agent and display error' do
             organization = create(:organization)
-            agent = create(:agent, organization: organization)
+            create(:agent, organization: organization)
             visit edit_admin_organization_path(organization)
 
             fill_in :organization_agents_attributes_0_name, with: nil
@@ -914,7 +943,7 @@ feature 'Organization' do
 
           scenario 'Update to blank represented entity fields', :js do
             organization = create(:organization)
-            agent = create(:agent, organization: organization)
+            create(:agent, organization: organization)
             new_date = Time.zone.today
             visit edit_admin_organization_path(organization)
 
@@ -954,7 +983,8 @@ feature 'Organization' do
 
         scenario "Should display organization invalidate" do
           organization = create(:organization)
-          organization.update(invalidate: true)
+          organization.update(invalidated_reasons: 'test')
+          organization.update(invalidated_at: Time.zone.today)
 
           visit organization_path(organization)
 
@@ -975,7 +1005,8 @@ feature 'Organization' do
       scenario "Should display invalidate organization and displday agent info" do
         organization = create(:organization)
         agent = create(:agent, organization: organization)
-        organization.update(invalidate: true)
+        organization.update(invalidated_reasons: 'test')
+        organization.update(invalidated_at: Time.zone.today)
 
         visit organization_path(organization)
 
@@ -997,7 +1028,9 @@ feature 'Organization' do
     scenario 'Visit manager backend page and not display organization button on sidebar' do
       visit admin_path
 
-      expect(page).not_to have_content "Lobbies"
+      within "#admin_menu" do
+        expect(page).not_to have_content "Lobbies"
+      end
     end
 
   end
@@ -1006,7 +1039,7 @@ feature 'Organization' do
 
     background do
       @lobby = create(:user, :lobby)
-      organization = create(:organization, user: @lobby)
+      create(:organization, user: @lobby)
       signin(@lobby.email, @lobby.password)
 
       @interest = create(:interest)
@@ -1015,7 +1048,9 @@ feature 'Organization' do
     scenario 'Visit lobby backend page and not display organization button on sidebar' do
       visit admin_path
 
-      expect(page).not_to have_content "Lobbies"
+      within "#admin_menu" do
+        expect(page).not_to have_content "Lobbies"
+      end
     end
 
     scenario 'Has edit organization buttons on sidebar' do

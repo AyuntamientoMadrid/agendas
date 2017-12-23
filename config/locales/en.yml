@@ -3,6 +3,9 @@ en:
     create: 'Evento creado'
     update: 'Evento editado'
     destroy: 'Evento borrado'
+    cancel_reasons_needed: "You must provide some reasons to cancel the event"
+    decline_reasons_needed: "You must provide some reasons to decline the event"
+    accept_reasons_needed: "You must provide some reasons to accept the event"
   number_delimiter: ","
   number_separator: "."
   month: "month"
@@ -126,7 +129,7 @@ en:
     location: lugar
     status: estado
     notes: notas
-    reasons: razones
+    canceled_reasons: razones
     published_at: fecha pública
     canceled_at: cancelado
     lobby_activity: actividad de lobby

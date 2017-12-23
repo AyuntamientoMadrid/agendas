@@ -7,7 +7,7 @@ feature 'Events Mailer' do
       @event = create(:event, title: 'New event from Capybara', user: create(:user))
       @event.update(status: 'accepted')
       @event.cancel = 'true'
-      @event.reasons = 'test'
+      @event.canceled_reasons = 'test'
       @event.save!
       open_email(@event.user.email)
     end
@@ -23,7 +23,7 @@ feature 'Events Mailer' do
     background do
       clear_emails
       @event = create(:event, title: 'New event from Capybara',
-        user: create(:user, :lobby))
+                              user: create(:user, :lobby))
       @event.lobby_contact_firstname = 'test_name'
       @event.lobby_contact_lastname = 'test_other_name'
       @event.lobby_contact_email = 'test_lobby_mail'
@@ -44,7 +44,7 @@ feature 'Events Mailer' do
     background do
       clear_emails
       @event = create(:event, title: 'New event from Capybara',
-        user: create(:user, :lobby))
+                              user: create(:user, :lobby))
       @event.lobby_contact_firstname = 'test_name'
       @event.lobby_contact_lastname = 'test_other_name'
       @event.lobby_contact_email = 'test_lobby_mail'

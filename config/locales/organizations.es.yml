@@ -7,6 +7,9 @@ es:
     description: Consulte los lobbies registradas.
     events_as_lobby: Reuniones realizadas
     results_title: Resultados
+    validate: Habilitar
+    invalidate: Inhabilitar
+    status: Estado de la organización
     subtitle:
       default: Incorporaciones más recientes
 

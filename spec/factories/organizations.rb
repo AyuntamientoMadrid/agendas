@@ -19,7 +19,6 @@ FactoryGirl.define do
     association :category, factory: :category
     association :user, factory: :user
     web "www.organization.com"
-    registered_lobbies :generalitat_catalunya
     fiscal_year 2018
     range_fund :range_1
     subvention false
@@ -27,7 +26,7 @@ FactoryGirl.define do
     denied_public_data false
     denied_public_events false
     entity_type :lobby
-    invalidate false
+    invalidated_at nil
     inscription_date { Date.current }
 
     trait :company do
@@ -53,7 +52,8 @@ FactoryGirl.define do
     end
 
     trait :invalidate do
-      invalidate true
+      invalidated_at Time.zone.today
+      invalidated_reasons 'test'
     end
 
   end
