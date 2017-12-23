@@ -184,7 +184,7 @@
         <div class="small-12 columns">
           <p>
             <strong>Nombre del lobby: </strong>
-            <%= @event.organization.fullname %>
+            <%= link_to @event.organization.fullname, admin_organization_path(@event.organization) %>
           </p>
           <hr />
         </div>
