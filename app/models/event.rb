@@ -210,13 +210,17 @@ class Event < ActiveRecord::Base
     end
 
     def role_validate_scheduled
-      return if self.user.lobby? || self.scheduled.present?
+      return if self.user.lobby? || self.scheduled.present? || reasons_present?
       errors.add(:base, "Fecha del evento no puede estar en blanco")
     end
 
     def validate_location
       return if self.user.lobby? || self.location.present?
       errors.add(:base, "Lugar no puede estar en blanco")
+    end
+
+    def reasons_present?
+      self.canceled_reasons.present? || self.declined_reasons.present?
     end
 
 end

@@ -400,7 +400,7 @@ feature 'Events' do
 
         click_button "Guardar"
 
-        expect(page).to have_content "Este campo es obligatorio", count: 3
+        expect(page).to have_content "Este campo es obligatorio", count: 2
       end
 
       scenario 'Visit new admin event page and create organization with the minimum permitted fields', :js do
