@@ -61,7 +61,7 @@
           <% end if can? :destroy, event %>
 
           <% if event.attachments.any? %>
-            <%= link_to "#", title: t('backend.attachments_downloads'),
+            <%= link_to "#", title: t('backend.attachments_download'),
                         class: "attachments-dropdown",
                         data: { dropdown: "#{event_attachments_download_dropdown_id(event)}" },
                         aria: { controls: "#{event_attachments_download_dropdown_id(event)}" } do %>
