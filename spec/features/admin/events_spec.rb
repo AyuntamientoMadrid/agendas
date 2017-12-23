@@ -242,7 +242,7 @@ feature 'Events' do
 
         click_link event.title
 
-        expect(page).to have_content t("status.#{event.status}")
+        expect(page).to have_content I18n.t("status.#{event.status}")
         expect(page).to have_content event.position.holder.full_name
         expect(page).to have_content event.title
         expect(page).to have_content event.location
