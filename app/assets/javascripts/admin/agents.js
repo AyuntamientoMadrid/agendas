@@ -1,11 +1,11 @@
 function initializeAgentAttachment(){
-  if ($('#nested-legal-representant-wrapper .legal-representant').length > 0)
-    $("#legal_representant_link").hide();
+  if ($('#nested-agent-attachments .nested-fields').length > 0)
+    $("#new-agent-attachment-link").hide();
 
-  $('#nested-agent-attachment').bind('cocoon:after-insert', function() {
+  $('#nested-agent-attachments').bind('cocoon:after-insert', function() {
     $("#new-agent-attachment-link").hide();
   });
-  $('#nested-agent-attachment').bind("cocoon:after-remove", function() {
+  $('#nested-agent-attachments').bind("cocoon:after-remove", function() {
     $("#new-agent-attachment-link").show();
     $("#nested-agent-attachment .alert-box").css('display', 'block');
   });

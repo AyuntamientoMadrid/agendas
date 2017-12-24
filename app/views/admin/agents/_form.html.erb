@@ -76,25 +76,24 @@
   <div>
     <hr>
     <div class="small-12 columns">
-      <%= f.label :attachment %>
-      <div id="nested-agent-attachment" class="nested-attachment">
-        <%= agent_attachment_persisted_remove_notice(@agent.attachment) %>
-        <%= f.fields_for :attachment do |attachment| %>
+      <%= f.label :attachments %>
+      <br>
+      <%= form_field_errors(f, :attachments) %>
+      <div id="nested-agent-attachments" class="nested-attachments">
+        <%= f.fields_for :attachments do |attachment| %>
           <%= render 'admin/agents/attachment_fields', f: attachment %>
         <% end %>
       </div>
 
-      <% if @agent.attachment.blank? %>
-        <%= link_to_add_association t('backend.agents.attachment.add_association'), f,
-                                  :attachment,
+      <%= link_to_add_association t('backend.agents.attachment.add_association'), f,
+                                  :attachments,
                                   partial: "admin/agents/attachment_fields",
                                   id: "new-agent-attachment-link",
                                   class: "button tiny radius info",
                                   data: {
-                                    association_insertion_node: "#nested-agent-attachment",
+                                    association_insertion_node: "#nested-agent-attachments",
                                     association_insertion_method: "append"
                                   } %>
-      <% end %>
     </div>
     <br>
   </div>

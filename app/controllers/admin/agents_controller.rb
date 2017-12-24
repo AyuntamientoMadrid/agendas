@@ -9,15 +9,20 @@ module Admin
 
     def new
       @agent = Agent.new
+      @agent.attachments.build
     end
 
     def create
       @agent = Agent.new(agent_params)
       @agent.organization = @organization
+
       if @agent.save
         redirect_to admin_organization_agents_path(@organization),
                     notice: t('backend.successfully_created_record')
       else
+        if @agent.errors.messages[:"attachments.file"]
+          @agent.errors.add :attachments,  "Debe proporcionar el documento acreditativo de los permisos."
+        end
         flash[:alert] = t('backend.review_errors')
         render :new
       end
@@ -54,8 +59,8 @@ module Admin
               .permit(:identifier, :name, :first_surname, :second_surname, :from,
                       :to, :public_assignments, :_destroy , :allow_public_data ,
                       interests_attributes: [:interest_ids],
-                      attachment_attributes: [:id, :title, :file, :public,
-                                              :description, :_destroy])
+                      attachments_attributes: [:id, :title, :file, :public,
+                                               :description, :_destroy])
       end
 
   end

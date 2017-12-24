@@ -1,12 +1,12 @@
 class Agent < ActiveRecord::Base
 
   belongs_to :organization
-  has_one :attachment
+  has_many :attachments
 
   validates :name, :identifier, :from, presence: true
   validates :allow_public_data, inclusion: [true, false]
 
-  accepts_nested_attributes_for :attachment, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :attachments, allow_destroy: true
 
   def fullname
     str = name

@@ -36,10 +36,10 @@
           <%= agent.fullname %>
         </td>
         <td class="right">
-          <%= link_to agent.attachment.file.url,
+          <%= link_to agent.attachments.first.file.url,
                       title: t('backend.agents.attachment') do %>
             <i class="step fi-archive size-24"></i>
-          <% end if agent.attachment.present? %>
+          <% end if agent.attachments.any? %>
           <%= link_to edit_admin_organization_agent_path(@organization, agent),
                       title: t('backend.edit') do %>
             <i class="step fi-page-edit size-24"></i>

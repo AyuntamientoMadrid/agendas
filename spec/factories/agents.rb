@@ -12,7 +12,6 @@ FactoryGirl.define do
     public_assignments "text"
     allow_public_data true
     association :organization, factory: :organization
-    association :attachment, factory: :attachment
   end
 
 end

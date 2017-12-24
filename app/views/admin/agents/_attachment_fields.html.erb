@@ -1,6 +1,7 @@
 <div class="nested-fields small-12 columns">
   <div class="row">
     <div class="small-2columns left">
+      <%= f.hidden_field :_destroy %>
       <% if f.object.file.present? && f.object.errors.empty? %>
         <%= link_to t('backend.open_file'), f.object.file.url %>
       <% else %>
