@@ -1018,7 +1018,9 @@ feature 'Organization' do
         visit organization_path(organization)
 
         expect(page).to have_content organization.name
-        expect(page).to have_content agent.fullname
+        expect(page).to have_content agent.name
+        expect(page).to have_content agent.first_surname
+        expect(page).to have_content agent.second_surname
       end
 
     end
