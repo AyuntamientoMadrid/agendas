@@ -1,0 +1,5 @@
+<td><%= agent.fullname %></td>
+<td><%= link_to t("backend.agents.edit"),
+                edit_admin_organization_agent_path(agent.organization, agent),
+                data: {
+                  confirm: t('backend.agents.add_association_confirm') } %></td>

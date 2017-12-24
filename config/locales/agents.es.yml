@@ -1,0 +1,17 @@
+es:
+  agents: Agentes
+  agent: Agente
+  backend:
+    agents:
+      organization: Lobby
+      new: Nuevo agente
+      edit: Editar agente
+      attachment_destroy_notice: "Para aplicar los cambios pulse el botón 'Guardar'."
+      attachment:
+        name: "Documento adjunto"
+        add_association: "Añadir adjunto"
+
+      add_association: "Añadir agentes"
+      add_association_confirm: "Va a abandonar el formulario de la organización para editar los agentes, si tiene cambios pendientes de almacenar pulsa primero Guardar."
+      add_association_notice: "Podrás crear agentes una vez hayas creado el lobby. Completa el formulario y pulsa 'Guardar', una vez almacenado se habilitará la opción para añadir agentes."
+      title_fieldset: "Agentes (personas habilitadas por el lobby para reunirse)"

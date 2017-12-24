@@ -167,10 +167,23 @@ feature 'Organization' do
 
         expect(page).to have_content "Añadir representante legal"
         expect(page).to have_content "Añadir Entidades/personas a las que se representa"
-        expect(page).to have_content "Añadir Agentes"
         expect(page).to have_button "Guardar"
       end
 
+      scenario 'Should not display agents link new organization records' do
+        visit new_admin_organization_path
+
+        expect(page).not_to have_content "Añadir Agentes"
+      end
+
+      scenario 'Should display agents notice for new organization records' do
+        visit new_admin_organization_path
+
+        expect(page).to have_content "Podrás crear agentes una vez hayas creado \n "
+                                     "el lobby. Completa el formulario y pulsa \n "
+                                     "'Guardar', una vez almacenado se habilitará\n "
+                                     " la opción para añadir agentes."
+      end
     end
 
     describe "Create" do
@@ -485,87 +498,6 @@ feature 'Organization' do
           end
         end
 
-        describe "Agents" do
-
-          scenario 'Try create organization with invalid agent and display error', :js do
-            category = create(:category)
-            visit new_admin_organization_path
-
-            fill_in :organization_name, with: "organization name"
-            select category.name, from: :organization_category_id
-            fill_in :organization_user_attributes_first_name, with: "user first name"
-            fill_in :organization_user_attributes_last_name, with: "user last name"
-            fill_in :organization_user_attributes_email, with: "user@email.com"
-            fill_in :organization_user_attributes_password, with: "password"
-            fill_in :organization_user_attributes_password_confirmation, with: "password"
-
-            click_on "Añadir Agentes"
-
-            within "#new_agent" do
-              fill_in "DNI, NIE, NIF, Pasaporte", with: "43138883z"
-              fill_in "Nombre", with: "Name"
-              fill_in "Desde", with: nil
-            end
-
-            click_button "Guardar"
-
-            expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
-          end
-
-          scenario 'Create organization with valid agents', :js do
-            category = create(:category)
-            visit new_admin_organization_path
-
-            fill_in :organization_name, with: "organization name"
-            select category.name, from: :organization_category_id
-            fill_in :organization_user_attributes_first_name, with: "user first name"
-            fill_in :organization_user_attributes_last_name, with: "user last name"
-            fill_in :organization_user_attributes_email, with: "user@email.com"
-            fill_in :organization_user_attributes_password, with: "password"
-            fill_in :organization_user_attributes_password_confirmation, with: "password"
-
-            click_on "Añadir Agentes"
-
-            within "#new_agent" do
-              fill_in "DNI, NIE, NIF, Pasaporte", with: "43138883z"
-              fill_in "Nombre", with: "Name"
-              fill_in "Desde", with: Date.current
-              find(:css, "input[id^='organization_agents_attributes_'][id$='_allow_public_data_false']").set(true)
-              find("input[type=file]").set("spec/fixtures/dummy.jpg")
-            end
-
-            click_button "Guardar"
-            expect(page).to have_content "Registro creado correctamente"
-          end
-
-          scenario 'Can adding more than one agent' do
-            visit new_admin_organization_path
-
-            click_on "Añadir Agentes"
-
-            expect(page).to have_content "Añadir Agentes"
-          end
-
-          scenario 'Display remove button after add agent', :js do
-            visit new_admin_organization_path
-
-            expect(page).not_to have_selector "#new_agent .remove_fields"
-            click_on "Añadir Agentes"
-
-            expect(page).to have_selector "#new_agent .remove_fields"
-          end
-
-          scenario 'Display remove button after add more than one agent', :js do
-            visit new_admin_organization_path
-
-            expect(page).not_to have_selector "#new_agent .remove_fields"
-            click_on "Añadir Agentes"
-            click_on "Añadir Agentes"
-
-            expect(page).to have_selector "#new_agent .remove_fields", count: 2
-          end
-
-        end
       end
 
       scenario "Shouldn't show invalidate button" do
@@ -577,6 +509,28 @@ feature 'Organization' do
     end
 
     describe "Edit" do
+
+      describe "Agents" do
+
+        scenario 'Should display agents information for persisted organization records' do
+          organization = create(:organization)
+          agent = create(:agent, organization: organization)
+          visit edit_admin_organization_path(organization)
+
+          expect(page).to have_link "Añadir agentes", href: new_admin_organization_agent_path(organization)
+          expect(page).to have_content agent.fullname
+        end
+
+        scenario "Should navigate to admin organization agents when user click on 'Añadir Agentes' link" do
+          organization = create(:organization)
+          agent = create(:agent, organization: organization)
+          visit edit_admin_organization_path(organization)
+
+          click_link "Añadir agentes"
+          expect(page).to have_content "Nuevo agente"
+        end
+
+      end
 
       scenario "Should show invalidate button on valid organization" do
         organization = create(:organization)
@@ -891,73 +845,6 @@ feature 'Organization' do
 
         end
 
-        describe "Agents" do
-
-          scenario 'Try update organization with invalid agent and display error' do
-            organization = create(:organization)
-            create(:agent, organization: organization)
-            visit edit_admin_organization_path(organization)
-
-            fill_in :organization_agents_attributes_0_name, with: nil
-            fill_in :organization_agents_attributes_0_identifier, with: nil
-            fill_in :organization_agents_attributes_0_from, with: nil
-
-            click_button "Guardar"
-
-            expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
-            expect(page).to have_content "3 errores impidieron guardar este Organization"
-            expect(page).to have_content "Agente: Identificador no puede estar en blanco"
-            expect(page).to have_content "Agente: Nombre no puede estar en blanco"
-            expect(page).to have_content "Agente: Fecha de inicio no puede estar en blanco"
-          end
-
-          scenario 'Update organization with valid represented entity' do
-            organization = create(:organization)
-            attachment = create(:attachment)
-            agent = create(:agent, organization: organization)
-
-            new_date = Time.zone.today
-            visit edit_admin_organization_path(organization)
-
-            # mandatory fields
-            fill_in :organization_agents_attributes_0_name, with: "New name"
-            fill_in :organization_agents_attributes_0_identifier, with: "New identifier"
-            fill_in :organization_agents_attributes_0_from, with: new_date
-            # optional fields
-            fill_in :organization_agents_attributes_0_first_surname, with: "new first surname"
-            fill_in :organization_agents_attributes_0_second_surname, with: "new second surname"
-            fill_in :organization_agents_attributes_0_to, with: new_date
-            fill_in :organization_agents_attributes_0_public_assignments, with: "New public assignments"
-            click_button "Guardar"
-
-            agent.reload
-            expect(page).to have_content "Registro actualizado correctamente"
-            expect(agent.name).to eq "New name"
-            expect(agent.identifier).to eq "New identifier"
-            expect(agent.from).to eq new_date
-            expect(agent.first_surname).to eq "new first surname"
-            expect(agent.second_surname).to eq "new second surname"
-            expect(agent.to).to eq new_date
-            expect(agent.public_assignments).to eq "New public assignments"
-          end
-
-          scenario 'Update to blank represented entity fields', :js do
-            organization = create(:organization)
-            create(:agent, organization: organization)
-            new_date = Time.zone.today
-            visit edit_admin_organization_path(organization)
-
-            within "#nested-agents" do
-              click_on "Eliminar"
-            end
-            click_button "Guardar"
-
-            organization.reload
-            expect(page).to have_content "Registro actualizado correctamente"
-            expect(organization.agents).to eq []
-          end
-
-        end
       end
 
     end
@@ -1060,61 +947,6 @@ feature 'Organization' do
       expect(page).to have_content I18n.t("backend.add_interests")
       expect(page).to have_content I18n.t("backend.show_company")
     end
-
-    scenario 'Can add agents', :search , :js do
-      visit admin_path
-      organization = create(:organization)
-      click_link I18n.t("backend.edit_agents")
-
-      expect(page).to have_content I18n.t("backend.agents.title_fieldset")
-
-      click_link I18n.t('backend.agents.add_association')
-
-      expect(page).to have_content I18n.t('backend.agents.identifier')
-      Capybara.ignore_hidden_elements = false
-      find(:css, "input[id^='organization_agents_attributes_'][id$='_name']").set("Nombre Agente 1")
-      find(:css, "input[id^='organization_agents_attributes_'][id$='_identifier']").set("12345678")
-      find(:css, "input[id^='organization_agents_attributes_'][id$='_from']").set("01/01/2017")
-      find(:css, "input[id^='organization_agents_attributes_'][id$='_attachment_attributes[file]']").set('/spec/fixtures/dummy.jpg')
-      choice = find(:css, "input[id^='organization_agents_attributes_'][id$='_allow_public_data_false']")
-      attachment_element = find(:css, "input[id^='organization_agents_attributes_'][id$='_attachment_attributes[file]']")
-      choose(choice[:id])
-      page.attach_file(attachment_element[:id], Rails.root + 'spec/fixtures/dummy.jpg')
-      click_button 'Guardar'
-      expect(current_path).to eq(admin_organization_path(id: @lobby.organization_id))
-      expect(page).to have_content 'Nombre Agente 1'
-    end
-
-    scenario 'Cannot add agents if any mandatory field is empty', :js do
-      visit admin_path
-
-      click_link I18n.t("backend.edit_agents")
-
-      expect(page).to have_content I18n.t("backend.agents.title_fieldset")
-
-      click_link I18n.t('backend.agents.add_association')
-
-      expect(page).to have_content I18n.t('backend.agents.identifier')
-
-      find(:css, "input[id^='organization_agents_attributes_'][id$='_name']").set("Nombre Agente 1")
-      find(:css, "input[id^='organization_agents_attributes_'][id$='_identifier']").set("12345678S")
-      click_button 'Guardar'
-
-      expect(current_path).to eq(admin_organization_path(id: @lobby.organization_id))
-      expect(page).to have_content 'no puede estar en blanco'
-    end
-
-    scenario 'Can not destroy agents', :js do
-      visit admin_path
-
-      click_link I18n.t("backend.edit_agents")
-      click_link I18n.t('backend.agents.add_association')
-
-      within '#nested-agents' do
-        expect(page).not_to have_content 'Eliminar'
-      end
-    end
-
 
     scenario 'Can add interests' do
       visit admin_path

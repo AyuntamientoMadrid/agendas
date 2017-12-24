@@ -1,0 +1,112 @@
+<%= form_for [:admin, @organization, @agent], html: {class: 'organization-form'} do |f| %>
+  <%= f.hidden_field :id %>
+
+  <%= render '/shared/admin/error_messages', model: @agent, model_name: t("agent") %>
+
+  <% if current_user.admin? %>
+    <div class="small-12 columns">
+      <%= label_tag :organization_name, t('backend.agents.organization') %>
+      <%= text_field_tag :organization_name, @organization.name, disabled: true %>
+    </div>
+  <% end %>
+
+  <div class="small-12 medium-6 columns">
+    <%= f.label :identifier %>
+    <%= f.text_field :identifier %>
+    <%= form_field_errors(f, :identifier) %>
+  </div>
+
+  <div class="small-12 medium-6 columns">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= form_field_errors(f, :name) %>
+  </div>
+
+  <div class="small-12 medium-6 columns">
+    <%= f.label :first_surname %>
+    <%= f.text_field :first_surname %>
+    <%= form_field_errors(f, :first_surname) %>
+  </div>
+
+  <div class="small-12 medium-6 columns">
+    <%= f.label :second_surname %>
+    <%= f.text_field :second_surname %>
+    <%= form_field_errors(f, :second_surname) %>
+  </div>
+
+  <div class="small-12 medium-6 columns">
+    <%= f.label :from %>
+    <%= f.date_field :from %>
+    <%= form_field_errors(f, :from) %>
+  </div>
+
+  <div class="small-12 medium-6 columns">
+    <%= f.label :to %>
+    <%= f.date_field :to %>
+    <%= form_field_errors(f, :to) %>
+  </div>
+
+  <div class="small-12 columns">
+    <%= f.label :public_assignments %>
+    <br />
+    <%= f.text_area :public_assignments, class: 'mceNoEditor' %>
+    <%= form_field_errors(f, :public_assignments) %>
+  </div>
+
+  <div>
+    <hr>
+    <div class="small-12 columns">
+      <%= f.label :allow_public_data %>
+      <br />
+    </div>
+    <div class="small-1 columns left">
+      <%= f.label :allow_public_data, t('true') %>
+      <%= f.radio_button :allow_public_data, true %>
+    </div>
+    <div class="small-1 columns left">
+      <%= f.label :allow_public_data, t('false') %>
+      <%= f.radio_button :allow_public_data, false %>
+    </div>
+    <div class="small-12 columns">
+      <br>
+      <%= form_field_errors(f, :allow_public_data) %>
+    </div>
+  </div>
+
+  <div>
+    <hr>
+    <div class="small-12 columns">
+      <%= f.label :attachment %>
+      <div id="nested-agent-attachment" class="nested-attachment">
+        <%= agent_attachment_persisted_remove_notice(@agent.attachment) %>
+        <%= f.fields_for :attachment do |attachment| %>
+          <%= render 'admin/agents/attachment_fields', f: attachment %>
+        <% end %>
+      </div>
+
+      <% if @agent.attachment.blank? %>
+        <%= link_to_add_association t('backend.agents.attachment.add_association'), f,
+                                  :attachment,
+                                  partial: "admin/agents/attachment_fields",
+                                  id: "new-agent-attachment-link",
+                                  class: "button tiny radius info",
+                                  data: {
+                                    association_insertion_node: "#nested-agent-attachment",
+                                    association_insertion_method: "append"
+                                  } %>
+      <% end %>
+    </div>
+    <br>
+  </div>
+
+  <div class="row">
+    <hr>
+    <div class="small-4 medium-6 large-8 column">
+      &nbsp
+    </div>
+    <div class="small-4 medium-3 large-2 column">
+      <%= submit_tag t('backend.save'), class: "button radius success right" %>
+    </div>
+  </div>
+
+<% end %>

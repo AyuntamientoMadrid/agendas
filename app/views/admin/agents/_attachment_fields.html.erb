@@ -1,0 +1,15 @@
+<div class="nested-fields small-12 columns">
+  <div class="row">
+    <div class="small-2columns left">
+      <% if f.object.file.present? && f.object.errors.empty? %>
+        <%= link_to t('backend.open_file'), f.object.file.url %>
+      <% else %>
+        <%= f.file_field :file, class: "attachment" %>
+      <% end %>
+    </div>
+    <div class="small-3 columns left">
+      <%= link_to_remove_association t('backend.delete_attachment'), f,
+                                     class: "button tiny radius alert right" %>
+    </div>
+  </div>
+</div>

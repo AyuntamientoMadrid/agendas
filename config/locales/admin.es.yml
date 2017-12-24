@@ -39,7 +39,6 @@ es:
     delete_attachment: "Eliminar adjunto"
     allowed_file_content_types: "El archivo proporcionado está en un formato no permitido. Los siguientes formatos de archivo son permitidos: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."
 
-
     contributors: "Contribuidores"
     new_user: "Nuevo usuario"
     edit_user: "Editar usuario"

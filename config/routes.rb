@@ -46,7 +46,9 @@ Rails.application.routes.draw do
   resources :holders
 
   namespace :admin do
-    resources :organizations
+    resources :organizations do
+      resources :agents, except: :show
+    end
     resources :questions
     post 'order_questions', to: 'questions#order', as: 'order_questions'
   end

@@ -35,6 +35,9 @@ es:
       attachment:
         one: "archivo adjunto"
         other: "archivos adjuntos"
+      agent:
+        one: "agente"
+        other: "agentes"
     attributes:
       organization:
         name: "Nombre"
@@ -68,3 +71,15 @@ es:
         title: "Archivo adjunto: Título"
         file: "Archivo adjunto:"
         public: "Archivo adjunto: Privacidad"
+      agent:
+        identifier: "DNI, NIE, NIF, Pasaporte"
+        name: "Nombre"
+        from: "Fecha de inicio"
+        first_surname: "Primer apellido"
+        second_surname: "Segundo apellido"
+        from: "Desde"
+        to: "Hasta"
+        public_assignments: "¿Esta persona ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe, en algún momento de los dos años previos a la fecha desde la que va actuar por cuenta de quien se inscribe? En caso afirmativo, indique los datos (organismo, puesto o cargo y las fechas en las que lo desempeñó)"
+        public_assignments_only_show: "¿Esta persona ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe, en algún momento de los dos años previos a la fecha desde la que va actuar por cuenta de quien se inscribe?"
+        allow_public_data: "Acredito el consentimiento expreso de esta persona para que sus datos meramente identificativos puedan hacerse públicos"
+        attachment: "Archivo adjunto"

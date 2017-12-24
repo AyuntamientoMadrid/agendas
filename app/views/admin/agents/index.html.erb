@@ -1,0 +1,61 @@
+<div class="row agents-list">
+  <div class="small-12 medium-8 column">
+    <h1><%= t('agents') %> (<%= @agents.count %>)</h1>
+  </div>
+
+  <div class=" small-12 medium-4 column">
+    <%= link_to t('backend.agents.new'),
+              new_admin_organization_agent_path(@organization),
+              class: "button radius warning right" if can? :create, Agent %>
+  </div>
+</div>
+
+<%#= render 'admin_search_form' %>
+
+<%#= page_entries_info @agents, entry_name: t('backend.lobby') %>
+<%= paginate @agents %>
+
+<div class="small-12">
+  <table class="small-12">
+    <thead>
+      <tr>
+        <th><%= t('backend.lobby')%></th>
+        <th class="right"><%= t('backend.actions')%></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th><%= t('backend.title')%></th>
+        <th class="right"><%= t('backend.actions')%></th>
+      </tr>
+    </tfoot>
+    <tbody>
+      <% @agents.each do |agent| %>
+      <tr id="<%= dom_id(agent) %>" >
+        <td>
+          <%= agent.fullname %>
+        </td>
+        <td class="right">
+          <%= link_to agent.attachment.file.url,
+                      title: t('backend.agents.attachment') do %>
+            <i class="step fi-archive size-24"></i>
+          <% end if agent.attachment.present? %>
+          <%= link_to edit_admin_organization_agent_path(@organization, agent),
+                      title: t('backend.edit') do %>
+            <i class="step fi-page-edit size-24"></i>
+          <% end if can? :edit, agent %>
+
+          <%= link_to admin_organization_agent_path(@organization, agent),
+                      method: :delete,
+                      class: "delete-agent",
+                      data: { confirm: t("backend.delete_confirm") },
+                      title: t('backend.delete') do %>
+            <i class="step fi-page-delete size-24"></i>
+          <% end if can? :destroy, agent %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%#= paginate @agents.hits %>
