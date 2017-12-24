@@ -137,6 +137,19 @@ feature "Agents" do
       expect(page).to have_content "Debe proporcionar el documento acreditativo de los permisos."
     end
 
+    scenario "Should not initialize tinymce editor" do
+      login_as(admin)
+      visit new_admin_organization_agent_path(organization)
+
+      expect(page).not_to have_selector "textarea.tinymce"
+      expect(page).to have_selector "textarea.mceNoEditor"
+
+      click_button "Guardar"
+
+      expect(page).not_to have_selector "textarea.tinymce"
+      expect(page).to have_selector "textarea.mceNoEditor"
+    end
+
   end
 
   describe "Create" do
@@ -213,6 +226,12 @@ feature "Agents" do
       expect(page).to have_content "Desde no puede estar en blanco"
     end
 
+    scenario "Should initialize tinymce editor" do
+      login_as(admin)
+      visit edit_admin_organization_agent_path(organization, agent)
+
+      expect(page).to have_selector "textarea.tinymce"
+    end
   end
 
   describe "Update" do
