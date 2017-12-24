@@ -272,7 +272,7 @@
               <% if @organization.events.present? %>
                 <% @organization.events.each do |event| %>
                   <li>
-                    <p><%= link_to event.title, event_path(event) %></p>
+                    <p><%= link_to event.title, show_path(event) %></p>
                   </li>
                 <% end %>
               <% else %>
