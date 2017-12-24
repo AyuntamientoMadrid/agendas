@@ -49,7 +49,7 @@
   <div class="small-12 columns">
     <%= f.label :public_assignments %>
     <br />
-    <%= f.text_area :public_assignments, class: 'mceNoEditor' %>
+    <%= f.text_area :public_assignments, class: agents_public_assignments_editor(@agent) %>
     <%= form_field_errors(f, :public_assignments) %>
   </div>
 
