@@ -74,7 +74,6 @@ module Admin
                       user_attributes: [:id, :first_name, :last_name, :role, :email, :active, :phones, :password, :password_confirmation],
                       represented_entities_attributes: [:id, :identifier, :name, :first_surname, :second_surname,
                                                         :from, :fiscal_year, :range_fund, :subvention, :contract, :_destroy],
-                      organization_interests_attributes: [:interest_ids],
                       attachments_attributes: [:id, :file, :_destroy],
                       interest_ids: [], registered_lobby_ids: [])
       end

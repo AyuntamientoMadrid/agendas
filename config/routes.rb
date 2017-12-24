@@ -48,6 +48,8 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :organizations do
       resources :agents, except: :show
+      resources :interests, controller: "organizations/interests", only: [:index]
+      match 'interests_update', to: 'organizations/interests#update', as: 'interests_update', via: [:patch, :put]
     end
     resources :questions
     post 'order_questions', to: 'questions#order', as: 'order_questions'
