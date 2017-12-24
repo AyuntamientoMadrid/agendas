@@ -571,11 +571,15 @@ feature 'Organizations page' do
       visit organization_path(organization)
 
       expect(page).to have_content I18n.l(agent1.from)
-      expect(page).to have_content agent1.fullname
+      expect(page).to have_content agent1.name
+      expect(page).to have_content agent1.first_surname
+      expect(page).to have_content agent1.second_surname
       expect(page).to have_content I18n.l(agent1.to)
 
       expect(page).to have_content I18n.l(agent2.from)
-      expect(page).to have_content agent2.fullname
+      expect(page).to have_content agent2.name
+      expect(page).to have_content agent2.first_surname
+      expect(page).to have_content agent2.second_surname
       expect(page).to have_content I18n.l(agent2.to)
     end
 
