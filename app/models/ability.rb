@@ -25,10 +25,10 @@ class Ability
         can :manage, Event, id: Event.ability_titular_events(user)
         can :show, Event, id: Event.ability_events(user)
         can :create, Event
+        can :show, Organization
       else
         can :index, Event
       end
     end
   end
 end
-

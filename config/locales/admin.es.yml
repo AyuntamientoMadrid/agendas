@@ -2,7 +2,7 @@ es:
   backend:
     menu_admin: "Administrador"
     menu_lobby: "Lobby"
-    menu_user: "Gestor agenda"
+    menu_user: "Gestor"
     close: "Cerrar"
     logout: "Salir"
     btn_admin: "Administración"
@@ -77,7 +77,7 @@ es:
     position: "Cargo"
     area: "Unidad"
     main_position: "Titular de la agenda"
-    main_position_help_text: "Introduzca apellido, nombre o cargo de la persona con la que se quiere reunir"
+    main_position_help_text: "Introduzca apellido, nombre o cargo de la persona con la que se quiere reunir, y le mostrará los resultados entre las cuales tendrá que elegir"
     positions: "Histórico de cargos"
     contributed_by: "Gestionado por"
     new_position: "Nuevo cargo"
@@ -111,7 +111,7 @@ es:
     attendees: "Otros asistentes"
     participants: "Asistentes titulares de agenda"
     meeting_lobby_activity: "¿Es una reunión donde se hará actividad de Lobby?"
-    meeting_lobby_activity_yes: "si"
+    meeting_lobby_activity_yes: "sí"
     meeting_lobby_activity_no: "no"
     meeting_lobby_activity_organization: "Lobby"
     meeting_lobby_activity_input: "Buscar una organización o persona fīsica por nombre o dni"
@@ -124,8 +124,8 @@ es:
     manager_general_remarks_title: "Observaciones generales Gestor de agendas"
     attachments: "Archivos adjuntos"
     attachments_description: "Descripción de archivo adjunto"
-    attachments_public: "Archivos adjuntos público"
-    attachments_private: "Archivos adjuntos privado"
+    attachments_public: "Este archivo puede ser público"
+    attachments_private: "Este archivo proponemos que sea privado"
     attachments_download: "Descarga los archivos adjuntos"
     only_pdf: "Solo PDF"
     name: "Nombre"
@@ -135,8 +135,11 @@ es:
     companies: "Lobbies"
     new_company: "Nuevo lobby"
     description: "Finalidad y objetivos de quien se inscribe"
-    title_event: "Solicitud de evento"
-    new_event: "Nueva solicitud"
+    description_lobby: "Descripción"
+    title_event_lobby: "Solicitudes de evento"
+    title_event: "Eventos"
+    new_event: "Nuevo evento"
+    new_requeseted_event: "Nueva solicitud"
     edit_event: "Editar evento"
     edit_agents: "Editar agentes"
     edit_title_interests: "Editar áreas de interés"
@@ -175,11 +178,11 @@ es:
     accept_reasons: Razones de aceptación
     event_actions: Acciones sobre el evento
     status:
-      requested: "Solicitada"
-      accepted: "Aceptada"
-      done: "Realizada"
-      declined: "Rechazada"
-      canceled: "Cancelada"
+      requested: "Solicitado"
+      accepted: "Aceptado"
+      done: "Realizado"
+      declined: "Rechazado"
+      canceled: "Cancelado"
     decline_event: Rechazar evento
     declined_event: Evento declinado
     decline_reason_yes: Si

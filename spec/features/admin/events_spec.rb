@@ -242,6 +242,7 @@ feature 'Events' do
 
         click_link event.title
 
+        expect(page).to have_content I18n.t("status.#{event.status}")
         expect(page).to have_content event.position.holder.full_name
         expect(page).to have_content event.title
         expect(page).to have_content event.location
@@ -250,6 +251,25 @@ feature 'Events' do
         expect(page).to have_content attachment_public.description
         expect(page).to have_content attachment_old.description
         expect(page).to have_content attachment_private.description
+      end
+
+      scenario 'visit show event page and dispaly status and reasons' do
+        event = create(:event, user: @user_admin, title: 'New event from Capybara')
+        event.update(status: :declined, declined_reasons: "declined reasons")
+
+        visit event_path(event)
+
+        expect(page).to have_content I18n.t("status.#{event.status}")
+        expect(page).to have_content "Motivos"
+        expect(page).to have_content "declined reasons"
+      end
+
+      scenario 'visit show event page and not dispaly reasons' do
+        event = create(:event, user: @user_admin, title: 'New event from Capybara')
+
+        visit event_path(event)
+
+        expect(page).not_to have_content "Motivos"
       end
 
       scenario 'Display event lobby info' do
@@ -380,7 +400,7 @@ feature 'Events' do
 
         click_button "Guardar"
 
-        expect(page).to have_content "Este campo es obligatorio", count: 4
+        expect(page).to have_content "Este campo es obligatorio", count: 2
       end
 
       scenario 'Visit new admin event page and create organization with the minimum permitted fields', :js do
@@ -723,7 +743,7 @@ feature 'Events' do
 
           scenario "When radio lobby activity is set to true, only can save selecting an agent", :js do
             new_position = create(:position)
-            organization = create(:organization)
+            organization = create(:organization, name: "New oganization with agents")
             agent = create(:agent, organization: organization)
             visit new_event_path
 
@@ -832,7 +852,7 @@ feature 'Events' do
       scenario 'visit new event page', :js do
         visit events_path
 
-        click_link I18n.t('backend.new_event')
+        click_link I18n.t('backend.new_requeseted_event')
 
         expect(page).to have_content I18n.t('backend.new_event')
       end
@@ -859,7 +879,7 @@ feature 'Events' do
 
         click_button "Enviar la solicitud"
 
-        expect(page).to have_content "Este campo es obligatorio", count: 3
+        expect(page).to have_content "Este campo es obligatorio", count: 2
       end
 
       scenario 'Visit new event page and lobby_activity is checked and organization_name selected', :js do
@@ -1040,7 +1060,7 @@ feature 'Events' do
         fill_in :event_title, with: "Editar evento"
         click_button "Enviar la solicitud"
 
-        expect(page).to have_content "Solicitud de evento"
+        expect(page).to have_content "Solicitudes de evento"
       end
 
       scenario 'Lobby user can see on page the name of the organization' do
@@ -1120,7 +1140,7 @@ feature 'Events' do
       event2.save
       visit events_path
 
-      select "Solicitada", from: :status
+      select "Solicitado", from: :status
       click_button I18n.t('backend.search.button')
 
       expect(page).to have_content "Test for check status requested"
@@ -1139,8 +1159,8 @@ feature 'Events' do
       event3.save
       visit events_path
 
-      select "Solicitada", from: :status
-      select "Aceptada", from: :status
+      select "Solicitado", from: :status
+      select "Aceptado", from: :status
       click_button I18n.t('backend.search.button')
 
       expect(page).to have_content "Test for check status requested"

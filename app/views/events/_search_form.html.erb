@@ -1,9 +1,9 @@
 <div class="row">
   <div class="small-6 medium-8 column">
-    <h1>Solicitud de evento</h1>
+    <h1><%= event_title(current_user) %></h1>
   </div>
   <div class="small-6 medium-4 column">
-    <%= link_to t('backend.new_event'),
+    <%= link_to event_new(current_user),
                 new_event_path,
                 :class => "button radius warning right" if can? :create, Event %>
   </div>

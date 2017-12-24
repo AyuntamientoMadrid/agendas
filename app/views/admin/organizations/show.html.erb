@@ -7,6 +7,34 @@
       <div class="row">
         <div class="small-12 columns"><%= @organization.reference %></div>
       </div>
+      <br>
+      <div class="row">
+        <div class="small-12 medium-4 columns">
+          <strong>Fecha de inscripción</strong>
+        </div>
+
+        <div class="small-12 medium-4 columns">
+          <strong>Feche de modificación</strong>
+        </div>
+
+        <div class="small-12 medium-4 columns">
+          <strong>Feche de baja</strong>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 medium-4 columns">
+          <p><%= I18n.l(@organization.inscription_date, format: :short) %></p>
+        </div>
+
+        <div class="small-12 medium-4 columns">
+          <p><%= I18n.l(@organization.modification_date, format: :short) if @organization.modification_date.present? %></p>
+        </div>
+
+        <div class="small-12 medium-4 columns">
+          <p><%= I18n.l(@organization.canceled_at, format: :short) if @organization.canceled_at.present? %></p>
+        </div>
+      </div>
   </fieldset>
 
   <fieldset>
@@ -133,7 +161,9 @@
           <p>
             <strong><%= t('backend.identifying_data.registered_lobbies_title') %></strong>
             <% if @organization.registered_lobbies.present? %>
-              <%= t("backend.identifying_data.registered_lobbies.#{@organization.registered_lobbies}") %>
+              <% @organization.registered_lobbies.each do |registered_lobby| %>
+                <p>- <%= registered_lobby.name %></p>
+              <% end %>
             <% end %>
           </p>
         </div>
@@ -425,19 +455,31 @@
     <legend><%= t('backend.terms.title_fieldset') %></legend>
     <div class="row">
       <div class="small-12 column">
-        <p><%= t('backend.terms.denied_public_data') %></p>
+        <p><%= t('backend.terms.certain_term') %></p>
         <p>
-          <%= check_box_tag :denied_public_data, nil, @organization.denied_public_data, disabled: true %> Confirmar
+          <%= check_box_tag :certain_term, nil, @organization.certain_term, disabled: true %> Confirmar
         </p>
         <br />
         <p>
-          <%= t('backend.terms.denied_public_events') %>
+          <%= t('backend.terms.code_of_conduct_term') %>
         </p>
         <p>
-          <%= check_box_tag :denied_public_events, nil, @organization.denied_public_events, disabled: true %> Confirmar
+          <%= check_box_tag :code_of_conduct_term, nil, @organization.code_of_conduct_term, disabled: true %> Confirmar
         </p>
         <br />
-        <p><%= t('backend.terms.last_text') %></p>
+        <p>
+          <%= t('backend.terms.gift_term') %>
+        </p>
+        <p>
+          <%= check_box_tag :gift_term, nil, @organization.gift_term, disabled: true %> Confirmar
+        </p>
+        <br />
+        <p>
+          <%= t('backend.terms.lobby_term') %>
+        </p>
+        <p>
+          <%= check_box_tag :lobby_term, nil, @organization.lobby_term, disabled: true %> Confirmar
+        </p>
       </div>
     </div>
   </fieldset>

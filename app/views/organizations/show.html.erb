@@ -1,6 +1,6 @@
 <div class="row">
   <div class="small-12 columns">
-    <%= link_to t('backend.back'), organizations_path , class: "button tiny radius" %>
+    <%= link_to t('backend.back'), organization_back_button , class: "button tiny radius" %>
     <h1 class="title-l"><%= @organization.name %></h1>
     <p>
       <strong><%= t('organizations.show.state') %></strong>
@@ -154,7 +154,7 @@
               <div class="represented-entities-block">
                 <% if represented_entity.identifier.present? %>
                   <p>
-                    <strong><%= t('organizations.show.represented_entity_identifier') %> </strong>
+                    <strong>DNI/NIF/NIE/Pasaporte</strong>
                     <%= represented_entity.identifier %>
                   </p>
                 <% end %>
@@ -224,7 +224,9 @@
                 <% @organization.agents.each do |agent| %>
                   <p>
                     <strong><%= t('organizations.show.agents_fullname') %></strong>
-                    <%= agent.fullname %>
+                    <%= agent.name %>
+                    <%= agent.first_surname %>
+                    <%= agent.second_surname %>
                   </p>
                   <p><strong><%= t('organizations.show.agents_from') %></strong>
                     <%= I18n.l agent.from if agent.from? %>
@@ -264,7 +266,7 @@
 
       <li class="accordion-navigation active">
         <div class="accordion-title">
-          <%= t('organizations.show.events_title') %>
+          Reuniones mantenidas
           <span class="fa accordion-icon"></span>
         </div>
           <div class="content active">
@@ -272,7 +274,7 @@
               <% if @organization.events.present? %>
                 <% @organization.events.each do |event| %>
                   <li>
-                    <p><%= link_to event.title, event_path(event) %></p>
+                    <p><%= link_to event.title, show_path(event) %></p>
                   </li>
                 <% end %>
               <% else %>

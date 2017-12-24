@@ -1,0 +1,16 @@
+$(function () {
+  $('#delete-keywords').on('click', function(e){
+    e.preventDefault();
+    $('#keyword').val('');
+    $('form').submit();
+    $(this).remove();
+  });
+
+  $('.fdatepicker').fdatepicker({
+    format: "<%= I18n.translate('datepicker-format-time') %>",
+    pickTime: true,
+    language: "<%= I18n.locale %>",
+    disableDblClickSelection: true,
+    weekStart: 1
+  });
+});
