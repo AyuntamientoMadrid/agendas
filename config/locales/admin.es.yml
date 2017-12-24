@@ -111,7 +111,7 @@ es:
     attendees: "Otros asistentes"
     participants: "Asistentes titulares de agenda"
     meeting_lobby_activity: "¿Es una reunión donde se hará actividad de Lobby?"
-    meeting_lobby_activity_yes: "si"
+    meeting_lobby_activity_yes: "sí"
     meeting_lobby_activity_no: "no"
     meeting_lobby_activity_organization: "Lobby"
     meeting_lobby_activity_input: "Buscar una organización o persona fīsica por nombre o dni"

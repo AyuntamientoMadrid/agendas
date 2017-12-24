@@ -1,10 +1,10 @@
 es:
-  "true": "Si"
+  "true": "Sí"
   "false": "No"
 
   organizations:
     title: Consulta del Registro de Lobbies
-    description: Consulte los lobbies registradas.
+    description: Consulte los lobbies registrados
     events_as_lobby: Reuniones realizadas
     results_title: Resultados
     validate: Habilitar
@@ -147,9 +147,9 @@ es:
         range_3: "De 25.000 a 49.000 euros"
         range_4: "Más de 50.000 euros"
       subvention: "¿Ha recibido ayudas y/o subvenciones con cargo al Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
-      subvention_yes: "Si"
+      subvention_yes: "Sí"
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
-      contract_yes: "Si"
+      contract_yes: "Sí"
 
     represented_entities:
       add_represented_entities: "Añadir Entidades/personas a las que se representa"
