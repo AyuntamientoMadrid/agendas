@@ -24,15 +24,15 @@
 
       <div class="row">
         <div class="small-12 medium-4 columns">
-          <%= I18n.l(@organization.inscription_date, format: :short) %>
+          <p><%= I18n.l(@organization.inscription_date, format: :short) %></p>
         </div>
 
         <div class="small-12 medium-4 columns">
-          <%= I18n.l(@organization.modification_date, format: :short) if @organization.modification_date.present? %>
+          <p><%= I18n.l(@organization.modification_date, format: :short) if @organization.modification_date.present? %></p>
         </div>
 
         <div class="small-12 medium-4 columns">
-          <%= I18n.l(@organization.canceled_at, format: :short) if @organization.canceled_at.present? %>
+          <p><%= I18n.l(@organization.canceled_at, format: :short) if @organization.canceled_at.present? %></p>
         </div>
       </div>
   </fieldset>
