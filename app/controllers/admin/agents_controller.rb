@@ -4,7 +4,7 @@ module Admin
     load_and_authorize_resource :agent, through: :organization
 
     def index
-      @agents = @organization.agents.page(params[:page] || 1)
+      @agents = @organization.agents
     end
 
     def new
