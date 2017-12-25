@@ -4,13 +4,13 @@
   <% if organization.agents.any? %>
     <table>
       <thead>
-        <th>Agente</th>
-        <th>Action</th>
+        <tr>
+          <th>Agente</th>
+          <th>Action</th>
+        </tr>
       </thead>
       <tbody>
-        <tr>
-          <%= render organization.agents %>
-        </tr>
+        <%= render organization.agents %>
       </tbody>
     </table>
   <% end %>
