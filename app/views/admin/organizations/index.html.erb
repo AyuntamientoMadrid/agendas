@@ -36,7 +36,7 @@
       <% @paginated_organizations.each do |organization| %>
       <tr id="<%= dom_id(organization) %>" >
         <td>
-          <%= link_to organization.fullname, organization_path(organization) %>
+          <%= link_to organization.fullname, admin_organization_path(organization) %>
         </td>
         <td class="right">
           <%= link_to organization_path(organization),

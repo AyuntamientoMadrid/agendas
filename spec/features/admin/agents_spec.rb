@@ -128,12 +128,12 @@ feature "Agents" do
       click_button "Guardar"
 
       expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
-      expect(page).to have_content "Attachments file no puede estar en blanco"
+      expect(page).to have_content "Archivo no puede estar en blanco"
       expect(page).to have_content "6 errores impidieron guardar este Agente"
       expect(page).to have_content "DNI, NIE, NIF, Pasaporte no puede estar en blanco"
       expect(page).to have_content "Nombre no puede estar en blanco"
       expect(page).to have_content "Desde no puede estar en blanco"
-      expect(page).to have_content "Acredito el consentimiento expreso de esta persona para que sus datos meramente identificativos puedan hacerse públicos Si No no está incluido en la lista"
+      expect(page).to have_content "Acredito el consentimiento expreso de esta persona para que sus datos meramente identificativos puedan hacerse públicos Sí No no está incluido en la lista"
       expect(page).to have_content "Debe proporcionar el documento acreditativo de los permisos."
     end
 

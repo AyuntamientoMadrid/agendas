@@ -103,8 +103,10 @@ en:
     fiscal_year: fiscal year
     subvention: subvention
     contract: contract
-    denied_public_data: denied public data
-    denied_public_events: denied public events
+    certain_term: información facilitada es cierta
+    code_of_conduct_term: Aceptar codigo de conducta
+    gift_term: aceptar no realizar regalos
+    lobby_term: acreditar la actividad de lobby
     registered_lobbies: registered lobbies
     range_fund: range fund
     inscription_reference: inscription reference

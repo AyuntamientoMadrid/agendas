@@ -46,7 +46,7 @@ es:
       registry_query_title: "Consulta de registro"
       registry_query_description: "Conoce quiénes influyen las decisiones del Ayuntamiento y qué reuniones han mantenido."
     subscribe_unsubscribe:
-      subscribe_unsubscribe_title: "Alta y bajas"
+      subscribe_unsubscribe_title: "Alta y baja"
       subscribe_unsubscribe_description: "En este espacio podrás darte de alta y de baja del registro así como modificar la información y datos facilitados al inscribirte."
     normative:
       normative_title: "Código de conducta, sanciones y normativa"

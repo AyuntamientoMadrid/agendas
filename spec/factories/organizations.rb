@@ -23,11 +23,13 @@ FactoryGirl.define do
     range_fund :range_1
     subvention false
     contract true
-    denied_public_data false
-    denied_public_events false
+    certain_term true
+    code_of_conduct_term true
+    gift_term true
+    lobby_term true
     entity_type :lobby
     invalidated_at nil
-    inscription_date { Date.current }
+    inscription_date { DateTime.current }
 
     trait :company do
       name { Faker::Company.name }

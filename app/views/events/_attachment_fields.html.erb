@@ -1,6 +1,15 @@
 <div class="nested-fields small-12 columns">
   <div class="row">
 
+    <div class="attachments-public small-12 column">
+      <%= f.radio_button :public, true %>
+      <%= f.label :public, t('backend.attachments_public'), value: true %>
+      <%= f.radio_button :public, false %>
+      <%= f.label :public, t('backend.attachments_private'), value: false %>
+      <div class="small-12 error-radio-buttons"></div>
+      <br />
+    </div>
+
     <div class="small-12 columns">
       <%= t('backend.file') %>
       <%= f.text_field :title, class: "attachment-title" %>
@@ -15,15 +24,6 @@
         f.file_field :file, class: "attachment-file"
       end
     %>
-    </div>
-
-    <div class="attachments-public small-12 column">
-      <br />
-      <%= f.radio_button :public, true %>
-      <%= f.label :public, t('backend.attachments_public'), value: true %>
-      <%= f.radio_button :public, false %>
-      <%= f.label :public, t('backend.attachments_private'), value: false %>
-      <div class="small-12 error-radio-buttons"></div>
     </div>
 
     <div class="small-12 columns">

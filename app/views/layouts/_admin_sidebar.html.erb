@@ -6,7 +6,7 @@
       <% elsif current_user.lobby? %>
         <%= t('backend.menu_lobby') %>
       <% else %>
-        <%= t('backend.menu_manager') %>
+        <%= t('backend.menu_user') %>
       <% end %>
     </li>
     <% if current_user.admin? %>
@@ -17,28 +17,26 @@
     </li>
     <% end %>
     <% if current_user.user? %>
-    <li class="<%= active_menu('events', nil, 'tray') %>">
-      <a href="<%= @events_path %>">
-        <i class="fi-calendar size-18">
-          <%= t("backend.event_tray") %>
-        </i>
-      </a>
-    </li>
+      <li class="<%= active_menu('events', nil, 'events') %>">
+        <a href="<%= events_path(event_fixed_filters['events']) %>">
+          <i class="fi-book size-18"> <%= t("backend.events") %></i>
+        </a>
+      </li>
     <% else %>
-    <li class="<%= active_menu('events') %>">
-      <a href="<%= @events_path %>">
-        <i class="fi-calendar size-18">
-          <%= t("organizations.show.events_title") %>
-        </i>
-      </a>
-    </li>
+      <li class="<%= active_menu('events') %>">
+        <a href="<%= @events_path %>">
+          <i class="fi-calendar size-18">
+            <%= t("organizations.show.events_title") %>
+          </i>
+        </a>
+      </li>
     <% end %>
     <% if current_user.admin? %>
-    <li class="<%= active_menu('admin/organizations') %>">
-      <a href="<%= admin_organizations_path %>">
-        <i class="fi-book size-18"> <%= t("backend.companies")%></i>
-      </a>
-    </li>
+      <li class="<%= active_menu('admin/organizations') %>">
+        <a href="<%= admin_organizations_path %>">
+          <i class="fi-book size-18"> <%= t("backend.companies")%></i>
+        </a>
+      </li>
     <% elsif current_user.lobby? %>
       <li class="<%= active_menu('admin/agents', 'index') %>">
         <%= link_to admin_organization_agents_path(current_user.organization) do %>
@@ -57,46 +55,48 @@
       </li>
     <% end %>
     <% if current_user.user? %>
-    <li class="<%= active_menu('events', nil, 'events') %>">
-      <a href="<%= events_path(event_fixed_filters['events']) %>">
-        <i class="fi-book size-18"> <%= t("backend.events") %></i>
-      </a>
-    </li>
+      <li class="<%= active_menu('events', nil, 'tray') %>">
+        <a href="<%= @events_path %>">
+          <i class="fi-calendar size-18">
+            <%= t("backend.event_tray") %>
+          </i>
+        </a>
+      </li>
     <% end %>
     <% if current_user.admin? %>
-    <li class="<%= active_menu('areas') %>">
-      <a href="<%= areas_path %>">
-        <i class="fi-web size-18"> <%= t("backend.areas")%></i>
-      </a>
-    </li>
+      <li class="<%= active_menu('areas') %>">
+        <a href="<%= areas_path %>">
+          <i class="fi-web size-18"> <%= t("backend.areas")%></i>
+        </a>
+      </li>
     <% end %>
     <% if current_user.admin? %>
-    <li class="<%= active_menu('admin/questions') %>">
-      <a href="<%= admin_questions_path %>">
-        <i class="fi-lightbulb size-18"> <%= t("backend.faq.questions")%></i>
-      </a>
-    </li>
+      <li class="<%= active_menu('admin/questions') %>">
+        <a href="<%= admin_questions_path %>">
+          <i class="fi-lightbulb size-18"> <%= t("backend.faq.questions")%></i>
+        </a>
+      </li>
     <% end %>
     <% if current_user.admin? %>
-    <li class="<%= active_menu('holders') %>">
-      <a href="<%= holders_path %>">
-        <i class="fi-address-book size-18"> <%= t("backend.positions")%></i>
-      </a>
-    </li>
+      <li class="<%= active_menu('holders') %>">
+        <a href="<%= holders_path %>">
+          <i class="fi-address-book size-18"> <%= t("backend.positions")%></i>
+        </a>
+      </li>
     <% end %>
     <% if current_user.admin? %>
-    <li class="<%= active_menu('activities') %>">
-      <a href="<%= activities_path %>">
-        <i class="fi-page-multiple size-18"> <%= t("backend.activity")%></i>
-      </a>
-    </li>
+      <li class="<%= active_menu('activities') %>">
+        <a href="<%= activities_path %>">
+          <i class="fi-page-multiple size-18"> <%= t("backend.activity")%></i>
+        </a>
+      </li>
     <% end %>
     <% if current_user.admin? %>
-    <li class="<%= active_menu('import') %>">
-      <span href="<%= import_path %>" data-confirm="<%= t("backend.confirm") %>">
-        <i class="fi-rss size-18"> <%= t("backend.sync")%></i>
-      </span>
-    </li>
+      <li class="<%= active_menu('import') %>">
+        <span href="<%= import_path %>" data-confirm="<%= t("backend.confirm") %>">
+          <i class="fi-rss size-18"> <%= t("backend.sync")%></i>
+        </span>
+      </li>
     <% end %>
     <li>
       <%= link_to root_path, target: :blank do %>
@@ -109,18 +109,18 @@
       <% end %>
     </li>
     <% if current_user.lobby? %>
-    <li class="<%= active_menu('organization/edit') %>">
-      <%= link_to edit_organization_path, target: "_blank" do %>
-          <i class="fi-page-edit size-18"> <%= t("backend.edit_organization")%></i>
-      <% end %>
-    </li>
+      <li class="<%= active_menu('organization/edit') %>">
+        <%= link_to edit_organization_path, target: "_blank" do %>
+            <i class="fi-page-edit size-18"> <%= t("backend.edit_organization")%></i>
+        <% end %>
+      </li>
     <% end %>
     <% if current_user.lobby? %>
-    <li class="<%= active_menu('organization/delete') %>">
-      <%= link_to destroy_organization_path, target: "_blank" do %>
-        <i class="fi-page-delete size-18"> <%= t("backend.delete_organization")%></i>
-      <% end %>
-    </li>
+      <li class="<%= active_menu('organization/delete') %>">
+        <%= link_to destroy_organization_path, target: "_blank" do %>
+          <i class="fi-page-delete size-18"> <%= t("backend.delete_organization")%></i>
+        <% end %>
+      </li>
     <% end %>
     <li>
       <%= link_to nil, target: "_blank" do %>

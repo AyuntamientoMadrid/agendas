@@ -1,6 +1,8 @@
 <% if show_partial?('interests') %>
   <h1><%= t'backend.edit_title_interests' %></h1>
-<% else %>
+<% elsif show_partial?('agents') %>
   <h1><%= t'backend.edit_agents' %></h1>
+<% else %>
+  <h1>Editar organización</h1>
 <% end %>
 <%= render :partial => 'form' %>

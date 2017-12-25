@@ -26,10 +26,16 @@
       <%= form_field_errors(f, :second_surname) %>
     </div>
 
-    <div class="small-12 columns">
+    <div class="small-12 medium-6 columns">
       <%= f.label :from, t('backend.represented_entities.from') %>
       <%= f.date_field :from %>
       <%= form_field_errors(f, :from) %>
+    </div>
+
+    <div class="small-12 medium-6 columns">
+      <%= f.label :to, t('backend.represented_entities.to') %>
+      <%= f.date_field :to %>
+      <%= form_field_errors(f, :to) %>
     </div>
 
     <div class="small-12 medium-6 columns">

@@ -324,8 +324,10 @@ feature 'Organization' do
         new_category = create(:category)
         visit new_admin_organization_path
 
-        check "organization_denied_public_data"
-        check "organization_denied_public_events"
+        check "organization_certain_term"
+        check "organization_code_of_conduct_term"
+        check "organization_gift_term"
+        check "organization_lobby_term"
         # mandatory user fields
         fill_in :organization_name, with: "New name"
         fill_in :organization_user_attributes_first_name, with: "user first name"
@@ -337,8 +339,10 @@ feature 'Organization' do
         click_button "Guardar"
 
         organization = Organization.where(name: "New name").first
-        expect(organization.denied_public_data).to eq true
-        expect(organization.denied_public_events).to eq true
+        expect(organization.certain_term).to eq true
+        expect(organization.code_of_conduct_term).to eq true
+        expect(organization.gift_term).to eq true
+        expect(organization.lobby_term).to eq true
       end
 
       scenario 'Should show registred lobbies' do
@@ -658,16 +662,20 @@ feature 'Organization' do
       end
 
       scenario 'Should update terms organization fields', :js do
-        organization = create(:organization, denied_public_data: false, denied_public_events: false)
+        organization = create(:organization, certain_term: false, code_of_conduct_term: false, gift_term: false, lobby_term: false)
         visit edit_admin_organization_path(organization)
 
-        check "organization_denied_public_data"
-        check "organization_denied_public_events"
+        check "organization_certain_term"
+        check "organization_code_of_conduct_term"
+        check "organization_gift_term"
+        check "organization_lobby_term"
         click_button "Guardar"
 
         organization.reload
-        expect(organization.denied_public_data).to eq true
-        expect(organization.denied_public_events).to eq true
+        expect(organization.certain_term).to eq true
+        expect(organization.code_of_conduct_term).to eq true
+        expect(organization.gift_term).to eq true
+        expect(organization.lobby_term).to eq true
       end
 
       describe "Nested fields" do
@@ -886,7 +894,9 @@ feature 'Organization' do
         visit organization_path(organization)
 
         expect(page).to have_content organization.name
-        expect(page).to have_content agent.fullname
+        expect(page).to have_content agent.name
+        expect(page).to have_content agent.first_surname
+        expect(page).to have_content agent.second_surname
       end
 
       scenario "Should display invalidate organization and displday agent info" do
@@ -898,7 +908,9 @@ feature 'Organization' do
         visit organization_path(organization)
 
         expect(page).to have_content organization.name
-        expect(page).to have_content agent.fullname
+        expect(page).to have_content agent.name
+        expect(page).to have_content agent.first_surname
+        expect(page).to have_content agent.second_surname
       end
 
     end
