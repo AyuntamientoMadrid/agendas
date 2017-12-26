@@ -179,10 +179,10 @@ feature 'Organization' do
       scenario 'Should display agents notice for new organization records' do
         visit new_admin_organization_path
 
-        expect(page).to have_content "Podrás crear agentes una vez hayas creado \n "
-                                     "el lobby. Completa el formulario y pulsa \n "
-                                     "'Guardar', una vez almacenado se habilitará\n "
-                                     " la opción para añadir agentes."
+        expect(page).to have_content "Podrás crear agentes una vez hayas creado "   \
+                                     "el lobby. Completa el formulario y pulsa "    \
+                                     "'Guardar', una vez almacenado se habilitará " \
+                                     "la opción para añadir agentes."
       end
     end
 
@@ -216,7 +216,7 @@ feature 'Organization' do
 
       scenario 'Should create organization with data fields' do
         new_category = create(:category)
-        new_registered_lobby = create(:registered_lobby)
+        create(:registered_lobby)
         visit new_admin_organization_path
 
         fill_in :organization_identifier, with: "New identifier"
@@ -527,7 +527,7 @@ feature 'Organization' do
 
         scenario "Should navigate to admin organization agents when user click on 'Añadir Agentes' link" do
           organization = create(:organization)
-          agent = create(:agent, organization: organization)
+          create(:agent, organization: organization)
           visit edit_admin_organization_path(organization)
 
           click_link "Añadir agentes"

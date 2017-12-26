@@ -1,7 +1,7 @@
 class Agent < ActiveRecord::Base
 
   belongs_to :organization
-  has_many :attachments
+  has_many :attachments, dependent: :destroy
 
   validates :name, :identifier, :from, presence: true
   validates :allow_public_data, inclusion: [true, false]
