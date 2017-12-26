@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171223192052) do
+ActiveRecord::Schema.define(version: 20171226135403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,10 +74,12 @@ ActiveRecord::Schema.define(version: 20171223192052) do
     t.text     "description"
     t.boolean  "public"
     t.integer  "agent_id"
+    t.integer  "organization_id"
   end
 
   add_index "attachments", ["agent_id"], name: "index_attachments_on_agent_id", using: :btree
   add_index "attachments", ["event_id"], name: "index_attachments_on_event_id", using: :btree
+  add_index "attachments", ["organization_id"], name: "index_attachments_on_organization_id", using: :btree
 
   create_table "attendees", force: :cascade do |t|
     t.string   "name"
@@ -350,6 +352,7 @@ ActiveRecord::Schema.define(version: 20171223192052) do
 
   add_foreign_key "agents", "organizations"
   add_foreign_key "attachments", "events"
+  add_foreign_key "attachments", "organizations"
   add_foreign_key "attendees", "events"
   add_foreign_key "event_agents", "events"
   add_foreign_key "event_represented_entities", "events"
