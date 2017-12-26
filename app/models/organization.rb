@@ -1,5 +1,4 @@
 class Organization < ActiveRecord::Base
-
   attr_accessor :invalidate, :validate
 
   enum range_fund: [:range_1, :range_2, :range_3, :range_4]
@@ -12,14 +11,9 @@ class Organization < ActiveRecord::Base
   has_many :agents, dependent: :destroy
   has_many :organization_interests, dependent: :destroy
   has_many :interests, through: :organization_interests, dependent: :destroy
-  # These not exists!!!
-  # has_many :subventions, dependent: :destroy
-  # has_many :contracts, dependent: :destroy
-  # has_many :funds, dependent: :destroy
   has_many :events
   has_many :organization_registered_lobbies, dependent: :destroy
   has_many :registered_lobbies, through: :organization_registered_lobbies, dependent: :destroy
-  # has_one :comunication_representant, dependent: :destroy
   has_one :user, dependent: :destroy
   has_one :legal_representant, dependent: :destroy
   belongs_to :category
@@ -32,7 +26,6 @@ class Organization < ActiveRecord::Base
   before_validation :invalidate_organization, :validate_organization
   after_create :set_inscription_date, :send_create_mail
   before_destroy :send_delete_mail
-
 
   searchable do
     text :name, :first_surname, :second_surname, :description
@@ -128,6 +121,5 @@ class Organization < ActiveRecord::Base
   def canceled?
     !canceled_at.nil?
   end
-
 
 end
