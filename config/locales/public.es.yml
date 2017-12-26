@@ -222,3 +222,17 @@ es:
     btn_web_map: "Mapa  web"
     btn_legal_warning: "Aviso legal"
     btn_privacy_policy: "Politítica de privacidad"
+
+  websitemap:
+      title: "Mapa del sitio web Agendas"
+      content: "Puedes utilizar este mapa del sitio web para encontrar lo que necesitas de la página de Agendas"
+      cover_page: "Portada"
+      agendas: "Agendas públicas"
+      registration_lobbies: "Registro de Lobbies"
+      search_lobbies: "Consulta del registro"
+      update_lobbies: "Alta y baja"
+      rules_lobbies: "Código de conducta, sanciones y normativa"
+      faq: "Preguntas Frecuentes"
+      stadistics: "Estadísticas"
+      mailbox: "Buzón de incumplimientos"
+      regulations_lobbies: "Huella normativa"
