@@ -928,7 +928,7 @@ feature 'Organization' do
 
           scenario 'Should remove destroyed attachments', :js do
             organization = create(:organization)
-            attachment = create(:attachment, organization: organization)
+            create(:attachment, organization: organization)
             visit edit_admin_organization_path(organization)
 
             click_link "Eliminar archivo adjunto"
