@@ -44,7 +44,7 @@
         <% end %>
       </li>
       <li class="<%= active_menu('admin/organizations/interests', 'index') %>">
-        <%= link_to admin_organization_interests_path(current_user.organization) do %>
+        <%= link_to admin_organization_organization_interests_path(current_user.organization) do %>
           <i class="fi-plus size-18"> <%= t("backend.add_interests") %></i>
         <% end %>
       </li>
