@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   get '/import', to: 'users#import', as: 'import'
   get '/faq', to: 'questions#index', as: 'faq'
-  # get '/faq', to: 'questions#index', as: 'faq'
+  get '/websitemap', to: 'static_pages#websitemap', as: 'websitemap'
 
   resources :infringement_emails, only: [:new, :create]
 
