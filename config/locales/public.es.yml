@@ -49,7 +49,7 @@ es:
       subscribe_unsubscribe_title: "Alta y baja"
       subscribe_unsubscribe_description: "En este espacio podrás darte de alta y de baja del registro así como modificar la información y datos facilitados al inscribirte."
     normative:
-      normative_title: "Código de conducta, sanciones y normativa"
+      normative_title: "Código de conducta, incumplimientos y normativa"
       normative_description: "Conoce las obligaciones que implica la inscripción en el Registro de Lobbies."
     questions:
       question_title: "Preguntas frecuentes"
@@ -231,7 +231,7 @@ es:
       registration_lobbies: "Registro de Lobbies"
       search_lobbies: "Consulta del registro"
       update_lobbies: "Alta y baja"
-      rules_lobbies: "Código de conducta, sanciones y normativa"
+      rules_lobbies: "Código de conducta, incumplimientos y normativa"
       faq: "Preguntas Frecuentes"
       stadistics: "Estadísticas"
       mailbox: "Buzón de incumplimientos"
