@@ -406,7 +406,7 @@
         <br />
         <div class="small-3 medium-6 columns mb10">
           <p>
-            <strong><%= t('backend.agents.identifier') %></strong>
+            <strong><%= I18n.t('backend.agents.identifier') %></strong>
             <%= agent.identifier %>
           </p>
         </div>
@@ -442,15 +442,17 @@
         </div>
       </div>
       <br>
-      <div class="row">
-        <div class="small-12 columns">
-          <p>
-            <strong><%= t('backend.agents.public_assignments_only_show') %></strong>
-            <%= agent.public_assignments.html_safe if agent.public_assignments.present? %>
-          </p>
+      <% if agent.public_assignments.present? %>
+        <div class="row">
+          <div class="small-12 columns">
+            <p>
+              <strong><%= t('backend.agents.public_assignments_only_show') %></strong>
+              <%= agent.public_assignments.html_safe %>
+            </p>
+          </div>
         </div>
-      </div>
-      <hr>
+        <hr>
+      <% end %>
     <% end %>
   </fieldset>
 

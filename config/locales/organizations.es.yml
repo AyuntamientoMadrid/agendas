@@ -174,6 +174,19 @@ es:
       subvention: "¿Ha recibido ayudas y/o subvenciones con cargo al Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
 
+    agents:
+      add_association: "Añadir Agentes"
+      title_fieldset: "Agentes (personas habilitadas por el lobby para reunirse)"
+      identifier: "DNI, NIE, NIF, Pasaporte"
+      name: "Nombre"
+      first_surname: "Primer apellido"
+      second_surname: "Segundo apellido"
+      from: "Fecha inicio de la habilitación"
+      to: "Fecha fin de la habilitación"
+      public_assignments: "¿Esta persona ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe, en algún momento de los dos años previos a la fecha desde la que va actuar por cuenta de quien se inscribe? En caso afirmativo, indique los datos (organismo, puesto o cargo y las fechas en las que lo desempeñó)"
+      public_assignments_only_show: "¿Esta persona ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe, en algún momento de los dos años previos a la fecha desde la que va actuar por cuenta de quien se inscribe?"
+      allow_public_data: "I agree with this information about personal identifying data can be public. "
+
     interest:
       title_fieldset: "Área de Interés"
 
