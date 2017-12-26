@@ -28,6 +28,7 @@ es:
     review_errors: "Por favor corrija los siguientes errores antes de continuar"
     sync: "Sincronizar con UWEB"
     export: "Exportar"
+    delete_attachment: "Delete attachment"
     allowed_file_content_types: "Uploaded file has wrong content type. Allowed content types are the following: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."
 
     contributors: "Contribuidores"
@@ -172,6 +173,7 @@ es:
     declined_event: Event declined
     decline_reason_yes: Yes
     decline_reason_no: No
+    open_file: "Open file"
     accept_event: Decline event
     accepted_event: Event accepted
     accept_reason_yes: Yes

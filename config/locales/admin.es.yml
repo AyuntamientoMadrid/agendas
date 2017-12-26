@@ -36,6 +36,7 @@ es:
     review_errors: "Por favor corrija los siguientes errores antes de continuar"
     sync: "Sincronizar con UWEB"
     export: "Exportar"
+    delete_attachment: "Eliminar adjunto"
     allowed_file_content_types: "El archivo proporcionado está en un formato no permitido. Los siguientes formatos de archivo son permitidos: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."
 
     contributors: "Contribuidores"
@@ -187,6 +188,7 @@ es:
     declined_event: Evento declinado
     decline_reason_yes: Si
     decline_reason_no: "No"
+    open_file: "Abrir archivo"
     accept_event: Aceptar evento
     accepted_event: Evento aceptado
     accept_reason_yes: Si

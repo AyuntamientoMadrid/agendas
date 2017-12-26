@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20171223192052) do
     t.integer  "organization_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.boolean  "allow_public_data"
   end
 
   add_index "agents", ["organization_id"], name: "index_agents_on_organization_id", using: :btree
@@ -72,8 +73,10 @@ ActiveRecord::Schema.define(version: 20171223192052) do
     t.integer  "event_id"
     t.text     "description"
     t.boolean  "public"
+    t.integer  "agent_id"
   end
 
+  add_index "attachments", ["agent_id"], name: "index_attachments_on_agent_id", using: :btree
   add_index "attachments", ["event_id"], name: "index_attachments_on_event_id", using: :btree
 
   create_table "attendees", force: :cascade do |t|

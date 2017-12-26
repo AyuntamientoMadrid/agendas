@@ -14,6 +14,7 @@ feature "Abilities::User" do
     @political_transparency = Event.find_by title: 'Transparencia política'
 
     @holder_several_positions = Holder.find_by first_name: 'Pilar', last_name:'Lopez'
+    @lobby_user = User.find_by first_name: 'Pepe', last_name: 'Perez'
   end
 
   describe "manage holder" do

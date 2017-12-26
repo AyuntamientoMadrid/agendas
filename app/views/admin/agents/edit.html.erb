@@ -1,0 +1,7 @@
+<div class="small-12 mt5 agents-new">
+  <h1><%= t('backend.agents.edit')%></h1>
+  <%= link_to t('backend.back'),
+              admin_organization_agents_path(@organization),
+              class: "button tiny radius" %>
+</div>
+<%= render "form" %>

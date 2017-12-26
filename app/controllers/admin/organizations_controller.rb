@@ -64,17 +64,18 @@ module Admin
 
       def organization_params
         params.require(:organization)
-              .permit(:reference, :identifier, :name, :first_surname, :second_surname, :phones, :email, :invalidate, :invalidated_reasons,
+              .permit(:reference, :identifier, :name, :first_surname, :second_surname,
+                      :phones, :email, :invalidate, :invalidated_reasons,
                       :web, :address_type, :address, :number, :gateway, :stairs, :floor, :door, :validate,
-                      :postal_code, :town, :province, :description, :category_id, :inscription_date,
-                      :fiscal_year, :range_fund, :subvention, :contract, :country, :certain_term, :code_of_conduct_term, :gift_term, :lobby_term, interest_ids: [],
-                       legal_representant_attributes: [:identifier, :name, :first_surname, :second_surname, :phones, :email, :_destroy],
-                       user_attributes: [:id, :first_name, :last_name, :role, :email, :active, :phones, :password, :password_confirmation],
-                       represented_entities_attributes: [:id, :identifier, :name, :first_surname, :second_surname, :to,
-                                                         :from, :fiscal_year, :range_fund, :subvention, :contract, :_destroy],
-                       organization_interests_attributes: [:interest_ids],
-                       agents_attributes: [:id, :identifier, :name, :first_surname, :second_surname, :from,
-                                           :to, :public_assignments, :_destroy], registered_lobby_ids: [])
+                      :postal_code, :town, :province, :description, :category_id,
+                      :fiscal_year, :range_fund, :subvention, :contract, :country,
+                      :certain_term, :code_of_conduct_term, :gift_term, :lobby_term,
+                      legal_representant_attributes: [:identifier, :name, :first_surname, :second_surname, :phones, :email, :_destroy],
+                      user_attributes: [:id, :first_name, :last_name, :role, :email, :active, :phones, :password, :password_confirmation],
+                      represented_entities_attributes: [:id, :identifier, :name, :first_surname, :second_surname,
+                                                        :from, :fiscal_year, :range_fund, :subvention, :contract, :_destroy],
+                      organization_interests_attributes: [:interest_ids],
+                      interest_ids: [], registered_lobby_ids: [])
       end
 
       def set_organization

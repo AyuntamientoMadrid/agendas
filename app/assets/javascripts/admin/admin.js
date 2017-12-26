@@ -29,7 +29,8 @@ $(function() {
 
   tinymce.init({
     selector : "textarea:not(.mceNoEditor)",
-    language : 'es'
+    language : 'es',
+    plugins: 'code'
   });
 
 });

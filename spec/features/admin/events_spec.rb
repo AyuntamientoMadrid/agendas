@@ -606,13 +606,14 @@ feature 'Events' do
             choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
             find('.add-attachment').click
-            attachment = all(".attachment-file").first
-            attach_file attachment[:id], "spec/fixtures/dummy.pdf"
+            find("input[type=file]").set("spec/fixtures/dummy.pdf")
             input_title = find(".attachment-title")
             fill_in input_title[:id], with: "Dummy pdf"
             click_on "Guardar"
 
-            expect(page).to have_link "Dummy pdf"
+            within "#event_#{Event.last.id}_attachments_dropdown", visible: false do
+              expect(page).to have_link "Dummy pdf", visible: false
+            end
           end
 
           scenario 'Should not save attachment when it has invalid content type', :js do

@@ -10,6 +10,7 @@ FactoryGirl.define do
     from Time.zone.yesterday
     to Time.zone.today
     public_assignments "text"
+    allow_public_data true
     association :organization, factory: :organization
   end
 

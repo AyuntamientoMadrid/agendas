@@ -7,6 +7,7 @@ describe "Abilities::Administrator" do
   let(:user) { create(:user, :admin) }
   let(:holder) { create(:holder) }
   let(:event) { create(:event) }
+  let(:agent) { create(:agent) }
 
   it { should be_able_to(:index, Users) }
   it { should be_able_to(:show, user) }
@@ -23,5 +24,11 @@ describe "Abilities::Administrator" do
   it { should be_able_to(:show, event) }
   it { should be_able_to(:edit, event) }
   it { should be_able_to(:destroy, event) }
+
+  it { should be_able_to(:index, Agent) }
+  it { should be_able_to(:new, agent) }
+  it { should be_able_to(:show, agent) }
+  it { should be_able_to(:edit, agent) }
+  it { should be_able_to(:destroy, agent) }
 
 end

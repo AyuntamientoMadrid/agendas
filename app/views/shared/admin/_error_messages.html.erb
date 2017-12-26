@@ -1,0 +1,14 @@
+<% if model.errors.any? %>
+  <div class="panel callout radius">
+    <strong>
+      <%= t 'activerecord.errors.template.header',
+            model: model_name,
+            count: model.errors.count %>
+    </strong>
+    <ul>
+      <% model.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

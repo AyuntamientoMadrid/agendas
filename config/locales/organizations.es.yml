@@ -174,19 +174,6 @@ es:
     interest:
       title_fieldset: "Área de Interés"
 
-    agents:
-      add_association: "Añadir Agentes"
-      title_fieldset: "Agentes (personas habilitadas por el lobby para reunirse)"
-      agents: "Agente"
-      identifier: "DNI, NIE, NIF, Pasaporte"
-      name: "Nombre"
-      first_surname: "Primer apellido"
-      second_surname: "Segundo apellido"
-      from: "Desde"
-      to: "Hasta"
-      public_assignments: "¿Esta persona ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe, en algún momento de los dos años previos a la fecha desde la que va actuar por cuenta de quien se inscribe? En caso afirmativo, indique los datos (organismo, puesto o cargo y las fechas en las que lo desempeñó)"
-      public_assignments_only_show: "¿Esta persona ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe, en algún momento de los dos años previos a la fecha desde la que va actuar por cuenta de quien se inscribe?"
-
     terms:
       title_fieldset: "Aceptación condiciones declaración responsable"
       certain_term: "La información facilitada es cierta, que adquiere el compromiso de actualizarla y que dispone de la documentación acreditativa de la información aceptada."

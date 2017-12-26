@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe Attachment do
-
-  let(:attachment) { build(:attachment) }
+  let(:event) { build(:event) }
+  let(:attachment) { build(:attachment, event: event) }
 
   it "should be invalid if no title" do
     attachment.title = nil
