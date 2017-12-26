@@ -1,22 +1,3 @@
 <%= t'mailer.infringement_email.link_html', link: @email.link if @email.link.present? %>
 
 <%= @email.description.html_safe %>
-<hr />
-
-<ul>
-  <% if @email.name.present? %>
-    <li><strong><%= t('infringement_mailbox.name') %>: </strong><%= @email.name.html_safe %></li>
-  <% end %>
-
-  <% if @email.first_surname.present? %>
-    <li><strong><%= t('infringement_mailbox.first_surname') %>: </strong><%= @email.first_surname.html_safe %></li>
-  <% end %>
-
-  <% if @email.email.present? %>
-    <li><strong><%= t('infringement_mailbox.email') %>: </strong><%= @email.email.html_safe %></li>
-  <% end %>
-
-  <% if @email.phone.present? %>
-    <li><strong><%= t('infringement_mailbox.phone') %>: </strong><%= @email.phone.html_safe %></li>
-  <% end %>
-</ul>
