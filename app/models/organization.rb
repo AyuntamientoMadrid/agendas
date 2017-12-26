@@ -40,7 +40,6 @@ class Organization < ActiveRecord::Base
     boolean :invalidate do
       !invalidated_at.nil?
     end
-    time :inscription_date
     integer :interest_ids, multiple: true do
       interests.map(&:id)
     end
@@ -50,6 +49,8 @@ class Organization < ActiveRecord::Base
     join(:name, :prefix => "agent", :target => Agent, :type => :text, :join => { :from => :organization_id, :to => :id })
     join(:first_surname, :prefix => "agent", :target => Agent, :type => :text, :join => { :from => :organization_id, :to => :id })
     join(:second_surname, :prefix => "agent", :target => Agent, :type => :text, :join => { :from => :organization_id, :to => :id })
+    time :inscription_date
+    string :name
   end
 
   scope :invalidated, -> { where('invalidated_at is not null') }
