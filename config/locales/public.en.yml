@@ -27,3 +27,17 @@ en:
       agent: "Agent's name or surname"
       filter_by_interests: "Filtrar por intereses"
       filter_by_category: "Filtrar por Categorías"
+
+  websitemap:
+      title: "Website Map"
+      content: "You can use this website map to find what you need from the Agendas page"
+      cover_page: "Cover Page"
+      agendas: "Public agendas"
+      registration_lobbies: "Lobbies registration"
+      search_lobbies: "Lobbies searches"
+      update_lobbies: "Lobbies Updates"
+      rules_lobbies: "Lobbies rules"
+      faq: "Faq"
+      stadistics: "Stadistics"
+      mailbox: "Mailbox"
+      regulations_lobbies: "Lobbies Regulation"
