@@ -12,11 +12,11 @@ class Ability
         can [:index, :show], Holder
         can :manage, Organization
         can :manage, Question
+        can :manage, Agent
       else
         can :manage, :all
       end
       can :index, :activities
-      can :destroy, Agent
     elsif user.lobby?
       can [:index, :new, :create, :show], Event
       can [:edit, :update], Event, status: "requested"
