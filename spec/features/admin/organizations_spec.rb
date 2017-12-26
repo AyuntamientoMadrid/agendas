@@ -300,8 +300,8 @@ feature 'Organization' do
 
         fill_in :organization_fiscal_year, with: 2014
         select "Más de 50.000 euros", from: :organization_range_fund
-        check "organization_contract"
-        check "organization_subvention"
+        choose("organization_contract_true")
+        choose("organization_subvention_true")
         # mandatory user fields
         fill_in :organization_name, with: "New name"
         fill_in :organization_user_attributes_first_name, with: "user first name"
@@ -649,8 +649,8 @@ feature 'Organization' do
 
         fill_in :organization_fiscal_year, with: 2014
         select "Más de 50.000 euros", from: :organization_range_fund
-        check "organization_contract"
-        check "organization_subvention"
+        choose("organization_contract_true")
+        choose("organization_subvention_true")
         click_button "Guardar"
 
         organization.reload
@@ -819,8 +819,8 @@ feature 'Organization' do
             fill_in :organization_represented_entities_attributes_0_first_surname, with: "new first surname"
             fill_in :organization_represented_entities_attributes_0_second_surname, with: "new second surname"
             select "Más de 50.000 euros", from: :organization_represented_entities_attributes_0_range_fund
-            check "organization_represented_entities_attributes_0_subvention"
-            check "organization_represented_entities_attributes_0_contract"
+            choose("organization_represented_entities_attributes_0_subvention_true")
+            choose("organization_represented_entities_attributes_0_contract_true")
             click_button "Guardar"
 
             represented_entity.reload

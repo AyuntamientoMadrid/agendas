@@ -148,8 +148,10 @@ es:
         range_4: "Más de 50.000 euros"
       subvention: "¿Ha recibido ayudas y/o subvenciones con cargo al Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
       subvention_yes: "Sí"
+      subvention_no: "No"
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
       contract_yes: "Sí"
+      contract_no: "No"
 
     represented_entities:
       add_represented_entities: "Añadir Entidades/personas a las que se representa"
@@ -159,7 +161,8 @@ es:
       name: "Nombre o razón social"
       first_surname: "Primer apellido"
       second_surname: "Segundo apellido"
-      from: "Fecha de inicio de la representaciòn"
+      from: "Fecha de inicio de la representación"
+      to: "Fecha de fin de la representación"
       fiscal_year: "Ejercicio anual"
       range_fund_title: "Fondos"
       range_fund:
