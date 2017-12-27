@@ -1,0 +1,21 @@
+<fieldset>
+  <legend><%= t('backend.attachments') %></legend>
+  <div class="row">
+    <div id="nested-attachments">
+      <%= f.fields_for :attachments do |attachments_builder| %>
+        <%= render 'attachment_fields', f: attachments_builder %>
+      <% end %>
+    </div>
+    <div class="small-12 columns">
+      <%= link_to_add_association t('backend.organization.add_attachment'), f,
+                                :attachments,
+                                partial: "attachment_fields",
+                                id: "attachments_link",
+                                class: "button tiny radius info",
+                                data: {
+                                  association_insertion_node: "#nested-attachments",
+                                  association_insertion_method: "append"
+                                } %>
+    </div>
+  </div>
+</fieldset>

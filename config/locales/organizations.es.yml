@@ -87,6 +87,10 @@ es:
     placeholder:
       phones: "Puede añadir más de un teléfono"
 
+    organization:
+      add_attachment: Añadir archivo adjunto
+      remove_attachment: Eliminar archivo adjunto
+
     identifying_data:
       title_fieldset: "Datos identificativos"
       identifier: "DNI/NIF/NIE/Pasaporte"

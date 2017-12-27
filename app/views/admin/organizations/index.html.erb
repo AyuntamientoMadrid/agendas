@@ -56,6 +56,28 @@
                       title: t('backend.delete') do %>
             <i class="step fi-page-delete size-24"></i>
           <% end if can? :destroy, organization %>
+
+          <% if organization.attachments.any? %>
+            <%= link_to "#", title: t('backend.attachments_download'),
+                        class: "organization-attachments-dropdown-link",
+                        data: { dropdown: "#{organization_attachments_download_dropdown_id(organization)}" },
+                        aria: { controls: "#{organization_attachments_download_dropdown_id(organization)}" } do %>
+              <i class="step fi-archive size-24"></i>
+            <% end %>
+
+            <ul id="<%= organization_attachments_download_dropdown_id(organization) %>"
+                class="organization-attachments-dropdown f-dropdown"
+                data-dropdown-content aria-hidden="true" tabindex="-1">
+              <% organization.attachments.each do |attachment| %>
+                <li>
+                  <%= link_to attachment.file.url, target: :_blank do %>
+                    <i class="step fi-archive size-24"></i>
+                    <%= attachment.file.original_filename %>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
         </td>
       </tr>
       <% end %>
