@@ -75,7 +75,9 @@ feature 'Events' do
         event = create(:event, position: @position)
         create(:attachment, event: event, title: "An amazing attachment title")
         create(:attachment, event: event, title: "Other title")
-        visit events_path
+        visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
+                          "status" => ["accepted", "canceled", "declined"],
+                          "controller" => "events", "action" => "index" )
 
         within "#event_#{event.id}" do
           find('.attachments-dropdown').click
@@ -1289,13 +1291,13 @@ feature 'Events' do
       expect(find_link(I18n.t('backend.cancel_event'))[:disabled]).not_to eq "disabled"
     end
 
-    scenario "An use can't cancel not accepted events", :js do
+    scenario "An use can cancel not accepted events", :js do
       event = create(:event, organization: @organization, user: @organization_user)
       event.update(status: 'requested')
 
       visit edit_event_path(event)
 
-      expect(find_link(I18n.t('backend.cancel_event'))[:disabled]).to eq "disabled"
+      expect(find_link(I18n.t('backend.cancel_event'))[:disabled]).not_to eq "disabled"
     end
 
   end

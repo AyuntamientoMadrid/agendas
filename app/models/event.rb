@@ -15,7 +15,7 @@ class Event < ActiveRecord::Base
   validates_inclusion_of :lobby_activity, :in => [true, false]
   validate :participants_uniqueness, :position_not_in_participants, :role_validate_scheduled, :validate_location
   validates :canceled_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, allow_blank: false, if: Proc.new { |a| !a.canceled_at.blank? }
-  validates :accepted_reasons, :declined_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, allow_blank: false, if: Proc.new { |a| !a.declined_at.blank? || (a.current_user && !a.current_user.lobby?) }
+  validates :declined_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, allow_blank: false, if: Proc.new { |a| !a.declined_at.blank? || (a.current_user && !a.current_user.lobby?) }
 
   before_create :set_status, :set_published_at
   after_validation :decline_event, :cancel_event, :accept_event
@@ -56,7 +56,7 @@ class Event < ActiveRecord::Base
   enum status: { requested: 0, accepted: 1, done: 2, declined: 3, canceled: 4 }
 
   def cancel_event
-    return unless cancel == 'true' && canceled_at.nil? && status == 'accepted'
+    return unless cancel == 'true' && canceled_at.nil?
     self.canceled_at = Time.zone.today
     self.status = 'canceled'
     EventMailer.cancel(self).deliver_now

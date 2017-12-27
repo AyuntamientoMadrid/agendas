@@ -168,6 +168,7 @@ $(function(){
   });
 
   if ($("#event_lobby_activity_true").is(":checked")) {
+    remove_select();
     fill_autocomplete_organization_name();
     fill_represented_entities_select_options();
     fill_agents_select_options();
@@ -315,7 +316,14 @@ function fill_autocomplete_organization_name() {
     $('#event_agents_link').trigger('click');
   });
 }
-// fullname(represented_entity)
+
+function remove_select() {
+  if ($("#new_event_represented_entity select").children().length == 0) {
+    $('#new_event_represented_entity .link_to_remove_association').trigger('click');
+    $('#new_event_agent .link_to_remove_association').trigger('click');
+  }
+}
+
 function fullname_represented_entity(represented_entity) {
   fullname = represented_entity.name
   if (represented_entity.first_surname != null) {
