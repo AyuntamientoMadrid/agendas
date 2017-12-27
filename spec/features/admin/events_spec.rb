@@ -16,7 +16,7 @@ feature 'Events' do
         visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
                           "status" => ["requested", "declined"], "lobby_activity" => "1",
                           "controller" => "events", "action" => "index" )
-        expect(page).to have_content I18n.t 'backend.events'
+        expect(page).to have_content "Eventos"
         expect(page).to have_content I18n.t 'backend.event_tray'
       end
 
@@ -47,9 +47,9 @@ feature 'Events' do
                           "status" => ["requested", "declined"], "lobby_activity" => "1",
                           "controller" => "events", "action" => "index" )
 
-        click_link I18n.t("backend.events")
+        click_link "Eventos"
         expect(find_link(I18n.t("backend.event_tray")).first(:xpath, ".//..")[:class]).not_to eq "active"
-        expect(find_link(I18n.t("backend.events")).first(:xpath, ".//..")[:class]).to eq "active"
+        expect(find_link("Eventos").first(:xpath, ".//..")[:class]).to eq "active"
 
         [event2, event3, event4, event7, event8, event9].each do |evnt|
           expect(page).to have_content evnt.title
@@ -60,7 +60,7 @@ feature 'Events' do
 
         click_link I18n.t("backend.event_tray")
         expect(find_link(I18n.t("backend.event_tray")).first(:xpath, ".//..")[:class]).to eq "active"
-        expect(find_link(I18n.t("backend.events")).first(:xpath, ".//..")[:class]).not_to eq "active"
+        expect(find_link("Eventos").first(:xpath, ".//..")[:class]).not_to eq "active"
 
         [event1, event5].each do |evnt|
           expect(page).to have_content evnt.title
