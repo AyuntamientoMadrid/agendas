@@ -22,6 +22,7 @@ module Admin
       @organization = Organization.new(organization_params)
       @organization.entity_type = 'lobby'
       if @organization.save
+        UserMailer.welcome(@organization.user).deliver_now
         redirect_to admin_organizations_path, notice: t('backend.successfully_created_record')
       else
         flash[:alert] = t('backend.review_errors')
