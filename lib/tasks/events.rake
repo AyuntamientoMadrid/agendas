@@ -11,11 +11,15 @@ namespace :events do
   desc "Update old event status to done or accepted"
   task update_old_event_status: :environment do
     puts "Starting conversion of old events without status to accepted"
-    Event.where("status is ? AND scheduled > ?", nil, Time.zone.today).update_all(status: :accepted, lobby_activity: false)
+    Event.where("status is ? AND scheduled > ?", nil, Time.zone.today).each do |event|
+      event.update_attribute(:status, :accepted)
+    end
     puts "Finished conversion of old events without status to accepted"
 
     puts "Starting conversion of old events without status to done"
-    Event.where("status is ? AND scheduled <= ?", nil, Time.zone.today).update_all(status: :done, lobby_activity: false)
+    Event.where("status is ? AND scheduled <= ?", nil, Time.zone.today) do |event|
+      event.update_attribute(:status, :done)
+    end
     puts "Finished conversion of old events without status to done"
   end
 
