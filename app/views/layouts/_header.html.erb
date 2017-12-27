@@ -31,7 +31,7 @@
               </li>
             <% else %>
               <li>
-                <% if current_page?(registration_lobbies_index_path) || current_page?(organizations_path) %>
+                <% if current_page?(registration_lobbies_path) || current_page?(registration_lobbies_index_path) || current_page?(organizations_path) %>
                   <a href="<%= admin_path %>" class="button"><%= t('header.btn_login') %></a>
                 <% end %>
               </li>
