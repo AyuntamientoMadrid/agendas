@@ -8,18 +8,18 @@ module OrganizationsHelper
   end
 
   def organization_represented_entities_url_pattern(format)
-    url = organization_represented_entities_url(organization_id: 1, format: format, protocol: protocol_for_urls)
-    url.gsub('1', 'organization_id')
+    url = organization_represented_entities_url(organization_id: 999, format: format, protocol: protocol_for_urls)
+    url.gsub('999', 'organization_id')
   end
 
   def organization_agents_url_pattern(format)
-    url = organization_agents_url(organization_id: 1, format: format, protocol: protocol_for_urls)
-    url.gsub('1', 'organization_id')
+    url = organization_agents_url(organization_id: 999, format: format, protocol: protocol_for_urls)
+    url.gsub('999', 'organization_id')
   end
 
   def organization_category_url_pattern
-    url = organization_url(id: 1, format: :json, protocol: protocol_for_urls)
-    url.gsub('1', 'organization_id')
+    url = organization_url(id: 999, format: :json, protocol: protocol_for_urls)
+    url.gsub('999', 'organization_id')
   end
 
   def protocol_for_urls
