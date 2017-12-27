@@ -231,6 +231,7 @@ feature 'Organization' do
       end
 
       scenario 'Visit new admin organization page and create organization with the minimum permitted fields' do
+        ActionMailer::Base.deliveries = []
         category = create(:category)
         visit new_admin_organization_path
 
@@ -244,6 +245,7 @@ feature 'Organization' do
         click_button "Guardar"
 
         expect(page).to have_content "Registro creado correctamente"
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
       end
 
       scenario 'Should create organization with data fields' do
