@@ -20,7 +20,7 @@ class EventsController < AdminController
 
   def new
     if current_user.lobby? && current_user.organization.agents.empty?
-      redirect_to edit_admin_organization_path(id: current_user.organization_id, show: 'agents'), alert: t('backend.event.add_agents')
+      redirect_to admin_organization_organization_interests_path(current_user.organization), alert: t('backend.event.add_agents')
     end
   end
 

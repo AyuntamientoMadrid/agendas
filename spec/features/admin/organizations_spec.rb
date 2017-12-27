@@ -1057,8 +1057,8 @@ feature 'Organization' do
       check "organization_interest_ids_#{@interest.id}"
       click_button 'Guardar'
 
-      expect(current_path).to eq(admin_organization_path(id: @lobby.organization_id))
-      expect(page).to have_field("interest_#{@interest.id}", checked: true, disabled: true)
+      expect(page).to have_content "Registro actualizado correctamente "
+      expect(page).to have_field("organization_interest_ids_#{@interest.id}", checked: true)
     end
 
     scenario 'Show organization details' do

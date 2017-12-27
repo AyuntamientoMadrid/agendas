@@ -13,6 +13,7 @@ class Ability
         can :manage, Organization
         can :manage, Question
         can :manage, Agent
+        can :manage, OrganizationInterest
       else
         can :manage, :all
       end
@@ -20,7 +21,8 @@ class Ability
     elsif user.lobby?
       can [:index, :new, :create, :show], Event
       can [:edit, :update], Event, status: "requested"
-      can [:show, :edit, :update], Organization, id: user.organization_id
+      can [:show], Organization, id: user.organization_id
+      can :manage, OrganizationInterest, organization_id: user.organization_id
       can :manage, Agent, organization_id: user.organization_id
       cannot :destroy, Agent
     else

@@ -43,10 +43,10 @@
           <i class="fi-plus size-18"> <%= t("backend.edit_agents") %></i>
         <% end %>
       </li>
-      <li class="<%= active_menu('admin/organizations', 'interests') %>">
-        <a href="<%= edit_admin_organization_path(id: current_user.organization_id, show: 'interests') %>">
+      <li class="<%= active_menu('admin/organizations/interests', 'index') %>">
+        <%= link_to admin_organization_organization_interests_path(current_user.organization) do %>
           <i class="fi-plus size-18"> <%= t("backend.add_interests") %></i>
-        </a>
+        <% end %>
       </li>
       <li class="<%= active_menu('admin/organizations', 'show') %>">
         <a href="<%= admin_organization_path(id: current_user.organization_id) %>">

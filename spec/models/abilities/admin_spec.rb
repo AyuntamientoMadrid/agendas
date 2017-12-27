@@ -8,6 +8,7 @@ describe "Abilities::Administrator" do
   let(:holder) { create(:holder) }
   let(:event) { create(:event) }
   let(:agent) { create(:agent) }
+  let(:organization_interests) { create_list(:organization_interest, 2) }
 
   it { should be_able_to(:index, Users) }
   it { should be_able_to(:show, user) }
@@ -30,5 +31,8 @@ describe "Abilities::Administrator" do
   it { should be_able_to(:show, agent) }
   it { should be_able_to(:edit, agent) }
   it { should be_able_to(:destroy, agent) }
+
+  it { should be_able_to(:index, OrganizationInterest) }
+  it { should be_able_to(:update, organization_interests) }
 
 end
