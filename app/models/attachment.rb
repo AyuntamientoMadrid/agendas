@@ -21,6 +21,7 @@ class Attachment < ActiveRecord::Base
 
   belongs_to :event
   belongs_to :agent
+  belongs_to :organization
 
   after_validation :cleanup_paperclip_duplicate_errors
 

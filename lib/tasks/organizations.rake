@@ -45,4 +45,18 @@ namespace :organizations do
     end
   end
 
+  desc "Add new registered_lobbies to database if they do not exists"
+  task :add_registered_lobbies => :environment do
+    registered_lobbies = ['no_record',
+                          'generalitat_catalunya',
+                          'cnmc',
+                          'europe_union',
+                          'others']
+
+
+    registered_lobbies.each do |name|
+      RegisteredLobby.find_or_create_by(name: name)
+    end
+  end
+  
 end

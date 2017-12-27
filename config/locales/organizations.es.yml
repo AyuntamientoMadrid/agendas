@@ -87,6 +87,10 @@ es:
     placeholder:
       phones: "Puede añadir más de un teléfono"
 
+    organization:
+      add_attachment: Añadir archivo adjunto
+      remove_attachment: Eliminar archivo adjunto
+
     identifying_data:
       title_fieldset: "Datos identificativos"
       identifier: "DNI/NIF/NIE/Pasaporte"
@@ -148,8 +152,10 @@ es:
         range_4: "Más de 50.000 euros"
       subvention: "¿Ha recibido ayudas y/o subvenciones con cargo al Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
       subvention_yes: "Sí"
+      subvention_no: "No"
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
       contract_yes: "Sí"
+      contract_no: "No"
 
     represented_entities:
       add_represented_entities: "Añadir Entidades/personas a las que se representa"
@@ -159,7 +165,8 @@ es:
       name: "Nombre o razón social"
       first_surname: "Primer apellido"
       second_surname: "Segundo apellido"
-      from: "Fecha de inicio de la representaciòn"
+      from: "Fecha de inicio de la representación"
+      to: "Fecha de fin de la representación"
       fiscal_year: "Ejercicio anual"
       range_fund_title: "Fondos"
       range_fund:
@@ -170,6 +177,19 @@ es:
         range_4: "Más de 50.000 euros"
       subvention: "¿Ha recibido ayudas y/o subvenciones con cargo al Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
+
+    agents:
+      add_association: "Añadir Agentes"
+      title_fieldset: "Agentes (personas habilitadas por el lobby para reunirse)"
+      identifier: "DNI, NIE, NIF, Pasaporte"
+      name: "Nombre"
+      first_surname: "Primer apellido"
+      second_surname: "Segundo apellido"
+      from: "Fecha inicio de la habilitación"
+      to: "Fecha fin de la habilitación"
+      public_assignments: "¿Esta persona ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe, en algún momento de los dos años previos a la fecha desde la que va actuar por cuenta de quien se inscribe? En caso afirmativo, indique los datos (organismo, puesto o cargo y las fechas en las que lo desempeñó)"
+      public_assignments_only_show: "¿Esta persona ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe, en algún momento de los dos años previos a la fecha desde la que va actuar por cuenta de quien se inscribe?"
+      allow_public_data: "I agree with this information about personal identifying data can be public. "
 
     interest:
       title_fieldset: "Área de Interés"

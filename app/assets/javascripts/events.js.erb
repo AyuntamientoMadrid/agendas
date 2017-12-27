@@ -168,6 +168,7 @@ $(function(){
   });
 
   if ($("#event_lobby_activity_true").is(":checked")) {
+    remove_select();
     fill_autocomplete_organization_name();
     fill_represented_entities_select_options();
     fill_agents_select_options();
@@ -250,9 +251,10 @@ function fill_represented_entities_select_options() {
         var select = $('#nested-event-represented-entities select:last');
         if (represented_entities.length > 0)  {
           $.each(represented_entities, function(id, represented_entity){
-            select.append($('<option>', { value: represented_entity.name, text: represented_entity.name }));
+            represented_entity_fullname = fullname_represented_entity(represented_entity);
+            select.append($('<option>', { value: represented_entity_fullname, text: represented_entity_fullname }));
             if (represented_entities.length == 1) {
-              $('#nested-event-represented-entities select').val(represented_entity.name);
+              $('#nested-event-represented-entities select').val(represented_entity_fullname);
             }
           });
         }else {
@@ -275,9 +277,10 @@ function fill_agents_select_options() {
         var select = $('#nested-event-agents select:last');
         if (agents.length > 0)  {
           $.each(agents, function(id, agent){
-            select.append($('<option>', { value: agent.name+" "+agent.first_surname+" "+agent.second_surname, text: agent.name+" "+agent.first_surname+" "+agent.second_surname }));
+            agent_fullname = fullname_agent(agent);
+            select.append($('<option>', { value: agent_fullname, text: agent_fullname }));
             if (agents.length == 1) {
-              $('#nested-event-agents select').val(agent.name+" "+agent.first_surname+" "+agent.second_surname);
+              $('#nested-event-agents select').val(agent_fullname);
             }
           });
         }else {
@@ -312,4 +315,33 @@ function fill_autocomplete_organization_name() {
     $('.agents-block').show();
     $('#event_agents_link').trigger('click');
   });
+}
+
+function remove_select() {
+  if ($("#new_event_represented_entity select").children().length == 0) {
+    $('#new_event_represented_entity .link_to_remove_association').trigger('click');
+    $('#new_event_agent .link_to_remove_association').trigger('click');
+  }
+}
+
+function fullname_represented_entity(represented_entity) {
+  fullname = represented_entity.name
+  if (represented_entity.first_surname != null) {
+    fullname = fullname+" "+represented_entity.first_surname
+  }
+  if (represented_entity.second_surname  != null) {
+    fullname = fullname+" "+represented_entity.second_surname
+  }
+  return fullname;
+}
+
+function fullname_agent(agent) {
+  fullname = agent.name
+  if (agent.first_surname != null) {
+    fullname = fullname+" "+agent.first_surname
+  }
+  if (agent.second_surname  !=null) {
+    fullname = fullname+" "+agent.second_surname
+  }
+  return fullname;
 }

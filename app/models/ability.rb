@@ -12,15 +12,17 @@ class Ability
         can [:index, :show], Holder
         can :manage, Organization
         can :manage, Question
+        can :manage, Agent
+        can :manage, OrganizationInterest
       else
         can :manage, :all
       end
       can :index, :activities
-      can :destroy, Agent
     elsif user.lobby?
       can [:index, :new, :create, :show], Event
       can [:edit, :update], Event, status: "requested"
-      can [:show, :edit, :update], Organization, id: user.organization_id
+      can [:show], Organization, id: user.organization_id
+      can :manage, OrganizationInterest, organization_id: user.organization_id
       can :manage, Agent, organization_id: user.organization_id
       cannot :destroy, Agent
     else

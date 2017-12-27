@@ -14,6 +14,8 @@ class Organization < ActiveRecord::Base
   has_many :events
   has_many :organization_registered_lobbies, dependent: :destroy
   has_many :registered_lobbies, through: :organization_registered_lobbies, dependent: :destroy
+  has_many :attachments, dependent: :destroy
+  has_one :comunication_representant, dependent: :destroy
   has_one :user, dependent: :destroy
   has_one :legal_representant, dependent: :destroy
   belongs_to :category
@@ -22,6 +24,7 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :represented_entities, allow_destroy: true
   accepts_nested_attributes_for :registered_lobbies, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: :all_blank
 
   before_validation :invalidate_organization, :validate_organization
   after_create :set_inscription_date, :send_create_mail
@@ -36,7 +39,6 @@ class Organization < ActiveRecord::Base
     boolean :invalidate do
       !invalidated_at.nil?
     end
-    time :inscription_date
     integer :interest_ids, multiple: true do
       interests.map(&:id)
     end
@@ -46,6 +48,8 @@ class Organization < ActiveRecord::Base
     join(:name, :prefix => "agent", :target => Agent, :type => :text, :join => { :from => :organization_id, :to => :id })
     join(:first_surname, :prefix => "agent", :target => Agent, :type => :text, :join => { :from => :organization_id, :to => :id })
     join(:second_surname, :prefix => "agent", :target => Agent, :type => :text, :join => { :from => :organization_id, :to => :id })
+    time :inscription_date
+    string :name
   end
 
   scope :invalidated, -> { where('invalidated_at is not null') }

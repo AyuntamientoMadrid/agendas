@@ -1,9 +1,10 @@
 feature 'Organization' do
 
   describe 'User admin' do
+
     background do
       user_admin = create(:user, :admin)
-      signin(user_admin.email, user_admin.password)
+      login_as user_admin
     end
 
     scenario 'Visit admin page and display organization button on sidebar' do
@@ -14,9 +15,7 @@ feature 'Organization' do
 
     describe "Index" do
 
-      background do
-        3.times { create(:organization) }
-      end
+      let!(:organizations) { create_list(:organization, 3) }
 
       describe "Search form", :search do
 
@@ -105,6 +104,20 @@ feature 'Organization' do
 
       end
 
+      scenario "Should display attachments downloads menu dropdown when organization has any attachment", :js, :search do
+        organization = organizations.first
+        create(:attachment, organization: organization)
+        Organization.reindex
+        visit admin_organizations_path
+
+        expect(page).to have_selector ".organization-attachments-dropdown", visible: false
+        within "#organization_#{organization.id}" do
+          find(".organization-attachments-dropdown-link").click
+
+          expect(page).to have_selector ".organization-attachments-dropdown", visible: true
+        end
+      end
+
       scenario 'visit admin page and organization button render organization index', :search do
         Organization.reindex
         visit admin_path
@@ -170,19 +183,38 @@ feature 'Organization' do
         expect(page).to have_button "Guardar"
       end
 
-      scenario 'Should not display agents link new organization records' do
-        visit new_admin_organization_path
+      describe "Agents" do
+        scenario 'Should not display agents link new organization records' do
+          visit new_admin_organization_path
 
-        expect(page).not_to have_content "Añadir Agentes"
+          expect(page).not_to have_content "Añadir Agentes"
+        end
+
+        scenario 'Should display agents notice for new organization records' do
+          visit new_admin_organization_path
+
+          expect(page).to have_content "Podrás crear agentes una vez hayas creado "   \
+                                       "el lobby. Completa el formulario y pulsa "    \
+                                       "'Guardar', una vez almacenado se habilitará " \
+                                       "la opción para añadir agentes."
+        end
       end
 
-      scenario 'Should display agents notice for new organization records' do
-        visit new_admin_organization_path
+      describe "Documents" do
+        scenario 'Should display add attachment link' do
+          visit new_admin_organization_path
 
-        expect(page).to have_content "Podrás crear agentes una vez hayas creado "   \
-                                     "el lobby. Completa el formulario y pulsa "    \
-                                     "'Guardar', una vez almacenado se habilitará " \
-                                     "la opción para añadir agentes."
+          expect(page).to have_content "Archivos adjuntos"
+          expect(page).to have_link "Añadir archivo adjunto"
+        end
+
+        scenario 'Should add new attachment file attribute after click "Añadir archivo adjunto" link', :js do
+          visit new_admin_organization_path
+
+          expect(page).not_to have_selector "input[type=file]"
+          click_link "Añadir archivo adjunto"
+          expect(page).to have_selector "input[type=file]"
+        end
       end
     end
 
@@ -199,6 +231,7 @@ feature 'Organization' do
       end
 
       scenario 'Visit new admin organization page and create organization with the minimum permitted fields' do
+        ActionMailer::Base.deliveries = []
         category = create(:category)
         visit new_admin_organization_path
 
@@ -212,6 +245,7 @@ feature 'Organization' do
         click_button "Guardar"
 
         expect(page).to have_content "Registro creado correctamente"
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
       end
 
       scenario 'Should create organization with data fields' do
@@ -300,8 +334,8 @@ feature 'Organization' do
 
         fill_in :organization_fiscal_year, with: 2014
         select "Más de 50.000 euros", from: :organization_range_fund
-        check "organization_contract"
-        check "organization_subvention"
+        choose("organization_contract_true")
+        choose("organization_subvention_true")
         # mandatory user fields
         fill_in :organization_name, with: "New name"
         fill_in :organization_user_attributes_first_name, with: "user first name"
@@ -355,6 +389,7 @@ feature 'Organization' do
         expect(page).to have_content "European Country"
         expect(page).to have_content "Local Lobby"
       end
+
       describe "Nested fields" do
 
         describe "Legal Representant" do
@@ -440,7 +475,7 @@ feature 'Organization' do
               fill_in "DNI/NIF/NIE/Pasaporte", with: "43138883z"
               fill_in "Nombre o razón social", with: "Name"
               fill_in "Ejercicio anual", with: 2017
-              fill_in "Fecha de inicio de la representaciòn", with: nil
+              fill_in "Fecha de inicio de la representación", with: nil
             end
 
             click_button "Guardar"
@@ -466,7 +501,7 @@ feature 'Organization' do
               fill_in "DNI/NIF/NIE/Pasaporte", with: "43138883z"
               fill_in "Nombre o razón social", with: "Name"
               fill_in "Ejercicio anual", with: 2017
-              fill_in "Fecha de inicio de la representaciòn", with: Date.current
+              fill_in "Fecha de inicio de la representación", with: Date.current
             end
 
             click_button "Guardar"
@@ -502,6 +537,28 @@ feature 'Organization' do
           end
         end
 
+        describe "Documents" do
+          scenario 'Create organization with valid document', :js do
+            category = create(:category)
+            visit new_admin_organization_path
+            fill_in :organization_name, with: "organization name"
+            select category.name, from: :organization_category_id
+            fill_in :organization_user_attributes_first_name, with: "user first name"
+            fill_in :organization_user_attributes_last_name, with: "user last name"
+            fill_in :organization_user_attributes_email, with: "user@email.com"
+            fill_in :organization_user_attributes_password, with: "password"
+            fill_in :organization_user_attributes_password_confirmation, with: "password"
+
+            click_link "Añadir archivo adjunto"
+            within "#nested-attachments" do
+              attach_file find("input[type='file']")[:id], "spec/fixtures/dummy.pdf"
+            end
+            click_button "Guardar"
+
+            expect(page).to have_content "Registro creado correctamente"
+            expect(Organization.last.attachments.count).to eq(1)
+          end
+        end
       end
 
       scenario "Shouldn't show invalidate button" do
@@ -521,7 +578,7 @@ feature 'Organization' do
           agent = create(:agent, organization: organization)
           visit edit_admin_organization_path(organization)
 
-          expect(page).to have_link "Añadir agentes", href: new_admin_organization_agent_path(organization)
+          expect(page).to have_link "Añadir Agentes", href: new_admin_organization_agent_path(organization)
           expect(page).to have_content agent.fullname
         end
 
@@ -530,7 +587,7 @@ feature 'Organization' do
           create(:agent, organization: organization)
           visit edit_admin_organization_path(organization)
 
-          click_link "Añadir agentes"
+          click_link "Añadir Agentes"
           expect(page).to have_content "Nuevo agente"
         end
 
@@ -653,8 +710,8 @@ feature 'Organization' do
 
         fill_in :organization_fiscal_year, with: 2014
         select "Más de 50.000 euros", from: :organization_range_fund
-        check "organization_contract"
-        check "organization_subvention"
+        choose("organization_contract_true")
+        choose("organization_subvention_true")
         click_button "Guardar"
 
         organization.reload
@@ -823,8 +880,8 @@ feature 'Organization' do
             fill_in :organization_represented_entities_attributes_0_first_surname, with: "new first surname"
             fill_in :organization_represented_entities_attributes_0_second_surname, with: "new second surname"
             select "Más de 50.000 euros", from: :organization_represented_entities_attributes_0_range_fund
-            check "organization_represented_entities_attributes_0_subvention"
-            check "organization_represented_entities_attributes_0_contract"
+            choose("organization_represented_entities_attributes_0_subvention_true")
+            choose("organization_represented_entities_attributes_0_contract_true")
             click_button "Guardar"
 
             represented_entity.reload
@@ -853,6 +910,38 @@ feature 'Organization' do
             organization.reload
             expect(page).to have_content "Registro actualizado correctamente"
             expect(organization.represented_entities).to eq []
+          end
+
+        end
+
+        describe "Documents" do
+          scenario 'Should display add attachment link' do
+            organization = create(:organization)
+            visit edit_admin_organization_path(organization)
+
+            expect(page).to have_content "Archivos adjuntos"
+            expect(page).to have_link "Añadir archivo adjunto"
+          end
+
+          scenario 'Should add new attachment file attribute after click "Añadir archivo adjunto" link', :js do
+            organization = create(:organization)
+            visit edit_admin_organization_path(organization)
+
+            expect(page).not_to have_selector "input[type=file]"
+            click_link "Añadir archivo adjunto"
+            expect(page).to have_selector "input[type=file]"
+          end
+
+          scenario 'Should remove destroyed attachments', :js do
+            organization = create(:organization)
+            create(:attachment, organization: organization)
+            visit edit_admin_organization_path(organization)
+
+            click_link "Eliminar archivo adjunto"
+            click_on "Guardar"
+            visit edit_admin_organization_path(organization)
+
+            expect(page).not_to have_link "Eliminar archivo adjunto"
           end
 
         end
@@ -974,8 +1063,8 @@ feature 'Organization' do
       check "organization_interest_ids_#{@interest.id}"
       click_button 'Guardar'
 
-      expect(current_path).to eq(admin_organization_path(id: @lobby.organization_id))
-      expect(page).to have_field("interest_#{@interest.id}", checked: true, disabled: true)
+      expect(page).to have_content "Registro actualizado correctamente "
+      expect(page).to have_field("organization_interest_ids_#{@interest.id}", checked: true)
     end
 
     scenario 'Show organization details' do

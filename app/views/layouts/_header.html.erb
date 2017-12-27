@@ -31,7 +31,7 @@
               </li>
             <% else %>
               <li>
-                <% if current_page?(registration_lobbies_index_path) || current_page?(organizations_path) %>
+                <% if current_page?(registration_lobbies_path) || current_page?(registration_lobbies_index_path) || current_page?(organizations_path) %>
                   <a href="<%= admin_path %>" class="button"><%= t('header.btn_login') %></a>
                 <% end %>
               </li>
@@ -45,16 +45,16 @@
         <div class="small-12 columns">
           <ul class="inline-list">
             <li>
-              <%= link_to t('header.btn_home'), root_path, class: current_class(root_path), access_key: 0  %>
+              <%= link_to t('header.btn_home'), root_path, class: current_class(root_path), accesskey: 0  %>
             </li>
             <li>
-              <%= link_to t('header.btn_agenda'), visitors_path, class: current_class(visitors_path), access_key: 1 %>
+              <%= link_to t('header.btn_agenda'), visitors_path, class: current_class(visitors_path), accesskey: 1 %>
             </li>
             <li>
-              <%= link_to t('header.btn_registration_lobbies'), registration_lobbies_index_path, class: current_class(registration_lobbies_index_path) || current_class(organizations_path), access_key: 2  %>
+              <%= link_to t('header.btn_registration_lobbies'), registration_lobbies_index_path, class: current_class(registration_lobbies_index_path) || current_class(organizations_path), accesskey: 2  %>
             </li>
             <li>
-              <%= link_to t('header.btn_regulations'), 'https://transparencia.madrid.es/portales/transparencia/es/Informacion-juridica/Huella-normativa?vgnextfmt=default&vgnextchannel=4099508929a56510VgnVCM1000008a4a900aRCRD', target: 'blank', access_key: 3 %>
+              <%= link_to t('header.btn_regulations'), 'https://transparencia.madrid.es/portales/transparencia/es/Informacion-juridica/Huella-normativa?vgnextfmt=default&vgnextchannel=4099508929a56510VgnVCM1000008a4a900aRCRD', target: 'blank', accesskey: 3 %>
             </li>
           </ul>
         </div>

@@ -8,7 +8,6 @@ FactoryGirl.define do
     first_surname { Faker::Name.last_name }
     second_surname { Faker::Name.last_name }
     from Time.zone.yesterday
-    to Time.zone.today
     public_assignments "text"
     allow_public_data true
     association :organization, factory: :organization

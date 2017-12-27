@@ -1,4 +1,5 @@
 <div class="organizaion-lobby-show">
+  <h1 class="title-l"><%= @organization.fullname %></h1>
   <fieldset>
     <legend><%= t('backend.reference.title_fieldset') %></legend>
       <div class="row">
@@ -218,41 +219,43 @@
     </fieldset>
   <% end %>
 
-  <fieldset>
-    <legend><%= t('backend.contact_person.title_fieldset') %></legend>
+  <% if @organization.user.present? %>
+    <fieldset>
+      <legend><%= t('backend.contact_person.title_fieldset') %></legend>
 
-    <div class="row">
-      <div class="small-6 medium-6 columns mb10">
-        <p>
-          <strong><%= t('backend.contact_person.name') %></strong>
-          <%= @organization.user.first_name %>
-        </p>
+      <div class="row">
+        <div class="small-6 medium-6 columns mb10">
+          <p>
+            <strong><%= t('backend.contact_person.name') %></strong>
+            <%= @organization.user.first_name %>
+          </p>
+        </div>
+        <div class="small-6 medium-6 columns mb10">
+          <p>
+            <strong><%= t('backend.contact_person.surnames') %></strong>
+            <%= @organization.user.last_name %>
+          </p>
+        </div>
       </div>
-      <div class="small-6 medium-6 columns mb10">
-        <p>
-          <strong><%= t('backend.contact_person.surnames') %></strong>
-          <%= @organization.user.last_name %>
-        </p>
-      </div>
-    </div>
 
-    <br>
-    <div class="row">
-      <div class="small-6 medium-6 columns mb10">
-        <p>
-          <strong><%= t('backend.contact_person.phone') %></strong>
-          <%= @organization.user.phones %>
-        </p>
+      <br>
+      <div class="row">
+        <div class="small-6 medium-6 columns mb10">
+          <p>
+            <strong><%= t('backend.contact_person.phone') %></strong>
+            <%= @organization.user.phones %>
+          </p>
 
+        </div>
+        <div class="small-6 medium-6 columns mb10">
+          <p>
+            <strong><%= t('backend.contact_person.email') %></strong>
+            <%= @organization.user.email %>
+          </p>
+        </div>
       </div>
-      <div class="small-6 medium-6 columns mb10">
-        <p>
-          <strong><%= t('backend.contact_person.email') %></strong>
-          <%= @organization.user.email %>
-        </p>
-      </div>
-    </div>
-  </fieldset>
+    </fieldset>
+  <% end %>
 
   <fieldset>
     <legend><%= t('backend.lobbies_data.title_fieldset') %></legend>
@@ -403,7 +406,7 @@
         <br />
         <div class="small-3 medium-6 columns mb10">
           <p>
-            <strong><%= t('backend.agents.identifier') %></strong>
+            <strong><%= I18n.t('backend.agents.identifier') %></strong>
             <%= agent.identifier %>
           </p>
         </div>
@@ -439,15 +442,17 @@
         </div>
       </div>
       <br>
-      <div class="row">
-        <div class="small-12 columns">
-          <p>
-            <strong><%= t('backend.agents.public_assignments_only_show') %></strong>
-            <%= agent.public_assignments.html_safe if agent.public_assignments.present? %>
-          </p>
+      <% if agent.public_assignments.present? %>
+        <div class="row">
+          <div class="small-12 columns">
+            <p>
+              <strong><%= t('backend.agents.public_assignments_only_show') %></strong>
+              <%= agent.public_assignments.html_safe %>
+            </p>
+          </div>
         </div>
-      </div>
-      <hr>
+        <hr>
+      <% end %>
     <% end %>
   </fieldset>
 

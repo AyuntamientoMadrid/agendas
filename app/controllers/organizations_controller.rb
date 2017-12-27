@@ -7,7 +7,6 @@ class OrganizationsController < ApplicationController
   def index
     @organizations = search(params)
     @paginated_organizations = Organization.lobbies.where(id: @organizations.hits.map(&:primary_key))
-    params[:order] ||= 4
     @paginated_organizations = @paginated_organizations.reorder(sorting_option(params[:order]))
 
   end
@@ -49,6 +48,18 @@ class OrganizationsController < ApplicationController
           end
         end
         paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 20
+        case params[:order]
+        when '1'
+          order_by(:name, :asc)
+        when '2'
+          order_by(:name, :desc)
+        when '3'
+          order_by(:inscription_date, :asc)
+        when '4'
+          order_by(:inscription_date, :desc)
+        else
+          order_by(:inscription_date, :desc)
+        end
       end
     end
 

@@ -22,25 +22,6 @@
       <%= f.file_field :attachment %>
       <span class="form-info"><%= t('infringement_mailbox.attachment_info') %></span>
     </div>
-
-    <div>
-      <hr>
-      <p><%= t('infringement_mailbox.contact_option_title') %> </p>
-      <%= f.label :name, t('infringement_mailbox.name') %>
-      <%= f.text_field :name, placeholder: t('infringement_mailbox.name_placeholder') %>
-    </div>
-    <div>
-      <%= f.label :first_surname, t('infringement_mailbox.first_surname') %>
-      <%= f.text_field :first_surname, placeholder: t('infringement_mailbox.first_surname_placeholder') %>
-    </div>
-    <div>
-      <%= f.label :email, t('infringement_mailbox.email') %>
-      <%= f.text_field :email, placeholder: t('infringement_mailbox.email_placeholder') %>
-    </div>
-    <div>
-      <%= f.label :phone, t('infringement_mailbox.phone') %>
-      <%= f.text_field :phone, placeholder: t('infringement_mailbox.phone_placeholder') %>
-    </div>
     <hr />
     <p>
       <%= t('infringement_mailbox.text_block_first_html') %>

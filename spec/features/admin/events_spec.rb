@@ -16,7 +16,7 @@ feature 'Events' do
         visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
                           "status" => ["requested", "declined"], "lobby_activity" => "1",
                           "controller" => "events", "action" => "index" )
-        expect(page).to have_content I18n.t 'backend.events'
+        expect(page).to have_content "Eventos"
         expect(page).to have_content I18n.t 'backend.event_tray'
       end
 
@@ -47,9 +47,9 @@ feature 'Events' do
                           "status" => ["requested", "declined"], "lobby_activity" => "1",
                           "controller" => "events", "action" => "index" )
 
-        click_link I18n.t("backend.events")
+        click_link "Eventos"
         expect(find_link(I18n.t("backend.event_tray")).first(:xpath, ".//..")[:class]).not_to eq "active"
-        expect(find_link(I18n.t("backend.events")).first(:xpath, ".//..")[:class]).to eq "active"
+        expect(find_link("Eventos").first(:xpath, ".//..")[:class]).to eq "active"
 
         [event2, event3, event4, event7, event8, event9].each do |evnt|
           expect(page).to have_content evnt.title
@@ -60,7 +60,7 @@ feature 'Events' do
 
         click_link I18n.t("backend.event_tray")
         expect(find_link(I18n.t("backend.event_tray")).first(:xpath, ".//..")[:class]).to eq "active"
-        expect(find_link(I18n.t("backend.events")).first(:xpath, ".//..")[:class]).not_to eq "active"
+        expect(find_link("Eventos").first(:xpath, ".//..")[:class]).not_to eq "active"
 
         [event1, event5].each do |evnt|
           expect(page).to have_content evnt.title
@@ -75,7 +75,9 @@ feature 'Events' do
         event = create(:event, position: @position)
         create(:attachment, event: event, title: "An amazing attachment title")
         create(:attachment, event: event, title: "Other title")
-        visit events_path
+        visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
+                          "status" => ["accepted", "canceled", "declined"],
+                          "controller" => "events", "action" => "index" )
 
         within "#event_#{event.id}" do
           find('.attachments-dropdown').click
@@ -709,7 +711,7 @@ feature 'Events' do
             choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
 
             within ".represented-entities-block" do
-              expect(page).to have_selector("option[value='#{represented_entity.name}']")
+              expect(page).to have_selector("option[value='#{represented_entity.name} #{represented_entity.first_surname} #{represented_entity.second_surname}']")
             end
           end
 
@@ -985,7 +987,7 @@ feature 'Events' do
             end
 
             within ".represented-entities-block" do
-              expect(page).to have_selector("option[value='#{represented_entity.name}']")
+              expect(page).to have_selector("option[value='#{represented_entity.name} #{represented_entity.first_surname} #{represented_entity.second_surname}']")
             end
           end
 
@@ -1289,13 +1291,13 @@ feature 'Events' do
       expect(find_link(I18n.t('backend.cancel_event'))[:disabled]).not_to eq "disabled"
     end
 
-    scenario "An use can't cancel not accepted events", :js do
+    scenario "An use can cancel not accepted events", :js do
       event = create(:event, organization: @organization, user: @organization_user)
       event.update(status: 'requested')
 
       visit edit_event_path(event)
 
-      expect(find_link(I18n.t('backend.cancel_event'))[:disabled]).to eq "disabled"
+      expect(find_link(I18n.t('backend.cancel_event'))[:disabled]).not_to eq "disabled"
     end
 
   end

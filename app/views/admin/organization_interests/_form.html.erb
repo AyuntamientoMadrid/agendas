@@ -1,0 +1,21 @@
+<%= form_for [:admin, @organization],
+             url: admin_organization_interests_update_path(@organization),
+             html: { class: 'organization-form' } do |f| %>
+  <fieldset>
+    <legend><%= t('backend.interest.title_fieldset') %></legend>
+    <div class="row">
+      <div class="small-12 columns">
+        <%= f.collection_check_boxes(:interest_ids, Interest.all, :id, :name) do |f| %>
+          <%= f.label class:"small-12 medium-6 columns" do %>
+            <%= f.check_box %> <span> <%= f.text %> </span>
+          <% end %>
+        <% end %>
+        <%= form_field_errors(f, :interest_ids) %>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="small-4 medium-3 large-2 column">
+    <%= submit_tag t('backend.save'), class: "button radius success right" %>
+  </div>
+<% end %>
