@@ -12,11 +12,11 @@
 
     <div class="small-12 medium-4 columns">
       <%= f.label :modification_date, "Fecha de modificación" %>
-      <%= f.text_field :modification_date, readonly: true %>
+      <%= f.text_field :modification_date, class: 'fdatepicker', value: @organization.modification_date.present? ? I18n.l(@organization.modification_date, format: :short) : nil %>
     </div>
 
     <div class="small-12 medium-4 columns">
       <%= f.label :canceled_at, "Fecha de cancelación" %>
-      <%= f.text_field :canceled_at, readonly: true %>
+      <%= f.text_field :canceled_at, class: 'fdatepicker', value: @organization.canceled_at.present? ? I18n.l(@organization.canceled_at, format: :short) : nil %>
     </div>
 </fieldset>

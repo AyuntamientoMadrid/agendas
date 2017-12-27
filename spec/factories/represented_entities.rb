@@ -7,7 +7,6 @@ FactoryGirl.define do
     first_surname { Faker::Name.last_name }
     second_surname { Faker::Name.last_name }
     from Time.zone.yesterday
-    to Time.zone.today
     fiscal_year 2018
     range_fund :range_1
     subvention false

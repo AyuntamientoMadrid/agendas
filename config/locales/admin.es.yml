@@ -137,6 +137,7 @@ es:
     new_company: "Nuevo lobby"
     description: "Finalidad y objetivos de quien se inscribe"
     description_lobby: "Descripción"
+    description_manager: "Descripción de la reunión"
     title_event_lobby: "Solicitudes de evento"
     title_event: "Eventos"
     new_event: "Nuevo evento"

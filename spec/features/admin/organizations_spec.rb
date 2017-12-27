@@ -332,8 +332,8 @@ feature 'Organization' do
 
         fill_in :organization_fiscal_year, with: 2014
         select "Más de 50.000 euros", from: :organization_range_fund
-        check "organization_contract"
-        check "organization_subvention"
+        choose("organization_contract_true")
+        choose("organization_subvention_true")
         # mandatory user fields
         fill_in :organization_name, with: "New name"
         fill_in :organization_user_attributes_first_name, with: "user first name"
@@ -473,7 +473,7 @@ feature 'Organization' do
               fill_in "DNI/NIF/NIE/Pasaporte", with: "43138883z"
               fill_in "Nombre o razón social", with: "Name"
               fill_in "Ejercicio anual", with: 2017
-              fill_in "Fecha de inicio de la representaciòn", with: nil
+              fill_in "Fecha de inicio de la representación", with: nil
             end
 
             click_button "Guardar"
@@ -499,7 +499,7 @@ feature 'Organization' do
               fill_in "DNI/NIF/NIE/Pasaporte", with: "43138883z"
               fill_in "Nombre o razón social", with: "Name"
               fill_in "Ejercicio anual", with: 2017
-              fill_in "Fecha de inicio de la representaciòn", with: Date.current
+              fill_in "Fecha de inicio de la representación", with: Date.current
             end
 
             click_button "Guardar"
@@ -576,7 +576,7 @@ feature 'Organization' do
           agent = create(:agent, organization: organization)
           visit edit_admin_organization_path(organization)
 
-          expect(page).to have_link "Añadir agentes", href: new_admin_organization_agent_path(organization)
+          expect(page).to have_link "Añadir Agentes", href: new_admin_organization_agent_path(organization)
           expect(page).to have_content agent.fullname
         end
 
@@ -585,7 +585,7 @@ feature 'Organization' do
           create(:agent, organization: organization)
           visit edit_admin_organization_path(organization)
 
-          click_link "Añadir agentes"
+          click_link "Añadir Agentes"
           expect(page).to have_content "Nuevo agente"
         end
 
@@ -704,8 +704,8 @@ feature 'Organization' do
 
         fill_in :organization_fiscal_year, with: 2014
         select "Más de 50.000 euros", from: :organization_range_fund
-        check "organization_contract"
-        check "organization_subvention"
+        choose("organization_contract_true")
+        choose("organization_subvention_true")
         click_button "Guardar"
 
         organization.reload
@@ -874,8 +874,8 @@ feature 'Organization' do
             fill_in :organization_represented_entities_attributes_0_first_surname, with: "new first surname"
             fill_in :organization_represented_entities_attributes_0_second_surname, with: "new second surname"
             select "Más de 50.000 euros", from: :organization_represented_entities_attributes_0_range_fund
-            check "organization_represented_entities_attributes_0_subvention"
-            check "organization_represented_entities_attributes_0_contract"
+            choose("organization_represented_entities_attributes_0_subvention_true")
+            choose("organization_represented_entities_attributes_0_contract_true")
             click_button "Guardar"
 
             represented_entity.reload

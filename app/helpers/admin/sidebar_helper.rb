@@ -15,6 +15,16 @@ module Admin::SidebarHelper
                    "controller" => "events", "action" => "index"} }
   end
 
+  def help_by_role(user)
+    if user.lobby?
+      "/help/ayuda_usuario_lobby.pdf"
+    elsif user.user?
+      "/help/ayuda_usuario_gestor_agendas.pdf"
+    else
+      "/help/ayuda_usuario_administrador_lobbies_agendas.pdf"
+    end
+  end
+
   private
 
     def current_action?(action)
