@@ -18,11 +18,7 @@ namespace :events do
 
     puts "Starting conversion of old events without status to done"
     Event.where("status is ? AND scheduled <= ?", nil, Time.zone.today).each do |event|
-      if event.update_attribute(:status, :done)
-        puts "OK"
-      else
-        puts "ERROR"
-      end
+      event.update_attribute(:status, :done)
     end
     puts "Finished conversion of old events without status to done"
   end
