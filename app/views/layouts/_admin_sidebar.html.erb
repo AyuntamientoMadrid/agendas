@@ -19,7 +19,7 @@
     <% if current_user.user? %>
       <li class="<%= active_menu('events', nil, 'events') %>">
         <a href="<%= events_path(event_fixed_filters['events']) %>">
-          <i class="fi-book size-18"> <%= t("backend.events") %></i>
+          <i class="fi-book size-18"> <%= t("organizations.show.events_title") %></i>
         </a>
       </li>
     <% else %>

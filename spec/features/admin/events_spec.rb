@@ -709,7 +709,7 @@ feature 'Events' do
             choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
 
             within ".represented-entities-block" do
-              expect(page).to have_selector("option[value='#{represented_entity.name}']")
+              expect(page).to have_selector("option[value='#{represented_entity.name} #{represented_entity.first_surname} #{represented_entity.second_surname}']")
             end
           end
 
@@ -985,7 +985,7 @@ feature 'Events' do
             end
 
             within ".represented-entities-block" do
-              expect(page).to have_selector("option[value='#{represented_entity.name}']")
+              expect(page).to have_selector("option[value='#{represented_entity.name} #{represented_entity.first_surname} #{represented_entity.second_surname}']")
             end
           end
 

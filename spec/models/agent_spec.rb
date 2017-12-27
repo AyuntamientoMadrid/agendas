@@ -40,7 +40,7 @@ describe Agent do
       agent.first_surname = "FirstSurname"
       agent.second_surname = ""
 
-      expect(agent.fullname).to eq "Name, FirstSurname"
+      expect(agent.fullname).to eq "Name FirstSurname"
     end
 
     it "Should return first_surname and second_surname when they are defined" do
@@ -48,7 +48,7 @@ describe Agent do
       agent.first_surname = "FirstSurname"
       agent.second_surname = "SecondSurname"
 
-      expect(agent.fullname).to eq "Name, FirstSurname, SecondSurname"
+      expect(agent.fullname).to eq "Name FirstSurname SecondSurname"
     end
   end
 

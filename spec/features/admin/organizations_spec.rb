@@ -440,7 +440,7 @@ feature 'Organization' do
               fill_in "DNI/NIF/NIE/Pasaporte", with: "43138883z"
               fill_in "Nombre o razón social", with: "Name"
               fill_in "Ejercicio anual", with: 2017
-              fill_in "Fecha de inicio de la representaciòn", with: nil
+              fill_in "Fecha de inicio de la representación", with: nil
             end
 
             click_button "Guardar"
@@ -466,7 +466,7 @@ feature 'Organization' do
               fill_in "DNI/NIF/NIE/Pasaporte", with: "43138883z"
               fill_in "Nombre o razón social", with: "Name"
               fill_in "Ejercicio anual", with: 2017
-              fill_in "Fecha de inicio de la representaciòn", with: Date.current
+              fill_in "Fecha de inicio de la representación", with: Date.current
             end
 
             click_button "Guardar"
@@ -521,7 +521,7 @@ feature 'Organization' do
           agent = create(:agent, organization: organization)
           visit edit_admin_organization_path(organization)
 
-          expect(page).to have_link "Añadir agentes", href: new_admin_organization_agent_path(organization)
+          expect(page).to have_link "Añadir Agentes", href: new_admin_organization_agent_path(organization)
           expect(page).to have_content agent.fullname
         end
 
@@ -530,7 +530,7 @@ feature 'Organization' do
           create(:agent, organization: organization)
           visit edit_admin_organization_path(organization)
 
-          click_link "Añadir agentes"
+          click_link "Añadir Agentes"
           expect(page).to have_content "Nuevo agente"
         end
 

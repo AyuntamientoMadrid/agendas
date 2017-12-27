@@ -539,8 +539,8 @@ feature 'Organizations page' do
 
     scenario "Should display organization represented_entity lobby info" do
       organization = create(:organization)
-      represented_entity1 = create(:represented_entity, organization: organization)
-      represented_entity2 = create(:represented_entity, organization: organization)
+      represented_entity1 = create(:represented_entity, organization: organization, to: Date.current)
+      represented_entity2 = create(:represented_entity, organization: organization, to: Date.current)
 
       visit organization_path(organization)
 
@@ -565,8 +565,8 @@ feature 'Organizations page' do
 
     scenario "Should display organization agent info" do
       organization = create(:organization)
-      agent1 = create(:agent, organization: organization)
-      agent2 = create(:agent, organization: organization)
+      agent1 = create(:agent, organization: organization, to: Date.current)
+      agent2 = create(:agent, organization: organization, to: Date.current)
 
       visit organization_path(organization)
 
