@@ -15,7 +15,6 @@ class Organization < ActiveRecord::Base
   has_many :organization_registered_lobbies, dependent: :destroy
   has_many :registered_lobbies, through: :organization_registered_lobbies, dependent: :destroy
   has_many :attachments, dependent: :destroy
-  has_one :comunication_representant, dependent: :destroy
   has_one :user, dependent: :destroy
   has_one :legal_representant, dependent: :destroy
   belongs_to :category

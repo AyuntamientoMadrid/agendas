@@ -15,7 +15,7 @@ class Event < ActiveRecord::Base
   validates_inclusion_of :lobby_activity, :in => [true, false]
   validate :participants_uniqueness, :position_not_in_participants, :role_validate_scheduled, :validate_location
   validates :canceled_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, allow_blank: false, if: Proc.new { |a| !a.canceled_at.blank? }
-  validates :declined_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, allow_blank: false, if: Proc.new { |a| !a.declined_at.blank? || (a.current_user && !a.current_user.lobby?) }
+  validates :declined_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, allow_blank: false, if: Proc.new { |a| !a.declined_at.blank? && a.current_user.present? && !a.current_user.lobby? }
 
   before_create :set_status
   before_update :set_published_at
