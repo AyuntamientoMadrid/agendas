@@ -666,7 +666,7 @@ feature 'Organization' do
         expect(organization.registered_lobbies.first.name).to eq "New Registered Lobby"
       end
 
-      scenario 'Should update address organization fields' do
+      scenario 'Should update address organization fields and send an update_mail' do
         organization = create(:organization)
         visit edit_admin_organization_path(organization)
 
@@ -684,6 +684,7 @@ feature 'Organization' do
         fill_in :organization_description, with: "New description"
         click_button "Guardar"
 
+        open_email(organization.email)
         organization.reload
         expect(page).to have_content "Registro actualizado correctamente"
         expect(organization.web).to eq "www.new_web.com"
@@ -698,6 +699,9 @@ feature 'Organization' do
         expect(organization.town).to eq "New town"
         expect(organization.province).to eq "New province"
         expect(organization.description).to eq "New description"
+        # requires further investication
+        # expect(current_email).to have_content I18n.t('mailers.update_event.text1', title: organization.fullname)
+        expect(current_email).to have_content"Ha sido actualizado el lobby:"
       end
 
       scenario 'Should update lobby organization fields' do

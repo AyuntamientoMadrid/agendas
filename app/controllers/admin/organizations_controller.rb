@@ -40,6 +40,7 @@ module Admin
     def update
       if @organization.update_attributes(organization_params)
         path = current_user.lobby? ? admin_organization_path(@organization) : admin_organizations_path
+        @organization.send_update_mail
         redirect_to path, notice: t('backend.successfully_updated_record')
       else
         flash[:alert] = t('backend.review_errors')
