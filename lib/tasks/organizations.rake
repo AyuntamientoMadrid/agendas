@@ -17,7 +17,7 @@ namespace :organizations do
   desc "Add new interests to database if they do not exists"
   task :add_interests => :environment do
     interests = ['Actividad económica y empresarial',
-                 'Actividad normativa y de regulación',
+                 'Distritos',
                  'Administración de personal y recursos humanos',
                  'Administración electrónica',
                  'Administración económica, financiera y tributaria de la Ciudad',

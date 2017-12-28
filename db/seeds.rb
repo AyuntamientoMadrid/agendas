@@ -8,7 +8,7 @@
 
 # Interests
 interests = ['Actividad económica y empresarial',
-             'Actividad normativa y de regulación',
+             'Distritos',
              'Administración de personal y recursos humanos',
              'Administración electrónica',
              'Administración económica, financiera y tributaria de la Ciudad',
