@@ -109,16 +109,9 @@
       <% end %>
     </li>
     <% if current_user.lobby? %>
-      <li class="<%= active_menu('organization/edit') %>">
-        <%= link_to edit_organization_path, target: "_blank" do %>
-            <i class="fi-page-edit size-18"> <%= t("backend.edit_organization")%></i>
-        <% end %>
-      </li>
-    <% end %>
-    <% if current_user.lobby? %>
-      <li class="<%= active_menu('organization/delete') %>">
-        <%= link_to destroy_organization_path, target: "_blank" do %>
-          <i class="fi-page-delete size-18"> <%= t("backend.delete_organization")%></i>
+      <li>
+        <%= link_to "https://sede.madrid.es/sites/v/index.jsp?vgnextoid=5763386a64370610VgnVCM2000001f4a900aRCRD&vgnextchannel=f47ea38813180210VgnVCM100000c90da8c0RCRD", target: "_blank" do %>
+            <i class="fi-page-edit size-18"> <%= t("backend.edit_delete_organization")%></i>
         <% end %>
       </li>
     <% end %>
