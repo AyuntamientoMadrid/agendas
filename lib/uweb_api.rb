@@ -25,11 +25,13 @@ class UwebApi < MadridApi
   end
 
   def get_application_status
+    return 0 if Rails.env.development? || Rails.env.test?
     data = data(:get_application_data, {})
     Hash.from_xml(data)['APLICACION']['BLOQ_APLIC'].to_i
   end
 
   def get_user_status(userKey, date)
+    return 0 if Rails.env.development? || Rails.env.test?
     data = data(:get_status_user_data,{userKey: userKey,date: date})
     Hash.from_xml(data)['USUARIO']['BAJA_LOGICA'].to_i
   end
