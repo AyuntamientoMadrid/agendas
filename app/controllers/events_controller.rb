@@ -11,7 +11,8 @@ class EventsController < AdminController
     @event = Event.new(event_params)
     @event.user = current_user
     if @event.save
-      redirect_to @events_path, notice: t('backend.successfully_created_record')
+      redirect_to events_home_path(current_user),
+                  notice: t('backend.successfully_created_record')
     else
       flash[:alert] = t('backend.review_errors')
       render :new
@@ -29,7 +30,8 @@ class EventsController < AdminController
   def update
     @event.user = current_user
     if @event.update_attributes(event_params)
-      redirect_to @events_path, notice: t('backend.successfully_updated_record')
+      redirect_to events_home_path(current_user),
+                  notice: t('backend.successfully_updated_record')
     else
       set_holders
       flash[:alert] = t('backend.review_errors')
@@ -39,7 +41,8 @@ class EventsController < AdminController
 
   def destroy
     @event.destroy
-    redirect_to @events_path, notice: t('backend.successfully_destroyed_record')
+    redirect_to events_home_path(current_user),
+                notice: t('backend.successfully_destroyed_record')
   end
 
   def get_title
