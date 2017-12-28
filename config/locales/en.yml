@@ -5,7 +5,6 @@ en:
     destroy: 'Evento borrado'
     cancel_reasons_needed: "You must provide some reasons to cancel the event"
     decline_reasons_needed: "You must provide some reasons to decline the event"
-    accept_reasons_needed: "You must provide some reasons to accept the event"
   number_delimiter: ","
   number_separator: "."
   month: "month"

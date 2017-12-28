@@ -177,7 +177,6 @@ es:
     cancel_reason_no: "No"
     canceled_reasons: Razones de cancelación
     decline_reasons: Razones de rechazo
-    accept_reasons: Razones de aceptación
     event_actions: Acciones sobre el evento
     status:
       requested: "Solicitado"

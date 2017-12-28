@@ -55,7 +55,6 @@ feature 'Events Mailer' do
       @event.lobby_contact_lastname = 'test_other_name'
       @event.lobby_contact_email = 'test_lobby_mail'
       @event.accept = 'true'
-      @event.accepted_reasons = 'test'
       @event.current_user = user
       @event.save!
       open_email(@event.lobby_contact_email)

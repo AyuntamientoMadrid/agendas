@@ -2,7 +2,7 @@ class EventsExporter
   FIELDS = ['title', 'description', 'scheduled', 'updated_at', 'user_name', 'position_names', 'location', 'status',
             'notes', 'canceled_reasons', 'published_at', 'canceled_at', 'lobby_activity',
             'organization_name', 'lobby_scheduled', 'general_remarks', 'lobby_contact_firstname',
-            'accepted_reasons', 'accepted_at', 'declined_reasons', 'declined_at',
+            'accepted_at', 'declined_reasons', 'declined_at',
             'lobby_contact_lastname', 'lobby_contact_email', 'lobby_contact_phone', 'manager_general_remarks'].freeze
 
   def headers

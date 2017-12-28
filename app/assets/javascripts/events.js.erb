@@ -20,7 +20,6 @@ $(function(){
 
     $('#cancel-reason').hide()
     $('#decline-reason').hide()
-    $('#accept-reason').toggle();
   });
 
   $('#decline_link').bind('click', function(e){
@@ -31,7 +30,6 @@ $(function(){
     cancel_hidden('#event_accept')
 
     $('#cancel-reason').hide()
-    $('#accept-reason').hide()
     $('#decline-reason').toggle();
   });
 
@@ -43,7 +41,6 @@ $(function(){
     cancel_hidden('#event_accept')
 
     $('#decline-reason').hide()
-    $('#accept-reason').hide()
     $('#cancel-reason').toggle();
   });
 
@@ -100,9 +97,6 @@ $(function(){
           "event[lobby_activity]" : {
             valueNotEquals: "<%= I18n.translate('backend.event.not_available_agents')%>"
           },
-          "event[accept]" : {
-            checkMessage : "accepted_reasons"
-          },
           "event[decline]" : {
             checkMessage : "declined_reasons"
           },
@@ -132,9 +126,6 @@ $(function(){
           },
           "event[event_agents_attributes][0][name]" : {
             valueNotEquals: "<%= I18n.translate('backend.event.event_agent_needed')%>"
-          },
-          "event[accept]" : {
-            checkMessage : "<%= I18n.translate('event.accept_reasons_needed')%>"
           },
           "event[decline]" : {
             checkMessage : "<%= I18n.translate('event.decline_reasons_needed')%>"
