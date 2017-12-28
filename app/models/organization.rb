@@ -26,7 +26,7 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: :all_blank
 
   before_validation :invalidate_organization, :validate_organization
-  after_create :set_inscription_date, :send_create_mail
+  after_create :set_inscription_date
   before_destroy :send_delete_mail
 
   searchable do
@@ -56,9 +56,9 @@ class Organization < ActiveRecord::Base
   scope :lobbies, -> { where('entity_type = ?', 2) }
   scope :full_like, ->(name) { where("(identifier ilike ? OR name ilike ?) AND entity_type = ?", name, name, 2) }
 
-  def send_create_mail
-    OrganizationMailer.create(self).deliver_now
-  end
+  # def send_create_mail
+  #   OrganizationMailer.create(self).deliver_now
+  # end
 
   def send_delete_mail
     OrganizationMailer.delete(self).deliver_now

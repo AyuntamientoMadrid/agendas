@@ -33,7 +33,7 @@
     </div>
     <div class="small-12 columns">
       <%= f.label :category_id, t('backend.identifying_data.category_id') %>
-      <%= f.select :category_id, options_for_select(Category.where(display: true).map{|c| [c.name, c.id]}), prompt: t('backend.none') %>
+      <%= f.select :category_id, options_for_select(Category.where(display: true).map{ |c| [c.name, c.id] }, f.object.category_id), prompt: t('backend.none') %>
       <%= form_field_errors(f, :category_id) %>
     </div>
     <div class="small-12 columns">

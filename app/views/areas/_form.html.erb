@@ -17,7 +17,7 @@
       <%= f.label :title, t('backend.title') %>
       <%= f.text_field :title %>
       <%= f.label :parent, t('backend.parent') %>
-      <%= f.select :parent_id, options_for_select(Area.all.map{|a| [a.title, a.id]},:parent_id), prompt: t('backend.none') %>
+      <%= f.select :parent_id, options_for_select(Area.all.map{ |a| [a.title, a.id] } ,:parent_id), prompt: t('backend.none') %>
     </fieldset>
 
     <%= submit_tag t('backend.save'), :class=> "button radius success right" %>

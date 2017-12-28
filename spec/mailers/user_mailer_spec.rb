@@ -11,7 +11,7 @@ RSpec.describe UserMailer, type: :mailer do
     let!(:mail)      { UserMailer.welcome(@organization.user) }
 
     it "should send from example" do
-      expect(mail.from).to eq([ "from@example.com"])
+      expect(mail.from).to eq([ "no-reply@madrid.es"])
     end
 
     it "should send to new user" do
