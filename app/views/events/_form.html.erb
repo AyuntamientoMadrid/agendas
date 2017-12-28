@@ -101,7 +101,7 @@
           <%= f.hidden_field :position_id, {:id => "position_id"} %>
         <% else %>
           <%= f.label :position_id, t('backend.main_position') %>
-          <%= f.select :position_id, @positions.map{|position| [position.holder.full_name_comma+' - '+position.title, position.id]}, prompt: t('backend.select') %>
+          <%= f.select :position_id, options_for_select(@positions.map{|position| [position.holder.full_name_comma+' - '+position.title, position.id]}, f.object.position_id), prompt: t('backend.select') %>
         <% end %>
       </div>
     </fieldset>
