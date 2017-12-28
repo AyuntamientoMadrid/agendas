@@ -166,7 +166,7 @@
       <div class="small-12 columns">
         <p>
           <strong><%= t('backend.attachments_description') %></strong>
-          <%= attachment.description.html_safe %>
+          <%= attachment.description.html_safe if attachment.description.present? %>
         </p>
       </div>
       <div class="small-12 columns">
