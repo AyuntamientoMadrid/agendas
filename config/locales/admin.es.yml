@@ -57,7 +57,7 @@ es:
     manage_agendas: "Asignación de Agendas"
     lobby: "Lobby"
     lobby_show: "Ver lobby"
-    lobby_activity: "Actividad de Lobby"
+    lobby_activity: "Mostrar solo eventos con actividad de lobby"
     holder_input: "Buscar una persona por nombre"
 
     holders: "Titulares"
