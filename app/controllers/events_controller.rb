@@ -76,7 +76,7 @@ class EventsController < AdminController
   end
 
   def list_user_events
-    params[:status] = ["requested", "accepted", "done"] unless params[:status].present?
+    params[:status] = ["accepted", "done", "canceled"] unless params[:status].present?
     @events = Event.managed_by(current_user).searches(search_params(params))
                    .includes(:position, :attachments, position: [:holder])
     @events.order(scheduled: :desc).page(params[:page]).per(50)
