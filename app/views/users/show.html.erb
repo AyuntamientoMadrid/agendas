@@ -15,10 +15,12 @@
     <div class="small-4 columns"><strong><%= t('backend.area') %></strong></div>
   </div>
   <% @user.manages.each do |manage| %>
-  <div class="row">
-    <div class="small-4 columns"><%= link_to manage.holder.full_name_comma, holder_path(manage.holder) %></div>
-    <div class="small-4 columns"><%= manage.holder.current_position.title %></div>
-    <div class="small-4 columns"><%= manage.holder.current_position.area.title %></div>
-  </div>
+    <div class="row">
+      <div class="small-4 columns"><%= link_to manage.holder.full_name_comma, holder_path(manage.holder) %></div>
+      <% if manage.holder.current_position.present? %>
+        <div class="small-4 columns"><%= manage.holder.current_position.title %></div>
+        <div class="small-4 columns"><%= manage.holder.current_position.area.title %></div>
+      <% end %>
+    </div>
   <% end %>
 </fieldset>
