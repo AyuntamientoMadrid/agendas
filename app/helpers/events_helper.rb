@@ -5,7 +5,7 @@ module EventsHelper
   end
 
   def declinable_or_aceptable_event?(event)
-    !event.canceled? && !event.declined? && !event.accepted?
+    !event.canceled? && !event.declined? && (!event.accepted? || (event.status == "requested"))
   end
 
   def event_title(current_user)
