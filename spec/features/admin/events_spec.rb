@@ -815,6 +815,21 @@ feature 'Events' do
 
     describe "New" do
 
+      scenario 'Do not display caduced positions', :js do
+        position_to = create(:position, to: Date.yesterday, title: "Gerente1")
+        position_to = create(:position, title: "Gerente2")
+
+        visit new_event_path
+
+        page.execute_script %Q{ $('#event_holder_title').trigger('focus'); }
+        find("#event_holder_title").native.send_key('Gerente')
+        sleep 1
+        within '.ui-autocomplete' do
+          expect(page).to have_content "Gerente2"
+          expect(page).not_to have_content "Gerente1"
+        end
+      end
+
       scenario 'visit new event form and render fields' do
         visit new_event_path
 
