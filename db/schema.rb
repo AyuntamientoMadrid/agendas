@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171226135403) do
+ActiveRecord::Schema.define(version: 20171227235926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,7 +141,6 @@ ActiveRecord::Schema.define(version: 20171226135403) do
     t.date     "declined_at"
     t.string   "declined_reasons"
     t.date     "accepted_at"
-    t.string   "accepted_reasons"
   end
 
   add_index "events", ["position_id"], name: "index_events_on_position_id", using: :btree

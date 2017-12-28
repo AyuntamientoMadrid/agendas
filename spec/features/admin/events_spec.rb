@@ -1237,7 +1237,7 @@ feature 'Events' do
     end
 
     scenario "User user incorrect accept tests", :js do
-      event = create(:event, organization: @organization, user: @organization_user)
+      event = create(:event, organization: @organization, user: @organization_user, lobby_contact_email: "user@email.com")
       event.update(status: 'requested')
 
       visit edit_event_path(event)
@@ -1246,7 +1246,7 @@ feature 'Events' do
 
       click_button "Guardar"
 
-      expect(page).to have_content I18n.translate('event.accept_reasons_needed')
+      expect(page).to have_content "Registro actualizado correctamente"
     end
 
     scenario "User incorrect cancel tests", :js do

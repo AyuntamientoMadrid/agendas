@@ -160,7 +160,6 @@ es:
     cancel_reason_no: No
     canceled_reasons: Cancellation Reasons
     decline_reasons: Declination Reasons
-    accept_reasons: Acceptation Reasons
     event_actions: Event actions
     status:
       requested: "Requested"

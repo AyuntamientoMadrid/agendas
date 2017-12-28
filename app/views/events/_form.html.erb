@@ -199,7 +199,7 @@
 
         <% if !current_user.lobby? %>
           <% if declinable_or_aceptable_event?(f.object) %>
-            <%= render partial: 'reason_text_area', locals: {id: "accept-reason", label: :accepted_reasons, msg: t('backend.accepted_reasons') , f: f, comprobation: declinable_or_aceptable_event?(f.object), hidden_label: :accept} %>
+            <%= f.hidden_field :accept %>
             <%= render partial: 'reason_text_area', locals: {id: "decline-reason", label: :declined_reasons, msg: t('backend.declined_reasons') , f: f , comprobation: declinable_or_aceptable_event?(f.object), hidden_label: :decline} %>
           <% end %>
         <% end %>
