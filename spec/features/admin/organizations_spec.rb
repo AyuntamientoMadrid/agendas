@@ -684,7 +684,7 @@ feature 'Organization' do
         fill_in :organization_description, with: "New description"
         click_button "Guardar"
 
-        open_email(organization.email)
+        open_email(organization.user.email)
         organization.reload
         expect(page).to have_content "Registro actualizado correctamente"
         expect(organization.web).to eq "www.new_web.com"

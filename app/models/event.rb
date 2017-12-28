@@ -61,9 +61,11 @@ class Event < ActiveRecord::Base
 
   def cancel_event
     return unless cancel == 'true' && canceled_at.nil?
-    self.canceled_at = Time.zone.today
-    self.status = 'canceled'
-    EventMailer.cancel(self, current_user).deliver_now
+    if self.lobby_activity && self.organization.present? && self.organization.entity_type == "lobby"
+      self.canceled_at = Time.zone.today
+      self.status = 'canceled'
+      EventMailer.cancel(self).deliver_now
+    end
   end
 
   def decline_event
@@ -75,13 +77,17 @@ class Event < ActiveRecord::Base
 
   def accept_event
     return unless accept == 'true' && accepted_at.nil?
-    self.accepted_at = Time.zone.today
-    self.status = 'accepted'
-    EventMailer.accept(self).deliver_now
+    if self.lobby_activity && self.organization.present? && self.organization.entity_type == "lobby"
+      self.accepted_at = Time.zone.today
+      self.status = 'accepted'
+      EventMailer.accept(self).deliver_now
+    end
   end
 
   def create_event
-    EventMailer.create(self, current_user).deliver_now if current_user
+    if self.lobby_activity && self.organization.present? && self.organization.entity_type == "lobby"
+      EventMailer.create(self).deliver_now
+    end
   end
 
   def self.managed_by(user)
