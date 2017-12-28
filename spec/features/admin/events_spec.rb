@@ -87,7 +87,7 @@ feature 'Events' do
         expect(page).to have_link "Other title"
       end
 
-      scenario 'Should show events with status accepted , canceled or done' do
+      scenario 'Should show events with status requested or declined' do
         event = create(:event, title: "Event 1", position: @position)
         event.status = 'requested'
         event.save
@@ -95,8 +95,8 @@ feature 'Events' do
         event_two.status = 'accepted'
         event_two.save
         visit admin_path
-        expect(page).not_to have_content('Event 1')
-        expect(page).to have_content('Event 2')
+        expect(page).to have_content('Event 1')
+        expect(page).not_to have_content('Event 2')
 
       end
     end
