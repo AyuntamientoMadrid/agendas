@@ -1,6 +1,7 @@
 class Attachment < ActiveRecord::Base
-  FILE_CONTENT_TYPES = ['application/pdf','image/jpeg', 'image/png',
-    'application/txt', 'text/plain', 'application/msword',
+  FILE_CONTENT_TYPES = [
+    'application/pdf','image/jpeg', 'image/png',
+    'application/txt', 'text/plain', 'application/msword', 'text/csv',
     'application/msexcel', 'application/vnd.ms-excel',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
