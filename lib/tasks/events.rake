@@ -13,14 +13,14 @@ namespace :events do
     puts "Starting conversion of old events without status to accepted"
     Event.where("status is ? AND scheduled > ?", nil, Time.zone.today).each do |event|
       event.update_attribute(:status, :accepted)
-      event.update_attribute(:publised_at, event.scheduled.to_time)
+      event.update_attribute(:published_at, event.scheduled.to_time)
     end
     puts "Finished conversion of old events without status to accepted"
 
     puts "Starting conversion of old events without status to done"
     Event.where("status is ? AND scheduled <= ?", nil, Time.zone.today).each do |event|
       event.update_attribute(:status, :done)
-      event.update_attribute(:publised_at, event.scheduled.to_time)
+      event.update_attribute(:published_at, event.scheduled.to_time)
     end
     puts "Finished conversion of old events without status to done"
   end
