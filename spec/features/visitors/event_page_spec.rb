@@ -33,16 +33,20 @@ feature 'Event page' do
     PublicActivity.set_controller(nil)
   end
 
-  scenario 'show only published events', :search do
+  scenario 'show only published events and status done or accepted', :search do
     event1 = create(:event, published_at: Time.zone.yesterday, title: 'event1')
-    event2 = create(:event, published_at: Time.zone.today, title: 'event2')
-    event3 = create(:event, published_at: Time.zone.tomorrow, title: 'event3')
-    event4 = create(:event, published_at: Time.zone.yesterday, title: 'event4')
+    event2 = create(:event, published_at: Time.zone.yesterday, title: 'event2')
+    event3 = create(:event, published_at: Time.zone.today, title: 'event3')
+    event4 = create(:event, published_at: Time.zone.today, title: 'event4')
+    event5 = create(:event, published_at: Time.zone.tomorrow, title: 'event5')
+    event6 = create(:event, published_at: Time.zone.tomorrow, title: 'event6')
 
-    event1.update(status: :requested)
+    event1.update(status: :accepted)
     event2.update(status: :requested)
-    event3.update(status: :requested)
+    event3.update(status: :done)
     event4.update(status: :canceled)
+    event5.update(status: :accepted)
+    event6.update(status: :done)
 
     Event.reindex
     Sunspot.commit
@@ -50,8 +54,11 @@ feature 'Event page' do
     visit visitors_path
 
     expect(page).to have_content event1.title
-    expect(page).to have_content event2.title
-    expect(page).not_to have_content event3.title
+    expect(page).not_to have_content event2.title
+    expect(page).to have_content event3.title
+    expect(page).not_to have_content event4.title
+    expect(page).not_to have_content event5.title
+    expect(page).not_to have_content event6.title
   end
 
   scenario 'search lobby activity for visitors ', :search do

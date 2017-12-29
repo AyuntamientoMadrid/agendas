@@ -34,12 +34,12 @@ es:
     register_lobby_title: "Registro de Lobbies"
     register_lobby_description: "Este es el espacio donde deben inscribirse las personas y entidades que quieren influir en la elaboración de las normas, políticas y toma de decisiones municipales."
     regulations_title: "Huella normativa"
-    regulations_description: "aquí puedes consultar los distintos documentos generados en la tramitación de los distintos textos normativos del Ayuntamiento de Madrid."
+    regulations_description: "Aquí puedes consultar los distintos documentos generados en la tramitación de los distintos textos normativos del Ayuntamiento de Madrid."
     generic_text_title: "Sobre el proceso de toma de decisiones"
     generic_text_block_1_html: "La toma de decisiones públicas es un proceso que se compone de distintas fases y en el que participan diversos actores. Sea cual sea el tema sobre el que se quiere tomar una decisión, siempre debe perseguir el interés general. <br><br> El Ayuntamiento de Madrid abre a través de su portal de transparencia un espacio en el que se pueda hacer un seguimiento del proceso de toma de decisiones a través de tres mecanismos:"
     generic_text_list_first: "Agendas públicas: Espacio en el que puedes consultar las reuniones que mantienen y los eventos en los que participan los máximos responsables del Ayuntamiento de Madrid. También saber quiénes participan en el proceso de toma de decisiones."
     generic_text_list_second: "Registro de Lobbies de la Ciudad de Madrid: Conoce con qué personas y colectivos se reúnen los representantes del Ayuntamiento de Madrid y qué intereses defienden."
-    generic_text_list_third: "Huella normativa: este espacio donde puedes consultar los distintos documentos generados en la tramitación de los distintos textos normativos del Ayuntamiento de Madrid."
+    generic_text_list_third: "Huella normativa: Aquí puedes consultar los distintos documentos generados en la tramitación de los distintos textos normativos del Ayuntamiento de Madrid."
     generic_text_finish_html: "Para saber más sobre el proceso de toma de decisiones del Ayuntamiento de Madrid consulta las <a href='/faq'> preguntas frecuentes.</a> "
   registration_lobbies_index:
     registration_lobbies:
