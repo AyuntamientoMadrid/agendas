@@ -27,7 +27,6 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.body).to have_content I18n.t('mailers.welcome_organization.text1')
       expect(mail.body).to have_content I18n.t('mailers.welcome_organization.text2', email: @organization.user.email, password: @organization.user.password)
       expect(mail.body).to have_content I18n.t('mailers.welcome_organization.thanks')
-
     end
 
   end
