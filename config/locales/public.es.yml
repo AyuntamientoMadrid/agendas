@@ -153,6 +153,11 @@ es:
     send: "Enviar"
     sent: "Email enviado correctamente"
     error: "El fichero %{error}"
+    affected_validation: "Afecta a: %{error}"
+    affected: "Afecta a:"
+    affected_1: "Afecta a entidades inscritas"
+    affected_2: "Se refiere a una actividad contemplada, realizada por entidades no inscritas."
+    affected_3: "Otra causa"
 
   accessibility:
     title: "Accesibilidad"

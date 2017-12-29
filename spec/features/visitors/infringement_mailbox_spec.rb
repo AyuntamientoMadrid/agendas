@@ -15,7 +15,7 @@ feature 'Infringement mailbox' do
     fill_in :infringement_email_subject, with: "Título del incumplimiento"
     fill_in :infringement_email_link, with: "www.agenda.es"
     attach_file("infringement_email_attachment", Rails.root + "spec/fixtures/dummy.jpg")
-
+    choose :infringement_email_affected_afecta_a_entidades_inscritas
     sleep(5)
 
     click_button I18n.t('infringement_mailbox.send')

@@ -1,3 +1,10 @@
 <%= t'mailer.infringement_email.link_html', link: @email.link if @email.link.present? %>
 
 <%= @email.description.html_safe %>
+
+<%= t('infringement_mailbox.affected') %>
+<% if @email.affected_referer.present? %>
+  <%= @email.affected_referer %>
+<% else %>
+  <%= @email.affected %>
+<% end %>

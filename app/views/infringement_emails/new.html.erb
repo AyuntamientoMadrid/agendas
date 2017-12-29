@@ -22,6 +22,24 @@
       <%= f.file_field :attachment %>
       <span class="form-info"><%= t('infringement_mailbox.attachment_info') %></span>
     </div>
+    <div class="affected">
+      <p><%= t('infringement_mailbox.affected') %></p>
+      <ul>
+        <li>
+          <%= f.radio_button :affected, t('infringement_mailbox.affected_1'), class: "affected-radio" %>
+          <%= f.label :affected, t('infringement_mailbox.affected_1') %>
+        </li>
+        <li>
+          <%= f.radio_button :affected, t('infringement_mailbox.affected_2'), class: "affected-radio" %>
+          <%= f.label :affected, t('infringement_mailbox.affected_2') %>
+        </li>
+        <li>
+          <%= f.radio_button :affected, t('infringement_mailbox.affected_3'), class: "another-referer" %>
+          <%= f.label :affected, t('infringement_mailbox.affected_3') %>
+          <%= f.text_field :affected_referer, placeholder: "Indicar cuál" %>
+        </li>
+      </ul>
+    </div>
     <hr />
     <p>
       <%= t('infringement_mailbox.text_block_first_html') %>
