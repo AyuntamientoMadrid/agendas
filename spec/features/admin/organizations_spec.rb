@@ -1086,11 +1086,10 @@ feature 'Organization' do
       signin(user_admin.email, user_admin.password)
     end
 
-    scenario 'Should show page title' do
+    scenario 'Should show delete and edit link', :js do
       visit admin_path
 
-      click_link I18n.t 'backend.edit_delete_organization'
-      expect(page).to have_content I18n.t 'organizations.edit.title'
+      expect(page).to have_link I18n.t('backend.edit_delete_organization')
     end
 
   end

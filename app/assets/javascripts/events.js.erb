@@ -159,10 +159,6 @@ $(function(){
     $('.lobby-contact-info').show();
   });
 
-  $("#event_lobby_activity_false").click(function(){
-    $('.lobby-contact-info').hide();
-  });
-
   if ($("#event_lobby_activity_true").is(":checked")) {
     remove_select();
     fill_autocomplete_organization_name();
@@ -190,6 +186,7 @@ $(function(){
     $('.lobby-scheduled').hide();
     $("#lobby-activity-event #category-block").hide();
     $('#event_organization_name').val('');
+    $('.lobby-contact-info').hide();
     $('#lobby-activity-event .link_to_remove_association').trigger('click');
   });
 
