@@ -8,4 +8,6 @@ class StaticPagesController < ApplicationController
   def data_protection; end
 
   def regulatory_and_documentation; end
+
+  def statistics; end
 end
