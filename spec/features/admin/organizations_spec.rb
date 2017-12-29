@@ -290,7 +290,7 @@ feature 'Organization' do
         click_button "Guardar"
 
         expect(page).to have_content "Registro creado correctamente"
-        expect(ActionMailer::Base.deliveries.count).to eq(1)
+        expect(ActionMailer::Base.deliveries.count).to eq(2)
       end
 
       scenario 'Should create organization with data fields' do
@@ -656,6 +656,19 @@ feature 'Organization' do
         expect(page).to have_content I18n.translate('event.cancel_reasons_needed')
       end
 
+      scenario "User correct invalidate tests", :js do
+        organization = create(:organization)
+        visit edit_admin_organization_path(organization)
+
+        click_link I18n.t('organizations.invalidate')
+        tinymce_fill_in 'invalidate-reason-mce', 'test cancel text'
+        click_button "Guardar"
+
+        expect(page).not_to have_content I18n.translate('event.cancel_reasons_needed')
+        open_email(organization.user.email)
+        expect(current_email.subject).to eq I18n.t('mailers.invalidate_organization.subject', title: organization.fullname)
+      end
+
       scenario "Should show validate buttons on invalid organization" do
         organization = create(:organization)
         organization.update(invalidated_reasons: 'test')
@@ -746,7 +759,7 @@ feature 'Organization' do
         expect(organization.description).to eq "New description"
         # requires further investication
         # expect(current_email).to have_content I18n.t('mailers.update_event.text1', title: organization.fullname)
-        expect(current_email).to have_content"Ha sido actualizado el lobby:"
+        expect(current_email).to have_content "Ha sido actualizado el lobby:"
       end
 
       scenario 'Should update lobby organization fields' do
@@ -1037,7 +1050,7 @@ feature 'Organization' do
         expect(page).to have_content agent.second_surname
       end
 
-      scenario "Should display invalidate organization and displday agent info" do
+      scenario "Should display invalidate organization and display agent info" do
         organization = create(:organization)
         agent = create(:agent, organization: organization)
         organization.update(invalidated_reasons: 'test')
@@ -1135,6 +1148,23 @@ feature 'Organization' do
       visit admin_path
 
       expect(page).to have_link I18n.t('backend.edit_delete_organization')
+    end
+
+  end
+
+  describe "Destroy (remote)" do
+
+    background do
+      user_admin = create(:user, :lobby)
+      signin(user_admin.email, user_admin.password)
+    end
+
+    scenario 'Should show page title' do
+      visit admin_path
+
+      click_link I18n.t 'backend.delete_organization'
+
+      expect(page).to have_content I18n.t 'organizations.delete.title'
     end
 
   end

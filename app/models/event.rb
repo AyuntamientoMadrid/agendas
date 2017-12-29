@@ -14,15 +14,14 @@ class Event < ActiveRecord::Base
   validates :title, :position, presence: true
   validates_inclusion_of :lobby_activity, :in => [true, false]
   validate :participants_uniqueness, :position_not_in_participants, :role_validate_scheduled, :validate_location
-  validates :canceled_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, allow_blank: false, if: Proc.new { |a| !a.canceled_at.blank? }
-  validates :declined_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, allow_blank: false, if: Proc.new { |a| !a.declined_at.blank? && a.current_user.present? && !a.current_user.lobby? }
+  validates :canceled_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, if: Proc.new { |a| a.cancel == 'true' }
+  validates :declined_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, if: Proc.new { |a| a.decline == 'true' && !a.current_user.nil? && !a.current_user.lobby? }
 
   before_create :set_status
   before_update :set_published_at
   after_validation :decline_event
   after_validation :cancel_event
   after_validation :accept_event
-  after_create :create_event
 
   belongs_to :user
   belongs_to :position
@@ -61,33 +60,20 @@ class Event < ActiveRecord::Base
 
   def cancel_event
     return unless cancel == 'true' && canceled_at.nil?
-    if self.lobby_activity && self.organization.present? && self.organization.entity_type == "lobby"
-      self.canceled_at = Time.zone.today
-      self.status = 'canceled'
-      EventMailer.cancel(self).deliver_now
-    end
+    self.canceled_at = Time.zone.today
+    self.status = 'canceled'
   end
 
   def decline_event
     return unless decline == 'true' && declined_at.nil?
     self.declined_at = Time.zone.today
     self.status = 'declined'
-    EventMailer.decline(self).deliver_now
   end
 
   def accept_event
     return unless accept == 'true' && accepted_at.nil?
-    if self.lobby_activity && self.organization.present? && self.organization.entity_type == "lobby"
-      self.accepted_at = Time.zone.today
-      self.status = 'accepted'
-      EventMailer.accept(self).deliver_now
-    end
-  end
-
-  def create_event
-    if self.lobby_activity && self.organization.present? && self.organization.entity_type == "lobby"
-      EventMailer.create(self).deliver_now
-    end
+    self.accepted_at = Time.zone.today
+    self.status = 'accepted'
   end
 
   def holder_name

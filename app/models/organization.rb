@@ -27,7 +27,6 @@ class Organization < ActiveRecord::Base
 
   before_validation :invalidate_organization, :validate_organization
   after_create :set_inscription_date
-  before_destroy :send_delete_mail
 
   searchable do
     text :name, :first_surname, :second_surname, :description
@@ -55,22 +54,6 @@ class Organization < ActiveRecord::Base
   scope :validated, -> { where('invalidated_at is null') }
   scope :lobbies, -> { where('entity_type = ?', 2) }
   scope :full_like, ->(name) { where("identifier ilike ? OR name ilike ?", name, name) }
-
-  # def send_create_mail
-  #   OrganizationMailer.create(self).deliver_now
-  # end
-
-  def send_delete_mail
-    OrganizationMailer.delete(self).deliver_now
-  end
-
-  def send_invalidate_mail
-    OrganizationMailer.invalidate(self).deliver_now
-  end
-
-  def send_update_mail
-    OrganizationMailer.update(self).deliver_now
-  end
 
   def entity_type_id
     Organization.entity_types[entity_type]
@@ -144,7 +127,6 @@ class Organization < ActiveRecord::Base
   def set_invalidate
     self.invalidate = false
     save
-    send_invalidate_mail
   end
 
   def interest?(id)

@@ -872,8 +872,8 @@ feature 'Events' do
 
   describe 'organization user' do
     background do
-      @organization = create(:organization)
-      @organization_user = create(:user, :lobby, organization: @organization)
+      @organization_user = create(:user, :lobby)
+      @organization = create(:organization, user: @organization_user)
       @position = create(:position)
       @agent = create(:agent, organization: @organization)
       @organization_user.manages.create(holder_id: @position.holder_id)
@@ -977,6 +977,10 @@ feature 'Events' do
         find("#position_id", :visible => false).set(@position.id)
         click_button "Enviar la solicitud"
         expect(page).to have_content 'Registro creado correctamente'
+
+        open_email(@organization.user.email)
+        expect(current_email.subject).to eq I18n.t('mailers.create_event.subject', title: 'New event for a lobby')
+
       end
 
       scenario 'Visit new event page and create event without mandatory fields and display error', :js do
@@ -1276,8 +1280,8 @@ feature 'Events' do
   describe 'Lobby user can only cancel an event tests' do
 
     background do
-      @organization = create(:organization)
-      @organization_user = create(:user, :lobby, organization: @organization)
+      @organization_user = create(:user, :lobby, email: 'test_mail@test.com')
+      @organization = create(:organization, user: @organization_user)
       @position = create(:position)
       @agent = create(:agent, organization: @organization)
       @organization_user.manages.create(holder_id: @position.holder_id)
@@ -1291,6 +1295,19 @@ feature 'Events' do
       expect(page).not_to have_content I18n.t('backend.accept_event')
       expect(page).not_to have_content I18n.t('backend.decline_event')
       expect(page).to have_content I18n.t('backend.cancel_event')
+    end
+
+    scenario "User correctly cancel tests", :js do
+      event = create(:event, organization: @organization, user: @organization_user)
+      visit edit_event_path(event)
+
+      click_link I18n.t('backend.cancel_event')
+      tinymce_fill_in 'cancel-reason-mce', 'test cancel text'
+      click_button "Enviar la solicitud"
+
+      open_email(@organization.user.email)
+      expect(page).not_to have_content I18n.translate('backend.lobby_not_allowed_neither_empty_mail')
+      expect(current_email.subject).to eq I18n.t('mailers.cancel_event.subject', title: event.title)
     end
 
   end
@@ -1349,6 +1366,33 @@ feature 'Events' do
       expect(page).to have_content "Registro actualizado correctamente"
     end
 
+    scenario "User user correctly accept tests", :js do
+      event = create(:event, organization: @organization, user: @organization_user, lobby_contact_email: "user@email.com")
+      event.update(status: 'requested')
+
+      visit edit_event_path(event)
+
+      click_link I18n.t('backend.accept_event')
+
+      click_button "Guardar"
+      expect(page).to have_content "Registro actualizado correctamente"
+      open_email(event.lobby_contact_email)
+      expect(current_email.subject).to eq I18n.t('mailers.accept_event.subject', title: event.title)
+    end
+
+    scenario "User correctly cancel tests (by user)", :js do
+      event = create(:event, organization: @organization, user: @organization_user, lobby_contact_email: "user@email.com")
+      event.update(status: 'accepted')
+      visit edit_event_path(event)
+
+      click_link I18n.t('backend.cancel_event')
+      tinymce_fill_in 'cancel-reason-mce', 'test cancel text'
+      click_button "Guardar"
+      expect(page).not_to have_content I18n.translate('backend.lobby_not_allowed_neither_empty_mail')
+      open_email(event.lobby_contact_email)
+      expect(current_email.subject).to eq I18n.t('mailers.cancel_event.subject', title: event.title)
+    end
+
     scenario "User incorrect cancel tests", :js do
       event = create(:event, organization: @organization, user: @organization_user)
       event.update(status: 'accepted')
@@ -1357,7 +1401,7 @@ feature 'Events' do
       click_link I18n.t('backend.cancel_event')
       click_button "Guardar"
 
-      expect(page).to have_content I18n.translate('event.cancel_reasons_needed')
+      expect(page).to have_content I18n.translate('backend.lobby_not_allowed_neither_empty_mail')
     end
 
     scenario "User incorrect decline tests", :js do
@@ -1369,7 +1413,22 @@ feature 'Events' do
       click_link I18n.t('backend.decline_event')
       click_button "Guardar"
 
-      expect(page).to have_content I18n.translate('event.decline_reasons_needed')
+      expect(page).to have_content I18n.translate('backend.lobby_not_allowed_neither_empty_mail')
+    end
+
+    scenario "User correctly decline tests", :js do
+      event = create(:event, organization: @organization, user: @organization_user, lobby_contact_email: "user@email.com")
+      event.update(status: 'requested')
+
+      visit edit_event_path(event)
+
+      click_link I18n.t('backend.decline_event')
+      tinymce_fill_in 'decline-reason-mce', 'test decline text'
+
+      click_button "Guardar"
+      expect(page).not_to have_content I18n.translate('event.decline_reasons_needed')
+      open_email(event.lobby_contact_email)
+      expect(current_email.subject).to eq I18n.t('mailers.decline_event.subject', title: event.title)
     end
 
     scenario "An use can accept or decline an event only once", :js do
