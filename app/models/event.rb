@@ -128,7 +128,7 @@ class Event < ActiveRecord::Base
     boolean :lobby_activity
     date :published_at
     integer :organization_id
-
+    integer :status_id
     text :area_title do
       self.position.area.title
     end
@@ -194,6 +194,10 @@ class Event < ActiveRecord::Base
 
   def lobby_user_name
     "#{lobby_contact_firstname} #{lobby_contact_lastname}"
+  end
+
+  def status_id
+    Event.statuses[self.status]
   end
 
   private
