@@ -232,6 +232,16 @@ feature 'Events' do
         expect(page).to have_content('Rechazar evento')
       end
 
+      scenario 'edit event and redirect to accepted, canceled and done index', :js do
+        event = create(:event, user: @user_manager, title: 'Test event', position: @position)
+        visit edit_event_path(event)
+
+        fill_in :event_title, with: 'New event modified from Capybara'
+        click_button "Guardar"
+
+        expect(page).to have_content 'New event modified from Capybara'
+      end
+
     end
 
   end

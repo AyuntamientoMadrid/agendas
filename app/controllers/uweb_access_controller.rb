@@ -8,7 +8,7 @@ class UwebAccessController < ApplicationController
       user = User.find_by(user_key: params[:clave_usuario])
 
       sign_in(:user, user)
-      redirect_to events_home_path(user)
+      redirect_to events_home_path(user, true)
     else
       redirect_to root_path
     end

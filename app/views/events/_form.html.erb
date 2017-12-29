@@ -218,7 +218,7 @@
           </div>
           <div class="small-12 columns">
             <%= submit_tag t('backend.save'), :class=> "button radius success center right" %>
-            <%= link_to t('backend.exit_without_save'), events_home_path(current_user), class: "button radius alert center right" %>
+            <%= link_to t('backend.exit_without_save'), events_home_path(current_user, true), class: "button radius alert center right" %>
           </div>
         </div>
       <% end %>

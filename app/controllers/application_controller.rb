@@ -10,10 +10,17 @@ class ApplicationController < ActionController::Base
     redirect_to request.referer
   end
 
-  def events_home_path(user)
+  def events_home_path(user, redirect_requested_or_declined_events)
     if user.user?
+      if redirect_requested_or_declined_events
+        status = ["requested", "declined"]
+        lobby_activity = "1"
+      else
+        status = ["accepted", "done", "canceled"]
+        lobby_activity = nil
+      end
       events_path({ utf8: "✓", search_title: "", search_person: "",
-                               status: ["requested", "declined"], lobby_activity: "1",
+                               status: status, lobby_activity: lobby_activity,
                                controller: "events", action: "index" })
     else
       events_path
