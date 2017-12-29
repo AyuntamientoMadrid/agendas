@@ -649,7 +649,7 @@ feature 'Organizations page' do
     scenario 'Should show page title' do
       visit new_organization_path
 
-      expect(page).to have_content I18n.t 'organizations.new.title'
+      expect(page).to have_content "Instrucciones generales"
     end
 
   end
