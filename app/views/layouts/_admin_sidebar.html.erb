@@ -24,7 +24,7 @@
       </li>
     <% else %>
       <li class="<%= active_menu('events') %>">
-        <a href="<%= events_home_path(current_user) %>">
+        <a href="<%= events_home_path(current_user, false) %>">
           <i class="fi-calendar size-18">
             <%= t("organizations.show.events_title") %>
           </i>
