@@ -100,80 +100,28 @@
     </div>
   </fieldset>
   <% end %>
-  <fieldset>
-    <legend><%= t('backend.participants') %></legend>
-    <div class="row">
-      <% @event.participants.each do |participant| %>
-        <div class="small-4 columns">
-          <p>
-            <strong><%= t('backend.name') %></strong>
-            <%= participant.position.holder.full_name %>
-          </p>
-        </div>
-        <div class="small-4 columns">
-          <p>
-            <strong><%= t('backend.position') %></strong>
-            <%= participant.position.title %>
-          </p>
-        </div>
-        <div class="small-4 columns">
-          <p>
-            <strong><%= t('backend.area') %></strong>
-            <%= participant.position.area.title %>
-          </p>
-        </div>
-      </div>
-    <% end %>
-  </fieldset>
 
-  <fieldset>
-    <legend><%= t('backend.attendees') %></legend>
-
-    <div class="row">
-      <% @event.attendees.each do |attendee| %>
-        <div class="small-4 columns">
-          <p>
-            <strong><%= t('backend.name') %></strong>
-            <%= attendee.name %>
-          </p>
-        </div>
-        <div class="small-4 columns">
-          <p>
-            <strong><%= t('backend.position') %></strong>
-            <%= attendee.position %>
-          </p>
-        </div>
-        <div class="small-4 columns">
-          <p>
-            <strong><%= t('backend.company') %></strong>
-            <%= attendee.company %>
-          </p>
-        </div>
-      <% end %>
-    </div>
-
-  </fieldset>
   <fieldset class="attachments">
     <legend><%= t('backend.attachments') %></legend>
     <% @event.attachments.each do |attachment| %>
-    <div class="row">
-      <div class="small-12 columns">
-        <p>
-          <strong><%= t('backend.attachments') %></strong>
-          <%= link_to attachment.title, attachment.file.url, target: :blank %>
-        </p>
+      <div class="row">
+        <div class="small-12 columns">
+          <p>
+            <strong><%= t('backend.attachments') %></strong>
+            <%= link_to attachment.title, attachment.file.url, target: :blank %>
+          </p>
+        </div>
+        <div class="small-12 columns">
+          <p>
+            <strong><%= t('backend.attachments_description') %></strong>
+            <%= attachment.description.html_safe if attachment.description.present? %>
+          </p>
+        </div>
+        <div class="small-12 columns">
+          <p><%= attachment.public ? "Público" : "Privado" %></p>
+        </div>
       </div>
-      <div class="small-12 columns">
-        <p>
-          <strong><%= t('backend.attachments_description') %></strong>
-          <%= attachment.description.html_safe if attachment.description.present? %>
-        </p>
-      </div>
-      <div class="small-12 columns">
-        <p><%= attachment.public ? "Público" : "Privado" %></p>
-      </div>
-    </div>
-    <hr />
+      <hr />
     <% end %>
   </fieldset>
 
