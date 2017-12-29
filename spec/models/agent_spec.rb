@@ -14,12 +14,6 @@ describe Agent do
     expect(agent).not_to be_valid
   end
 
-  it "should not be valid whitout identifier" do
-    agent.identifier = nil
-
-    expect(agent).not_to be_valid
-  end
-
   it "should not be valid whitout from" do
     agent.from = nil
 

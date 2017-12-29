@@ -17,6 +17,7 @@ es:
     frontend: "Zona pública"
     edit_organization: Modify responsible declaration
     delete_organization: Delete responsible declaration
+    edit_delete_organization: Modificación o baja de inscripción
     basic_data: "Datos"
     mandatory_field: "Este campo es obligatorio"
     successfully_updated_record: "Registro actualizado correctamente"

@@ -26,6 +26,7 @@ es:
     change_password: "Cambiar contraseña"
     edit_organization: Modificar declaracion responsable
     delete_organization: Eliminar declaracion responsable
+    edit_delete_organization: Modificación o baja de inscripción
     mandatory_field: "Este campo es obligatorio"
     successfully_updated_record: "Registro actualizado correctamente"
     successfully_destroyed_record: "Registro eliminado correctamente"
@@ -57,7 +58,7 @@ es:
     manage_agendas: "Asignación de Agendas"
     lobby: "Lobby"
     lobby_show: "Ver lobby"
-    lobby_activity: "Actividad de Lobby"
+    lobby_activity: "Mostrar solo eventos con actividad de lobby"
     holder_input: "Buscar una persona por nombre"
 
     holders: "Titulares"

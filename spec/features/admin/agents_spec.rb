@@ -129,8 +129,7 @@ feature "Agents" do
 
       expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
       expect(page).to have_content "Archivo no puede estar en blanco"
-      expect(page).to have_content "6 errores impidieron guardar este Agente"
-      expect(page).to have_content "DNI, NIE, NIF, Pasaporte no puede estar en blanco"
+      expect(page).to have_content "5 errores impidieron guardar este Agente"
       expect(page).to have_content "Nombre no puede estar en blanco"
       expect(page).to have_content "Desde no puede estar en blanco"
       expect(page).to have_content "Acredito el consentimiento expreso de esta persona " \
@@ -163,7 +162,6 @@ feature "Agents" do
       login_as admin
       visit new_admin_organization_agent_path(organization)
 
-      fill_in "DNI, NIE, NIF, Pasaporte", with: "43138883z"
       fill_in "Nombre", with: "Name"
       fill_in "Desde", with: Date.current
       find(:css, "input[id='agent_allow_public_data_false']").set(true)
@@ -217,13 +215,11 @@ feature "Agents" do
       visit edit_admin_organization_agent_path(organization, agent)
 
       fill_in :agent_name, with: nil
-      fill_in :agent_identifier, with: nil
       fill_in :agent_from, with: nil
       click_button "Guardar"
 
       expect(page).to have_content "Por favor corrija los siguientes errores antes de continuar"
-      expect(page).to have_content "3 errores impidieron guardar este Agente"
-      expect(page).to have_content "DNI, NIE, NIF, Pasaporte no puede estar en blanco"
+      expect(page).to have_content "2 errores impidieron guardar este Agente"
       expect(page).to have_content "Nombre no puede estar en blanco"
       expect(page).to have_content "Desde no puede estar en blanco"
     end
@@ -249,7 +245,6 @@ feature "Agents" do
 
       # mandatory fields
       fill_in :agent_name, with: "New name"
-      fill_in :agent_identifier, with: "New identifier"
       fill_in :agent_from, with: new_date
       # optional fields
       fill_in :agent_first_surname, with: "new first surname"
@@ -261,7 +256,6 @@ feature "Agents" do
       agent.reload
       expect(page).to have_content "Registro actualizado correctamente"
       expect(agent.name).to eq "New name"
-      expect(agent.identifier).to eq "New identifier"
       expect(agent.from).to eq new_date
       expect(agent.first_surname).to eq "new first surname"
       expect(agent.second_surname).to eq "new second surname"

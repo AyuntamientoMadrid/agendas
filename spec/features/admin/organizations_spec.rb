@@ -1079,34 +1079,17 @@ feature 'Organization' do
 
   end
 
-  describe "Edit (remote)" do
+  describe "Edit and delete (remote)" do
 
     background do
       user_admin = create(:user, :lobby)
       signin(user_admin.email, user_admin.password)
     end
 
-    scenario 'Should show page title' do
+    scenario 'Should show delete and edit link', :js do
       visit admin_path
 
-      click_link I18n.t 'backend.edit_organization'
-      expect(page).to have_content I18n.t 'organizations.edit.title'
-    end
-
-  end
-
-  describe "Destroy (remote)" do
-
-    background do
-      user_admin = create(:user, :lobby)
-      signin(user_admin.email, user_admin.password)
-    end
-
-    scenario 'Should show page title' do
-      visit admin_path
-
-      click_link I18n.t 'backend.delete_organization'
-      expect(page).to have_content I18n.t 'organizations.delete.title'
+      expect(page).to have_link I18n.t('backend.edit_delete_organization')
     end
 
   end

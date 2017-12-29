@@ -34,7 +34,7 @@ es:
     register_lobby_title: "Registro de Lobbies"
     register_lobby_description: "Este es el espacio donde deben inscribirse las personas y entidades que quieren influir en la elaboración de las normas, políticas y toma de decisiones municipales."
     regulations_title: "Huella normativa"
-    regulations_description: "Aquí puedes conocer los diferentes documentos elaborados en el proceso de tramitación de las normas municipales."
+    regulations_description: "aquí puedes consultar los distintos documentos generados en la tramitación de los distintos textos normativos del Ayuntamiento de Madrid."
     generic_text_title: "Sobre el proceso de toma de decisiones"
     generic_text_block_1_html: "La toma de decisiones públicas es un proceso que se compone de distintas fases y en el que participan diversos actores. Sea cual sea el tema sobre el que se quiere tomar una decisión, siempre debe perseguir el interés general. <br><br> El Ayuntamiento de Madrid abre a través de su portal de transparencia un espacio en el que se pueda hacer un seguimiento del proceso de toma de decisiones a través de tres mecanismos:"
     generic_text_list_first: "Agendas públicas: Espacio en el que puedes consultar las reuniones que mantienen y los eventos en los que participan los máximos responsables del Ayuntamiento de Madrid. También saber quiénes participan en el proceso de toma de decisiones."
@@ -44,7 +44,7 @@ es:
   registration_lobbies_index:
     registration_lobbies:
       registry_query_title: "Consulta de registro"
-      registry_query_description: "Conoce quiénes influyen las decisiones del Ayuntamiento y qué reuniones han mantenido."
+      registry_query_description: "Conoce quiénes influyen en las decisiones del Ayuntamiento y qué reuniones han mantenido"
     subscribe_unsubscribe:
       subscribe_unsubscribe_title: "Alta y baja"
       subscribe_unsubscribe_description: "En este espacio podrás darte de alta y de baja del registro así como modificar la información y datos facilitados al inscribirte."
@@ -123,13 +123,13 @@ es:
       user: "The secret Image and code were different"
   infringement_mailbox:
     title: "Buzón de incumplimientos"
-    description: "Si conoces algún caso de incumplmiento de las normas por las que se rige el Registro de Lobbies y quieres hacérnoslo llegar  de manera anónima puedes hacerlo en el formulario que encontrarás a continuación."
-    legend: "Comunicar al administrador de manera anónima"
+    description: "Si conoces algún caso de incumplimiento de las normas por las que se rige el Registro de Lobbies y quieres hacérnoslo llegar  de manera anónima puedes hacerlo en el formulario que encontrarás a continuación."
+    legend: "Comunicar de manera anónima"
     subject_title: "Asunto"
     subject_placeholder: "Título del incumplimiento"
     link_title: "Enlace"
     link_placeholder: "Ej: www.agenda.es/enlace"
-    link_info: "Copia y pega el enlace para que los administradores puedan acceder con más facilidad al contenido."
+    link_info: "Copia y pega el enlace para que se pueda acceder con más facilidad al contenido."
     attachment_title: "Archivo"
     attachment_button: "Subir imagen"
     attachment_info: "Puedes subir imágenes .jpg, .png y.bmp, o un archivo .zip o .rar, con un máximo de 3 megas."
@@ -153,6 +153,11 @@ es:
     send: "Enviar"
     sent: "Email enviado correctamente"
     error: "El fichero %{error}"
+    affected_validation: "Afecta a: %{error}"
+    affected: "Afecta a:"
+    affected_1: "Afecta a entidades inscritas"
+    affected_2: "Se refiere a una actividad contemplada, realizada por entidades no inscritas."
+    affected_3: "Otra causa"
 
   accessibility:
     title: "Accesibilidad"

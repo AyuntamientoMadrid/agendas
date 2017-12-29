@@ -26,11 +26,7 @@
     <fieldset class="meeting-lobby-activity">
       <div class="small-12 columns">
         <legend><%= t('backend.meeting_lobby_activity') %></legend>
-        <% if current_user.lobby? %>
-          <%= f.radio_button :lobby_activity, true, checked: true %>
-        <% else %>
-          <%= f.radio_button :lobby_activity, true %>
-        <% end %>
+        <%= f.radio_button :lobby_activity, true  %>
         <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_yes'), value: true %>
         <%= f.radio_button :lobby_activity, false, disabled: current_user.lobby? %>
         <%= f.label :lobby_activity, t('backend.meeting_lobby_activity_no'), value: false %>

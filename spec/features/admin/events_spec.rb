@@ -1131,9 +1131,7 @@ feature 'Events' do
         fill_in :event_lobby_contact_phone, with: '900878787'
         fill_in :event_lobby_contact_email, with: 'new_loby@email.com'
         find("#position_id", :visible => false).set(@position.id)
-
         click_button "Enviar la solicitud"
-
         event.reload
 
         expect(event.lobby_contact_firstname).to eq 'new lobbyname'

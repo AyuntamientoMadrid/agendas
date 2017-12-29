@@ -10,7 +10,8 @@ es:
       attachment:
         name: "Documento adjunto"
         add_association: "Añadir adjunto"
-
+        text1: "Este archivo adjunto debe incluir la autorización expresa y firmada por el agente, para que sus datos meramente identificativos se publiquen en la web del Registro de Lobbies del Ayuntamiento de Madrid. Es responsabilidad de quien se inscribe para ejercer actividad de lobby asegurar la autenticidad del documento y el consentimiento del agente."
+        text2: "En caso de que no se exprese nada, se entiende que el agente no ha trabajado al servicio del Ayuntamiento de Madrid, sus organismos públicos, sociedades mercantiles o consorcios en los que participe en los dos años previos a darse de alta en el registro."
       add_association: "Añadir agentes"
       add_association_confirm: "Va a abandonar el formulario de la organización para editar los agentes, si tiene cambios pendientes de almacenar pulsa primero Guardar."
       add_association_notice: "Podrás crear agentes una vez hayas creado el lobby. Completa el formulario y pulsa 'Guardar', una vez almacenado se habilitará la opción para añadir agentes."

@@ -1,7 +1,7 @@
 class InfringementEmail
   include ActiveModel::Model
 
-  ATTRIBUTES = [:subject, :description, :link, :attachment].freeze
+  ATTRIBUTES = [:subject, :description, :link, :attachment, :affected, :affected_referer].freeze
 
   attr_accessor(*ATTRIBUTES)
 
@@ -20,6 +20,7 @@ class InfringementEmail
                                                                    'application/zip'] },
                                     size: { in: 0..3.megabytes }
   attr_accessor :attachment_file_size, :attachment_file_name, :attachment_content_type, :id
+  validates :affected, presence: true
 
   # <<< End Paperclip required stuff
 
