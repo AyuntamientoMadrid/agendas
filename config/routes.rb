@@ -14,15 +14,6 @@ Rails.application.routes.draw do
 
   resources :infringement_emails, only: [:new, :create]
 
-  #Not work
-  # scope module: 'static_pages' do
-  #   get '/rules', to: '#rules', as: 'rules'
-  #   get '/about_lobbies', to: '#about_lobbies', as: 'about_lobbies'
-  #   get '/code_of_conduct', to: '#code_of_conduct', as: 'code_of_conduct'
-  #   get '/data_protection', to: '#data_protection', as: 'data_protection'
-  #   get '/regulatory_and_documentation', to: '#regulatory_and_documentation', as: 'regulatory_and_documentation'
-  # end
-  #Yes work ?!?
   get '/code_of_conduct', to: 'static_pages#code_of_conduct', as: 'code_of_conduct'
   get '/accessibility', to: 'static_pages#accessibility', as: 'accessibility'
   get '/statistics', to: 'static_pages#statistics', as: 'statistics'
