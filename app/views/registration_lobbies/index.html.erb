@@ -25,11 +25,11 @@
         <%= link_to new_organization_path, target: '_blank'  do %>
           <strong>Alta</strong> |
         <% end %>
-        <%= link_to destroy_organization_path, target: '_blank'  do %>
-          <strong>Baja</strong> |
-        <% end %>
         <%= link_to edit_organization_path, target: '_blank'  do %>
-          <strong>Modificación</strong>
+          <strong>Modificación</strong>  |
+        <% end %>
+        <%= link_to destroy_organization_path, target: '_blank'  do %>
+          <strong>Baja</strong>
         <% end %>
         <p>
           <%= t'registration_lobbies_index.subscribe_unsubscribe.subscribe_unsubscribe_description' %>
@@ -41,11 +41,11 @@
 
   <div class="small-12 medium-4 column">
     <figure data-equalizer-watch>
-      <%= link_to "/normative/codigo_conducta_incumplimientos_y_normativa.docx", target: "_blank" do %>
+      <%= link_to code_of_conduct_path do %>
         <% image_tag 'homepage/regulations.jpg', alt: t('registration_lobbies_index.normative.normative_title') %>
       <% end %>
       <div class="content">
-        <%= link_to "/normative/codigo_conducta_incumplimientos_y_normativa.docx", target: "_blank" do %>
+        <%= link_to code_of_conduct_path do %>
           <p><strong><%= t'registration_lobbies_index.normative.normative_title' %></strong></p>
         <% end %>
         <p>
