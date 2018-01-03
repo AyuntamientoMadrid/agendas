@@ -37,13 +37,14 @@ class PublicOrganizationExporter
   end
 
   def save_xls(path)
+    Spreadsheet.client_encoding = 'ISO-8859-1'
     book = Spreadsheet::Workbook.new
     sheet = book.create_worksheet
     sheet.row(0).default_format = Spreadsheet::Format.new color: :blue, weight: :bold
     sheet.row(0).concat headers
     index = 1
     Organization.find_each do |organization|
-      sheet.row(index).concat organization_to_row(organization)
+      sheet.row(index).concat windows_organization_row(organization)
       index += 1
     end
 

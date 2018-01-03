@@ -33,6 +33,7 @@ class EventsExporter
   end
 
   def save_xls(path)
+    Spreadsheet.client_encoding = 'ISO-8859-1'
     book = Spreadsheet::Workbook.new
     sheet = book.create_worksheet
     sheet.row(0).default_format = Spreadsheet::Format.new color: :blue, weight: :bold
@@ -60,7 +61,7 @@ class EventsExporter
   private
 
     def windows_array(values)
-      values.map { |v| v.to_s.encode("UTF-8", invalid: :replace, undef: :replace, replace: '') }
+      values.map { |v| v.to_s.encode("ISO-8859-1", invalid: :replace, undef: :replace, replace: '') }
     end
 
 end

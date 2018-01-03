@@ -74,7 +74,7 @@ feature 'Event page' do
     expect(page).to have_content "Test for check lobby_activity for visitors"
   end
 
-  scenario "When search by holder need display his events as participant", :search do
+  scenario 'When search by holder need display his events as participant', :search do
     position = create(:position)
     event = create(:event, position: position, title: "Acting as participant")
     create(:event, position: position, title: "Not involved event")
@@ -90,7 +90,7 @@ feature 'Event page' do
     expect(page).not_to have_content "Not involved event"
   end
 
-  scenario "When search by holder need display his events as position", :search do
+  scenario 'When search by holder need display his events as position', :search do
     position = create(:position)
     event1 = create(:event, position: position, title: "Acting as participant")
     participant = create(:participant, event_id: event1.id)
@@ -104,6 +104,37 @@ feature 'Event page' do
 
     expect(page).to have_content "Acting as participant"
     expect(page).not_to have_content "Not involved event"
+  end
+
+  describe 'CSV export link' do
+
+    scenario 'Should download a CSV file UTF-8 encoded', :search do
+      event = create(:event, published_at: Time.zone.yesterday)
+      Event.reindex
+      Sunspot.commit
+      visit visitors_path
+
+      click_link "Exportar"
+
+      header = page.response_headers['Content-Type']
+      expect(header).to match 'text/csv; charset=utf-8'
+    end
+
+    scenario 'Should download CSV file containing current filtered events', :search do
+      event = create(:event, published_at: Time.zone.yesterday)
+      Event.reindex
+      Sunspot.commit
+      visit visitors_path
+
+      click_link "Exportar"
+
+      expect(page).to have_content event.title
+      expect(page).to have_content event.description
+      expect(page).to have_content event.location
+      expect(page).to have_content event.position.holder.full_name
+      expect(page).to have_content I18n.l(event.scheduled, format: :short)
+    end
+
   end
 
   describe 'show' do

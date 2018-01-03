@@ -1,11 +1,11 @@
 <%=
   exporter = PublicOrganizationExporter.new
 
-  CSV.generate(col_sep: ';', force_quotes: true, encoding: "iso-8859-1") do |csv|
+  CSV.generate(col_sep: ';', encoding: 'UTF-8') do |csv|
     csv << exporter.windows_headers
 
     @organizations.results.each do |organization|
       csv << exporter.windows_organization_row(organization)
     end
-  end.html_safe
+  end
 %>
