@@ -7,12 +7,12 @@ module Admin::SidebarHelper
   end
 
   def event_fixed_filters
-    { 'tray' => {"utf8" => "✓", "search_title" => "", "search_person" => "",
-                 "status" => ["requested", "declined"], "lobby_activity" => "1",
-                 "controller" => "events", "action" => "index"} ,
-      'events' => {"utf8" => "✓", "search_title" => "", "search_person" => "",
-                   "status" => ["accepted", "done", "canceled"],
-                   "controller" => "events", "action" => "index"} }
+    { tray: {utf8: "✓", search_title: "", search_person: "",
+                 status: ["requested", "declined"], lobby_activity: "1",
+                 controller: "events", action: "index"} ,
+      events: {utf8: "✓", search_title: "", search_person: "",
+                   status: ["accepted", "done", "canceled"],
+                   controller: "events", action: "index"} }
   end
 
   def help_by_role(user)
@@ -32,11 +32,11 @@ module Admin::SidebarHelper
     end
 
     def event_filters?(shortcut)
-      event_fixed_filters[shortcut] == request.env['action_dispatch.request.parameters']
+      event_fixed_filters[shortcut] == request.env['action_dispatch.request.parameters'].symbolize_keys
     end
 
     def unfiltered?
-      !(event_fixed_filters.values.include? request.env['action_dispatch.request.parameters'])
+      !(event_fixed_filters.values.include? request.env['action_dispatch.request.parameters'].symbolize_keys)
     end
 
     def active?(model, shortcut, action)
