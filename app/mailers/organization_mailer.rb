@@ -1,6 +1,5 @@
 class OrganizationMailer < ApplicationMailer
 
-
   def create(organization)
     @name = organization.user_name
     @title = organization.fullname

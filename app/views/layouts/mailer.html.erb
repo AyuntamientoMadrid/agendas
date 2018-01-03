@@ -1,14 +1,20 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="es">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=10.0"/>
-  </head>
-  <style>
-    ul{ padding-left: 0;}
-    ul li{ list-style: none;}
-  </style>
-  <body>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Titúlo</title>
+  <meta name="descripcion" content="Descripción">
+  <meta charset="UTF-8">
+  <%= stylesheet_link_tag 'email', media: 'all' %>
+</head>
+<body class="body">
+  <div class="top-bar">
+    <%= image_tag 'logo-email.jpg', alt:'¡Madrid' %>
+  </div>
+  <div class="content">
     <%= yield %>
-  </body>
+  </div>
+  <div class="footer">
+    <p><%= t('mailers.footer') %></p>
+  </div>
+</body>
 </html>
