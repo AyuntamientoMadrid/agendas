@@ -13,9 +13,9 @@ feature 'Events' do
     describe "index" do
 
       scenario 'visit the events index page' do
-        visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
-                          "status" => ["requested", "declined"], "lobby_activity" => "1",
-                          "controller" => "events", "action" => "index" )
+        visit events_path(utf8: "✓", search_title: "", search_person: "",
+                          status: ["requested", "declined"], lobby_activity: "1",
+                          controller: "events", action: "index")
         expect(page).to have_content "Eventos"
         expect(page).to have_content I18n.t 'backend.event_tray'
       end
@@ -43,9 +43,9 @@ feature 'Events' do
         event9.update(status: :canceled)
         event10.update(status: :declined)
 
-        visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
-                          "status" => ["requested", "declined"], "lobby_activity" => "1",
-                          "controller" => "events", "action" => "index" )
+        visit events_path(utf8: "✓", search_title: "", search_person: "",
+                          status: ["requested", "declined"], lobby_activity: "1",
+                          controller: "events", action: "index" )
 
         click_link "Eventos"
         expect(find_link(I18n.t("backend.event_tray")).first(:xpath, ".//..")[:class]).not_to eq "active"
@@ -75,9 +75,9 @@ feature 'Events' do
         event = create(:event, position: @position)
         create(:attachment, event: event, title: "An amazing attachment title")
         create(:attachment, event: event, title: "Other title")
-        visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
-                          "status" => ["accepted", "canceled", "declined"],
-                          "controller" => "events", "action" => "index" )
+        visit events_path(utf8: "✓", search_title: "", search_person: "",
+                          status: ["accepted", "done", "canceled"],
+                          controller: "events", action: "index" )
 
         within "#event_#{event.id}" do
           find('.attachments-dropdown').click

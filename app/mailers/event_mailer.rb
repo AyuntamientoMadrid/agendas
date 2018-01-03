@@ -36,7 +36,7 @@ class EventMailer < ApplicationMailer
   def cancel(event, current_user)
     if current_user.lobby?
       return if event.organization.user.email.blank?
-      cc = event.position.holder.users.collect(&:email).join(",")  unless event.position.nil?
+      cc = event.position.holder.users.collect(&:email).join(",") unless event.position.nil?
       to = event.organization.user.email
     else
       return if event.lobby_contact_email.blank?

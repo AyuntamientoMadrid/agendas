@@ -114,7 +114,7 @@ feature 'Events Mailer' do
       login_as user
       clear_emails
       @event = create(:event, title: 'New event from Capybara', user: user,
-                      current_user: user)
+                              current_user: user)
       EventMailer.create(@event).deliver_now
       open_email(@event.organization.user.email)
     end
