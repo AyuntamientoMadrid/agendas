@@ -48,3 +48,4 @@ es:
       welcome: "Hola %{name}"
       text1: "Ha sido actualizado el lobby: %{title}"
       thanks: "Un saludo"
+    footer: "2018 Ayuntamiento Madrid"
