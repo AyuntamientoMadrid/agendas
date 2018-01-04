@@ -1,7 +1,10 @@
+include ActionView::Helpers::SanitizeHelper
+
 class OrganizationExporter
 
   ENUMS       = { range_fund: "organizations.show.range_fund", entity_type: "organizations.show.entity_type"}.freeze
   COLLECTIONS = { registered_lobbies: :name }.freeze
+  STRIP_HTML_TAGS =  [:description].freeze
 
   FIELDS = ['reference', 'identifier', 'name', 'first_surname', 'second_surname',
             'address_type', 'address', 'number', 'gateway', 'stairs', 'floor',
@@ -19,16 +22,7 @@ class OrganizationExporter
 
   def organization_to_row(organization)
     FIELDS.map do |field|
-      if ENUMS.keys.include?(field.to_sym)
-        I18n.t "#{ENUMS[field.to_sym]}.#{organization.send(field)}" if organization.send(field).present?
-      elsif COLLECTIONS.keys.include?(field.to_sym)
-        accessor = COLLECTIONS[field.to_sym]
-        organization.send(field).collect(&accessor).join(", ")
-      elsif organization.send(field).class == TrueClass || organization.send(field).class == FalseClass
-          I18n.t "#{organization.send(field)}"
-      else
-        organization.send(field)
-      end
+      process_field(organization, field)
     end
   end
 
@@ -81,4 +75,18 @@ class OrganizationExporter
       values.map { |v| v.to_s.encode("ISO-8859-1", invalid: :replace, undef: :replace, replace: '') }
     end
 
+    def process_field(organization, field)
+      if ENUMS.keys.include?(field.to_sym)
+        I18n.t "#{ENUMS[field.to_sym]}.#{organization.send(field)}" if organization.send(field).present?
+      elsif COLLECTIONS.keys.include?(field.to_sym)
+        accessor = COLLECTIONS[field.to_sym]
+        organization.send(field).collect(&accessor).join(", ")
+      elsif organization.send(field).class == TrueClass || organization.send(field).class == FalseClass
+        I18n.t "#{organization.send(field)}"
+      elsif STRIP_HTML_TAGS.include?(field.to_sym)
+        strip_tags(organization.send(field))
+      else
+        organization.send(field)
+      end
+    end
 end

@@ -15,7 +15,7 @@ describe OrganizationExporter do
     it "generates a row of info based on a public organization" do
       o = create(:organization, subvention: true, contract: true, certain_term: true,
                  code_of_conduct_term: true, gift_term: true, lobby_term: true,
-               inscription_reference: "ref232")
+               inscription_reference: "ref232", description: "No more html tags <bold>tags</bold>")
       l = create(:legal_representant, organization: o)
 
       row = exporter.organization_to_row(o)
@@ -37,7 +37,7 @@ describe OrganizationExporter do
       expect(row[14]).to eq(o.province)
       expect(row[15]).to eq(o.phones)
       expect(row[16]).to eq(o.email)
-      expect(row[17]).to eq(o.description)
+      expect(row[17]).to eq("No more html tags tags")
       expect(row[18]).to eq(o.web)
       expect(row[19]).to eq(o.registered_lobbies.collect(&:name).join(", "))
       expect(row[20]).to eq(o.fiscal_year)
