@@ -13,9 +13,9 @@ namespace :export do
     exporter.save_csv(folder.join('lobbies.csv'))
     puts "Lobbies.csv saved to public/export/lobbies.csv ✅"
     exporter.save_xls(folder.join('lobbies.xls'))
-    puts "Lobbies.csv saved to public/export/lobbies.xls ✅"
+    puts "Lobbies.xls saved to public/export/lobbies.xls ✅"
     exporter.save_json(folder.join('lobbies.json'))
-    puts "Lobbies.csv saved to public/export/lobbies.json ✅"
+    puts "Lobbies.json saved to public/export/lobbies.json ✅"
   end
 
   desc "Exports organizations' events to public/export/agendas.csv,
@@ -29,9 +29,9 @@ namespace :export do
     exporter.save_csv(folder.join('agendas.csv'))
     puts "Lobbies.csv saved to public/export/agendas.csv ✅"
     exporter.save_xls(folder.join('agendas.xls'))
-    puts "Lobbies.csv saved to public/export/agendas.xls ✅"
+    puts "Lobbies.xls saved to public/export/agendas.xls ✅"
     exporter.save_json(folder.join('agendas.json'))
-    puts "Lobbies.csv saved to public/export/agendas.json ✅"
+    puts "Lobbies.json saved to public/export/agendas.json ✅"
   end
 
 end
