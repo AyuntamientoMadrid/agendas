@@ -179,8 +179,8 @@ end
 LegalRepresentant.create(identifier: "43138883z", name: "Name", first_surname: "Surname", email: "email@legal.com", organization: organization_1)
 
 #Agents
-Agent.create(identifier: "43138882z", name: "Name1", from: Date.yesterday, organization: organization_1)
-Agent.create(identifier: "43138881z", name: "Name2", from: Date.yesterday, organization: organization_1)
+Agent.create(identifier: "43138882z", name: "Name1", from: Date.yesterday, organization: organization_1, allow_public_data: true)
+Agent.create(identifier: "43138881z", name: "Name2", from: Date.yesterday, organization: organization_1, allow_public_data: true)
 
 #Represented Entities
 RepresentedEntity.create(identifier: "43138880z", name: "Name3", from: Date.yesterday, fiscal_year: 2017, organization: organization_1, range_fund: :range_2)

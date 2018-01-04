@@ -3,7 +3,7 @@ include ActionView::Helpers::SanitizeHelper
 class OrganizationExporter
 
   ENUMS       = { range_fund: "organizations.show.range_fund", entity_type: "organizations.show.entity_type"}.freeze
-  COLLECTIONS = { registered_lobbies: :name }.freeze
+  COLLECTIONS = { registered_lobbies: :name, interests: :name, represented_entities: :fullname, agents: :fullname}.freeze
   STRIP_HTML_TAGS =  [:description].freeze
 
   FIELDS = ['reference', 'identifier', 'name', 'first_surname', 'second_surname',
@@ -14,7 +14,8 @@ class OrganizationExporter
             'code_of_conduct_term', 'gift_term', 'lobby_term', 'inscription_reference', 'inscription_date',
             'entity_type', 'neighbourhood', 'district', 'scope',
             'associations_count', 'members_count', 'approach',
-            'legal_representant_full_name', 'user_name', 'invalidated?'].freeze
+            'legal_representant_full_name', 'user_name', 'invalidated?',
+            'agents', 'represented_entities', 'interests'].freeze
 
   def headers
     FIELDS.map { |f| I18n.t("organization_exporter.#{f}") }

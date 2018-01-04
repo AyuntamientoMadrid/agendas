@@ -120,6 +120,9 @@ en:
     legal_representant_full_name: legal representant full name
     user_name: user name
     invalidated?: invalid
+    agents: Agents
+    represented_entities: Represented entities
+    interests: Interests
   events_exporter:
     title: título
     description: descripción
