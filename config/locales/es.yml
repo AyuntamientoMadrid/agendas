@@ -150,3 +150,22 @@ es:
     lobby_contact_email: email contacto
     lobby_contact_phone: teléfono contacto
     manager_general_remarks: observaciones generales del gestor
+
+  statistics:
+    statistics: "Estadísticas"
+    description: "A continuación las estadísticas de todo lo relacionado con el registro de lobbies"
+    category_lobbies: "Actividades de lobby por categoría"
+    interest_lobbies: "Actividades de lobby por intereses"
+    description_lobbies: "Información relativa a lobbies"
+    inscribed_lobbies: "Cantidad de lobbies inscritos"
+    employed: "Lobbies por cuenta ajena"
+    self_employed: "Lobbies por cuenta propia"
+    agents: "Personas inscritas para reunirse"
+    public_agendas: "Información relativa a las agendas públicas"
+    lobby_events: "Eventos con actividad de lobby"
+    total_events: "Total de eventos"
+    publc_agendas: "Total de agendas públicas"
+    category: "Categoría"
+    interest: "Interés"
+    amount: "Cantidad"
+

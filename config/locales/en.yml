@@ -142,3 +142,21 @@ en:
     lobby_contact_email: email contacto
     lobby_contact_phone: teléfono contacto
     manager_general_remarks: observaciones generales del gestor
+
+  statistics:
+    statistics: "Statistics"
+    description: "Below the statistics of everything related to the registration of lobbies"
+    category_lobbies: "Lobby activities by category"
+    interest_lobbies: "Lobby activities by interest"
+    description_lobbies: "About lobbies"
+    inscribed_lobbies: "Number of registered lobbies"
+    employed: "Employed lobbies"
+    self_employed: "Self-employed lobbies"
+    agents: "People registered to meet"
+    public_agendas: "About public agendas"
+    lobby_events: "Events wiht lobby activity"
+    total_events: "Total events"
+    publc_agendas: "Total public agendas"
+    category: "Category"
+    interest: "Interest"
+    amount: "Amount"

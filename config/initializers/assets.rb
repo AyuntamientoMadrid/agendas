@@ -10,16 +10,17 @@ Rails.application.config.assets.paths << Rails.root.join("app", "assets", "fonts
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
-Rails.application.config.assets.precompile += %w( dependencies/html5shiv.min.js )
-Rails.application.config.assets.precompile += %w( dependencies/respond.min.js )
-Rails.application.config.assets.precompile += %w( dependencies/jquery.treetable.js )
-Rails.application.config.assets.precompile += %w( admin/admin.js )
-Rails.application.config.assets.precompile += %w( ie_lt9.js )
-Rails.application.config.assets.precompile += %w( search_form.js )
-Rails.application.config.assets.precompile += %w( areas.js )
-Rails.application.config.assets.precompile += %w( events.js )
-Rails.application.config.assets.precompile += %w( holders.js )
-Rails.application.config.assets.precompile += %w( users.js )
-Rails.application.config.assets.precompile += %w( organizations.js )
-Rails.application.config.assets.precompile += %w( admin.css )
-Rails.application.config.assets.precompile += %w( email.css )
+Rails.application.config.assets.precompile += ['dependencies/html5shiv.min.js']
+Rails.application.config.assets.precompile += ['dependencies/respond.min.js']
+Rails.application.config.assets.precompile += ['dependencies/jquery.treetable.js']
+Rails.application.config.assets.precompile += ['admin/admin.js']
+Rails.application.config.assets.precompile += ['ie_lt9.js']
+Rails.application.config.assets.precompile += ['search_form.js']
+Rails.application.config.assets.precompile += ['areas.js']
+Rails.application.config.assets.precompile += ['events.js']
+Rails.application.config.assets.precompile += ['holders.js']
+Rails.application.config.assets.precompile += ['users.js']
+Rails.application.config.assets.precompile += ['organizations.js']
+Rails.application.config.assets.precompile += ['statistics.js']
+Rails.application.config.assets.precompile += ['admin.css']
+Rails.application.config.assets.precompile += ['email.css']

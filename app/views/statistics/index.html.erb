@@ -1,0 +1,95 @@
+<div class="small-12 column">
+  <h2><%=t("statistics.statistics")%></h2>
+  <p><%=t("statistics.description")%></p>
+
+  <button class="accordion" style="width: 100%;"><%=t("statistics.category_lobbies")%></button>
+  <div class="panel" style="display: none;">
+  <table class="display" cellpadding="0" width="100%" >
+    <thead>
+      <tr>
+        <th width="40%"><%= t('statistics.category')%></th>
+        <th width="15%"><%= t('statistics.amount')%></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%@lobby_category.each do|name , number| %>
+      <tr>
+        <td>
+          <%=name%>
+        </td>
+        <td>
+          <%=number%>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+
+<button class="accordion" style="width: 100%;"><%=t("statistics.interest_lobbies")%></button>
+<div class="panel" style="display: none;">
+  <table class="display" cellpadding="0" width="100%">
+    <thead>
+      <tr>
+        <th width="40%"><%= t('statistics.interest')%></th>
+        <th width="15%"><%= t('statistics.amount')%></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%@lobbies_interests.each do|name , number| %>
+      <tr>
+       <td>
+         <%=name%>
+       </td>
+       <td>
+        <%=number%>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<button class="accordion" style="width: 50%;"><%=t("statistics.description_lobbies")%></button>
+<div align="center" class="panel" style="width: 50%;display: none;">
+  <table>
+    <tbody>
+      <tr>
+        <th rowspan="2" scope="rowgroup" style='text-align:center;vertical-align:middle'><%=t("statistics.inscribed_lobbies")%><br> <p><%=@lobbies_active.count%></th>
+          <th scope="row"><%=t("statistics.employed")%></th>
+          <td><%=self_employed(false).count %></td>
+        </tr>
+        <tr>
+          <th scope="row"><%=t("statistics.self_employed")%></th>
+          <td><%=self_employed(true).count %></td>
+        </tr>
+        <tr>
+          <th scope="row"><%=t("statistics.agents")%></th>
+          <td><%=@agent_active%></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="accordion" style="width: 50%;"><%=t("statistics.public_agendas")%></button>
+  <div align="center" class="panel" style="width: 50%;display: none;">
+   <table>
+    <tbody>
+      <tr>
+        <th rowspan="1" scope="rowgroup" ><%=t("statistics.lobby_events")%></th>
+        <td><%=@event_lobby_activity%></td>
+      </tr>
+      <tr>
+        <th rowspan="1" scope="rowgroup"><%=t("statistics.total_events")%></th>
+        <td><%=@event_all%></td>
+      </tr>
+      <tr>
+        <th rowspan="1" scope="rowgroup"><%=t("publc_agendas")%></th>
+        <td><%=@holder_all%></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<%= javascript_include_tag 'statistics'%>
