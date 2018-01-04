@@ -1,6 +1,7 @@
 include ActionView::Helpers::SanitizeHelper
 
 class OrganizationExporter
+  attr_accessor :fields
 
   ENUMS       = { range_fund: "organizations.show.range_fund",
                   entity_type: "organizations.show.entity_type",
@@ -13,22 +14,31 @@ class OrganizationExporter
 
   TO_STRIP    =  [:description].freeze
 
-  FIELDS = ['reference', 'identifier', 'name', 'first_surname', 'second_surname',
-            'address_type', 'address', 'address_number_type', 'number', 'gateway',
-            'stairs', 'floor', 'door', 'postal_code', 'town', 'province', 'country',
-            'phones', 'email', 'description', 'web', 'registered_lobbies', 'fiscal_year',
-            'range_fund', 'subvention', 'contract',  'inscription_date', 'entity_type',
-            'legal_representant_full_name', 'legal_representant_email', 'legal_representant_phones',
-            'user_name', 'user_email', 'user_phones', 'invalidated?', 'agents',
-            'represented_entities', 'interests', 'status', 'updated_at', 'termination_date',
-            'self_employed_lobby', 'employee_lobby'].freeze
+  PRIVATE_FIELDS = [ 'reference', 'legal_representant_full_name',
+                     'legal_representant_email', 'legal_representant_phones',
+                     'user_name', 'user_email', 'user_phones' ].freeze
+
+  FIELDS = [ 'reference', 'identifier', 'name', 'first_surname', 'second_surname',
+             'address_type', 'address', 'address_number_type', 'number', 'gateway',
+             'stairs', 'floor', 'door', 'postal_code', 'town', 'province', 'country',
+             'phones', 'email', 'description', 'web', 'registered_lobbies', 'fiscal_year',
+             'range_fund', 'subvention', 'contract',  'inscription_date', 'entity_type',
+             'legal_representant_full_name', 'legal_representant_email', 'legal_representant_phones',
+             'user_name', 'user_email', 'user_phones', 'invalidated?', 'agents',
+             'represented_entities', 'interests', 'status', 'updated_at', 'termination_date',
+             'self_employed_lobby', 'employee_lobby' ].freeze
+
+  def initialize(extended = false)
+    @fields = FIELDS
+    @fields = @fields - PRIVATE_FIELDS unless extended
+  end
 
   def headers
-    FIELDS.map { |f| I18n.t("organization_exporter.#{f}") }
+    @fields.map { |f| I18n.t("organization_exporter.#{f}") }
   end
 
   def organization_to_row(organization)
-    FIELDS.map do |field|
+    @fields.map do |field|
       process_field(organization, field)
     end
   end
