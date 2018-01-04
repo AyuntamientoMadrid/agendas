@@ -2,20 +2,26 @@ include ActionView::Helpers::SanitizeHelper
 
 class OrganizationExporter
 
-  ENUMS       = { range_fund: "organizations.show.range_fund", entity_type: "organizations.show.entity_type"}.freeze
-  COLLECTIONS = { registered_lobbies: :name, interests: :name, represented_entities: :fullname, agents: :fullname}.freeze
-  STRIP_HTML_TAGS =  [:description].freeze
+  ENUMS       = { range_fund: "organizations.show.range_fund",
+                  entity_type: "organizations.show.entity_type",
+                  status: "organizations.show.statuses" }.freeze
+
+  COLLECTIONS = { registered_lobbies: :name,
+                  interests: :name,
+                  represented_entities: :fullname,
+                  agents: :fullname }.freeze
+
+  TO_STRIP    =  [:description].freeze
 
   FIELDS = ['reference', 'identifier', 'name', 'first_surname', 'second_surname',
-            'address_type', 'address', 'number', 'gateway', 'stairs', 'floor',
-            'door', 'postal_code', 'town', 'province', 'phones', 'email',
-            'description', 'web', 'registered_lobbies', 'fiscal_year',
-            'range_fund', 'subvention', 'contract', 'certain_term',
-            'code_of_conduct_term', 'gift_term', 'lobby_term', 'inscription_reference', 'inscription_date',
-            'entity_type', 'neighbourhood', 'district', 'scope',
-            'associations_count', 'members_count', 'approach',
-            'legal_representant_full_name', 'user_name', 'invalidated?',
-            'agents', 'represented_entities', 'interests'].freeze
+            'address_type', 'address', 'address_number_type', 'number', 'gateway',
+            'stairs', 'floor', 'door', 'postal_code', 'town', 'province', 'country',
+            'phones', 'email', 'description', 'web', 'registered_lobbies', 'fiscal_year',
+            'range_fund', 'subvention', 'contract',  'inscription_date', 'entity_type',
+            'legal_representant_full_name', 'legal_representant_email', 'legal_representant_phones',
+            'user_name', 'user_email', 'user_phones', 'invalidated?', 'agents',
+            'represented_entities', 'interests', 'status', 'updated_at', 'termination_date',
+            'self_employed_lobby', 'employee_lobby'].freeze
 
   def headers
     FIELDS.map { |f| I18n.t("organization_exporter.#{f}") }
@@ -84,7 +90,7 @@ class OrganizationExporter
         organization.send(field).collect(&accessor).join(", ")
       elsif organization.send(field).class == TrueClass || organization.send(field).class == FalseClass
         I18n.t "#{organization.send(field)}"
-      elsif STRIP_HTML_TAGS.include?(field.to_sym)
+      elsif TO_STRIP.include?(field.to_sym)
         strip_tags(organization.send(field))
       else
         organization.send(field)

@@ -39,9 +39,22 @@ en:
       user_name: "Nombre/Apellidos"
       fiscal_year_title: "Datos de quien va a ejercer la actividad de lobby por cuenta propia"
       fiscal_year: "Ejercicio anual"
-      range_fund: "Fondos dedicados a la actividad e lobby"
-      subvention: "Ayudas y/o subvenciones recibidas del Ayto"
-      contract: "Contratos y/o convenios con el Ayto"
+      range_fund_title: "Fondos dedicados a la actividad e lobby"
+      range_fund:
+        range_1: "Less than a 9.999 euros"
+        range_2: "From 10.000 to 24.999 euros"
+        range_3: "From 25.000 to 49.000 euros"
+        range_4: "More than 50.000 euros"
+      entity_type:
+        association: "Association"
+        federation: "Federation"
+        lobby: "Lobby"
+      statuses:
+        active: "Active"
+        inactive: "Inactive"
+        terminated: "Terminated"
+      subvention: "Grants and/or subsidies received from the City Council"
+      contract: "Contracts and/or agreements with the City Council"
 
       represented_entity_title: "Datos personas o entidades sin personalidad a quienes se va a representar"
       represented_entity_identifier: "NIF"
