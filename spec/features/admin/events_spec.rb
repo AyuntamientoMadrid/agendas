@@ -482,10 +482,8 @@ feature 'Events' do
             choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
             find('.add-participant').click
-            sleep 0.5
-
             within "#participants" do
-              find("option[value='1']").select_option
+              select "#{@position.holder.full_name_comma} - #{@position.title}"
             end
             click_button "Guardar"
 

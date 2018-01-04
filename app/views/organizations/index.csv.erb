@@ -7,5 +7,5 @@
     @organizations.results.each do |organization|
       csv << exporter.windows_organization_row(organization)
     end
-  end
+  end.html_safe
 %>
