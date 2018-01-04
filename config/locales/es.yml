@@ -164,7 +164,7 @@ es:
     public_agendas: "Información relativa a las agendas públicas"
     lobby_events: "Eventos con actividad de lobby"
     total_events: "Total de eventos"
-    publc_agendas: "Total de agendas públicas"
+    amount_public_agendas: "Total de agendas públicas"
     category: "Categoría"
     interest: "Interés"
     amount: "Cantidad"
