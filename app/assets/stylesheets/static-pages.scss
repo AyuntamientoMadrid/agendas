@@ -3,3 +3,15 @@
     list-style: unset;
   }
 }
+
+.statistics{
+  .accordion{
+    li{
+      margin-top: 0;
+      .accordion-title{
+        background: #003df6;
+        color: #fff;
+      }
+    }
+  }
+}
