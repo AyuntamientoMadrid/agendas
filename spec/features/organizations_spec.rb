@@ -414,30 +414,50 @@ feature 'Organizations page' do
       expect(page).to have_content organization.name
     end
 
-    describe "Export link" do
-      scenario "Should generate CSV file with organizations" do
-        skip('pending PR')
+    describe 'CSV export link' do
+
+      scenario 'Should download a CSV file UTF-8 encoded', :search do
+        event = create(:event, published_at: Time.zone.yesterday)
+        Event.reindex
+        Sunspot.commit
         visit organizations_path
 
-        click_link "Exportar"
+        click_on "Exportar"
 
-        expect(page.status_code).to eq 200
-        expect(page.response_headers['Content-Type']).to eq "text/csv; charset=utf-8"
+        header = page.response_headers['Content-Type']
+        expect(header).to match 'text/csv; charset=utf-8'
       end
 
-      scenario "Should include only search results", :search do
-        skip('pending PR')
-        organizations = create_list(:organization, 2)
-        Organization.reindex
+      scenario 'Should download CSV with headers', :search do
+        organization = create(:organization)
+        Event.reindex
+        Sunspot.commit
         visit organizations_path
-        fill_in :keyword, with: organizations.first.name
-        click_on "Buscar"
 
-        click_link "Exportar"
+        click_on "Exportar"
 
-        expect(page).to have_content organizations.first.name
-        expect(page).not_to have_content organizations.last.name
+        exporter = OrganizationExporter.new false
+        headers = exporter.headers
+        headers.each do |column_header|
+          expect(page).to have_content column_header
+        end
       end
+
+      scenario 'Should download extended CSV', :search do
+        organization = create(:organization)
+        Event.reindex
+        Sunspot.commit
+        visit organizations_path
+
+        click_on "Exportar"
+
+        exporter = OrganizationExporter.new false
+        headers = exporter.headers
+        headers.each do |column_header|
+          expect(page).to have_content column_header
+        end
+      end
+
     end
 
   end

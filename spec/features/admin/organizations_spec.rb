@@ -193,7 +193,22 @@ feature 'Organization' do
 
           click_link "Exportar"
 
-          exporter = OrganizationExporter.new
+          exporter = OrganizationExporter.new true
+          headers = exporter.headers
+          headers.each do |column_header|
+            expect(page).to have_content column_header
+          end
+        end
+
+        scenario 'Should download extended CSV', :search do
+          organization = create(:organization)
+          Event.reindex
+          Sunspot.commit
+          visit admin_organizations_path
+
+          click_link "Exportar"
+
+          exporter = OrganizationExporter.new true
           headers = exporter.headers
           headers.each do |column_header|
             expect(page).to have_content column_header
