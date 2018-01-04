@@ -123,9 +123,23 @@ category_1 = Category.first
 category_2 = Category.second
 category_3 = Category.third
 
+# RegisteredLobby
+registered_lobbies = ['Ninguno',
+                      'Generalidad catalunya',
+                      'CNMC',
+                      'Unión Europea',
+                      'Otro']
+
+registered_lobbies.each do |name|
+  RegisteredLobby.find_or_create_by(name: name)
+end
+
 # Organization
 user_lobby_1 = User.create(password: '12345678', email: 'lobby@agendas.dev', first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
-organization_1 = Organization.create(name: Faker::Company.name, entity_type: :lobby, inscription_date: Date.current - 1.year, certain_term: true, code_of_conduct_term: true, gift_term: true, lobby_term: true, user: user_lobby_1, category: category_1, reference: 'W45Y')
+organization_1 = Organization.create(name: Faker::Company.name, entity_type: :lobby, inscription_date: Date.current - 1.year, certain_term: true, code_of_conduct_term: true, gift_term: true, lobby_term: true, user: user_lobby_1, category: category_1, reference: 'W45Y', identifier: 'identifier',
+                                     address: Faker::Address.street_name, address_type: "Calle", number: Faker::Address.building_number, gateway: "B", stairs: "C", floor: "2", door: "A", postal_code: Faker::Address.postcode, town: Faker::Address.city, province: Faker::Address.state, neighbourhood: "My neighbourhood",
+                                     district: "Distrito A", approach: "Descripción de como llegar", scope: "Ámbito A", country: Faker::Address.country, phones: "123123123/345345345", email: "organization@email.com", description: "Hacer lobby a tope!", web: "http://www.organization.com", registered_lobby_ids: [RegisteredLobby.first.id],
+                                     fiscal_year: 2018, range_fund: :range_1, subvention: true, contract: false, associations_count: 200, members_count: 123)
 
 user_lobby_2 = User.create(password: '12345678', email: 'lob_by@agendas.dev', first_name: 'Pepe', last_name: 'Perez', active: 1, role: 2)
 organization_2 = Organization.create(name: Faker::Company.name, entity_type: :lobby, inscription_date: Date.current - 2.years, certain_term: true, code_of_conduct_term: true, gift_term: true, lobby_term: true, user: user_lobby_2, category: category_2)
@@ -177,8 +191,3 @@ OrganizationInterest.create(organization: organization_1, interest: interest_1)
 OrganizationInterest.create(organization: organization_1, interest: interest_2)
 OrganizationInterest.create(organization: organization_1, interest: interest_3)
 
-RegisteredLobby.create(name: "no_record")
-RegisteredLobby.create(name: "generalitat_catalunya")
-RegisteredLobby.create(name: "cnmc")
-RegisteredLobby.create(name: "europe_union")
-RegisteredLobby.create(name: "others")

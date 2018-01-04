@@ -78,7 +78,7 @@ en:
       - :day
       - :month
       - :year
-  public_organization_exporter:
+  organization_exporter:
     reference: reference
     identifier: identifier
     name: name
@@ -119,7 +119,7 @@ en:
     approach: approach
     legal_representant_full_name: legal representant full name
     user_name: user name
-    invalidate: invalidate
+    invalidated?: invalid
   events_exporter:
     title: título
     description: descripción

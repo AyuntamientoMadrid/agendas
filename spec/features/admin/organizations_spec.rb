@@ -193,26 +193,10 @@ feature 'Organization' do
 
           click_link "Exportar"
 
-          exporter = PublicOrganizationExporter.new
+          exporter = OrganizationExporter.new
           headers = exporter.headers
           headers.each do |column_header|
             expect(page).to have_content column_header
-          end
-        end
-
-        scenario 'Should download CSV file containing organization information', :search do
-          organization = create(:organization)
-          Event.reindex
-          Sunspot.commit
-          visit admin_organizations_path
-
-          click_link "Exportar"
-
-          export_fields = PublicOrganizationExporter::FIELDS
-          complex_fields = ['registered_lobbies']
-          export_fields = export_fields.reject{|export_field| complex_fields.include?(export_field) }
-          export_fields.each do |export_field|
-            expect(page).to have_content organization.send(export_field)
           end
         end
 

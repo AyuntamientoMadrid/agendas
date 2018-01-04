@@ -86,7 +86,7 @@ es:
       - :day
       - :month
       - :year
-  public_organization_exporter:
+  organization_exporter:
     reference: referencia
     identifier: identificador
     name: nombre
@@ -99,7 +99,7 @@ es:
     stairs: escaleras
     floor: planta
     door: puerta
-    postal_code: codig postal
+    postal_code: código postal
     town: pueblo
     province: provincia
     phones: telefonos
@@ -127,7 +127,7 @@ es:
     approach: aproximación
     legal_representant_full_name: nombre y apellidos del representante legal
     user_name: nombre y apellidos
-    invalidate: invalidada
+    invalidated?: invalidada
   events_exporter:
     title: título
     description: descripción

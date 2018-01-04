@@ -118,7 +118,7 @@ class Organization < ActiveRecord::Base
   end
 
   def invalidated?
-    !invalidated_at.nil?
+    invalidated_at.present?
   end
 
   def canceled?

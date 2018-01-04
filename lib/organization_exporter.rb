@@ -1,4 +1,8 @@
-class PublicOrganizationExporter
+class OrganizationExporter
+
+  ENUMS       = { range_fund: "organizations.show.range_fund", entity_type: "organizations.show.entity_type"}.freeze
+  COLLECTIONS = { registered_lobbies: :name }.freeze
+
   FIELDS = ['reference', 'identifier', 'name', 'first_surname', 'second_surname',
             'address_type', 'address', 'number', 'gateway', 'stairs', 'floor',
             'door', 'postal_code', 'town', 'province', 'phones', 'email',
@@ -7,15 +11,24 @@ class PublicOrganizationExporter
             'code_of_conduct_term', 'gift_term', 'lobby_term', 'inscription_reference', 'inscription_date',
             'entity_type', 'neighbourhood', 'district', 'scope',
             'associations_count', 'members_count', 'approach',
-            'legal_representant_full_name', 'user_name', 'invalidate'].freeze
+            'legal_representant_full_name', 'user_name', 'invalidated?'].freeze
 
   def headers
-    FIELDS.map { |f| I18n.t("public_organization_exporter.#{f}") }
+    FIELDS.map { |f| I18n.t("organization_exporter.#{f}") }
   end
 
   def organization_to_row(organization)
-    FIELDS.map do |f|
-      organization.send(f)
+    FIELDS.map do |field|
+      if ENUMS.keys.include?(field.to_sym)
+        I18n.t "#{ENUMS[field.to_sym]}.#{organization.send(field)}" if organization.send(field).present?
+      elsif COLLECTIONS.keys.include?(field.to_sym)
+        accessor = COLLECTIONS[field.to_sym]
+        organization.send(field).collect(&accessor).join(", ")
+      elsif organization.send(field).class == TrueClass || organization.send(field).class == FalseClass
+          I18n.t "#{organization.send(field)}"
+      else
+        organization.send(field)
+      end
     end
   end
 
@@ -28,7 +41,7 @@ class PublicOrganizationExporter
   end
 
   def save_csv(path)
-    CSV.open(path, 'w', col_sep: ';', force_quotes: true, encoding: "ISO-8859-1") do |csv|
+    CSV.open(path, 'w', col_sep: ';', encoding: "ISO-8859-1") do |csv|
       csv << windows_headers
       Organization.find_each do |organization|
         csv << windows_organization_row(organization)
@@ -67,4 +80,5 @@ class PublicOrganizationExporter
     def windows_array(values)
       values.map { |v| v.to_s.encode("ISO-8859-1", invalid: :replace, undef: :replace, replace: '') }
     end
+
 end

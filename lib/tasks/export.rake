@@ -1,4 +1,4 @@
-require 'public_organization_exporter'
+require 'organization_exporter'
 require 'fileutils'
 
 namespace :export do
@@ -8,7 +8,7 @@ namespace :export do
     folder = Rails.root.join('public', 'export')
     FileUtils.mkdir_p folder unless Dir.exist?(folder)
 
-    exporter = PublicOrganizationExporter.new
+    exporter = OrganizationExporter.new
 
     exporter.save_csv(folder.join('lobbies.csv'))
     exporter.save_xls(folder.join('lobbies.xls'))

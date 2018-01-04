@@ -16,5 +16,9 @@ module Admin
     def organization_attachments_download_dropdown_id(organization)
       "organization_#{organization.id}_attachments_dropdown"
     end
+
+    def options_for_registered_lobby
+      RegisteredLobby.all.map { |rl| [rl.name, rl.id] }
+    end
   end
 end
