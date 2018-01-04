@@ -4,15 +4,22 @@ require 'organization_exporter'
 describe OrganizationExporter do
   let(:exporter) { OrganizationExporter.new }
 
-  describe '#headers' do
-    it "generates localized headers" do
-      expect(exporter.headers.first).to eq('referencia')
-      expect(exporter.headers.last).to eq('lobby por cuenta ajena')
+  describe "#headers" do
+
+    it "Should contain forty-two colums" do
+      expect(exporter.headers.size).to eq(43)
     end
+
+    it "Should return correct headers translations" do
+      OrganizationExporter::FIELDS.each_with_index do |field, index|
+        expect(exporter.headers[index]).to eq(I18n.t("organization_exporter.#{field}"))
+      end
+    end
+
   end
 
-  describe '#organization_to_row' do
-    it "generates a row of info based on a public organization" do
+  describe "#organization_to_row" do
+    it "Should return array of columns in exact order" do
       organization = create(:organization, subvention: true, contract: true, certain_term: true,
                             code_of_conduct_term: true, gift_term: true, lobby_term: true,
                             inscription_reference: "ref232", description: "No more html tags <bold>tags</bold>", country: "Spain",
@@ -65,6 +72,8 @@ describe OrganizationExporter do
       expect(row[38]).to eq("Activo")
       expect(row[39]).to eq(organization.updated_at)
       expect(row[40]).to eq(organization.termination_date)
+      expect(row[41]).to eq("No")
+      expect(row[42]).to eq("Sí")
     end
   end
 
