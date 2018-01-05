@@ -1,5 +1,9 @@
+include ActionView::Helpers::SanitizeHelper
+
 class EventsExporter
   ENUMS       = { status: "status" }.freeze
+
+  TO_STRIP    =  [:description, :general_remarks, :declined_reasons, :canceled_reasons, :manager_general_remarks].freeze
 
   FIELDS = ['title', 'description', 'scheduled', 'updated_at', 'user_name', 'holder_name', 'position_names', 'location', 'status',
             'notes', 'canceled_reasons', 'published_at', 'canceled_at', 'lobby_activity',
@@ -71,6 +75,8 @@ class EventsExporter
         I18n.t "#{ENUMS[field.to_sym]}.#{event.send(field)}" if event.send(field).present?
       elsif event.send(field).class == TrueClass || event.send(field).class == FalseClass
         I18n.t "#{event.send(field)}"
+      elsif TO_STRIP.include?(field.to_sym)
+        strip_tags(event.send(field))
       else
         event.send(field)
       end
