@@ -160,6 +160,9 @@ es:
     lobby_scheduled: descripción de fecha propuesta
     general_remarks: observaciones generales
     lobby_contact_firstname: nombre contacto
+    accepted_at: fecha de aceptación
+    declined_reasons: motivos de denegación
+    declined_at: fecha de denegación
     lobby_contact_lastname: apellido contacto
     lobby_contact_email: email contacto
     lobby_contact_phone: teléfono contacto
