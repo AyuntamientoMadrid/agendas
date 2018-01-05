@@ -90,6 +90,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def holder_name
+    position.holder.full_name
+  end
+
   def self.managed_by(user)
     holder_ids = Holder.managed_by(user.id).pluck(:id)
     titular_event_ids = Event.by_holders(holder_ids).pluck(:id)
