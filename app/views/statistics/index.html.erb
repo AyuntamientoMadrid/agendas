@@ -6,31 +6,31 @@
     <%= t'statistics.description' %>
   </p>
 
-  <ul class="accordion" role = "tablist">
+  <ul class="accordion">
     <li class="accordion-navigation active">
       <div class="accordion-title">
-        <%=t 'statistics.category_lobbies' %>
+        <%= t'statistics.category_lobbies' %>
       </div>
       <div class="content active">
-        <table cellpadding="0" width="100%" >
+        <table>
           <thead>
             <tr>
-              <th width="40%">
+              <th width="90%">
                 <%= t'statistics.category' %>
               </th>
-              <th width="15%">
+              <th class="text-center">
                 <%= t'statistics.amount' %>
               </th>
             </tr>
           </thead>
           <tbody>
-            <%@lobby_category.each do|name , number| %>
+            <% @lobby_category.each do |name , number| %>
             <tr>
               <td>
-                <%=name%>
+                <%= name %>
               </td>
-              <td>
-                <%=number%>
+              <td class="text-center">
+                <%= number %>
               </td>
             </tr>
             <% end %>
@@ -44,24 +44,24 @@
         <%= t'statistics.interest_lobbies' %>
       </div>
       <div class="content active">
-        <table cellpadding="0" width="100%">
+        <table>
           <thead>
             <tr>
-              <th width="40%">
+              <th width="90%">
                 <%= t'statistics.interest' %>
               </th>
-              <th width="15%">
+              <th class="text-center">
                 <%= t'statistics.amount' %>
               </th>
             </tr>
           </thead>
           <tbody>
-            <%@lobbies_interests.each do|name , number| %>
+            <%@lobbies_interests.each do |name , number| %>
               <tr>
                 <td>
                   <%= name %>
                 </td>
-                <td>
+                <td class="text-center">
                   <%= number %>
                 </td>
               </tr>
@@ -76,13 +76,15 @@
         <%= t'statistics.description_lobbies' %>
       </div>
       <div class="content active">
-        <table width="100%">
+        <table>
           <tbody>
             <tr>
               <th colspan="3">
                 <%= t'statistics.inscribed_lobbies' %>
                 <br />
-                <span><%= @lobbies_active.count %></span>
+                <span>
+                  <%= @lobbies_active.count %>
+                </span>
                 <tr>
                   <td class="border-right">
                     <strong>
@@ -115,32 +117,32 @@
 
     <li class="accordion-navigation active">
       <div class="accordion-title">
-        <%= t 'statistics.public_agendas' %>
+        <%= t'statistics.public_agendas' %>
       </div>
       <div class="content active">
-        <table width="100%">
+        <table>
           <tbody>
             <tr>
-              <th rowspan="1" scope="rowgroup" >
+              <th>
                 <%= t'statistics.lobby_events' %>
               </th>
-              <td>
+              <td class="text-center">
                 <%= @event_lobby_activity %>
               </td>
             </tr>
             <tr>
-              <th rowspan="1" scope="rowgroup">
+              <th>
                 <%= t'statistics.total_events' %>
               </th>
-              <td>
+              <td class="text-center">
                 <%= @event_all %>
               </td>
             </tr>
             <tr>
-              <th rowspan="1" scope="rowgroup">
+              <th>
                 <%= t'statistics.amount_public_agendas' %>
               </th>
-              <td>
+              <td class="text-center">
                 <%= @holder_all %>
               </td>
             </tr>
