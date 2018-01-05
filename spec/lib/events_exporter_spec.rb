@@ -6,8 +6,8 @@ describe EventsExporter do
 
   describe "#headers" do
 
-    it "Should contain twenty-four colums headers" do
-      expect(exporter.headers.size).to eq(24)
+    it "Should contain twenty-five colums headers" do
+      expect(exporter.headers.size).to eq(25)
     end
 
     it "Should return correct headers translations" do
