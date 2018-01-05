@@ -4,15 +4,21 @@ require 'events_exporter'
 describe EventsExporter do
   let(:exporter) { EventsExporter.new }
 
-  describe '#headers' do
-    it "generates localized headers" do
-      expect(exporter.headers.first).to eq('título')
-      expect(exporter.headers.last).to eq('observaciones generales del gestor')
+  describe "#headers" do
+
+    it "Should contain twenty-four colums headers" do
+      expect(exporter.headers.size).to eq(24)
+    end
+
+    it "Should return correct headers translations" do
+      EventsExporter::FIELDS.each_with_index do |field, index|
+        expect(exporter.headers[index]).to eq(I18n.t("events_exporter.#{field}"))
+      end
     end
   end
 
   describe '#events_to_row' do
-    it "generates a row of info based on a event" do
+    it "Should return array of public events" do
       position = create(:position)
       event = create(:event, organization_name: "Organization name", position: position)
 
@@ -41,7 +47,6 @@ describe EventsExporter do
       expect(row).to include(event.general_remarks)
       expect(row).to include(event.lobby_contact_phone)
       expect(row).to include(event.manager_general_remarks)
-
     end
   end
 
