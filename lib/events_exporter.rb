@@ -77,6 +77,9 @@ class EventsExporter
         I18n.t "#{event.send(field)}"
       elsif TO_STRIP.include?(field.to_sym)
         strip_tags(event.send(field))
+      elsif event.send(field).present? && Event.columns_hash[field].present? &&
+            (Event.columns_hash[field].type == :date || Event.columns_hash[field].type == :datetime)
+        I18n.l event.send(field), format: :short
       else
         event.send(field)
       end
