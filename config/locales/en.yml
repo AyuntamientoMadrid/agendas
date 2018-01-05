@@ -140,7 +140,8 @@ en:
     scheduled: fecha
     updated_at: última actualización
     user_name: usuario
-    position_names: titular de la agenda
+    holder_name: titular agenda
+    position_names: titular de agenda participantes
     location: lugar
     status: estado
     notes: notas

@@ -1,7 +1,7 @@
 class EventsExporter
   ENUMS       = { status: "status" }.freeze
 
-  FIELDS = ['title', 'description', 'scheduled', 'updated_at', 'user_name', 'position_names', 'location', 'status',
+  FIELDS = ['title', 'description', 'scheduled', 'updated_at', 'user_name', 'holder_name', 'position_names', 'location', 'status',
             'notes', 'canceled_reasons', 'published_at', 'canceled_at', 'lobby_activity',
             'organization_name', 'lobby_scheduled', 'general_remarks', 'lobby_contact_firstname',
             'accepted_at', 'declined_reasons', 'declined_at',

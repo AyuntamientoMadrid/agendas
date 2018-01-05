@@ -148,6 +148,7 @@ es:
     scheduled: fecha
     updated_at: última actualización
     user_name: usuario
+    holder_name: titular de agenda
     position_names: titular de la agenda
     location: lugar
     status: estado
