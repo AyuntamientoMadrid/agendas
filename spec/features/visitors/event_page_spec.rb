@@ -132,7 +132,7 @@ feature 'Event page' do
       expect(page).to have_content event.description
       expect(page).to have_content event.location
       expect(page).to have_content event.position.holder.full_name
-      expect(page).to have_content event.scheduled
+      expect(page).to have_content I18n.l(event.scheduled, format: :short)
     end
 
   end

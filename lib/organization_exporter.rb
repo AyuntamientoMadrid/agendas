@@ -102,8 +102,12 @@ class OrganizationExporter
         I18n.t "#{organization.send(field)}"
       elsif TO_STRIP.include?(field.to_sym)
         strip_tags(organization.send(field))
+      elsif organization.send(field).present? && Organization.columns_hash[field].present? &&
+            (Organization.columns_hash[field].type == :date || Organization.columns_hash[field].type == :datetime)
+        I18n.l organization.send(field), format: :short
       else
         organization.send(field)
       end
     end
+
 end
