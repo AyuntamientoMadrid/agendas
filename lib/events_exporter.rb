@@ -10,8 +10,8 @@ class EventsExporter
   end
 
   def event_to_row(event)
-    FIELDS.map do |f|
-      event.send(f)
+    FIELDS.map do |field|
+      process_field(event, field)
     end
   end
 
@@ -37,7 +37,7 @@ class EventsExporter
     book = Spreadsheet::Workbook.new
     sheet = book.create_worksheet
     sheet.row(0).default_format = Spreadsheet::Format.new color: :blue, weight: :bold
-    sheet.row(0).concat headers
+    sheet.row(0).concat windows_headers
     index = 1
     Event.find_each do |event|
       sheet.row(index).concat windows_event_row(event)
@@ -64,4 +64,11 @@ class EventsExporter
       values.map { |v| v.to_s.encode("ISO-8859-1", invalid: :replace, undef: :replace, replace: '') }
     end
 
+    def process_field(event, field)
+      if event.send(field).class == TrueClass || event.send(field).class == FalseClass
+        I18n.t "#{event.send(field)}"
+      else
+        event.send(field)
+      end
+    end
 end
