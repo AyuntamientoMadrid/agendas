@@ -65,7 +65,7 @@ class OrganizationExporter
     book = Spreadsheet::Workbook.new
     sheet = book.create_worksheet
     sheet.row(0).default_format = Spreadsheet::Format.new color: :blue, weight: :bold
-    sheet.row(0).concat headers
+    sheet.row(0).concat windows_headers
     index = 1
     Organization.find_each do |organization|
       sheet.row(index).concat windows_organization_row(organization)
