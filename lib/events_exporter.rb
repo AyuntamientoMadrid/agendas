@@ -1,4 +1,6 @@
 class EventsExporter
+  ENUMS       = { status: "status" }.freeze
+
   FIELDS = ['title', 'description', 'scheduled', 'updated_at', 'user_name', 'position_names', 'location', 'status',
             'notes', 'canceled_reasons', 'published_at', 'canceled_at', 'lobby_activity',
             'organization_name', 'lobby_scheduled', 'general_remarks', 'lobby_contact_firstname',
@@ -65,7 +67,9 @@ class EventsExporter
     end
 
     def process_field(event, field)
-      if event.send(field).class == TrueClass || event.send(field).class == FalseClass
+      if ENUMS.keys.include?(field.to_sym)
+        I18n.t "#{ENUMS[field.to_sym]}.#{event.send(field)}" if event.send(field).present?
+      elsif event.send(field).class == TrueClass || event.send(field).class == FalseClass
         I18n.t "#{event.send(field)}"
       else
         event.send(field)
