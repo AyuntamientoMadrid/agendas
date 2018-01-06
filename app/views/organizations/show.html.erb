@@ -152,6 +152,16 @@
               <% end %>
             <% end %>
           </p>
+
+          <p>
+            <strong>Lobby por cuenta propia</strong>
+            <%= t(@organization.own_lobby_activity.to_s) %>
+          </p>
+
+          <p>
+            <strong>Lobby por cuenta ajena</strong>
+            <%= t(@organization.foreign_lobby_activity.to_s) %>
+          </p>
         </div>
       </li>
 
@@ -162,7 +172,7 @@
         </div>
 
         <div class="content active">
-          <% if @organization.fiscal_year.present? || @organization.range_fund.present? %>
+          <% if @organization.own_lobby_activity %>
             <p>
               <strong><%= t('organizations.show.fiscal_year') %> </strong>
               <%= @organization.fiscal_year.present? ? @organization.fiscal_year : "Sin año" %>

@@ -36,6 +36,30 @@ $(function(){
     $('#validate_link').toggleClass('success');
   });
 
+  if ($("#organization_own_lobby_activity_true").is(":checked")) {
+    $('#lobbies-data-content').show();
+  };
+
+  $("#organization_own_lobby_activity_false").click(function(){
+    $('#lobbies-data-content').hide();
+  });
+
+  $("#organization_own_lobby_activity_true").click(function(){
+    $('#lobbies-data-content').show();
+  });
+
+  if ($("#organization_foreign_lobby_activity_true").is(":checked")) {
+    $("#represented-entities-content").show();
+  };
+
+  $("#organization_foreign_lobby_activity_false").click(function(){
+    $("#represented-entities-content").hide();
+  });
+
+  $("#organization_foreign_lobby_activity_true").click(function(){
+    $("#represented-entities-content").show();
+  });
+
 });
 
 function restore_legal_representant(e){
