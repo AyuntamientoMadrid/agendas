@@ -1,7 +1,7 @@
 <div class="row">
   <h1>
     <%= t('backend.users')%> (<%= @users.count %>)
-    <%= link_to t('backend.new_user'), new_user_path, :class => "button radius warning right" if can? :create, User %>
+    <%= link_to t('backend.new_user'), new_admin_user_path, :class => "button radius warning right" if can? :create, User %>
   </h1>
   <%= link_to t('backend.export'), current_url(:format=>:csv), :class => "button tiny radius success" %>
 </div>
@@ -27,7 +27,7 @@
     <% @users.each do |user| %>
         <tr>
           <td>
-            <%= link_to user.full_name_comma, user_path(user) %><br />
+            <%= link_to user.full_name_comma, admin_user_path(user) %><br />
             <%= user.email %>
           </td>
           <td>
@@ -39,11 +39,11 @@
             <% end %>
           </td>
           <td>
-            <%= link_to edit_user_path(user), title: t('backend.edit') do %>
+            <%= link_to edit_admin_user_path(user), title: t('backend.edit') do %>
               <i class="step fi-page-edit size-24"></i>
             <% end if can? :edit, User %>
 
-            <%= link_to user_path(user), method: :delete, data: { confirm: t("backend.confirm") }, title: t('backend.delete') do%>
+            <%= link_to admin_user_path(user), method: :delete, data: { confirm: t("backend.confirm") }, title: t('backend.delete') do%>
               <i class="step fi-page-delete size-24"></i>
             <% end if can? :delete, User%>
           </td>

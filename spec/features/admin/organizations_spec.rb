@@ -1059,7 +1059,7 @@ feature 'Organization' do
 
     background do
       manager = create(:user, :user)
-      signin(manager.email, manager.password)
+      login_as manager
     end
 
     scenario 'Visit manager backend page and not display organization button on sidebar' do
@@ -1077,7 +1077,7 @@ feature 'Organization' do
     background do
       @lobby = create(:user, :lobby)
       create(:organization, user: @lobby)
-      signin(@lobby.email, @lobby.password)
+      login_as @lobby
 
       @interest = create(:interest)
     end
@@ -1128,7 +1128,7 @@ feature 'Organization' do
 
     background do
       user_admin = create(:user, :lobby)
-      signin(user_admin.email, user_admin.password)
+      login_as user_admin
     end
 
     scenario 'Should show delete and edit link', :js do

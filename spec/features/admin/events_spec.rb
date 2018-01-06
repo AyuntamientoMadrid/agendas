@@ -7,7 +7,7 @@ feature 'Events' do
       @position = create(:position)
       @agent = create(:agent, organization: @organization)
       @user_manager.manages.create(holder_id: @position.holder_id)
-      signin(@user_manager.email, @user_manager.password)
+      login_as @user_manager
     end
 
     describe "index" do
@@ -286,7 +286,7 @@ feature 'Events' do
       @user_admin = create(:user, :admin)
       @position = create(:position)
       @user_admin.manages.create(holder_id: @position.holder_id)
-      signin(@user_admin.email, @user_admin.password)
+      login_as @user_admin
     end
 
     describe "show" do
@@ -877,7 +877,7 @@ feature 'Events' do
       @position = create(:position)
       @agent = create(:agent, organization: @organization)
       @organization_user.manages.create(holder_id: @position.holder_id)
-      signin(@organization_user.email, @organization_user.password)
+      login_as @organization_user
     end
 
     scenario 'visit index event page' do
@@ -1231,7 +1231,7 @@ feature 'Events' do
       @user_admin = create(:user, :admin)
       @position = create(:position)
       @user_admin.manages.create(holder_id: @position.holder_id)
-      signin(@user_admin.email, @user_admin.password)
+      login_as @user_admin
     end
 
     scenario 'filter events by one status on multiselect', :js do
@@ -1281,7 +1281,7 @@ feature 'Events' do
       @position = create(:position)
       @agent = create(:agent, organization: @organization)
       @organization_user.manages.create(holder_id: @position.holder_id)
-      signin(@organization_user.email, @organization_user.password)
+      login_as @organization_user
     end
 
     scenario "Lobby user can only cancel events", :js do
@@ -1303,7 +1303,7 @@ feature 'Events' do
       @position = create(:position)
       @agent = create(:agent, organization: @organization)
       @organization_user.manages.create(holder_id: @position.holder_id)
-      signin(@organization_user.email, @organization_user.password)
+      login_as @organization_user
     end
 
     scenario "Admin user can accept, decline and cancel events", :js do
@@ -1324,7 +1324,7 @@ feature 'Events' do
       @position = create(:position)
       @agent = create(:agent, organization: @organization)
       @organization_user.manages.create(holder_id: @position.holder_id)
-      signin(@organization_user.email, @organization_user.password)
+      login_as @organization_user
     end
 
     scenario "regular user can accept, decline and cancel events", :js do

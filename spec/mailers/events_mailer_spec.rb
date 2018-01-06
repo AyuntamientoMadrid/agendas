@@ -3,7 +3,7 @@ feature 'Events Mailer' do
   describe "Cancel Event" do
     background do
       user = create(:user, :user)
-      signin(user.email, user.password)
+      login_as user
       clear_emails
       @event = create(:event, title: 'New event from Capybara', user: user)
       @event.update(status: 'accepted')
@@ -26,7 +26,7 @@ feature 'Events Mailer' do
 
     background do
       user = create(:user, :user)
-      signin(user.email, user.password)
+      login_as user
       clear_emails
       @event = create(:event, title: 'New event from Capybara', user: user)
       @event.lobby_contact_firstname = 'test_name'
@@ -50,7 +50,7 @@ feature 'Events Mailer' do
 
     background do
       user = create(:user, :user)
-      signin(user.email, user.password)
+      login_as user
       clear_emails
       @event = create(:event, title: 'New event from Capybara', user: user)
       @event.lobby_contact_firstname = 'test_name'
@@ -72,7 +72,7 @@ feature 'Events Mailer' do
   describe "Cancel Event" do
     background do
       user = create(:user, :lobby)
-      signin(user.email, user.password)
+      login_as user
       clear_emails
       @event = create(:event, title: 'New event from Capybara', user: user)
       @event.update(status: 'accepted')
@@ -93,7 +93,7 @@ feature 'Events Mailer' do
   describe "Create Event" do
     background do
       user = create(:user, :user)
-      signin(user.email, user.password)
+      login_as user
       clear_emails
       @event = create(:event, title: 'New event from Capybara', user: user,
                       current_user: user, lobby_contact_email: 'test@test', lobby_activity: true )
@@ -109,7 +109,7 @@ feature 'Events Mailer' do
   describe "Create Event" do
     background do
       user = create(:user, :lobby)
-      signin(user.email, user.password)
+      login_as user
       clear_emails
       @event = create(:event, title: 'New event from Capybara', user: user,
                       current_user: user, lobby_contact_email: 'test@test', lobby_activity: true, status: "requested" )
