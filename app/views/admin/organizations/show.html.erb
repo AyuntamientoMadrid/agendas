@@ -165,16 +165,16 @@
         </p>
       </div>
 
-        <div class="small-12 columns mb10">
-          <p>
-            <strong><%= t('backend.identifying_data.registered_lobbies_title') %></strong>
-            <% if @organization.registered_lobbies.present? %>
-              <% @organization.registered_lobbies.each do |registered_lobby| %>
-                <p>- <%= registered_lobby.name %></p>
-              <% end %>
+      <div class="small-12 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.registered_lobbies_title') %></strong>
+          <% if @organization.registered_lobbies.present? %>
+            <% @organization.registered_lobbies.each do |registered_lobby| %>
+              <p>- <%= registered_lobby.name %></p>
             <% end %>
-          </p>
-        </div>
+          <% end %>
+        </p>
+      </div>
 
     </div>
   </fieldset>
