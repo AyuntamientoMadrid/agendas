@@ -487,8 +487,8 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   coveralls
   database_cleaner (~> 1.5.0)
-  devise
-  devise-i18n
+  devise (~> 4.4.0)
+  devise-i18n (~> 1.5.0)
   factory_girl_rails (~> 4.5.0)
   faker (~> 1.5.0)
   foundation-rails (= 5.5.1.0)
