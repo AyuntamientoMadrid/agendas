@@ -21,7 +21,7 @@
             <p>
               <strong><%= t('organizations.show.inscription_date') %>
               </strong>
-              <%= I18n.l @organization.inscription_date %>
+              <%= I18n.l(@organization.inscription_date, format: :short) %>
             </p>
           <% end %>
 
