@@ -58,5 +58,25 @@ namespace :organizations do
       RegisteredLobby.find_or_create_by(name: name)
     end
   end
-  
+
+  desc "Update registered_lobbies names"
+  task :update_registered_lobbies_names => :environment do
+    registered_lobbies = ['no_record',
+                          'generalitat_catalunya',
+                          'cnmc',
+                          'europe_union',
+                          'others']
+
+    real_names         = ['Ninguno',
+                          'Generalidad catalunya',
+                          'CNMC',
+                          'Unión Europea',
+                          'Otro']
+
+    registered_lobbies.each_with_index do |name, index|
+      registered_lobby = RegisteredLobby.find_by(name: name)
+      registered_lobby.update(name: real_names[index]) if registered_lobby.present?
+    end
+  end
+
 end

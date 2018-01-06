@@ -98,8 +98,42 @@ class Organization < ActiveRecord::Base
     legal_representant.fullname if legal_representant
   end
 
+  def legal_representant_email
+    legal_representant.email if legal_representant
+  end
+
+  def legal_representant_phones
+    legal_representant.phones if legal_representant
+  end
+
   def user_name
     user.full_name if user
+  end
+
+  def user_email
+    user.email if user
+  end
+
+  def user_phones
+    user.phones if user
+  end
+
+  def status
+    if termination_date.blank? && invalidated_at.blank?
+      :active
+    elsif termination_date.present?
+      :terminated
+    else
+      :inactive
+    end
+  end
+
+  def self_employed_lobby
+    represented_entities.count.zero?
+  end
+
+  def employee_lobby
+    !self_employed_lobby
   end
 
   def set_inscription_date
@@ -118,7 +152,7 @@ class Organization < ActiveRecord::Base
   end
 
   def invalidated?
-    !invalidated_at.nil?
+    invalidated_at.present?
   end
 
   def canceled?

@@ -1,5 +1,5 @@
 <%=
-  exporter = OrganizationExporter.new
+  exporter = OrganizationExporter.new true
 
   CSV.generate(col_sep: ';', encoding: 'UTF-8') do |csv|
     csv << exporter.windows_headers

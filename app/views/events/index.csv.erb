@@ -1,10 +1,10 @@
 <%=
-  exporter = EventsExporter.new
+  exporter = EventsExporter.new true
 
   CSV.generate(col_sep: ';', encoding: 'UTF-8') do |csv|
     csv << exporter.windows_headers
 
-    @events.results.each do |event|
+    @events.each do |event|
       csv << exporter.windows_event_row(event)
     end
   end.html_safe

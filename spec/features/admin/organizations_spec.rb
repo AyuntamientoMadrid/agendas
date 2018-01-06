@@ -171,6 +171,51 @@ feature 'Organization' do
         expect(page).to have_content organization1.name
       end
 
+      describe 'CSV export link' do
+
+        scenario 'Should download a CSV file UTF-8 encoded', :search do
+          event = create(:event, published_at: Time.zone.yesterday)
+          Event.reindex
+          Sunspot.commit
+          visit admin_organizations_path
+
+          click_link "Exportar"
+
+          header = page.response_headers['Content-Type']
+          expect(header).to match 'text/csv; charset=utf-8'
+        end
+
+        scenario 'Should download CSV with headers', :search do
+          organization = create(:organization)
+          Event.reindex
+          Sunspot.commit
+          visit admin_organizations_path
+
+          click_link "Exportar"
+
+          exporter = OrganizationExporter.new true
+          headers = exporter.headers
+          headers.each do |column_header|
+            expect(page).to have_content column_header
+          end
+        end
+
+        scenario 'Should download extended CSV', :search do
+          organization = create(:organization)
+          Event.reindex
+          Sunspot.commit
+          visit admin_organizations_path
+
+          click_link "Exportar"
+
+          exporter = OrganizationExporter.new true
+          headers = exporter.headers
+          headers.each do |column_header|
+            expect(page).to have_content column_header
+          end
+        end
+
+      end
     end
 
     describe "New" do

@@ -24,7 +24,7 @@ describe "export:organizations" do
     csv_file = File.open(Rails.root.to_s + '/public/export/lobbies.csv').read.scrub
 
     csv = CSV.parse(csv_file, headers: true, col_sep: ';')
-    expect(csv.first.to_hash.values[0]).to eq(o.reference)
+    expect(csv.first.to_hash.values[0]).to eq(o.identifier)
   end
 
   it "check json contents" do
@@ -35,7 +35,7 @@ describe "export:organizations" do
     json_file = File.open(Rails.root.to_s + '/public/export/lobbies.json')
 
     parsed_json = ActiveSupport::JSON.decode(json_file.read)
-    expect(parsed_json.first.values.first).to eq(o.reference)
+    expect(parsed_json.first.values.first).to eq(o.identifier)
   end
 
   it "check xsl contents" do
@@ -48,7 +48,7 @@ describe "export:organizations" do
     require 'spreadsheet'
     book = Spreadsheet.open(xls_file)
     sheet = book.worksheets[0]
-    expect(sheet.rows[1][0]).to eq(o.reference)
+    expect(sheet.rows[1][0]).to eq(o.identifier)
   end
 
 end

@@ -86,35 +86,37 @@ es:
       - :day
       - :month
       - :year
-  public_organization_exporter:
+  organization_exporter:
     reference: referencia
     identifier: identificador
-    name: nombre
+    name: nombre_razón_social
     first_surname: primer apellido
     second_surname: segundo apellido
-    address_type: tipo de dirección
+    address_type: tipo de via
     address: direccion
+    address_number_type: tipo de vía
     number: numero
     gateway: portal
-    stairs: escaleras
+    stairs: escalera
     floor: planta
     door: puerta
-    postal_code: codig postal
+    postal_code: código postal
     town: pueblo
     province: provincia
+    country: país
     phones: telefonos
     email: email
     category_name: nombre de Categoría
-    description: descripción
+    description: finalidad y objetivos
     web: web
     fiscal_year: año fiscal
-    subvention: subvención
-    contract: contrato
+    subvention: subvenciones
+    contract: contratos
     certain_term: La información facilitada es cierta
     code_of_conduct_term: Aceptar codigo de conducta
     gift_term: aceptar no realizar regalos
     lobby_term: acreditar la actividad de lobby
-    registered_lobbies: lobbies registrados
+    registered_lobbies: otros registros lobbies
     range_fund: rango de fondos
     inscription_reference: refecencie de inscripcion
     inscription_date: fecha inscripción
@@ -125,15 +127,28 @@ es:
     associations_count: numero de associaciones
     members_count: numero de miembros
     approach: aproximación
-    legal_representant_full_name: nombre y apellidos del representante legal
-    user_name: nombre y apellidos
-    invalidate: invalidada
+    legal_representant_full_name: nombre y apellidos representante legal
+    legal_representant_email: correo representante legal
+    legal_representant_phones: teléfono representante legal
+    user_name: nombre y apellidos persona contacto
+    user_email: correo persona contacto
+    user_phones: teléfono persona contacto
+    invalidated?: invalidada
+    agents: agentes
+    represented_entities: entidades_personas representadas
+    interests: áreas de interés
+    status: estado
+    updated_at: fecha de última modificación
+    termination_date: fecha de baja
+    self_employed_lobby: lobby por cuenta propia
+    employee_lobby: lobby por cuenta ajena
   events_exporter:
     title: título
     description: descripción
     scheduled: fecha
     updated_at: última actualización
     user_name: usuario
+    holder_name: titular de agenda
     position_names: titular de la agenda
     location: lugar
     status: estado
@@ -146,6 +161,9 @@ es:
     lobby_scheduled: descripción de fecha propuesta
     general_remarks: observaciones generales
     lobby_contact_firstname: nombre contacto
+    accepted_at: fecha de aceptación
+    declined_reasons: motivos de denegación
+    declined_at: fecha de denegación
     lobby_contact_lastname: apellido contacto
     lobby_contact_email: email contacto
     lobby_contact_phone: teléfono contacto

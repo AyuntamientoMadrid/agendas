@@ -1,8 +1,8 @@
 <%=
-CSV.generate(:col_sep => ';') do |csv|
-  csv << [t('backend.holder'), t('backend.public_url')]
-  @holders.each do |h|
-    csv << [h.full_name_comma, agenda_url(h.id,h.full_name.parameterize) ]
-  end
-end.encode('iso-8859-1')
+  CSV.generate(col_sep: ';', encoding: 'UTF-8') do |csv|
+    csv << [t('backend.holder'), t('backend.public_url')]
+    @holders.each do |h|
+      csv << [h.full_name_comma, agenda_url(h.id,h.full_name.parameterize)]
+    end
+  end.html_safe
 %>

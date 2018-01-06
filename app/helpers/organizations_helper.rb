@@ -52,13 +52,6 @@ module OrganizationsHelper
     organization.events.where(lobby_activity: true, status: 2).count
   end
 
-  def options_for_registered_lobby
-    registered_lobbies = RegisteredLobby.all.select("id","name")
-    result = {}
-    registered_lobbies.map { |rl| result[t("backend.identifying_data.registered_lobbies.#{rl.name}")] = rl.id }
-    result
-  end
-
   def organization_back_button
     if current_user.present? && current_user.admin?
       admin_organizations_path

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171227235926) do
+ActiveRecord::Schema.define(version: 20180104194733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -264,6 +264,8 @@ ActiveRecord::Schema.define(version: 20171227235926) do
     t.date     "modification_date"
     t.boolean  "gift_term"
     t.boolean  "lobby_term"
+    t.string   "address_number_type"
+    t.date     "termination_date"
   end
 
   add_index "organizations", ["category_id"], name: "index_organizations_on_category_id", using: :btree

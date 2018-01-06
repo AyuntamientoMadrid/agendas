@@ -99,6 +99,40 @@ feature 'Events' do
         expect(page).not_to have_content('Event 2')
 
       end
+
+      describe 'CSV export link' do
+
+        scenario 'Should download a CSV file UTF-8 encoded', :search do
+          Event.reindex
+          Sunspot.commit
+          visit admin_path
+
+          click_link "Exportar"
+
+          header = page.response_headers['Content-Type']
+          expect(header).to match 'text/csv; charset=utf-8'
+        end
+
+        scenario 'Should download CSV file containing own events', :search do
+          event = create(:event, title: "Event 1", position: @position)
+          event2 = create(:event, title: "Other position event")
+          event.status = 'requested'
+          event.save
+          Event.reindex
+          Sunspot.commit
+          visit admin_path
+
+          click_link "Exportar"
+
+          expect(page).to have_content event.title
+          expect(page).to have_content event.description
+          expect(page).to have_content event.location
+          expect(page).to have_content event.position.holder.full_name
+          expect(page).to have_content I18n.l(event.scheduled, format: :short)
+          expect(page).not_to have_content event2.title
+        end
+      end
+
     end
 
     describe "new" do
@@ -409,6 +443,38 @@ feature 'Events' do
         expect(page).to have_link "Other title"
       end
 
+      describe 'CSV export link' do
+
+        scenario 'Should download a CSV file UTF-8 encoded', :search do
+          Event.reindex
+          Sunspot.commit
+          visit admin_path
+
+          click_link "Exportar"
+
+          header = page.response_headers['Content-Type']
+          expect(header).to match 'text/csv; charset=utf-8'
+        end
+
+        scenario 'Should download CSV file containing all events', :search do
+          event = create(:event)
+          event2 = create(:event, title: "Other position event")
+          event.status = 'requested'
+          event.save
+          Event.reindex
+          Sunspot.commit
+          visit admin_path
+
+          click_link "Exportar"
+
+          expect(page).to have_content event.title
+          expect(page).to have_content event.description
+          expect(page).to have_content event.location
+          expect(page).to have_content event.position.holder.full_name
+          expect(page).to have_content I18n.l(event.scheduled, format: :short)
+          expect(page).to have_content event2.title
+        end
+      end
     end
 
     describe "Create" do
@@ -482,10 +548,8 @@ feature 'Events' do
             choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
             find('.add-participant').click
-            sleep 0.5
-
             within "#participants" do
-              find("option[value='1']").select_option
+              select "#{@position.holder.full_name_comma} - #{@position.title}"
             end
             click_button "Guardar"
 

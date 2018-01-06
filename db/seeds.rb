@@ -166,12 +166,11 @@ position: 28)
 puts "Faq created ✅"
 
 # RegisteredLobby
-registered_lobbies = ['no_record',
-                      'generalitat_catalunya',
-                      'cnmc',
-                      'europe_union',
-                      'others']
-
+registered_lobbies = ['Ninguno',
+                      'Generalidad catalunya',
+                      'CNMC',
+                      'Unión Europea',
+                      'Otro']
 
 registered_lobbies.each do |name|
   RegisteredLobby.find_or_create_by(name: name)
