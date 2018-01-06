@@ -1,4 +1,5 @@
 <div class="organizaion-lobby-show">
+  <%= link_to t('backend.back'), organization_back_button , class: "button tiny radius" %>
   <h1 class="title-l"><%= @organization.fullname %></h1>
   <fieldset>
     <legend><%= t('backend.reference.title_fieldset') %></legend>
@@ -288,7 +289,7 @@
       </div>
       <div class="small-6 medium-6 columns mb10">
         <p>
-          <strong><%= t('backend.lobbies_data.subvention') %></strong>
+          <strong><%= t('backend.lobbies_data.contract') %></strong>
           <%= @organization.contract ? "Sí" : "No" %>
         </p>
       </div>
