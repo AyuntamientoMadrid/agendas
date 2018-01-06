@@ -3,7 +3,7 @@
     <%= link_to organization.fullname, organization_path(organization), title: t("organizations.show.title") %>
   </h2>
   <p>
-    <%= I18n.l organization.inscription_date, format: :complete %>
+    <%= I18n.l organization.inscription_date, format: :short %>
 
       <% if events_as_lobby_by(organization) > 0 %>
         <span class="bullet">&nbsp;&bull;&nbsp;</span>
