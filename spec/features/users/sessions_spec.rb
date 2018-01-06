@@ -1,5 +1,7 @@
 feature 'Sessions', :devise do
 
+  after { Warden.test_reset! }
+  
   describe 'Create' do
 
     scenario 'user cannot sign in if not registered' do
@@ -9,22 +11,23 @@ feature 'Sessions', :devise do
     end
 
     scenario 'user can sign in with valid credentials' do
-      user = FactoryGirl.create(:user)
+      user = create(:user)
       signin(user.email, user.password)
 
       expect(page).to have_content I18n.t 'devise.sessions.signed_in'
     end
 
     scenario 'user cannot sign in with wrong email' do
-      user = FactoryGirl.create(:user)
+      user = create(:user)
       signin('invalid@email.com', user.password)
 
       expect(page).to have_content I18n.t 'devise.failure.not_found_in_database', authentication_keys: 'Email'
     end
 
     scenario 'user cannot sign in with wrong password' do
-      user = FactoryGirl.create(:user)
+      user = create(:user)
       signin(user.email, 'invalidpass')
+
       expect(page).to have_content I18n.t 'devise.failure.invalid', authentication_keys: 'Email'
     end
 
@@ -37,8 +40,7 @@ feature 'Sessions', :devise do
     end
 
     scenario 'should not allow soft deleted user' do
-      user = FactoryGirl.create(:user, deleted_at: DateTime.current)
-
+      user = create(:user, deleted_at: DateTime.current)
       signin(user.email, user.password)
 
       expect(page).to have_content "Tu cuenta está bloqueada"
@@ -56,7 +58,6 @@ feature 'Sessions', :devise do
 
       expect(page).to have_content I18n.t('backend.logout')
       click_link I18n.t("backend.logout") + " - (#{user.full_name})"
-
       expect(page).to have_content I18n.t 'devise.sessions.signed_out'
     end
   end
