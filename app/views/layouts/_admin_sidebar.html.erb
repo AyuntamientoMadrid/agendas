@@ -11,7 +11,7 @@
     </li>
     <% if current_user.admin? %>
     <li class="<%= active_menu('users') %>">
-      <a href="<%= users_path %>">
+      <a href="<%= admin_users_path %>">
         <i class="fi-results-demographics size-18"> <%= t("backend.users")%></i>
       </a>
     </li>
@@ -103,8 +103,8 @@
           <i class="fi-arrow-right size-18"> <%= t("backend.frontend")%></i>
       <% end %>
     </li>
-    <li class="<%= active_menu('users/registrations') %>">
-      <%= link_to edit_password_path do %>
+    <li class="<%= active_menu('users/passwords') %>">
+      <%= link_to edit_admin_user_path(current_user) do %>
           <i class="fi-key size-18"> <%= t("backend.change_password")%></i>
       <% end %>
     </li>

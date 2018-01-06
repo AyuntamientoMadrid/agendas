@@ -12,10 +12,9 @@ describe "Passwords" do
       fill_in "user[email]", with: user.email
       find('[name=commit]').click
 
-      expect(page).to have_content 'Recibirás un correo electrónico ' \
-                                   'con instrucciones sobre cómo '    \
-                                   'restablecer tu contraseña en '    \
-                                   'unos minutos. '
+      expect(page).to have_content 'Recibirás un correo con instrucciones ' \
+                                   'sobre cómo resetear tu contraseña en unos ' \
+                                   'pocos minutos'
     end
 
     it "Should send an email" do
@@ -34,7 +33,7 @@ describe "Passwords" do
       fill_in "user[email]", with: "nonexistent@email.com"
       find('[name=commit]').click
 
-      expect(page).to have_content 'Email no se ha encontrado.'
+      expect(page).to have_content 'Email no se ha encontrado'
     end
   end
 end

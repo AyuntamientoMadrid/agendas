@@ -1,5 +1,5 @@
-<%= link_to t("backend.back"), users_path, class: "button tiny radius" %>
-<%= form_for @user, html: { class: 'admin-form' } do |f| %>
+<%= link_to t("backend.back"), admin_users_path, class: "button tiny radius" %>
+<%= form_for [:admin, @user], html: { class: 'admin-form' } do |f| %>
 
   <% if @user.errors.any? %>
     <div class="panel callout radius">
