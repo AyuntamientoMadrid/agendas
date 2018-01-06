@@ -16,7 +16,7 @@ feature 'Organizations page' do
       visit organizations_path
 
       expect(page).to have_content organization.name
-      expect(page).to have_content I18n.l(organization.inscription_date, format: :complete)
+      expect(page).to have_content I18n.l(organization.inscription_date, format: :short)
     end
 
     scenario 'Should show organization with canceled_at nil', :search do

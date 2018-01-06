@@ -21,7 +21,7 @@
             <p>
               <strong><%= t('organizations.show.inscription_date') %>
               </strong>
-              <%= I18n.l @organization.inscription_date %>
+              <%= I18n.l(@organization.inscription_date, format: :short) %>
             </p>
           <% end %>
 
@@ -76,9 +76,50 @@
             </p>
           <% end %>
 
+          <% if @organization.number.present? %>
+            <p>
+              <strong><%= t('organizations.show.number') %> </strong>
+              <%= @organization.number %>
+            </p>
+          <% end %>
+
+          <% if @organization.gateway.present? %>
+            <p>
+              <strong><%= t('organizations.show.gateway') %> </strong>
+              <%= @organization.gateway %>
+            </p>
+          <% end %>
+
+          <% if @organization.stairs.present? %>
+            <p>
+              <strong><%= t('organizations.show.stairs') %> </strong>
+              <%= @organization.stairs %>
+            </p>
+          <% end %>
+
+          <% if @organization.floor.present? %>
+            <p>
+              <strong><%= t('organizations.show.floor') %> </strong>
+              <%= @organization.floor %>
+            </p>
+          <% end %>
+
+          <% if @organization.door.present? %>
+            <p>
+              <strong><%= t('organizations.show.door') %> </strong>
+              <%= @organization.door %>
+            </p>
+          <% end %>
+
           <% if @organization.province.present? %>
             <p><strong><%= t('organizations.show.province') %> </strong>
               <%= @organization.province %>
+            </p>
+          <% end %>
+
+          <% if @organization.country.present? %>
+            <p><strong><%= t('organizations.show.country') %> </strong>
+              <%= @organization.country %>
             </p>
           <% end %>
 
@@ -102,6 +143,15 @@
               <%= @organization.web %>
             </p>
           <% end %>
+
+          <p>
+            <strong><%= t('backend.identifying_data.registered_lobbies_title') %></strong>
+            <% if @organization.registered_lobbies.present? %>
+              <% @organization.registered_lobbies.each do |registered_lobby| %>
+                <p>- <%= registered_lobby.name %></p>
+              <% end %>
+            <% end %>
+          </p>
         </div>
       </li>
 
@@ -112,10 +162,10 @@
         </div>
 
         <div class="content active">
-          <% if @organization.fiscal_year.present? %>
+          <% if @organization.fiscal_year.present? || @organization.range_fund.present? %>
             <p>
               <strong><%= t('organizations.show.fiscal_year') %> </strong>
-              <%= @organization.fiscal_year %>
+              <%= @organization.fiscal_year.present? ? @organization.fiscal_year : "Sin año" %>
             </p>
 
             <p>
@@ -125,14 +175,14 @@
 
             <% if @organization.subvention.present? %>
               <p>
-                <strong><%= t('organizations.show.subvention') %>  </strong>
+                <strong><%= t('backend.lobbies_data.subvention') %>  </strong>
                 <%= t(@organization.subvention.to_s) %>
               </p>
             <% end %>
 
             <% if @organization.contract.present? %>
               <p>
-                <strong><%= t('organizations.show.contract') %> </strong>
+                <strong><%= t('backend.lobbies_data.contract') %> </strong>
                 <%= t(@organization.contract.to_s) if @organization.contract? %>
               </p>
             <% end %>
@@ -186,22 +236,20 @@
                   </p>
                 <% end %>
 
-                <% if represented_entity.fiscal_year.present? %>
-                  <p>
-                    <strong><%= t('organizations.show.represented_entity_fiscal_year') %> </strong>
-                    <%= represented_entity.fiscal_year %>
-                  </p>
-                <% end %>
+                <p>
+                  <strong><%= t('organizations.show.represented_entity_fiscal_year') %> </strong>
+                  <%= represented_entity.fiscal_year.present? ? represented_entity.fiscal_year : "Sin año" %>
+                </p>
 
                 <% if @organization.subvention.present? %>
                   <p>
-                    <strong><%= t('organizations.show.represented_entity_subvention') %> </strong>
+                    <strong><%= t('backend.lobbies_data.subvention') %> </strong>
                     <%= t(represented_entity.subvention.to_s) %>
                   </p>
                 <% end %>
 
                 <% if @organization.contract.present? %>
-                  <p><strong><%= t('organizations.show.represented_entity_contract') %> </strong>
+                  <p><strong><%= t('backend.lobbies_data.contract') %> </strong>
                     <%= t(represented_entity.contract.to_s) %>
                   </p>
                 <% end %>

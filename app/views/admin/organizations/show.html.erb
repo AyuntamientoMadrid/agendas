@@ -1,4 +1,5 @@
 <div class="organizaion-lobby-show">
+  <%= link_to t('backend.back'), organization_back_button , class: "button tiny radius" %>
   <h1 class="title-l"><%= @organization.fullname %></h1>
   <fieldset>
     <legend><%= t('backend.reference.title_fieldset') %></legend>
@@ -15,11 +16,11 @@
         </div>
 
         <div class="small-12 medium-4 columns">
-          <strong>Feche de modificación</strong>
+          <strong>Fecha de modificación</strong>
         </div>
 
         <div class="small-12 medium-4 columns">
-          <strong>Feche de baja</strong>
+          <strong>Fecha de baja</strong>
         </div>
       </div>
 
@@ -91,7 +92,7 @@
         </p>
       </div>
 
-      <div class="small-12 medium-12 columns mb10">
+      <div class="small-12 medium-4 columns mb10">
         <p>
           <strong><%= t('backend.identifying_data.address_type') %></strong>
           <%= @organization.address_type %>
@@ -151,6 +152,12 @@
           <%= @organization.province %>
         </p>
       </div>
+      <div class="small-12 medium-4 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.country') %></strong>
+          <%= @organization.country %>
+        </p>
+      </div>
       <div class="small-12 columns mb10">
         <p>
           <strong><%= t('backend.identifying_data.description') %></strong>
@@ -158,16 +165,16 @@
         </p>
       </div>
 
-        <div class="small-12 columns mb10">
-          <p>
-            <strong><%= t('backend.identifying_data.registered_lobbies_title') %></strong>
-            <% if @organization.registered_lobbies.present? %>
-              <% @organization.registered_lobbies.each do |registered_lobby| %>
-                <p>- <%= registered_lobby.name %></p>
-              <% end %>
+      <div class="small-12 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.registered_lobbies_title') %></strong>
+          <% if @organization.registered_lobbies.present? %>
+            <% @organization.registered_lobbies.each do |registered_lobby| %>
+              <p>- <%= registered_lobby.name %></p>
             <% end %>
-          </p>
-        </div>
+          <% end %>
+        </p>
+      </div>
 
     </div>
   </fieldset>
@@ -282,7 +289,7 @@
       </div>
       <div class="small-6 medium-6 columns mb10">
         <p>
-          <strong><%= t('backend.lobbies_data.subvention') %></strong>
+          <strong><%= t('backend.lobbies_data.contract') %></strong>
           <%= @organization.contract ? "Sí" : "No" %>
         </p>
       </div>
