@@ -15,11 +15,11 @@
         </div>
 
         <div class="small-12 medium-4 columns">
-          <strong>Feche de modificación</strong>
+          <strong>Fecha de modificación</strong>
         </div>
 
         <div class="small-12 medium-4 columns">
-          <strong>Feche de baja</strong>
+          <strong>Fecha de baja</strong>
         </div>
       </div>
 
@@ -91,7 +91,7 @@
         </p>
       </div>
 
-      <div class="small-12 medium-12 columns mb10">
+      <div class="small-12 medium-4 columns mb10">
         <p>
           <strong><%= t('backend.identifying_data.address_type') %></strong>
           <%= @organization.address_type %>
@@ -149,6 +149,12 @@
         <p>
           <strong><%= t('backend.identifying_data.province') %></strong>
           <%= @organization.province %>
+        </p>
+      </div>
+      <div class="small-12 medium-4 columns mb10">
+        <p>
+          <strong><%= t('backend.identifying_data.country') %></strong>
+          <%= @organization.country %>
         </p>
       </div>
       <div class="small-12 columns mb10">
