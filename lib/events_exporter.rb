@@ -1,9 +1,16 @@
 include ActionView::Helpers::SanitizeHelper
 
 class EventsExporter
+  attr_accessor :fields
+
   ENUMS       = { status: "status" }.freeze
 
   TO_STRIP    =  [:description, :general_remarks, :declined_reasons, :canceled_reasons, :manager_general_remarks].freeze
+
+  PRIVATE_FIELDS = ['status', 'notes', 'canceled_reasons', 'published_at', 'canceled_at', 'lobby_activity',
+                    'lobby_scheduled', 'general_remarks', 'lobby_contact_firstname',
+                    'accepted_at', 'declined_reasons', 'declined_at',
+                    'lobby_contact_lastname', 'lobby_contact_email', 'lobby_contact_phone', 'manager_general_remarks'].freeze
 
   FIELDS = ['title', 'description', 'scheduled', 'updated_at', 'user_name', 'holder_name', 'position_names', 'location', 'status',
             'notes', 'canceled_reasons', 'published_at', 'canceled_at', 'lobby_activity',
@@ -11,12 +18,17 @@ class EventsExporter
             'accepted_at', 'declined_reasons', 'declined_at',
             'lobby_contact_lastname', 'lobby_contact_email', 'lobby_contact_phone', 'manager_general_remarks'].freeze
 
+  def initialize(extended = false)
+    @fields = FIELDS
+    @fields = @fields - PRIVATE_FIELDS unless extended
+  end
+
   def headers
-    FIELDS.map { |f| I18n.t("events_exporter.#{f}") }
+    @fields.map { |f| I18n.t("events_exporter.#{f}") }
   end
 
   def event_to_row(event)
-    FIELDS.map do |field|
+    @fields.map do |field|
       process_field(event, field)
     end
   end
