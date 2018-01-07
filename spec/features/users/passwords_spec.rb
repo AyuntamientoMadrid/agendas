@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe "Passwords" do
 
+  before { Warden.test_reset! }
+
   describe "New" do
 
     let!(:user) { create(:user) }
