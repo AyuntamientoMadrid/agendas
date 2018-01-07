@@ -1,7 +1,5 @@
 feature 'Sessions', :devise do
 
-  after { Warden.test_reset! }
-  
   describe 'Create' do
 
     scenario 'user cannot sign in if not registered' do
