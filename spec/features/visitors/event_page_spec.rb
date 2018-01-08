@@ -195,6 +195,24 @@ feature 'Event page' do
       expect(page).to have_content event.event_agents.first.name
     end
 
+    scenario 'Display scheduled info' do
+      event = create(:event, title: 'Lobby event')
+
+      visit show_path(event)
+      expect(page).to have_content I18n.l event.scheduled, format: :complete
+    end
+
+    scenario 'Display event without sheduled info' do
+      event = create(:event, title: 'Lobby event')
+      event.declined_reasons = 'test'
+      event.scheduled = nil
+      event.save!
+
+      visit show_path(event)
+
+      expect(page).to have_content event.title
+    end
+
   end
 
 end

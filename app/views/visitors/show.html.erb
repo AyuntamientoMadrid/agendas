@@ -4,7 +4,7 @@
   <div class="small-12 columns">
     <%= link_to t('backend.back'), :back , class: "button tiny radius" %>
     <h2 class="post__title-big"><%= @event.title %></h2>
-    <span><%= I18n.l @event.scheduled, format: :complete %></span>
+    <span><%= I18n.l @event.scheduled, format: :complete if @event.scheduled %></span>
   </div>
 </div>
 
