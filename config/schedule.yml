@@ -1,0 +1,6 @@
+organizations_export:
+  cron: "0 1 * * *"
+  class: "OrganizationsExportWorker"
+agendas_export:
+  cron: "0 1 * * *"
+  class: "AgendasExportWorker"
