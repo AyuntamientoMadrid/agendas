@@ -36,6 +36,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users
+    get 'passwords/edit', to: 'passwords#edit', as: 'edit_password'
+    match 'passwords/update', to: 'passwords#update', as: 'update_password', via: [:patch, :put]
     resources :organizations do
       resources :agents, except: :show
       resources :organization_interests, only: [:index]

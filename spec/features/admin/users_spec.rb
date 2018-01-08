@@ -11,6 +11,24 @@ feature 'Users', :devise do
       expect(page).to have_content user.email
     end
 
+    scenario "Cannot be accessed by lobby user" do
+      lobby = create(:user, :lobby)
+      login_as lobby
+
+      visit admin_users_path
+
+      expect(page).to have_content I18n.t 'backend.access_denied'
+    end
+
+    scenario "Cannot be accessed by manager user" do
+      lobby = create(:user, :user)
+      login_as lobby
+
+      visit admin_users_path
+
+      expect(page).to have_content I18n.t 'backend.access_denied'
+    end
+
   end
 
   describe 'Show' do
@@ -19,6 +37,7 @@ feature 'Users', :devise do
       user = create(:user)
       login_as user
       visit admin_user_path(user)
+
       expect(page).to have_content I18n.t 'backend.access_denied'
     end
 
@@ -83,6 +102,32 @@ feature 'Users', :devise do
       expect(page).to have_content I18n.t 'backend.access_denied'
     end
 
+  end
+
+  describe "update" do
+    let(:admin) { create(:user, :admin) }
+    let(:user) { create(:user, :user) }
+
+    before { login_as admin }
+
+    it "Admin user can update an user's information without updating the password" do
+      visit edit_admin_user_path(user)
+
+      fill_in :user_email, with: 'example@mail.com'
+      click_button(I18n.t('backend.save'))
+
+      expect(page).to have_content(I18n.t('backend.successfully_updated_record'))
+    end
+
+    it "Admin user can't reset an user's password if the params don't match" do
+      visit edit_admin_user_path(user)
+
+      fill_in :user_password, with: 'new_password'
+      fill_in :user_password_confirmation, with: 'no_match'
+      click_button(I18n.t('backend.save'))
+
+      expect(page).to have_content('Confirmación de la contraseña no coincide')
+    end
   end
 
 end

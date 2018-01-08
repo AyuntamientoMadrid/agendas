@@ -21,13 +21,6 @@ module ApplicationHelper
     message.html_safe
   end
 
-  def show_user(user_id)
-    if user_id.present?
-      user = User.find(user_id)
-      link_to(user.full_name, user_path(user)).html_safe
-    end
-  end
-
   def show_agenda_link(holder)
     link_to(holder.full_name,  agenda_path(holder.id,holder.full_name.parameterize)).html_safe
   end

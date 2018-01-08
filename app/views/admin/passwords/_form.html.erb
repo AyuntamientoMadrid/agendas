@@ -1,0 +1,31 @@
+<%= form_for(current_user, url: admin_update_password_path, html: { class: 'admin-form'}) do |f| %>
+  <% if current_user.errors.any? %>
+    <div class="panel callout radius">
+      <strong><%= t('activerecord.errors.template.header', :model => user_by_role(current_user), :count => current_user.errors.count) %></strong>
+      <ul>
+        <% current_user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend><%= t('backend.modify') %></legend>
+
+    <div class="field">
+      <%= f.label :password, t("backend.new_password") %>
+      <small>La contraseña debe tener como mínimo 8 caracteres alfanuméricos</small>
+      <%= f.password_field :password, autocomplete: "off" %>
+    </div>
+
+    <div class="field">
+      <%= f.label(:password_confirmation, t("backend.new_password_confirmation")) %>
+      <small>Vuelve a escribir la misma contraseña</small>
+      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    </div>
+
+  </fieldset>
+
+  <%= f.submit t("backend.save"), class: "button radius success right" %>
+<% end %>

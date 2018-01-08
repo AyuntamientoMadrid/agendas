@@ -50,7 +50,7 @@
     <fieldset>
       <legend><%= t("backend.change_password") %></legend>
       <%= f.label :password, t("backend.new_password") %>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, autocomplete: :off %>
       <%= f.label :password_confirmation, t("backend.new_password_confirmation") %>
       <%= f.password_field :password_confirmation %>
     </fieldset>
