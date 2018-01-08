@@ -176,6 +176,20 @@
         </p>
       </div>
 
+      <div class="small-12 columns mb10">
+        <p>
+          <strong>Lobby por cuenta propia</strong>
+          <%= t(@organization.own_lobby_activity.to_s) %>
+        </p>
+      </div>
+
+      <div class="small-12 columns mb10">
+        <p>
+          <strong>Lobby por cuenta ajena</strong>
+          <%= t(@organization.foreign_lobby_activity.to_s) %>
+        </p>
+      </div>
+
     </div>
   </fieldset>
 

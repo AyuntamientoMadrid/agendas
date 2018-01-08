@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180104194733) do
+ActiveRecord::Schema.define(version: 20180106204752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -237,17 +237,17 @@ ActiveRecord::Schema.define(version: 20180104194733) do
     t.string   "phones"
     t.string   "email"
     t.integer  "category_id"
-    t.string   "description",           default: ""
+    t.string   "description",            default: ""
     t.string   "web"
     t.integer  "registered_lobbies"
     t.integer  "fiscal_year"
     t.integer  "range_fund"
-    t.boolean  "subvention",            default: false
-    t.boolean  "contract",              default: false
+    t.boolean  "subvention",             default: false
+    t.boolean  "contract",               default: false
     t.boolean  "certain_term"
     t.boolean  "code_of_conduct_term"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "inscription_reference"
     t.datetime "inscription_date"
     t.integer  "entity_type"
@@ -266,6 +266,8 @@ ActiveRecord::Schema.define(version: 20180104194733) do
     t.boolean  "lobby_term"
     t.string   "address_number_type"
     t.date     "termination_date"
+    t.boolean  "own_lobby_activity",     default: false
+    t.boolean  "foreign_lobby_activity", default: false
   end
 
   add_index "organizations", ["category_id"], name: "index_organizations_on_category_id", using: :btree

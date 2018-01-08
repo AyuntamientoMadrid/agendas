@@ -169,6 +169,12 @@ es:
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
       contract_yes: "Sí"
       contract_no: "No"
+      own_lobby_activity_yes: "Sí"
+      own_lobby_activity_no: "No"
+      own_lobby_activity: "Lobby por cuenta propia"
+      foreign_lobby_activity_yes: "Sí"
+      foreign_lobby_activity_no: "No"
+      foreign_lobby_activity: "Lobby por cuenta ajena"
 
     represented_entities:
       add_represented_entities: "Añadir Entidades/personas a las que se representa"

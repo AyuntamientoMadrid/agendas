@@ -513,6 +513,7 @@ feature 'Organization' do
             fill_in :organization_user_attributes_email, with: "user@email.com"
             fill_in :organization_user_attributes_password, with: "password"
             fill_in :organization_user_attributes_password_confirmation, with: "password"
+            choose("organization_foreign_lobby_activity_true")
 
             click_on "Añadir Entidades/personas a las que se representa"
 
@@ -539,6 +540,7 @@ feature 'Organization' do
             fill_in :organization_user_attributes_email, with: "user@email.com"
             fill_in :organization_user_attributes_password, with: "password"
             fill_in :organization_user_attributes_password_confirmation, with: "password"
+            choose("organization_foreign_lobby_activity_true")
 
             click_on "Añadir Entidades/personas a las que se representa"
 
@@ -564,8 +566,9 @@ feature 'Organization' do
 
           scenario 'Display remove button after add represented entity', :js do
             visit new_admin_organization_path
-
+            choose("organization_foreign_lobby_activity_true")
             expect(page).not_to have_selector "#new_represented_entity .remove_fields"
+
             click_on "Añadir Entidades/personas a las que se representa"
 
             expect(page).to have_selector "#new_represented_entity .remove_fields"
@@ -573,6 +576,7 @@ feature 'Organization' do
 
           scenario 'Display remove button after add more than one represented entity', :js do
             visit new_admin_organization_path
+            choose("organization_foreign_lobby_activity_true")
 
             expect(page).not_to have_selector "#new_represented_entity .remove_fields"
             click_on "Añadir Entidades/personas a las que se representa"
@@ -943,7 +947,7 @@ feature 'Organization' do
           end
 
           scenario 'Update to blank represented entity fields', :js do
-            organization = create(:organization)
+            organization = create(:organization, foreign_lobby_activity: true)
             create(:represented_entity, organization: organization)
             visit edit_admin_organization_path(organization)
 
