@@ -15,5 +15,8 @@ feature 'FAQ' do
 
     expect(page.body.index(@question1.title)).to be < page.body.index(@question2.title)
     expect(page.body.index(@question2.title)).to be < page.body.index(@question3.title)
+
+    expect(page.html).to include('<link rel="alternate" type="application/atom+xml" title="ATOM" href="/visitors.atom" />')
+    expect(page.html).to include('<link rel="alternate" type="application/rss+xml" title="RSS" href="/visitors.rss" />')
   end
 end
