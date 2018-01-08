@@ -53,14 +53,16 @@ module Api
       registered_lobby_ids = get_registered_lobby_ids(doc)
 
       # 2. Datos de la persona o entidad representante
+      legal_representant_attributes = nil
       legal_representant_identifier     = key_content(doc, "COMUNES_REPRESENTANTE_NUMIDENT")  ? key_content(doc, "COMUNES_REPRESENTANTE_NUMIDENT").next_element.text : nil
-      legal_representant_name           = get_legal_representant_name(doc)
-      legal_representant_first_surname  = key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO1") ? key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO1").next_element.text : nil
-      legal_representant_second_surname = key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO2") ? key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO2").next_element.text : nil
-      legal_representant_email          = key_content(doc, "COMUNES_REPRESENTANTE_EMAIL")     ? key_content(doc, "COMUNES_REPRESENTANTE_EMAIL").next_element.text : nil
-      legal_representant_phones         = get_legal_representant_phones(doc)
-      legal_representant_attributes = { identifier: legal_representant_identifier, name: legal_representant_name, first_surname: legal_representant_first_surname, second_surname: legal_representant_second_surname, email: legal_representant_email, phones: legal_representant_phones }
-
+      if legal_representant_identifier.present?
+        legal_representant_name           = get_legal_representant_name(doc)
+        legal_representant_first_surname  = key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO1") ? key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO1").next_element.text : nil
+        legal_representant_second_surname = key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO2") ? key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO2").next_element.text : nil
+        legal_representant_email          = key_content(doc, "COMUNES_REPRESENTANTE_EMAIL")     ? key_content(doc, "COMUNES_REPRESENTANTE_EMAIL").next_element.text : nil
+        legal_representant_phones         = get_legal_representant_phones(doc)
+        legal_representant_attributes = { identifier: legal_representant_identifier, name: legal_representant_name, first_surname: legal_representant_first_surname, second_surname: legal_representant_second_surname, email: legal_representant_email, phones: legal_representant_phones }
+      end
       # 3. Persona física de contacto
       # user_identifier      = key_content(doc, "COMUNES_NOTIFICACION_NUMIDENT") ? key_content(doc, "COMUNES_NOTIFICACION_NUMIDENT").next_element.text : nil
       user_first_name      = key_content(doc, "COMUNES_NOTIFICACION_NOMBRE")   ? key_content(doc, "COMUNES_NOTIFICACION_NOMBRE").next_element.text : nil
@@ -79,6 +81,68 @@ module Api
       subvention      = get_organization_subvention(doc)
 
       # 5. Datos personas o entidades sin personalidad a quienes se va a representar
+      represented_entities_attributes = nil
+      #RepresentedEntity 1 (re_1)
+      represented_entity_1 = nil
+      re_1_identifier = key_content(doc, "DNI_REPRESENTA")  ? key_content(doc, "DNI_REPRESENTA").next_element.text : nil
+      if re_1_identifier.present?
+        re_1_name           = key_content(doc, "NOMBRE_REPRESENTA")  ? key_content(doc, "NOMBRE_REPRESENTA").next_element.text : nil
+        re_1_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA")  ? key_content(doc, "APELLIDO1_REPRESENTA").next_element.text : nil
+        re_1_second_surname = key_content(doc, "APELLIDO2_REPRESENTA")  ? key_content(doc, "APELLIDO2_REPRESENTA").next_element.text : nil
+        re_1_from           = key_content(doc, "FECHA_REPRESENTA")  ? key_content(doc, "FECHA_REPRESENTA").next_element.text : nil
+        re_1_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA")  ? key_content(doc, "EJERCICIO_REPRESENTA").next_element.text : nil
+        re_1_range_fund     = get_represented_entity_range_fund(doc, "FONDOS_REPRESENTA")
+        re_1_subvention     = get_represented_entity_subvention(doc, "ENTIDAD_AYUDA_REPRESENTA")
+        re_1_contract       = get_represented_entity_contract(doc, "ENTIDAD_CON_REPRESENTA")
+        represented_entity_1 = { identifier: re_1_identifier, name: re_1_name, first_surname: re_1_first_surname, second_surname: re_1_second_surname, from: re_1_from, fiscal_year: re_1_fiscal_year, range_fund: re_1_range_fund, subvention: re_1_subvention, contract: re_1_contract }
+        represented_entities_attributes = { "1" => represented_entity_1 }
+      end
+      #RepresentedEntity 2 (re_2)
+      represented_entity_2 = nil
+      re_2_identifier = key_content(doc, "DNI_REPRESENTA2")  ? key_content(doc, "DNI_REPRESENTA2").next_element.text : nil
+      if re_2_identifier.present?
+        re_2_name           = key_content(doc, "NOMBRE_REPRESENTA2")  ? key_content(doc, "NOMBRE_REPRESENTA2").next_element.text : nil
+        re_2_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA2")  ? key_content(doc, "APELLIDO1_REPRESENTA2").next_element.text : nil
+        re_2_second_surname = key_content(doc, "APELLIDO2_REPRESENTA2")  ? key_content(doc, "APELLIDO2_REPRESENTA2").next_element.text : nil
+        re_2_from           = key_content(doc, "FECHA_REPRESENTA2")  ? key_content(doc, "FECHA_REPRESENTA2").next_element.text : nil
+        re_2_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA2")  ? key_content(doc, "EJERCICIO_REPRESENTA2").next_element.text : nil
+        re_2_range_fund     = get_represented_entity_range_fund(doc, "FONDOS_REPRESENTA2")
+        re_2_subvention     = get_represented_entity_subvention(doc, "ENTIDAD_AYUDA_REPRESENTA2")
+        re_2_contract       = get_represented_entity_contract(doc, "ENTIDAD_CON_REPRESENTA2")
+        represented_entity_2 = { identifier: re_2_identifier, name: re_2_name, first_surname: re_2_first_surname, second_surname: re_2_second_surname, from: re_2_from, fiscal_year: re_2_fiscal_year, range_fund: re_2_range_fund, subvention: re_2_subvention, contract: re_2_contract }
+        represented_entities_attributes = { "1" => represented_entity_1, "2" => represented_entity_2 }
+      end
+      #RepresentedEntity 3 (re_3)
+      represented_entity_3 = nil
+      re_3_identifier = key_content(doc, "DNI_REPRESENTA3")  ? key_content(doc, "DNI_REPRESENTA3").next_element.text : nil
+      if re_3_identifier.present?
+        re_3_name           = key_content(doc, "NOMBRE_REPRESENTA3")  ? key_content(doc, "NOMBRE_REPRESENTA3").next_element.text : nil
+        re_3_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA3")  ? key_content(doc, "APELLIDO1_REPRESENTA3").next_element.text : nil
+        re_3_second_surname = key_content(doc, "APELLIDO3_REPRESENTA3")  ? key_content(doc, "APELLIDO3_REPRESENTA3").next_element.text : nil
+        re_3_from           = key_content(doc, "FECHA_REPRESENTA3")  ? key_content(doc, "FECHA_REPRESENTA3").next_element.text : nil
+        re_3_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA3")  ? key_content(doc, "EJERCICIO_REPRESENTA3").next_element.text : nil
+        re_3_range_fund     = get_represented_entity_range_fund(doc, "FONDOS_REPRESENTA3")
+        re_3_subvention     = get_represented_entity_subvention(doc, "ENTIDAD_AYUDA_REPRESENTA3")
+        re_3_contract       = get_represented_entity_contract(doc, "ENTIDAD_CON_REPRESENTA3")
+        represented_entity_3 = { identifier: re_3_identifier, name: re_3_name, first_surname: re_3_first_surname, second_surname: re_3_second_surname, from: re_3_from, fiscal_year: re_3_fiscal_year, range_fund: re_3_range_fund, subvention: re_3_subvention, contract: re_3_contract }
+        represented_entities_attributes = { "1" => represented_entity_1, "2" => represented_entity_2, "3" => represented_entity_3 }
+      end
+      #RepresentedEntity 4 (re_4)
+      represented_entity_4 = nil
+      re_4_identifier = key_content(doc, "DNI_REPRESENTA4")  ? key_content(doc, "DNI_REPRESENTA4").next_element.text : nil
+      if re_4_identifier.present?
+        re_4_name           = key_content(doc, "NOMBRE_REPRESENTA4")  ? key_content(doc, "NOMBRE_REPRESENTA4").next_element.text : nil
+        re_4_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA4")  ? key_content(doc, "APELLIDO1_REPRESENTA4").next_element.text : nil
+        re_4_second_surname = key_content(doc, "APELLIDO4_REPRESENTA4")  ? key_content(doc, "APELLIDO4_REPRESENTA4").next_element.text : nil
+        re_4_from           = key_content(doc, "FECHA_REPRESENTA4")  ? key_content(doc, "FECHA_REPRESENTA4").next_element.text : nil
+        re_4_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA4")  ? key_content(doc, "EJERCICIO_REPRESENTA4").next_element.text : nil
+        re_4_range_fund     = get_represented_entity_range_fund(doc, "FONDOS_REPRESENTA4")
+        re_4_subvention     = get_represented_entity_subvention(doc, "ENTIDAD_AYUDA_REPRESENTA4")
+        re_4_contract       = get_represented_entity_contract(doc, "ENTIDAD_CON_REPRESENTA4")
+        represented_entity_4 = { identifier: re_4_identifier, name: re_4_name, first_surname: re_4_first_surname, second_surname: re_4_second_surname, from: re_4_from, fiscal_year: re_4_fiscal_year, range_fund: re_4_range_fund, subvention: re_4_subvention, contract: re_4_contract }
+        represented_entities_attributes = { "1" => represented_entity_1, "2" => represented_entity_2, "3" => represented_entity_3, "4" => represented_entity_4 }
+      end
+
       # represented_entities_attributes: [:id, :identifier, :name, :first_surname, :second_surname, :from, :fiscal_year, :range_fund, :subvention, :contract, :_destroy]
       # represented_entities_attributes = [identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, from: from, fiscal_year: fiscal_year, range_fund: range_fund, subvention: subvention, contract: contract]
 
@@ -103,11 +167,18 @@ module Api
       # lobby_term
       # legal_representant_attributes: [x:identifier, x:name, x:first_surname, x:second_surname, x:phones, x:email, :_destroy]
       # user_attributes: [:id, :first_name, :last_name, :role, :email, :active, :phones, :password, :password_confirmation]
-      o = Organization.create(identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, country: country, province: province, town: town, address_type: address_type, address: address, number: number, gateway: gateway, stairs: stairs, floor: floor, door: door, postal_code: postal_code, email: email, phones: phones, category: category, description: description,
+
+      organization = Organization.create(identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, country: country, province: province, town: town, address_type: address_type, address: address, number: number, gateway: gateway, stairs: stairs, floor: floor, door: door, postal_code: postal_code, email: email, phones: phones, category: category, description: description,
                           registered_lobby_ids: registered_lobby_ids, web: web, fiscal_year: fiscal_year, range_fund: range_fund, contract: contract, subvention: subvention,
-                           user_attributes: user_attributes)
-debugger
-      # legal_representant_attributes: legal_representant_attributes,
+                          user_attributes: user_attributes)
+      if legal_representant_attributes.present?
+        organization.update(legal_representant_attributes: legal_representant_attributes)
+      end
+      # debugger
+      if represented_entities_attributes.present?
+        organization.update(represented_entities_attributes: represented_entities_attributes)
+      end
+
       #TODO:  build organization from received responsible statement: statement, save and respond
       puts doc
 
@@ -145,7 +216,7 @@ debugger
     def get_organization_name(doc)
       name = nil
       if key_content(doc, "COMUNES_INTERESADO_NOMBRE") || key_content(doc, "COMUNES_INTERESADO_RAZONSOCIAL")
-        if key_content(doc, "COMUNES_INTERESADO_NOMBRE")
+        if key_content(doc, "COMUNES_INTERESADO_NOMBRE").next_element.text.present?
           name = key_content(doc, "COMUNES_INTERESADO_NOMBRE").next_element.text
         else
           name = key_content(doc, "COMUNES_INTERESADO_RAZONSOCIAL").next_element.text
@@ -283,6 +354,23 @@ debugger
       return range_fund
     end
 
+    def get_represented_entity_range_fund(doc, field)
+      range_fund = nil
+      if key_content(doc, field)
+        case key_content(doc, field).next_element.text
+        when "1"
+          range_fund = :range_1
+        when "2"
+          range_fund = :range_2
+        when "3"
+          range_fund = :range_3
+        when "4"
+          range_fund = :range_4
+        end
+      end
+      return range_fund
+    end
+
     def get_random_password
       (0...8).map { (65 + rand(26)).chr }.join
     end
@@ -295,6 +383,14 @@ debugger
       return contract
     end
 
+    def get_represented_entity_contract(doc, field)
+      contract = false
+      if key_content(doc, field)
+         contract = key_content(doc, field).next_element.text == "S"
+      end
+      return contract
+    end
+
     def get_organization_subvention(doc)
       subvention = false
       if key_content(doc, "CELEBRA_CON")
@@ -302,5 +398,14 @@ debugger
       end
       return subvention
     end
+
+    def get_represented_entity_subvention(doc, field)
+      subvention = false
+      if key_content(doc, field)
+         subvention = key_content(doc, field).next_element.text == "S"
+      end
+      return subvention
+    end
+
   end
 end
