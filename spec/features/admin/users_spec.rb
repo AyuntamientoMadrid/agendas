@@ -19,6 +19,7 @@ feature 'Users', :devise do
       user = create(:user)
       login_as user
       visit admin_user_path(user)
+
       expect(page).to have_content I18n.t 'backend.access_denied'
     end
 

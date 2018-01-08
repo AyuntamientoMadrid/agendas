@@ -14,6 +14,7 @@ class Ability
         can :manage, Question
         can :manage, Agent
         can :manage, OrganizationInterest
+        can :manage, User
       else
         can :manage, :all
       end

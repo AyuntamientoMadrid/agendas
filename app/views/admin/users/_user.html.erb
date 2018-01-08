@@ -12,5 +12,5 @@
 </td>
 <td>
   <%= link_to('Borrar (No borra)', user, :data => { :confirm => "Are you sure?" }, class: 'step fi-page-delete size-24') unless user == current_user %>
-  <%= link_to('', edit_user_path(user), class: 'step fi-page-edit size-24') %>
+  <%= link_to('', edit_admin_user_path(user), class: 'step fi-page-edit size-24') %>
 </td>

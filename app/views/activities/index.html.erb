@@ -22,7 +22,7 @@
     <% @activities.each do |activity| %>
         <tr>
           <td class="event_date"><%= I18n.l activity.created_at, format: :short %></td>
-          <td class="event_holder"><%= link_to activity.owner.full_name, user_path(activity.owner) if activity.owner.present? %></td>
+          <td class="event_holder"><%= link_to activity.owner.full_name, admin_user_path(activity.owner) if activity.owner.present? %></td>
           <td class="event_txt">
             <% if activity.trackable.present? %>
               <%= link_to activity.trackable.title, event_path(activity.trackable)%>

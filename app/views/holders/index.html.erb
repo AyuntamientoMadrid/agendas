@@ -35,7 +35,7 @@
           </td>
           <td>
             <% holder.users.each do |u| %>
-                <%= link_to u.full_name_comma, edit_user_path(u)  %><br />
+              <%= link_to u.full_name_comma, edit_admin_user_path(u)  %><br />
             <% end %>
           </td>
           <td>
