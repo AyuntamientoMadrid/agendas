@@ -86,6 +86,7 @@ feature 'Event page' do
     select participant.position.holder.full_name_comma, from: :holder
     click_button I18n.t('backend.search.button')
 
+    expect(page).to have_content participant.position.holder.full_name
     expect(page).to have_content "Acting as participant"
     expect(page).not_to have_content "Not involved event"
   end
