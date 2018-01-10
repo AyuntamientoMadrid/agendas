@@ -1,14 +1,17 @@
-<td style="padding-bottom: 20px; padding-left: 10px;">
-
-  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-     <%= t('mailers.create_event.text1', title: @event_title) %>
-  </p>
-
-  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-     <%= t('mailers.create_event.text2', name: @name) %>
-  </p>
-
-  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-    <%= t('mailers.create_event.thanks') %>
-  </p>
+<td>
+  <h1><%= t('mailers.create_event.head1', event_reference: @event_reference)%></h1>
+  <p><%= t('mailers.create_event.text1', event_reference: @event_reference) %></p>
+  <h2><%= t('mailers.create_event.head2')%></h2>
+  <ul>
+    <li><b><%= t('mailers.create_event.text2')%></b> <%= @lobby_name %></li>
+    <li><b><%= t('mailers.create_event.text3')%></b> <%= @name %></li>
+    <li><b><%= t('mailers.create_event.text4')%></b> <%= @to %></li>
+  </ul>
+  <h2><%= t('mailers.create_event.head3')%></h2>
+  <ul>
+    <li><b><%= t('mailers.create_event.text5')%></b> <%= @event_title %></li>
+    <li><b><%= t('mailers.create_event.text6')%></b> <%= @event_description %></li>
+    <li><b><%= t('mailers.create_event.text7')%></b> <%= @event_scheduled %></li>
+  </ul>
+  <p><b><%= t('mailers.create_event.notice') %></p></b>
 </td>

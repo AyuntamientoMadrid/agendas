@@ -12,12 +12,13 @@ feature 'Events Mailer' do
       @event.lobby_contact_email = 'test@test'
       @event.current_user = user
       @event.lobby_activity = true
+      @event.description = "Description test"
       @event.save!
       open_email(@event.lobby_contact_email)
     end
 
     scenario 'cancel event mail ' do
-      expect(current_email).to have_content I18n.t('mailers.cancel_event.text1', title: @event.title)
+      expect(current_email).to have_content I18n.t('mailers.cancel_event.text1', event_reference: @event.id)
     end
 
   end
@@ -41,7 +42,7 @@ feature 'Events Mailer' do
     end
 
     scenario 'decline event mail' do
-      expect(current_email).to have_content I18n.t('mailers.decline_event.text1', title: @event.title)
+      expect(current_email).to have_content I18n.t('mailers.decline_event.text1', event_reference: @event.id)
     end
 
   end
@@ -64,7 +65,7 @@ feature 'Events Mailer' do
     end
 
     scenario 'accept event mail' do
-      expect(current_email).to have_content I18n.t('mailers.accept_event.text1', title: @event.title)
+      expect(current_email).to have_content I18n.t('mailers.accept_event.text1', event_reference: @event.id)
     end
 
   end
@@ -85,7 +86,7 @@ feature 'Events Mailer' do
     end
 
     scenario 'cancel event mail lobby' do
-      expect(current_email).to have_content I18n.t('mailers.cancel_event.text1', title: @event.title)
+      expect(current_email).to have_content I18n.t('mailers.cancel_event.text1', event_reference: @event.id)
     end
 
   end
@@ -101,7 +102,7 @@ feature 'Events Mailer' do
     end
 
     scenario 'create event mail' do
-      expect(current_email).to have_content I18n.t('mailers.create_event.text1', title: @event.title)
+      expect(current_email).to have_content I18n.t('mailers.create_event.text1', event_reference: @event.id)
     end
 
   end
@@ -118,7 +119,7 @@ feature 'Events Mailer' do
 
     scenario 'create event mail' do
       skip("pending test")
-      expect(current_email).to have_content I18n.t('mailers.create_event.text1', title: @event.title)
+      expect(current_email).to have_content I18n.t('mailers.create_event.text1', event_reference: @event.id)
     end
 
   end

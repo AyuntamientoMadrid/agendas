@@ -1,4 +1,0 @@
-es:
-  mailer:
-    infringement_email:
-      link_html: "Accede al contenido en <a href='%{link}'>%{link}</a>"

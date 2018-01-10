@@ -1,10 +1,19 @@
-<%= t'mailer.infringement_email.link_html', link: @email.link if @email.link.present? %>
-
-<%= @email.description.html_safe %>
-
-<%= t('infringement_mailbox.affected') %>
-<% if @email.affected_referer.present? %>
-  <%= @email.affected_referer %>
-<% else %>
-  <%= @email.affected %>
-<% end %>
+<td>
+  <h1><%= t('mailers.infringement_email.head1', infringement_reference: @infringement_reference)%></h1>
+  <p><%= t('mailers.infringement_email.text1', infringement_reference: @infringement_reference) %></p>
+  <h2><%= t('mailers.infringement_email.head2')%></h2>
+  <ul>
+    <li><b><%= t('mailers.infringement_email.text2') %></b><%= @email.subject %></li>
+    <li><b><%= t('mailers.infringement_email.text3') %></b><%= @email.description.html_safe %></li>
+    <li><b><%= t('mailers.infringement_email.link_html') %></b><a href="<%= @link %>"><%= @link %></a></li>
+    <li><b><%= t('mailers.infringement_email.text4') %></b><%= @email.attachment_file_name %></li>
+    <li> <ul>
+          <% if @email.affected_referer.present? %>
+              <li><%= @email.affected_referer %></li>
+          <% else %>
+              <li><%= @email.affected %></li>
+          <% end %>
+          </ul>
+    </li>
+  </ul>
+</td>

@@ -750,7 +750,7 @@ feature 'Organization' do
         expect(organization.description).to eq "New description"
         # requires further investication
         # expect(current_email).to have_content I18n.t('mailers.update_event.text1', title: organization.fullname)
-        expect(current_email).to have_content"Ha sido actualizado el lobby:"
+        expect(current_email).to have_content I18n.t("mailers.create_organization.text1")
       end
 
       scenario 'Should update lobby organization fields' do

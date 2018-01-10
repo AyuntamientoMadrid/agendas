@@ -1,22 +1,22 @@
-<td style="padding-bottom: 20px; padding-left: 10px;">
-
-  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-     <%= t('mailers.cancel_event.text1', title: @event_title) %>
-  </p>
-
-  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-     <%= t('mailers.cancel_event.text2') %>
-  </p>
-
-  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-     <%= raw @reasons %>
-  </p>
-
-  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-     <%= t('mailers.cancel_event.canceled_at', canceled_at: @canceled_at) %>
-  </p>
-
-  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-    <%= t('mailers.cancel_event.thanks') %>
-  </p>
+<td>
+  <h1><%= t('mailers.cancel_event.head1', event_reference: @event_reference)%></h1>
+  <p><%= t('mailers.cancel_event.text1', event_reference: @event_reference) %></p>
+  <h2><%= t('mailers.cancel_event.head2')%></h2>
+  <ul>
+    <li><b><%= t('mailers.cancel_event.text2')%></b> <%= @lobby_name %></li>
+    <li><b><%= t('mailers.cancel_event.text3')%></b> <%= @name %></li>
+    <li><b><%= t('mailers.cancel_event.text4')%></b> <%= @to %></li>
+  </ul>
+  <h2><%= t('mailers.cancel_event.head3')%></h2>
+  <ul>
+    <li><b><%= t('mailers.cancel_event.text5')%></b> <%= @event_title %></li>
+    <li><b><%= t('mailers.cancel_event.text6')%></b> <%= @event_description %></li>
+    <li><b><%= t('mailers.cancel_event.text7')%></b> <%= @event_scheduled %></li>
+    <li><b><%= t('mailers.cancel_event.text8')%></b> <%= @event_location %></li>
+  </ul>
+    <h2><%= t('mailers.cancel_event.head4')%></h2>
+  <ul>
+    <li><b><%= t('mailers.cancel_event.text9')%></b> <%=  @reasons %></li>
+  </ul>
+  <p><b><%= t('mailers.cancel_event.notice') %></b></p>
 </td>

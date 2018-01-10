@@ -1,18 +1,25 @@
 class OrganizationMailer < ApplicationMailer
 
   def create(organization)
-    @name = organization.user_name
+    @user_name = organization.user_name
     @title = organization.fullname
+    @lobby_reference = organization.id
+    @lobby_name = organization.name
+    @lobby_inscription_date = organization.inscription_date
+    @user_password = Devise.friendly_token.first(8)
+    organization.change_password(@user_password)
+    @link = "https://registrodelobbies.madrid.es"
 
-    subject = t('mailers.create_organization.subject', title: @title)
+    subject = t('mailers.create_organization.subject', lobby_reference: @lobby_reference)
     mail(to: organization.user.email, subject: subject, cco: 'registrodelobbies@madrid.es')
   end
 
   def invalidate(organization)
-    @name = organization.user_name
-    @title = organization.fullname
+    @lobby_reference = organization.id
+    @lobby_name = organization.name
+    @lobby_invalidated_at = l organization.invalidated_at, format: :long if organization.invalidated_at
 
-    subject = t('mailers.invalidate_organization.subject', title: @title)
+    subject = t('mailers.invalidate_organization.subject', lobby_reference: @lobby_reference)
     mail(to: organization.user.email, subject: subject, cco: 'registrodelobbies@madrid.es')
   end
 
@@ -25,10 +32,11 @@ class OrganizationMailer < ApplicationMailer
   end
 
   def update(organization)
-    @name = organization.user_name
-    @title = organization.fullname
+    @lobby_reference = organization.id
+    @lobby_name = organization.name
+    @lobby_updated_date = l organization.modification_date, format: :long if organization.modification_date
 
-    subject = t('mailers.update_organization.subject', title: @title)
+    subject = t('mailers.update_organization.subject', lobby_reference: @lobby_reference)
     mail(to: organization.user.email, subject: subject, cco: 'registrodelobbies@madrid.es')
   end
 

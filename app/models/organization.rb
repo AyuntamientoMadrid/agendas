@@ -5,7 +5,7 @@ class Organization < ActiveRecord::Base
   enum entity_type: { association: 0, federation: 1, lobby: 2 }
   validates :inscription_reference, uniqueness: true, allow_blank: true, allow_nil: true
   validates :name, :category_id, presence: true
-  validates :invalidated_reasons, presence: { message: I18n.t('event.cancel_reasons_needed') }, if: Proc.new { |a| a.invalidated_at }
+  validates :invalidated_reasons, presence: { message: I18n.t('event.cancel_reasons_needed') }, if: proc { |a| a.invalidated_at }
 
   has_many :represented_entities, dependent: :destroy, inverse_of: :organization
   has_many :agents, dependent: :destroy
@@ -160,4 +160,7 @@ class Organization < ActiveRecord::Base
     !canceled_at.nil?
   end
 
+  def change_password(_user_password)
+    user.update(:password => @user_password, :password_confirmation => @user_password)
+  end
 end

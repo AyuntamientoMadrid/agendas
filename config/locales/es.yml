@@ -29,6 +29,7 @@ es:
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
       complete: "%d de %B de %Y · %H:%M"
+      custom: "%Y%m%d"
 
     order:
       - :day
