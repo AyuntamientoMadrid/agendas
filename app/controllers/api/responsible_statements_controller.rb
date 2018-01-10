@@ -26,114 +26,229 @@ module Api
       # 0. Numero Anotación
       reference = doc.xpath("//numAnotacion")
 
-      # 1. datos identificativos de quien aparecera como inscrito en el registro
-      identifier     = key_content(doc, "COMUNES_INTERESADO_NUMIDENT")
-      name           = get_name(doc, "COMUNES_INTERESADO_NOMBRE", "COMUNES_INTERESADO_RAZONSOCIAL")
-      first_surname  = key_content(doc, "COMUNES_INTERESADO_APELLIDO1")
-      second_surname = key_content(doc, "COMUNES_INTERESADO_APELLIDO2")
-      country        = key_content(doc, "COMUNES_INTERESADO_PAIS")
-      province       = key_content(doc, "COMUNES_INTERESADO_PROVINCIA")
-      town           = key_content(doc, "COMUNES_INTERESADO_MUNICIPIO")
-      address_type   = key_content(doc, "COMUNES_INTERESADO_TIPOVIA")
-      address        = key_content(doc, "COMUNES_INTERESADO_NOMBREVIA")
-      # num_type       = key_content(doc, "COMUNES_INTERESADO_TIPONUM")
-      number         = key_content(doc, "COMUNES_INTERESADO_NUMERO")
-      gateway        = key_content(doc, "COMUNES_INTERESADO_PORTAL")
-      stairs         = key_content(doc, "COMUNES_INTERESADO_ESCALERA")
-      floor          = key_content(doc, "COMUNES_INTERESADO_PLANTA")
-      door           = key_content(doc, "COMUNES_INTERESADO_PUERTA")
-      postal_code    = key_content(doc, "COMUNES_INTERESADO_CODPOSTAL")
-      email          = key_content(doc, "COMUNES_INTERESADO_EMAIL")
-      phones         = get_phones(doc, "COMUNES_INTERESADO_MOVIL", "COMUNES_INTERESADO_TELEFONO")
-      category       = get_category(doc)
-      description    = key_content(doc, "COMUNES_INTERESADO_FINALIDAD")
-      web            = key_content(doc, "COMUNES_INTERESADO_WEB")
-      registered_lobby_ids = get_registered_lobby_ids(doc)
+      doc.xpath("//formulario").each do |form|
+        #Alta
+        if form.xpath("nombre=876")
+          # 1. datos identificativos de quien aparecera como inscrito en el registro
+          identifier     = key_content(doc, "COMUNES_INTERESADO_NUMIDENT")
+          name           = get_name(doc, "COMUNES_INTERESADO_NOMBRE", "COMUNES_INTERESADO_RAZONSOCIAL")
+          first_surname  = key_content(doc, "COMUNES_INTERESADO_APELLIDO1")
+          second_surname = key_content(doc, "COMUNES_INTERESADO_APELLIDO2")
+          country        = key_content(doc, "COMUNES_INTERESADO_PAIS")
+          province       = key_content(doc, "COMUNES_INTERESADO_PROVINCIA")
+          town           = key_content(doc, "COMUNES_INTERESADO_MUNICIPIO")
+          address_type   = key_content(doc, "COMUNES_INTERESADO_TIPOVIA")
+          address        = key_content(doc, "COMUNES_INTERESADO_NOMBREVIA")
+          # num_type       = key_content(doc, "COMUNES_INTERESADO_TIPONUM")
+          number         = key_content(doc, "COMUNES_INTERESADO_NUMERO")
+          gateway        = key_content(doc, "COMUNES_INTERESADO_PORTAL")
+          stairs         = key_content(doc, "COMUNES_INTERESADO_ESCALERA")
+          floor          = key_content(doc, "COMUNES_INTERESADO_PLANTA")
+          door           = key_content(doc, "COMUNES_INTERESADO_PUERTA")
+          postal_code    = key_content(doc, "COMUNES_INTERESADO_CODPOSTAL")
+          email          = key_content(doc, "COMUNES_INTERESADO_EMAIL")
+          phones         = get_phones(doc, "COMUNES_INTERESADO_MOVIL", "COMUNES_INTERESADO_TELEFONO")
+          category       = get_category(doc)
+          description    = key_content(doc, "COMUNES_INTERESADO_FINALIDAD")
+          web            = key_content(doc, "COMUNES_INTERESADO_WEB")
+          registered_lobby_ids = get_registered_lobby_ids(doc)
 
-      # 2. Datos de la persona o entidad representante
-      legal_representant_identifier     = key_content(doc, "COMUNES_REPRESENTANTE_NUMIDENT")
-      legal_representant_name           = get_name(doc, "COMUNES_REPRESENTANTE_NOMBRE", "COMUNES_REPRESENTANTE_RAZONSOCIAL")
-      legal_representant_first_surname  = key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO1")
-      legal_representant_second_surname = key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO2")
-      legal_representant_email          = key_content(doc, "COMUNES_REPRESENTANTE_EMAIL")
-      legal_representant_phones         = get_phones(doc, "COMUNES_REPRESENTANTE_MOVIL", "COMUNES_REPRESENTANTE_TELEFONO")
-      legal_representant_attributes = { identifier: legal_representant_identifier, name: legal_representant_name, first_surname: legal_representant_first_surname, second_surname: legal_representant_second_surname, email: legal_representant_email, phones: legal_representant_phones }
+          # 2. Datos de la persona o entidad representante
+          legal_representant_identifier     = key_content(doc, "COMUNES_REPRESENTANTE_NUMIDENT")
+          legal_representant_name           = get_name(doc, "COMUNES_REPRESENTANTE_NOMBRE", "COMUNES_REPRESENTANTE_RAZONSOCIAL")
+          legal_representant_first_surname  = key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO1")
+          legal_representant_second_surname = key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO2")
+          legal_representant_email          = key_content(doc, "COMUNES_REPRESENTANTE_EMAIL")
+          legal_representant_phones         = get_phones(doc, "COMUNES_REPRESENTANTE_MOVIL", "COMUNES_REPRESENTANTE_TELEFONO")
+          legal_representant_attributes = { identifier: legal_representant_identifier, name: legal_representant_name, first_surname: legal_representant_first_surname, second_surname: legal_representant_second_surname, email: legal_representant_email, phones: legal_representant_phones }
 
-      # 3. Persona física de contacto
-      # user_identifier      = key_content(doc, "COMUNES_NOTIFICACION_NUMIDENT")
-      user_first_name      = key_content(doc, "COMUNES_NOTIFICACION_NOMBRE")
-      user_last_name       = get_user_last_name(doc)
-      user_role            = :lobby
-      user_email           = key_content(doc, "COMUNES_NOTIFICACION_EMAIL")
-      user_active          = 1
-      user_phones          = get_phones(doc, "COMUNES_NOTIFICATION_MOVIL", "COMUNES_NOTIFICATION_TELEFONO")
-      user_password        = get_random_password
-      user_attributes = { first_name: user_first_name, last_name: user_last_name, role: user_role, email: user_email, active: user_active, phones: user_phones, password: user_password, password_confirmation: user_password }
+          # 3. Persona física de contacto
+          # user_identifier      = key_content(doc, "COMUNES_NOTIFICACION_NUMIDENT")
+          user_first_name      = key_content(doc, "COMUNES_NOTIFICACION_NOMBRE")
+          user_last_name       = get_user_last_name(doc)
+          user_role            = :lobby
+          user_email           = key_content(doc, "COMUNES_NOTIFICACION_EMAIL")
+          user_active          = 1
+          user_phones          = get_phones(doc, "COMUNES_NOTIFICATION_MOVIL", "COMUNES_NOTIFICATION_TELEFONO")
+          user_password        = get_random_password
+          user_attributes = { first_name: user_first_name, last_name: user_last_name, role: user_role, email: user_email, active: user_active, phones: user_phones, password: user_password, password_confirmation: user_password }
 
-      # 4. Datos de quien va a ejercer la actividad de lobby por cuenta propia
-      fiscal_year     = key_content(doc, "EJERCICIO_ANUAL")
-      range_fund      = get_range_fund(doc, "FONDOS1")
-      contract        = get_boolean_field_value(doc, "RECIBI_AYUDAS")
-      subvention      = get_boolean_field_value(doc, "CELEBRA_CON")
+          # 4. Datos de quien va a ejercer la actividad de lobby por cuenta propia
+          fiscal_year     = key_content(doc, "EJERCICIO_ANUAL")
+          range_fund      = get_range_fund(doc, "FONDOS1")
+          contract        = get_boolean_field_value(doc, "RECIBI_AYUDAS")
+          subvention      = get_boolean_field_value(doc, "CELEBRA_CON")
 
-      # 5. Datos personas o entidades sin personalidad a quienes se va a representar
-      #RepresentedEntity 1 (re_1)
-      re_1_identifier     = key_content(doc, "DNI_REPRESENTA")
-      re_1_name           = key_content(doc, "NOMBRE_REPRESENTA")
-      re_1_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA")
-      re_1_second_surname = key_content(doc, "APELLIDO2_REPRESENTA")
-      re_1_from           = key_content(doc, "FECHA_REPRESENTA")
-      re_1_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA")
-      re_1_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA")
-      re_1_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA")
-      re_1_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA")
-      represented_entity_1 = { identifier: re_1_identifier, name: re_1_name, first_surname: re_1_first_surname, second_surname: re_1_second_surname, from: re_1_from, fiscal_year: re_1_fiscal_year, range_fund: re_1_range_fund, subvention: re_1_subvention, contract: re_1_contract }
-      represented_entities_attributes = { "1" => represented_entity_1 }
+          # 5. Datos personas o entidades sin personalidad a quienes se va a representar
+          #RepresentedEntity 1 (re_1)
+          re_1_identifier     = key_content(doc, "DNI_REPRESENTA")
+          re_1_name           = key_content(doc, "NOMBRE_REPRESENTA")
+          re_1_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA")
+          re_1_second_surname = key_content(doc, "APELLIDO2_REPRESENTA")
+          re_1_from           = key_content(doc, "FECHA_REPRESENTA")
+          re_1_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA")
+          re_1_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA")
+          re_1_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA")
+          re_1_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA")
+          represented_entity_1 = { identifier: re_1_identifier, name: re_1_name, first_surname: re_1_first_surname, second_surname: re_1_second_surname, from: re_1_from, fiscal_year: re_1_fiscal_year, range_fund: re_1_range_fund, subvention: re_1_subvention, contract: re_1_contract }
+          represented_entities_attributes = { "1" => represented_entity_1 }
 
-      #RepresentedEntity 2 (re_2)
-      re_2_identifier     = key_content(doc, "DNI_REPRESENTA2")
-      re_2_name           = key_content(doc, "NOMBRE_REPRESENTA2")
-      re_2_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA2")
-      re_2_second_surname = key_content(doc, "APELLIDO2_REPRESENTA2")
-      re_2_from           = key_content(doc, "FECHA_REPRESENTA2")
-      re_2_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA2")
-      re_2_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA2")
-      re_2_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA2")
-      re_2_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA2")
-      represented_entity_2 = { identifier: re_2_identifier, name: re_2_name, first_surname: re_2_first_surname, second_surname: re_2_second_surname, from: re_2_from, fiscal_year: re_2_fiscal_year, range_fund: re_2_range_fund, subvention: re_2_subvention, contract: re_2_contract }
-      represented_entities_attributes = { "1" => represented_entity_1, "2" => represented_entity_2 }
+          #RepresentedEntity 2 (re_2)
+          re_2_identifier     = key_content(doc, "DNI_REPRESENTA2")
+          re_2_name           = key_content(doc, "NOMBRE_REPRESENTA2")
+          re_2_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA2")
+          re_2_second_surname = key_content(doc, "APELLIDO2_REPRESENTA2")
+          re_2_from           = key_content(doc, "FECHA_REPRESENTA2")
+          re_2_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA2")
+          re_2_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA2")
+          re_2_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA2")
+          re_2_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA2")
+          represented_entity_2 = { identifier: re_2_identifier, name: re_2_name, first_surname: re_2_first_surname, second_surname: re_2_second_surname, from: re_2_from, fiscal_year: re_2_fiscal_year, range_fund: re_2_range_fund, subvention: re_2_subvention, contract: re_2_contract }
+          represented_entities_attributes = { "1" => represented_entity_1, "2" => represented_entity_2 }
 
-      #RepresentedEntity 3 (re_3)
-      re_3_identifier     = key_content(doc, "DNI_REPRESENTA3")
-      re_3_name           = key_content(doc, "NOMBRE_REPRESENTA3")
-      re_3_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA3")
-      re_3_second_surname = key_content(doc, "APELLIDO3_REPRESENTA3")
-      re_3_from           = key_content(doc, "FECHA_REPRESENTA3")
-      re_3_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA3")
-      re_3_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA3")
-      re_3_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA3")
-      re_3_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA3")
-      represented_entity_3 = { identifier: re_3_identifier, name: re_3_name, first_surname: re_3_first_surname, second_surname: re_3_second_surname, from: re_3_from, fiscal_year: re_3_fiscal_year, range_fund: re_3_range_fund, subvention: re_3_subvention, contract: re_3_contract }
-      represented_entities_attributes = { "1" => represented_entity_1, "2" => represented_entity_2, "3" => represented_entity_3 }
+          #RepresentedEntity 3 (re_3)
+          re_3_identifier     = key_content(doc, "DNI_REPRESENTA3")
+          re_3_name           = key_content(doc, "NOMBRE_REPRESENTA3")
+          re_3_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA3")
+          re_3_second_surname = key_content(doc, "APELLIDO3_REPRESENTA3")
+          re_3_from           = key_content(doc, "FECHA_REPRESENTA3")
+          re_3_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA3")
+          re_3_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA3")
+          re_3_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA3")
+          re_3_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA3")
+          represented_entity_3 = { identifier: re_3_identifier, name: re_3_name, first_surname: re_3_first_surname, second_surname: re_3_second_surname, from: re_3_from, fiscal_year: re_3_fiscal_year, range_fund: re_3_range_fund, subvention: re_3_subvention, contract: re_3_contract }
+          represented_entities_attributes = { "1" => represented_entity_1, "2" => represented_entity_2, "3" => represented_entity_3 }
 
-      #RepresentedEntity 4 (re_4)
-      re_4_identifier     = key_content(doc, "DNI_REPRESENTA4")
-      re_4_name           = key_content(doc, "NOMBRE_REPRESENTA4")
-      re_4_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA4")
-      re_4_second_surname = key_content(doc, "APELLIDO4_REPRESENTA4")
-      re_4_from           = key_content(doc, "FECHA_REPRESENTA4")
-      re_4_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA4")
-      re_4_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA4")
-      re_4_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA4")
-      re_4_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA4")
-      represented_entity_4 = { identifier: re_4_identifier, name: re_4_name, first_surname: re_4_first_surname, second_surname: re_4_second_surname, from: re_4_from, fiscal_year: re_4_fiscal_year, range_fund: re_4_range_fund, subvention: re_4_subvention, contract: re_4_contract }
-      represented_entities_attributes = { "1" => represented_entity_1, "2" => represented_entity_2, "3" => represented_entity_3, "4" => represented_entity_4 }
+          #RepresentedEntity 4 (re_4)
+          re_4_identifier     = key_content(doc, "DNI_REPRESENTA4")
+          re_4_name           = key_content(doc, "NOMBRE_REPRESENTA4")
+          re_4_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA4")
+          re_4_second_surname = key_content(doc, "APELLIDO4_REPRESENTA4")
+          re_4_from           = key_content(doc, "FECHA_REPRESENTA4")
+          re_4_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA4")
+          re_4_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA4")
+          re_4_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA4")
+          re_4_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA4")
+          represented_entity_4 = { identifier: re_4_identifier, name: re_4_name, first_surname: re_4_first_surname, second_surname: re_4_second_surname, from: re_4_from, fiscal_year: re_4_fiscal_year, range_fund: re_4_range_fund, subvention: re_4_subvention, contract: re_4_contract }
+          represented_entities_attributes = { "1" => represented_entity_1, "2" => represented_entity_2, "3" => represented_entity_3, "4" => represented_entity_4 }
 
-      organization = Organization.create(identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, country: country, province: province, town: town, address_type: address_type, address: address, number: number, gateway: gateway, stairs: stairs, floor: floor, door: door, postal_code: postal_code, email: email, phones: phones, category: category, description: description,
-                          registered_lobby_ids: registered_lobby_ids, web: web, fiscal_year: fiscal_year, range_fund: range_fund, contract: contract, subvention: subvention,
-                          user_attributes: user_attributes, legal_representant_attributes: legal_representant_attributes, represented_entities_attributes: represented_entities_attributes)
-                          debugger
-      #TODO:  build organization from received responsible statement: statement, save and respond
+          organization = Organization.create(identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, country: country, province: province, town: town, address_type: address_type, address: address, number: number, gateway: gateway, stairs: stairs, floor: floor, door: door, postal_code: postal_code, email: email, phones: phones, category: category, description: description,
+                              registered_lobby_ids: registered_lobby_ids, web: web, fiscal_year: fiscal_year, range_fund: range_fund, contract: contract, subvention: subvention,
+                              user_attributes: user_attributes, legal_representant_attributes: legal_representant_attributes, represented_entities_attributes: represented_entities_attributes)
+        end
+
+        #Modificación
+        #h.compact     #=> { a: 1, b: false }
+        if form.xpath("nombre=877")
+          # 1. datos identificativos de quien aparecera como inscrito en el registro
+          identifier     = key_content(doc, "COMUNES_INTERESADO_NUMIDENT")
+          name           = get_name(doc, "COMUNES_INTERESADO_NOMBRE", "COMUNES_INTERESADO_RAZONSOCIAL")
+          first_surname  = key_content(doc, "COMUNES_INTERESADO_APELLIDO1")
+          second_surname = key_content(doc, "COMUNES_INTERESADO_APELLIDO2")
+          country        = key_content(doc, "COMUNES_INTERESADO_PAIS")
+          province       = key_content(doc, "COMUNES_INTERESADO_PROVINCIA")
+          town           = key_content(doc, "COMUNES_INTERESADO_MUNICIPIO")
+          address_type   = key_content(doc, "COMUNES_INTERESADO_TIPOVIA")
+          address        = key_content(doc, "COMUNES_INTERESADO_NOMBREVIA")
+          # num_type       = key_content(doc, "COMUNES_INTERESADO_TIPONUM")
+          number         = key_content(doc, "COMUNES_INTERESADO_NUMERO")
+          gateway        = key_content(doc, "COMUNES_INTERESADO_PORTAL")
+          stairs         = key_content(doc, "COMUNES_INTERESADO_ESCALERA")
+          floor          = key_content(doc, "COMUNES_INTERESADO_PLANTA")
+          door           = key_content(doc, "COMUNES_INTERESADO_PUERTA")
+          postal_code    = key_content(doc, "COMUNES_INTERESADO_CODPOSTAL")
+          email          = key_content(doc, "COMUNES_INTERESADO_EMAIL")
+          phones         = get_phones(doc, "COMUNES_INTERESADO_MOVIL", "COMUNES_INTERESADO_TELEFONO")
+          category       = get_category(doc)
+          description    = key_content(doc, "COMUNES_INTERESADO_FINALIDAD")
+          web            = key_content(doc, "COMUNES_INTERESADO_WEB")
+          registered_lobby_ids = get_registered_lobby_ids(doc)
+
+          # 2. Datos de la persona o entidad representante
+          legal_representant_identifier     = key_content(doc, "COMUNES_REPRESENTANTE_NUMIDENT")
+          legal_representant_name           = get_name(doc, "COMUNES_REPRESENTANTE_NOMBRE", "COMUNES_REPRESENTANTE_RAZONSOCIAL")
+          legal_representant_first_surname  = key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO1")
+          legal_representant_second_surname = key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO2")
+          legal_representant_email          = key_content(doc, "COMUNES_REPRESENTANTE_EMAIL")
+          legal_representant_phones         = get_phones(doc, "COMUNES_REPRESENTANTE_MOVIL", "COMUNES_REPRESENTANTE_TELEFONO")
+          legal_representant_attributes = { identifier: legal_representant_identifier, name: legal_representant_name, first_surname: legal_representant_first_surname, second_surname: legal_representant_second_surname, email: legal_representant_email, phones: legal_representant_phones }
+
+          # 3. Persona física de contacto
+          # user_identifier      = key_content(doc, "COMUNES_NOTIFICACION_NUMIDENT")
+          user_first_name      = key_content(doc, "COMUNES_NOTIFICACION_NOMBRE")
+          user_last_name       = get_user_last_name(doc)
+          user_role            = :lobby
+          user_email           = key_content(doc, "COMUNES_NOTIFICACION_EMAIL")
+          user_active          = 1
+          user_phones          = get_phones(doc, "COMUNES_NOTIFICATION_MOVIL", "COMUNES_NOTIFICATION_TELEFONO")
+          user_password        = get_random_password
+          user_attributes = { first_name: user_first_name, last_name: user_last_name, role: user_role, email: user_email, active: user_active, phones: user_phones, password: user_password, password_confirmation: user_password }
+
+          # 4. Datos de quien va a ejercer la actividad de lobby por cuenta propia
+          fiscal_year     = key_content(doc, "EJERCICIO_ANUAL")
+          range_fund      = get_range_fund(doc, "FONDOS1")
+          contract        = get_boolean_field_value(doc, "RECIBI_AYUDAS")
+          subvention      = get_boolean_field_value(doc, "CELEBRA_CON")
+
+          # 5. Datos personas o entidades sin personalidad a quienes se va a representar
+          #RepresentedEntity 1 (re_1)
+          re_1_identifier     = key_content(doc, "DNI_REPRESENTA")
+          re_1_name           = key_content(doc, "NOMBRE_REPRESENTA")
+          re_1_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA")
+          re_1_second_surname = key_content(doc, "APELLIDO2_REPRESENTA")
+          re_1_from           = key_content(doc, "FECHA_REPRESENTA")
+          re_1_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA")
+          re_1_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA")
+          re_1_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA")
+          re_1_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA")
+          represented_entity_1 = { identifier: re_1_identifier, name: re_1_name, first_surname: re_1_first_surname, second_surname: re_1_second_surname, from: re_1_from, fiscal_year: re_1_fiscal_year, range_fund: re_1_range_fund, subvention: re_1_subvention, contract: re_1_contract }
+          represented_entities_attributes = { "1" => represented_entity_1 }
+
+          #RepresentedEntity 2 (re_2)
+          re_2_identifier     = key_content(doc, "DNI_REPRESENTA2")
+          re_2_name           = key_content(doc, "NOMBRE_REPRESENTA2")
+          re_2_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA2")
+          re_2_second_surname = key_content(doc, "APELLIDO2_REPRESENTA2")
+          re_2_from           = key_content(doc, "FECHA_REPRESENTA2")
+          re_2_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA2")
+          re_2_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA2")
+          re_2_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA2")
+          re_2_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA2")
+          represented_entity_2 = { identifier: re_2_identifier, name: re_2_name, first_surname: re_2_first_surname, second_surname: re_2_second_surname, from: re_2_from, fiscal_year: re_2_fiscal_year, range_fund: re_2_range_fund, subvention: re_2_subvention, contract: re_2_contract }
+          represented_entities_attributes = { "1" => represented_entity_1, "2" => represented_entity_2 }
+
+          #RepresentedEntity 3 (re_3)
+          re_3_identifier     = key_content(doc, "DNI_REPRESENTA3")
+          re_3_name           = key_content(doc, "NOMBRE_REPRESENTA3")
+          re_3_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA3")
+          re_3_second_surname = key_content(doc, "APELLIDO3_REPRESENTA3")
+          re_3_from           = key_content(doc, "FECHA_REPRESENTA3")
+          re_3_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA3")
+          re_3_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA3")
+          re_3_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA3")
+          re_3_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA3")
+          represented_entity_3 = { identifier: re_3_identifier, name: re_3_name, first_surname: re_3_first_surname, second_surname: re_3_second_surname, from: re_3_from, fiscal_year: re_3_fiscal_year, range_fund: re_3_range_fund, subvention: re_3_subvention, contract: re_3_contract }
+          represented_entities_attributes = { "1" => represented_entity_1, "2" => represented_entity_2, "3" => represented_entity_3 }
+
+          #RepresentedEntity 4 (re_4)
+          re_4_identifier     = key_content(doc, "DNI_REPRESENTA4")
+          re_4_name           = key_content(doc, "NOMBRE_REPRESENTA4")
+          re_4_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA4")
+          re_4_second_surname = key_content(doc, "APELLIDO4_REPRESENTA4")
+          re_4_from           = key_content(doc, "FECHA_REPRESENTA4")
+          re_4_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA4")
+          re_4_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA4")
+          re_4_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA4")
+          re_4_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA4")
+          represented_entity_4 = { identifier: re_4_identifier, name: re_4_name, first_surname: re_4_first_surname, second_surname: re_4_second_surname, from: re_4_from, fiscal_year: re_4_fiscal_year, range_fund: re_4_range_fund, subvention: re_4_subvention, contract: re_4_contract }
+          represented_entities_attributes = { "1" => represented_entity_1, "2" => represented_entity_2, "3" => represented_entity_3, "4" => represented_entity_4 }
+
+          organization = Organization.create(identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, country: country, province: province, town: town, address_type: address_type, address: address, number: number, gateway: gateway, stairs: stairs, floor: floor, door: door, postal_code: postal_code, email: email, phones: phones, category: category, description: description,
+                              registered_lobby_ids: registered_lobby_ids, web: web, fiscal_year: fiscal_year, range_fund: range_fund, contract: contract, subvention: subvention,
+                              user_attributes: user_attributes, legal_representant_attributes: legal_representant_attributes, represented_entities_attributes: represented_entities_attributes)
+        end
+      end
+
       puts doc
 
       render soap: {
