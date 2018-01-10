@@ -299,39 +299,20 @@ function fill_autocomplete_organization_name() {
         url: $('#category-block').data('new-url').replace('organization_id', $('#event_organization_id').val())
       }).done(function( organization_info ) {
         var div_category = $('#event-category');
-        alert(organization_info[1]);
         div_category.append(organization_info[0]);
         $('#organization_entity_type').val(organization_info[1]);
-        alert($('#organization_entity_type').val() == "lobby");
         if ($('#organization_entity_type').val() == "lobby") {
-          alert("in");
           $('.represented-entities-block').show();
           $('#event_represented_entities_link').trigger('click');
           $('.agents-block').show();
           $('#event_agents_link').trigger('click');
         } else {
           $('.represented-entities-block').hide();
-          // $('#event_represented_entities_link').trigger('click');
           $('.agents-block').hide();
-          // $('#event_agents_link').trigger('click');
-        }        
+        }
       });
       $("#category-block").show();
     }
-    // alert($('#organization_entity_type').val());
-    // alert($('#organization_entity_type').val() == "lobby");
-    // if ($('#organization_entity_type').val() == "lobby") {
-    //   alert("in");
-    //   $('.represented-entities-block').show();
-    //   $('#event_represented_entities_link').trigger('click');
-    //   $('.agents-block').show();
-    //   $('#event_agents_link').trigger('click');
-    // } else {
-    //   $('.represented-entities-block').hide();
-    //   // $('#event_represented_entities_link').trigger('click');
-    //   $('.agents-block').hide();
-    //   // $('#event_agents_link').trigger('click');
-    // }
   });
 }
 
