@@ -852,6 +852,7 @@ feature 'Events' do
           end
 
           scenario "When fill by js organization_name without agents display no_result_text on agents selector", :js do
+            organization = create(:organization, name: "New oganization with agents", entity_type: :lobby)
             new_position = create(:position)
             visit new_event_path
 
@@ -861,9 +862,29 @@ feature 'Events' do
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             fill_in :event_published_at, with: Date.current
             choose :event_lobby_activity_true
+            choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
+            sleep(0.5)
             click_button "Guardar"
 
             expect(page).to have_content I18n.translate('backend.event.event_agent_needed'), count: 1
+          end
+
+          scenario "When fill by js organization_name (Association) not display no_result_text on agents selector", :js do
+            organization = create(:organization, name: "New association", entity_type: :association)
+            new_position = create(:position)
+            visit new_event_path
+
+            fill_in :event_title, with: "Title"
+            fill_in :event_location, with: "Location"
+            fill_in :event_scheduled, with: Time.zone.now
+            select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
+            fill_in :event_published_at, with: Date.current
+            choose :event_lobby_activity_true
+            choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
+
+            click_button "Guardar"
+
+            expect(page).to have_content I18n.translate('backend.event.event_agent_needed'), count: 0
           end
         end
       end

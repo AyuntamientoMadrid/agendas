@@ -14,7 +14,7 @@ class OrganizationsController < ApplicationController
   def show
     respond_to do |format|
       format.html
-      format.json { render json: [@organization.category.name] }
+      format.json { render json: [@organization.category.name, @organization.entity_type] }
     end
   end
 
