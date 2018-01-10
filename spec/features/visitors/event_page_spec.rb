@@ -107,6 +107,13 @@ feature 'Event page' do
     expect(page).not_to have_content "Not involved event"
   end
 
+  scenario 'When access using an incorrect link looking for an inexistent
+            holder, show is correctly', :search do
+    visit visitors_path(holder: 1)
+
+    expect(page).to have_content I18n.t('activerecord.models.holder.not_found')
+  end
+
   describe 'CSV export link' do
 
     scenario 'Should download a CSV file UTF-8 encoded', :search do

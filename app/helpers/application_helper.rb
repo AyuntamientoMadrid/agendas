@@ -1,10 +1,7 @@
 module ApplicationHelper
 
   def show_headline(params)
-    unless params[:holder].blank?
-      holder = Holder.where(id: params[:holder]).first
-      return (render 'visitors/headline/holder', holder: holder).to_s
-    end
+    return (render 'visitors/headline/holder').to_s unless params[:holder].blank?
     return (render 'visitors/headline/search').to_s unless params[:keyword].blank?
     return (render 'visitors/headline/last').to_s
   end
