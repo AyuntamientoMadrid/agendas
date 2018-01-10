@@ -61,6 +61,27 @@ feature 'Event page' do
     expect(page).not_to have_content event6.title
   end
 
+  scenario 'show events on atom feed', :search do
+    event1 = create(:event, published_at: Time.zone.yesterday, title: 'event1')
+
+    event1.update(status: :accepted)
+
+    Event.reindex
+    Sunspot.commit
+
+    visit visitors_path
+
+    expect(page.html).to include('<link rel="alternate" type="application/atom+xml" title="ATOM" href="/visitors.atom" />')
+    expect(page.html).to include('<link rel="alternate" type="application/rss+xml" title="RSS" href="/visitors.rss" />')
+
+    page.find('#atom_link').click
+
+    expect(page).to have_content event1.title
+    expect(page).to have_content event1.description
+    expect(page).to have_content event1.scheduled
+    expect(page).to have_content event1.position.holder.full_name
+  end
+
   scenario 'search lobby activity for visitors ', :search do
     event = create(:event, title: 'Test for check lobby_activity for visitors')
     event.lobby_activity = true
