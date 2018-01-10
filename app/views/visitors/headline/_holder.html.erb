@@ -2,11 +2,7 @@
   <p>
     <span class="keywords"><%= t('main.events_for') %> </span>
     <strong class="result-m mb20">
-      <% if holder %>
-        <%= link_to holder.full_name, agenda_path(holder.id, holder.full_name.parameterize)  %>
-      <% else %>
-        <%= t 'activerecord.models.holder.not_found' %>
-      <% end %>
+      <%= link_to @holder.full_name, agenda_path(@holder.id, @holder.full_name.parameterize) %>
     </strong>
   </p>
 </div>
