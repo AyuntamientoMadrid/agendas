@@ -106,7 +106,7 @@ feature 'Event page' do
   end
 
   describe "Agenda" do
-    scenario 'Should redirect to visitors#index when given holder des not exist' do
+    scenario 'Should redirect to visitors#index when given holder does not exist' do
       visit agenda_path(holder: 1, full_name: "unexisting-fullname")
 
       expect(page).to have_content I18n.t('activerecord.models.holder.not_found')
