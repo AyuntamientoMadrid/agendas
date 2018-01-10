@@ -17,11 +17,11 @@ module Admin::SidebarHelper
 
   def help_by_role(user)
     if user.lobby?
-      "/help/ayuda_usuario_lobby.pdf"
+      "https://transparencia.madrid.es/FWProjects/transparencia/RelacionCiudadania/RegistroLobbies/Ficheros/ayuda_usuario_lobby.pdf"
     elsif user.user?
-      "/help/ayuda_usuario_gestor_agendas.pdf"
+      "http://ayre.munimadrid.es/UnidadesDescentralizadas/GobiernoAbierto/Intranet/PublicidadActiva/Agendas/Ficheros/ayuda_usuario_gestor_agendas.pdf"
     else
-      "/help/ayuda_usuario_administrador_lobbies_agendas.pdf"
+      "http://ayre.munimadrid.es/UnidadesDescentralizadas/GobiernoAbierto/Intranet/PublicidadActiva/Agendas/Ficheros/ayuda_usuario_administrador_lobbies_agendas.pdf"
     end
   end
 
