@@ -1,6 +1,7 @@
 class VisitorsController < ApplicationController
 
   require 'ext/string'
+  before_filter :set_holder, only: [:index, :agenda]
 
   def index
     get_events
@@ -13,8 +14,12 @@ class VisitorsController < ApplicationController
   end
 
   def agenda
-    index
-    render :index
+    if @holder.blank?
+      redirect_to visitors_path, alert: t('activerecord.models.holder.not_found')
+    else
+      index
+      render :index
+    end
   end
 
   def update_holders
@@ -22,6 +27,10 @@ class VisitorsController < ApplicationController
   end
 
   private
+
+  def set_holder
+    @holder = Holder.where(id: params[:holder]).first
+  end
 
   def get_events
     @events = search(params)

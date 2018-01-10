@@ -106,7 +106,6 @@ feature 'Event page' do
     visit visitors_path
     select participant.position.holder.full_name_comma, from: :holder
     click_button I18n.t('backend.search.button')
-
     expect(page).to have_content "Acting as participant"
     expect(page).not_to have_content "Not involved event"
   end
@@ -125,6 +124,21 @@ feature 'Event page' do
 
     expect(page).to have_content "Acting as participant"
     expect(page).not_to have_content "Not involved event"
+  end
+
+  describe "Agenda" do
+    scenario 'Should redirect to visitors#index when given holder does not exist' do
+      visit agenda_path(holder: 1, full_name: "unexisting-fullname")
+
+      expect(page).to have_content I18n.t('activerecord.models.holder.not_found')
+    end
+
+    scenario 'Should show holder agenda when given holder exists', :search do
+      holder = create(:holder)
+      visit agenda_path(holder: holder.id, full_name: holder.full_name)
+
+      expect(page).not_to have_content I18n.t('activerecord.models.holder.not_found')
+    end
   end
 
   describe 'CSV export link' do
