@@ -6,7 +6,6 @@ class VisitorsController < ApplicationController
     get_events
     @tree = ancestry_options(Area.unscoped.arrange(:order => 'title')) {|i| "#{'-' * i.depth} #{i.title}" }
     @holders = get_holders_by_area(params[:area])
-    get_holder
   end
 
   def show
@@ -14,9 +13,13 @@ class VisitorsController < ApplicationController
   end
 
   def agenda
-    get_holder
-    index
-    render :index
+    @holder = Holder.where(id: params[:holder]).first
+    if @holder.blank?
+      redirect_to visitors_path, alert: t('activerecord.models.holder.not_found')
+    else
+      index
+      render :index
+    end
   end
 
   def update_holders
@@ -24,13 +27,6 @@ class VisitorsController < ApplicationController
   end
 
   private
-
-  def get_holder
-    return if params[:holder].blank?
-    @holder = Holder.where(id: params[:holder]).first
-    return unless @holder.nil?
-    redirect_to :visitors, alert: t('activerecord.models.holder.not_found')
-  end
 
   def get_events
     @events = search(params)
