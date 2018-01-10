@@ -1130,15 +1130,31 @@ feature 'Organization' do
 
   describe "Edit and delete (remote)" do
 
-    background do
-      user_admin = create(:user, :lobby)
-      login_as user_admin
-    end
-
     scenario 'Should show delete and edit link', :js do
+      admin = create(:user, :lobby)
+      login_as admin
       visit admin_path
 
       expect(page).to have_link I18n.t('backend.edit_delete_organization')
+    end
+
+    scenario 'destroys an organization without an associated user', :search do
+      admin = create(:user, :admin)
+      login_as admin
+
+      org = create(:organization, name: 'Github', user: nil)
+      Organization.reindex
+
+      visit admin_organizations_path
+
+      expect(page).to have_content(org.name)
+      expect(org.canceled_at.nil?).to eq(true)
+      page.click_link('', href: admin_organization_path(org))
+
+      org.reload
+
+      expect(org.canceled_at.nil?).to eq(false)
+      expect(page).to have_content(org.name)
     end
 
   end
