@@ -60,7 +60,7 @@
             <hr />
           </div>
         <% end %>
-
+        <%= hidden_field_tag :organization_entity_type%>
         <%= render 'event_represented_entities', f:f %>
         <hr />
         <%= render 'event_agents', f:f %>
