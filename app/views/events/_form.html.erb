@@ -180,7 +180,7 @@
       </div>
     </fieldset>
 
-    <% unless  f.object.new_record? %>
+    <% unless f.object.new_record? || !f.object.lobby_activity? %>
       <fieldset class="reason-activity-actions">
         <legend><%= t('backend.event_actions') %></legend>
         <div class="row">

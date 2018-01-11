@@ -11,7 +11,8 @@ class OrganizationMailer < ApplicationMailer
     @link = "https://registrodelobbies.madrid.es"
 
     subject = t('mailers.create_organization.subject', lobby_reference: @lobby_reference)
-    mail(to: organization.user.email, subject: subject, cco: 'registrodelobbies@madrid.es')
+    to = organization.user.nil? ? [] : organization.user.email
+    mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
   end
 
   def invalidate(organization)
@@ -20,7 +21,8 @@ class OrganizationMailer < ApplicationMailer
     @lobby_invalidated_at = l organization.invalidated_at, format: :long if organization.invalidated_at
 
     subject = t('mailers.invalidate_organization.subject', lobby_reference: @lobby_reference)
-    mail(to: organization.user.email, subject: subject, cco: 'registrodelobbies@madrid.es')
+    to = organization.user.nil? ? [] : organization.user.email
+    mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
   end
 
   def delete(organization)
@@ -28,7 +30,8 @@ class OrganizationMailer < ApplicationMailer
     @title = organization.fullname
 
     subject = t('mailers.delete_organization.subject', title: @title)
-    mail(to: organization.user.email, subject: subject, cco: 'registrodelobbies@madrid.es')
+    to = organization.user.nil? ? [] : organization.user.email
+    mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
   end
 
   def update(organization)
@@ -37,7 +40,8 @@ class OrganizationMailer < ApplicationMailer
     @lobby_updated_date = l organization.modification_date, format: :long if organization.modification_date
 
     subject = t('mailers.update_organization.subject', lobby_reference: @lobby_reference)
-    mail(to: organization.user.email, subject: subject, cco: 'registrodelobbies@madrid.es')
+    to = organization.user.nil? ? [] : organization.user.email
+    mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
   end
 
 end

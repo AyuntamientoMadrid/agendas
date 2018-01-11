@@ -249,7 +249,11 @@ feature 'Events' do
       end
 
       scenario 'visit edit event form and render canceled option' do
-        event = create(:event, position: @position)
+        event = create(:event, organization: @organization, user: @user_manager,
+                       lobby_contact_email: "user@email.com", lobby_activity: true,
+                       position: @position)
+        event.event_agents << create(:event_agent)
+
         event.status = 'requested'
         event.save
 
@@ -259,7 +263,11 @@ feature 'Events' do
       end
 
       scenario 'visit edit event form and render rejected option' do
-        event = create(:event, position: @position)
+        event = create(:event, organization: @organization, user: @user_manager,
+                       lobby_contact_email: "user@email.com", lobby_activity: true,
+                       position: @position)
+        event.event_agents << create(:event_agent)
+
 
         visit edit_event_path(event)
 
@@ -984,6 +992,7 @@ feature 'Events' do
       end
 
       scenario 'create new event with the minimum permitted fields', :js do
+        ActionMailer::Base.deliveries.clear
         visit new_event_path
 
         fill_in :event_title, with: 'New event for a lobby'
@@ -996,7 +1005,16 @@ feature 'Events' do
         end
         choose_autocomplete :event_position_title, with: @position.title, select: @position.title
         find("#position_id", :visible => false).set(@position.id)
+
         click_button "Enviar la solicitud"
+
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
+        open_email(@position.holder.users.first.email)
+
+        expect(current_email.to).to eq(@position.holder.users.collect(&:email))
+        expect(current_email.cc).to eq(nil)
+        expect(current_email.bcc).to eq(["registrodelobbies@madrid.es"])
+
         expect(page).to have_content 'Registro creado correctamente'
       end
 
@@ -1297,8 +1315,9 @@ feature 'Events' do
   describe 'Lobby user can only cancel an event tests' do
 
     background do
-      @organization = create(:organization)
+      @organization = create(:organization, entity_type: "lobby")
       @organization_user = create(:user, :lobby, organization: @organization)
+      @event_agent = create(:event_agent)
       @position = create(:position)
       @agent = create(:agent, organization: @organization)
       @organization_user.manages.create(holder_id: @position.holder_id)
@@ -1306,12 +1325,40 @@ feature 'Events' do
     end
 
     scenario "Lobby user can only cancel events", :js do
-      event = create(:event, organization: @organization, user: @organization_user)
+      event = create(:event, organization: @organization, user: @organization_user,
+                     lobby_contact_email: "user@email.com", lobby_activity: true,
+                     position: @position)
+      event.event_agents << @event_agent
+
       visit edit_event_path(event)
 
       expect(page).not_to have_content I18n.t('backend.accept_event')
       expect(page).not_to have_content I18n.t('backend.decline_event')
       expect(page).to have_content I18n.t('backend.cancel_event')
+    end
+
+    scenario "Lobby user correctly cancel events", :js do
+      ActionMailer::Base.deliveries.clear
+      event = create(:event, organization: @organization, user: @organization_user,
+                     lobby_contact_email: "user@email.com", lobby_activity: true,
+                     position: @position)
+      event.event_agents << @event_agent
+
+      visit edit_event_path(event)
+
+      click_link I18n.t('backend.cancel_event')
+      tinymce_fill_in(:event_canceled_reasons, "reason")
+
+      click_button "Enviar la solicitud"
+
+      expect(ActionMailer::Base.deliveries.count).to eq(1)
+      open_email(@position.holder.users.first.email)
+
+      expect(current_email.to).to eq(@position.holder.users.collect(&:email))
+      expect(current_email.cc).to eq(nil)
+      expect(current_email.bcc).to eq(["registrodelobbies@madrid.es"])
+
+      expect(page).to have_content "Registro actualizado correctamente"
     end
 
   end
@@ -1324,11 +1371,16 @@ feature 'Events' do
       @position = create(:position)
       @agent = create(:agent, organization: @organization)
       @organization_user.manages.create(holder_id: @position.holder_id)
+      @event_agent = create(:event_agent)
       login_as @organization_user
     end
 
     scenario "Admin user can accept, decline and cancel events", :js do
-      event = create(:event, organization: @organization, user: @organization_user)
+      event = create(:event, organization: @organization, user: @organization_user,
+                     lobby_contact_email: "user@email.com", lobby_activity: true,
+                     position: @position)
+      event.event_agents <<  @event_agent
+
       visit edit_event_path(event)
 
       expect(page).to have_content I18n.t('backend.accept_event')
@@ -1345,11 +1397,15 @@ feature 'Events' do
       @position = create(:position)
       @agent = create(:agent, organization: @organization)
       @organization_user.manages.create(holder_id: @position.holder_id)
+      @event_agent = create(:event_agent)
       login_as @organization_user
     end
 
     scenario "regular user can accept, decline and cancel events", :js do
-      event = create(:event, organization: @organization, user: @organization_user)
+      event = create(:event, organization: @organization, user: @organization_user,
+                     lobby_contact_email: "user@email.com", lobby_activity: true,
+                     position: @position)
+      event.event_agents << @event_agent
       visit edit_event_path(event)
 
       expect(page).to have_content I18n.t('backend.accept_event')
@@ -1357,8 +1413,13 @@ feature 'Events' do
       expect(page).to have_content I18n.t('backend.cancel_event')
     end
 
-    scenario "User user incorrect accept tests", :js do
-      event = create(:event, organization: @organization, user: @organization_user, lobby_contact_email: "user@email.com")
+    scenario "User user correctly accept tests", :js do
+      ActionMailer::Base.deliveries.clear
+      event = create(:event, organization: @organization, user: @organization_user,
+                     lobby_contact_email: "user@email.com", lobby_activity: true,
+                     position: @position)
+      event.event_agents << @event_agent
+
       event.update(status: 'requested')
 
       visit edit_event_path(event)
@@ -1367,11 +1428,22 @@ feature 'Events' do
 
       click_button "Guardar"
 
+      expect(ActionMailer::Base.deliveries.count).to eq(1)
+      open_email("user@email.com")
+
+      expect(current_email.to).to eq(["user@email.com"])
+      expect(current_email.cc).to eq(nil)
+      expect(current_email.bcc).to eq(["registrodelobbies@madrid.es"])
+
       expect(page).to have_content "Registro actualizado correctamente"
     end
 
     scenario "User incorrect cancel tests", :js do
-      event = create(:event, organization: @organization, user: @organization_user)
+      event = create(:event, organization: @organization, user: @organization_user,
+                     lobby_contact_email: "user@email.com", lobby_activity: true,
+                     position: @position)
+      event.event_agents << @event_agent
+
       event.update(status: 'accepted')
       visit edit_event_path(event)
 
@@ -1381,8 +1453,35 @@ feature 'Events' do
       expect(page).to have_content I18n.translate('event.cancel_reasons_needed')
     end
 
+    scenario "User correctly cancel events", :js do
+      ActionMailer::Base.deliveries.clear
+      event = create(:event, organization: @organization, user: @organization_user,
+                     lobby_contact_email: "user@email.com", lobby_activity: true,
+                     position: @position)
+      event.event_agents << @event_agent
+
+      visit edit_event_path(event)
+
+      click_link I18n.t('backend.cancel_event')
+      tinymce_fill_in('event_canceled_reasons', "reason")
+
+      click_button "Guardar"
+
+      expect(ActionMailer::Base.deliveries.count).to eq(1)
+      open_email("user@email.com")
+
+      expect(current_email.to).to eq(["user@email.com"])
+      expect(current_email.cc).to eq(nil)
+      expect(current_email.bcc).to eq(["registrodelobbies@madrid.es"])
+
+      expect(page).to have_content "Registro actualizado correctamente"
+    end
+
     scenario "User incorrect decline tests", :js do
-      event = create(:event, organization: @organization, user: @organization_user)
+      event = create(:event, organization: @organization, user: @organization_user,
+                             lobby_contact_email: "user@email.com", lobby_activity: true,
+                             position: @position)
+      event.event_agents << @event_agent
       event.update(status: 'requested')
 
       visit edit_event_path(event)
@@ -1393,8 +1492,36 @@ feature 'Events' do
       expect(page).to have_content I18n.translate('event.decline_reasons_needed')
     end
 
+    scenario "User correctly decline tests", :js do
+      ActionMailer::Base.deliveries.clear
+      event = create(:event, organization: @organization, user: @organization_user,
+                     lobby_contact_email: "user@email.com", lobby_activity: true,
+                     position: @position)
+      event.event_agents << @event_agent
+      event.update(status: 'requested')
+
+      visit edit_event_path(event)
+
+      click_link I18n.t('backend.decline_event')
+      tinymce_fill_in('event_declined_reasons', "reason")
+
+      click_button "Guardar"
+
+      expect(ActionMailer::Base.deliveries.count).to eq(1)
+      open_email("user@email.com")
+
+      expect(current_email.to).to eq(["user@email.com"])
+      expect(current_email.cc).to eq(nil)
+      expect(current_email.bcc).to eq(["registrodelobbies@madrid.es"])
+
+      expect(page).to have_content "Registro actualizado correctamente"
+    end
+
     scenario "An use can accept or decline an event only once", :js do
-      event = create(:event, organization: @organization, user: @organization_user)
+      event = create(:event, organization: @organization, user: @organization_user,
+                     lobby_contact_email: "user@email.com", lobby_activity: true,
+                     position: @position)
+      event.event_agents << @event_agent
       event.update(status: 'accepted')
 
       visit edit_event_path(event)
@@ -1404,7 +1531,10 @@ feature 'Events' do
     end
 
     scenario "An use can cancel only accepted events", :js do
-      event = create(:event, organization: @organization, user: @organization_user)
+      event = create(:event, organization: @organization, user: @organization_user,
+                     lobby_contact_email: "user@email.com", lobby_activity: true,
+                     position: @position)
+      event.event_agents << @event_agent
       event.update(status: 'accepted')
 
       visit edit_event_path(event)
@@ -1413,7 +1543,10 @@ feature 'Events' do
     end
 
     scenario "An use can cancel not accepted events", :js do
-      event = create(:event, organization: @organization, user: @organization_user)
+      event = create(:event, organization: @organization, user: @organization_user,
+                     lobby_contact_email: "user@email.com", lobby_activity: true,
+                     position: @position)
+      event.event_agents << @event_agent
       event.update(status: 'requested')
 
       visit edit_event_path(event)

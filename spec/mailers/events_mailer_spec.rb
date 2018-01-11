@@ -10,15 +10,18 @@ feature 'Events Mailer' do
       @event.cancel = 'true'
       @event.canceled_reasons = 'test'
       @event.lobby_contact_email = 'test@test'
-      @event.current_user = user
       @event.lobby_activity = true
       @event.description = "Description test"
       @event.save!
+
+      EventMailer.cancel(@event, user).deliver_now
+
       open_email(@event.lobby_contact_email)
     end
 
     scenario 'cancel event mail ' do
       expect(current_email).to have_content I18n.t('mailers.cancel_event.text1', event_reference: @event.id)
+
     end
 
   end
@@ -35,9 +38,11 @@ feature 'Events Mailer' do
       @event.lobby_contact_email = 'test_lobby_mail'
       @event.decline = 'true'
       @event.declined_reasons = 'test'
-      @event.current_user = user
       @event.lobby_activity = true
       @event.save!
+
+      EventMailer.decline(@event).deliver_now
+
       open_email(@event.lobby_contact_email)
     end
 
@@ -58,9 +63,11 @@ feature 'Events Mailer' do
       @event.lobby_contact_lastname = 'test_other_name'
       @event.lobby_contact_email = 'test_lobby_mail'
       @event.accept = 'true'
-      @event.current_user = user
       @event.lobby_activity = true
       @event.save!
+
+      EventMailer.accept(@event).deliver_now
+
       open_email(@event.lobby_contact_email)
     end
 
@@ -82,7 +89,11 @@ feature 'Events Mailer' do
       @event.canceled_reasons = 'test'
       @event.lobby_activity = true
       @event.save!
-      open_email(@event.lobby_contact_email)
+      directions = @event.position.holder.users.collect(&:email).join(",")
+
+      EventMailer.cancel(@event, user).deliver_now
+
+      open_email(directions.first)
     end
 
     scenario 'cancel event mail lobby' do
@@ -93,32 +104,19 @@ feature 'Events Mailer' do
 
   describe "Create Event" do
     background do
-      user = create(:user, :user)
-      login_as user
-      clear_emails
-      @event = create(:event, title: 'New event from Capybara', user: user,
-                      current_user: user, lobby_contact_email: 'test@test', lobby_activity: true )
-      open_email(@event.lobby_contact_email)
-    end
-
-    scenario 'create event mail' do
-      expect(current_email).to have_content I18n.t('mailers.create_event.text1', event_reference: @event.id)
-    end
-
-  end
-
-  describe "Create Event" do
-    background do
       user = create(:user, :lobby)
       login_as user
       clear_emails
       @event = create(:event, title: 'New event from Capybara', user: user,
-                      current_user: user, lobby_contact_email: 'test@test', lobby_activity: true, status: "requested" )
-      open_email(@event.lobby_contact_email)
+                      lobby_contact_email: 'test@test', lobby_activity: true, status: "requested" )
+      directions = @event.position.holder.users.collect(&:email).join(",")
+
+      EventMailer.create(@event).deliver_now
+
+      open_email(directions.first)
     end
 
     scenario 'create event mail' do
-      skip("pending test")
       expect(current_email).to have_content I18n.t('mailers.create_event.text1', event_reference: @event.id)
     end
 
