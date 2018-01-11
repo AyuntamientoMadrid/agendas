@@ -19,12 +19,16 @@ class ApplicationController < ActionController::Base
         status = ["accepted", "done", "canceled"]
         lobby_activity = nil
       end
-      events_path({ utf8: "✓", search_title: "", search_person: "",
-                               status: status, lobby_activity: lobby_activity,
-                               controller: "events", action: "index" })
+      events_path(utf8: "✓", search_title: "", search_person: "",
+                  status: status, lobby_activity: lobby_activity,
+                  controller: "events", action: "index")
     else
       events_path
     end
+  end
+
+  def handle_unverified_request
+    new_user_session_path
   end
 
 end
