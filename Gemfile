@@ -38,6 +38,7 @@ gem 'turbolinks', '~> 2.5.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'rollbar', '>= 2.15.5'
 gem 'premailer-rails'
+gem 'whenever', :require => false
 
 group :development do
   gem 'better_errors', '~> 2.1.1'
