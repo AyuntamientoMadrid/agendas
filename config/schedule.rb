@@ -19,17 +19,25 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day, at: '00:00 am', roles: [:export] do
-  rake 'export:agendas'
-  rake 'export:organizations'
+every 1.minute, roles: [:export] do
+  command "date > ~/cron-test-export.txt"
 end
 
-every 1.hour, at: '5:00 am', roles: [:cron] do
-  rake 'madrid:import'
-  rake 'events:update_event_status'
-end
-
-every 1.day, at: '6:00 am', roles: [:cron] do
-  rake 'import_organizations:associations'
-  rake 'import_organizations:federations'
-end
+every 1.minute, roles: [:cron] do
+  command "date > ~/cron-test-cron.txt"
+en
+#
+# every 1.day, at: '00:00 am', roles: [:export] do
+#   rake 'export:agendas'
+#   rake 'export:organizations'
+# end
+#
+# every 1.hour, at: '5:00 am', roles: [:cron] do
+#   rake 'madrid:import'
+#   rake 'events:update_event_status'
+# end
+#
+# every 1.day, at: '6:00 am', roles: [:cron] do
+#   rake 'import_organizations:associations'
+#   rake 'import_organizations:federations'
+# end
