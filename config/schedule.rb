@@ -19,11 +19,16 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day, at: '5:00 am' do
-  rake "export:agendas"
-  rake "export:organizations"
+every 1.day, at: '00:00 am' do
+  rake 'export:agendas'
+  rake 'export:organizations'
 end
 
 every 1.hour, at: '5:00 am' do
-  rake "madrid:import"
+  rake 'madrid:import'
+end
+
+every 1.day, at: '6:00 am' do
+  rake 'import_organizations:associations'
+  rake 'import_organizations:federations'
 end
