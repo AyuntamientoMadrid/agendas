@@ -264,6 +264,36 @@ feature 'Organization' do
       end
     end
 
+    describe "Delete" do
+
+      scenario 'Should display delete link', :search do
+        organization = create(:organization, name: "Fulanito")
+        Organization.reindex
+
+        visit admin_organizations_path
+
+        expect(page).to have_link all("Eliminar").first
+      end
+
+      scenario 'Should send an email after delete', :search do
+        ActionMailer::Base.deliveries.clear
+        organization = create(:organization, name: "Fulanito")
+        Organization.reindex
+
+        visit admin_organizations_path
+
+        click_link("Eliminar", :match => :first)
+
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
+        open_email(organization.user.email)
+
+        expect(current_email.to).to eq([organization.user.email])
+        expect(current_email.cc).to eq(nil)
+        expect(current_email.bcc).to eq(["registrodelobbies@madrid.es"])
+      end
+
+    end
+
     describe "Create" do
 
       scenario 'Visit new admin organization page and create organization without user and display error' do
