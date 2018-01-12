@@ -30,7 +30,7 @@ es:
       notice: "Para ver todo el detalle, entre en la aplicación del registro de lobbies: "
       canceled_at: "A día %{canceled_at}"
       thanks: "Un saludo"
-    decline_event_by_holder:
+    cancel_event_by_holder:
       subject: "Registro de Lobbies: evento cancelado por Titular %{event_reference}"
       head1: "Registro de Lobbies: Evento cancelado por Titular: %{event_reference}"
       head2: "Datos del evento"
@@ -90,17 +90,17 @@ es:
       text11: "Podrá gestionar las áreas de interés para el envío de avisos."
       notice: "Entre en la bandeja de solicitudes del aplicativo de Agendas, para ver todo el detalle y poder tramitar la solicitud."
     delete_organization:
-      subject: "Creado lobby: %{title}"
-      welcome: "Hola %{name}"
-      text1: "Ha sido Borrado el lobby: %{title}"
-      thanks: "Un saludo"
-    invalidate_organization:
       subject: "Registro de Lobbies: alta de lobby %{lobby_reference}"
       head1: "Registro de Lobbies: Baja de inscripción: %{lobby_reference}"
       head2: "Se ha recibido la baja de su inscripción en el Registro de Lobbies del Ayuntamiento de Madrid. A partir de este momento, no podrá entrar en la aplicación del registro y su cuenta quedará desactivada:"
       text1: "El número de referencia es: %{lobby_reference}"
       text2: "Lobby: "
       text3: "Fecha de baja: "
+    invalidate_organization:
+      subject: "Creado lobby: %{title}"
+      welcome: "Hola %{name}"
+      text1: "Ha sido Borrado el lobby: %{title}"
+      thanks: "Un saludo"
     update_organization:
       subject: "Registro de Lobbies: alta de Lobby %{lobby_reference}"
       head1: "Registro de Lobbies: Modificación de inscripción: %{lobby_reference}"

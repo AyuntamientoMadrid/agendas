@@ -142,7 +142,7 @@ class Organization < ActiveRecord::Base
     !canceled_at.nil?
   end
 
-  def change_password(_user_password)
-    user.update(:password => @user_password, :password_confirmation => @user_password)
+  def change_password(user_password)
+    user.update(:password => user_password, :password_confirmation => user_password)
   end
 end

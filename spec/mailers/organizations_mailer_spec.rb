@@ -15,21 +15,22 @@ feature 'Organizations Mailer' do
 
   describe "Delete Organization" do
     background do
-      organization = create(:organization)
-      @fullname = organization.fullname
-      organization.destroy
-      open_email(organization.user.email)
+      @organization = create(:organization, name: "Test name", canceled_at: Time.zone.now)
+      OrganizationMailer.delete(@organization).deliver_now
+      open_email(@organization.user.email)
     end
 
     scenario 'delete event mail' do
-      expect(current_email).to have_content I18n.t('mailers.delete_organization.text1', title: @fullname)
+      expect(current_email).to have_content I18n.t('mailers.delete_organization.text1', lobby_reference: @lobby_reference)
+      expect(current_email).to have_content I18n.t('mailers.delete_organization.head2')
+      expect(current_email).to have_content @organization.name
     end
 
   end
 
   describe "Invalidate Organization" do
     background do
-      @organization = create(:organization , invalidated_at: Time.now , invalidated_reasons: "Test")
+      @organization = create(:organization, invalidated_at: Time.zone.now, invalidated_reasons: "Test")
       @organization.set_invalidate
       open_email(@organization.user.email)
     end

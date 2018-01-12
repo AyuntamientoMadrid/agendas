@@ -29,7 +29,7 @@ en:
       text4: "Reason: "
       notice: "To see all the details, enter the lobbies registration application: "
       canceled_at: "On %{canceled_at}"
-    decline_event_by_holder:
+    cancel_event_by_holder:
       subject: "Lobby Registration: event canceled by Holder %{event_reference}"
       head1: "Lobby Registration: Event canceled by Holder %{event_reference}"
       head2: "Lobby information"
@@ -40,7 +40,7 @@ en:
       text4: "Date and time: "
       text5: "Adrress: "
       text6: "Reasons: "
-      notice: "Enter the Agendas application to see all the details and be able to process the application.."
+      notice: "Enter the Agendas application to see all the details and be able to process the application."
       declined_at: "On %{declined_at}"
     accept_event:
       subject: "Lobby Registration: event accepted %{event_reference}"

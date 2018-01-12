@@ -1,8 +1,11 @@
 <td>
-  <h1><%= t('mailers.invalidate_organization.head1', lobby_reference: @lobby_reference)%></h1>
-  <p><%= t('mailers.invalidate_organization.text1', lobby_reference: @lobby_reference) %></p>
-  <p><%= t('mailers.invalidate_organization.head2')%></p>
-  <ul>
-    <li><b><%= t('mailers.invalidate_organization.text2')%></b><%=  @lobby_name %></li>
-    <li><b><%= t('mailers.invalidate_organization.text3')%></b><%=  @lobby_invalidated_at %></li>
-  </ul>
+  <h1>
+    <%= t('mailers.invalidate_organization.welcome', name: @name) %>
+  </h1>
+  <p>
+     <%= t('mailers.invalidate_organization.text1', title: @title) %>
+  </p>
+  <p>
+    <%= t('mailers.invalidate_organization.thanks') %>
+  </p>
+</td>

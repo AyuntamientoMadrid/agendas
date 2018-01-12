@@ -5,7 +5,7 @@ class EventMailer < ApplicationMailer
     # pending titular email
     @to = manages_emails
     @lobby_name = event.lobby_user_name.present? ? event.lobby_user_name : event.organization.user.first_name
-    @reasons = event.declined_reasons
+    @reasons = event.canceled_reasons
     @name = event.user.full_name
     @event_title = event.title
     @event_location = event.location
@@ -45,7 +45,7 @@ class EventMailer < ApplicationMailer
 
   def create(event)
     if event.status == "requested"
-      holder_want_emails = true # holder want to receive emails notification or just the manager
+      # holder_want_emails = true  holder want to receive emails notification or just the manager
       manages_emails = event.position.holder.users.collect(&:email).join(",")
       # pending titular email
       @to = manages_emails
@@ -64,17 +64,17 @@ class EventMailer < ApplicationMailer
     mail(to: @to, bcc: "registrodelobbies@madrid.es", subject: subject)
   end
 
-  def cancel_by_holder(event)(event)
+  def cancel_by_holder(event)
     @lobby_name = event.lobby_user_name.present? ? event.lobby_user_name : event.organization.user.first_name
-    @reasons = event.declined_reasons
+    @reasons = event.canceled_reasons
     @name = event.user.full_name
     @event_title = event.title
     @event_location = event.location
     @event_scheduled = l event.scheduled, format: :long if event.scheduled
     @event_description = event.description
-    @declined_at = l event.declined_at, format: :short if event.declined_at
+    @canceled_at = l event.canceled_at, format: :short if event.canceled_at
     @to = event.lobby_contact_email.present? ? event.lobby_contact_email : event.organization.user.email
-    subject = t('mailers.decline_event_by_holder.subject', event_reference: @event_reference)
+    subject = t('mailers.cancel_event_by_holder.subject', event_reference: @event_reference)
     mail(to: @to, bcc: "registrodelobbies@madrid.es", subject: subject)
   end
 
