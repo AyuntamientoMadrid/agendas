@@ -25,7 +25,7 @@ end
 
 every 1.minute, roles: [:cron] do
   command "date > ~/cron-test-cron.txt"
-en
+end
 #
 # every 1.day, at: '00:00 am', roles: [:export] do
 #   rake 'export:agendas'
