@@ -250,8 +250,8 @@ feature 'Events' do
 
       scenario 'visit edit event form and render canceled option' do
         event = create(:event, organization: @organization, user: @user_manager,
-                       lobby_contact_email: "user@email.com", lobby_activity: true,
-                       position: @position)
+                               lobby_contact_email: "user@email.com", lobby_activity: true,
+                               position: @position)
         event.event_agents << create(:event_agent)
 
         event.status = 'requested'
@@ -264,8 +264,8 @@ feature 'Events' do
 
       scenario 'visit edit event form and render rejected option' do
         event = create(:event, organization: @organization, user: @user_manager,
-                       lobby_contact_email: "user@email.com", lobby_activity: true,
-                       position: @position)
+                               lobby_contact_email: "user@email.com", lobby_activity: true,
+                               position: @position)
         event.event_agents << create(:event_agent)
 
 
@@ -282,6 +282,17 @@ feature 'Events' do
         click_button "Guardar"
 
         expect(page).to have_content 'New event modified from Capybara'
+      end
+
+      scenario 'edit event does not launch any email (:user)', :js do
+        ActionMailer::Base.deliveries.clear
+        event = create(:event, user: @user_manager, title: 'Test event', position: @position)
+        visit edit_event_path(event)
+
+        fill_in :event_title, with: 'New event modified from Capybara'
+        click_button "Guardar"
+
+        expect(ActionMailer::Base.deliveries.count).to eq(0)
       end
 
     end
@@ -1326,8 +1337,8 @@ feature 'Events' do
 
     scenario "Lobby user can only cancel events", :js do
       event = create(:event, organization: @organization, user: @organization_user,
-                     lobby_contact_email: "user@email.com", lobby_activity: true,
-                     position: @position)
+                             lobby_contact_email: "user@email.com", lobby_activity: true,
+                             position: @position)
       event.event_agents << @event_agent
 
       visit edit_event_path(event)
@@ -1340,8 +1351,8 @@ feature 'Events' do
     scenario "Lobby user correctly cancel events", :js do
       ActionMailer::Base.deliveries.clear
       event = create(:event, organization: @organization, user: @organization_user,
-                     lobby_contact_email: "user@email.com", lobby_activity: true,
-                     position: @position)
+                             lobby_contact_email: "user@email.com", lobby_activity: true,
+                             position: @position)
       event.event_agents << @event_agent
 
       visit edit_event_path(event)
@@ -1377,8 +1388,8 @@ feature 'Events' do
 
     scenario "Admin user can accept, decline and cancel events", :js do
       event = create(:event, organization: @organization, user: @organization_user,
-                     lobby_contact_email: "user@email.com", lobby_activity: true,
-                     position: @position)
+                             lobby_contact_email: "user@email.com", lobby_activity: true,
+                             position: @position)
       event.event_agents <<  @event_agent
 
       visit edit_event_path(event)
@@ -1403,8 +1414,8 @@ feature 'Events' do
 
     scenario "regular user can accept, decline and cancel events", :js do
       event = create(:event, organization: @organization, user: @organization_user,
-                     lobby_contact_email: "user@email.com", lobby_activity: true,
-                     position: @position)
+                             lobby_contact_email: "user@email.com", lobby_activity: true,
+                             position: @position)
       event.event_agents << @event_agent
       visit edit_event_path(event)
 
@@ -1416,8 +1427,8 @@ feature 'Events' do
     scenario "User user correctly accept tests", :js do
       ActionMailer::Base.deliveries.clear
       event = create(:event, organization: @organization, user: @organization_user,
-                     lobby_contact_email: "user@email.com", lobby_activity: true,
-                     position: @position)
+                             lobby_contact_email: "user@email.com", lobby_activity: true,
+                             position: @position)
       event.event_agents << @event_agent
 
       event.update(status: 'requested')
@@ -1440,8 +1451,8 @@ feature 'Events' do
 
     scenario "User incorrect cancel tests", :js do
       event = create(:event, organization: @organization, user: @organization_user,
-                     lobby_contact_email: "user@email.com", lobby_activity: true,
-                     position: @position)
+                             lobby_contact_email: "user@email.com", lobby_activity: true,
+                             position: @position)
       event.event_agents << @event_agent
 
       event.update(status: 'accepted')
@@ -1456,8 +1467,8 @@ feature 'Events' do
     scenario "User correctly cancel events", :js do
       ActionMailer::Base.deliveries.clear
       event = create(:event, organization: @organization, user: @organization_user,
-                     lobby_contact_email: "user@email.com", lobby_activity: true,
-                     position: @position)
+                             lobby_contact_email: "user@email.com", lobby_activity: true,
+                             position: @position)
       event.event_agents << @event_agent
 
       visit edit_event_path(event)
@@ -1495,10 +1506,12 @@ feature 'Events' do
     scenario "User correctly decline tests", :js do
       ActionMailer::Base.deliveries.clear
       event = create(:event, organization: @organization, user: @organization_user,
-                     lobby_contact_email: "user@email.com", lobby_activity: true,
-                     position: @position)
+                             lobby_contact_email: "user@email.com", lobby_activity: true,
+                             position: @position)
       event.event_agents << @event_agent
       event.update(status: 'requested')
+      manages_emails = event.position.holder.users.collect(&:email)
+      to = ["user@email.com"] + manages_emails
 
       visit edit_event_path(event)
 
@@ -1510,7 +1523,7 @@ feature 'Events' do
       expect(ActionMailer::Base.deliveries.count).to eq(1)
       open_email("user@email.com")
 
-      expect(current_email.to).to eq(["user@email.com"])
+      expect(current_email.to).to eq(to)
       expect(current_email.cc).to eq(nil)
       expect(current_email.bcc).to eq(["registrodelobbies@madrid.es"])
 
@@ -1519,8 +1532,8 @@ feature 'Events' do
 
     scenario "An use can accept or decline an event only once", :js do
       event = create(:event, organization: @organization, user: @organization_user,
-                     lobby_contact_email: "user@email.com", lobby_activity: true,
-                     position: @position)
+                             lobby_contact_email: "user@email.com", lobby_activity: true,
+                             position: @position)
       event.event_agents << @event_agent
       event.update(status: 'accepted')
 
@@ -1532,8 +1545,8 @@ feature 'Events' do
 
     scenario "An use can cancel only accepted events", :js do
       event = create(:event, organization: @organization, user: @organization_user,
-                     lobby_contact_email: "user@email.com", lobby_activity: true,
-                     position: @position)
+                             lobby_contact_email: "user@email.com", lobby_activity: true,
+                             position: @position)
       event.event_agents << @event_agent
       event.update(status: 'accepted')
 
@@ -1544,8 +1557,8 @@ feature 'Events' do
 
     scenario "An use can cancel not accepted events", :js do
       event = create(:event, organization: @organization, user: @organization_user,
-                     lobby_contact_email: "user@email.com", lobby_activity: true,
-                     position: @position)
+                             lobby_contact_email: "user@email.com", lobby_activity: true,
+                             position: @position)
       event.event_agents << @event_agent
       event.update(status: 'requested')
 

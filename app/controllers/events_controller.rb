@@ -32,13 +32,17 @@ class EventsController < AdminController
   def update
     @event.user = current_user
     if @event.update_attributes(event_params)
-      if current_user.lobby?
+      if !current_user.lobby?
+        if @event.decline == 'true'
+          EventMailer.decline(@event).deliver_now
+        elsif @event.accept == 'true'
+          EventMailer.accept(@event).deliver_now
+        elsif @event.cancel == 'true'
+          EventMailer.cancel_by_holder(@event).deliver_now
+        end
+      elsif @event.cancel == 'true'
         EventMailer.cancel_by_lobby(@event).deliver_now
-      else
-        EventMailer.cancel_by_holder(@event).deliver_now
       end
-      EventMailer.decline(@event).deliver_now if @event.decline == 'true' && !current_user.lobby?
-      EventMailer.accept(@event).deliver_now if @event.accept == 'true' && !current_user.lobby?
       redirect_to events_home_path(current_user, false),
                   notice: t('backend.successfully_updated_record')
     else
