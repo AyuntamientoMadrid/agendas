@@ -2,13 +2,11 @@ class OrganizationMailer < ApplicationMailer
 
   def create(organization)
     @user_name = organization.user_name
-    @title = organization.fullname
     @lobby_reference = organization.id
     @lobby_name = organization.name
     @lobby_inscription_date = organization.inscription_date
     @user_password = Devise.friendly_token.first(8)
     organization.change_password(@user_password)
-    @link = "https://registrodelobbies.madrid.es"
 
     subject = t('mailers.create_organization.subject', lobby_reference: @lobby_reference)
     to = organization.user.nil? ? [] : organization.user.email

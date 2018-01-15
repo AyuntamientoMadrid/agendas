@@ -22,11 +22,18 @@ feature 'Events Mailer' do
     end
 
     scenario 'cancel event mail ' do
-      expect(current_email).to have_content I18n.t('mailers.cancel_event.text1', event_reference: @event.id)
-      expect(current_email).to have_content I18n.t('mailers.cancel_event.text2')
       expect(current_email).to have_content @event.description
       expect(current_email).to have_content @event.canceled_reasons
-
+      expect(current_email).to have_content @event.position.holder.users.collect(&:email).join(",")
+      lobby_name = @event.lobby_user_name.present? ? @event.lobby_user_name : @event.organization.user.first_name
+      expect(current_email).to have_content lobby_name
+      expect(current_email).to have_content @event.user.full_name
+      expect(current_email).to have_content @event.title
+      expect(current_email).to have_content @event.location
+      scheduled_date = I18n.l(@event.scheduled, format: :long)
+      expect(current_email).to have_content scheduled_date
+      expect(current_email).to have_content @event.description
+      expect(current_email.subject).to have_content I18n.t('mailers.cancel_event.subject', event_reference: @event.id)
     end
 
   end
@@ -52,9 +59,10 @@ feature 'Events Mailer' do
     end
 
     scenario 'decline event mail' do
-      expect(current_email).to have_content I18n.t('mailers.decline_event.text1', event_reference: @event.id)
+      expect(current_email).to have_content @event.declined_reasons
       expect(current_email).to have_content @event.title
       expect(current_email).to have_content @event.description
+      expect(current_email.subject).to have_content I18n.t('mailers.decline_event.subject', event_reference: @event.id)
     end
 
   end
@@ -79,15 +87,16 @@ feature 'Events Mailer' do
     end
 
     scenario 'accept event mail' do
-      expect(current_email).to have_content I18n.t('mailers.accept_event.head1', event_reference: @event.id)
-      expect(current_email).to have_content I18n.t('mailers.accept_event.text1', event_reference: @event.id)
-      expect(current_email).to have_content @event.location
+      expect(current_email).to have_content @event.title
       expect(current_email).to have_content @event.description
+      expect(current_email).to have_content @event.id
+      expect(current_email).to have_content @event.location
+      expect(current_email.subject).to have_content I18n.t('mailers.accept_event.subject', event_reference: @event.id)
     end
 
   end
 
-  describe "Cancel Event" do
+  describe "Cancel Event by holder" do
     background do
       user = create(:user, :user)
       login_as user
@@ -100,18 +109,20 @@ feature 'Events Mailer' do
       @event.lobby_contact_email = 'test@test'
       @event.lobby_activity = true
       @event.save!
-      manages_emails = @event.position.holder.users.collect(&:email).join(",")
+      manages_emails = @event.lobby_contact_email.present? ? @event.lobby_contact_email : @event.organization.user.email
 
-      EventMailer.cancel_by_lobby(@event).deliver_now
+      EventMailer.cancel_by_holder(@event).deliver_now
 
       open_email(manages_emails)
     end
 
-    scenario 'cancel event mail lobby' do
-      expect(current_email).to have_content I18n.t('mailers.cancel_event.text1', event_reference: @event.id)
-      expect(current_email).to have_content I18n.t('mailers.cancel_event.head1', event_reference: @event.id)
-      expect(current_email).to have_content @event.location
+    scenario 'cancel event mail by holder' do
       expect(current_email).to have_content @event.canceled_reasons
+      expect(current_email).to have_content @event.title
+      expect(current_email).to have_content @event.location
+      expect(current_email).to have_content @event.description
+      expect(current_email).to have_content I18n.l(@event.scheduled, format: :long)
+      expect(current_email.subject).to have_content I18n.t('mailers.cancel_event_by_holder.subject', event_reference: @event.id)
     end
 
   end
@@ -132,10 +143,11 @@ feature 'Events Mailer' do
     end
 
     scenario 'create event mail' do
-      expect(current_email).to have_content I18n.t('mailers.create_event.text1', event_reference: @event.id)
-      expect(current_email).to have_content I18n.t('mailers.create_event.text4')
       expect(current_email).to have_content @event.title
+      expect(current_email).to have_content @event.description
+      expect(current_email).to have_content I18n.l(@event.scheduled, format: :long)
       expect(current_email).to have_content @event.organization_name
+      expect(current_email.subject).to have_content I18n.t('mailers.create_event.subject', event_reference: @event.id)
     end
 
   end
