@@ -581,6 +581,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.represented_entities.count).to eq 0
         expect(organization.represented_entities).to eq []
       end
+
     end
   end
 
