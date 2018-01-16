@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180106204752) do
+ActiveRecord::Schema.define(version: 20180116172106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,6 +184,8 @@ ActiveRecord::Schema.define(version: 20180106204752) do
     t.integer  "organization_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.boolean  "check_email"
+    t.boolean  "check_sms"
   end
 
   add_index "legal_representants", ["organization_id"], name: "index_legal_representants_on_organization_id", using: :btree
@@ -268,6 +270,9 @@ ActiveRecord::Schema.define(version: 20180106204752) do
     t.date     "termination_date"
     t.boolean  "own_lobby_activity",     default: false
     t.boolean  "foreign_lobby_activity", default: false
+    t.string   "number_type"
+    t.boolean  "check_email"
+    t.boolean  "check_sms"
   end
 
   add_index "organizations", ["category_id"], name: "index_organizations_on_category_id", using: :btree
@@ -347,6 +352,7 @@ ActiveRecord::Schema.define(version: 20180106204752) do
     t.string   "phones"
     t.integer  "organization_id"
     t.datetime "deleted_at"
+    t.string   "identifier"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

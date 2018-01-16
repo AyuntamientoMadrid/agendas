@@ -112,7 +112,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.town).to eq "MADRID"
         expect(organization.address_type).to eq "CALLE"
         expect(organization.address).to eq "SANLUCAR DE BARRAMEDA"
-        #expect(organization.tipo de numeracion).to eq
+        # expect(organization.number_type).to eq "Número"
         expect(organization.number).to eq "8"
         expect(organization.gateway).to eq "PORTAL"
         expect(organization.stairs).to eq "IZQ"
@@ -172,7 +172,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.town).to eq "Madrid"
         expect(organization.address_type).to eq "CALLE"
         expect(organization.address).to eq "Alcalá"
-        #expect(organization.tipo de numeracion).to eq
+        # expect(organization.number_type).to eq "Número"
         expect(organization.number).to eq "45"
         expect(organization.gateway).to eq nil
         expect(organization.stairs).to eq nil
@@ -184,8 +184,8 @@ describe Api::ResponsibleStatementsController do
         expect(organization.category).to eq @category_emp
         expect(organization.description).to eq "influir en la normativa sobre transparencia"
         expect(organization.web).to eq "wwww.transparentes.org"
-        # COMUNES_INTERESADO_CHECKEMAIL
-        # COMUNES_INTERESADO_CHECKSMS
+        expect(organization.check_email).to eq true
+        expect(organization.check_sms).to eq false
 
         #DATA_2
         expect(organization.legal_representant).to eq nil
@@ -244,7 +244,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.town).to eq "MADRID"
         expect(organization.address_type).to eq "CALLE"
         expect(organization.address).to eq "ALCALA"
-        #expect(organization.tipo de numeracion).to eq
+        # expect(organization.number_type).to eq "Número"
         expect(organization.number).to eq "45"
         expect(organization.gateway).to eq nil
         expect(organization.stairs).to eq nil
@@ -259,8 +259,8 @@ describe Api::ResponsibleStatementsController do
         # <variable><clave>COMUNES_INTERESADO_CNMC</clave><valor>true</valor></variable>
         # <variable><clave>COMUNES_INTERESADO_GENERAL</clave><valor>true</valor></variable>
         # <variable><clave>COMUNES_INTERESADO_OTROS</clave><valor>true</valor></variable>
-        # COMUNES_INTERESADO_CHECKEMAIL
-        # COMUNES_INTERESADO_CHECKSMS
+        expect(organization.check_email).to eq true
+        expect(organization.check_sms).to eq true
 
         #DATA_2
         expect(organization.legal_representant).to eq nil
@@ -310,7 +310,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.town).to eq "MADRID"
         expect(organization.address_type).to eq "CALLE"
         expect(organization.address).to eq "Claudio Coello"
-        #expect(organization.tipo de numeracion).to eq
+        # expect(organization.number_type).to eq "Número"
         expect(organization.number).to eq "124"
         expect(organization.gateway).to eq nil
         expect(organization.stairs).to eq nil
@@ -326,8 +326,8 @@ describe Api::ResponsibleStatementsController do
         # <variable><clave>COMUNES_INTERESADO_CNMC</clave><valor>true</valor></variable>
         # <variable><clave>COMUNES_INTERESADO_GENERAL</clave><valor>true</valor></variable>
         # <variable><clave>COMUNES_INTERESADO_OTROS</clave><valor>true</valor></variable>
-        # COMUNES_INTERESADO_CHECKEMAIL
-        # COMUNES_INTERESADO_CHECKSMS
+        expect(organization.check_email).to eq true
+        expect(organization.check_sms).to eq true
 
         #DATA_2
         expect(organization.legal_representant.identifier).to eq "70572650W"
@@ -417,7 +417,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.town).to eq "madrid"
         expect(organization.address_type).to eq "CALLE"
         expect(organization.address).to eq "alcalá"
-        #expect(organization.tipo de numeracion).to eq
+        # expect(organization.number_type).to eq "Número"
         expect(organization.number).to eq "45"
         expect(organization.gateway).to eq nil
         expect(organization.stairs).to eq nil
@@ -433,8 +433,8 @@ describe Api::ResponsibleStatementsController do
         # <variable><clave>COMUNES_INTERESADO_CNMC</clave><valor>false</valor></variable>
         # <variable><clave>COMUNES_INTERESADO_GENERAL</clave><valor>true</valor></variable>
         # <variable><clave>COMUNES_INTERESADO_OTROS</clave><valor>false</valor></variable>
-        # COMUNES_INTERESADO_CHECKEMAIL
-        # COMUNES_INTERESADO_CHECKSMS
+        expect(organization.check_email).to eq true
+        expect(organization.check_sms).to eq true
 
         #DATA_2
         expect(organization.legal_representant).to eq nil
@@ -540,7 +540,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.town).to eq "MADRID"
         expect(organization.address_type).to eq "CALLE"
         expect(organization.address).to eq "ALCALA"
-        #expect(organization.tipo de numeracion).to eq
+        # expect(organization.number_type).to eq "Número"
         expect(organization.number).to eq "45"
         expect(organization.gateway).to eq nil
         expect(organization.stairs).to eq nil
@@ -555,8 +555,8 @@ describe Api::ResponsibleStatementsController do
         # <variable><clave>COMUNES_INTERESADO_CNMC</clave><valor>true</valor></variable>
         # <variable><clave>COMUNES_INTERESADO_GENERAL</clave><valor>true</valor></variable>
         # <variable><clave>COMUNES_INTERESADO_OTROS</clave><valor>true</valor></variable>
-        # COMUNES_INTERESADO_CHECKEMAIL true --> false #updated
-        # COMUNES_INTERESADO_CHECKSMS   true --> false #updated
+        expect(organization.check_email).to eq false #updated
+        expect(organization.check_sms).to eq true #updated
 
         #DATA_2
         expect(organization.legal_representant).to eq nil

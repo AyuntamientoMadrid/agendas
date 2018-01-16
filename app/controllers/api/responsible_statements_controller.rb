@@ -36,7 +36,7 @@ module Api
       town           = key_content(doc, "COMUNES_INTERESADO_MUNICIPIO")
       address_type   = key_content(doc, "COMUNES_INTERESADO_TIPOVIA")
       address        = key_content(doc, "COMUNES_INTERESADO_NOMBREVIA")
-      # num_type       = key_content(doc, "COMUNES_INTERESADO_TIPONUM")
+      number_type    = get_number_type(doc)
       number         = key_content(doc, "COMUNES_INTERESADO_NUMERO")
       gateway        = key_content(doc, "COMUNES_INTERESADO_PORTAL")
       stairs         = key_content(doc, "COMUNES_INTERESADO_ESCALERA")
@@ -49,6 +49,8 @@ module Api
       description    = key_content(doc, "COMUNES_INTERESADO_FINALIDAD")
       web            = key_content(doc, "COMUNES_INTERESADO_WEB")
       registered_lobby_ids = get_registered_lobby_ids(doc)
+      check_email    = get_check(doc, "COMUNES_INTERESADO_CHECKEMAIL")
+      check_sms      = get_check(doc, "COMUNES_INTERESADO_CHECKSMS")
 
       # 2. Datos de la persona o entidad representante
       legal_representant_identifier     = key_content(doc, "COMUNES_REPRESENTANTE_NUMIDENT")
@@ -57,10 +59,12 @@ module Api
       legal_representant_second_surname = key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO2")
       legal_representant_email          = key_content(doc, "COMUNES_REPRESENTANTE_EMAIL")
       legal_representant_phones         = get_phones(doc, "COMUNES_REPRESENTANTE_MOVIL", "COMUNES_REPRESENTANTE_TELEFONO")
-      legal_representant_attributes = { identifier: legal_representant_identifier, name: legal_representant_name, first_surname: legal_representant_first_surname, second_surname: legal_representant_second_surname, email: legal_representant_email, phones: legal_representant_phones }
+      legal_representant_check_email    = get_check(doc, "COMUNES_REPRESENTANTE_CHECKEMAIL")
+      legal_representant_check_sms      = get_check(doc, "COMUNES_REPRESENTANTE_CHECKSMS")
+      legal_representant_attributes = { identifier: legal_representant_identifier, name: legal_representant_name, first_surname: legal_representant_first_surname, second_surname: legal_representant_second_surname, email: legal_representant_email, phones: legal_representant_phones, check_email: legal_representant_check_email, check_sms: legal_representant_check_sms }
 
       # 3. Persona física de contacto
-      # user_identifier      = key_content(doc, "COMUNES_NOTIFICACION_NUMIDENT")
+      user_identifier      = key_content(doc, "COMUNES_NOTIFICACION_NUMIDENT")
       user_first_name      = key_content(doc, "COMUNES_NOTIFICACION_NOMBRE")
       user_last_name       = get_user_last_name(doc)
       user_role            = :lobby
@@ -68,7 +72,7 @@ module Api
       user_active          = 1
       user_phones          = get_phones(doc, "COMUNES_NOTIFICACION_MOVIL", "COMUNES_NOTIFICACION_TELEFONO")
       user_password        = get_random_password
-      user_attributes = { first_name: user_first_name, last_name: user_last_name, role: user_role, email: user_email, active: user_active, phones: user_phones, password: user_password, password_confirmation: user_password }
+      user_attributes = { identifier: user_identifier, first_name: user_first_name, last_name: user_last_name, role: user_role, email: user_email, active: user_active, phones: user_phones, password: user_password, password_confirmation: user_password }
 
       # 4. Datos de quien va a ejercer la actividad de lobby por cuenta propia
       fiscal_year     = key_content(doc, "EJERCICIO_ANUAL")
@@ -87,7 +91,8 @@ module Api
       re_1_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA")
       re_1_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA")
       re_1_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA")
-      represented_entity_1 = { identifier: re_1_identifier, name: re_1_name, first_surname: re_1_first_surname, second_surname: re_1_second_surname, from: re_1_from, fiscal_year: re_1_fiscal_year, range_fund: re_1_range_fund, subvention: re_1_subvention, contract: re_1_contract }
+      re_1_destroy        = get_destroy(doc, "MODPERSONA")
+      represented_entity_1 = { identifier: re_1_identifier, name: re_1_name, first_surname: re_1_first_surname, second_surname: re_1_second_surname, from: re_1_from, fiscal_year: re_1_fiscal_year, range_fund: re_1_range_fund, subvention: re_1_subvention, contract: re_1_contract, _destroy: re_1_destroy }
       represented_entities_attributes = { "1" => represented_entity_1 }
 
       #RepresentedEntity 2 (re_2)
@@ -100,7 +105,8 @@ module Api
       re_2_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA2")
       re_2_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA2")
       re_2_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA2")
-      represented_entity_2 = { identifier: re_2_identifier, name: re_2_name, first_surname: re_2_first_surname, second_surname: re_2_second_surname, from: re_2_from, fiscal_year: re_2_fiscal_year, range_fund: re_2_range_fund, subvention: re_2_subvention, contract: re_2_contract }
+      re_2_destroy        = get_destroy(doc, "MODPERSONA2")
+      represented_entity_2 = { identifier: re_2_identifier, name: re_2_name, first_surname: re_2_first_surname, second_surname: re_2_second_surname, from: re_2_from, fiscal_year: re_2_fiscal_year, range_fund: re_2_range_fund, subvention: re_2_subvention, contract: re_2_contract, _destroy: re_2_destroy }
       represented_entities_attributes = { "1" => represented_entity_1, "2" => represented_entity_2 }
 
       #RepresentedEntity 3 (re_3)
@@ -113,7 +119,8 @@ module Api
       re_3_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA3")
       re_3_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA3")
       re_3_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA3")
-      represented_entity_3 = { identifier: re_3_identifier, name: re_3_name, first_surname: re_3_first_surname, second_surname: re_3_second_surname, from: re_3_from, fiscal_year: re_3_fiscal_year, range_fund: re_3_range_fund, subvention: re_3_subvention, contract: re_3_contract }
+      re_3_destroy        = get_destroy(doc, "MODPERSONA3")
+      represented_entity_3 = { identifier: re_3_identifier, name: re_3_name, first_surname: re_3_first_surname, second_surname: re_3_second_surname, from: re_3_from, fiscal_year: re_3_fiscal_year, range_fund: re_3_range_fund, subvention: re_3_subvention, contract: re_3_contract, _destroy: re_3_destroy }
       represented_entities_attributes = { "1" => represented_entity_1, "2" => represented_entity_2, "3" => represented_entity_3 }
 
       #RepresentedEntity 4 (re_4)
@@ -126,22 +133,23 @@ module Api
       re_4_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA4")
       re_4_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA4")
       re_4_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA4")
-      represented_entity_4 = { identifier: re_4_identifier, name: re_4_name, first_surname: re_4_first_surname, second_surname: re_4_second_surname, from: re_4_from, fiscal_year: re_4_fiscal_year, range_fund: re_4_range_fund, subvention: re_4_subvention, contract: re_4_contract }
+      re_4_destroy        = get_destroy(doc, "MODPERSONA4")
+      represented_entity_4 = { identifier: re_4_identifier, name: re_4_name, first_surname: re_4_first_surname, second_surname: re_4_second_surname, from: re_4_from, fiscal_year: re_4_fiscal_year, range_fund: re_4_range_fund, subvention: re_4_subvention, contract: re_4_contract, _destroy: re_4_destroy }
       represented_entities_attributes = { "1" => represented_entity_1, "2" => represented_entity_2, "3" => represented_entity_3, "4" => represented_entity_4 }
 
       doc.xpath("//formulario").each do |form|
         if form.xpath("nombre=876") #Alta
-          organization = Organization.create(reference: reference, identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, country: country, province: province, town: town, address_type: address_type, address: address, number: number, gateway: gateway, stairs: stairs, floor: floor, door: door, postal_code: postal_code, email: email, phones: phones, category: category, description: description,
-                              registered_lobby_ids: registered_lobby_ids, web: web, fiscal_year: fiscal_year, range_fund: range_fund, contract: contract, subvention: subvention,
+          organization = Organization.create(reference: reference, identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, country: country, province: province, town: town, address_type: address_type, address: address, number_type: number_type, number: number, gateway: gateway, stairs: stairs, floor: floor, door: door, postal_code: postal_code, email: email, phones: phones, category: category, description: description,
+                              registered_lobby_ids: registered_lobby_ids, web: web, fiscal_year: fiscal_year, range_fund: range_fund, contract: contract, subvention: subvention, check_email: check_email, check_sms: check_sms,
                               user_attributes: user_attributes, legal_representant_attributes: legal_representant_attributes, represented_entities_attributes: represented_entities_attributes)
 
         elsif form.xpath("nombre=877") #Modificación
           organization = Organization.where(identifier: doc.xpath("//interesado/documento").text).first
           user_attributes                 = check_user_attributes(organization, user_attributes)
           legal_representant_attributes   = check_legal_representant_attributes(legal_representant_attributes)
-          represented_entities_attributes = check_represented_entities_attributes(represented_entities_attributes)
-          organization_params =  {reference: reference, identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, country: country, province: province, town: town, address_type: address_type, address: address, number: number, gateway: gateway, stairs: stairs, floor: floor, door: door, postal_code: postal_code, email: email, phones: phones, category: category, description: description,
-                              registered_lobby_ids: registered_lobby_ids, web: web, fiscal_year: fiscal_year, range_fund: range_fund, contract: contract, subvention: subvention,
+          represented_entities_attributes = check_represented_entities_attributes(doc, represented_entities_attributes)
+          organization_params =  {reference: reference, identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, country: country, province: province, town: town, address_type: address_type, address: address, number_type: number_type, number: number, gateway: gateway, stairs: stairs, floor: floor, door: door, postal_code: postal_code, email: email, phones: phones, category: category, description: description,
+                              registered_lobby_ids: registered_lobby_ids, web: web, fiscal_year: fiscal_year, range_fund: range_fund, contract: contract, subvention: subvention, check_email: check_email, check_sms: check_sms,
                               user_attributes: user_attributes, legal_representant_attributes: legal_representant_attributes, represented_entities_attributes: represented_entities_attributes }
           UserMailer.welcome(organization.user).deliver_now if organization.user.email != user_attributes[:email]
           organization.update_attributes(organization_params)
@@ -307,6 +315,10 @@ module Api
       key_content(doc, field) == "S"
     end
 
+    def get_check(doc, field)
+      key_content(doc, field) == "true"
+    end
+
     def check_user_attributes(organization, user_attributes)
       if user_attributes.count != user_attributes.compact.count && user_attributes.compact.count > 0
         user_attributes.compact!
@@ -330,11 +342,56 @@ module Api
       need_remove_blank_attributes ? legal_representant_attributes.compact! : legal_representant_attributes
     end
 
-    def check_represented_entities_attributes(represented_entities_attributes)
+    def check_represented_entities_attributes(doc, represented_entities_attributes)
       represented_entities_attributes.each do |represented_entity|
         represented_entity[1].compact!
       end
       return represented_entities_attributes
     end
+
+    # def destroy_represented_entities(doc)
+    #   if key_content(doc, "MODPERSONA") == "baja"
+    #     re = RepresentedEntity.where(identifier: key_content(doc, "DNI_REPRESENTA")).first
+    #     re.destroy if re.present?
+    #   end
+    #   2..4.each do |id|
+    #   if key_content(doc, "MODPERSONA#{id}") == "baja"
+    #     re = RepresentedEntity.where(identifier: key_content(doc, "DNI_REPRESENTA#{id}")).first
+    #     re.destroy if re.present?
+    #   end
+    # end
+    #
+    # def create_represented_entities(doc)
+    #   if key_content(doc, "MODPERSONA") == "alta"
+    #     re = RepresentedEntity.where(identifier: key_content(doc, "DNI_REPRESENTA")).first
+    #     re.destroy if re.present?
+    #   end
+    #   2..4.each do |id|
+    #   if key_content(doc, "MODPERSONA#{id}") == "baja"
+    #     re = RepresentedEntity.where(identifier: key_content(doc, "DNI_REPRESENTA#{id}")).first
+    #     re.destroy if re.present?
+    #   end
+    # end
+
+
+    def get_number_type(doc)
+      number_type = nil
+      if key_content(doc, "COMUNES_INTERESADO_TIPONUM").present?
+        case key_content(doc, "COMUNES_INTERESADO_TIPONUM")
+        when 'NUM'
+          number_type = "Número"
+        when 'KM'
+          number_type = "Kilómetro"
+        when 'S/N'
+          number_type = "S/N"
+        end
+      end
+      return number_type
+    end
+
+    def get_destroy(doc, field)
+      (key_content(doc, "field") == "baja") ? "1" : "false"
+    end
+
   end
 end
