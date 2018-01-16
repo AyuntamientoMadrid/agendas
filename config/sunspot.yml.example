@@ -1,20 +1,20 @@
 production:
   solr:
-    hostname: rorsearchpro03a.munimadrid.es
+    hostname: production.server
     port: 8080
     log_level: WARNING
     path: /solr-agendas
 
 preproduction:
   solr:
-    hostname: rorsearchpre03a.munimadrid.es
+    hostname: preproduction.server
     port: 8080
     log_level: WARNING
-    path: /solr-agendas
+    path: /solr
 
 staging:
   solr:
-    hostname: rorappdesa03a.munimadrid.es
+    hostname: staging.server
     port: 8080
     log_level: INFO
     path: /solr-agendas

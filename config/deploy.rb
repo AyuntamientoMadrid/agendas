@@ -23,7 +23,7 @@ set :log_level, :info
 set :pty, true
 set :use_sudo, false
 
-set :linked_files, %w{config/database.yml config/secrets.yml}
+set :linked_files, %w{config/database.yml config/secrets.yml config/sunspot.yml}
 set :linked_dirs, %w{log tmp public/system public/assets}
 
 set :keep_releases, 10
@@ -39,6 +39,7 @@ set(:config_files, %w(
   database.yml
   secrets.yml
   unicorn.rb
+  sunspot.yml
 ))
 
 namespace :deploy do
