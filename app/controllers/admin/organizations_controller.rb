@@ -37,6 +37,8 @@ module Admin
 
     def edit; end
 
+# "user_attributes"=>{"id"=>"21", "first_name"=>"a", "last_name"=>"a", "role"=>"lobby", "email"=>"a@a.es", "active"=>"1", "phones"=>"11"}
+# :user_attributes=>{:first_name=>"HONORIO ENRIQUE", :last_name=>"CRESPO DÍAZ-ALEJO", :role=>:lobby, :email=>"crespodhe@madrid.es", :active=>1}
     def update
       if @organization.update_attributes(organization_params)
         path = current_user.lobby? ? admin_organization_path(@organization) : admin_organizations_path

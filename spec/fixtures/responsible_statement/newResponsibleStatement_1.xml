@@ -123,13 +123,13 @@
         <variables>
           <variable><clave>COMUNES_INTERESADO_TIPONUM</clave><valor>NUM</valor></variable>
           <variable><clave>COMUNES_INTERESADO_NUMIDENT</clave><valor>50048658Z</valor></variable>
-          <variable><clave>COMUNES_INTERESADO_PORTAL</clave><valor></valor></variable>
+          <variable><clave>COMUNES_INTERESADO_PORTAL</clave><valor>PORTAL</valor></variable>
           <variable><clave>COMUNES_INTERESADO_PROVINCIA</clave><valor>MADRID</valor></variable>
           <variable><clave>COMUNES_INTERESADO_PAIS</clave><valor>ESPAÑA</valor></variable>
           <variable><clave>COMUNES_INTERESADO_TIPOVIA</clave><valor>CALLE</valor></variable>
           <variable><clave>COMUNES_INTERESADO_FINALIDAD</clave><valor>finalidad</valor></variable>
-          <variable><clave>COMUNES_INTERESADO_MOVIL</clave><valor></valor></variable>
-          <variable><clave>COMUNES_INTERESADO_PLANTA</clave><valor></valor></variable>
+          <variable><clave>COMUNES_INTERESADO_MOVIL</clave><valor>600123123</valor></variable>
+          <variable><clave>COMUNES_INTERESADO_PLANTA</clave><valor>2</valor></variable>
           <variable><clave>COMUNES_INTERESADO_CATEG</clave><valor>EMP</valor></variable>
           <variable><clave>COMUNES_INTERESADO_NOMBREVIABDC</clave><valor>SANLUCAR DE BARRAMEDA</valor></variable>
           <variable><clave>COMUNES_INTERESADO_NUMERO</clave><valor>8</valor></variable>
@@ -142,12 +142,12 @@
           <variable><clave>COMUNES_INTERESADO_MUNICIPIO</clave><valor>MADRID</valor></variable>
           <variable><clave>COMUNES_INTERESADO_INSCRIPCION</clave><valor>N</valor></variable>
           <variable><clave>COMUNES_INTERESADO_TIPODOC</clave><valor>N</valor></variable>
-          <variable><clave>COMUNES_INTERESADO_ESCALERA</clave><valor></valor></variable>
+          <variable><clave>COMUNES_INTERESADO_ESCALERA</clave><valor>IZQ</valor></variable>
           <variable><clave>COMUNES_INTERESADO_REGISTRO</clave><valor></valor></variable>
           <variable><clave>COMUNES_INTERESADO_TELEFONO</clave><valor>915625326</valor></variable>
           <variable><clave>COMUNES_INTERESADO_EMAIL</clave><valor>izquierdoja@madrid.es</valor></variable>
-          <variable><clave>COMUNES_INTERESADO_PUERTA</clave><valor></valor></variable>
-          <variable><clave>COMUNES_INTERESADO_WEB</clave><valor></valor></variable>
+          <variable><clave>COMUNES_INTERESADO_PUERTA</clave><valor>4</valor></variable>
+          <variable><clave>COMUNES_INTERESADO_WEB</clave><valor>www.web.es</valor></variable>
           <variable><clave>COMUNES_INTERESADO_NOMBREVIA</clave><valor>SANLUCAR DE BARRAMEDA</valor></variable>
           <variable><clave>COMUNES_INTERESADO_CHECKSMS</clave><valor>false</valor></variable>
         </variables>
@@ -168,14 +168,14 @@
       </datosRepresentante>
       <datosNotificacion>
         <variables>
-          <variable><clave>COMUNES_NOTIFICACION_EMAIL</clave><valor></valor></variable>
-          <variable><clave>COMUNES_NOTIFICACION_MOVIL</clave><valor></valor></variable>
-          <variable><clave>COMUNES_NOTIFICACION_NOMBRE</clave><valor></valor></variable>
-          <variable><clave>COMUNES_NOTIFICACION_TELEFONO</clave><valor></valor></variable>
-          <variable><clave>COMUNES_NOTIFICACION_APELLIDO1</clave><valor></valor></variable>
+          <variable><clave>COMUNES_NOTIFICACION_EMAIL</clave><valor>email@email.com</valor></variable>
+          <variable><clave>COMUNES_NOTIFICACION_MOVIL</clave><valor>600123123</valor></variable>
+          <variable><clave>COMUNES_NOTIFICACION_NOMBRE</clave><valor>user_name</valor></variable>
+          <variable><clave>COMUNES_NOTIFICACION_TELEFONO</clave><valor>971123123</valor></variable>
+          <variable><clave>COMUNES_NOTIFICACION_APELLIDO1</clave><valor>user_apellido_1</valor></variable>
           <variable><clave>COMUNES_NOTIFICACION_RAZONSOCIAL</clave><valor></valor></variable>
-          <variable><clave>COMUNES_NOTIFICACION_APELLIDO2</clave><valor></valor></variable>
-          <variable><clave>COMUNES_NOTIFICACION_NUMIDENT</clave><valor></valor></variable>
+          <variable><clave>COMUNES_NOTIFICACION_APELLIDO2</clave><valor>user_apellido_2</valor></variable>
+          <variable><clave>COMUNES_NOTIFICACION_NUMIDENT</clave><valor>43138882G</valor></variable>
         </variables>
       </datosNotificacion>
     </datosComunes>
