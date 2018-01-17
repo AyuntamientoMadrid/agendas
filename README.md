@@ -25,6 +25,7 @@ cd agendas
 bundle install
 cp config/database.yml.example config/database.yml
 cp config/secrets.yml.example config/secrets.yml
+cp config/sunspot.yml.example config/sunspot.yml
 rake db:create
 rake db:schema:load
 rake sunspot:solr:start
