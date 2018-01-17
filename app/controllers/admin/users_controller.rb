@@ -49,11 +49,6 @@ module Admin
       redirect_to admin_users_path, notice: t('backend.successfully_disabled_record')
     end
 
-    def import
-      UwebImportWorker.perform_async
-      redirect_to admin_users_path, notice: t('backend.successfully_sync')
-    end
-
     def full_name
       (self.first_name.to_s+' '+self.last_name.to_s).mb_chars.to_s
     end
