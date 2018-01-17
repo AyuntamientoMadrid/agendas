@@ -11,11 +11,10 @@ Rails.application.routes.draw do
   get '/faq', to: 'questions#index', as: 'faq'
   get '/websitemap', to: 'static_pages#websitemap', as: 'websitemap'
 
-  resources :infringement_emails, only: [:new, :create]
+  resources :statistics, only: [:index]
 
   get '/code_of_conduct', to: 'static_pages#code_of_conduct', as: 'code_of_conduct'
   get '/accessibility', to: 'static_pages#accessibility', as: 'accessibility'
-  get '/statistics', to: 'static_pages#statistics', as: 'statistics'
 
   get '/homepage', to: 'homepage#index', as: 'homepage'
   get 'registration_lobbies/index'

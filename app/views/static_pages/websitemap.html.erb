@@ -4,14 +4,14 @@
 
   <p><a href="/"><%= t "websitemap.cover_page" %></a></p>
   <p><a href="/visitors"><%= t "websitemap.agendas" %></a></p>
-  <p><a href="/registration_lobbies/index"><%= t "websitemap.registration_lobbies" %></a></p>
+  <p><%= link_to t("websitemap.registration_lobbies"), registration_lobbies_path %></p>
     <ul>
-    <li><a href="/registration_lobbies/index"><%= t "websitemap.search_lobbies" %></a></li>
-    <li><a href="/organizations/edit"><%= t "websitemap.update_lobbies" %></a></li>
-    <li><a href="/faq#faq_24"><%= t "websitemap.rules_lobbies" %></a></li>
-    <li><a href="/faq"><%= t "websitemap.faq" %></a></li>
-    <li><a href="/"><%= t "websitemap.stadistics" %></a></li>
-    <li><a href="/infringement_emails/new"><%= t "websitemap.mailbox" %></a></li>
-    <li><a href="/registration_lobbies/index"><%= t "websitemap.regulations_lobbies" %></a></li>
+    <li><%= link_to t("websitemap.search_lobbies"), organizations_path %></li>
+    <li><%= link_to t("websitemap.update_lobbies"), edit_organization_path %></li>
+    <li><%= link_to t("websitemap.rules_lobbies"), "/faq#faq_24" %></li>
+    <li><%= link_to t("websitemap.faq"), faq_path %></a></li>
+    <li><%= link_to t("websitemap.stadistics"), statistics_path %></li>
+    <li><%= link_to t("websitemap.mailbox"), new_infringement_email_path %></li>
+    <li><%= link_to t("websitemap.regulations_lobbies"), registration_lobbies_path %></li>
     </ul>
 </div>
