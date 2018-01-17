@@ -591,7 +591,7 @@ describe Api::ResponsibleStatementsController do
                                 usuario: "WFORM" })
 
         organization = Organization.last
-        debugger
+
         expect(organization.represented_entities.count).to eq 2
         re_1 =  RepresentedEntity.where(identifier: "1").first
         expect(re_1.name).to eq "ENDESA"
@@ -605,6 +605,7 @@ describe Api::ResponsibleStatementsController do
                                 usuario: "WFORM" })
 
         organization = Organization.last
+
         expect(organization.represented_entities.count).to eq 2
         re_1 =  RepresentedEntity.where(identifier: "1").first
         expect(re_1.name).to eq "ENDESA"

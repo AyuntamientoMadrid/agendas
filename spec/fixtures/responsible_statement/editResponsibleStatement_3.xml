@@ -156,7 +156,7 @@
                     <variable><clave>COMUNES_REPRESENTANTE_NOMBRE</clave><valor>HONORIO ENRIQUE</valor></variable>
                     <variable><clave>COMUNES_REPRESENTANTE_TIPODOC</clave><valor>N</valor></variable>
                     <variable><clave>COMUNES_REPRESENTANTE_RAZONSOCIAL</clave><valor/></variable>
-                    <variable><clave>COMUNES_REPRESENTANTE_EMAIL</clave><valor/></variable>
+                    <variable><clave>COMUNES_REPRESENTANTE_EMAIL</clave><valor>email@email.com</valor></variable>
                     <variable><clave>COMUNES_REPRESENTANTE_APELLIDO1</clave><valor>CRESPO</valor></variable>
                     <variable><clave>COMUNES_REPRESENTANTE_APELLIDO2</clave><valor>DÍAZ-ALEJO</valor></variable>
                 </variables>

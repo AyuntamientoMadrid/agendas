@@ -23,220 +23,17 @@ module Api
     def inicioExpediente
       doc = Nokogiri.XML(params[:xmlDatosEntrada])
 
-      # 0. Numero Anotación
-      reference = doc.xpath("//numAnotacion").text
+      organization_params = {}
 
-      # 1. datos identificativos de quien aparecera como inscrito en el registro
-      identifier     = key_content(doc, "COMUNES_INTERESADO_NUMIDENT")
-      name           = get_name(doc, "COMUNES_INTERESADO_NOMBRE", "COMUNES_INTERESADO_RAZONSOCIAL")
-      first_surname  = key_content(doc, "COMUNES_INTERESADO_APELLIDO1")
-      second_surname = key_content(doc, "COMUNES_INTERESADO_APELLIDO2")
-      country        = key_content(doc, "COMUNES_INTERESADO_PAIS")
-      province       = key_content(doc, "COMUNES_INTERESADO_PROVINCIA")
-      town           = key_content(doc, "COMUNES_INTERESADO_MUNICIPIO")
-      address_type   = key_content(doc, "COMUNES_INTERESADO_TIPOVIA")
-      address        = key_content(doc, "COMUNES_INTERESADO_NOMBREVIA")
-      number_type    = get_number_type(doc)
-      number         = key_content(doc, "COMUNES_INTERESADO_NUMERO")
-      gateway        = key_content(doc, "COMUNES_INTERESADO_PORTAL")
-      stairs         = key_content(doc, "COMUNES_INTERESADO_ESCALERA")
-      floor          = key_content(doc, "COMUNES_INTERESADO_PLANTA")
-      door           = key_content(doc, "COMUNES_INTERESADO_PUERTA")
-      postal_code    = key_content(doc, "COMUNES_INTERESADO_CODPOSTAL")
-      email          = key_content(doc, "COMUNES_INTERESADO_EMAIL")
-      phones         = get_phones(doc, "COMUNES_INTERESADO_MOVIL", "COMUNES_INTERESADO_TELEFONO")
-      category       = get_category(doc)
-      description    = key_content(doc, "COMUNES_INTERESADO_FINALIDAD")
-      web            = key_content(doc, "COMUNES_INTERESADO_WEB")
-      registered_lobby_ids = get_registered_lobby_ids(doc)
-      check_email    = get_check(doc, "COMUNES_INTERESADO_CHECKEMAIL")
-      check_sms      = get_check(doc, "COMUNES_INTERESADO_CHECKSMS")
-
-      # 2. Datos de la persona o entidad representante
-      legal_representant_identifier     = key_content(doc, "COMUNES_REPRESENTANTE_NUMIDENT")
-      legal_representant_name           = get_name(doc, "COMUNES_REPRESENTANTE_NOMBRE", "COMUNES_REPRESENTANTE_RAZONSOCIAL")
-      legal_representant_first_surname  = key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO1")
-      legal_representant_second_surname = key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO2")
-      legal_representant_email          = key_content(doc, "COMUNES_REPRESENTANTE_EMAIL")
-      legal_representant_phones         = get_phones(doc, "COMUNES_REPRESENTANTE_MOVIL", "COMUNES_REPRESENTANTE_TELEFONO")
-      legal_representant_check_email    = get_check(doc, "COMUNES_REPRESENTANTE_CHECKEMAIL")
-      legal_representant_check_sms      = get_check(doc, "COMUNES_REPRESENTANTE_CHECKSMS")
-      legal_representant_attributes = { identifier: legal_representant_identifier, name: legal_representant_name, first_surname: legal_representant_first_surname, second_surname: legal_representant_second_surname, email: legal_representant_email, phones: legal_representant_phones, check_email: legal_representant_check_email, check_sms: legal_representant_check_sms }
-
-      # 3. Persona física de contacto
-      user_identifier      = key_content(doc, "COMUNES_NOTIFICACION_NUMIDENT")
-      user_first_name      = key_content(doc, "COMUNES_NOTIFICACION_NOMBRE")
-      user_last_name       = get_user_last_name(doc)
-      user_role            = :lobby
-      user_email           = key_content(doc, "COMUNES_NOTIFICACION_EMAIL")
-      user_active          = 1
-      user_phones          = get_phones(doc, "COMUNES_NOTIFICACION_MOVIL", "COMUNES_NOTIFICACION_TELEFONO")
-      user_password        = get_random_password
-      user_attributes = { identifier: user_identifier, first_name: user_first_name, last_name: user_last_name, role: user_role, email: user_email, active: user_active, phones: user_phones, password: user_password, password_confirmation: user_password }
-
-      # 4. Datos de quien va a ejercer la actividad de lobby por cuenta propia
-      own_lobby_activity = get_boolean_field_value(doc, "ACTIVIDAD_PROPIA")
-      fiscal_year        = key_content(doc, "EJERCICIO_ANUAL")
-      range_fund         = get_range_fund(doc, "FONDOS1")
-      contract           = get_boolean_field_value(doc, "RECIBI_AYUDAS")
-      subvention         = get_boolean_field_value(doc, "CELEBRA_CON")
-
-      # 5. Datos personas o entidades sin personalidad a quienes se va a representar
-      foreign_lobby_activity = get_boolean_field_value(doc, "ACTIVIDAD_AJENA")
-      represented_entities_attributes = {}
-      #RepresentedEntity 1 (re_1)
-      re_1_identifier     = key_content(doc, "DNI_REPRESENTA")
-      re_1_name           = key_content(doc, "NOMBRE_REPRESENTA")
-      re_1_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA")
-      re_1_second_surname = key_content(doc, "APELLIDO2_REPRESENTA")
-      re_1_from           = key_content(doc, "FECHA_REPRESENTA")
-      re_1_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA")
-      re_1_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA")
-      re_1_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA")
-      re_1_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA")
-      re_1_destroy        = get_destroy(doc, "MODPERSONA1")
-
-      if re_1_identifier.present?
-        represented_entity_1 = { identifier: re_1_identifier, name: re_1_name, first_surname: re_1_first_surname, second_surname: re_1_second_surname, from: re_1_from, fiscal_year: re_1_fiscal_year, range_fund: re_1_range_fund, subvention: re_1_subvention, contract: re_1_contract, _destroy: re_1_destroy }
-        # re_1_id = get_represented_entity_id(identifier, re_1_identifier)
-        if Organization.where(identifier: identifier).first.present?
-          re_1_id = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_1_identifier).first.id
-          re_1_identifier     = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_1_identifier).first.identifier
-          re_1_name           = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_1_identifier).first.name
-          re_1_first_surname  = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_1_identifier).first.first_surname
-          re_1_second_surname = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_1_identifier).first.second_surname
-          re_1_from           = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_1_identifier).first.from
-          re_1_fiscal_year    = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_1_identifier).first.fiscal_year
-          re_1_range_fund     = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_1_identifier).first.range_fund
-          re_1_subvention     = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_1_identifier).first.subvention
-          re_1_contract       = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_1_identifier).first.contract
-          represented_entity_1 = { identifier: re_1_identifier, name: re_1_name, first_surname: re_1_first_surname, second_surname: re_1_second_surname, from: re_1_from, fiscal_year: re_1_fiscal_year, range_fund: re_1_range_fund, subvention: re_1_subvention, contract: re_1_contract, _destroy: re_1_destroy }
-          represented_entity_1 = represented_entity_1.merge(:id => re_1_id)
-        end
-        # represented_entities_attributes = { "1" => represented_entity_1 }
-        represented_entities_attributes = represented_entities_attributes.merge("1" => represented_entity_1)
-      end
-
-      #RepresentedEntity 2 (re_2)
-      re_2_identifier     = key_content(doc, "DNI_REPRESENTA2")
-      re_2_name           = key_content(doc, "NOMBRE_REPRESENTA2")
-      re_2_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA2")
-      re_2_second_surname = key_content(doc, "APELLIDO2_REPRESENTA2")
-      re_2_from           = key_content(doc, "FECHA_REPRESENTA2")
-      re_2_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA2")
-      re_2_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA2")
-      re_2_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA2")
-      re_2_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA2")
-      re_2_destroy        = get_destroy(doc, "MODPERSONA2")
-      if re_2_identifier.present?
-        represented_entity_2 = { identifier: re_2_identifier, name: re_2_name, first_surname: re_2_first_surname, second_surname: re_2_second_surname, from: re_2_from, fiscal_year: re_2_fiscal_year, range_fund: re_2_range_fund, subvention: re_2_subvention, contract: re_2_contract, _destroy: re_2_destroy }
-        # re_2_id = get_represented_entity_id(identifier, re_2_identifier)
-        if Organization.where(identifier: identifier).first.present? && Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_2_identifier).first.present?
-          re_2_id = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_2_identifier).first.id
-          re_2_identifier     = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_2_identifier).first.identifier
-          re_2_name           = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_2_identifier).first.name
-          re_2_first_surname  = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_2_identifier).first.first_surname
-          re_2_second_surname = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_2_identifier).first.second_surname
-          re_2_from           = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_2_identifier).first.from
-          re_2_fiscal_year    = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_2_identifier).first.fiscal_year
-          re_2_range_fund     = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_2_identifier).first.range_fund
-          re_2_subvention     = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_2_identifier).first.subvention
-          re_2_contract       = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_2_identifier).first.contract
-          represented_entity_2 = { identifier: re_2_identifier, name: re_2_name, first_surname: re_2_first_surname, second_surname: re_2_second_surname, from: re_2_from, fiscal_year: re_2_fiscal_year, range_fund: re_2_range_fund, subvention: re_2_subvention, contract: re_2_contract, _destroy: re_2_destroy }
-          represented_entity_2 = represented_entity_2.merge(:id => re_2_id)
-
-        end
-        # represented_entities_attributes = { "2" => represented_entity_2 }
-        represented_entities_attributes = represented_entities_attributes.merge("2" => represented_entity_2)
-      end
-
-      #RepresentedEntity 3 (re_3)
-      re_3_identifier     = key_content(doc, "DNI_REPRESENTA3")
-      re_3_name           = key_content(doc, "NOMBRE_REPRESENTA3")
-      re_3_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA3")
-      re_3_second_surname = key_content(doc, "APELLIDO3_REPRESENTA3")
-      re_3_from           = key_content(doc, "FECHA_REPRESENTA3")
-      re_3_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA3")
-      re_3_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA3")
-      re_3_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA3")
-      re_3_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA3")
-      re_3_destroy        = get_destroy(doc, "MODPERSONA3")
-      if re_3_identifier.present?
-        represented_entity_3 = { identifier: re_3_identifier, name: re_3_name, first_surname: re_3_first_surname, second_surname: re_3_second_surname, from: re_3_from, fiscal_year: re_3_fiscal_year, range_fund: re_3_range_fund, subvention: re_3_subvention, contract: re_3_contract, _destroy: re_3_destroy }
-        # re_3_id = get_represented_entity_id(identifier, re_3_identifier)
-        if Organization.where(identifier: identifier).first.present?
-          re_3_id = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_3_identifier).first.id
-          re_3_identifier     = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_3_identifier).first.identifier
-          re_3_name           = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_3_identifier).first.name
-          re_3_first_surname  = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_3_identifier).first.first_surname
-          re_3_second_surname = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_3_identifier).first.second_surname
-          re_3_from           = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_3_identifier).first.from
-          re_3_fiscal_year    = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_3_identifier).first.fiscal_year
-          re_3_range_fund     = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_3_identifier).first.range_fund
-          re_3_subvention     = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_3_identifier).first.subvention
-          re_3_contract       = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_3_identifier).first.contract
-          represented_entity_3 = { identifier: re_3_identifier, name: re_3_name, first_surname: re_3_first_surname, second_surname: re_3_second_surname, from: re_3_from, fiscal_year: re_3_fiscal_year, range_fund: re_3_range_fund, subvention: re_3_subvention, contract: re_3_contract, _destroy: re_3_destroy }
-          represented_entity_3 = represented_entity_3.merge(:id => re_3_id)
-
-        end
-        # represented_entities_attributes = { "3" => represented_entity_3 }
-        represented_entities_attributes = represented_entities_attributes.merge("3" => represented_entity_3)
-      end
-
-      #RepresentedEntity 4 (re_4)
-      re_4_identifier     = key_content(doc, "DNI_REPRESENTA4")
-      re_4_name           = key_content(doc, "NOMBRE_REPRESENTA4")
-      re_4_first_surname  = key_content(doc, "APELLIDO1_REPRESENTA4")
-      re_4_second_surname = key_content(doc, "APELLIDO4_REPRESENTA4")
-      re_4_from           = key_content(doc, "FECHA_REPRESENTA4")
-      re_4_fiscal_year    = key_content(doc, "EJERCICIO_REPRESENTA4")
-      re_4_range_fund     = get_range_fund(doc, "FONDOS_REPRESENTA4")
-      re_4_subvention     = get_boolean_field_value(doc, "ENTIDAD_AYUDA_REPRESENTA4")
-      re_4_contract       = get_boolean_field_value(doc, "ENTIDAD_CON_REPRESENTA4")
-      re_4_destroy        = get_destroy(doc, "MODPERSONA4")
-      if re_4_identifier.present?
-        represented_entity_4 = { identifier: re_4_identifier, name: re_4_name, first_surname: re_4_first_surname, second_surname: re_4_second_surname, from: re_4_from, fiscal_year: re_4_fiscal_year, range_fund: re_4_range_fund, subvention: re_4_subvention, contract: re_4_contract, _destroy: re_4_destroy }
-        # re_4_id = get_represented_entity_id(identifier, re_4_identifier)
-        if Organization.where(identifier: identifier).first.present?
-          re_4_id = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_4_identifier).first.id
-          re_4_identifier     = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_4_identifier).first.identifier
-          re_4_name           = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_4_identifier).first.name
-          re_4_first_surname  = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_4_identifier).first.first_surname
-          re_4_second_surname = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_4_identifier).first.second_surname
-          re_4_from           = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_4_identifier).first.from
-          re_4_fiscal_year    = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_4_identifier).first.fiscal_year
-          re_4_range_fund     = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_4_identifier).first.range_fund
-          re_4_subvention     = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_4_identifier).first.subvention
-          re_4_contract       = Organization.where(identifier: identifier).first.represented_entities.where(identifier: re_4_identifier).first.contract
-          represented_entity_4 = { identifier: re_4_identifier, name: re_4_name, first_surname: re_4_first_surname, second_surname: re_4_second_surname, from: re_4_from, fiscal_year: re_4_fiscal_year, range_fund: re_4_range_fund, subvention: re_4_subvention, contract: re_4_contract, _destroy: re_4_destroy }
-          represented_entity_4 = represented_entity_4.merge(:id => re_4_id)
-
-        end
-        # represented_entities_attributes = { "4" => represented_entity_4 }
-        represented_entities_attributes = represented_entities_attributes.merge("4" => represented_entity_4)
-      end
-
-      # 6. Attachments
-      # registry_api = RegistryApi.new
-      # message: { Aplicacion: “RLOBBIES”, CodigoDocumento: “0901ffd680138b07", Sentido: “E”, NumAnotacion: “AAAA20170001003" }
-      # registry_api.get_documento_anotacion(message)
+      organization_params = add_attributes(doc, organization_params)
 
       doc.xpath("//formulario").each do |form|
         if form.xpath("nombre=876") #Alta
-          organization = Organization.create(reference: reference, identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, country: country, province: province, town: town, address_type: address_type, address: address, number_type: number_type, number: number, gateway: gateway, stairs: stairs, floor: floor, door: door, postal_code: postal_code, email: email, phones: phones, category: category, description: description,
-                              registered_lobby_ids: registered_lobby_ids, web: web, fiscal_year: fiscal_year, range_fund: range_fund, contract: contract, subvention: subvention, check_email: check_email, check_sms: check_sms, foreign_lobby_activity: foreign_lobby_activity, own_lobby_activity: own_lobby_activity,
-                              user_attributes: user_attributes, legal_representant_attributes: legal_representant_attributes, represented_entities_attributes: represented_entities_attributes)
+          organization = Organization.create(organization_params)
         elsif form.xpath("nombre=877") #Modificación
-          organization = Organization.where(identifier: identifier).first
-          user_attributes                 = check_user_attributes(organization, user_attributes)
-          legal_representant_attributes   = check_legal_representant_attributes(legal_representant_attributes)
-          # debugger
-          # represented_entities_attributes = check_represented_entities_attributes(doc, represented_entities_attributes)
-          # debugger
-          organization_params =  {reference: reference, identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, country: country, province: province, town: town, address_type: address_type, address: address, number_type: number_type, number: number, gateway: gateway, stairs: stairs, floor: floor, door: door, postal_code: postal_code, email: email, phones: phones, category: category, description: description,
-                              registered_lobby_ids: registered_lobby_ids, web: web, fiscal_year: fiscal_year, range_fund: range_fund, contract: contract, subvention: subvention, check_email: check_email, check_sms: check_sms, foreign_lobby_activity: foreign_lobby_activity, own_lobby_activity: own_lobby_activity,
-                              user_attributes: user_attributes, legal_representant_attributes: legal_representant_attributes, represented_entities_attributes: represented_entities_attributes }
-          UserMailer.welcome(organization.user).deliver_now if organization.user.email != user_attributes[:email]
+          organization = Organization.where(identifier: organization_params[:identifier]).first
+          organization_params[:user_attributes] = check_user_attributes(organization, organization_params[:user_attributes])
+          UserMailer.welcome(organization.user).deliver_now if organization.user.email != organization_params[:user_attributes][:email]
           organization.update_attributes(organization_params)
         elsif form.xpath("nombre=878") #Baja
           organization = Organization.where(identifier: identifier).first
@@ -288,6 +85,158 @@ module Api
         descError: descError,
       }
     end
+
+    def add_attributes(doc, organization_params)
+      # 0. Numero Anotación
+      organization_params = add_reference(doc, organization_params)
+      # 1. Datos identificativos de quien aparecera como inscrito en el registro
+      organization_params = add_lobby_data(doc, organization_params)
+      # 2. Datos de la persona o entidad representante
+      organization_params = add_legal_representant(doc, organization_params)
+      # 3. Persona física de contacto
+      organization_params = add_user(doc, organization_params)
+      # 4. Datos de quien va a ejercer la actividad de lobby por cuenta propia
+      organization_params = add_own_lobby_activity(doc, organization_params)
+      # 5. Datos personas o entidades sin personalidad a quienes se va a representar
+      organization_params = add_foreign_lobby_activity(doc, organization_params)
+      # 6. Attachments
+      # registry_api = RegistryApi.new
+      # message: { Aplicacion: “RLOBBIES”, CodigoDocumento: “0901ffd680138b07", Sentido: “E”, NumAnotacion: “AAAA20170001003" }
+      # registry_api.get_documento_anotacion(message)
+    end
+
+    def add_reference(doc, organization_params)
+      reference = doc.xpath("//numAnotacion").text
+      organization_params =  organization_params.merge(reference: reference)
+    end
+
+    def add_lobby_data(doc, organization_params)
+      identifier     = key_content(doc, "COMUNES_INTERESADO_NUMIDENT")
+      name           = get_name(doc, "COMUNES_INTERESADO_NOMBRE", "COMUNES_INTERESADO_RAZONSOCIAL")
+      first_surname  = key_content(doc, "COMUNES_INTERESADO_APELLIDO1")
+      second_surname = key_content(doc, "COMUNES_INTERESADO_APELLIDO2")
+      country        = key_content(doc, "COMUNES_INTERESADO_PAIS")
+      province       = key_content(doc, "COMUNES_INTERESADO_PROVINCIA")
+      town           = key_content(doc, "COMUNES_INTERESADO_MUNICIPIO")
+      address_type   = key_content(doc, "COMUNES_INTERESADO_TIPOVIA")
+      address        = key_content(doc, "COMUNES_INTERESADO_NOMBREVIA")
+      number_type    = get_number_type(doc)
+      number         = key_content(doc, "COMUNES_INTERESADO_NUMERO")
+      gateway        = key_content(doc, "COMUNES_INTERESADO_PORTAL")
+      stairs         = key_content(doc, "COMUNES_INTERESADO_ESCALERA")
+      floor          = key_content(doc, "COMUNES_INTERESADO_PLANTA")
+      door           = key_content(doc, "COMUNES_INTERESADO_PUERTA")
+      postal_code    = key_content(doc, "COMUNES_INTERESADO_CODPOSTAL")
+      email          = key_content(doc, "COMUNES_INTERESADO_EMAIL")
+      phones         = get_phones(doc, "COMUNES_INTERESADO_MOVIL", "COMUNES_INTERESADO_TELEFONO")
+      category       = get_category(doc)
+      description    = key_content(doc, "COMUNES_INTERESADO_FINALIDAD")
+      web            = key_content(doc, "COMUNES_INTERESADO_WEB")
+      registered_lobby_ids = get_registered_lobby_ids(doc)
+      check_email    = get_check(doc, "COMUNES_INTERESADO_CHECKEMAIL")
+      check_sms      = get_check(doc, "COMUNES_INTERESADO_CHECKSMS")
+      organization_params =  organization_params.merge(identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname,
+                                                       country: country, province: province, town: town, address_type: address_type, address: address,
+                                                       number_type: number_type, number: number, gateway: gateway, stairs: stairs, floor: floor, door: door, postal_code: postal_code,
+                                                       email: email, phones: phones, category: category, description: description, web: web, registered_lobby_ids: registered_lobby_ids,
+                                                       check_email: check_email, check_sms: check_sms)
+    end
+
+    def add_legal_representant(doc, organization_params)
+      legal_representant_identifier     = key_content(doc, "COMUNES_REPRESENTANTE_NUMIDENT")
+
+      if legal_representant_identifier.present?
+        legal_representant_name           = get_name(doc, "COMUNES_REPRESENTANTE_NOMBRE", "COMUNES_REPRESENTANTE_RAZONSOCIAL")
+        legal_representant_first_surname  = key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO1")
+        legal_representant_second_surname = key_content(doc, "COMUNES_REPRESENTANTE_APELLIDO2")
+        legal_representant_email          = key_content(doc, "COMUNES_REPRESENTANTE_EMAIL")
+        legal_representant_phones         = get_phones(doc, "COMUNES_REPRESENTANTE_MOVIL", "COMUNES_REPRESENTANTE_TELEFONO")
+        legal_representant_check_email    = get_check(doc, "COMUNES_REPRESENTANTE_CHECKEMAIL")
+        legal_representant_check_sms      = get_check(doc, "COMUNES_REPRESENTANTE_CHECKSMS")
+        legal_representant_attributes = { identifier: legal_representant_identifier, name: legal_representant_name, first_surname: legal_representant_first_surname,
+                                          second_surname: legal_representant_second_surname, email: legal_representant_email, phones: legal_representant_phones,
+                                          check_email: legal_representant_check_email, check_sms: legal_representant_check_sms }
+
+        organization_params = organization_params.merge(legal_representant_attributes: legal_representant_attributes)
+      end
+      organization_params
+    end
+
+    def add_user(doc, organization_params)
+      user_identifier      = key_content(doc, "COMUNES_NOTIFICACION_NUMIDENT")
+      user_first_name      = key_content(doc, "COMUNES_NOTIFICACION_NOMBRE")
+      user_last_name       = get_user_last_name(doc)
+      user_role            = :lobby
+      user_email           = key_content(doc, "COMUNES_NOTIFICACION_EMAIL")
+      user_active          = 1
+      user_phones          = get_phones(doc, "COMUNES_NOTIFICACION_MOVIL", "COMUNES_NOTIFICACION_TELEFONO")
+      user_password        = get_random_password
+      user_attributes = { identifier: user_identifier, first_name: user_first_name, last_name: user_last_name, role: user_role, email: user_email, active: user_active, phones: user_phones, password: user_password, password_confirmation: user_password }
+
+      organization_params = organization_params.merge(user_attributes: user_attributes)
+    end
+
+    def add_own_lobby_activity(doc, organization_params)
+      own_lobby_activity = get_boolean_field_value(doc, "ACTIVIDAD_PROPIA")
+      fiscal_year        = key_content(doc, "EJERCICIO_ANUAL")
+      range_fund         = get_range_fund(doc, "FONDOS1")
+      contract           = get_boolean_field_value(doc, "RECIBI_AYUDAS")
+      subvention         = get_boolean_field_value(doc, "CELEBRA_CON")
+
+      organization_params =  organization_params.merge(own_lobby_activity: own_lobby_activity, fiscal_year: fiscal_year, range_fund: range_fund, contract: contract, subvention: subvention)
+    end
+
+    def add_foreign_lobby_activity(doc, organization_params)
+      foreign_lobby_activity = get_boolean_field_value(doc, "ACTIVIDAD_AJENA")
+      represented_entities_attributes = {}
+      #RepresentedEntity 1
+      represented_entities_attributes = add_represented_entity(doc, represented_entities_attributes, "DNI_REPRESENTA", "NOMBRE_REPRESENTA", "APELLIDO1_REPRESENTA", "APELLIDO2_REPRESENTA", "FECHA_REPRESENTA", "EJERCICIO_REPRESENTA", "FONDOS_REPRESENTA", "ENTIDAD_AYUDA_REPRESENTA", "ENTIDAD_CON_REPRESENTA", "MODPERSONA1", "1")
+      #RepresentedEntity 2
+      represented_entities_attributes = add_represented_entity(doc, represented_entities_attributes, "DNI_REPRESENTA2", "NOMBRE_REPRESENTA2", "APELLIDO1_REPRESENTA2", "APELLIDO2_REPRESENTA2", "FECHA_REPRESENTA2", "EJERCICIO_REPRESENTA2", "FONDOS_REPRESENTA2", "ENTIDAD_AYUDA_REPRESENTA2", "ENTIDAD_CON_REPRESENTA2", "MODPERSONA2", "2")
+      #RepresentedEntity 3
+      represented_entities_attributes = add_represented_entity(doc, represented_entities_attributes, "DNI_REPRESENTA3", "NOMBRE_REPRESENTA3", "APELLIDO1_REPRESENTA3", "APELLIDO2_REPRESENTA3", "FECHA_REPRESENTA3", "EJERCICIO_REPRESENTA3", "FONDOS_REPRESENTA3", "ENTIDAD_AYUDA_REPRESENTA3", "ENTIDAD_CON_REPRESENTA3", "MODPERSONA3", "3")
+      #RepresentedEntity 4
+      represented_entities_attributes = add_represented_entity(doc, represented_entities_attributes, "DNI_REPRESENTA4", "NOMBRE_REPRESENTA4", "APELLIDO1_REPRESENTA4", "APELLIDO2_REPRESENTA4", "FECHA_REPRESENTA4", "EJERCICIO_REPRESENTA4", "FONDOS_REPRESENTA4", "ENTIDAD_AYUDA_REPRESENTA4", "ENTIDAD_CON_REPRESENTA4", "MODPERSONA4", "4")
+
+      organization_params =  organization_params.merge(foreign_lobby_activity: foreign_lobby_activity)
+      organization_params =  represented_entities_attributes.present? ? organization_params.merge(represented_entities_attributes: represented_entities_attributes) : organization_params
+
+      return organization_params
+    end
+
+    def add_represented_entity(doc, represented_entities_attributes, identifier, name, first_surname, last_surname, from, fiscal_year, range_fund, subvention, contract, modification_type, hash_id)
+      identifier     = key_content(doc, identifier)
+      if identifier.present?
+        name           = key_content(doc, name)
+        first_surname  = key_content(doc, first_surname)
+        second_surname = key_content(doc, last_surname)
+        from           = key_content(doc, from)
+        fiscal_year    = key_content(doc, fiscal_year)
+        range_fund     = get_range_fund(doc, range_fund)
+        subvention     = get_boolean_field_value(doc, subvention)
+        contract       = get_boolean_field_value(doc, contract)
+        destroy        = get_destroy(doc, modification_type)
+
+        represented_entity_params = { identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, from: from, fiscal_year: fiscal_year, range_fund: range_fund, subvention: subvention, contract: contract, _destroy: destroy }
+        organization = Organization.where(identifier: key_content(doc, "COMUNES_INTERESADO_NUMIDENT")).first
+
+        represented_entity = organization.represented_entities.where(identifier: identifier).first if organization.present?
+        if organization.present? && represented_entity.present?
+          # represented_entity_params = check_represented_entity(represented_entity_params, represented_entity)
+          represented_entity_params = represented_entity_params.merge(:id => represented_entity.id)
+        end
+        represented_entities_attributes = represented_entities_attributes.merge(hash_id => represented_entity_params)
+      end
+      represented_entities_attributes = represented_entities_attributes.merge(represented_entities_attributes)
+    end
+
+    # def check_represented_entity(params, represented_entity)
+    #   if params[:_destroy] == "1"
+    #     { identifier: params[:identifier], id: represented_entity.id.to_s, name: represented_entity.name, first_surname: represented_entity.first_surname, second_surname: represented_entity.second_surname, from: represented_entity.from, fiscal_year: represented_entity.fiscal_year, range_fund: represented_entity.range_fund, subvention: represented_entity.subvention, contract: represented_entity.contract, _destroy: "1" }
+    #   else
+    #     params.merge(:id => represented_entity.id)
+    #   end
+    # end
 
     def key_content(doc, key)
       variable = doc.at("//variable/*[text()= '#{key}']")
@@ -405,9 +354,6 @@ module Api
     end
 
     def check_user_attributes(organization, user_attributes)
-      # if user_attributes.count != user_attributes.compact.count && user_attributes.compact.count > 0
-      #   user_attributes.compact!
-      # end
       if user_attributes[:email].present? && (organization.user.email == user_attributes[:email])
         user_attributes.delete("password")
         user_attributes.delete("password_confirmation")
@@ -425,46 +371,6 @@ module Api
       end
       need_remove_blank_attributes ? legal_representant_attributes.compact! : legal_representant_attributes
     end
-
-    # def check_represented_entities_attributes(doc, represented_entities_attributes)
-    #   debugger
-    #   represented_entities_attributes.each do |represented_entity|
-    #     debugger
-    #     # identifier: re_1_identifier, name: re_1_name, first_surname: re_1_first_surname, second_surname: re_1_second_surname, from: re_1_from, fiscal_year: re_1_fiscal_year, range_fund: re_1_range_fund, subvention: re_1_subvention, contract: re_1_contract, _destroy: re_1_destroy
-    #     if represented_entity[1][:identifier].blank?
-    #       represented_entity[1].delete(:subvention)
-    #       represented_entity[1].delete(:contract)
-    #       represented_entity[1].compact!
-    #     else
-    #     end
-    #   end
-    #   return represented_entities_attributes
-    # end
-
-    # def destroy_represented_entities(doc)
-    #   if key_content(doc, "MODPERSONA") == "baja"
-    #     re = RepresentedEntity.where(identifier: key_content(doc, "DNI_REPRESENTA")).first
-    #     re.destroy if re.present?
-    #   end
-    #   2..4.each do |id|
-    #   if key_content(doc, "MODPERSONA#{id}") == "baja"
-    #     re = RepresentedEntity.where(identifier: key_content(doc, "DNI_REPRESENTA#{id}")).first
-    #     re.destroy if re.present?
-    #   end
-    # end
-    #
-    # def create_represented_entities(doc)
-    #   if key_content(doc, "MODPERSONA") == "alta"
-    #     re = RepresentedEntity.where(identifier: key_content(doc, "DNI_REPRESENTA")).first
-    #     re.destroy if re.present?
-    #   end
-    #   2..4.each do |id|
-    #   if key_content(doc, "MODPERSONA#{id}") == "baja"
-    #     re = RepresentedEntity.where(identifier: key_content(doc, "DNI_REPRESENTA#{id}")).first
-    #     re.destroy if re.present?
-    #   end
-    # end
-
 
     def get_number_type(doc)
       number_type = nil
