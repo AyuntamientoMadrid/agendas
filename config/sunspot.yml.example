@@ -32,4 +32,3 @@ test:
     port: 8982
     log_level: WARNING
     path: /solr/test
-
