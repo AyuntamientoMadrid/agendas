@@ -17,7 +17,7 @@ feature 'Statistics' do
     describe 'Categories' do
 
       scenario 'Should show categories sorted by name asc' do
-        create(:category, name: "Abcd")
+        category1 = create(:category, name: "Abcd")
         category2 = create(:category, name: "Bcde")
         category3 = create(:category, name: "Cdef")
 
