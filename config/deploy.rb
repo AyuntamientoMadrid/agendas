@@ -33,6 +33,9 @@ set :local_user, ENV['USER']
 # Run test before deploy
 set :tests, ["spec"]
 
+set :whenever_roles, [:export, :cron]
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+
 # Config files should be copied by deploy:setup_config
 set(:config_files, %w(
   log_rotation
@@ -52,5 +55,4 @@ namespace :deploy do
   after :finishing, 'deploy:cleanup'
   # Restart unicorn
   after 'deploy:publishing', 'deploy:restart'
-  after 'deploy:restart', 'sidekiq:restart'
 end

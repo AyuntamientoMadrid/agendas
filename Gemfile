@@ -28,7 +28,6 @@ gem 'rails4-autocomplete'
 gem 'rubyzip', '~> 1.2', '>= 1.2.1'
 gem 'sass-rails', '~> 5.0'
 gem 'savon', '~> 2.11.1'
-gem 'sidekiq', '~> 4.1.0'
 gem 'social-share-button', '~> 0.1.8'
 gem 'spreadsheet'
 gem 'sunspot_rails', '~> 2.2.0'
@@ -39,6 +38,7 @@ gem 'turbolinks', '~> 2.5.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'rollbar', '>= 2.15.5'
 gem 'premailer-rails'
+gem 'whenever', :require => false
 
 group :development do
   gem 'better_errors', '~> 2.1.1'

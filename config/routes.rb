@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   get '/inicio.do', to: 'uweb_access#uweb_sign_in'
   get '/agenda/:holder/:full_name', to: 'visitors#agenda', as: 'agenda'
 
-  get '/import', to: 'users#import', as: 'import'
   get '/faq', to: 'questions#index', as: 'faq'
   get '/websitemap', to: 'static_pages#websitemap', as: 'websitemap'
 
