@@ -17,20 +17,22 @@ Los estilos de la página usan [SCSS](http://sass-lang.com/) sobre [Foundation](
 
 ## Configuración para desarrollo y tests
 
-Prerequisitos: tener instalado git, Ruby 2.2.1, Java, la gema `bundler`, ghostscript y PostgreSQL (9.4 o superior).
+Prerequisitos: tener instalado git, Ruby 2.3.5, Java, la gema `bundler`, ghostscript y PostgreSQL (9.4 o superior).
 
 ```
-
 git clone https://github.com/AyuntamientoMadrid/agendas
 cd agendas
 bundle install
 cp config/database.yml.example config/database.yml
 cp config/secrets.yml.example config/secrets.yml
+cp config/sunspot.yml.example config/sunspot.yml
 rake db:create
-rake db:migrate
+rake db:schema:load
 rake sunspot:solr:start
 rake db:test_seeds
 ```
+
+**Nota**: Si al ejecutar `rake db:test_seeds` o al correr algún spec saltan errores relacionadas a Sunspot (como `404 Not Found` o `503 Service unavailable`), [esta respuesta](https://stackoverflow.com/a/18646348/4844313) en StackOverflow debería solventarlos.
 
 Para ejecutar la aplicación en local:
 ```
@@ -46,4 +48,3 @@ Para ejecutar los tests:
 ```
 bin/rspec
 ```
-

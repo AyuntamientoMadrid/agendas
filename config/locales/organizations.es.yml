@@ -28,7 +28,13 @@ es:
       postal_code: "CP"
       town: "Municipio"
       address: "Domicilio"
+      number: "Número"
+      gateway: "Portal"
+      stairs: "Escalera"
+      floor: "Planta"
+      door: "Puerta"
       province: "Provincia"
+      country: "País"
       category: "Categoría"
       description: "Finalidad y Objetivos"
       web: "Página web"
@@ -47,7 +53,16 @@ es:
         range_2: "De 10.000 a 24.999 euros"
         range_3: "De 25.000 a 49.000 euros"
         range_4: "Más de 50.000 euros"
+      entity_type:
+        association: "Asociación"
+        federation: "Federación"
+        lobby: "Lobby"
+      statuses:
+        active: "Activo"
+        inactive: "Inactivo"
+        terminated: "Baja"
       subvention: "Ayudas y/o subvenciones recibidas del Ayto"
+      contract: "Contratos y/o convenios con el Ayto"
 
       represented_entity_title: "Datos personas o entidades sin personalidad a quienes se va a representar"
       represented_entity_identifier: "NIF"
@@ -57,8 +72,6 @@ es:
       represented_entity_range_fund: "Fondos que la entidad dedica"
       represented_entity_fiscal_year: "Ejercicio anual"
       represented_entity_subvention: "Ayudas y/o subvenciones recibidas del Ayto"
-
-      contract: "Contratos y/o convenios con el Ayto"
       represented_entity_contract: "Contratos y/o convenios con el Ayto"
 
       agents_title: "Personas que se reúnen"
@@ -156,6 +169,12 @@ es:
       contract: "¿Ha celebrado contratos y/o convenios con el Ayuntamiento de Madrid, sus organismos autónomos, sociedades mercantiles o consorcios en los que participe?"
       contract_yes: "Sí"
       contract_no: "No"
+      own_lobby_activity_yes: "Sí"
+      own_lobby_activity_no: "No"
+      own_lobby_activity: "Lobby por cuenta propia"
+      foreign_lobby_activity_yes: "Sí"
+      foreign_lobby_activity_no: "No"
+      foreign_lobby_activity: "Lobby por cuenta ajena"
 
     represented_entities:
       add_represented_entities: "Añadir Entidades/personas a las que se representa"

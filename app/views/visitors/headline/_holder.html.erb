@@ -1,7 +1,8 @@
 <div class="small-12 columns mb10">
   <p>
     <span class="keywords"><%= t('main.events_for') %> </span>
-    <% holder = Holder.find(params[:holder]) %>
-    <strong class="result-m mb20"><%= link_to holder.full_name, agenda_path(holder.id, holder.full_name.parameterize)  %></strong>
+    <strong class="result-m mb20">
+      <%= link_to @holder.full_name, agenda_path(@holder.id, @holder.full_name.parameterize) %>
+    </strong>
   </p>
 </div>

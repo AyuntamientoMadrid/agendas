@@ -7,15 +7,15 @@ feature 'Events' do
       @position = create(:position)
       @agent = create(:agent, organization: @organization)
       @user_manager.manages.create(holder_id: @position.holder_id)
-      signin(@user_manager.email, @user_manager.password)
+      login_as @user_manager
     end
 
     describe "index" do
 
       scenario 'visit the events index page' do
-        visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
-                          "status" => ["requested", "declined"], "lobby_activity" => "1",
-                          "controller" => "events", "action" => "index" )
+        visit events_path(utf8: "✓", search_title: "", search_person: "",
+                          status: ["requested", "declined"], lobby_activity: "1",
+                          controller: "events", action: "index")
         expect(page).to have_content "Eventos"
         expect(page).to have_content I18n.t 'backend.event_tray'
       end
@@ -43,9 +43,9 @@ feature 'Events' do
         event9.update(status: :canceled)
         event10.update(status: :declined)
 
-        visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
-                          "status" => ["requested", "declined"], "lobby_activity" => "1",
-                          "controller" => "events", "action" => "index" )
+        visit events_path(utf8: "✓", search_title: "", search_person: "",
+                          status: ["requested", "declined"], lobby_activity: "1",
+                          controller: "events", action: "index" )
 
         click_link "Eventos"
         expect(find_link(I18n.t("backend.event_tray")).first(:xpath, ".//..")[:class]).not_to eq "active"
@@ -75,9 +75,9 @@ feature 'Events' do
         event = create(:event, position: @position)
         create(:attachment, event: event, title: "An amazing attachment title")
         create(:attachment, event: event, title: "Other title")
-        visit events_path("utf8" => "✓", "search_title" => "", "search_person" => "",
-                          "status" => ["accepted", "canceled", "declined"],
-                          "controller" => "events", "action" => "index" )
+        visit events_path(utf8: "✓", search_title: "", search_person: "",
+                          status: ["accepted", "done", "canceled"],
+                          controller: "events", action: "index" )
 
         within "#event_#{event.id}" do
           find('.attachments-dropdown').click
@@ -99,6 +99,40 @@ feature 'Events' do
         expect(page).not_to have_content('Event 2')
 
       end
+
+      describe 'CSV export link' do
+
+        scenario 'Should download a CSV file UTF-8 encoded', :search do
+          Event.reindex
+          Sunspot.commit
+          visit admin_path
+
+          click_link "Exportar"
+
+          header = page.response_headers['Content-Type']
+          expect(header).to match 'text/csv; charset=utf-8'
+        end
+
+        scenario 'Should download CSV file containing own events', :search do
+          event = create(:event, title: "Event 1", position: @position)
+          event2 = create(:event, title: "Other position event")
+          event.status = 'requested'
+          event.save
+          Event.reindex
+          Sunspot.commit
+          visit admin_path
+
+          click_link "Exportar"
+
+          expect(page).to have_content event.title
+          expect(page).to have_content event.description
+          expect(page).to have_content event.location
+          expect(page).to have_content event.position.holder.full_name
+          expect(page).to have_content I18n.l(event.scheduled, format: :short)
+          expect(page).not_to have_content event2.title
+        end
+      end
+
     end
 
     describe "new" do
@@ -252,7 +286,7 @@ feature 'Events' do
       @user_admin = create(:user, :admin)
       @position = create(:position)
       @user_admin.manages.create(holder_id: @position.holder_id)
-      signin(@user_admin.email, @user_admin.password)
+      login_as @user_admin
     end
 
     describe "show" do
@@ -409,6 +443,38 @@ feature 'Events' do
         expect(page).to have_link "Other title"
       end
 
+      describe 'CSV export link' do
+
+        scenario 'Should download a CSV file UTF-8 encoded', :search do
+          Event.reindex
+          Sunspot.commit
+          visit admin_path
+
+          click_link "Exportar"
+
+          header = page.response_headers['Content-Type']
+          expect(header).to match 'text/csv; charset=utf-8'
+        end
+
+        scenario 'Should download CSV file containing all events', :search do
+          event = create(:event)
+          event2 = create(:event, title: "Other position event")
+          event.status = 'requested'
+          event.save
+          Event.reindex
+          Sunspot.commit
+          visit admin_path
+
+          click_link "Exportar"
+
+          expect(page).to have_content event.title
+          expect(page).to have_content event.description
+          expect(page).to have_content event.location
+          expect(page).to have_content event.position.holder.full_name
+          expect(page).to have_content I18n.l(event.scheduled, format: :short)
+          expect(page).to have_content event2.title
+        end
+      end
     end
 
     describe "Create" do
@@ -482,10 +548,8 @@ feature 'Events' do
             choose :event_lobby_activity_false
             fill_in :event_published_at, with: Date.current
             find('.add-participant').click
-            sleep 0.5
-
             within "#participants" do
-              find("option[value='1']").select_option
+              select "#{@position.holder.full_name_comma} - #{@position.title}"
             end
             click_button "Guardar"
 
@@ -788,6 +852,7 @@ feature 'Events' do
           end
 
           scenario "When fill by js organization_name without agents display no_result_text on agents selector", :js do
+            organization = create(:organization, name: "New oganization with agents", entity_type: :lobby)
             new_position = create(:position)
             visit new_event_path
 
@@ -797,9 +862,29 @@ feature 'Events' do
             select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
             fill_in :event_published_at, with: Date.current
             choose :event_lobby_activity_true
+            choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
+            sleep(0.5)
             click_button "Guardar"
 
             expect(page).to have_content I18n.translate('backend.event.event_agent_needed'), count: 1
+          end
+
+          scenario "When fill by js organization_name (Association) not display no_result_text on agents selector", :js do
+            organization = create(:organization, name: "New association", entity_type: :association)
+            new_position = create(:position)
+            visit new_event_path
+
+            fill_in :event_title, with: "Title"
+            fill_in :event_location, with: "Location"
+            fill_in :event_scheduled, with: Time.zone.now
+            select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
+            fill_in :event_published_at, with: Date.current
+            choose :event_lobby_activity_true
+            choose_autocomplete :event_organization_name, with: organization.name, select: organization.name
+
+            click_button "Guardar"
+
+            expect(page).to have_content I18n.translate('backend.event.event_agent_needed'), count: 0
           end
         end
       end
@@ -813,7 +898,7 @@ feature 'Events' do
       @position = create(:position)
       @agent = create(:agent, organization: @organization)
       @organization_user.manages.create(holder_id: @position.holder_id)
-      signin(@organization_user.email, @organization_user.password)
+      login_as @organization_user
     end
 
     scenario 'visit index event page' do
@@ -1167,7 +1252,7 @@ feature 'Events' do
       @user_admin = create(:user, :admin)
       @position = create(:position)
       @user_admin.manages.create(holder_id: @position.holder_id)
-      signin(@user_admin.email, @user_admin.password)
+      login_as @user_admin
     end
 
     scenario 'filter events by one status on multiselect', :js do
@@ -1217,7 +1302,7 @@ feature 'Events' do
       @position = create(:position)
       @agent = create(:agent, organization: @organization)
       @organization_user.manages.create(holder_id: @position.holder_id)
-      signin(@organization_user.email, @organization_user.password)
+      login_as @organization_user
     end
 
     scenario "Lobby user can only cancel events", :js do
@@ -1239,7 +1324,7 @@ feature 'Events' do
       @position = create(:position)
       @agent = create(:agent, organization: @organization)
       @organization_user.manages.create(holder_id: @position.holder_id)
-      signin(@organization_user.email, @organization_user.password)
+      login_as @organization_user
     end
 
     scenario "Admin user can accept, decline and cancel events", :js do
@@ -1260,7 +1345,7 @@ feature 'Events' do
       @position = create(:position)
       @agent = create(:agent, organization: @organization)
       @organization_user.manages.create(holder_id: @position.holder_id)
-      signin(@organization_user.email, @organization_user.password)
+      login_as @organization_user
     end
 
     scenario "regular user can accept, decline and cancel events", :js do

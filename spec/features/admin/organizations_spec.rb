@@ -171,6 +171,51 @@ feature 'Organization' do
         expect(page).to have_content organization1.name
       end
 
+      describe 'CSV export link' do
+
+        scenario 'Should download a CSV file UTF-8 encoded', :search do
+          event = create(:event, published_at: Time.zone.yesterday)
+          Event.reindex
+          Sunspot.commit
+          visit admin_organizations_path
+
+          click_link "Exportar"
+
+          header = page.response_headers['Content-Type']
+          expect(header).to match 'text/csv; charset=utf-8'
+        end
+
+        scenario 'Should download CSV with headers', :search do
+          organization = create(:organization)
+          Event.reindex
+          Sunspot.commit
+          visit admin_organizations_path
+
+          click_link "Exportar"
+
+          exporter = OrganizationExporter.new true
+          headers = exporter.headers
+          headers.each do |column_header|
+            expect(page).to have_content column_header
+          end
+        end
+
+        scenario 'Should download extended CSV', :search do
+          organization = create(:organization)
+          Event.reindex
+          Sunspot.commit
+          visit admin_organizations_path
+
+          click_link "Exportar"
+
+          exporter = OrganizationExporter.new true
+          headers = exporter.headers
+          headers.each do |column_header|
+            expect(page).to have_content column_header
+          end
+        end
+
+      end
     end
 
     describe "New" do
@@ -468,6 +513,7 @@ feature 'Organization' do
             fill_in :organization_user_attributes_email, with: "user@email.com"
             fill_in :organization_user_attributes_password, with: "password"
             fill_in :organization_user_attributes_password_confirmation, with: "password"
+            choose("organization_foreign_lobby_activity_true")
 
             click_on "Añadir Entidades/personas a las que se representa"
 
@@ -494,6 +540,7 @@ feature 'Organization' do
             fill_in :organization_user_attributes_email, with: "user@email.com"
             fill_in :organization_user_attributes_password, with: "password"
             fill_in :organization_user_attributes_password_confirmation, with: "password"
+            choose("organization_foreign_lobby_activity_true")
 
             click_on "Añadir Entidades/personas a las que se representa"
 
@@ -519,8 +566,9 @@ feature 'Organization' do
 
           scenario 'Display remove button after add represented entity', :js do
             visit new_admin_organization_path
-
+            choose("organization_foreign_lobby_activity_true")
             expect(page).not_to have_selector "#new_represented_entity .remove_fields"
+
             click_on "Añadir Entidades/personas a las que se representa"
 
             expect(page).to have_selector "#new_represented_entity .remove_fields"
@@ -528,6 +576,7 @@ feature 'Organization' do
 
           scenario 'Display remove button after add more than one represented entity', :js do
             visit new_admin_organization_path
+            choose("organization_foreign_lobby_activity_true")
 
             expect(page).not_to have_selector "#new_represented_entity .remove_fields"
             click_on "Añadir Entidades/personas a las que se representa"
@@ -898,7 +947,7 @@ feature 'Organization' do
           end
 
           scenario 'Update to blank represented entity fields', :js do
-            organization = create(:organization)
+            organization = create(:organization, foreign_lobby_activity: true)
             create(:represented_entity, organization: organization)
             visit edit_admin_organization_path(organization)
 
@@ -1014,7 +1063,7 @@ feature 'Organization' do
 
     background do
       manager = create(:user, :user)
-      signin(manager.email, manager.password)
+      login_as manager
     end
 
     scenario 'Visit manager backend page and not display organization button on sidebar' do
@@ -1032,7 +1081,7 @@ feature 'Organization' do
     background do
       @lobby = create(:user, :lobby)
       create(:organization, user: @lobby)
-      signin(@lobby.email, @lobby.password)
+      login_as @lobby
 
       @interest = create(:interest)
     end
@@ -1081,15 +1130,31 @@ feature 'Organization' do
 
   describe "Edit and delete (remote)" do
 
-    background do
-      user_admin = create(:user, :lobby)
-      signin(user_admin.email, user_admin.password)
-    end
-
     scenario 'Should show delete and edit link', :js do
+      admin = create(:user, :lobby)
+      login_as admin
       visit admin_path
 
       expect(page).to have_link I18n.t('backend.edit_delete_organization')
+    end
+
+    scenario 'destroys an organization without an associated user', :search do
+      admin = create(:user, :admin)
+      login_as admin
+
+      org = create(:organization, name: 'Github', user: nil)
+      Organization.reindex
+
+      visit admin_organizations_path
+
+      expect(page).to have_content(org.name)
+      expect(org.canceled_at.nil?).to eq(true)
+      page.click_link('', href: admin_organization_path(org))
+
+      org.reload
+
+      expect(org.canceled_at.nil?).to eq(false)
+      expect(page).to have_content(org.name)
     end
 
   end

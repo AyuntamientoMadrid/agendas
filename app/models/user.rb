@@ -42,6 +42,10 @@ class User < ActiveRecord::Base
     errors.add(:base, I18n.t('backend.participants_uniqueness')) unless manages.map{|x| x.holder_id}.uniq.count == manages.to_a.count
   end
 
+  def soft_delete
+    update_attribute(:deleted_at, Time.zone.now)
+  end
+
   private
 
   def set_active
@@ -61,10 +65,6 @@ class User < ActiveRecord::Base
     user.password = SecureRandom.uuid
     user.role = role
     user
-  end
-
-  def soft_deleted
-    update_attribute(:deleted_at, Time.zone.now)
   end
 
   def self.lobby?

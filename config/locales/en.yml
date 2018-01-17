@@ -78,7 +78,7 @@ en:
       - :day
       - :month
       - :year
-  public_organization_exporter:
+  organization_exporter:
     reference: reference
     identifier: identifier
     name: name
@@ -86,26 +86,28 @@ en:
     second_surname: last name
     address_type: address type
     address: address
+    address_number_type: road type
     number: number
     gateway: gateway
-    stairs: stairs
+    stairs: stair
     floor: floor
     door: door
     postal_code: postal code
     town: town
     province: province
-    phones: phones
+    country: country
+    phones: phone
     email: email
     category_name: category name
-    description: description
+    description: purpose and objectives
     web: web
     fiscal_year: fiscal year
     subvention: subvention
     contract: contract
-    certain_term: información facilitada es cierta
-    code_of_conduct_term: Aceptar codigo de conducta
-    gift_term: aceptar no realizar regalos
-    lobby_term: acreditar la actividad de lobby
+    certain_term: information provided is true
+    code_of_conduct_term: accept conduct code
+    gift_term: accept not to make gifts
+    lobby_term: accredit lobbying activity
     registered_lobbies: registered lobbies
     range_fund: range fund
     inscription_reference: inscription reference
@@ -118,15 +120,28 @@ en:
     members_count: members count
     approach: approach
     legal_representant_full_name: legal representant full name
-    user_name: user name
-    invalidate: invalidate
+    legal_representant_email: legal representant email
+    legal_representant_phones: legal representant phone
+    user_name: contact person fullname
+    user_email: contact person email
+    user_phones: contact person phone
+    invalidated?: invalid
+    agents: agents
+    represented_entities: represented entities
+    interests: interests
+    status: estado
+    updated_at: last modification date
+    termination_date: termination date
+    self_employed_lobby: self employed lobby
+    employee_lobby: employee lobby
   events_exporter:
     title: título
     description: descripción
     scheduled: fecha
     updated_at: última actualización
     user_name: usuario
-    position_names: titular de la agenda
+    holder_name: titular agenda
+    position_names: titular de agenda participantes
     location: lugar
     status: estado
     notes: notas

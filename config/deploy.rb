@@ -23,7 +23,7 @@ set :log_level, :info
 set :pty, true
 set :use_sudo, false
 
-set :linked_files, %w{config/database.yml config/secrets.yml}
+set :linked_files, %w{config/database.yml config/secrets.yml config/sunspot.yml}
 set :linked_dirs, %w{log tmp public/system public/assets}
 
 set :keep_releases, 10
@@ -33,12 +33,16 @@ set :local_user, ENV['USER']
 # Run test before deploy
 set :tests, ["spec"]
 
+set :whenever_roles, [:export, :cron]
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+
 # Config files should be copied by deploy:setup_config
 set(:config_files, %w(
   log_rotation
   database.yml
   secrets.yml
   unicorn.rb
+  sunspot.yml
 ))
 
 namespace :deploy do
@@ -51,5 +55,4 @@ namespace :deploy do
   after :finishing, 'deploy:cleanup'
   # Restart unicorn
   after 'deploy:publishing', 'deploy:restart'
-  after 'deploy:restart', 'sidekiq:restart'
 end

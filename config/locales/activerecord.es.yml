@@ -32,6 +32,7 @@ es:
       holder:
         one: "titular de agenda"
         other: "titulares de agenda"
+        not_found: "No se ha encontrado el titular de agendas solicitado"
       attachment:
         one: "archivo adjunto"
         other: "archivos adjuntos"

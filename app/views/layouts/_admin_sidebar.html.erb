@@ -11,14 +11,14 @@
     </li>
     <% if current_user.admin? %>
     <li class="<%= active_menu('users') %>">
-      <a href="<%= users_path %>">
+      <a href="<%= admin_users_path %>">
         <i class="fi-results-demographics size-18"> <%= t("backend.users")%></i>
       </a>
     </li>
     <% end %>
     <% if current_user.user? %>
-      <li class="<%= active_menu('events', nil, 'events') %>">
-        <a href="<%= events_path(event_fixed_filters['events']) %>">
+      <li class="<%= active_menu('events', nil, :events) %>">
+        <a href="<%= events_path(event_fixed_filters[:events]) %>">
           <i class="fi-book size-18"> <%= t("organizations.show.events_title") %></i>
         </a>
       </li>
@@ -55,8 +55,8 @@
       </li>
     <% end %>
     <% if current_user.user? %>
-      <li class="<%= active_menu('events', nil, 'tray') %>">
-        <a href="<%= events_path(event_fixed_filters['tray']) %>">
+      <li class="<%= active_menu('events', nil, :tray) %>">
+        <a href="<%= events_path(event_fixed_filters[:tray]) %>">
           <i class="fi-calendar size-18">
             <%= t("backend.event_tray") %>
           </i>
@@ -91,20 +91,13 @@
         </a>
       </li>
     <% end %>
-    <% if current_user.admin? %>
-      <li class="<%= active_menu('import') %>">
-        <span href="<%= import_path %>" data-confirm="<%= t("backend.confirm") %>">
-          <i class="fi-rss size-18"> <%= t("backend.sync")%></i>
-        </span>
-      </li>
-    <% end %>
     <li>
       <%= link_to root_path, target: :blank do %>
           <i class="fi-arrow-right size-18"> <%= t("backend.frontend")%></i>
       <% end %>
     </li>
-    <li class="<%= active_menu('users/registrations') %>">
-      <%= link_to edit_password_path do %>
+    <li class="<%= active_menu('admin/passwords') %>">
+      <%= link_to admin_edit_password_path do %>
           <i class="fi-key size-18"> <%= t("backend.change_password")%></i>
       <% end %>
     </li>

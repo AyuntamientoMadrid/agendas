@@ -10,8 +10,8 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
-    <%= auto_discovery_link_tag :atom, root_path(format: :atom) %>
-    <%= auto_discovery_link_tag :rss, root_path(format: :rss) %>
+    <%= auto_discovery_link_tag :atom, visitors_path(format: :atom), id: 'atom_link' %>
+    <%= auto_discovery_link_tag :rss, visitors_path(format: :rss), id: 'rss_link' %>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

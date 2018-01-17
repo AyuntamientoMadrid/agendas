@@ -1,8 +1,11 @@
 <%=
-CSV.generate(:col_sep => ';') do |csv|
-  csv << [t('backend.title'), t('backend.description'), t('backend.location'), t('backend.holder'), t('backend.date')]
-  @events.results.each do |e|
-    csv << [e.title.strip, strip_tags(e.description), e.location, e.position.holder.full_name, I18n.l(e.scheduled, format: :short) ]
-  end
-end.encode('iso-8859-1')
+  exporter = EventsExporter.new
+
+  CSV.generate(col_sep: ';', encoding: 'UTF-8') do |csv|
+    csv << exporter.windows_headers
+
+    @events.results.each do |event|
+      csv << exporter.windows_event_row(event)
+    end
+  end.html_safe
 %>

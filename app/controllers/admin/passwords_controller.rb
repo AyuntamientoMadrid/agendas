@@ -7,7 +7,7 @@ module Admin
 
     def update
       if current_user.update(password_params)
-        sign_in(current_user, bypass: true)
+        bypass_sign_in(current_user)
         flash.now[:notice] = t("admin.passwords.update.notice")
       else
         flash.now[:alert] = t("admin.passwords.update.alert")

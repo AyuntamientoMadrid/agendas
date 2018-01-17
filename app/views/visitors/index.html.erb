@@ -12,7 +12,7 @@
 
     <div class="small-12 columns tools">
       <div class="mb20">
-        <%= t('main.get_updates')%><a href="<%= current_url(:format=>:atom)%>"><span class="icon icon__feed"></span> feed</a>
+        <%= t('main.get_updates')%><a id= "atom_link" href="<%= current_url(:format=>:atom)%>"><span class="icon icon__feed"></span> feed</a>
         <%= export_link(current_url(format: :csv)) %>
       </div>
 

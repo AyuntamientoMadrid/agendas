@@ -61,6 +61,27 @@ feature 'Event page' do
     expect(page).not_to have_content event6.title
   end
 
+  scenario 'show events on atom feed', :search do
+    event1 = create(:event, published_at: Time.zone.yesterday, title: 'event1')
+
+    event1.update(status: :accepted)
+
+    Event.reindex
+    Sunspot.commit
+
+    visit visitors_path
+
+    expect(page.html).to include('<link rel="alternate" type="application/atom+xml" title="ATOM" href="/visitors.atom" />')
+    expect(page.html).to include('<link rel="alternate" type="application/rss+xml" title="RSS" href="/visitors.rss" />')
+
+    page.find('#atom_link').click
+
+    expect(page).to have_content event1.title
+    expect(page).to have_content event1.description
+    expect(page).to have_content event1.scheduled
+    expect(page).to have_content event1.position.holder.full_name
+  end
+
   scenario 'search lobby activity for visitors ', :search do
     event = create(:event, title: 'Test for check lobby_activity for visitors')
     event.lobby_activity = true
@@ -74,7 +95,7 @@ feature 'Event page' do
     expect(page).to have_content "Test for check lobby_activity for visitors"
   end
 
-  scenario "When search by holder need display his events as participant", :search do
+  scenario 'When search by holder need display his events as participant', :search do
     position = create(:position)
     event = create(:event, position: position, title: "Acting as participant")
     create(:event, position: position, title: "Not involved event")
@@ -85,12 +106,11 @@ feature 'Event page' do
     visit visitors_path
     select participant.position.holder.full_name_comma, from: :holder
     click_button I18n.t('backend.search.button')
-
     expect(page).to have_content "Acting as participant"
     expect(page).not_to have_content "Not involved event"
   end
 
-  scenario "When search by holder need display his events as position", :search do
+  scenario 'When search by holder need display his events as position', :search do
     position = create(:position)
     event1 = create(:event, position: position, title: "Acting as participant")
     participant = create(:participant, event_id: event1.id)
@@ -104,6 +124,52 @@ feature 'Event page' do
 
     expect(page).to have_content "Acting as participant"
     expect(page).not_to have_content "Not involved event"
+  end
+
+  describe "Agenda" do
+    scenario 'Should redirect to visitors#index when given holder does not exist' do
+      visit agenda_path(holder: 1, full_name: "unexisting-fullname")
+
+      expect(page).to have_content I18n.t('activerecord.models.holder.not_found')
+    end
+
+    scenario 'Should show holder agenda when given holder exists', :search do
+      holder = create(:holder)
+      visit agenda_path(holder: holder.id, full_name: holder.full_name)
+
+      expect(page).not_to have_content I18n.t('activerecord.models.holder.not_found')
+    end
+  end
+
+  describe 'CSV export link' do
+
+    scenario 'Should download a CSV file UTF-8 encoded', :search do
+      event = create(:event, published_at: Time.zone.yesterday)
+      Event.reindex
+      Sunspot.commit
+      visit visitors_path
+
+      click_link "Exportar"
+
+      header = page.response_headers['Content-Type']
+      expect(header).to match 'text/csv; charset=utf-8'
+    end
+
+    scenario 'Should download CSV file containing current filtered events', :search do
+      event = create(:event, published_at: Time.zone.yesterday)
+      Event.reindex
+      Sunspot.commit
+      visit visitors_path
+
+      click_link "Exportar"
+
+      expect(page).to have_content event.title
+      expect(page).to have_content event.description
+      expect(page).to have_content event.location
+      expect(page).to have_content event.position.holder.full_name
+      expect(page).to have_content I18n.l(event.scheduled, format: :short)
+    end
+
   end
 
   describe 'show' do
@@ -162,6 +228,24 @@ feature 'Event page' do
       visit show_path(event)
 
       expect(page).to have_content event.event_agents.first.name
+    end
+
+    scenario 'Display scheduled info' do
+      event = create(:event, title: 'Lobby event')
+
+      visit show_path(event)
+      expect(page).to have_content I18n.l event.scheduled, format: :complete
+    end
+
+    scenario 'Display event without sheduled info' do
+      event = create(:event, title: 'Lobby event')
+      event.declined_reasons = 'test'
+      event.scheduled = nil
+      event.save!
+
+      visit show_path(event)
+
+      expect(page).to have_content event.title
     end
 
   end

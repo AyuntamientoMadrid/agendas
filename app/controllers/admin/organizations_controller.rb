@@ -41,7 +41,6 @@ module Admin
       if @organization.update_attributes(organization_params)
         path = current_user.lobby? ? admin_organization_path(@organization) : admin_organizations_path
         @organization.send_update_mail
-        # @organization.send_invalidate_mail if params[:organization][:invalidate]
         redirect_to path, notice: t('backend.successfully_updated_record')
       else
         flash[:alert] = t('backend.review_errors')
@@ -52,7 +51,7 @@ module Admin
     def destroy
       @organization = Organization.find(params[:id])
       @organization.canceled_at = Time.zone.now
-      @organization.user.soft_deleted
+      @organization.user.soft_delete unless @organization.user.nil?
 
       if @organization.save
         redirect_to admin_organizations_path,
@@ -73,6 +72,8 @@ module Admin
                       :postal_code, :town, :province, :description, :category_id,
                       :fiscal_year, :range_fund, :subvention, :contract, :country,
                       :certain_term, :code_of_conduct_term, :gift_term, :lobby_term,
+                      :inscription_date, :modification_date, :canceled_at,
+                      :own_lobby_activity, :foreign_lobby_activity,
                       legal_representant_attributes: [:identifier, :name, :first_surname, :second_surname, :phones, :email, :_destroy],
                       user_attributes: [:id, :first_name, :last_name, :role, :email, :active, :phones, :password, :password_confirmation],
                       represented_entities_attributes: [:id, :identifier, :name, :first_surname, :second_surname,

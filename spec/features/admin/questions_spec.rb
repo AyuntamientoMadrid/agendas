@@ -3,7 +3,7 @@ feature 'Question' do
   describe 'User admin' do
     background do
       user_admin = create(:user, :admin)
-      signin(user_admin.email, user_admin.password)
+      login_as user_admin
 
       @question1 = create(:question, position: 1)
       @question2 = create(:question, position: 2)

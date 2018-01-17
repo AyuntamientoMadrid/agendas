@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   get '/inicio.do', to: 'uweb_access#uweb_sign_in'
   get '/agenda/:holder/:full_name', to: 'visitors#agenda', as: 'agenda'
 
-  get '/import', to: 'users#import', as: 'import'
   get '/faq', to: 'questions#index', as: 'faq'
   get '/websitemap', to: 'static_pages#websitemap', as: 'websitemap'
 
@@ -26,10 +25,7 @@ Rails.application.routes.draw do
   get "/admin", to: 'events#index', as: 'admin'
 
   devise_for :users, controllers: { sessions: "users/sessions" }
-  get 'admin/edit_password', to: 'admin/passwords#edit', as: 'edit_password'
-  match 'admin/update_password', to: 'admin/passwords#update', as: 'update_password', via: [:patch, :put]
 
-  resources :users
   resources :events
   resources :areas
   resources :activities
@@ -37,6 +33,9 @@ Rails.application.routes.draw do
   resources :holders
 
   namespace :admin do
+    resources :users
+    get 'passwords/edit', to: 'passwords#edit', as: 'edit_password'
+    match 'passwords/update', to: 'passwords#update', as: 'update_password', via: [:patch, :put]
     resources :organizations do
       resources :agents, except: :show
       resources :organization_interests, only: [:index]

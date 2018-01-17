@@ -1,6 +1,6 @@
 <h3><%= @user.full_name_comma %></h3>
-<%= link_to t('backend.back'), users_path , :class=> "button tiny radius" %>
-<%= link_to t('backend.manage_agendas'), edit_user_path(@user), :class=> "button tiny radius success" %>
+<%= link_to t('backend.back'), admin_users_path , :class=> "button tiny radius" %>
+<%= link_to t('backend.manage_agendas'), edit_admin_user_path(@user), :class=> "button tiny radius success" %>
 <fieldset>
   <legend><%= t('backend.basic_data') %></legend>
   <p><strong><%= t('backend.first_name') %>:</strong> <%= @user.first_name %></p>

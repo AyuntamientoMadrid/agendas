@@ -1,5 +1,5 @@
-<%= link_to t("backend.back"), users_path, class: "button tiny radius" %>
-<%= form_for @user, html: { class: 'admin-form' } do |f| %>
+<%= link_to t("backend.back"), admin_users_path, class: "button tiny radius" %>
+<%= form_for [:admin, @user], html: { class: 'admin-form' } do |f| %>
 
   <% if @user.errors.any? %>
     <div class="panel callout radius">
@@ -50,7 +50,7 @@
     <fieldset>
       <legend><%= t("backend.change_password") %></legend>
       <%= f.label :password, t("backend.new_password") %>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, autocomplete: :off %>
       <%= f.label :password_confirmation, t("backend.new_password_confirmation") %>
       <%= f.password_field :password_confirmation %>
     </fieldset>

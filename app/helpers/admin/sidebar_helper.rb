@@ -7,21 +7,21 @@ module Admin::SidebarHelper
   end
 
   def event_fixed_filters
-    { 'tray' => {"utf8" => "✓", "search_title" => "", "search_person" => "",
-                 "status" => ["requested", "declined"], "lobby_activity" => "1",
-                 "controller" => "events", "action" => "index"} ,
-      'events' => {"utf8" => "✓", "search_title" => "", "search_person" => "",
-                   "status" => ["accepted", "done", "canceled"],
-                   "controller" => "events", "action" => "index"} }
+    { tray: { utf8: "✓", search_title: "", search_person: "",
+              status: ["requested", "declined"], lobby_activity: "1",
+              controller: "events", action: "index"} ,
+      events: { utf8: "✓", search_title: "", search_person: "",
+                status: ["accepted", "done", "canceled"],
+                controller: "events", action: "index"} }
   end
 
   def help_by_role(user)
     if user.lobby?
-      "/help/ayuda_usuario_lobby.pdf"
+      "https://transparencia.madrid.es/FWProjects/transparencia/RelacionCiudadania/RegistroLobbies/Ficheros/ayuda_usuario_lobby.pdf"
     elsif user.user?
-      "/help/ayuda_usuario_gestor_agendas.pdf"
+      "http://ayre.munimadrid.es/UnidadesDescentralizadas/GobiernoAbierto/Intranet/PublicidadActiva/Agendas/Ficheros/ayuda_usuario_gestor_agendas.pdf"
     else
-      "/help/ayuda_usuario_administrador_lobbies_agendas.pdf"
+      "http://ayre.munimadrid.es/UnidadesDescentralizadas/GobiernoAbierto/Intranet/PublicidadActiva/Agendas/Ficheros/ayuda_usuario_administrador_lobbies_agendas.pdf"
     end
   end
 
@@ -32,11 +32,11 @@ module Admin::SidebarHelper
     end
 
     def event_filters?(shortcut)
-      event_fixed_filters[shortcut] == request.env['action_dispatch.request.parameters']
+      event_fixed_filters[shortcut] == request.env['action_dispatch.request.parameters'].symbolize_keys
     end
 
     def unfiltered?
-      !(event_fixed_filters.values.include? request.env['action_dispatch.request.parameters'])
+      !(event_fixed_filters.values.include? request.env['action_dispatch.request.parameters'].symbolize_keys)
     end
 
     def active?(model, shortcut, action)
@@ -45,7 +45,7 @@ module Admin::SidebarHelper
       # activaction for the two event lionks
         event_filters?(shortcut) ||
       # edit, and new avent activate :tray link
-       (params[:controller] == model && current_action?(action) && shortcut == 'tray' && unfiltered? )
+        (params[:controller] == model && current_action?(action) && shortcut == :tray && unfiltered? )
     end
 
 end
