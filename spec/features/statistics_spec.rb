@@ -17,7 +17,7 @@ feature 'Statistics' do
     describe 'Categories' do
 
       scenario 'Should show categories sorted by name asc' do
-        category1 = create(:category, name: "Abcd")
+        create(:category, name: "Abcd")
         category2 = create(:category, name: "Bcde")
         category3 = create(:category, name: "Cdef")
 
@@ -30,11 +30,11 @@ feature 'Statistics' do
       end
 
       scenario 'Should show all categories organizations amount' do
-        category1 = create(:category, name: "Abcd")
+        create(:category, name: "Abcd")
         category2 = create(:category, name: "Bcde")
         category3 = create(:category, name: "Cdef")
-        organization = create_list(:organization, 3, category: category2)
-        organization = create_list(:organization, 2, category: category3)
+        create_list(:organization, 3, category: category2)
+        create_list(:organization, 2, category: category3)
 
         visit statistics_path
 
@@ -60,11 +60,11 @@ feature 'Statistics' do
       end
 
       scenario 'Should show all interests organizations amount' do
-        interest1 = create(:interest, name: "Abcd")
+        create(:interest, name: "Abcd")
         interest2 = create(:interest, name: "Bcde")
         interest3 = create(:interest, name: "Cdef")
-        organization = create_list(:organization, 3, interests: [interest2])
-        organization = create_list(:organization, 2, interests: [interest3])
+        create_list(:organization, 3, interests: [interest2])
+        create_list(:organization, 2, interests: [interest3])
 
         visit statistics_path
 
@@ -157,7 +157,6 @@ feature 'Statistics' do
           expect(page).to have_content "1"
         end
       end
-
 
     end
   end

@@ -5,19 +5,20 @@
 }
 
 .statistics{
-  .accordion{
-    li{
-      margin-top: 0;
-      .accordion-title{
-        background: #003df6;
-        color: #fff;
-      }
-      .border-right{
-        border-right: solid 1px #DDDDDD;
-      }
-      table{
-        width: 100%;
-      }
+  .accordion li{
+    margin-top: 0;
+
+    .accordion-title{
+      background: #003df6;
+      color: #fff;
+    }
+
+    .border-right{
+      border-right: solid 1px #DDDDDD;
+    }
+
+    table{
+      width: 100%;
     }
   }
 }
