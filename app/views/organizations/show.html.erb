@@ -201,10 +201,6 @@
 
         <% else %>
           <%= t('organizations.show.no_results') %>
-          <% end %>
-
-        <% else %>
-          <%= t('organizations.show.no_results') %>
         <% end %>
       </div>
     </li>
@@ -277,27 +273,27 @@
           <%= t('organizations.show.agents_title') %>
           <span class="fa accordion-icon"></span>
         </div>
-          <div class="content active">
-            <% if @organization.agents.present? %>
-              <% @organization.agents.each do |agent| %>
-                <p>
-                  <strong><%= t('organizations.show.agents_fullname') %></strong>
-                  <%= agent.name %>
-                  <%= agent.first_surname %>
-                  <%= agent.second_surname %>
+        <div class="content active">
+          <% if @organization.agents.present? %>
+            <% @organization.agents.each do |agent| %>
+              <p>
+                <strong><%= t('organizations.show.agents_fullname') %></strong>
+                <%= agent.name %>
+                <%= agent.first_surname %>
+                <%= agent.second_surname %>
+              </p>
+              <p><strong><%= t('organizations.show.agents_from') %></strong>
+                <%= I18n.l agent.from if agent.from? %>
+              </p>
+              <% if agent.to.present? %>
+                <p><strong><%= t('organizations.show.agents_to') %></strong>
+                  <%= I18n.l agent.to if agent.to.present? %>
                 </p>
-                <p><strong><%= t('organizations.show.agents_from') %></strong>
-                  <%= I18n.l agent.from if agent.from? %>
-                </p>
-                <% if agent.to.present? %>
-                  <p><strong><%= t('organizations.show.agents_to') %></strong>
-                    <%= I18n.l agent.to if agent.to.present? %>
-                  </p>
-                <% end %>
               <% end %>
-            <% else %>
-              <%= t('organizations.show.no_results') %>
             <% end %>
+          <% else %>
+            <%= t('organizations.show.no_results') %>
+          <% end %>
         </div>
       </li>
     <% end %>
