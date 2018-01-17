@@ -1,20 +1,20 @@
 production:
   solr:
-    hostname: production.server
+    hostname: productionhostname
     port: 8080
     log_level: WARNING
     path: /solr-agendas
 
 preproduction:
   solr:
-    hostname: preproduction.server
+    hostname: preproductionhostname
     port: 8080
     log_level: WARNING
     path: /solr
 
 staging:
   solr:
-    hostname: staging.server
+    hostname: staginghostname
     port: 8080
     log_level: INFO
     path: /solr-agendas
