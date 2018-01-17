@@ -88,5 +88,16 @@ describe Agent do
       end
     end
 
+    describe "active" do
+      it "Should return only active agents" do
+        create(:agent)
+        create(:agent, to: Date.tomorrow)
+        create(:agent, to: Date.yesterday)
+
+        expect(Agent.active.count).to eq(2)
+      end
+
+    end
+
   end
 end

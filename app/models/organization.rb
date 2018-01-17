@@ -51,6 +51,7 @@ class Organization < ActiveRecord::Base
     string :name
   end
 
+  scope :active, -> { where(invalidated_at: nil, canceled_at: nil) }
   scope :invalidated, -> { where('invalidated_at is not null') }
   scope :validated, -> { where('invalidated_at is null') }
   scope :lobbies, -> { where('entity_type = ?', 2) }
