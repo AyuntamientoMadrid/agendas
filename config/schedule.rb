@@ -26,18 +26,21 @@ end
 every 1.minute, roles: [:cron] do
   command "date > ~/cron-test-cron.txt"
 end
-#
-# every 1.day, at: '00:00 am', roles: [:export] do
-#   rake 'export:agendas'
-#   rake 'export:organizations'
-# end
-#
-# every 1.hour, at: '5:00 am', roles: [:cron] do
-#   rake 'madrid:import'
-#   rake 'events:update_event_status'
-# end
-#
-# every 1.day, at: '6:00 am', roles: [:cron] do
-#   rake 'import_organizations:associations'
-#   rake 'import_organizations:federations'
-# end
+
+every 1.day, at: '00:00 am', roles: [:cron] do
+  rake 'events:update_event_status'
+end
+
+every 1.day, at: '01:00 am', roles: [:export] do
+  rake 'export:agendas'
+  rake 'export:organizations'
+end
+
+every 1.hour, roles: [:cron] do
+  rake 'madrid:import'
+end
+
+every 1.day, at: '6:00 am', roles: [:cron] do
+  rake 'import_organizations:associations'
+  rake 'import_organizations:federations'
+end
