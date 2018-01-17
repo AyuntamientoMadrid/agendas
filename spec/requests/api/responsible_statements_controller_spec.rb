@@ -191,22 +191,21 @@ describe Api::ResponsibleStatementsController do
         expect(organization.legal_representant).to eq nil
 
         #DATA_3
-        #expect(organization.user.tipo de documento).to eq N
-        #expect(organization.user.identifier).to eq "12755026P"
+        expect(organization.user.identifier).to eq "12755026P"
         expect(organization.user.first_name).to eq "JOAQUÍN"
         expect(organization.user.last_name).to eq "MESEGUER YEBRA"
         expect(organization.user.email).to eq "mesegueryj@madrid.es"
         expect(organization.user.phones).to eq "650901852"
 
         #DATA_4
-        #expect(organization.own_lobby_activity).to eq true
+        expect(organization.own_lobby_activity).to eq true
         expect(organization.fiscal_year).to eq 2017
         expect(organization.range_fund).to eq "range_2"
         expect(organization.contract).to eq false
         expect(organization.subvention).to eq false
 
         #DATA_5
-        #expect(organization.foreign_lobby_activity).to eq true
+        expect(organization.foreign_lobby_activity).to eq true
         expect(organization.represented_entities.count).to eq 1
         expect(organization.represented_entities.first.identifier).to eq "530700265"
         expect(organization.represented_entities.first.name).to eq "Tela Marinera"
@@ -267,21 +266,21 @@ describe Api::ResponsibleStatementsController do
 
         #DATA_3
         #expect(organization.user.tipo de documento).to eq N
-        #expect(organization.user.identifier).to eq "70572650w"
+        expect(organization.user.identifier).to eq "70572650w"
         expect(organization.user.first_name).to eq "HONORIO ENRIQUE"
         expect(organization.user.last_name).to eq "CRESPO DIAZ-ALEJO"
         expect(organization.user.email).to eq "crespodhe@madrid.es"
         expect(organization.user.phones).to eq "915133100"
 
         #DATA_4
-        #expect(organization.own_lobby_activity).to eq true
+        expect(organization.own_lobby_activity).to eq true
         expect(organization.fiscal_year).to eq 2017
         expect(organization.range_fund).to eq "range_1"
         expect(organization.contract).to eq false
         expect(organization.subvention).to eq false
 
         #DATA_5
-        #expect(organization.foreign_lobby_activity).to eq false
+        expect(organization.foreign_lobby_activity).to eq false
         expect(organization.represented_entities.count).to eq 0
         expect(organization.represented_entities).to eq []
       end
@@ -340,21 +339,21 @@ describe Api::ResponsibleStatementsController do
 
         #DATA_3
         #expect(organization.user.tipo de documento).to eq N
-        #expect(organization.user.identifier).to eq "70572650w"
+        expect(organization.user.identifier).to eq "70572650w"
         expect(organization.user.first_name).to eq "Enrique"
         expect(organization.user.last_name).to eq "Diaz"
         expect(organization.user.email).to eq "enrique@madrid.es"
         expect(organization.user.phones).to eq "666555444"
 
         #DATA_4
-        #expect(organization.own_lobby_activity).to eq true
+        expect(organization.own_lobby_activity).to eq true
         expect(organization.fiscal_year).to eq 2017
         expect(organization.range_fund).to eq "range_4"
         expect(organization.contract).to eq false
         expect(organization.subvention).to eq false
 
         #DATA_5
-        #expect(organization.foreign_lobby_activity).to eq true
+        expect(organization.foreign_lobby_activity).to eq true
         expect(organization.represented_entities.count).to eq 3
         expect(organization.represented_entities.first.identifier).to eq "1234567L"
         expect(organization.represented_entities.first.name).to eq "REPSOL"
@@ -441,21 +440,21 @@ describe Api::ResponsibleStatementsController do
 
         #DATA_3
         #expect(organization.user.tipo de documento).to eq N
-        #expect(organization.user.identifier).to eq "12755026P"
+        expect(organization.user.identifier).to eq "12755026P"
         expect(organization.user.first_name).to eq "JOAQUÍN"
         expect(organization.user.last_name).to eq "MESEGUER YEBRA"
         expect(organization.user.email).to eq "mesegueryj@madrid.es"
         expect(organization.user.phones).to eq "650901852"
 
         #DATA_4
-        #expect(organization.own_lobby_activity).to eq true
+        expect(organization.own_lobby_activity).to eq false
         expect(organization.fiscal_year).to eq nil
         expect(organization.range_fund).to eq nil
         expect(organization.contract).to eq false
         expect(organization.subvention).to eq false
 
         #DATA_5
-        #expect(organization.foreign_lobby_activity).to eq true
+        expect(organization.foreign_lobby_activity).to eq true
         expect(organization.represented_entities.count).to eq 2
         expect(organization.represented_entities.first.identifier).to eq "12755028P"
         expect(organization.represented_entities.first.name).to eq "Pantoja Producciones"
@@ -490,6 +489,7 @@ describe Api::ResponsibleStatementsController do
         create(:registered_lobby, name: "no_record")
         @category_emp = create(:category, name: "Empresas")
         @category_pro = create(:category, name: "Consultoría profesional y despachos de abogados")
+        create(:category, name: "Organizaciones empresariales")
       end
 
       it "Should return success when organization could be edit" do
@@ -510,7 +510,7 @@ describe Api::ResponsibleStatementsController do
         expect(body[:ref_expediente]).to eq "refExpediente"
       end
 
-      it "Should return success when organization could be edit" do
+      it "Should update fields when send organization edit" do
         # create(:organization, identifier: "70572650W")
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path)
@@ -519,13 +519,11 @@ describe Api::ResponsibleStatementsController do
                                 codTipoExpdiente: "1234",
                                 xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/newResponsibleStatement_3.xml"),
                                 usuario: "WFORM" })
-
         response = client.call(:inicio_expediente,
                                message: {
                                 codTipoExpdiente: "1234",
                                 xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/editResponsibleStatement_1.xml"),
                                 usuario: "WFORM" })
-
         organization = Organization.last
 
         #DATA_1
@@ -549,37 +547,71 @@ describe Api::ResponsibleStatementsController do
         expect(organization.postal_code).to eq "28014"
         expect(organization.email).to eq nil #updated
         expect(organization.phones).to eq nil #updated
-        expect(organization.category).to eq @category_emp
+        expect(organization.category).to eq @category_pro
         expect(organization.description).to eq nil #updated
         expect(organization.web).to eq nil #updated
         # <variable><clave>COMUNES_INTERESADO_CNMC</clave><valor>true</valor></variable>
         # <variable><clave>COMUNES_INTERESADO_GENERAL</clave><valor>true</valor></variable>
         # <variable><clave>COMUNES_INTERESADO_OTROS</clave><valor>true</valor></variable>
         expect(organization.check_email).to eq false #updated
-        expect(organization.check_sms).to eq true #updated
+        expect(organization.check_sms).to eq false #updated
 
         #DATA_2
         expect(organization.legal_representant).to eq nil
 
         #DATA_3
         #expect(organization.user.tipo de documento).to eq N
-        #expect(organization.user.identifier).to eq "70572650w"
+        expect(organization.user.identifier).to eq "70572650W"
         expect(organization.user.first_name).to eq "HONORIO ENRIQUE"
-        expect(organization.user.last_name).to eq "DIAZ-ALEJO" #updated
+        expect(organization.user.last_name).to eq "CRESPO DÍAZ-ALEJO" #updated
         expect(organization.user.email).to eq "crespodhe@madrid.es"
         expect(organization.user.phones).to eq nil #updated
 
         #DATA_4
-        #expect(organization.own_lobby_activity).to eq true
+        expect(organization.own_lobby_activity).to eq true
         expect(organization.fiscal_year).to eq 2017
         expect(organization.range_fund).to eq "range_2" #updated
-        expect(organization.contract).to eq false
+        expect(organization.contract).to eq true #updated
         expect(organization.subvention).to eq true #updated
 
         #DATA_5
-        #expect(organization.foreign_lobby_activity).to eq false
+        expect(organization.foreign_lobby_activity).to eq false
         expect(organization.represented_entities.count).to eq 0
         expect(organization.represented_entities).to eq []
+      end
+
+      it "Should remove 1 represented entity and add new represented_entity" do
+        # create(:organization, identifier: "70572650W")
+        client = Savon::Client.new(
+                  wsdl: application_base + api_responsible_statements_wsdl_path)
+        response = client.call(:inicio_expediente,
+                               message: {
+                                codTipoExpdiente: "1234",
+                                xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/newResponsibleStatement_6.xml"),
+                                usuario: "WFORM" })
+
+        organization = Organization.last
+        debugger
+        expect(organization.represented_entities.count).to eq 2
+        re_1 =  RepresentedEntity.where(identifier: "1").first
+        expect(re_1.name).to eq "ENDESA"
+        re_2 =  RepresentedEntity.where(identifier: "2").first
+        expect(re_2.name).to eq "REPSOL"
+
+        response = client.call(:inicio_expediente,
+                               message: {
+                                codTipoExpdiente: "1234",
+                                xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/editResponsibleStatement_3.xml"),
+                                usuario: "WFORM" })
+
+        organization = Organization.last
+        expect(organization.represented_entities.count).to eq 2
+        re_1 =  RepresentedEntity.where(identifier: "1").first
+        expect(re_1.name).to eq "ENDESA"
+        re_2 =  RepresentedEntity.where(identifier: "2").first
+        expect(re_2).to eq nil
+        re_3 =  RepresentedEntity.where(identifier: "3").first
+        expect(re_3.name).to eq "IBERDROLA"
       end
 
     end

@@ -14,6 +14,7 @@ class RegistryApi
     # data = data.encode('ISO-8859-1')
     # Hash.from_xml(data)['DOCUMENTO']
     @client.call(:get_documento_anotacion, message: message)
+    #message: { Aplicacion: “RLOBBIES”, CodigoDocumento: “0901ffd680138b07", Sentido: “E”, NumAnotacion: “AAAA20170001003" }
   end
 
 end
