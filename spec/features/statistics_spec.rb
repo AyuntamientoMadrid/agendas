@@ -27,9 +27,9 @@ feature 'Statistics' do
           expect(category1.name).to appear_before(category2.name)
           expect(category2.name).to appear_before(category3.name)
         end
-     end
+      end
 
-     scenario 'Should show all categories organizations amount' do
+      scenario 'Should show all categories organizations amount' do
         category1 = create(:category, name: "Abcd")
         category2 = create(:category, name: "Bcde")
         category3 = create(:category, name: "Cdef")
@@ -60,19 +60,19 @@ feature 'Statistics' do
       end
 
       scenario 'Should show all interests organizations amount' do
-         interest1 = create(:interest, name: "Abcd")
-         interest2 = create(:interest, name: "Bcde")
-         interest3 = create(:interest, name: "Cdef")
-         organization = create_list(:organization, 3, interests: [interest2])
-         organization = create_list(:organization, 2, interests: [interest3])
+        interest1 = create(:interest, name: "Abcd")
+        interest2 = create(:interest, name: "Bcde")
+        interest3 = create(:interest, name: "Cdef")
+        organization = create_list(:organization, 3, interests: [interest2])
+        organization = create_list(:organization, 2, interests: [interest3])
 
-         visit statistics_path
+        visit statistics_path
 
-         within ".lobbies-interests" do
-           expect("0").to appear_before("3")
-           expect("3").to appear_before("2")
-         end
-       end
+        within ".lobbies-interests" do
+          expect("0").to appear_before("3")
+          expect("3").to appear_before("2")
+        end
+      end
 
     end
 
