@@ -172,8 +172,8 @@ es:
   statistics:
     statistics: "Estadísticas"
     description: "A continuación las estadísticas de todo lo relacionado con el registro de lobbies"
-    category_lobbies: "Actividades de lobby por categoría"
-    interest_lobbies: "Actividades de lobby por intereses"
+    category_lobbies: "Cantidad de lobbies inscritos por categoría"
+    interest_lobbies: "Intereses de los lobbies registrados"
     description_lobbies: "Información relativa a lobbies"
     inscribed_lobbies: "Cantidad de lobbies inscritos"
     employed: "Lobbies por cuenta ajena"
