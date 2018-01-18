@@ -321,7 +321,7 @@ feature 'Organization' do
         click_button "Guardar"
 
         expect(page).to have_content "Registro creado correctamente"
-        expect(ActionMailer::Base.deliveries.count).to eq(2)
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
       end
 
       scenario 'Should create organization with data fields' do
@@ -456,7 +456,7 @@ feature 'Organization' do
         expect(organization.lobby_term).to eq true
 
         # user welcome email and organizationMailer for lobby
-        expect(ActionMailer::Base.deliveries.count).to eq(2)
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
         open_email(organization.user.email)
 
         expect(current_email.to).to eq([organization.user.email])

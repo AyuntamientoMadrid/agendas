@@ -22,8 +22,7 @@ module Admin
       @organization = Organization.new(organization_params)
       @organization.entity_type = 'lobby'
       if @organization.save
-        UserMailer.welcome(@organization.user).deliver_now
-        OrganizationMailer.create(@organization).deliver_now
+        OrganizationMailer.welcome(@organization).deliver_now
         redirect_to admin_organizations_path, notice: t('backend.successfully_created_record')
       else
         flash[:alert] = t('backend.review_errors')
@@ -42,9 +41,9 @@ module Admin
       if @organization.update_attributes(organization_params)
         path = current_user.lobby? ? admin_organization_path(@organization) : admin_organizations_path
         if @organization.invalidated? && params[:organization][:invalidate]
-          # OrganizationMailer.invalidate(@organization).deliver_now
-          # not needed, yet
-        else
+          OrganizationMailer.invalidate(@organization).deliver_now
+        end
+        if !@organization.invalidated? && !@organization.canceled?
           OrganizationMailer.update(@organization).deliver_now
         end
         redirect_to path, notice: t('backend.successfully_updated_record')

@@ -1,43 +1,42 @@
 class OrganizationMailer < ApplicationMailer
 
-  def create(organization)
-    @user_name = organization.user_name
-    @lobby_reference = organization.id
-    @lobby_name = organization.name
-    @lobby_inscription_date = organization.inscription_date
-    @user_password = Devise.friendly_token.first(8)
-    organization.change_password(@user_password)
+  def welcome(organization)
+    @organization = organization
 
-    subject = t('mailers.create_organization.subject', lobby_reference: @lobby_reference)
+    # TODO: Uncommet, remove or refactor on feature/bareg-inegration
+    # when organization is created through integration we should generate ramdom password
+    # if organization.user.password.blank?
+    #   random_password = Devise.friendly_token.first(8)
+    #   organization.user.password = random_password
+    #   organization.user.password_confirmation = random_password
+    #   organization.save
+    # end
+
+    subject = t('mailers.create_organization.subject', lobby_reference: organization.id)
     to = organization.user.nil? ? [] : organization.user.email
     mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
   end
 
   def delete(organization)
-    @lobby_reference = organization.id
-    @lobby_name = organization.name
-    @lobby_deleted_at = l organization.canceled_at, format: :long if organization.canceled_at
+    @organization = organization
 
-    subject = t('mailers.delete_organization.subject', lobby_reference: @lobby_reference)
+    subject = t('mailers.delete_organization.subject', lobby_reference: organization.id)
     to = organization.user.nil? ? [] : organization.user.email
     mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
   end
 
   def invalidate(organization)
-    @name = organization.user_name
-    @title = organization.fullname
+    @organization = organization
 
-    subject = t('mailers.invalidate_organization.subject', title: @title)
+    subject = t('mailers.invalidate_organization.head1', lobby_reference: organization.id)
     to = organization.user.nil? ? [] : organization.user.email
     mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
   end
 
   def update(organization)
-    @lobby_reference = organization.id
-    @lobby_name = organization.name
-    @lobby_updated_date = l organization.modification_date, format: :long if organization.modification_date
+    @organization = organization
 
-    subject = t('mailers.update_organization.subject', lobby_reference: @lobby_reference)
+    subject = t('mailers.update_organization.subject', lobby_reference: organization.id)
     to = organization.user.nil? ? [] : organization.user.email
     mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
   end
