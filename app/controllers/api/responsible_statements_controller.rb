@@ -20,6 +20,7 @@ module Api
                   idExpediente: :integer,
                   refExpediente: :string
                 }
+
     def inicioExpediente
       doc = Nokogiri.XML(params[:xmlDatosEntrada])
 
@@ -38,7 +39,7 @@ module Api
             organization.user.soft_delete
           end
           organization.update_attributes(organization_params)
-          UserMailer.welcome(organization.user).deliver_now
+          UserMailer.welcome(organization.user).deliver_now #fix order user mailer
           organization.send_update_mail
           organization.update(modification_date: Date.current)
         elsif form.xpath("nombre=878") #Baja
@@ -63,7 +64,6 @@ module Api
 
     # certain_term
     # code_of_conduct_term
-    # inscription_reference
     # inscription_date
     # entity_type
     # gift_term
@@ -139,7 +139,7 @@ module Api
                                                        country: country, province: province, town: town, address_type: address_type, address: address,
                                                        number_type: number_type, number: number, gateway: gateway, stairs: stairs, floor: floor, door: door, postal_code: postal_code,
                                                        email: email, phones: phones, category: category, description: description, web: web, registered_lobby_ids: registered_lobby_ids,
-                                                       check_email: check_email, check_sms: check_sms)
+                                                       check_email: check_email, check_sms: check_sms, entity_type: :lobby)
     end
 
     def add_legal_representant(doc, organization_params)
@@ -219,24 +219,15 @@ module Api
 
         represented_entity_params = { identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, from: from, fiscal_year: fiscal_year, range_fund: range_fund, subvention: subvention, contract: contract, _destroy: destroy }
         organization = Organization.where(identifier: key_content(doc, "COMUNES_INTERESADO_NUMIDENT")).first
-
         represented_entity = organization.represented_entities.where(identifier: identifier).first if organization.present?
+
         if organization.present? && represented_entity.present?
-          # represented_entity_params = check_represented_entity(represented_entity_params, represented_entity)
           represented_entity_params = represented_entity_params.merge(:id => represented_entity.id)
         end
         represented_entities_attributes = represented_entities_attributes.merge(hash_id => represented_entity_params)
       end
       represented_entities_attributes = represented_entities_attributes.merge(represented_entities_attributes)
     end
-
-    # def check_represented_entity(params, represented_entity)
-    #   if params[:_destroy] == "1"
-    #     { identifier: params[:identifier], id: represented_entity.id.to_s, name: represented_entity.name, first_surname: represented_entity.first_surname, second_surname: represented_entity.second_surname, from: represented_entity.from, fiscal_year: represented_entity.fiscal_year, range_fund: represented_entity.range_fund, subvention: represented_entity.subvention, contract: represented_entity.contract, _destroy: "1" }
-    #   else
-    #     params.merge(:id => represented_entity.id)
-    #   end
-    # end
 
     def key_content(doc, key)
       variable = doc.at("//variable/*[text()= '#{key}']")

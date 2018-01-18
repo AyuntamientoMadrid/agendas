@@ -491,13 +491,6 @@ describe Api::ResponsibleStatementsController do
     describe "Edit responsible statement" do
 
       before do
-        # @no_record = create(:registered_lobby, name: "Ninguno")
-        # @general   = create(:registered_lobby, name: "Generalidad catalunya")
-        # @cnmc      = create(:registered_lobby, name: "CNMC")
-        # @ue        = create(:registered_lobby, name: "Unión Europea")
-        # @other     = create(:registered_lobby, name: "Otro")
-        # @category_emp = create(:category, name: "Empresas")
-        # @category_pro = create(:category, name: "Consultoría profesional y despachos de abogados")
         create(:category, name: "Organizaciones empresariales")
       end
 
