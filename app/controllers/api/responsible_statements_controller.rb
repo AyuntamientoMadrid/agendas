@@ -65,7 +65,6 @@ module Api
     # certain_term
     # code_of_conduct_term
     # inscription_date
-    # entity_type
     # gift_term
     # lobby_term
 
@@ -272,34 +271,32 @@ module Api
     end
 
     def get_category(doc)
-      category = nil
       if key_content(doc, "COMUNES_INTERESADO_CATEG").present?
         case key_content(doc, "COMUNES_INTERESADO_CATEG")
         when 'PRO'
-          category = Category.where(name: "Consultoría profesional y despachos de abogados").first
+          Category.where(name: "Consultoría profesional y despachos de abogados").first
         when 'EMP'
-          category = Category.where(name: "Empresas").first
+          Category.where(name: "Empresas").first
         when 'ASO'
-          category = Category.where(name: "Asociaciones").first
+          Category.where(name: "Asociaciones").first
         when 'FUN'
-          category = Category.where(name: "Fundaciones").first
+          Category.where(name: "Fundaciones").first
         when 'SIN'
-          category = Category.where(name: "Sindicatos y organizaciones profesionales").first
+          Category.where(name: "Sindicatos y organizaciones profesionales").first
         when 'ORG'
-          category = Category.where(name: "Organizaciones empresariales").first
+          Category.where(name: "Organizaciones empresariales").first
         when 'ONG'
-          category = Category.where(name: "ONGs y plataformas sin personalidad jurídica").first
+          Category.where(name: "ONGs y plataformas sin personalidad jurídica").first
         when 'UNI'
-          category = Category.where(name: "Universidades y centros de investigación").first
+          Category.where(name: "Universidades y centros de investigación").first
         when 'COR'
-          category = Category.where(name: "Corporaciones de Derecho Público (colegios profesionales, cámaras oficiales, etc.)").first
+          Category.where(name: "Corporaciones de Derecho Público (colegios profesionales, cámaras oficiales, etc.)").first
         when 'IGL'
-          category = Category.where(name: "Iglesia y otras confesiones").first
+          Category.where(name: "Iglesia y otras confesiones").first
         else
-          category = Category.where(name: "Otro tipo de sujetos").first
+          Category.where(name: "Otro tipo de sujetos").first
         end
       end
-      return category
     end
 
     def get_registered_lobby_ids(doc)
@@ -333,7 +330,7 @@ module Api
     end
 
     def get_random_password
-      (0...8).map { (65 + rand(26)).chr }.join
+      Devise.friendly_token.first(8)
     end
 
     def get_boolean_field_value(doc, field)
@@ -351,16 +348,6 @@ module Api
         user_attributes[:id] = organization.user.id
       end
       return user_attributes
-    end
-
-    def check_legal_representant_attributes(legal_representant_attributes)
-      need_remove_blank_attributes = false
-      legal_representant_attributes.each do |attribute|
-        if attribute[1].present?
-          need_remove_blank_attributes = true
-        end
-      end
-      need_remove_blank_attributes ? legal_representant_attributes.compact! : legal_representant_attributes
     end
 
     def get_number_type(doc)
