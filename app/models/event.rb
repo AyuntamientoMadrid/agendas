@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
   include PublicActivity::Model
 
-  attr_accessor :cancel, :decline, :accept, :holder_title, :current_user
+  attr_accessor :cancel, :decline, :accept, :holder_title
 
   tracked owner: Proc.new { |controller, model| controller.present? ? controller.current_user : model.user }
   tracked title: Proc.new { |controller, model| controller.present? ? controller.get_title : model.title }
@@ -14,15 +14,16 @@ class Event < ActiveRecord::Base
   validates :title, :position, presence: true
   validates_inclusion_of :lobby_activity, :in => [true, false]
   validate :participants_uniqueness, :position_not_in_participants, :role_validate_scheduled, :validate_location
-  validates :canceled_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, allow_blank: false, if: Proc.new { |a| !a.canceled_at.blank? }
-  validates :declined_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') }, allow_blank: false, if: Proc.new { |a| !a.declined_at.blank? && a.current_user.present? && !a.current_user.lobby? }
+  validates :canceled_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') },
+                               allow_blank: false, if: Proc.new { |a| !a.canceled_at.blank? }
+  validates :declined_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') },
+                               allow_blank: false, if: Proc.new { |a| !a.declined_at.blank? }
 
   before_create :set_status
   before_update :set_published_at
   after_validation :decline_event
   after_validation :cancel_event
   after_validation :accept_event
-  after_create :create_event
 
   belongs_to :user
   belongs_to :position
@@ -64,7 +65,6 @@ class Event < ActiveRecord::Base
     if self.lobby_activity && self.organization.present? && self.organization.entity_type == "lobby"
       self.canceled_at = Time.zone.today
       self.status = 'canceled'
-      EventMailer.cancel(self).deliver_now
     end
   end
 
@@ -72,7 +72,6 @@ class Event < ActiveRecord::Base
     return unless decline == 'true' && declined_at.nil?
     self.declined_at = Time.zone.today
     self.status = 'declined'
-    EventMailer.decline(self).deliver_now
   end
 
   def accept_event
@@ -80,13 +79,6 @@ class Event < ActiveRecord::Base
     if self.lobby_activity && self.organization.present? && self.organization.entity_type == "lobby"
       self.accepted_at = Time.zone.today
       self.status = 'accepted'
-      EventMailer.accept(self).deliver_now
-    end
-  end
-
-  def create_event
-    if self.lobby_activity && self.organization.present? && self.organization.entity_type == "lobby"
-      EventMailer.create(self).deliver_now
     end
   end
 

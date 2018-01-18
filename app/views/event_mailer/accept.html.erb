@@ -1,25 +1,15 @@
-<td style="padding-bottom: 20px; padding-left: 10px;">
-  <h1 style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;">
-    <%= t('mailers.accept_event.welcome', name: @lobby_name) %>
-  </h1>
-
-  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-     <%= t('mailers.accept_event.text1', title: @event_title) %>
-  </p>
-
-  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-     <%= t('mailers.accept_event.text2', name: @name) %>
-  </p>
-
-  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-     <%= raw @reasons %>
-  </p>
-
-  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-     <%= t('mailers.accept_event.accepted_at', accepted_at: @accepted_at) %>
-  </p>
-
-  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-    <%= t('mailers.accept_event.thanks') %>
-  </p>
+<td>
+  <h1><b><%= t('mailers.accept_event.head1', event_reference: @event_reference)%></h1>
+  <p><%= t('mailers.accept_event.text1', event_reference: @event_reference) %></p>
+  <h2><%= t('mailers.accept_event.head2')%></h2>
+  <ul>
+    <li><b><%= t('mailers.accept_event.text2')%></b> <%= @event_title %></li>
+    <li><b><%= t('mailers.accept_event.text3')%></b> <%= @event_description %></li>
+  </ul>
+  <h2><%= t('mailers.accept_event.head3')%></h2>
+  <ul>
+    <li><b><%= t('mailers.accept_event.text4')%></b> <%= @accepted_at %></li>
+    <li><b><%= t('mailers.accept_event.text5')%></b> <%= @event_location %></li>
+  </ul>
+  <p><b><%= t('mailers.accept_event.notice') %></b><a href="http://registrodelobbies.madrid.es/">http://registrodelobbies.madrid.es/</a></p>
 </td>

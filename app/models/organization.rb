@@ -5,7 +5,7 @@ class Organization < ActiveRecord::Base
   enum entity_type: { association: 0, federation: 1, lobby: 2 }
   validates :inscription_reference, uniqueness: true, allow_blank: true, allow_nil: true
   validates :name, :category_id, presence: true
-  validates :invalidated_reasons, presence: { message: I18n.t('event.cancel_reasons_needed') }, if: Proc.new { |a| a.invalidated_at }
+  validates :invalidated_reasons, presence: { message: I18n.t('event.cancel_reasons_needed') }, if: proc { |a| a.invalidated_at }
 
   has_many :represented_entities, dependent: :destroy, inverse_of: :organization
   has_many :agents, dependent: :destroy
@@ -27,7 +27,6 @@ class Organization < ActiveRecord::Base
 
   before_validation :invalidate_organization, :validate_organization
   after_create :set_inscription_date
-  before_destroy :send_delete_mail
 
   searchable do
     text :name, :first_surname, :second_surname, :description
@@ -56,22 +55,6 @@ class Organization < ActiveRecord::Base
   scope :validated, -> { where('invalidated_at is null') }
   scope :lobbies, -> { where('entity_type = ?', 2) }
   scope :full_like, ->(name) { where("identifier ilike ? OR name ilike ?", name, name) }
-
-  # def send_create_mail
-  #   OrganizationMailer.create(self).deliver_now
-  # end
-
-  def send_delete_mail
-    OrganizationMailer.delete(self).deliver_now
-  end
-
-  def send_invalidate_mail
-    OrganizationMailer.invalidate(self).deliver_now
-  end
-
-  def send_update_mail
-    OrganizationMailer.update(self).deliver_now
-  end
 
   def entity_type_id
     Organization.entity_types[entity_type]
@@ -145,7 +128,6 @@ class Organization < ActiveRecord::Base
   def set_invalidate
     self.invalidate = false
     save
-    send_invalidate_mail
   end
 
   def interest?(id)
@@ -160,4 +142,7 @@ class Organization < ActiveRecord::Base
     !canceled_at.nil?
   end
 
+  def change_password(user_password)
+    user.update(:password => user_password, :password_confirmation => user_password)
+  end
 end

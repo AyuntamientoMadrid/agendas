@@ -14,7 +14,7 @@
     <%= yield %>
   </div>
   <div class="footer">
-    <p><%= t('mailers.footer') %></p>
+    <p><%= t('mailers.footer', year: Date.current.year) %></p>
   </div>
 </body>
 </html>

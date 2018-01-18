@@ -24,6 +24,7 @@ feature 'Organization' do
           Organization.reindex
 
           visit admin_organizations_path
+
           fill_in :keyword, with: "Fulanito"
           click_on "Buscar"
 
@@ -263,6 +264,36 @@ feature 'Organization' do
       end
     end
 
+    describe "Delete" do
+
+      scenario 'Should display delete link', :search do
+        organization = create(:organization, name: "Fulanito")
+        Organization.reindex
+
+        visit admin_organizations_path
+
+        expect(page).to have_link all("Eliminar").first
+      end
+
+      scenario 'Should send an email after delete', :search do
+        ActionMailer::Base.deliveries.clear
+        organization = create(:organization, name: "Fulanito")
+        Organization.reindex
+
+        visit admin_organizations_path
+
+        click_link("Eliminar", :match => :first)
+
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
+        open_email(organization.user.email)
+
+        expect(current_email.to).to eq([organization.user.email])
+        expect(current_email.cc).to eq(nil)
+        expect(current_email.bcc).to eq(["registrodelobbies@madrid.es"])
+      end
+
+    end
+
     describe "Create" do
 
       scenario 'Visit new admin organization page and create organization without user and display error' do
@@ -276,7 +307,7 @@ feature 'Organization' do
       end
 
       scenario 'Visit new admin organization page and create organization with the minimum permitted fields' do
-        ActionMailer::Base.deliveries = []
+        ActionMailer::Base.deliveries.clear
         category = create(:category)
         visit new_admin_organization_path
 
@@ -400,6 +431,7 @@ feature 'Organization' do
       end
 
       scenario 'Should create organization with terms fields' do
+        ActionMailer::Base.deliveries.clear
         new_category = create(:category)
         visit new_admin_organization_path
 
@@ -422,6 +454,15 @@ feature 'Organization' do
         expect(organization.code_of_conduct_term).to eq true
         expect(organization.gift_term).to eq true
         expect(organization.lobby_term).to eq true
+
+        # user welcome email and organizationMailer for lobby
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
+        open_email(organization.user.email)
+
+        expect(current_email.to).to eq([organization.user.email])
+        expect(current_email.cc).to eq(nil)
+        expect(current_email.bcc).to eq(["registrodelobbies@madrid.es"])
+
       end
 
       scenario 'Should show registred lobbies' do
@@ -716,6 +757,7 @@ feature 'Organization' do
       end
 
       scenario 'Should update address organization fields and send an update_mail' do
+        ActionMailer::Base.deliveries.clear
         organization = create(:organization)
         visit edit_admin_organization_path(organization)
 
@@ -732,8 +774,6 @@ feature 'Organization' do
         fill_in :organization_province, with: "New province"
         fill_in :organization_description, with: "New description"
         click_button "Guardar"
-
-        open_email(organization.user.email)
         organization.reload
         expect(page).to have_content "Registro actualizado correctamente"
         expect(organization.web).to eq "www.new_web.com"
@@ -748,9 +788,13 @@ feature 'Organization' do
         expect(organization.town).to eq "New town"
         expect(organization.province).to eq "New province"
         expect(organization.description).to eq "New description"
-        # requires further investication
-        # expect(current_email).to have_content I18n.t('mailers.update_event.text1', title: organization.fullname)
-        expect(current_email).to have_content"Ha sido actualizado el lobby:"
+
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
+        open_email(organization.user.email)
+
+        expect(current_email.to).to eq([organization.user.email])
+        expect(current_email.cc).to eq(nil)
+        expect(current_email.bcc).to eq(["registrodelobbies@madrid.es"])
       end
 
       scenario 'Should update lobby organization fields' do

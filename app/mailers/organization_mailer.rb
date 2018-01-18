@@ -1,35 +1,44 @@
 class OrganizationMailer < ApplicationMailer
 
-  def create(organization)
-    @name = organization.user_name
-    @title = organization.fullname
+  def welcome(organization)
+    @organization = organization
 
-    subject = t('mailers.create_organization.subject', title: @title)
-    mail(to: organization.user.email, subject: subject, cco: 'registrodelobbies@madrid.es')
-  end
+    # TODO: Uncommet, remove or refactor on feature/bareg-inegration
+    # when organization is created through integration we should generate ramdom password
+    # if organization.user.password.blank?
+    #   random_password = Devise.friendly_token.first(8)
+    #   organization.user.password = random_password
+    #   organization.user.password_confirmation = random_password
+    #   organization.save
+    # end
 
-  def invalidate(organization)
-    @name = organization.user_name
-    @title = organization.fullname
-
-    subject = t('mailers.invalidate_organization.subject', title: @title)
-    mail(to: organization.user.email, subject: subject, cco: 'registrodelobbies@madrid.es')
+    subject = t('mailers.create_organization.subject', lobby_reference: organization.id)
+    to = organization.user.nil? ? [] : organization.user.email
+    mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
   end
 
   def delete(organization)
-    @name = organization.user_name
-    @title = organization.fullname
+    @organization = organization
 
-    subject = t('mailers.delete_organization.subject', title: @title)
-    mail(to: organization.user.email, subject: subject, cco: 'registrodelobbies@madrid.es')
+    subject = t('mailers.delete_organization.subject', lobby_reference: organization.id)
+    to = organization.user.nil? ? [] : organization.user.email
+    mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
+  end
+
+  def invalidate(organization)
+    @organization = organization
+
+    subject = t('mailers.invalidate_organization.head1', lobby_reference: organization.id)
+    to = organization.user.nil? ? [] : organization.user.email
+    mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
   end
 
   def update(organization)
-    @name = organization.user_name
-    @title = organization.fullname
+    @organization = organization
 
-    subject = t('mailers.update_organization.subject', title: @title)
-    mail(to: organization.user.email, subject: subject, cco: 'registrodelobbies@madrid.es')
+    subject = t('mailers.update_organization.subject', lobby_reference: organization.id)
+    to = organization.user.nil? ? [] : organization.user.email
+    mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
   end
 
 end
