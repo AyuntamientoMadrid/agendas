@@ -1,5 +1,11 @@
 en:
   mailers:
+    welcome_user:
+      subject: "Welcome to lobbies registry"
+      welcome: "Welcome %{name},"
+      text1: "You just checked into the lobbies registry."
+      text2: "With your user email: %{email} and password: %{password} you can request lobby meetings."
+      thanks: "Thank you very much."
     cancel_event:
       subject: "Lobby Registration: event canceled by Lobby %{event_reference}"
       head1: "Lobby Registration: Event canceled by Lobby %{event_reference}"

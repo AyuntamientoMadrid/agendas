@@ -2,7 +2,7 @@ class UserMailer < ApplicationMailer
 
   def welcome(user)
     @user = user
-    mail(to: @user.email, subject: t('mailers.welcome_organization.subject'))
+    mail(to: @user.email, subject: t('mailers.welcome_user.subject'))
   end
 
   def infringement_email(email, attachment)
