@@ -8,6 +8,13 @@ describe Api::ResponsibleStatementsController do
   before do
     HTTPI.adapter = :rack
     HTTPI::Adapter::Rack.mount 'application', Agendas::Application
+    @no_record = create(:registered_lobby, name: "Ninguno")
+    @general   = create(:registered_lobby, name: "Generalidad catalunya")
+    @cnmc      = create(:registered_lobby, name: "CNMC")
+    @ue        = create(:registered_lobby, name: "Unión Europea")
+    @other     = create(:registered_lobby, name: "Otro")
+    @category_emp = create(:category, name: "Empresas")
+    @category_pro = create(:category, name: "Consultoría profesional y despachos de abogados")
   end
 
   describe "inicioExpediente" do
@@ -58,11 +65,15 @@ describe Api::ResponsibleStatementsController do
 
     describe "Create responsible statement" do
 
-      before do
-        create(:registered_lobby, name: "no_record")
-        @category_emp = create(:category, name: "Empresas")
-        @category_pro = create(:category, name: "Consultoría profesional y despachos de abogados")
-      end
+      # before do
+      #   @no_record = create(:registered_lobby, name: "Ninguno")
+      #   @general   = create(:registered_lobby, name: "Generalidad catalunya")
+      #   @cnmc      = create(:registered_lobby, name: "CNMC")
+      #   @ue        = create(:registered_lobby, name: "Unión Europea")
+      #   @other     = create(:registered_lobby, name: "Otro")
+      #   @category_emp = create(:category, name: "Empresas")
+      #   @category_pro = create(:category, name: "Consultoría profesional y despachos de abogados")
+      # end
 
       it "Should return success when organization could be created" do
         client = Savon::Client.new(
@@ -124,6 +135,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.category).to eq @category_emp
         expect(organization.description).to eq "finalidad"
         expect(organization.web).to eq "www.web.es"
+        expect(organization.registered_lobbies).to eq [@no_record]
 
         #DATA_2
         expect(organization.legal_representant).to eq nil
@@ -184,6 +196,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.category).to eq @category_emp
         expect(organization.description).to eq "influir en la normativa sobre transparencia"
         expect(organization.web).to eq "wwww.transparentes.org"
+        expect(organization.registered_lobbies).to eq [@no_record]
         expect(organization.check_email).to eq true
         expect(organization.check_sms).to eq false
 
@@ -255,9 +268,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.category).to eq @category_emp
         expect(organization.description).to eq "Reuniones con el Ayuntamiento, Distritos, Áreas de Gobierno, para luchar porque el Ajedrez se convierta en un deporte potenciado por el Ayuntamiento de Madrid, debido a los grandes valores que tiene la práctica de este deporte.Linea 3 Línea 4 Línea 5 y última."
         expect(organization.web).to eq "www.madrid.es"
-        # <variable><clave>COMUNES_INTERESADO_CNMC</clave><valor>true</valor></variable>
-        # <variable><clave>COMUNES_INTERESADO_GENERAL</clave><valor>true</valor></variable>
-        # <variable><clave>COMUNES_INTERESADO_OTROS</clave><valor>true</valor></variable>
+        expect(organization.registered_lobbies).to eq [@general, @cnmc, @other]
         expect(organization.check_email).to eq true
         expect(organization.check_sms).to eq true
 
@@ -269,7 +280,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.user.identifier).to eq "70572650w"
         expect(organization.user.first_name).to eq "HONORIO ENRIQUE"
         expect(organization.user.last_name).to eq "CRESPO DIAZ-ALEJO"
-        expect(organization.user.email).to eq "crespodhe@madrid.es"
+        expect(organization.user.email).to eq "old@email.com"
         expect(organization.user.phones).to eq "915133100"
 
         #DATA_4
@@ -321,10 +332,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.category).to eq @category_pro
         expect(organization.description).to eq "Agencia de de public affairs especializada en políticas públicas y regulación en diversos sectores. Actividades específicas en relación con este Registro: Reuniones y contactos con el personal deL Ayuntamiento de Madrid la CNMC en representación de sus clientes. Participación en consultas públicas."
         expect(organization.web).to eq "www.political-intelligence.com/es"
-        # <variable><clave>COMUNES_INTERESADO_UE</clave><valor>true</valor></variable>
-        # <variable><clave>COMUNES_INTERESADO_CNMC</clave><valor>true</valor></variable>
-        # <variable><clave>COMUNES_INTERESADO_GENERAL</clave><valor>true</valor></variable>
-        # <variable><clave>COMUNES_INTERESADO_OTROS</clave><valor>true</valor></variable>
+        expect(organization.registered_lobbies).to eq [@general, @cnmc, @ue, @other]
         expect(organization.check_email).to eq true
         expect(organization.check_sms).to eq true
 
@@ -428,10 +436,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.category).to eq @category_pro
         expect(organization.description).to eq "la transparencia"
         expect(organization.web).to eq nil
-        # <variable><clave>COMUNES_INTERESADO_UE</clave><valor>false</valor></variable>
-        # <variable><clave>COMUNES_INTERESADO_CNMC</clave><valor>false</valor></variable>
-        # <variable><clave>COMUNES_INTERESADO_GENERAL</clave><valor>true</valor></variable>
-        # <variable><clave>COMUNES_INTERESADO_OTROS</clave><valor>false</valor></variable>
+        expect(organization.registered_lobbies).to eq [@general]
         expect(organization.check_email).to eq true
         expect(organization.check_sms).to eq true
 
@@ -486,9 +491,13 @@ describe Api::ResponsibleStatementsController do
     describe "Edit responsible statement" do
 
       before do
-        create(:registered_lobby, name: "no_record")
-        @category_emp = create(:category, name: "Empresas")
-        @category_pro = create(:category, name: "Consultoría profesional y despachos de abogados")
+        # @no_record = create(:registered_lobby, name: "Ninguno")
+        # @general   = create(:registered_lobby, name: "Generalidad catalunya")
+        # @cnmc      = create(:registered_lobby, name: "CNMC")
+        # @ue        = create(:registered_lobby, name: "Unión Europea")
+        # @other     = create(:registered_lobby, name: "Otro")
+        # @category_emp = create(:category, name: "Empresas")
+        # @category_pro = create(:category, name: "Consultoría profesional y despachos de abogados")
         create(:category, name: "Organizaciones empresariales")
       end
 
@@ -510,8 +519,8 @@ describe Api::ResponsibleStatementsController do
         expect(body[:ref_expediente]).to eq "refExpediente"
       end
 
-      it "Should update fields when send organization edit" do
-        # create(:organization, identifier: "70572650W")
+      it "Should update fields when send organization edit and create new user with welcome mail" do
+        ActionMailer::Base.deliveries = []
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path)
         response = client.call(:inicio_expediente,
@@ -519,11 +528,16 @@ describe Api::ResponsibleStatementsController do
                                 codTipoExpdiente: "1234",
                                 xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/newResponsibleStatement_3.xml"),
                                 usuario: "WFORM" })
+        expect(ActionMailer::Base.deliveries.count).to eq(1) #UserMailer.welcome(organization.user).deliver_now
+
         response = client.call(:inicio_expediente,
                                message: {
                                 codTipoExpdiente: "1234",
                                 xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/editResponsibleStatement_1.xml"),
                                 usuario: "WFORM" })
+
+        expect(ActionMailer::Base.deliveries.count).to eq(3) #UserMailer.welcome(organization.user).deliver_now
+                                                             #organization.send_update_mail
         organization = Organization.last
 
         #DATA_1
@@ -550,9 +564,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.category).to eq @category_pro
         expect(organization.description).to eq nil #updated
         expect(organization.web).to eq nil #updated
-        # <variable><clave>COMUNES_INTERESADO_CNMC</clave><valor>true</valor></variable>
-        # <variable><clave>COMUNES_INTERESADO_GENERAL</clave><valor>true</valor></variable>
-        # <variable><clave>COMUNES_INTERESADO_OTROS</clave><valor>true</valor></variable>
+        expect(organization.registered_lobbies).to eq [@no_record]
         expect(organization.check_email).to eq false #updated
         expect(organization.check_sms).to eq false #updated
 
@@ -564,7 +576,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.user.identifier).to eq "70572650W"
         expect(organization.user.first_name).to eq "HONORIO ENRIQUE"
         expect(organization.user.last_name).to eq "CRESPO DÍAZ-ALEJO" #updated
-        expect(organization.user.email).to eq "crespodhe@madrid.es"
+        expect(organization.user.email).to eq "new@madrid.es"
         expect(organization.user.phones).to eq nil #updated
 
         #DATA_4
@@ -581,7 +593,6 @@ describe Api::ResponsibleStatementsController do
       end
 
       it "Should remove 1 represented entity and add new represented_entity" do
-        # create(:organization, identifier: "70572650W")
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path)
         response = client.call(:inicio_expediente,

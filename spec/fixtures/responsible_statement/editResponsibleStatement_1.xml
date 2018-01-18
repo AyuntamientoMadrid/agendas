@@ -163,7 +163,7 @@
             </datosRepresentante>
             <datosNotificacion>
                 <variables>
-                    <variable><clave>COMUNES_NOTIFICACION_EMAIL</clave><valor>crespodhe@madrid.es</valor></variable>
+                    <variable><clave>COMUNES_NOTIFICACION_EMAIL</clave><valor>new@madrid.es</valor></variable>
                     <variable><clave>COMUNES_NOTIFICACION_MOVIL</clave><valor/></variable>
                     <variable><clave>COMUNES_NOTIFICACION_NOMBRE</clave><valor>HONORIO ENRIQUE</valor></variable>
                     <variable><clave>COMUNES_NOTIFICACION_TELEFONO</clave><valor/></variable>

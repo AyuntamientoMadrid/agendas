@@ -30,15 +30,21 @@ module Api
       doc.xpath("//formulario").each do |form|
         if form.xpath("nombre=876") #Alta
           organization = Organization.create(organization_params)
+          UserMailer.welcome(organization.user).deliver_now
         elsif form.xpath("nombre=877") #Modificación
           organization = Organization.where(identifier: organization_params[:identifier]).first
           organization_params[:user_attributes] = check_user_attributes(organization, organization_params[:user_attributes])
-          UserMailer.welcome(organization.user).deliver_now if organization.user.email != organization_params[:user_attributes][:email]
+          if organization.user.email != organization_params[:user_attributes][:email]
+            organization.user.soft_delete
+          end
           organization.update_attributes(organization_params)
+          UserMailer.welcome(organization.user).deliver_now
+          organization.send_update_mail
+          organization.update(modification_date: Date.current)
         elsif form.xpath("nombre=878") #Baja
           organization = Organization.where(identifier: identifier).first
-          organization.update(canceled_at: DateTime.current)
-          organization.user.soft_deleted
+          organization.update(canceled_at: Time.zone.now)
+          organization.user.soft_delete
         else
 
         end
@@ -57,15 +63,9 @@ module Api
 
     # certain_term
     # code_of_conduct_term
-    # created_at
-    # updated_at
     # inscription_reference
     # inscription_date
     # entity_type
-    # invalidated_at
-    # canceled_at
-    # invalidated_reasons
-    # modification_date
     # gift_term
     # lobby_term
 
@@ -312,13 +312,13 @@ module Api
     end
 
     def get_registered_lobby_ids(doc)
-      registered_lobby_ids = [RegisteredLobby.where(name: "no_record").first.id]
+      registered_lobby_ids = [RegisteredLobby.where(name: "Ninguno").first.id]
       if key_content(doc, "COMUNES_INTERESADO_INSCRIPCION") == "S"
         ids = []
-        ids << RegisteredLobby.where(name: "generalitat_catalunya").first.id if key_content(doc, "COMUNES_INTERESADO_GENERAL") == true
-        ids << RegisteredLobby.where(name: "cnmc").first.id                  if key_content(doc, "COMUNES_INTERESADO_CNMC") == true
-        ids << RegisteredLobby.where(name: "europe_union").first.id          if key_content(doc, "COMUNES_INTERESADO_UE") == true
-        ids << RegisteredLobby.where(name: "others").first.id                if key_content(doc, "COMUNES_INTERESADO_OTROS") == true
+        ids << RegisteredLobby.where(name: "Generalidad catalunya").first.id if key_content(doc, "COMUNES_INTERESADO_GENERAL") == "true"
+        ids << RegisteredLobby.where(name: "CNMC").first.id                  if key_content(doc, "COMUNES_INTERESADO_CNMC") == "true"
+        ids << RegisteredLobby.where(name: "Unión Europea").first.id         if key_content(doc, "COMUNES_INTERESADO_UE") == "true"
+        ids << RegisteredLobby.where(name: "Otro").first.id                  if key_content(doc, "COMUNES_INTERESADO_OTROS") == "true"
         registered_lobby_ids = ids
       end
       return registered_lobby_ids
