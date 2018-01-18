@@ -1,13 +1,10 @@
 class InfringementEmail
-  include ActiveModel::Model
-
   ATTRIBUTES = [:subject, :description, :link, :attachment, :affected, :affected_referer].freeze
-
   attr_accessor(*ATTRIBUTES)
 
-  # >>> Start of Paperclip required stuff to work outside AR
-  extend ActiveModel::Callbacks
+  include ActiveModel::Model
   include Paperclip::Glue
+  extend ActiveModel::Callbacks
 
   define_model_callbacks :save, only: [:after]
   define_model_callbacks :commit, only: [:after]
@@ -21,11 +18,5 @@ class InfringementEmail
                                     size: { in: 0..3.megabytes }
   attr_accessor :attachment_file_size, :attachment_file_name, :attachment_content_type, :id
   validates :affected, presence: true
-
-  # <<< End Paperclip required stuff
-
-  def initialize(attributes={})
-    super(attributes)
-  end
 
 end
