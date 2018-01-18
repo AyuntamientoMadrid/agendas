@@ -24,7 +24,7 @@ set :pty, true
 set :use_sudo, false
 
 set :linked_files, %w{config/database.yml config/secrets.yml config/sunspot.yml}
-set :linked_dirs, %w{log tmp public/system public/assets}
+set :linked_dirs, %w{log tmp public/system public/assets public/export}
 
 set :keep_releases, 10
 
@@ -48,7 +48,7 @@ set(:config_files, %w(
 namespace :deploy do
   # Check right version of deploy branch
   # before :deploy, "deploy:check_revision"
-  
+
   # Run test aund continue only if passed
   # before :deploy, "deploy:run_tests"
 
