@@ -17,7 +17,6 @@
 //= require_tree ./dependencies/foundation-datepicker-locales
 //= require social-share-button
 //= require organizations
-//= require statistics
 //= require infringement_email
 //= require respond.min
 //= require rem.min
