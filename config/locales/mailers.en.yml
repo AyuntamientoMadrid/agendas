@@ -1,5 +1,6 @@
 en:
   mailers:
+    footer: "Madrid City Council %{year}"
     welcome_user:
       subject: "Welcome to lobbies registry"
       welcome: "Welcome %{name},"
