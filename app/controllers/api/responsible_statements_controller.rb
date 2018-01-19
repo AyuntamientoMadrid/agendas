@@ -103,49 +103,6 @@ module Api
       organization_params = add_foreign_lobby_activity(doc, organization_params)
       # 6. Attachments
       organization_params = add_attachments(organization_params)
-      # # content_attachment_xml = File.open() { |f| Nokogiri::XML(f) }
-      content_attachment_xml =  Nokogiri.XML(File.read(Rails.root.join('spec', 'fixtures', 'responsible_statement', 'attachment_1.xml')) )
-
-      # file = File.new(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf"), "w:binary")
-      # # <codigo>0901ffd68013878f</codigo>
-      # debugger
-      File.open(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf"), 'wb') do |f|
-        # f.write(content_attachment_xml.xpath("//documento").text)
-        f.puts(content_attachment_xml.xpath("//documento").text.unpack("m"))
-      end
-      # File.open(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf"), 'w') { |f| IO.binread(content_attachment_xml.xpath("//documento").text) }
-      # File.open('test.bin', 'wb') {|file| BinData::Int32be.new(12345).write(file) }
-      # debugger
-      # file.puts(content_attachment_xml.xpath("//documento").text)
-
-      debugger
-      # file.close
-      # # debugger
-      attachments_attribute_1 = { file: File.open(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf")) }
-      #
-      attachments_attributes = { "1" => attachments_attribute_1 }
-      # debugger
-      organization_params = organization_params.merge(attachments_attributes: attachments_attributes)
-      # organization_params =
-
-      # def key_content(doc, key)
-      #   variable = doc.at("//variable/*[text()= '#{key}']")
-      #   variable.present? && variable.next_element.text.present? ? variable.next_element.text : nil
-      # end
-      # registry_api = RegistryApi.new
-      # message: { Aplicacion: “RLOBBIES”, CodigoDocumento: “0901ffd680138b07", Sentido: “E”, NumAnotacion: “AAAA20170001003" }
-      # registry_api.get_documento_anotacion(message)
-
-
-      # attachments_attributes"=>{"1516300038435"=>{"file"=>#<ActionDispatch::Http::UploadedFile:0x00007feda5cf84e8
-                                                                #@tempfile=#<Tempfile:/var/folders/43/yf1qy39d3q3531pj479p6s_h0000gn/T/RackMultipart20180118-4663-1csemww.png>,
-                                                                #@original_filename="Captura de pantalla 2018-01-18 a las 17.21.45.png",
-      #                                                         @content_type="image/png",
-      # =>                                                      @headers="Content-Disposition: form-data;
-                                                                #name=\"organization[attachments_attributes][1516300038435][file]\";
-                                                                #filename=\"Captura de pantalla 2018-01-18 a las 17.21.45.png\"\r\nContent-Type: image/png\r\n">,
-                                                                #"_destroy"=>"false"}}
-      #                              {"1"=>{:file=>#<File:/Users/sebastiaroigpieras/workspaceRails/agendas/tmp/Curso_834_Analisis_y_Direccion_de_Proyectos.pdf>}}
 
       organization_params
     end
@@ -272,6 +229,54 @@ module Api
         represented_entities_attributes = represented_entities_attributes.merge(hash_id => represented_entity_params)
       end
       represented_entities_attributes = represented_entities_attributes.merge(represented_entities_attributes)
+    end
+
+    def add_attachments(organization_params)
+      # # content_attachment_xml = File.open() { |f| Nokogiri::XML(f) }
+      content_attachment_xml =  Nokogiri.XML(File.read(Rails.root.join('spec', 'fixtures', 'responsible_statement', 'attachment_1.xml')) )
+
+      # file = File.new(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf"), "w:binary")
+      # # <codigo>0901ffd68013878f</codigo>
+      # debugger
+      File.open(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf"), 'wb') do |f|
+        # f.write(content_attachment_xml.xpath("//documento").text)
+        f.puts(content_attachment_xml.xpath("//documento").text.unpack("m"))
+      end
+      # File.open(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf"), 'w') { |f| IO.binread(content_attachment_xml.xpath("//documento").text) }
+      # File.open('test.bin', 'wb') {|file| BinData::Int32be.new(12345).write(file) }
+      # debugger
+      # file.puts(content_attachment_xml.xpath("//documento").text)
+      # pre_client = Savon.client wsdl: "http://pre6intra.munimadrid.es:8090/ServicioWebRegistro/services/WsRegistroImpl/wsdl/WsRegistroImpl.wsdl"
+      # pre_client.call :get_documento_anotacion, message: { Aplicacion: "RLOBBIES", CodigoDocumento: "0901ffd68013878f", Sentido: "E", NumAnotacion: "20170000990" }
+      debugger
+      # file.close
+      # # debugger
+      attachments_attribute_1 = { file: File.open(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf")) }
+      #
+      attachments_attributes = { "1" => attachments_attribute_1 }
+      # debugger
+      organization_params = organization_params.merge(attachments_attributes: attachments_attributes)
+      # organization_params =
+
+      # def key_content(doc, key)
+      #   variable = doc.at("//variable/*[text()= '#{key}']")
+      #   variable.present? && variable.next_element.text.present? ? variable.next_element.text : nil
+      # end
+      # registry_api = RegistryApi.new
+      # message: { Aplicacion: “RLOBBIES”, CodigoDocumento: “0901ffd680138b07", Sentido: “E”, NumAnotacion: “AAAA20170001003" }
+      # registry_api.get_documento_anotacion(message)
+
+
+      # attachments_attributes"=>{"1516300038435"=>{"file"=>#<ActionDispatch::Http::UploadedFile:0x00007feda5cf84e8
+                                                                #@tempfile=#<Tempfile:/var/folders/43/yf1qy39d3q3531pj479p6s_h0000gn/T/RackMultipart20180118-4663-1csemww.png>,
+                                                                #@original_filename="Captura de pantalla 2018-01-18 a las 17.21.45.png",
+      #                                                         @content_type="image/png",
+      # =>                                                      @headers="Content-Disposition: form-data;
+                                                                #name=\"organization[attachments_attributes][1516300038435][file]\";
+                                                                #filename=\"Captura de pantalla 2018-01-18 a las 17.21.45.png\"\r\nContent-Type: image/png\r\n">,
+                                                                #"_destroy"=>"false"}}
+      #                              {"1"=>{:file=>#<File:/Users/sebastiaroigpieras/workspaceRails/agendas/tmp/Curso_834_Analisis_y_Direccion_de_Proyectos.pdf>}}
+
     end
 
     def key_content(doc, key)
