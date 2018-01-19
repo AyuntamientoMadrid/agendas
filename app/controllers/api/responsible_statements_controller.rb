@@ -102,17 +102,16 @@ module Api
       # 5. Datos personas o entidades sin personalidad a quienes se va a representar
       organization_params = add_foreign_lobby_activity(doc, organization_params)
       # 6. Attachments
-      # debugger
+      organization_params = add_attachments(organization_params)
       # # content_attachment_xml = File.open() { |f| Nokogiri::XML(f) }
       content_attachment_xml =  Nokogiri.XML(File.read(Rails.root.join('spec', 'fixtures', 'responsible_statement', 'attachment_1.xml')) )
-
 
       # file = File.new(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf"), "w:binary")
       # # <codigo>0901ffd68013878f</codigo>
       # debugger
       File.open(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf"), 'wb') do |f|
         # f.write(content_attachment_xml.xpath("//documento").text)
-        f.puts(content_attachment_xml.xpath("//documento").text)
+        f.puts(content_attachment_xml.xpath("//documento").text.unpack("m"))
       end
       # File.open(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf"), 'w') { |f| IO.binread(content_attachment_xml.xpath("//documento").text) }
       # File.open('test.bin', 'wb') {|file| BinData::Int32be.new(12345).write(file) }
@@ -122,11 +121,11 @@ module Api
       debugger
       # file.close
       # # debugger
-      # attachments_attribute_1 = { file: file }
+      attachments_attribute_1 = { file: File.open(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf")) }
       #
-      # attachments_attributes = { "1" => attachments_attribute_1 }
+      attachments_attributes = { "1" => attachments_attribute_1 }
       # debugger
-      # organization_params =  organization_params.merge(attachments_attributes: attachments_attributes)
+      organization_params = organization_params.merge(attachments_attributes: attachments_attributes)
       # organization_params =
 
       # def key_content(doc, key)
