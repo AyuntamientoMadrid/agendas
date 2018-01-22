@@ -31,9 +31,7 @@ module Api
 
       doc.xpath("//formulario").each do |form|
         if form.xpath("nombre=876") #Alta
-          debugger
           organization = Organization.create(organization_params)
-          debugger
           UserMailer.welcome(organization.user).deliver_now
         elsif form.xpath("nombre=877") #Modificación
           organization = Organization.where(identifier: organization_params[:identifier]).first
@@ -46,14 +44,13 @@ module Api
           organization.send_update_mail
           organization.update(modification_date: Date.current)
         elsif form.xpath("nombre=878") #Baja
-          organization = Organization.where(identifier: identifier).first
+          organization = Organization.where(identifier: organization_params[:identifier]).first
           organization.update(canceled_at: Time.zone.now)
           organization.user.soft_delete
         else
 
         end
       end
-      puts doc
 
       render soap: {
         codRetorno: "",
@@ -102,7 +99,7 @@ module Api
       # 5. Datos personas o entidades sin personalidad a quienes se va a representar
       organization_params = add_foreign_lobby_activity(doc, organization_params)
       # 6. Attachments
-      organization_params = add_attachments(organization_params)
+      organization_params = add_attachments(doc, organization_params)
 
       organization_params
     end
@@ -201,6 +198,7 @@ module Api
       represented_entities_attributes = add_represented_entity(doc, represented_entities_attributes, "DNI_REPRESENTA4", "NOMBRE_REPRESENTA4", "APELLIDO1_REPRESENTA4", "APELLIDO2_REPRESENTA4", "FECHA_REPRESENTA4", "EJERCICIO_REPRESENTA4", "FONDOS_REPRESENTA4", "ENTIDAD_AYUDA_REPRESENTA4", "ENTIDAD_CON_REPRESENTA4", "MODPERSONA4", "4")
 
       organization_params =  organization_params.merge(foreign_lobby_activity: foreign_lobby_activity)
+
       organization_params =  represented_entities_attributes.present? ? organization_params.merge(represented_entities_attributes: represented_entities_attributes) : organization_params
 
       return organization_params
@@ -209,6 +207,7 @@ module Api
     def add_represented_entity(doc, represented_entities_attributes, identifier, name, first_surname, last_surname, from, fiscal_year, range_fund, subvention, contract, modification_type, hash_id)
       identifier     = key_content(doc, identifier)
       if identifier.present?
+
         name           = key_content(doc, name)
         first_surname  = key_content(doc, first_surname)
         second_surname = key_content(doc, last_surname)
@@ -217,66 +216,42 @@ module Api
         range_fund     = get_range_fund(doc, range_fund)
         subvention     = get_boolean_field_value(doc, subvention)
         contract       = get_boolean_field_value(doc, contract)
-        destroy        = get_destroy(doc, modification_type)
+        to             = get_destroy(doc, modification_type)
 
-        represented_entity_params = { identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, from: from, fiscal_year: fiscal_year, range_fund: range_fund, subvention: subvention, contract: contract, _destroy: destroy }
+        represented_entity_params = { identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, from: from, to: to, fiscal_year: fiscal_year, range_fund: range_fund, subvention: subvention, contract: contract, _destroy: "false" }
         organization = Organization.where(identifier: key_content(doc, "COMUNES_INTERESADO_NUMIDENT")).first
-        represented_entity = organization.represented_entities.where(identifier: identifier).first if organization.present?
-
-        if organization.present? && represented_entity.present?
-          represented_entity_params = represented_entity_params.merge(:id => represented_entity.id)
+        re = organization.represented_entities.where(identifier: identifier).first if organization.present?
+        if organization.present? && re.present?
+          if to.blank?
+            represented_entity_params = represented_entity_params.merge(id: re.id)
+          else
+            represented_entity_params = { identifier: re.identifier, name: re.name, first_surname: re.first_surname, second_surname: re.second_surname, from: re.from, to: to, fiscal_year: re.fiscal_year, range_fund: re.range_fund, subvention: re.subvention, contract: re.contract, _destroy: "false", id: re.id }
+          end
         end
         represented_entities_attributes = represented_entities_attributes.merge(hash_id => represented_entity_params)
       end
       represented_entities_attributes = represented_entities_attributes.merge(represented_entities_attributes)
     end
 
-    def add_attachments(organization_params)
-      # # content_attachment_xml = File.open() { |f| Nokogiri::XML(f) }
-      content_attachment_xml =  Nokogiri.XML(File.read(Rails.root.join('spec', 'fixtures', 'responsible_statement', 'attachment_1.xml')) )
+    def add_attachments(doc, organization_params)
+      reference = doc.xpath("//numAnotacion").text
+      sentido = doc.xpath("//sentido").text
+      registry_api = RegistryApi.new
+      attachments_attributes = {}
+      doc.xpath("//Documento").each_with_index do |document, index|
+        document_name = document.xpath('descripcion').text.include?(".") ? document.xpath('descripcion').text : "#{document.xpath('descripcion').text}.#{document.xpath('tipoDocumento').text.downcase}"
+        unless document_name == "XMLIntercambioRegistro.xml" || document_name == "Documento firmado por el ciudadano.pdf"
+          message =  { Aplicacion: "RLOBBIES", CodigoDocumento: "#{document.xpath('codigo').text}", Sentido: sentido, NumAnotacion: reference }
+          content_attachment_xml = Nokogiri.XML(registry_api.get_documento_anotacion(message))
 
-      # file = File.new(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf"), "w:binary")
-      # # <codigo>0901ffd68013878f</codigo>
-      # debugger
-      File.open(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf"), 'wb') do |f|
-        # f.write(content_attachment_xml.xpath("//documento").text)
-        f.puts(content_attachment_xml.xpath("//documento").text.unpack("m"))
+          File.open(Rails.root.join('tmp', document_name), 'wb') do |f|
+            f.puts(content_attachment_xml.xpath("//documento").text.unpack("m"))
+          end
+          attributes = { file: File.open(Rails.root.join('tmp', document_name)) }
+          attachments_attributes = attachments_attributes.merge(index => attributes)
+        end
       end
-      # File.open(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf"), 'w') { |f| IO.binread(content_attachment_xml.xpath("//documento").text) }
-      # File.open('test.bin', 'wb') {|file| BinData::Int32be.new(12345).write(file) }
-      # debugger
-      # file.puts(content_attachment_xml.xpath("//documento").text)
-      # pre_client = Savon.client wsdl: "http://pre6intra.munimadrid.es:8090/ServicioWebRegistro/services/WsRegistroImpl/wsdl/WsRegistroImpl.wsdl"
-      # pre_client.call :get_documento_anotacion, message: { Aplicacion: "RLOBBIES", CodigoDocumento: "0901ffd68013878f", Sentido: "E", NumAnotacion: "20170000990" }
-      debugger
-      # file.close
-      # # debugger
-      attachments_attribute_1 = { file: File.open(Rails.root.join('tmp', "Curso_834_Analisis_y_Direccion_de_Proyectos.pdf")) }
-      #
-      attachments_attributes = { "1" => attachments_attribute_1 }
-      # debugger
       organization_params = organization_params.merge(attachments_attributes: attachments_attributes)
-      # organization_params =
-
-      # def key_content(doc, key)
-      #   variable = doc.at("//variable/*[text()= '#{key}']")
-      #   variable.present? && variable.next_element.text.present? ? variable.next_element.text : nil
-      # end
-      # registry_api = RegistryApi.new
-      # message: { Aplicacion: “RLOBBIES”, CodigoDocumento: “0901ffd680138b07", Sentido: “E”, NumAnotacion: “AAAA20170001003" }
-      # registry_api.get_documento_anotacion(message)
-
-
-      # attachments_attributes"=>{"1516300038435"=>{"file"=>#<ActionDispatch::Http::UploadedFile:0x00007feda5cf84e8
-                                                                #@tempfile=#<Tempfile:/var/folders/43/yf1qy39d3q3531pj479p6s_h0000gn/T/RackMultipart20180118-4663-1csemww.png>,
-                                                                #@original_filename="Captura de pantalla 2018-01-18 a las 17.21.45.png",
-      #                                                         @content_type="image/png",
-      # =>                                                      @headers="Content-Disposition: form-data;
-                                                                #name=\"organization[attachments_attributes][1516300038435][file]\";
-                                                                #filename=\"Captura de pantalla 2018-01-18 a las 17.21.45.png\"\r\nContent-Type: image/png\r\n">,
-                                                                #"_destroy"=>"false"}}
-      #                              {"1"=>{:file=>#<File:/Users/sebastiaroigpieras/workspaceRails/agendas/tmp/Curso_834_Analisis_y_Direccion_de_Proyectos.pdf>}}
-
     end
 
     def key_content(doc, key)
@@ -417,7 +392,7 @@ module Api
     end
 
     def get_destroy(doc, field)
-      (key_content(doc, field) == "baja") ? "1" : "false"
+      (key_content(doc, field) == "baja") ? Time.zone.now : nil
     end
 
   end

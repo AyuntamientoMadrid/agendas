@@ -8,6 +8,7 @@ class Attachment < ActiveRecord::Base
     'application/vnd.oasis.opendocument.text','application/x-vnd.oasis.opendocument.text',
     'application/rtf', 'application/x-rtf', 'text/rtf', 'text/richtext',
     'application/doc', 'application/docx', 'application/xls', 'application/xlsx',
+    'text/xml', 'application/x-xml', 'application/xml',
     'application/x-soffice', 'application/octet-stream'].freeze
 
   has_attached_file :file,
