@@ -41,7 +41,7 @@ module Api
           end
           organization.update_attributes(organization_params)
           UserMailer.welcome(organization.user).deliver_now #fix order user mailer
-          organization.send_update_mail
+          OrganizationMailer.update(organization).deliver_now
           organization.update(modification_date: Date.current)
         elsif form.xpath("nombre=878") #Baja
           organization = Organization.where(identifier: organization_params[:identifier]).first

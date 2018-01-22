@@ -724,7 +724,7 @@ feature 'Events' do
             end
           end
 
-          scenario 'Should not save attachment when it has invalid content type', :js do
+          scenario 'Should save attachment when it has valid content type', :js do
             new_position = create(:position)
             visit new_event_path
 
@@ -739,6 +739,28 @@ feature 'Events' do
             attach_file attachment[:id], "spec/fixtures/dummy.xml"
             input_title = find(".attachment-title")
             fill_in input_title[:id], with: "Dummy xml"
+            click_on "Guardar"
+
+            within "#event_#{Event.last.id}_attachments_dropdown", visible: false do
+              expect(page).to have_link "Dummy xml", visible: false
+            end
+          end
+
+          scenario 'Should not save attachment when it has invalid content type', :js do
+            new_position = create(:position)
+            visit new_event_path
+
+            fill_in :event_title, with: "Title"
+            fill_in :event_location, with: "Location"
+            fill_in :event_scheduled, with: Time.zone.now
+            select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
+            choose :event_lobby_activity_false
+            fill_in :event_published_at, with: Date.current
+            find('.add-attachment').click
+            attachment = all(".attachment-file").first
+            attach_file attachment[:id], "spec/fixtures/dummy.php"
+            input_title = find(".attachment-title")
+            fill_in input_title[:id], with: "dummy php"
             click_on "Guardar"
 
             expect(page).to have_content "Archivo adjunto: El archivo proporcionado está en un formato no permitido. Los siguientes formatos de archivo son permitidos: pdf, jpg, png, txt, doc, docx, xls, xlsx, odt, odp, text, rtf."
