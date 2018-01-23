@@ -59,24 +59,26 @@ namespace :deploy do
   after :finishing, 'deploy:cleanup'
 end
 
-within release_path do
-  with rails_env: fetch(:rails_env) do
-    execute :rake, 'sitemap:refresh:no_ping'
-  end
-end
-
 namespace :maintenance do
   desc "Maintenance mode start"
   task :start do
     on roles(:web) do
-      execute :rake, 'maintenance:start reason="Estamos realizando tareas de mantenimiento"'
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'maintenance:start reason="Estamos realizando tareas de mantenimiento"'
+        end
+      end
     end
   end
 
   desc "Maintenance mode stop"
   task :stop do
     on roles(:web) do
-      execute :rake, 'maintenance:end'
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'maintenance:end'
+        end
+      end
     end
   end
 end
