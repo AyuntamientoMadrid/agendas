@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title><%= I18n.t "maintenance.title" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <style>
       body {
         background: #065687 url('/errors_bg.jpg');
@@ -30,15 +31,12 @@
         width: 100%;
       }
     </style>
-
   </head>
   <body>
-
     <div class="error">
       <h1><%= I18n.t "maintenance.title" %></h1>
       <p><%= reason %></p>
       <p><%= I18n.t "maintenance.retry" %></p>
     </div>
-
   </body>
 </html>
