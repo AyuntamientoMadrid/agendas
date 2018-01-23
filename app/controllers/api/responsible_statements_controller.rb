@@ -29,47 +29,54 @@ module Api
 
       organization_params = add_attributes(doc, organization_params)
 
-      doc.xpath("//formulario").each do |form|
-        if form.xpath("nombre=876") #Alta
-          organization = Organization.create(organization_params)
-          UserMailer.welcome(organization.user).deliver_now
-        elsif form.xpath("nombre=877") #Modificación
-          organization = Organization.where(identifier: organization_params[:identifier]).first
-          organization_params[:user_attributes] = check_user_attributes(organization, organization_params[:user_attributes])
-          if organization.user.email != organization_params[:user_attributes][:email]
-            organization.user.soft_delete
-            organization.update_attributes(organization_params)
-            UserMailer.welcome(organization.user).deliver_now #fix order user mailer
-          else
-            organization.update_attributes(organization_params)
-          end
-          OrganizationMailer.update(organization).deliver_now
-          organization.update(modification_date: Date.current)
-        elsif form.xpath("nombre=878") #Baja
-          organization = Organization.where(identifier: organization_params[:identifier]).first
-          organization.update(canceled_at: Time.zone.now)
-          organization.user.soft_delete
-          OrganizationMailer.delete(organization).deliver_now
-        else
+      organization = Organization.where(identifier: organization_params[:identifier]).first
 
-        end
+      action = ""
+      if doc.xpath("//formulario/nombre=876")
+        organization = Organization.create(organization_params)
+        action = "create"
+      elsif organization.present? && doc.xpath("//formulario/nombre=877")
+        organization_params[:user_attributes] = check_user_attributes(organization, organization_params[:user_attributes])
+        action = organization.user.email != organization_params[:user_attributes][:email] ? "update-with-welcome-email" : "update"
+        organization.update_attributes(organization_params)
+      elsif organization.present? && doc.xpath("//formulario/nombre=878")
+        action = "destroy"
+        organization.update(canceled_at: Time.zone.now)
+      else
+        organization = Organization.new
+        action = "unknow-action"
       end
 
+      take_actions(action, organization) if organization.valid?
+
       render soap: {
-        codRetorno: "",
-        descError: "OK",
+        codRetorno: organization.valid? ? "" : "0",
+        descError: organization.valid? ? "OK" : organization.errors.join(','),
         idExpediente: "idExpediente",
         refExpediente: "refExpediente",
       }
+
     end
 
     private
 
-    # certain_term
-    # code_of_conduct_term
-    # inscription_date
-    # gift_term
-    # lobby_term
+    def take_actions(action, organization)
+      case action
+      when 'create'
+        UserMailer.welcome(organization.user).deliver_now
+      when 'update'
+        OrganizationMailer.update(organization).deliver_now
+        organization.update(modification_date: Date.current)
+      when 'update-with-welcome-email'
+        UserMailer.welcome(organization.user).deliver_now
+        OrganizationMailer.update(organization).deliver_now
+        organization.update(modification_date: Date.current)
+      when 'destroy'
+        organization.user.soft_delete
+        OrganizationMailer.delete(organization).deliver_now
+      when 'unknow-action'
+      end
+    end
 
     def parse_request
       if params[:codTipoExpdiente].blank?

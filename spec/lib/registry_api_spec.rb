@@ -55,6 +55,7 @@ describe RegistryApi do
     end
 
     it "return successful response from remote registry when " do
+      skip("pending validate")
       message = { Aplicacion: "correct_name", CodigoDocumento: "0901ffd68013878f",
                   Sentido: "E", NumAnotacion: "AAAA20170000990" }
       fixture = File.read("spec/fixtures/registry_api/successful_response.xml")
@@ -63,6 +64,7 @@ describe RegistryApi do
       service = RegistryApi.new
 
       response = service.get_documento_anotacion(message)
+
       expect(response).to be_successful
     end
 
