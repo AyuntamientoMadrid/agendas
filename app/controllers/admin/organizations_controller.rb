@@ -58,7 +58,6 @@ module Admin
       @organization = Organization.find(params[:id])
       @organization.canceled_at = Time.zone.now
       @organization.user.soft_delete unless @organization.user.nil?
-
       if @organization.save
         OrganizationMailer.delete(@organization).deliver_now
         redirect_to admin_organizations_path,

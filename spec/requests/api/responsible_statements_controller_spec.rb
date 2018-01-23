@@ -19,7 +19,7 @@ describe Api::ResponsibleStatementsController do
 
   describe "inicioExpediente" do
 
-    it "Should return error when codTipoExpdiente is not provided" do
+    it "Should return error when codTipoExpdiente is not provided", :wsdl do
       client = Savon::Client.new(
                 wsdl: application_base + api_responsible_statements_wsdl_path)
 
@@ -32,7 +32,7 @@ describe Api::ResponsibleStatementsController do
       expect(body[:ref_expediente]).to  be_blank
     end
 
-    it "Should return error when xmlDatosEntrada is not provided" do
+    it "Should return error when xmlDatosEntrada is not provided", :wsdl do
       client = Savon::Client.new(
                 wsdl: application_base + api_responsible_statements_wsdl_path)
 
@@ -46,7 +46,7 @@ describe Api::ResponsibleStatementsController do
       expect(body[:ref_expediente]).to be_blank
     end
 
-    it "Should return error when usuario is not provided" do
+    it "Should return error when usuario is not provided", :wsdl do
       client = Savon::Client.new(
                 wsdl: application_base + api_responsible_statements_wsdl_path)
 
@@ -65,7 +65,7 @@ describe Api::ResponsibleStatementsController do
 
     describe "Create responsible statement" do
 
-      it "Should return success when organization could be created" do
+      it "Should return success when organization could be created", :wsdl do
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path)
 
@@ -95,7 +95,7 @@ describe Api::ResponsibleStatementsController do
       # DATOS 5: DATOS PERSONAS O ENTIDADES SIN PERSONALIDAD A QUIENES SE VA A REPRESENTAR (foreign_lobby_activity)
       # DATOS 6: ARCHIVOS ADJUNTOS
 
-      it "Should create organization with all data_1 fields and own_lobby_activity" do
+      it "Should create organization with all data_1 fields and own_lobby_activity", :wsdl do
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path)
 
@@ -163,7 +163,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.attachments.count).to eq 2
       end
 
-      it "Should create organization with own_lobby_activity and foreign_lobby_activity" do
+      it "Should create organization with own_lobby_activity and foreign_lobby_activity", :wsdl do
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path)
 
@@ -242,7 +242,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.attachments.count).to eq 1
       end
 
-      it "Should create organization with own_lobby_activity and multiple registered_lobbies" do
+      it "Should create organization with own_lobby_activity and multiple registered_lobbies", :wsdl do
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path)
 
@@ -313,7 +313,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.attachments.count).to eq 1
       end
 
-      it "Should create organization with legal_representant and  own_lobby_activity and foreign_lobby_activity" do
+      it "Should create organization with legal_representant and  own_lobby_activity and foreign_lobby_activity", :wsdl do
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path)
 
@@ -424,7 +424,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.attachments.count).to eq 1
       end
 
-      it "Should create organization with foreign_lobby_activity and attachment" do
+      it "Should create organization with foreign_lobby_activity and attachment", :wsdl do
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path)
 
@@ -526,7 +526,7 @@ describe Api::ResponsibleStatementsController do
         create(:category, name: "Organizaciones empresariales")
       end
 
-      it "Should return success when organization could be edit" do
+      it "Should return success when organization could be edit", :wsdl do
         create(:organization, identifier: "70572650W")
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path)
@@ -548,7 +548,7 @@ describe Api::ResponsibleStatementsController do
         expect(body[:ref_expediente]).to eq "refExpediente"
       end
 
-      it "Should update fields when send organization edit and create new user with welcome mail" do
+      it "Should update fields when send organization edit and create new user with welcome mail", :wsdl do
         ActionMailer::Base.deliveries = []
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path)
@@ -635,7 +635,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.attachments.count).to eq 2
       end
 
-      it "Should remove 1 represented entity and add new represented_entity" do
+      it "Should remove 1 represented entity and add new represented_entity", :wsdl do
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path)
 
@@ -686,8 +686,9 @@ describe Api::ResponsibleStatementsController do
     end
 
     describe "Remove responsible_statement" do
-      # Inscripción, modificación y baja simple de interesado. Los números son: 20170000996, 20170000997, 20170000999
-      it "Should remove 1 represented entity and add new represented_entity" do
+
+      it "Should remove 1 organization, soft_delete user and send email.", :wsdl do
+        ActionMailer::Base.deliveries = []
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path)
 
@@ -702,6 +703,7 @@ describe Api::ResponsibleStatementsController do
                                 usuario: "WFORM" })
 
         organization = Organization.last
+        expect(ActionMailer::Base.deliveries.count).to eq(1) #UserMailer.welcome(organization.user).deliver_now
         expect(organization.canceled_at).to eq nil
         expect(organization.user.deleted_at).to eq nil
 
@@ -716,6 +718,7 @@ describe Api::ResponsibleStatementsController do
                                 usuario: "WFORM" })
 
         organization = Organization.last
+        expect(ActionMailer::Base.deliveries.count).to eq(2) #OrganizationMailer.delete(@organization).deliver_now
         expect(organization.canceled_at).not_to eq nil
         expect(organization.user.deleted_at).not_to eq nil
       end

@@ -47,6 +47,7 @@ module Api
           organization = Organization.where(identifier: organization_params[:identifier]).first
           organization.update(canceled_at: Time.zone.now)
           organization.user.soft_delete
+          OrganizationMailer.delete(organization).deliver_now
         else
 
         end
