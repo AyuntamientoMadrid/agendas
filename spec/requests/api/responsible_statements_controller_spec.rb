@@ -635,6 +635,44 @@ describe Api::ResponsibleStatementsController do
         expect(organization.attachments.count).to eq 2
       end
 
+      it "Should update fields when send organization edit and not create new user only update name and phone", :wsdl do
+        ActionMailer::Base.deliveries = []
+        client = Savon::Client.new(
+                  wsdl: application_base + api_responsible_statements_wsdl_path)
+
+        set_attachment_stub("20170001007", "0901ffd680138af6", "newResponsibleStatement_xml_attachment.xml")
+        set_attachment_stub("20170001007", "0901ffd680138afa", "newResponsibleStatement_pdf_attachment_1.xml")
+        set_attachment_stub("20170001007", "0901ffd680138afb", "newResponsibleStatement_pdf_attachment_2.xml")
+
+        response = client.call(:inicio_expediente,
+                               message: {
+                                codTipoExpdiente: "1234",
+                                xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/newResponsibleStatement_7.xml"),
+                                usuario: "WFORM" })
+        expect(ActionMailer::Base.deliveries.count).to eq(1) #UserMailer.welcome(organization.user).deliver_now
+        organization = Organization.last
+        expect(organization.attachments.count).to eq 1
+
+        set_attachment_stub("20170001000", "0901ffd680138af6", "newResponsibleStatement_xml_attachment.xml")
+        set_attachment_stub("20170001000", "0901ffd680138afa", "newResponsibleStatement_pdf_attachment_1.xml")
+        set_attachment_stub("20170001000", "0901ffd680138afb", "newResponsibleStatement_pdf_attachment_2.xml")
+
+        response = client.call(:inicio_expediente,
+                               message: {
+                                codTipoExpdiente: "1234",
+                                xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/editResponsibleStatement_2.xml"),
+                                usuario: "WFORM" })
+
+        expect(ActionMailer::Base.deliveries.count).to eq(2) #organization.send_update_mail
+
+        organization = Organization.last
+
+        #DATA_3
+        expect(organization.user.first_name).to eq "XIM"
+        expect(organization.user.email).to eq "mesegueryj@madrid.es"
+        expect(organization.user.phones).to eq "91222333" #updated
+      end
+
       it "Should remove 1 represented entity and add new represented_entity", :wsdl do
         client = Savon::Client.new(
                   wsdl: application_base + api_responsible_statements_wsdl_path)

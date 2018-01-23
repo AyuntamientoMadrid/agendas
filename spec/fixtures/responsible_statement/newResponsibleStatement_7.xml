@@ -6,7 +6,7 @@
         <descOficina>Reg. A Gobierno Portavoz</descOficina>
         <sentido>E</sentido>
         <nivel>E</nivel>
-        <numAnotacion>20170001000</numAnotacion>
+        <numAnotacion>20170001007</numAnotacion>
         <estado>A</estado>
         <codClaseDocumento>00</codClaseDocumento>
         <descClaseDocumento>Instancias y peticiones</descClaseDocumento>
@@ -112,7 +112,7 @@
         <descError/>
     </datosAnotacion>
     <formulario>
-        <nombre>877</nombre>
+        <nombre>876</nombre>
         <datosComunes>
             <datosInteresado>
                 <variables>
@@ -164,8 +164,8 @@
             <datosNotificacion>
                 <variables>
                     <variable><clave>COMUNES_NOTIFICACION_EMAIL</clave><valor>mesegueryj@madrid.es</valor></variable>
-                    <variable><clave>COMUNES_NOTIFICACION_MOVIL</clave><valor>91222333<valor/></variable>
-                    <variable><clave>COMUNES_NOTIFICACION_NOMBRE</clave><valor>XIM</valor></variable>
+                    <variable><clave>COMUNES_NOTIFICACION_MOVIL</clave><valor/></variable>
+                    <variable><clave>COMUNES_NOTIFICACION_NOMBRE</clave><valor>JOAQUÍN</valor></variable>
                     <variable><clave>COMUNES_NOTIFICACION_TIPODOC</clave><valor>N</valor></variable>
                     <variable><clave>COMUNES_NOTIFICACION_TELEFONO</clave><valor/></variable>
                     <variable><clave>COMUNES_NOTIFICACION_APELLIDO1</clave><valor>MESEGUER</valor></variable>

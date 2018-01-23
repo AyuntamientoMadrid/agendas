@@ -38,9 +38,11 @@ module Api
           organization_params[:user_attributes] = check_user_attributes(organization, organization_params[:user_attributes])
           if organization.user.email != organization_params[:user_attributes][:email]
             organization.user.soft_delete
+            organization.update_attributes(organization_params)
+            UserMailer.welcome(organization.user).deliver_now #fix order user mailer
+          else
+            organization.update_attributes(organization_params)
           end
-          organization.update_attributes(organization_params)
-          UserMailer.welcome(organization.user).deliver_now #fix order user mailer
           OrganizationMailer.update(organization).deliver_now
           organization.update(modification_date: Date.current)
         elsif form.xpath("nombre=878") #Baja
