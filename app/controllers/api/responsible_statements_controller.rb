@@ -51,7 +51,7 @@ module Api
 
       render soap: {
         codRetorno: organization.valid? ? "" : "0",
-        descError: organization.valid? ? "OK" : organization.errors.join(','),
+        descError: organization.valid? ? "OK" : organization.errors.full_messages.join(', '),
         idExpediente: "idExpediente",
         refExpediente: "refExpediente",
       }
