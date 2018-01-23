@@ -17,7 +17,7 @@ feature 'Maintenance page' do
 
   scenario "Should be renderer for any incoming request" do
     some_urls.each do |url|
-      visit root_path
+      visit url
 
       expect(page).to have_content "Aplicación en mantenimiento"
     end
