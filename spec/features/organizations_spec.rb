@@ -416,6 +416,8 @@ feature 'Organizations page' do
 
     describe 'CSV export link' do
 
+      before { skip "Temporarily deactivated" }
+
       scenario 'Should download a CSV file UTF-8 encoded', :search do
         event = create(:event, published_at: Time.zone.yesterday)
         Event.reindex
