@@ -69,11 +69,7 @@ namespace :maintenance do
   desc "Maintenance mode start"
   task :start do
     on roles(:web) do
-      within release_path do
-        with rails_env: fetch(:rails_env) do
-          execute :rake, 'maintenance:start reason="Estamos realizando tareas de mantenimiento"'
-        end
-      end
+      execute :rake, 'maintenance:start reason="Estamos realizando tareas de mantenimiento"'
     end
   end
 
