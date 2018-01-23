@@ -58,3 +58,27 @@ namespace :deploy do
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
 end
+
+namespace :maintenance do
+  desc "Maintenance mode start"
+  task :start do
+    on roles(:web) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'maintenance:start reason="Estamos realizando tareas de mantenimiento"'
+        end
+      end
+    end
+  end
+
+  desc "Maintenance mode stop"
+  task :stop do
+    on roles(:web) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'maintenance:end'
+        end
+      end
+    end
+  end
+end

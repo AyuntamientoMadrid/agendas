@@ -1,0 +1,5 @@
+es:
+  maintenance:
+    title: Aplicación en mantenimiento
+    reason: Página temporalmente en mantenimiento. Estamos actualizando los sistemas.
+    retry: Vuelva a probar en unos minutos.
