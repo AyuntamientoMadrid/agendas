@@ -39,7 +39,6 @@ gem 'tinymce-rails-langs', '~> 4.20140129'
 gem 'turbolinks', '~> 2.5.3'
 gem 'turnout', '~> 2.4.1'
 gem 'uglifier', '>= 1.3.0'
-gem 'rollbar', '>= 2.15.5'
 gem 'premailer-rails'
 gem 'wash_out'
 gem 'whenever', :require => false
