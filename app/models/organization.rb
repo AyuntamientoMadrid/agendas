@@ -27,6 +27,7 @@ class Organization < ActiveRecord::Base
 
   before_validation :invalidate_organization, :validate_organization
   after_create :set_dates
+  validate :validate_duplicate_organization, on: :create
 
   searchable do
     text :name, :first_surname, :second_surname, :description
@@ -69,6 +70,11 @@ class Organization < ActiveRecord::Base
     return unless validate == 'true' && !invalidated_at.nil?
     self.invalidated_at = nil
     self.invalidated_reasons = nil
+  end
+
+  def validate_duplicate_organization
+    return unless Organization.where(identifier: identifier, entity_type: 2).first.present?
+    errors.add(:duplicate, "Ya existe una organización como lobby con este CIF")
   end
 
   def fullname

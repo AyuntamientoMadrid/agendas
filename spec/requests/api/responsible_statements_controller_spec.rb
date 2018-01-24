@@ -87,6 +87,114 @@ describe Api::ResponsibleStatementsController do
         expect(body[:ref_expediente]).to eq "refExpediente"
       end
 
+      describe "Errors" do
+        it "Should return error when organization user exist", :wsdl do
+          create(:user, email: "email@email.com")
+
+          client = Savon::Client.new(
+                    wsdl: application_base + api_responsible_statements_wsdl_path)
+
+          set_attachment_stub("20170000990", "0901ffd68013878d", "newResponsibleStatement_xml_attachment.xml")
+          set_attachment_stub("20170000990", "0901ffd68013878e", "newResponsibleStatement_pdf_attachment_1.xml")
+          set_attachment_stub("20170000990", "0901ffd68013878f", "newResponsibleStatement_pdf_attachment_2.xml")
+          set_attachment_stub("20170000990", "0901ffd680138b07", "newResponsibleStatement_png_attachment.xml")
+
+          response = client.call(:inicio_expediente,
+                                 message: {
+                                  codTipoExpdiente: "1234",
+                                  xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/newResponsibleStatement_1.xml"),
+                                  usuario: "WFORM" })
+
+          body = response.body[:inicio_expediente_response]
+          expect(body[:cod_retorno]).to eq "0"
+          expect(body[:desc_error]).to  eq "Persona física de contacto: email  ya está en uso"
+          expect(body[:id_expediente]).to eq "idExpediente"
+          expect(body[:ref_expediente]).to eq "refExpediente"
+        end
+
+        it "Should return error when new responsible statetment has category and name", :wsdl do
+          client = Savon::Client.new(
+                    wsdl: application_base + api_responsible_statements_wsdl_path)
+
+          set_attachment_stub("20170000990", "0901ffd68013878d", "newResponsibleStatement_xml_attachment.xml")
+          set_attachment_stub("20170000990", "0901ffd68013878e", "newResponsibleStatement_pdf_attachment_1.xml")
+          set_attachment_stub("20170000990", "0901ffd68013878f", "newResponsibleStatement_pdf_attachment_2.xml")
+          set_attachment_stub("20170000990", "0901ffd680138b07", "newResponsibleStatement_png_attachment.xml")
+
+          response = client.call(:inicio_expediente,
+                                 message: {
+                                  codTipoExpdiente: "1234",
+                                  xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/newResponsibleStatement_8.xml"),
+                                  usuario: "WFORM" })
+
+          body = response.body[:inicio_expediente_response]
+          expect(body[:cod_retorno]).to eq "0"
+          expect(body[:desc_error]).to  eq "Nombre  no puede estar en blanco, Categoría  no puede estar en blanco"
+          expect(body[:id_expediente]).to eq "idExpediente"
+          expect(body[:ref_expediente]).to eq "refExpediente"
+        end
+
+        it "Should return error when legal representant has not name, first_surname and email", :wsdl do
+          client = Savon::Client.new(
+                    wsdl: application_base + api_responsible_statements_wsdl_path)
+
+          set_attachment_stub("20170001001", "0901ffd680138afc", "newResponsibleStatement_xml_attachment.xml")
+          set_attachment_stub("20170001001", "0901ffd680138afd", "newResponsibleStatement_pdf_attachment_1.xml")
+          set_attachment_stub("20170001001", "0901ffd680138afe", "newResponsibleStatement_pdf_attachment_2.xml")
+
+          response = client.call(:inicio_expediente,
+                                 message: {
+                                  codTipoExpdiente: "1234",
+                                  xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/newResponsibleStatement_9.xml"),
+                                  usuario: "WFORM" })
+
+          body = response.body[:inicio_expediente_response]
+          expect(body[:cod_retorno]).to eq "0"
+          expect(body[:desc_error]).to  eq "Representante Legal: Nombre  no puede estar en blanco, Representante Legal: Apellido  no puede estar en blanco, Representante Legal: email  no puede estar en blanco"
+          expect(body[:id_expediente]).to eq "idExpediente"
+          expect(body[:ref_expediente]).to eq "refExpediente"
+        end
+
+        it "Should return error with foreign_lobby_activity", :wsdl do
+          client = Savon::Client.new(
+                    wsdl: application_base + api_responsible_statements_wsdl_path)
+
+          set_attachment_stub("20170000995", "0901ffd680138ac0", "newResponsibleStatement_xml_attachment.xml")
+          set_attachment_stub("20170000995", "0901ffd680138ac1", "newResponsibleStatement_pdf_attachment_1.xml")
+          set_attachment_stub("20170000995", "0901ffd680138ac2", "newResponsibleStatement_pdf_attachment_2.xml")
+
+          response = client.call(:inicio_expediente,
+                                 message: {
+                                  codTipoExpdiente: "1234",
+                                  xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/newResponsibleStatement_2.xml"),
+                                  usuario: "WFORM" })
+
+          body = response.body[:inicio_expediente_response]
+          expect(body[:cod_retorno]).to eq nil
+          expect(body[:desc_error]).to  eq "OK"
+          expect(body[:id_expediente]).to eq "idExpediente"
+          expect(body[:ref_expediente]).to eq "refExpediente"
+
+          set_attachment_stub("20170000995", "0901ffd680138ac0", "newResponsibleStatement_xml_attachment.xml")
+          set_attachment_stub("20170000995", "0901ffd680138ac1", "newResponsibleStatement_pdf_attachment_1.xml")
+          set_attachment_stub("20170000995", "0901ffd680138ac2", "newResponsibleStatement_pdf_attachment_2.xml")
+
+          response = client.call(:inicio_expediente,
+                                 message: {
+                                  codTipoExpdiente: "1234",
+                                  xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/newResponsibleStatement_2.xml"),
+                                  usuario: "WFORM" })
+
+          body = response.body[:inicio_expediente_response]
+          expect(body[:cod_retorno]).to eq "0"
+          expect(body[:desc_error]).to  eq "Persona física de contacto: email  ya está en uso, Duplicate  Ya existe una organización como lobby con este CIF"
+          expect(body[:id_expediente]).to eq "idExpediente"
+          expect(body[:ref_expediente]).to eq "refExpediente"
+
+        end
+
+      end
+
       ########DECLARACIÓN RESPONSABLE########
       # DATOS 1: DATOS IDENTIFICATIVOS DE QUIEN APARECERA COMO INSCRITO EN EL REGISTRO
       # DATOS 2: DATOS DE LA PERSONA O ENTIDAD REPRESENTANTE
@@ -282,7 +390,9 @@ describe Api::ResponsibleStatementsController do
         expect(organization.category).to eq @category_emp
         expect(organization.description).to eq "Reuniones con el Ayuntamiento, Distritos, Áreas de Gobierno, para luchar porque el Ajedrez se convierta en un deporte potenciado por el Ayuntamiento de Madrid, debido a los grandes valores que tiene la práctica de este deporte.Linea 3 Línea 4 Línea 5 y última."
         expect(organization.web).to eq "www.madrid.es"
-        expect(organization.registered_lobbies).to eq [@general, @cnmc, @other]
+        expect(organization.registered_lobbies).to include @general
+        expect(organization.registered_lobbies).to include @cnmc
+        expect(organization.registered_lobbies).to include @other
         expect(organization.check_email).to eq true
         expect(organization.check_sms).to eq true
 
@@ -353,7 +463,10 @@ describe Api::ResponsibleStatementsController do
         expect(organization.category).to eq @category_pro
         expect(organization.description).to eq "Agencia de de public affairs especializada en políticas públicas y regulación en diversos sectores. Actividades específicas en relación con este Registro: Reuniones y contactos con el personal deL Ayuntamiento de Madrid la CNMC en representación de sus clientes. Participación en consultas públicas."
         expect(organization.web).to eq "www.political-intelligence.com/es"
-        expect(organization.registered_lobbies).to eq [@general, @cnmc, @ue, @other]
+        expect(organization.registered_lobbies).to include @general
+        expect(organization.registered_lobbies).to include @cnmc
+        expect(organization.registered_lobbies).to include @ue
+        expect(organization.registered_lobbies).to include @other
         expect(organization.check_email).to eq true
         expect(organization.check_sms).to eq true
 
@@ -672,6 +785,64 @@ describe Api::ResponsibleStatementsController do
         expect(organization.user.email).to eq "mesegueryj@madrid.es"
         expect(organization.user.phones).to eq "91222333" #updated
       end
+
+      it "Should update fields when send organization edit and not create new user only update name and phone when exist organization as federation with same identifier", :wsdl do
+        create(:organization, identifier: "70572650W", entity_type: 1)
+        ActionMailer::Base.deliveries = []
+        client = Savon::Client.new(
+                  wsdl: application_base + api_responsible_statements_wsdl_path)
+
+        set_attachment_stub("20170000996", "0901ffd680138ac3", "newResponsibleStatement_xml_attachment.xml")
+        set_attachment_stub("20170000996", "0901ffd680138ac4", "newResponsibleStatement_pdf_attachment_1.xml")
+        set_attachment_stub("20170000996", "0901ffd680138ac5", "newResponsibleStatement_pdf_attachment_2.xml")
+
+        response = client.call(:inicio_expediente,
+                               message: {
+                                codTipoExpdiente: "1234",
+                                xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/newResponsibleStatement_10.xml"),
+                                usuario: "WFORM" })
+        expect(ActionMailer::Base.deliveries.count).to eq(1) #UserMailer.welcome(organization.user).deliver_now
+        organization = Organization.last
+        expect(organization.attachments.count).to eq 1
+
+        set_attachment_stub("20170000997", "0901ffd680138aed", "newResponsibleStatement_xml_attachment.xml")
+        set_attachment_stub("20170000997", "0901ffd680138aee", "newResponsibleStatement_pdf_attachment_1.xml")
+        set_attachment_stub("20170000997", "0901ffd680138aef", "newResponsibleStatement_pdf_attachment_2.xml")
+
+        response = client.call(:inicio_expediente,
+                               message: {
+                                codTipoExpdiente: "1234",
+                                xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/editResponsibleStatement_4.xml"),
+                                usuario: "WFORM" })
+
+        expect(ActionMailer::Base.deliveries.count).to eq(2) #organization.send_update_mail
+
+        organization = Organization.last
+
+        #DATA_3
+        expect(organization.user.email).to eq "prueba@prueba2.es"
+        expect(organization.user.phones).to eq "915133100" #updated
+      end
+
+      it "Should not create organization when exist organization as lobby with same identifier", :wsdl do
+        create(:organization, identifier: "70572650W", entity_type: 2)
+
+        client = Savon::Client.new(
+                  wsdl: application_base + api_responsible_statements_wsdl_path)
+
+        set_attachment_stub("20170000996", "0901ffd680138ac3", "newResponsibleStatement_xml_attachment.xml")
+        set_attachment_stub("20170000996", "0901ffd680138ac4", "newResponsibleStatement_pdf_attachment_1.xml")
+        set_attachment_stub("20170000996", "0901ffd680138ac5", "newResponsibleStatement_pdf_attachment_2.xml")
+
+        response = client.call(:inicio_expediente,
+                               message: {
+                                codTipoExpdiente: "1234",
+                                xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/newResponsibleStatement_10.xml"),
+                                usuario: "WFORM" })
+
+        expect(Organization.count).to eq 1
+      end
+
 
       it "Should remove 1 represented entity and add new represented_entity", :wsdl do
         client = Savon::Client.new(

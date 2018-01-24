@@ -29,7 +29,7 @@ module Api
 
       organization_params = add_attributes(doc, organization_params)
 
-      organization = Organization.where(identifier: organization_params[:identifier]).first
+      organization = Organization.where(identifier: organization_params[:identifier], entity_type: 2).first
 
       action = ""
       if doc.xpath("//formulario/nombre=876")
@@ -37,7 +37,7 @@ module Api
         action = "create"
       elsif organization.present? && doc.xpath("//formulario/nombre=877")
         organization_params[:user_attributes] = check_user_attributes(organization, organization_params[:user_attributes])
-        action = organization.user.email != organization_params[:user_attributes][:email] ? "update-with-welcome-email" : "update"
+        action = organization.user.email != organization_params[:user_attributes][:email].downcase ? "update-with-welcome-email" : "update"
         organization.update_attributes(organization_params)
       elsif organization.present? && doc.xpath("//formulario/nombre=878")
         action = "destroy"
@@ -231,7 +231,7 @@ module Api
         represented_entity_params = { identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname, from: from, to: to, fiscal_year: fiscal_year, range_fund: range_fund, subvention: subvention, contract: contract, _destroy: "false" }
         organization = Organization.where(identifier: key_content(doc, "COMUNES_INTERESADO_NUMIDENT")).first
         re = organization.represented_entities.where(identifier: identifier).first if organization.present?
-        if organization.present? && re.present?
+        if organization.present? && re.present? && doc.xpath("//formulario/nombre=877")
           if to.blank?
             represented_entity_params = represented_entity_params.merge(id: re.id)
           else
@@ -378,7 +378,7 @@ module Api
     end
 
     def check_user_attributes(organization, user_attributes)
-      if user_attributes[:email].present? && (organization.user.email == user_attributes[:email])
+      if user_attributes[:email].present? && (organization.user.email == user_attributes[:email].downcase)
         user_attributes.delete("password")
         user_attributes.delete("password_confirmation")
         user_attributes[:id] = organization.user.id

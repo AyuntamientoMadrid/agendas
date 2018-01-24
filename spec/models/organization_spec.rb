@@ -43,6 +43,14 @@ describe Organization do
     expect(organization).not_to be_valid
   end
 
+  it "should not be valid with another organization with same identifier and entity_type :lobby" do
+    old_organization = create(:organization, entity_type: :lobby)
+    organization.identifier = old_organization.identifier
+
+    expect(organization).not_to be_valid
+  end
+
+
   describe "#fullname" do
     it "Should return first_surname and second_surname when they are defined" do
       organization.name = "Name"
