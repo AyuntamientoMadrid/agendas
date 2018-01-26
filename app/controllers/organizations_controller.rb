@@ -2,7 +2,7 @@ class OrganizationsController < ApplicationController
 
   before_action :set_organization, only: :show
 
-  autocomplete :organization, :name
+  autocomplete :organization, :name, :display_value => :fullname
 
   def index
     @organizations = search(params)
