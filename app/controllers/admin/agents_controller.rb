@@ -17,6 +17,7 @@ module Admin
       @agent.organization = @organization
 
       if @agent.save
+        @organization.update_column(:modification_date, Date.current)
         redirect_to admin_organization_agents_path(@organization),
                     notice: t('backend.successfully_created_record')
       else
@@ -32,6 +33,7 @@ module Admin
 
     def update
       if @agent.update_attributes(agent_params)
+        @organization.update_column(:modification_date, Date.current)
         redirect_to admin_organization_agents_path(@organization),
                     notice: t('backend.successfully_updated_record')
       else
