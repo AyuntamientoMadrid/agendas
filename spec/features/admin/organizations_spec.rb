@@ -832,6 +832,15 @@ feature 'Organization' do
         expect(organization.lobby_term).to eq true
       end
 
+      scenario 'Display attachment name' do
+        organization = create(:organization)
+        attachment = create(:attachment, organization: organization)
+
+        visit edit_admin_organization_path(organization)
+
+        expect(page).to have_link attachment.file.original_filename
+      end
+
       describe "Nested fields" do
 
         describe "Legal Representant" do
@@ -1105,7 +1114,7 @@ feature 'Organization' do
 
         visit admin_organization_path(organization)
 
-        expect(page).to have_link attachment.file_file_name
+        expect(page).to have_link attachment.file.original_filename
       end
 
     end
