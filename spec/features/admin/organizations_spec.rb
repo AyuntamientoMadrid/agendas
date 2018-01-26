@@ -1077,7 +1077,7 @@ feature 'Organization' do
         organization = create(:organization, canceled_at: Date.current)
         agent = create(:agent, organization: organization)
 
-        visit organization_path(organization)
+        visit admin_organization_path(organization)
 
         expect(page).to have_content organization.name
         expect(page).to have_content agent.name
@@ -1091,12 +1091,21 @@ feature 'Organization' do
         organization.update(invalidated_reasons: 'test')
         organization.update(invalidated_at: Time.zone.today)
 
-        visit organization_path(organization)
+        visit admin_organization_path(organization)
 
         expect(page).to have_content organization.name
         expect(page).to have_content agent.name
         expect(page).to have_content agent.first_surname
         expect(page).to have_content agent.second_surname
+      end
+
+      scenario "Should display organizations attachments" do
+        organization = create(:organization)
+        attachment = create(:attachment, organization: organization)
+
+        visit admin_organization_path(organization)
+
+        expect(page).to have_link attachment.file_file_name
       end
 
     end
