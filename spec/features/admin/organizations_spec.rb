@@ -150,6 +150,19 @@ feature 'Organization' do
         # expect(page).to have_field('organization_name', with: organization.name)
       end
 
+      scenario 'visit admin index organization page and agents organization link render agents index', :search do
+        organization = create(:organization)
+        Organization.reindex
+
+        visit admin_organizations_path
+
+        within "#organization_#{organization.id}" do
+          find('a[title="Agentes"]').click
+        end
+        expect(page).to have_content "Agentes"
+        # expect(page).to have_field('organization_name', with: organization.name)
+      end
+
       scenario 'Should show organization with canceled_at nil', :search do
         organization1 = create(:organization, canceled_at: nil)
         Organization.reindex

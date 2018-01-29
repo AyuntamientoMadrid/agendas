@@ -462,7 +462,6 @@
           </p>
         </div>
       </div>
-      <br>
       <% if agent.public_assignments.present? %>
         <div class="row">
           <div class="small-12 columns">
@@ -472,8 +471,15 @@
             </p>
           </div>
         </div>
-        <hr>
       <% end %>
+      <div class="row">
+        <div class="small-12 columns">
+          <p>
+            <strong><%= t("backend.agents.#{agent.allow_public_data}") %></strong>
+          </p>
+        </div>
+      </div>
+      <hr>
     <% end %>
   </fieldset>
 

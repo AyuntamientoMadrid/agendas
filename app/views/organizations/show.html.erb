@@ -276,27 +276,29 @@
         <div class="content active">
           <% if @organization.agents.present? %>
             <% @organization.agents.each do |agent| %>
-              <p>
-                <strong><%= t('organizations.show.agents_fullname') %></strong>
-                <%= agent.name %>
-                <%= agent.first_surname %>
-                <%= agent.second_surname %>
-              </p>
-              <p><strong><%= t('organizations.show.agents_from') %></strong>
-                <%= I18n.l agent.from if agent.from? %>
-              </p>
-              <% if agent.to.present? %>
-                <p><strong><%= t('organizations.show.agents_to') %></strong>
-                  <%= I18n.l agent.to if agent.to.present? %>
-                </p>
-              <% end %>
-              <% if agent.public_assignments.present? %>
+              <% if agent.allow_public_data %>
                 <p>
-                  <strong><%= t('backend.agents.public_assignments_only_show') %></strong>
-                  <%= agent.public_assignments.html_safe %>
+                  <strong><%= t('organizations.show.agents_fullname') %></strong>
+                  <%= agent.name %>
+                  <%= agent.first_surname %>
+                  <%= agent.second_surname %>
                 </p>
+                <p><strong><%= t('organizations.show.agents_from') %></strong>
+                  <%= I18n.l agent.from if agent.from? %>
+                </p>
+                <% if agent.to.present? %>
+                  <p><strong><%= t('organizations.show.agents_to') %></strong>
+                    <%= I18n.l agent.to if agent.to.present? %>
+                  </p>
+                <% end %>
+                <% if agent.public_assignments.present? %>
+                  <p>
+                    <strong><%= t('backend.agents.public_assignments_only_show') %></strong>
+                    <%= agent.public_assignments.html_safe %>
+                  </p>
+                <% end %>
+                <hr>
               <% end %>
-              <hr>
             <% end %>
           <% else %>
             <%= t('organizations.show.no_results') %>
