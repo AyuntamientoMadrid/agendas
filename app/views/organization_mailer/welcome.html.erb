@@ -1,9 +1,9 @@
 <td>
-  <h1><%= t('mailers.create_organization.head1', lobby_reference: @organization.id)%></h1>
-  <p><%= t('mailers.create_organization.text1', lobby_reference: @organization.id) %></p>
+  <h1><%= t('mailers.create_organization.head1', lobby_name: @organization.fullname)%></h1>
+  <p><%= t('mailers.create_organization.text1', lobby_reference: @organization.reference) %></p>
   <p><%= t('mailers.create_organization.head2')%></p>
   <ul>
-    <li><b><%= t('mailers.create_organization.text2') %></b><%= @organization.name %></li>
+    <li><b><%= t('mailers.create_organization.text2') %></b><%= @organization.fullname %></li>
     <li><b><%= t('mailers.create_organization.text3') %></b><%= I18n.l @organization.inscription_date, format: :short %></li>
   </ul>
   <p><%= t('mailers.create_organization.head3')%></p>
@@ -11,7 +11,7 @@
     <li><b><%= t('mailers.create_organization.text4') %></b><%= @organization.user.email %></li>
     <li><b><%= t('mailers.create_organization.text5') %></b><%= @organization.user.password %></li>
   </ul>
-  <p><%= t('mailers.create_organization.text6') %></p>
+  <p><b><%= t('mailers.create_organization.text6') %></b></p>
   <p><%= t('mailers.create_organization.text7') %></p>
   <p><%= t('mailers.create_organization.text8') %><a href="https://registrodelobbies.madrid.es"></a></p>
   <ul>

@@ -1,9 +1,10 @@
 <td>
-  <h1><%= t('mailers.delete_organization.head1', lobby_reference: @organization.id)%></h1>
-  <p><%= t('mailers.delete_organization.text1', lobby_reference: @organization.id) %></p>
+  <h1><%= t('mailers.delete_organization.head1', lobby_name: @organization.fullname)%></h1>
+  <p><%= t('mailers.delete_organization.text1', lobby_reference: @organization.reference) %></p>
   <p><%= t('mailers.delete_organization.head2')%></p>
   <ul>
-    <li><b><%= t('mailers.delete_organization.text2')%></b><%= @organization.name %></li>
+    <li><b><%= t('mailers.delete_organization.text2')%></b><%= @organization.fullname %></li>
     <li><b><%= t('mailers.delete_organization.text3')%></b><%= I18n.l @organization.canceled_at, format: :long if @organization.canceled_at.present? %></li>
   </ul>
+  <p><b><%= t('mailers.delete_organization.text4') %></b></p>
 </td>

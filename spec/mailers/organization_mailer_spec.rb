@@ -19,7 +19,7 @@ describe OrganizationMailer, type: :mailer do
     end
 
     it "should have welcome subject including lobby id" do
-      expect(mail.subject).to eq(I18n.t('mailers.create_organization.subject', lobby_reference: organization.id))
+      expect(mail.subject).to eq(I18n.t('mailers.create_organization.subject', lobby_name: organization.fullname))
     end
 
     it "should include organization information" do
@@ -66,7 +66,7 @@ describe OrganizationMailer, type: :mailer do
     end
 
     it "should have subject including lobby reference" do
-      expect(mail.subject).to eq(I18n.t('mailers.delete_organization.subject', lobby_reference: organization.id))
+      expect(mail.subject).to eq(I18n.t('mailers.delete_organization.subject', lobby_name: organization.fullname))
     end
 
     it "should include account deletetion information" do
@@ -95,7 +95,7 @@ describe OrganizationMailer, type: :mailer do
     end
 
     it "should have subject including organization reference" do
-      expect(mail.subject).to eq(I18n.t('mailers.invalidate_organization.head1', lobby_reference: organization.id))
+      expect(mail.subject).to eq(I18n.t('mailers.invalidate_organization.head1', lobby_name: organization.fullname))
     end
 
     it 'should show deactivation information' do
@@ -125,7 +125,7 @@ describe OrganizationMailer, type: :mailer do
     end
 
     it "should have subject including organization reference" do
-      expect(mail.subject).to eq(I18n.t('mailers.update_organization.subject', lobby_reference: organization.id))
+      expect(mail.subject).to eq(I18n.t('mailers.update_organization.subject', lobby_name: organization.fullname))
     end
 
     it 'should show modification information' do

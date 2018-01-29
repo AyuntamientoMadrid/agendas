@@ -12,7 +12,7 @@ class OrganizationMailer < ApplicationMailer
     #   organization.save
     # end
 
-    subject = t('mailers.create_organization.subject', lobby_reference: organization.id)
+    subject = t('mailers.create_organization.subject', lobby_name: organization.fullname)
     to = organization.user.nil? ? [] : organization.user.email
     mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
   end
@@ -20,7 +20,7 @@ class OrganizationMailer < ApplicationMailer
   def delete(organization)
     @organization = organization
 
-    subject = t('mailers.delete_organization.subject', lobby_reference: organization.id)
+    subject = t('mailers.delete_organization.subject', lobby_name: organization.fullname)
     to = organization.user.nil? ? [] : organization.user.email
     mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
   end
@@ -28,7 +28,7 @@ class OrganizationMailer < ApplicationMailer
   def invalidate(organization)
     @organization = organization
 
-    subject = t('mailers.invalidate_organization.head1', lobby_reference: organization.id)
+    subject = t('mailers.invalidate_organization.head1', lobby_name: organization.fullname)
     to = organization.user.nil? ? [] : organization.user.email
     mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
   end
@@ -36,7 +36,7 @@ class OrganizationMailer < ApplicationMailer
   def update(organization)
     @organization = organization
 
-    subject = t('mailers.update_organization.subject', lobby_reference: organization.id)
+    subject = t('mailers.update_organization.subject', lobby_name: organization.fullname)
     to = organization.user.nil? ? [] : organization.user.email
     mail(to: to, subject: subject, bcc: 'registrodelobbies@madrid.es')
   end
