@@ -29,6 +29,52 @@ feature 'Users', :devise do
       expect(page).to have_content I18n.t 'backend.access_denied'
     end
 
+    describe 'CSV export link' do
+
+      let!(:admin)    { create(:user, :admin) }
+      let!(:manager)  { create(:user) }
+      let!(:manage)   { create(:manage, user: manager) }
+      let!(:lobby)    { create(:user, :lobby) }
+
+      before { login_as admin }
+
+      scenario 'Should download a CSV file UTF-8 encoded' do
+        visit admin_users_path
+
+        click_on "Exportar"
+
+        header = page.response_headers['Content-Type']
+        expect(header).to match 'text/csv; charset=utf-8'
+      end
+
+      scenario 'Should download CSV with headers' do
+        visit admin_users_path
+
+        click_link "Exportar"
+
+        headers = [I18n.t('backend.role'),
+                   I18n.t('backend.users'),
+                   I18n.t('backend.user_url'),
+                   I18n.t('backend.holder'),
+                   I18n.t('backend.agenda_url')]
+        headers.each do |column_header|
+          expect(page).to have_content column_header
+        end
+      end
+
+      scenario 'Should contain only holders information' do
+        visit admin_users_path
+
+        click_link "Exportar"
+
+        expect(page).to have_content admin_user_url(manager)
+        expect(page).to have_content manager.full_name
+        expect(page).to have_content manager.holders.first.full_name
+        expect(page).to have_content agenda_url(manager.holders.first, manager.holders.first.full_name.parameterize)
+      end
+
+    end
+
   end
 
   describe 'Show' do

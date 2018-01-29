@@ -11,9 +11,9 @@
       user.manages.map{|h| h.holder}.each do |h|
         csv << [t("backend.#{user.role}").capitalize,
                 user.full_name,
-                user_url(user),
+                admin_user_url(user),
                 h.full_name,
-                agenda_url(h.id,h.full_name.parameterize) ]
+                agenda_url(h.id, h.full_name.parameterize) ]
       end
     end
   end.html_safe

@@ -26,7 +26,7 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: :all_blank
 
   before_validation :invalidate_organization, :validate_organization
-  after_create :set_inscription_date
+  after_create :set_dates
 
   searchable do
     text :name, :first_surname, :second_surname, :description
@@ -120,8 +120,9 @@ class Organization < ActiveRecord::Base
     !self_employed_lobby
   end
 
-  def set_inscription_date
+  def set_dates
     self.inscription_date = Date.current if inscription_date.blank?
+    self.modification_date =  Date.current if modification_date.blank?
     save
   end
 

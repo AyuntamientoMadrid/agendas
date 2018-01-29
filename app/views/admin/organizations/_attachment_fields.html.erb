@@ -3,7 +3,7 @@
     <div class="small-2columns left">
       <%= f.hidden_field :_destroy %>
       <% if f.object.file.present? && f.object.errors.empty? %>
-        <%= link_to t('backend.open_file'), f.object.file.url %>
+        <%= link_to  f.object.file.original_filename, f.object.file.url %>
       <% else %>
         <%= f.file_field :file, class: "attachment" %>
       <% end %>
