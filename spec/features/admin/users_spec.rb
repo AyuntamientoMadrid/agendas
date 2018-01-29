@@ -33,7 +33,7 @@ feature 'Users', :devise do
 
       let!(:admin)    { create(:user, :admin) }
       let!(:manager)  { create(:user) }
-      let!(:manage)   { create(:manage, user: manager)}
+      let!(:manage)   { create(:manage, user: manager) }
       let!(:lobby)    { create(:user, :lobby) }
 
       before { login_as admin }
