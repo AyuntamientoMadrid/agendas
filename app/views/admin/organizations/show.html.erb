@@ -472,10 +472,32 @@
             </p>
           </div>
         </div>
-        <hr>
       <% end %>
+      <hr>
     <% end %>
   </fieldset>
+
+  <% if @organization.attachments.present? %>
+    <fieldset>
+      <legend>Documentos Adjuntos:</legend>
+      <% @organization.attachments.each_with_index do |attachment, index| %>
+
+        <div class="row">
+          <div class="small-12 columns">
+            <p>
+              <i><strong>Archivo <%= index + 1  %></strong></i>
+            </p>
+          </div>
+          <br />
+          <div class="small-3 medium-6 columns mb10">
+            <p>
+              <%= link_to attachment.file.original_filename, attachment.file.url %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </fieldset>
+  <% end %>
 
   <fieldset class="terms-fieldset">
     <legend><%= t('backend.terms.title_fieldset') %></legend>
