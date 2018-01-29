@@ -152,6 +152,7 @@ feature 'Organization' do
 
       scenario 'visit admin index organization page and agents organization link render agents index', :search do
         organization = create(:organization)
+        agent = create(:agent, organization: organization)
         Organization.reindex
 
         visit admin_organizations_path
@@ -160,7 +161,9 @@ feature 'Organization' do
           find('a[title="Agentes"]').click
         end
         expect(page).to have_content "Agentes"
-        # expect(page).to have_field('organization_name', with: organization.name)
+        expect(page).to have_content agent.fullname
+        expect(page).to have_content agent.from
+        expect(page).to have_content agent.to
       end
 
       scenario 'Should show organization with canceled_at nil', :search do
