@@ -31,12 +31,22 @@ describe User do
 
   it "should have be valid when created from uweb data array" do
     data = FactoryGirl.build(:uweb_user)
+
     user = User.create_from_uweb(:user, data)
-    expect(user).to be_valid
+
+    expect { user.save }.to change { User.count }.from(1).to(2)
+  end
+
+  it "should have be valid when created from uweb data array and user exists by user_key" do
+    data = FactoryGirl.build(:uweb_user)
+    @user.update(user_key: data["CLAVE_IND"] )
+
+    user = User.create_from_uweb(:user, data)
+
+    expect { user.save }.not_to change { User.count }
   end
 
   it "should not be allowed assign holder more than once to user" do
   end
 
 end
-

@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
     user.last_name = data["APELLIDO1_USUARIO"].strip
     user.last_name += ' ' + data["APELLIDO2_USUARIO"].strip if data["APELLIDO2_USUARIO"].present?
     user.email =  data["MAIL"].blank? ? Faker::Internet.email : data["MAIL"]
-    user.password = SecureRandom.uuid
+    user.password = SecureRandom.uuid unless user.persisted?
     user.role = role
     user
   end
