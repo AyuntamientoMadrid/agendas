@@ -46,6 +46,7 @@ module Admin
         if !@organization.invalidated? && !@organization.canceled?
           OrganizationMailer.update(@organization).deliver_now
         end
+        @organization.update(modification_date: Date.current)
         redirect_to path, notice: t('backend.successfully_updated_record')
       else
         flash[:alert] = t('backend.review_errors')

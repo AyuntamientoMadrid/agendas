@@ -15,12 +15,20 @@
     <thead>
       <tr>
         <th>Agentes</th>
+        <th>Dni</th>
+        <th>Desde</th>
+        <th>Hasta</th>
+        <th>Datos públicos</th>
         <th class="right"><%= t('backend.actions')%></th>
       </tr>
     </thead>
     <tfoot>
       <tr>
-        <th><%= t('backend.title')%></th>
+        <th>Agentes</th>
+        <th>Dni</th>
+        <th>Desde</th>
+        <th>Hasta</th>
+        <th>Datos públicos</th>
         <th class="right"><%= t('backend.actions')%></th>
       </tr>
     </tfoot>
@@ -29,6 +37,18 @@
       <tr id="<%= dom_id(agent) %>" >
         <td>
           <%= agent.fullname %>
+        </td>
+        <td>
+          <%= agent.identifier %>
+        </td>
+        <td>
+          <%= agent.from %>
+        </td>
+        <td>
+          <%= agent.to.present? ? agent.to : "-" %>
+        </td>
+        <td>
+          <%= agent.allow_public_data ? "SI" : "NO" %>
         </td>
         <td class="right">
           <%= link_to agent.attachments.first.file.url,

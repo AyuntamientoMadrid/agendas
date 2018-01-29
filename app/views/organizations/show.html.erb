@@ -291,6 +291,13 @@
                     <%= I18n.l agent.to if agent.to.present? %>
                   </p>
                 <% end %>
+                <% if agent.public_assignments.present? %>
+                  <p>
+                    <strong><%= t('backend.agents.public_assignments_only_show') %></strong>
+                    <%= agent.public_assignments.html_safe %>
+                  </p>
+                <% end %>
+                <hr>
               <% end %>
             <% end %>
           <% else %>

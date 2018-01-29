@@ -590,7 +590,7 @@ feature 'Organizations page' do
     scenario "Should display organization agent info" do
       organization = create(:organization)
       agent1 = create(:agent, organization: organization, to: Date.current)
-      agent2 = create(:agent, organization: organization, to: Date.current)
+      agent2 = create(:agent, organization: organization, to: Date.current, public_assignments: "New text public assignments")
 
       visit organization_path(organization)
 
@@ -605,6 +605,7 @@ feature 'Organizations page' do
       expect(page).to have_content agent2.first_surname
       expect(page).to have_content agent2.second_surname
       expect(page).to have_content I18n.l(agent2.to)
+      expect(page).to have_content "New text public assignments"
     end
 
     scenario "Should not display organization agent info allow_public_data: false" do
