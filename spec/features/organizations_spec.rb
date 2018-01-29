@@ -608,6 +608,17 @@ feature 'Organizations page' do
       expect(page).to have_content "New text public assignments"
     end
 
+    scenario "Should not display organization agent info allow_public_data: false" do
+      organization = create(:organization)
+      agent1 = create(:agent, organization: organization, to: Date.current, allow_public_data: true)
+      agent2 = create(:agent, organization: organization, to: Date.current, allow_public_data: false)
+
+      visit organization_path(organization)
+
+      expect(page).to have_content agent1.name
+      expect(page).not_to have_content agent2.name
+    end
+
     scenario "Should display canceled organization but not display agent info" do
       organization = create(:organization, canceled_at: Date.current)
       agent = create(:agent, organization: organization)
