@@ -249,4 +249,20 @@ describe Event do
 
   end
 
+  describe "friendly ids" do
+    it "Should generate slug automatically from event title" do
+      event = build(:event, title: "Título del evento")
+
+      expect(event.slug).to eq("titulo-del-evento")
+      expect(event.slug.size).to eq("titulo-del-evento".size)
+    end
+
+    it "Should add uuid to gnerated slug when another event has the same title" do
+      create(:event, title: "Título del evento")
+      event = create(:event, title: "Título del evento")
+
+      expect(event.slug).to include("titulo-del-evento")
+      expect(event.slug.size).to be > "titulo-del-evento".size
+    end
+  end
 end

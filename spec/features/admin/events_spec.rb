@@ -528,6 +528,24 @@ feature 'Events' do
         expect(page).to have_content "Registro creado correctamente"
       end
 
+      scenario 'Alow to create events with same title but with different slug', :js do
+        event = create(:event, title: "My event title")
+        new_position = create(:position)
+        visit new_event_path
+
+        fill_in :event_title, with: "My event title"
+        fill_in :event_location, with: "Location"
+        fill_in :event_scheduled, with: Time.zone.now
+        select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
+        choose :event_lobby_activity_false
+        fill_in :event_published_at, with: Date.current
+        click_button "Guardar"
+
+        expect(page).to have_content "Registro creado correctamente"
+        expect(Event.last.slug).to include(event.slug)
+        expect(Event.last.slug).not_to eq(event.slug)
+      end
+
       scenario 'Should create organization with all fields without nesteds', :js do
         new_position = create(:position)
         visit new_event_path
@@ -1016,17 +1034,34 @@ feature 'Events' do
         end
         choose_autocomplete :event_position_title, with: @position.title, select: @position.title
         find("#position_id", :visible => false).set(@position.id)
-
         click_button "Enviar la solicitud"
 
         expect(ActionMailer::Base.deliveries.count).to eq(1)
         open_email(@position.holder.users.first.email)
-
         expect(current_email.to).to eq(@position.holder.users.collect(&:email))
         expect(current_email.cc).to eq(nil)
         expect(current_email.bcc).to eq(["registrodelobbies@madrid.es"])
+        expect(page).to have_content 'Registro creado correctamente'
+      end
+
+      scenario 'create new event with duplicated title should generate new slug with uuid', :js do
+        event = create(:event, title: 'My event title')
+        visit new_event_path
+
+        fill_in :event_title, with: 'My event title'
+        tinymce_fill_in :event_lobby_scheduled, '02/11/2017 06:30'
+        tinymce_fill_in :event_general_remarks, 'General remarks'
+        fill_in :event_location, with: 'New location'
+        choose_autocomplete :event_organization_name, with: @organization.name, select: @organization.name
+        within('#new_event_agent') do
+          select "#{@agent.name} #{@agent.first_surname} #{@agent.second_surname}"
+        end
+        choose_autocomplete :event_position_title, with: @position.title, select: @position.title
+        find("#position_id", :visible => false).set(@position.id)
+        click_button "Enviar la solicitud"
 
         expect(page).to have_content 'Registro creado correctamente'
+        expect(Event.last.slug).not_to eq(event.slug)
       end
 
       scenario 'Visit new event page and create event without mandatory fields and display error', :js do
