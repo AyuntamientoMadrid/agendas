@@ -128,3 +128,9 @@ es:
       text3: "Descripción:  "
       text4: "Archivo adjunto: "
       text5: "Afecta a:"
+    notification_success:
+      subject: "Registro de Lobbies: alta de lobby %{lobby_name}"
+      head1: "Se ha dado de alta un nuevo Lobby: %{lobby_name}"
+    notification_error:
+      subject: "Error en Registro de Lobbies: %{lobby_name}"
+      head1: "Se han producido errores en el Registro de Lobbies: %{lobby_name}"

@@ -1,0 +1,4 @@
+<td>
+  <h1><%= t('mailers.notification_error.head1', lobby_name: @organization.fullname)%></h1>
+  <p><%= @organization.errors.full_messages.join(', ') %></p>
+</td>

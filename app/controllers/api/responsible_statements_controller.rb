@@ -47,11 +47,13 @@ module Api
         action = "unknow-action"
       end
 
-      take_actions(action, organization) if organization.valid?
+      take_actions(action, organization)
+      error_description = organization.valid? ? "OK" : organization.errors.full_messages.join(', ')
+
 
       render soap: {
         codRetorno: organization.valid? ? "" : "0",
-        descError: organization.valid? ? "OK" : organization.errors.full_messages.join(', '),
+        descError: error_description,
         idExpediente: "idExpediente",
         refExpediente: "refExpediente",
       }
@@ -61,20 +63,25 @@ module Api
     private
 
     def take_actions(action, organization)
-      case action
-      when 'create'
-        UserMailer.welcome(organization.user).deliver_now
-      when 'update'
-        OrganizationMailer.update(organization).deliver_now
-        organization.update(modification_date: Date.current)
-      when 'update-with-welcome-email'
-        UserMailer.welcome(organization.user).deliver_now
-        OrganizationMailer.update(organization).deliver_now
-        organization.update(modification_date: Date.current)
-      when 'destroy'
-        organization.user.soft_delete
-        OrganizationMailer.delete(organization).deliver_now
-      when 'unknow-action'
+      if organization.valid?
+        case action
+        when 'create'
+          UserMailer.welcome(organization.user).deliver_now
+          ResponsibleStatementMailer.notification_success(organization).deliver_now
+        when 'update'
+          OrganizationMailer.update(organization).deliver_now
+          organization.update(modification_date: Date.current)
+        when 'update-with-welcome-email'
+          UserMailer.welcome(organization.user).deliver_now
+          OrganizationMailer.update(organization).deliver_now
+          organization.update(modification_date: Date.current)
+        when 'destroy'
+          organization.user.soft_delete
+          OrganizationMailer.delete(organization).deliver_now
+        when 'unknow-action'
+        end
+      else
+        ResponsibleStatementMailer.notification_error(organization).deliver_now
       end
     end
 
