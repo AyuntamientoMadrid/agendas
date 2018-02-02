@@ -675,7 +675,8 @@ describe Api::ResponsibleStatementsController do
                                 codTipoExpdiente: "1234",
                                 xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/newResponsibleStatement_3.xml"),
                                 usuario: "WFORM" })
-        expect(ActionMailer::Base.deliveries.count).to eq(1) #UserMailer.welcome(organization.user).deliver_now
+        expect(ActionMailer::Base.deliveries.count).to eq(2) #UserMailer.welcome(organization.user)
+                                                             #ResponsibleStatementMailer.notification_success(organization)
         organization = Organization.last
         expect(organization.attachments.count).to eq 1
 
@@ -689,8 +690,9 @@ describe Api::ResponsibleStatementsController do
                                 xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/editResponsibleStatement_1.xml"),
                                 usuario: "WFORM" })
 
-        expect(ActionMailer::Base.deliveries.count).to eq(3) #UserMailer.welcome(organization.user).deliver_now
+        expect(ActionMailer::Base.deliveries.count).to eq(4) #UserMailer.welcome(organization.user).deliver_now
                                                              #organization.send_update_mail
+                                                             #ResponsibleStatementMailer.notification_success(organization)
         organization = Organization.last
 
         #DATA_1
@@ -762,7 +764,8 @@ describe Api::ResponsibleStatementsController do
                                 codTipoExpdiente: "1234",
                                 xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/newResponsibleStatement_7.xml"),
                                 usuario: "WFORM" })
-        expect(ActionMailer::Base.deliveries.count).to eq(1) #UserMailer.welcome(organization.user).deliver_now
+        expect(ActionMailer::Base.deliveries.count).to eq(2) #UserMailer.welcome(organization.user).deliver_now
+                                                             #ResponsibleStatementMailer.notification_success(organization)
         organization = Organization.last
         expect(organization.attachments.count).to eq 1
 
@@ -776,7 +779,7 @@ describe Api::ResponsibleStatementsController do
                                 xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/editResponsibleStatement_2.xml"),
                                 usuario: "WFORM" })
 
-        expect(ActionMailer::Base.deliveries.count).to eq(2) #organization.send_update_mail
+        expect(ActionMailer::Base.deliveries.count).to eq(3) #organization.send_update_mail
 
         organization = Organization.last
 
@@ -801,7 +804,8 @@ describe Api::ResponsibleStatementsController do
                                 codTipoExpdiente: "1234",
                                 xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/newResponsibleStatement_10.xml"),
                                 usuario: "WFORM" })
-        expect(ActionMailer::Base.deliveries.count).to eq(1) #UserMailer.welcome(organization.user).deliver_now
+        expect(ActionMailer::Base.deliveries.count).to eq(2) #UserMailer.welcome(organization.user).deliver_now
+                                                             #ResponsibleStatementMailer.notification_success(organization)
         organization = Organization.last
         expect(organization.attachments.count).to eq 1
 
@@ -815,7 +819,7 @@ describe Api::ResponsibleStatementsController do
                                 xmlDatosEntrada: File.read("spec/fixtures/responsible_statement/editResponsibleStatement_4.xml"),
                                 usuario: "WFORM" })
 
-        expect(ActionMailer::Base.deliveries.count).to eq(2) #organization.send_update_mail
+        expect(ActionMailer::Base.deliveries.count).to eq(3) #organization.send_update_mail
 
         organization = Organization.last
 
@@ -912,7 +916,8 @@ describe Api::ResponsibleStatementsController do
                                 usuario: "WFORM" })
 
         organization = Organization.last
-        expect(ActionMailer::Base.deliveries.count).to eq(1) #UserMailer.welcome(organization.user).deliver_now
+        expect(ActionMailer::Base.deliveries.count).to eq(2) #UserMailer.welcome(organization.user).deliver_now
+                                                             #ResponsibleStatementMailer.notification_success(organization)
         expect(organization.canceled_at).to eq nil
         expect(organization.user.deleted_at).to eq nil
 
@@ -927,7 +932,7 @@ describe Api::ResponsibleStatementsController do
                                 usuario: "WFORM" })
 
         organization = Organization.last
-        expect(ActionMailer::Base.deliveries.count).to eq(2) #OrganizationMailer.delete(@organization).deliver_now
+        expect(ActionMailer::Base.deliveries.count).to eq(3) #OrganizationMailer.delete(@organization).deliver_now
         expect(organization.canceled_at).not_to eq nil
         expect(organization.user.deleted_at).not_to eq nil
       end

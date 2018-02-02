@@ -78,7 +78,8 @@ class Organization < ActiveRecord::Base
   end
 
   def fullname
-    str = name
+    str = ""
+    str += "#{name}"
     str += " #{first_surname}"  if first_surname.present?
     str += " #{second_surname}" if second_surname.present?
     str
