@@ -794,6 +794,23 @@ feature 'Events' do
           end
         end
 
+        scenario 'When check lobby_activity but fill invalid organization name', :js do
+          new_position = create(:position)
+          visit new_event_path
+
+          choose :event_lobby_activity_true
+          choose_autocomplete :event_organization_name, with: "invalid organization", select: "invalid organization"
+          fill_in :event_title, with: "Title"
+          fill_in :event_location, with: "Location"
+          tinymce_fill_in(:event_description, "Description")
+          fill_in :event_scheduled, with: Date.current
+          select "#{new_position.holder.full_name_comma} - #{new_position.title}", from: :event_position_id
+          fill_in :event_published_at, with: Date.current
+          click_button "Guardar"
+
+          expect(page).to have_content "No ha seleccionado una organización válida"
+        end
+
         describe "Represented entity" do
 
           scenario 'When select organization without represented_entity display organization on represented_entity selector', :js do

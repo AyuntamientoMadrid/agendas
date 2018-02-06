@@ -44,6 +44,13 @@ describe Event do
     expect(event).not_to be_valid
   end
 
+  it "Should be invalid if event as lobby_activity without organization" do
+    event.lobby_activity = true
+    event.organization = nil
+
+    expect(event).not_to be_valid
+  end
+
   it "Should be invalid if participant are not unique" do
     event = create(:event)
     participant = create(:participant)
