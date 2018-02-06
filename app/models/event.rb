@@ -14,6 +14,7 @@ class Event < ActiveRecord::Base
   validates :title, :position, presence: true
   validates_inclusion_of :lobby_activity, :in => [true, false]
   validate :participants_uniqueness, :position_not_in_participants, :role_validate_scheduled, :validate_location
+  validate :lobby_activity_with_organization, if: -> { self.lobby_activity.present? }
   validates :canceled_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') },
                                allow_blank: false, if: Proc.new { |a| !a.canceled_at.blank? }
   validates :declined_reasons, presence: { message: I18n.t('backend.lobby_not_allowed_neither_empty_mail') },
@@ -231,6 +232,11 @@ class Event < ActiveRecord::Base
     def validate_location
       return if self.user.lobby? || self.location.present?
       errors.add(:base, "Lugar no puede estar en blanco")
+    end
+
+    def lobby_activity_with_organization
+      return if self.organization.present?
+      errors.add(:base, "No ha seleccionado una organización válida")
     end
 
     def reasons_present?
