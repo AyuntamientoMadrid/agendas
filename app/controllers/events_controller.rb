@@ -9,7 +9,7 @@ class EventsController < AdminController
 
   def create
     @event = Event.new(event_params)
-    @event.user = current_user
+    @event.user = current_user.lobby? ? nil : current_user
     if @event.save
       EventMailer.create(@event).deliver_now if @event.status == "requested"
       redirect_to events_home_path(current_user, false),
@@ -30,7 +30,7 @@ class EventsController < AdminController
   def edit; end
 
   def update
-    @event.user = current_user
+    @event.user = current_user.lobby? ? nil : current_user
     if @event.update_attributes(event_params)
       if !current_user.lobby?
         if @event.decline == 'true'

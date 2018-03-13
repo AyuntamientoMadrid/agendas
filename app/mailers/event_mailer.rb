@@ -3,9 +3,9 @@ class EventMailer < ApplicationMailer
   def cancel_by_lobby(event)
     # pending titular email
     @to = event.position.holder.users.collect(&:email).join(",")
-    @lobby_name = event.lobby_user_name.present? ? event.lobby_user_name : event.organization.user.first_name
+    @lobby_name = event.organization.fullname
     @reasons = event.canceled_reasons
-    @name = event.user.full_name
+    @name = event.lobby_user_name.present? ? event.lobby_user_name : event.organization.user.full_name
     @event_title = event.title
     @event_location = event.location
     @event_scheduled = l event.scheduled, format: :long if event.scheduled
@@ -47,7 +47,7 @@ class EventMailer < ApplicationMailer
       @name = event.lobby_user_name.present? ? event.lobby_user_name : event.organization.user.first_name
     else
       @to = event.lobby_contact_email.present? ? event.lobby_contact_email : event.organization.user.email
-      @name = event.user.name
+      @name = event.lobby_user_name.present? ? event.lobby_user_name : event.organization.user.full_name
     end
     @event_title = event.title
     @event_description = event.description

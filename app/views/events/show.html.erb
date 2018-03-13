@@ -30,7 +30,7 @@
   <strong><%= event_description(current_user) %>:</strong>
   <%= @event.description.html_safe if @event.description.present? %>
 </fieldset>
-<% if @event.user.present? %>
+<% if @event.user.present? || @event.organization.present? %>
 <fieldset>
   <legend><%= t('backend.event_history_updates') %></legend>
   <div class="row">
@@ -39,7 +39,7 @@
   </div>
   <div class="row">
     <div class="small-6 columns">
-      <p><%= @event.user.full_name %></p>
+      <p><%= @event.user.present? ? @event.user.full_name : @event.organization.fullname %></p>
     </div>
     <div class="small-6 columns">
       <p><%= I18n.l(@event.updated_at, format: :short) if @event.updated_at.present? %></p>

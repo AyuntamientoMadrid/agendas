@@ -195,10 +195,9 @@ describe Event do
   end
 
   describe "lobby organizations' events" do
-    let!(:organization_user) { create(:user, :lobby) }
 
     it "lobby user should create event with status on_request" do
-      event = create(:event, title: 'Event on request', user: organization_user)
+      event = create(:event, title: 'Event on request', user: nil)
       event.save
       expect(event.status).to eq('requested')
     end

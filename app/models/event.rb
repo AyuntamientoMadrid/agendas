@@ -212,7 +212,7 @@ class Event < ActiveRecord::Base
     end
 
     def set_status
-      if self.user.lobby?
+      if self.user.blank?
         self.status = "requested"
       else
         self.status = "accepted"
@@ -220,16 +220,16 @@ class Event < ActiveRecord::Base
     end
 
     def set_published_at
-      self.published_at = Date.current if (!self.user.lobby? && self.published_at.blank?)
+      self.published_at = Date.current if (!self.user.blank? && self.published_at.blank?)
     end
 
     def role_validate_scheduled
-      return if self.user.lobby? || self.scheduled.present? || reasons_present?
+      return if self.user.blank? || self.scheduled.present? || reasons_present?
       errors.add(:base, "Fecha del evento no puede estar en blanco")
     end
 
     def validate_location
-      return if self.user.lobby? || self.location.present?
+      return if self.user.blank? || self.location.present?
       errors.add(:base, "Lugar no puede estar en blanco")
     end
 

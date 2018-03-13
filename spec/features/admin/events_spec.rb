@@ -1227,7 +1227,7 @@ feature 'Events' do
       end
 
       scenario "User can edit events", :js do
-        event_requested = create(:event, user: @organization_user, title: 'Event on request', position: @position,
+        event_requested = create(:event, user: nil, title: 'Event on request', position: @position,
                                          status: 0, organization: @organization)
 
         visit event_path(event_requested)
@@ -1241,7 +1241,7 @@ feature 'Events' do
       end
 
       scenario 'Lobby user can see on page the name of the organization' do
-        event = create(:event, user: @organization_user, organization_name: "Organization name", position: @position,
+        event = create(:event, user: nil, organization_name: "Organization name", position: @position,
                                organization: @organization)
 
         visit edit_event_path(event)
@@ -1250,7 +1250,7 @@ feature 'Events' do
       end
 
       scenario 'Lobby user can see lobby contact info' do
-        event = create(:event, user: @organization_user, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
+        event = create(:event, user: nil, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
                                lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123',
                                lobby_contact_email: 'lobbyemail@email.com', organization: @organization)
 
@@ -1266,7 +1266,7 @@ feature 'Events' do
 
       scenario 'Lobby user can update lobby contact info', :js do
         position = create(:position)
-        event = create(:event, user: @organization_user, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
+        event = create(:event, user: nil, organization_name: "Organization name", lobby_contact_firstname: 'lobbyname',
                                lobby_contact_lastname: 'lobbylastname', lobby_contact_phone: '600123123',
                                lobby_contact_email: 'lobbyemail@email.com', organization: @organization,
                                position: position)
@@ -1287,7 +1287,7 @@ feature 'Events' do
       end
 
       scenario 'visit edit event form and not render rejected option' do
-        event = create(:event, user: @organization_user)
+        event = create(:event, user: nil)
 
         visit edit_event_path(event)
 
@@ -1358,7 +1358,7 @@ feature 'Events' do
     end
 
     scenario "Lobby user can only cancel events", :js do
-      event = create(:event, organization: @organization, user: @organization_user,
+      event = create(:event, organization: @organization, user: nil,
                              lobby_contact_email: "user@email.com", lobby_activity: true,
                              position: @position)
       event.event_agents << @event_agent
@@ -1372,7 +1372,7 @@ feature 'Events' do
 
     scenario "Lobby user correctly cancel events", :js do
       ActionMailer::Base.deliveries.clear
-      event = create(:event, organization: @organization, user: @organization_user,
+      event = create(:event, organization: @organization, user: nil,
                              lobby_contact_email: "user@email.com", lobby_activity: true,
                              position: @position)
       event.event_agents << @event_agent

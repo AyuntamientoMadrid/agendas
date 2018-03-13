@@ -39,9 +39,10 @@ describe EventMailer, type: :mailer do
       expect(mail.body).to have_content event.description
       expect(mail.body).to have_content event.canceled_reasons
       expect(mail.body).to have_content event.position.holder.users.collect(&:email).join(",")
-      lobby_name = event.lobby_user_name.present? ? event.lobby_user_name : event.organization.user.first_name
+      lobby_name = event.organization.fullname
       expect(mail.body).to have_content lobby_name
-      expect(mail.body).to have_content event.user.full_name
+      name = event.lobby_user_name.present? ? event.lobby_user_name : event.organization.user.full_name
+      expect(mail.body).to have_content name
       expect(mail.body).to have_content event.title
       expect(mail.body).to have_content event.location
       scheduled_date = I18n.l(event.scheduled, format: :long)
