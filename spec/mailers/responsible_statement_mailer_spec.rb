@@ -16,7 +16,7 @@ describe ResponsibleStatementMailer, type: :mailer do
     end
 
     it "should have welcome subject including lobby id" do
-      expect(mail.subject).to eq(I18n.t('mailers.notification_error.subject', lobby_name: new_organization.fullname))
+      expect(mail.subject).to eq(I18n.t('mailers.notification_error.subject', lobby_name: new_organization.fullname, reference: new_organization.reference))
     end
 
     it "should include organization information" do
@@ -39,7 +39,7 @@ describe ResponsibleStatementMailer, type: :mailer do
     end
 
     it "should have welcome subject including lobby id" do
-      expect(mail.subject).to eq(I18n.t('mailers.notification_success.subject', lobby_name: organization.fullname))
+      expect(mail.subject).to eq(I18n.t('mailers.notification_success.subject', lobby_name: organization.fullname, reference: organization.reference, inscription_date: organization.inscription_date.to_date.to_s))
     end
 
     it "should include organization information" do
