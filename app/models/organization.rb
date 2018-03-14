@@ -74,7 +74,7 @@ class Organization < ActiveRecord::Base
 
   def validate_duplicate_organization
     return unless Organization.where(identifier: identifier, entity_type: 2).first.present?
-    errors.add(:duplicate, "Ya existe una organización como lobby con este CIF")
+    errors.add(:base, "Ya existe una organización como lobby con este CIF")
   end
 
   def fullname

@@ -187,7 +187,7 @@ describe Api::ResponsibleStatementsController do
 
           body = response.body[:inicio_expediente_response]
           expect(body[:cod_retorno]).to eq "0"
-          expect(body[:desc_error]).to  eq "Persona física de contacto: email  ya está en uso, Duplicate  Ya existe una organización como lobby con este CIF"
+          expect(body[:desc_error]).to  eq "Persona física de contacto: email  ya está en uso, Ya existe una organización como lobby con este CIF"
           expect(body[:id_expediente]).to eq "idExpediente"
           expect(body[:ref_expediente]).to eq "refExpediente"
 
