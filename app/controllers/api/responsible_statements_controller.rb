@@ -103,8 +103,8 @@ module Api
     end
 
     def add_attributes(doc, organization_params)
-      # 0. Numero Anotación
-      organization_params = add_reference(doc, organization_params)
+      # 0. Información Básica: Numero Anotación, Fecha de inscripción
+      organization_params = add_basic_information(doc, organization_params)
       # 1. Datos identificativos de quien aparecera como inscrito en el registro
       organization_params = add_lobby_data(doc, organization_params)
       # 2. Datos de la persona o entidad representante
@@ -121,9 +121,14 @@ module Api
       organization_params
     end
 
-    def add_reference(doc, organization_params)
+    def add_basic_information(doc, organization_params)
       reference = doc.xpath("//numAnotacion").text
-      organization_params =  organization_params.merge(reference: reference)
+      if doc.xpath("//formulario/nombre=876")
+        inscription_date = get_inscription_date(doc)
+        organization_params =  organization_params.merge(reference: reference, inscription_date: inscription_date)
+      else
+        organization_params =  organization_params.merge(reference: reference)
+      end
     end
 
     def add_lobby_data(doc, organization_params)
@@ -410,6 +415,19 @@ module Api
 
     def get_destroy(doc, field)
       (key_content(doc, field) == "baja") ? Time.zone.now : nil
+    end
+
+    def get_inscription_date(doc)
+      inscription_date = doc.xpath("//fechaPresentacion").text
+      inscription_time = doc.xpath("//horaPresentacion").text
+      year  = inscription_date[0..3].to_i
+      month = inscription_date[4..5].to_i
+      day   = inscription_date[6..7].to_i
+      hour  = inscription_time[0..1].to_i
+      min   = inscription_time[2..3].to_i
+      sec   = inscription_time[4..5].to_i
+
+      inscription_date = DateTime.new(year, month, day, hour, min, sec)
     end
 
   end

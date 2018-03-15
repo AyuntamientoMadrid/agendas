@@ -222,6 +222,7 @@ describe Api::ResponsibleStatementsController do
         #DATA_1
         #expect(organization.tipo de documento).to eq
         expect(organization.reference).to eq "20170000990"
+        expect(organization.inscription_date).to eq DateTime.new(2017, 12, 14, 16, 03, 43)
         expect(organization.identifier).to eq "50048658Z"
         expect(organization.name).to eq "JOSE ANTONIO"
         expect(organization.first_surname).to eq "IZQUIERDO"
@@ -290,6 +291,7 @@ describe Api::ResponsibleStatementsController do
         #DATA_1
         #expect(organization.tipo de documento).to eq
         expect(organization.reference).to eq "20170000995"
+        expect(organization.inscription_date).to eq DateTime.new(2017, 12, 27, 13, 03, 59)
         expect(organization.identifier).to eq "12755026P"
         expect(organization.name).to eq "JOAQUÍN"
         expect(organization.first_surname).to eq "MESEGUER"
@@ -369,6 +371,7 @@ describe Api::ResponsibleStatementsController do
         #DATA_1
         #expect(organization.tipo de documento).to eq
         expect(organization.reference).to eq "20170000996"
+        expect(organization.inscription_date).to eq DateTime.new(2017, 12, 27, 13, 8, 15)
         expect(organization.identifier).to eq "70572650W"
         expect(organization.name).to eq "HONORIO ENRIQUE"
         expect(organization.first_surname).to eq "CRESPO"
@@ -442,6 +445,7 @@ describe Api::ResponsibleStatementsController do
         #DATA_1
         #expect(organization.tipo de documento).to eq
         expect(organization.reference).to eq "20170001001"
+        expect(organization.inscription_date).to eq DateTime.new(2017, 12, 27, 13, 38, 35)
         expect(organization.identifier).to eq "B82916651"
         expect(organization.name).to eq "Political Intelligence Spain, S.L"
         expect(organization.first_surname).to eq nil
@@ -557,6 +561,7 @@ describe Api::ResponsibleStatementsController do
         #DATA_1
         #expect(organization.tipo de documento).to eq
         expect(organization.reference).to eq "20170001003"
+        expect(organization.inscription_date).to eq DateTime.new(2017, 12, 27, 14, 24, 8)
         expect(organization.identifier).to eq "12755026P"
         expect(organization.name).to eq "JOAQUÍN"
         expect(organization.first_surname).to eq "MESEGUER"
@@ -698,6 +703,7 @@ describe Api::ResponsibleStatementsController do
         #DATA_1
         #expect(organization.tipo de documento).to eq
         expect(organization.reference).to eq "20170000997"
+        expect(organization.inscription_date).to eq DateTime.new(2017, 12, 27, 13, 8, 15)
         expect(organization.identifier).to eq "70572650W"
         expect(organization.name).to eq "HONORIO ENRIQUE"
         expect(organization.first_surname).to eq "CRESPO"
