@@ -396,6 +396,7 @@ describe Api::ResponsibleStatementsController do
         expect(organization.registered_lobbies).to include @general
         expect(organization.registered_lobbies).to include @cnmc
         expect(organization.registered_lobbies).to include @other
+        expect(organization.other_registered_lobby).to eq "otro valor"
         expect(organization.check_email).to eq true
         expect(organization.check_sms).to eq true
 

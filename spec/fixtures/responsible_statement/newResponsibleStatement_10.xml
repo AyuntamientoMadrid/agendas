@@ -26,7 +26,7 @@ Línea 4
 Línea 5 y última.</valor>
                     </variable>
                     <variable>
-                        <clave>COMUNES_INTERESADO_UE</clave>
+                        <clave>REGISTRO_INSCRIPCION_UE</clave>
                         <valor>false</valor>
                     </variable>
                     <variable>
@@ -70,7 +70,7 @@ Línea 5 y última.</valor>
                         <valor></valor>
                     </variable>
                     <variable>
-                        <clave>COMUNES_INTERESADO_CNMC</clave>
+                        <clave>REGISTRO_INSCRIPCION_CNMC</clave>
                         <valor>true</valor>
                     </variable>
                     <variable>
@@ -82,7 +82,7 @@ Línea 5 y última.</valor>
                         <valor>true</valor>
                     </variable>
                     <variable>
-                        <clave>COMUNES_INTERESADO_GENERAL</clave>
+                        <clave>REGISTRO_INSCRIPCION_GENERAL</clave>
                         <valor>true</valor>
                     </variable>
                     <variable>
@@ -98,7 +98,7 @@ Línea 5 y última.</valor>
                         <valor>CALLE</valor>
                     </variable>
                     <variable>
-                        <clave>COMUNES_INTERESADO_OTROS</clave>
+                        <clave>REGISTRO_INSCRIPCION_OTROS</clave>
                         <valor>true</valor>
                     </variable>
                     <variable>
@@ -122,7 +122,7 @@ Línea 5 y última.</valor>
                         <valor>HONORIO ENRIQUE</valor>
                     </variable>
                     <variable>
-                        <clave>COMUNES_INTERESADO_INSCRIPCION</clave>
+                        <clave>REGISTRO_INSCRIPCION_RADIO</clave>
                         <valor>S</valor>
                     </variable>
                     <variable>
@@ -130,7 +130,7 @@ Línea 5 y última.</valor>
                         <valor>crespodhe@madrid.es</valor>
                     </variable>
                     <variable>
-                        <clave>COMUNES_INTERESADO_OTROSDESC</clave>
+                        <clave>REGISTRO_INSCRIPCION_OTROSDESC</clave>
                         <valor></valor>
                     </variable>
                     <variable>
@@ -231,7 +231,7 @@ Línea 5 y última.</valor>
         <datosEspecificos>
             <variables>
                 <variable>
-                    <clave>FONDOS1</clave>
+                    <clave>ACTIVIDAD_PROPIA_FONDOS</clave>
                     <valor>1</valor>
                 </variable>
                 <variable>
@@ -303,11 +303,11 @@ Línea 5 y última.</valor>
                     <valor></valor>
                 </variable>
                 <variable>
-                    <clave>RECIBI_AYUDAS</clave>
+                    <clave>ACTIVIDAD_PROPIA_REAYUDAS</clave>
                     <valor>N</valor>
                 </variable>
                 <variable>
-                    <clave>ACTIVIDAD_PROPIA</clave>
+                    <clave>ACTIVIDAD_PROPIA_RADIO</clave>
                     <valor>S</valor>
                 </variable>
                 <variable>
@@ -319,7 +319,7 @@ Línea 5 y última.</valor>
                     <valor></valor>
                 </variable>
                 <variable>
-                    <clave>CELEBRA_CON</clave>
+                    <clave>ACTIVIDAD_PROPIA_CELEBRA</clave>
                     <valor>N</valor>
                 </variable>
                 <variable>
@@ -391,7 +391,7 @@ Línea 5 y última.</valor>
                     <valor>Empleado Publico</valor>
                 </variable>
                 <variable>
-                    <clave>EJERCICIO_ANUAL</clave>
+                    <clave>ACTIVIDAD_PROPIA_EJANUAL</clave>
                     <valor>2017</valor>
                 </variable>
                 <variable>

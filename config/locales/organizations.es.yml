@@ -133,6 +133,7 @@ es:
         cnmc: "CNMC"
         europe_union: "Unión Europea"
         others: "Otro"
+      other_registered_lobby: "Otros registros"  
 
     legal_representant:
       add_legal_representative: "Añadir representante legal"

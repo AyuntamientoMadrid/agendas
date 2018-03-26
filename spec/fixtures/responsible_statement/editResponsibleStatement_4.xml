@@ -206,7 +206,7 @@
                             <valor/>
                         </variable>
                         <variable>
-                            <clave>COMUNES_INTERESADO_OTROSDESC</clave>
+                            <clave>REGISTRO_INSCRIPCION_OTROSDESC</clave>
                             <valor/>
                         </variable>
                         <variable>
@@ -327,7 +327,7 @@
                         <valor>123</valor>
                     </variable>
                     <variable>
-                        <clave>FONDOS1</clave>
+                        <clave>ACTIVIDAD_PROPIA_FONDOS</clave>
                         <valor>2</valor>
                     </variable>
                     <variable>
@@ -351,7 +351,7 @@
                         <valor/>
                     </variable>
                     <variable>
-                        <clave>CELEBRA_CON</clave>
+                        <clave>ACTIVIDAD_PROPIA_CELEBRA</clave>
                         <valor>S</valor>
                     </variable>
                     <variable>
@@ -467,7 +467,7 @@
                         <valor>Empleado Publico</valor>
                     </variable>
                     <variable>
-                        <clave>EJERCICIO_ANUAL</clave>
+                        <clave>ACTIVIDAD_PROPIA_EJANUAL</clave>
                         <valor>2017</valor>
                     </variable>
                     <variable>
@@ -495,7 +495,7 @@
                         <valor/>
                     </variable>
                     <variable>
-                        <clave>RECIBI_AYUDAS</clave>
+                        <clave>ACTIVIDAD_PROPIA_REAYUDAS</clave>
                         <valor>S</valor>
                     </variable>
                     <variable>

@@ -140,7 +140,7 @@
           <variable><clave>COMUNES_INTERESADO_CODPOSTAL</clave><valor>28033</valor></variable>
           <variable><clave>COMUNES_INTERESADO_NOMBRE</clave><valor>JOSE ANTONIO</valor></variable>
           <variable><clave>COMUNES_INTERESADO_MUNICIPIO</clave><valor>MADRID</valor></variable>
-          <variable><clave>COMUNES_INTERESADO_INSCRIPCION</clave><valor>N</valor></variable>
+          <variable><clave>REGISTRO_INSCRIPCION_RADIO</clave><valor>N</valor></variable>
           <variable><clave>COMUNES_INTERESADO_TIPODOC</clave><valor>N</valor></variable>
           <variable><clave>COMUNES_INTERESADO_ESCALERA</clave><valor>IZQ</valor></variable>
           <variable><clave>COMUNES_INTERESADO_REGISTRO</clave><valor></valor></variable>
@@ -182,11 +182,11 @@
     <datosEspecificos>
       <variables>
         <variable><clave>COPIA_AFIRMA</clave><valor>true</valor></variable>
-        <variable><clave>ACTIVIDAD_AJENA</clave><valor>N</valor></variable>
-        <variable><clave>FONDOS1</clave><valor>1</valor></variable>
+        <variable><clave>ACTIVIDAD_AJENA_RADIO</clave><valor>N</valor></variable>
+        <variable><clave>ACTIVIDAD_PROPIA_FONDOS</clave><valor>1</valor></variable>
         <variable><clave>CODIGO_CSV</clave><valor></valor></variable>
         <variable><clave>MSD5D2GA9</clave><valor>false</valor></variable>
-        <variable><clave>CELEBRA_CON</clave><valor>N</valor></variable>
+        <variable><clave>ACTIVIDAD_PROPIA_CELEBRA</clave><valor>N</valor></variable>
         <variable><clave>AUTOLIQUIDACION_DIGCONTROL</clave><valor></valor></variable>
         <variable><clave>EJERCICIO5</clave><valor></valor></variable>
         <variable><clave>CERTIFICADO</clave><valor>interesado</valor></variable>
@@ -203,16 +203,16 @@
         <variable><clave>DECLARA3</clave><valor>true</valor></variable>
         <variable><clave>FECHA_ANOTACION</clave><valor></valor></variable>
         <variable><clave>TIPO_PERSONA</clave><valor>Persona Fisica</valor></variable>
-        <variable><clave>EJERCICIO_ANUAL</clave><valor>2017</valor></variable>
+        <variable><clave>ACTIVIDAD_PROPIA_EJANUAL</clave><valor>2017</valor></variable>
         <variable><clave>AUTOLIQUIDACION_IDENTIFICADOR</clave><valor></valor></variable>
         <variable><clave>HGZHTT088</clave><valor>false</valor></variable>
         <variable><clave>CERTIFICADO_DIGITAL</clave><valor>true</valor></variable>
         <variable><clave>FECHA_REPRESENTA</clave><valor></valor></variable>
         <variable><clave>DNI_USUARIO</clave><valor>50048658Z</valor></variable>
         <variable><clave>AUTOLIQUIDACION_GESTOR</clave><valor></valor></variable>
-        <variable><clave>RECIBI_AYUDAS</clave><valor>N</valor></variable>
+        <variable><clave>ACTIVIDAD_PROPIA_REAYUDAS</clave><valor>N</valor></variable>
         <variable><clave>NUM_ANOTACION</clave><valor></valor></variable>
-        <variable><clave>ACTIVIDAD_PROPIA</clave><valor>S</valor></variable>
+        <variable><clave>ACTIVIDAD_PROPIA_RADIO</clave><valor>S</valor></variable>
         <variable><clave>DNI_REPRESENTA</clave><valor></valor></variable>
         <variable><clave>emplazamiento_codDir</clave><valor></valor></variable>
         <variable><clave>emplazamiento_claseDir</clave><valor></valor></variable>

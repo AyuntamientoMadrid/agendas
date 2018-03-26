@@ -120,7 +120,7 @@
                   <variable><clave>COMUNES_INTERESADO_NUMIDENT</clave><valor>B82916651</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_PORTAL</clave><valor></valor></variable>
                   <variable><clave>COMUNES_INTERESADO_FINALIDAD</clave><valor>Agencia de de public affairs especializada en políticas públicas y regulación en diversos sectores. Actividades específicas en relación con este Registro: Reuniones y contactos con el personal deL Ayuntamiento de Madrid la CNMC en representación de sus clientes. Participación en consultas públicas.</valor></variable>
-                  <variable><clave>COMUNES_INTERESADO_UE</clave><valor>true</valor></variable>
+                  <variable><clave>REGISTRO_INSCRIPCION_UE</clave><valor>true</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_PLANTA</clave><valor>2</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_CATEG</clave><valor>PRO</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_NOMBREVIABDC</clave><valor>CLAUDIO COELLO</valor></variable>
@@ -131,22 +131,22 @@
                   <variable><clave>COMUNES_INTERESADO_TIPODOC</clave><valor>N</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_ESCALERA</clave><valor></valor></variable>
                   <variable><clave>COMUNES_INTERESADO_TELEFONO</clave><valor></valor></variable>
-                  <variable><clave>COMUNES_INTERESADO_CNMC</clave><valor>true</valor></variable>
+                  <variable><clave>REGISTRO_INSCRIPCION_CNMC</clave><valor>true</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_PUERTA</clave><valor>A</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_CHECKSMS</clave><valor>true</valor></variable>
-                  <variable><clave>COMUNES_INTERESADO_GENERAL</clave><valor>true</valor></variable>
+                  <variable><clave>REGISTRO_INSCRIPCION_GENERAL</clave><valor>true</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_PROVINCIA</clave><valor>MADRID</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_PAIS</clave><valor>ESPAÑA</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_TIPOVIA</clave><valor>CALLE</valor></variable>
-                  <variable><clave>COMUNES_INTERESADO_OTROS</clave><valor>true</valor></variable>
+                  <variable><clave>REGISTRO_INSCRIPCION_OTROS</clave><valor>true</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_MOVIL</clave><valor>444555666</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_NUMERO</clave><valor>124</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_RAZONSOCIAL</clave><valor>Political Intelligence Spain, S.L</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_CODPOSTAL</clave><valor>28006</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_NOMBRE</clave><valor></valor></variable>
-                  <variable><clave>COMUNES_INTERESADO_INSCRIPCION</clave><valor>S</valor></variable>
+                  <variable><clave>REGISTRO_INSCRIPCION_RADIO</clave><valor>S</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_EMAIL</clave><valor>POLITICAL@MADRID.ES</valor></variable>
-                  <variable><clave>COMUNES_INTERESADO_OTROSDESC</clave><valor></valor></variable>
+                  <variable><clave>REGISTRO_INSCRIPCION_OTROSDESC</clave><valor></valor></variable>
                   <variable><clave>COMUNES_INTERESADO_WEB</clave><valor>www.political-intelligence.com/es</valor></variable>
                   <variable><clave>COMUNES_INTERESADO_NOMBREVIA</clave><valor>Claudio Coello</valor></variable>
               </variables>
@@ -181,7 +181,7 @@
       </datosComunes>
       <datosEspecificos>
           <variables>
-              <variable><clave>FONDOS1</clave><valor>4</valor></variable>
+              <variable><clave>ACTIVIDAD_PROPIA_FONDOS</clave><valor>4</valor></variable>
               <variable><clave>APELLIDO1_REPRESENTA4</clave><valor></valor></variable>
               <variable><clave>APELLIDO1_REPRESENTA3</clave><valor></valor></variable>
               <variable><clave>APELLIDO1_REPRESENTA2</clave><valor></valor></variable>
@@ -203,15 +203,15 @@
               <variable><clave>CERTIFICADO_DIGITAL</clave><valor>true</valor></variable>
               <variable><clave>AUTOLIQUIDACION_GESTOR</clave><valor></valor></variable>
               <variable><clave>NUM_ANOTACION</clave><valor></valor></variable>
-              <variable><clave>RECIBI_AYUDAS</clave><valor>N</valor></variable>
-              <variable><clave>ACTIVIDAD_PROPIA</clave><valor>S</valor></variable>
+              <variable><clave>ACTIVIDAD_PROPIA_REAYUDAS</clave><valor>N</valor></variable>
+              <variable><clave>ACTIVIDAD_PROPIA_RADIO</clave><valor>S</valor></variable>
               <variable><clave>COPIA_AFIRMA</clave><valor>true</valor></variable>
-              <variable><clave>ACTIVIDAD_AJENA</clave><valor>S</valor></variable>
+              <variable><clave>ACTIVIDAD_AJENA_RADIO</clave><valor>S</valor></variable>
               <variable><clave>CODIGO_CSV</clave><valor></valor></variable>
               <variable><clave>FONDOS_REPRESENTA2</clave><valor>3</valor></variable>
               <variable><clave>FONDOS_REPRESENTA3</clave><valor>4</valor></variable>
               <variable><clave>FONDOS_REPRESENTA</clave><valor>4</valor></variable>
-              <variable><clave>CELEBRA_CON</clave><valor>N</valor></variable>
+              <variable><clave>ACTIVIDAD_PROPIA_CELEBRA</clave><valor>N</valor></variable>
               <variable><clave>AUTOLIQUIDACION_DIGCONTROL</clave><valor></valor></variable>
               <variable><clave>CERTIFICADO</clave><valor>representante</valor></variable>
               <variable><clave>formulaVersion</clave><valor>4.1.0</valor></variable>
@@ -231,7 +231,7 @@
               <variable><clave>ENTIDAD_CON_REPRESENTA</clave><valor>S</valor></variable>
               <variable><clave>ENTIDAD_AYUDA_REPRESENTA</clave><valor>N</valor></variable>
               <variable><clave>TIPO_PERSONA</clave><valor>Empleado Publico</valor></variable>
-              <variable><clave>EJERCICIO_ANUAL</clave><valor>2017</valor></variable>
+              <variable><clave>ACTIVIDAD_PROPIA_EJANUAL</clave><valor>2017</valor></variable>
               <variable><clave>AUTOLIQUIDACION_IDENTIFICADOR</clave><valor></valor></variable>
               <variable><clave>FECHA_REPRESENTA</clave><valor>27/12/2017</valor></variable>
               <variable><clave>DNI_USUARIO</clave><valor>70572650W</valor></variable>

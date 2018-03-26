@@ -140,7 +140,7 @@
                     <variable><clave>COMUNES_INTERESADO_RAZONSOCIAL</clave><valor/></variable>
                     <variable><clave>COMUNES_INTERESADO_CODPOSTAL</clave><valor>28014</valor></variable>
                     <variable><clave>COMUNES_INTERESADO_NOMBRE</clave><valor>JOAQUÍN</valor></variable>
-                    <variable><clave>COMUNES_INTERESADO_OTROSDESC</clave><valor/></variable>
+                    <variable><clave>REGISTRO_INSCRIPCION_OTROSDESC</clave><valor/></variable>
                     <variable><clave>COMUNES_INTERESADO_EMAIL</clave><valor>mesegueryj@madrid.es</valor></variable>
                     <variable><clave>COMUNES_INTERESADO_WEB</clave><valor/></variable>
                     <variable><clave>COMUNES_INTERESADO_NOMBREVIA</clave><valor>alcalá</valor></variable>
@@ -218,7 +218,7 @@
                 <variable><clave>NOMBRE_REPRESENTA3</clave><valor/></variable>
                 <variable><clave>ENTIDAD_AYUDA5</clave><valor>S</valor></variable>
                 <variable><clave>TIPO_PERSONA</clave><valor>Empleado Publico</valor></variable>
-                <variable><clave>EJERCICIO_ANUAL</clave><valor/></variable>
+                <variable><clave>ACTIVIDAD_PROPIA_EJANUAL</clave><valor/></variable>
                 <variable><clave>AUTOLIQUIDACION_IDENTIFICADOR</clave><valor/></variable>
                 <variable><clave>FECHA_REPRESENTA</clave><valor>28/12/2017</valor></variable>
                 <variable><clave>DNI_USUARIO</clave><valor>12755026P</valor></variable>

@@ -79,7 +79,7 @@ module Admin
                       :fiscal_year, :range_fund, :subvention, :contract, :country,
                       :certain_term, :code_of_conduct_term, :gift_term, :lobby_term,
                       :inscription_date, :modification_date, :canceled_at,
-                      :own_lobby_activity, :foreign_lobby_activity, :check_email, :check_sms,
+                      :own_lobby_activity, :foreign_lobby_activity, :check_email, :check_sms, :other_registered_lobby,
                       legal_representant_attributes: [:identifier, :name, :first_surname, :second_surname, :phones, :email, :check_email, :check_sms, :_destroy],
                       user_attributes: [:id, :identifier, :first_name, :last_name, :role, :email, :active, :phones, :password, :password_confirmation],
                       represented_entities_attributes: [:id, :identifier, :name, :first_surname, :second_surname,

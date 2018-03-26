@@ -139,7 +139,7 @@
                     <variable><clave>COMUNES_INTERESADO_TELEFONO</clave><valor/></variable>
                     <variable><clave>COMUNES_INTERESADO_EMAIL</clave><valor/></variable>
                     <variable><clave>COMUNES_INTERESADO_CATEG</clave><valor>PRO</valor></variable>
-                    <variable><clave>COMUNES_INTERESADO_OTROSDESC</clave><valor/></variable>
+                    <variable><clave>REGISTRO_INSCRIPCION_OTROSDESC</clave><valor/></variable>
                     <variable><clave>COMUNES_INTERESADO_PUERTA</clave><valor/></variable>
                     <variable><clave>COMUNES_INTERESADO_WEB</clave><valor/></variable>
                     <variable><clave>COMUNES_INTERESADO_NOMBREVIA</clave><valor>ALCALA</valor></variable>
@@ -178,13 +178,13 @@
             <variables>
                 <variable><clave>COPIA_AFIRMA</clave><valor>true</valor></variable>
                 <variable><clave>CODLOBBY</clave><valor>123</valor></variable>
-                <variable><clave>FONDOS1</clave><valor>2</valor></variable>
+                <variable><clave>ACTIVIDAD_PROPIA_FONDOS</clave><valor>2</valor></variable>
                 <variable><clave>APELLIDO1_REPRESENTA4</clave><valor/></variable>
                 <variable><clave>APELLIDO1_REPRESENTA3</clave><valor/></variable>
                 <variable><clave>CODIGO_CSV</clave><valor/></variable>
                 <variable><clave>APELLIDO1_REPRESENTA2</clave><valor/></variable>
                 <variable><clave>DNI_REPRESENTA2</clave><valor/></variable>
-                <variable><clave>CELEBRA_CON</clave><valor>S</valor></variable>
+                <variable><clave>ACTIVIDAD_PROPIA_CELEBRA</clave><valor>S</valor></variable>
                 <variable><clave>DNI_REPRESENTA4</clave><valor/></variable>
                 <variable><clave>DNI_REPRESENTA3</clave><valor/></variable>
                 <variable><clave>AUTOLIQUIDACION_DIGCONTROL</clave><valor/></variable>
@@ -213,19 +213,19 @@
                 <variable><clave>FECHA_ANOTACION</clave><valor/></variable>
                 <variable><clave>NOMBRE_REPRESENTA3</clave><valor/></variable>
                 <variable><clave>TIPO_PERSONA</clave><valor>Empleado Publico</valor></variable>
-                <variable><clave>EJERCICIO_ANUAL</clave><valor>2017</valor></variable>
+                <variable><clave>ACTIVIDAD_PROPIA_EJANUAL</clave><valor>2017</valor></variable>
                 <variable><clave>AUTOLIQUIDACION_IDENTIFICADOR</clave><valor/></variable>
                 <variable><clave>CERTIFICADO_DIGITAL</clave><valor>true</valor></variable>
                 <variable><clave>FECHA_REPRESENTA</clave><valor/></variable>
                 <variable><clave>DNI_USUARIO</clave><valor>70572650W</valor></variable>
                 <variable><clave>AUTOLIQUIDACION_GESTOR</clave><valor/></variable>
                 <variable><clave>EJERCICIO_REPRESENTA2</clave><valor/></variable>
-                <variable><clave>RECIBI_AYUDAS</clave><valor>S</valor></variable>
+                <variable><clave>ACTIVIDAD_PROPIA_REAYUDAS</clave><valor>S</valor></variable>
                 <variable><clave>NUM_ANOTACION</clave><valor/></variable>
                 <variable><clave>EJERCICIO_REPRESENTA4</clave><valor/></variable>
                 <variable><clave>EJERCICIO_REPRESENTA3</clave><valor/></variable>
                 <variable><clave>DNI_REPRESENTA</clave><valor/></variable>
-                <variable><clave>ACTIVIDAD_PROPIA</clave><valor>S</valor></variable>
+                <variable><clave>ACTIVIDAD_PROPIA_RADIO</clave><valor>S</valor></variable>
             </variables>
         </datosEspecificos>
     </formulario>

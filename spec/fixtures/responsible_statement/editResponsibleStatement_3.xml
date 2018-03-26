@@ -140,7 +140,7 @@
                     <variable><clave>COMUNES_INTERESADO_RAZONSOCIAL</clave><valor>ASOCIACIÓN ESPAÑOLA DE COGENERACIÓN (ACOGEN)</valor></variable>
                     <variable><clave>COMUNES_INTERESADO_CODPOSTAL</clave><valor>28028</valor></variable>
                     <variable><clave>COMUNES_INTERESADO_NOMBRE</clave><valor/></variable>
-                    <variable><clave>COMUNES_INTERESADO_OTROSDESC</clave><valor/></variable>
+                    <variable><clave>REGISTRO_INSCRIPCION_OTROSDESC</clave><valor/></variable>
                     <variable><clave>COMUNES_INTERESADO_EMAIL</clave><valor>acogen@madrid.es</valor></variable>
                     <variable><clave>COMUNES_INTERESADO_WEB</clave><valor/></variable>
                     <variable><clave>COMUNES_INTERESADO_NOMBREVIA</clave><valor>BAVIERA</valor></variable>
@@ -217,12 +217,12 @@
                 <variable><clave>NOMBRE_REPRESENTA4</clave><valor/></variable>
                 <variable><clave>NOMBRE_REPRESENTA3</clave><valor/></variable>
                 <variable><clave>TIPO_PERSONA</clave><valor>Empleado Publico</valor></variable>
-                <variable><clave>EJERCICIO_ANUAL</clave><valor/></variable>
+                <variable><clave>ACTIVIDAD_PROPIA_EJANUAL</clave><valor/></variable>
                 <variable><clave>AUTOLIQUIDACION_IDENTIFICADOR</clave><valor/></variable>
                 <variable><clave>FECHA_REPRESENTA</clave><valor/></variable>
                 <variable><clave>DNI_USUARIO</clave><valor>70572650W</valor></variable>
                 <variable><clave>EJERCICIO_REPRESENTA2</clave><valor>2014</valor></variable>
-                <variable><clave>AYUDA1_REPRESENTA2</clave><valor>S</valor></variable>
+                <variable><clave>ENTIDAD_AYUDA_REPRESENTA2</clave><valor>S</valor></variable>
                 <variable><clave>EJERCICIO_REPRESENTA4</clave><valor/></variable>
                 <variable><clave>EJERCICIO_REPRESENTA3</clave><valor/></variable>
                 <variable><clave>DNI_REPRESENTA</clave><valor>2</valor></variable>

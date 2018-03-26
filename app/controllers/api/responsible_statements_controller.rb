@@ -154,13 +154,14 @@ module Api
       description    = key_content(doc, "COMUNES_INTERESADO_FINALIDAD")
       web            = key_content(doc, "COMUNES_INTERESADO_WEB")
       registered_lobby_ids = get_registered_lobby_ids(doc)
+      other_registered_lobby = key_content(doc, "REGISTRO_INSCRIPCION_OTROS") == "true" ? key_content(doc, "REGISTRO_INSCRIPCION_OTROSDESC") : nil
       check_email    = get_check(doc, "COMUNES_INTERESADO_CHECKEMAIL")
       check_sms      = get_check(doc, "COMUNES_INTERESADO_CHECKSMS")
       organization_params =  organization_params.merge(identifier: identifier, name: name, first_surname: first_surname, second_surname: second_surname,
                                                        country: country, province: province, town: town, address_type: address_type, address: address,
                                                        number_type: number_type, number: number, gateway: gateway, stairs: stairs, floor: floor, door: door, postal_code: postal_code,
                                                        email: email, phones: phones, category: category, description: description, web: web, registered_lobby_ids: registered_lobby_ids,
-                                                       check_email: check_email, check_sms: check_sms, entity_type: :lobby)
+                                                       check_email: check_email, check_sms: check_sms, other_registered_lobby: other_registered_lobby, entity_type: :lobby)
     end
 
     def add_legal_representant(doc, organization_params)
@@ -198,17 +199,17 @@ module Api
     end
 
     def add_own_lobby_activity(doc, organization_params)
-      own_lobby_activity = get_boolean_field_value(doc, "ACTIVIDAD_PROPIA")
-      fiscal_year        = key_content(doc, "EJERCICIO_ANUAL")
-      range_fund         = get_range_fund(doc, "FONDOS1")
-      contract           = get_boolean_field_value(doc, "RECIBI_AYUDAS")
-      subvention         = get_boolean_field_value(doc, "CELEBRA_CON")
+      own_lobby_activity = get_boolean_field_value(doc, "ACTIVIDAD_PROPIA_RADIO")
+      fiscal_year        = key_content(doc, "ACTIVIDAD_PROPIA_EJANUAL")
+      range_fund         = get_range_fund(doc, "ACTIVIDAD_PROPIA_FONDOS")
+      contract           = get_boolean_field_value(doc, "ACTIVIDAD_PROPIA_REAYUDAS")
+      subvention         = get_boolean_field_value(doc, "ACTIVIDAD_PROPIA_CELEBRA")
 
       organization_params =  organization_params.merge(own_lobby_activity: own_lobby_activity, fiscal_year: fiscal_year, range_fund: range_fund, contract: contract, subvention: subvention)
     end
 
     def add_foreign_lobby_activity(doc, organization_params)
-      foreign_lobby_activity = get_boolean_field_value(doc, "ACTIVIDAD_AJENA")
+      foreign_lobby_activity = get_boolean_field_value(doc, "ACTIVIDAD_AJENA_RADIO")
       represented_entities_attributes = {}
       #RepresentedEntity 1
       represented_entities_attributes = add_represented_entity(doc, represented_entities_attributes, "DNI_REPRESENTA", "NOMBRE_REPRESENTA", "APELLIDO1_REPRESENTA", "APELLIDO2_REPRESENTA", "FECHA_REPRESENTA", "EJERCICIO_REPRESENTA", "FONDOS_REPRESENTA", "ENTIDAD_AYUDA_REPRESENTA", "ENTIDAD_CON_REPRESENTA", "MODPERSONA1", "1")
@@ -349,12 +350,12 @@ module Api
 
     def get_registered_lobby_ids(doc)
       registered_lobby_ids = [RegisteredLobby.where(name: "Ninguno").first.id]
-      if key_content(doc, "COMUNES_INTERESADO_INSCRIPCION") == "S"
+      if key_content(doc, "REGISTRO_INSCRIPCION_RADIO") == "S"
         ids = []
-        ids << RegisteredLobby.where(name: "Generalidad catalunya").first.id if key_content(doc, "COMUNES_INTERESADO_GENERAL") == "true"
-        ids << RegisteredLobby.where(name: "CNMC").first.id                  if key_content(doc, "COMUNES_INTERESADO_CNMC") == "true"
-        ids << RegisteredLobby.where(name: "Unión Europea").first.id         if key_content(doc, "COMUNES_INTERESADO_UE") == "true"
-        ids << RegisteredLobby.where(name: "Otro").first.id                  if key_content(doc, "COMUNES_INTERESADO_OTROS") == "true"
+        ids << RegisteredLobby.where(name: "Generalidad catalunya").first.id if key_content(doc, "REGISTRO_INSCRIPCION_GENERAL") == "true"
+        ids << RegisteredLobby.where(name: "CNMC").first.id                  if key_content(doc, "REGISTRO_INSCRIPCION_CNMC") == "true"
+        ids << RegisteredLobby.where(name: "Unión Europea").first.id         if key_content(doc, "REGISTRO_INSCRIPCION_UE") == "true"
+        ids << RegisteredLobby.where(name: "Otro").first.id                  if key_content(doc, "REGISTRO_INSCRIPCION_OTROS") == "true"
         registered_lobby_ids = ids
       end
       return registered_lobby_ids
