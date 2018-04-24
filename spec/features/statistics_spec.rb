@@ -138,7 +138,9 @@ feature 'Statistics' do
       scenario 'Should show total amount of published events' do
         create(:event)
         create(:event, published_at: Date.tomorrow)
-        create(:event, published_at: Date.yesterday)
+        event3 = create(:event, published_at: Date.yesterday, status: :canceled)
+
+        event3.update(status: :canceled)
 
         visit statistics_path
 

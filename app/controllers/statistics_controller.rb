@@ -5,8 +5,8 @@ class StatisticsController < ApplicationController
     @lobbies_interests = Interest.all.map { |i| [i.name, i.organizations.lobby.count] }.to_h
     @lobbies = Organization.lobby.active
     @active_agent_count = Agent.active.from_active_organizations.count
-    @event_lobby_activity = Event.where("lobby_activity").count
-    @events_count = Event.published.count
+    @event_lobby_activity = Event.where("lobby_activity").where(status: [1, 2]).count
+    @events_count = Event.where(status: [1, 2]).count
     @holders_count = Holder.count
   end
 
