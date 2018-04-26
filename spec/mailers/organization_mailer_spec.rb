@@ -41,7 +41,7 @@ describe OrganizationMailer, type: :mailer do
     end
 
     it "should include features of lobbies registry" do
-      expect(mail.body).to match(I18n.t('mailers.create_organization.text8'))
+      expect(mail.body).to include(I18n.t('mailers.create_organization.text8'))
       expect(mail.body).to include(I18n.t('mailers.create_organization.text9'))
       expect(mail.body).to match(I18n.t('mailers.create_organization.text10'))
       expect(mail.body).to match(I18n.t('mailers.create_organization.text11'))
