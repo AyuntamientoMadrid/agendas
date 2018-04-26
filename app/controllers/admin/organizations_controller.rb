@@ -97,7 +97,7 @@ module Admin
         Organization.search do
           fulltext params[:keyword] if params[:keyword].present?
           order_by :created_at, :desc
-          paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 1000 : 10
+          paginate page: params[:format].present? ? 1 : params[:page] || 1, per_page: params[:format].present? ? 5000 : 10
         end
       end
 
