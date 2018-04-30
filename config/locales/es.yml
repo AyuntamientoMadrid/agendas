@@ -182,9 +182,8 @@ es:
     agents: "Personas inscritas para reunirse"
     public_agendas: "Información relativa a las agendas públicas"
     lobby_events: "Eventos con actividad de lobby"
-    total_events: "Total de eventos"
+    total_events: "Total de eventos (desde el 28 de diciembre de 2017)"
     amount_public_agendas: "Total de agendas públicas"
     category: "Categoría"
     interest: "Interés"
     amount: "Cantidad"
-
