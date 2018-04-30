@@ -9,8 +9,8 @@ describe EventsExporter do
 
     describe "#headers" do
 
-      it "Should contain twenty-five colums headers" do
-        expect(exporter.headers.size).to eq(9)
+      it "Should contain eight colums headers" do
+        expect(exporter.headers.size).to eq(8)
       end
 
       it "Should return correct headers translations" do
@@ -32,7 +32,6 @@ describe EventsExporter do
         expect(row).to include(event.description)
         expect(row).to include(I18n.l(event.scheduled, format: :short))
         expect(row).to include(I18n.l(event.updated_at, format: :short))
-        expect(row).to include(event.user_name)
         expect(row).to include(event.position_names)
         expect(row).to include(event.location)
         expect(row).to include(event.organization_name)
@@ -46,8 +45,8 @@ describe EventsExporter do
 
     describe "#headers" do
 
-      it "Should contain twenty-five colums headers" do
-        expect(exporter.headers.size).to eq(25)
+      it "Should contain twenty-four colums headers" do
+        expect(exporter.headers.size).to eq(24)
       end
 
       it "Should return correct headers translations" do
@@ -69,7 +68,6 @@ describe EventsExporter do
         expect(row).to include(event.description)
         expect(row).to include(I18n.l(event.scheduled, format: :short))
         expect(row).to include(I18n.l(event.updated_at, format: :short))
-        expect(row).to include(event.user_name)
         expect(row).to include(event.position_names)
         expect(row).to include(event.location)
         expect(row).to include("Aceptado")

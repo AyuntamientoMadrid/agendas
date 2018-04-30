@@ -9,10 +9,10 @@ class EventsExporter
 
   PRIVATE_FIELDS = ['status', 'notes', 'canceled_reasons', 'published_at', 'canceled_at', 'lobby_activity',
                     'lobby_scheduled', 'general_remarks', 'lobby_contact_firstname',
-                    'accepted_at', 'declined_reasons', 'declined_at',
+                    'accepted_at', 'declined_reasons', 'declined_at', 'user_name',
                     'lobby_contact_lastname', 'lobby_contact_email', 'lobby_contact_phone', 'manager_general_remarks'].freeze
 
-  FIELDS = ['title', 'description', 'scheduled', 'updated_at', 'user_name', 'holder_name', 'position_names', 'location', 'status',
+  FIELDS = ['title', 'description', 'scheduled', 'updated_at', 'holder_name', 'position_names', 'location', 'status',
             'notes', 'canceled_reasons', 'published_at', 'canceled_at', 'lobby_activity',
             'organization_name', 'lobby_scheduled', 'general_remarks', 'lobby_contact_firstname',
             'accepted_at', 'declined_reasons', 'declined_at',
@@ -42,7 +42,7 @@ class EventsExporter
   end
 
   def save_csv(path)
-    CSV.open(path, 'w', col_sep: ';', force_quotes: true, encoding: "ISO-8859-1") do |csv|
+    CSV.open(path, 'w', col_sep: ';', force_quotes: true, encoding: "UTF-8") do |csv|
       csv << windows_headers
       Event.find_each do |event|
         csv << windows_event_row(event)
@@ -51,7 +51,7 @@ class EventsExporter
   end
 
   def save_xls(path)
-    Spreadsheet.client_encoding = 'ISO-8859-1'
+    Spreadsheet.client_encoding = 'UTF-8'
     book = Spreadsheet::Workbook.new
     sheet = book.create_worksheet
     sheet.row(0).default_format = Spreadsheet::Format.new color: :blue, weight: :bold
@@ -79,7 +79,7 @@ class EventsExporter
   private
 
     def windows_array(values)
-      values.map { |v| v.to_s.encode("ISO-8859-1", invalid: :replace, undef: :replace, replace: '') }
+      values.map { |v| v.to_s.encode("UTF-8", invalid: :replace, undef: :replace, replace: '') }
     end
 
     def process_field(event, field)
