@@ -55,6 +55,7 @@ class Organization < ActiveRecord::Base
   scope :validated, -> { where('invalidated_at is null') }
   scope :lobbies, -> { where('entity_type = ?', 2) }
   scope :full_like, ->(name) { where("identifier ilike ? OR name ilike ? OR first_surname ilike ?", name, name, name) }
+  scope :with_accepted_events, -> { joins(:events).where("events.status IN (?)", [1,2]) }
 
   def entity_type_id
     Organization.entity_types[entity_type]

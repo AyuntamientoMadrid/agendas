@@ -7,6 +7,7 @@ class OrganizationsController < ApplicationController
   def index
     @organizations = search(params)
     @paginated_organizations = Organization.lobbies.where(id: @organizations.hits.map(&:primary_key))
+    @paginated_organizations = @paginated_organizations.with_accepted_events if params[:lobby_activity].present?
     @paginated_organizations = @paginated_organizations.reorder(sorting_option(params[:order]))
 
   end
