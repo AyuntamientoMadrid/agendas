@@ -47,6 +47,8 @@ $(function(){
   $('.fdatepicker').fdatepicker({
     format: "<%= I18n.translate('datepicker-format-time') %>",
     pickTime: true,
+    startDate: new Date("2015"),
+    endDate: new Date((new Date().getFullYear() + 2).toString()),
     language: "<%= I18n.locale %>",
     disableDblClickSelection: true,
     weekStart: 1
