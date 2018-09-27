@@ -198,7 +198,41 @@ es:
     cancel_only_accepted: solo se pueden cancelar eventos aceptados
     not_allowed_empty_reasons: Debe dar alguna razón de inhabilitación
     invalidated_reasons: Razon de inhabilitacion
-
+    
+    newsletters:
+      create_success: Newsletter creada correctamente
+      update_success: Newsletter actualizada correctamente
+      send_success: Newsletter enviada correctamente
+      delete_success: Newsletter borrada correctamente
+      index:
+        title: Envío de newsletters
+        new_newsletter: Crear newsletter
+        subject: Asunto
+        segment_recipient: Destinatarios
+        sent: Enviado
+        actions: Acciones
+        draft: Borrador
+        edit: Editar
+        delete: Borrar
+        preview: Previsualizar
+        empty_newsletters: No hay newsletters para mostrar
+      new:
+        title: Nueva newsletter
+        from: Dirección de correo electrónico que aparecerá como remitente de la newsletter
+      edit:
+        title: Editar newsletter
+      show:
+        title: Vista previa de newsletter
+        send: Enviar
+        affected_users: (%{n} usuarios afectados)
+        sent_at: Enviado
+        subject: Asunto
+        segment_recipient: Destinatarios
+        from: Dirección de correo electrónico que aparecerá como remitente de la newsletter
+        body: Contenido del email
+        body_help_text: Así es como verán el email los usuarios
+        send_alert: ¿Estás seguro/a de que quieres enviar esta newsletter a %{n} usuarios?
   backend_header:
     open_gov: "Gobierno abierto"
     administracion: "Administración"
+  

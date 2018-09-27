@@ -1,0 +1,55 @@
+<%= link_to t('backend.back'), 
+    admin_newsletters_path , 
+    class: "button tiny radius" %>
+
+<h2><%= t("backend.newsletters.show.title") %></h2>
+
+<% recipients_count = @newsletter.list_of_recipient_emails.count %>
+
+  <div class="small-12 column callout highlight">
+    <div class="small-12 medium-2 column">
+      <strong><%= t("backend.newsletters.show.sent_at") %></strong><br>
+      <% if @newsletter.draft? %>
+        <%= t("backend.newsletters.index.draft") %>
+      <% else %>
+        <%= l @newsletter.sent_at.to_date %>
+      <% end %>
+    </div>
+    <div class="small-12 medium-4 column">
+      <strong><%= t("backend.newsletters.show.subject") %></strong><br>
+      <%= @newsletter.subject %>
+    </div>
+    <div class="small-12 column">
+      <strong><%= t("backend.newsletters.show.segment_recipient") %></strong><br>
+      <%= t("backend.newsletters.show.affected_users", n: recipients_count) %>
+    </div>
+  </div>
+
+  <div class="small-12 column">
+    <strong><%= t("backend.newsletters.show.body") %></strong>
+    <p class="help-text" id="phase-description-help-text">
+      <%= t("backend.newsletters.show.body_help_text") %>
+    </p>
+  </div>
+
+  <div class="newsletter-body-content">
+
+    <table cellpadding="0" cellspacing="0" border="0" style="background: #fff; margin: 0 auto; max-width: 700px; width:100%;">
+      <tbody>
+        <tr>
+          <%= render file: "app/views/user_mailer/newsletter.html.erb" %>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<% if @newsletter.draft? %>
+  <%= link_to t("backend.newsletters.show.send"),
+              deliver_admin_newsletter_path(@newsletter),
+              "data-alert": t("backend.newsletters.show.send_alert", n: recipients_count),
+              method: :post,
+              id: "js-send-newsletter-alert",
+              class: "button success" %>
+<% end %>

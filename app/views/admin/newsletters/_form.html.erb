@@ -1,0 +1,23 @@
+<%= form_for [:admin, @newsletter] do |f| %>
+
+  <% if @newsletter.errors.any? %>
+    <div class="panel callout radius">
+      <strong>
+        <%= t('activerecord.errors.template.header',
+            :model => Newsletter.model_name.human, 
+            :count => @newsletter.errors.count) %></strong>
+      <ul>
+        <% @newsletter.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.text_field :subject %>
+  <%= f.text_area :body %>
+
+  <div class="margin-top">
+    <%= f.submit class: "button success" %>
+  </div>
+<% end %>

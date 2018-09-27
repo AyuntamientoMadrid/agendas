@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180106204752) do
+ActiveRecord::Schema.define(version: 20180926144636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -198,6 +198,14 @@ ActiveRecord::Schema.define(version: 20180106204752) do
   add_index "manages", ["holder_id"], name: "index_manages_on_holder_id", using: :btree
   add_index "manages", ["user_id"], name: "index_manages_on_user_id", using: :btree
 
+  create_table "newsletters", force: :cascade do |t|
+    t.string   "subject"
+    t.string   "body"
+    t.datetime "sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "organization_interests", force: :cascade do |t|
     t.integer  "organization_id"
     t.integer  "interest_id"
@@ -259,8 +267,8 @@ ActiveRecord::Schema.define(version: 20180106204752) do
     t.string   "approach"
     t.datetime "invalidated_at"
     t.datetime "canceled_at"
-    t.string   "invalidated_reasons"
     t.string   "country"
+    t.string   "invalidated_reasons"
     t.date     "modification_date"
     t.boolean  "gift_term"
     t.boolean  "lobby_term"
