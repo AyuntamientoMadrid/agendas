@@ -54,6 +54,7 @@ group :development do
   gem 'rails_layout', '~> 1.0.26'
   gem 'spring-commands-rspec', '~> 1.0.4'
   gem 'web-console', '~> 2.0'
+  gem 'rinku', '~> 2.0.2'
 end
 
 group :development, :test do
