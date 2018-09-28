@@ -199,7 +199,9 @@ es:
     not_allowed_empty_reasons: Debe dar alguna razón de inhabilitación
     invalidated_reasons: Razon de inhabilitacion
     
+
     newsletters:
+      title: Envío de newsletters
       create_success: Newsletter creada correctamente
       update_success: Newsletter actualizada correctamente
       send_success: Newsletter enviada correctamente

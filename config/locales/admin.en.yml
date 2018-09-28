@@ -184,6 +184,7 @@ en:
     not_allowed_empty_reasons: You should give some reasons to inhabilitate the organization
 
     newsletters:
+      title: Send newsletters
       create_success: Newsletter created successfully
       update_success: Newsletter updated successfully
       send_success: Newsletter sent successfully

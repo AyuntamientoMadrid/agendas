@@ -109,7 +109,9 @@
       </li>
     <% end %>
     <li class="<%= active_menu('admin/newsletters') %>">
-        <%= link_to t("admin.menu.newsletters"), admin_newsletters_path %>
+      <%= link_to admin_newsletters_path do %>
+        <i class="fi-mail size-18"> <%= t("backend.newsletters.title") %></i>
+      <% end %>
     </li>
     <li>
       <%= link_to help_by_role(current_user), target: "_blank" do %>
