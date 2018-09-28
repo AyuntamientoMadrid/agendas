@@ -198,7 +198,6 @@ es:
     cancel_only_accepted: solo se pueden cancelar eventos aceptados
     not_allowed_empty_reasons: Debe dar alguna razón de inhabilitación
     invalidated_reasons: Razon de inhabilitacion
-    
 
     newsletters:
       title: Envío de newsletters
@@ -221,6 +220,8 @@ es:
       new:
         title: Nueva newsletter
         from: Dirección de correo electrónico que aparecerá como remitente de la newsletter
+        body: Contenido
+        subject: Asunto
       edit:
         title: Editar newsletter
       show:
@@ -237,4 +238,3 @@ es:
   backend_header:
     open_gov: "Gobierno abierto"
     administracion: "Administración"
-  
