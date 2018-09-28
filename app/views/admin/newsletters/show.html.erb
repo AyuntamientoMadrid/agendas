@@ -19,7 +19,10 @@
       <strong><%= t("backend.newsletters.show.subject") %></strong><br>
       <%= @newsletter.subject %>
     </div>
-    <div class="small-12 column">
+    <div class="small-12 medium-4 column">
+      <strong><%= t("backend.newsletters.show.category") %></strong>
+      Asociaciones/Fundaciones
+    </div>
     <div class="small-12 column margin-top">
       <strong><%= t("backend.newsletters.show.segment_recipient") %></strong><br>
       <%= t("backend.newsletters.show.affected_users", n: recipients_count) %>

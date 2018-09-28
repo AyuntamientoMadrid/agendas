@@ -1,5 +1,10 @@
 <%= form_for [:admin, @newsletter] do |f| %>
 
+  <label><%= t('backend.newsletters.new.category') %></label>
+  <select>
+    <option><%= t('backend.newsletters.new.select_category') %></option>
+  </select>
+
   <% if @newsletter.errors.any? %>
     <div class="panel alert-box alert radius">
       <strong>

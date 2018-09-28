@@ -205,6 +205,8 @@ en:
         title: New newsletter
         from: E-mail address that will appear as sending the newsletter
         body: Body
+        category: Category
+        select_category: Select a category
         subject: Subject
       edit:
         title: Edit newsletter
@@ -219,6 +221,7 @@ en:
         body: Email content
         body_help_text: This is how the users will see the email
         send_alert: Are you sure you want to send this newsletter to %{n} users?
+        category: Category
 
   backend_header:
     open_gov: "Gobierno abierto"
