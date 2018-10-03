@@ -41,12 +41,16 @@ feature "Admin newsletter emails" do
   end
 
   scenario "Create" do
+    culture = create(:interest)
+
     visit admin_newsletters_path
 
     click_link "New newsletter"
 
     fill_in_newsletter_form(subject: "This is a subject",
-                            body: "This is a body" )
+                            body: "This is a body",
+                            interest: culture.name)
+
     click_button "Create Newsletter"
 
     expect(page).to have_content "Newsletter created successfully"
@@ -55,6 +59,7 @@ feature "Admin newsletter emails" do
   end
 
   scenario "Update" do
+    culture = create(:interest)
     newsletter = create(:newsletter)
 
     visit admin_newsletters_path
@@ -63,11 +68,11 @@ feature "Admin newsletter emails" do
     end
 
     fill_in_newsletter_form(subject: "This is an updated subject",
-                            body: "This is an updated body" )
+                            body: "This is an updated body",
+                            interest: culture.name )
     click_button "Update Newsletter"
 
     expect(page).to have_content "Newsletter updated successfully"
-    expect(page).to have_content "This is an updated subject"
     expect(page).to have_content "This is an updated subject"
   end
 
@@ -101,33 +106,37 @@ feature "Admin newsletter emails" do
     expect(page).to have_content error_message
   end
 
-  scenario "Send newsletter email to admin users" do
-    admin_user1 = create(:user, :admin)
-    admin_user2 = create(:user, :admin)
-    standard_user1 = create(:user)
-    standard_user2 = create(:user)
+  scenario "Send newsletter email to organization with a certain interest", :focus do
+    culture = create(:interest, name: 'Culture')
+    health  = create(:interest, name: 'Health')
+
+    organization1 = create(:organization)
+    organization2 = create(:organization)
+    organization3 = create(:organization)
+
+    organization1.interests << culture
+    organization2.interests << culture
     clear_emails
 
-    login_as(admin_user1)
     visit new_admin_newsletter_path
 
-    fill_in "newsletter_subject", with: "Newsletter for admins"
-    fill_in "newsletter_body", with: "Beta testing newsletters"
+    fill_in "newsletter_subject", with: "Newsletter about culture"
+    fill_in "newsletter_body", with: "There are many events coming up!"
+    select culture.name, from: "newsletter_interest_id"
     click_button "Create Newsletter"
 
     expect(page).to have_content "Newsletter created successfully"
 
     click_link "Send"
 
-    expect(emails_sent_to(admin_user1.email).count).to eq 1
-    expect(emails_sent_to(admin_user2.email).count).to eq 1
-    expect(emails_sent_to(standard_user1.email).count).to eq 0
-    expect(emails_sent_to(standard_user2.email).count).to eq 0
+    expect(emails_sent_to(organization1.email).count).to eq 1
+    expect(emails_sent_to(organization2.email).count).to eq 1
+    expect(emails_sent_to(organization3.email).count).to eq 0
 
-    email = first_email_sent_to(admin_user1.email)
-    expect(email.subject).to eq('Newsletter for admins')
+    email = first_email_sent_to(organization1.email)
+    expect(email.subject).to eq('Newsletter about culture')
     expect(email.from).to eq(['no-reply@madrid.es'])
-    expect(email.body).to include('Beta testing newsletters')
+    expect(email.body).to include('There are many events coming up!')
   end
 
 end

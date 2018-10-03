@@ -1,10 +1,14 @@
 class Newsletter < ActiveRecord::Base
+  belongs_to :interest
 
   validates :subject, presence: true
   validates :body, presence: true
+  validates :interest_id, presence: true
 
   def list_of_recipient_emails
-    User.admin.pluck(:email)
+    Organization.where(organization_interests: { interest: interest })
+    .joins(:organization_interests)
+    .pluck(:email)
   end
 
   def draft?

@@ -1,8 +1,9 @@
 <%= form_for [:admin, @newsletter] do |f| %>
 
   <label><%= t('backend.newsletters.new.category') %></label>
-  <select>
-    <option><%= t('backend.newsletters.new.select_category') %></option>
+  <%= f.select :interest_id, 
+               Interest.all.collect { |interest| [interest.name, interest.id] },
+               prompt: t('backend.newsletters.new.select_category') %>
   </select>
 
   <% if @newsletter.errors.any? %>

@@ -62,7 +62,7 @@ module Admin
     private
 
       def newsletter_params
-        params.require(:newsletter).permit(:subject, :segment_recipient, :from, :body)
+        params.require(:newsletter).permit(:subject, :segment_recipient, :from, :body, :interest_id)
       end
   end
 end

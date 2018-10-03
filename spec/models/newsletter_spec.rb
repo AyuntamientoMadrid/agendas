@@ -19,42 +19,70 @@ describe Newsletter do
 
   describe '#list_of_recipient_emails' do
 
-    it 'returns list of recipients excluding users that are not admins' do
-      admin_user1 = create(:user, :admin)
-      admin_user2 = create(:user, :admin)
-      standard_user1 = create(:user)
+    it 'returns list of recipients that have a certain interest', :focus do
+      culture = create(:interest, name: 'Culture')
+      health  = create(:interest, name: 'Health')
 
-      expect(newsletter.list_of_recipient_emails.count).to eq(2)
+      organization1 = create(:organization)
+      organization2 = create(:organization)
+      organization3 = create(:organization)
 
-      expect(newsletter.list_of_recipient_emails).to include(admin_user1.email)
-      expect(newsletter.list_of_recipient_emails).to include(admin_user2.email)
-      expect(newsletter.list_of_recipient_emails).to_not include(standard_user1.email)
+      organization1.interests << [culture, health]
+      organization2.interests << culture
+
+      newsletter.update(interest: culture)
+
+      recipients = newsletter.list_of_recipient_emails
+
+      expect(recipients.count).to eq(2)
+      expect(recipients).to include(organization1.email)
+      expect(recipients).to include(organization2.email)
+
+      newsletter.update(interest: health)
+
+      recipients = newsletter.list_of_recipient_emails
+      expect(recipients.count).to eq(1)
+      expect(recipients).to eq([organization1.email])
     end
 
   end
 
   describe "#deliver" do
 
-    it "sends an email with the newsletter to every recipient" do
-      admin_user1 = create(:user, :admin)
-      admin_user2 = create(:user, :admin)
-      standard_user1 = create(:user)
+    it "sends an email to every recipient with a certain interest" do
+      interest = create(:interest)
+
+      organization1 = create(:organization)
+      organization2 = create(:organization)
+      organization3 = create(:organization)
+
+      organization1.interests << interest
+      organization2.interests << interest
       clear_emails
 
-      create(:newsletter).deliver
+      create(:newsletter, interest: interest).deliver
 
-      expect(emails_sent_to(admin_user1.email).count).to eq 1
-      expect(emails_sent_to(admin_user2.email).count).to eq 1
-      expect(emails_sent_to(standard_user1.email).count).to eq 0
+      expect(emails_sent_to(organization1.email).count).to eq 1
+      expect(emails_sent_to(organization2.email).count).to eq 1
+      expect(emails_sent_to(organization3.email).count).to eq 0
       expect(ActionMailer::Base.deliveries.count).to eq(2)
     end
 
     it "skips invalid emails" do
+      interest = create(:interest)
+      newsletter = create(:newsletter, interest: interest)
+
+      organization1 = create(:organization)
+      organization2 = create(:organization)
+
+      organization1.interests << interest
+      organization2.interests << interest
+
       valid_email = "john@gmail.com"
       invalid_email = "john@gmail..com"
 
-      valid_email_user = create(:user, :admin, email: valid_email)
-      invalid_email_user = create(:user, :admin, email: invalid_email)
+      organization1.update(email: valid_email)
+      organization2.update(email: invalid_email)
       clear_emails
 
       newsletter.deliver

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180926144636) do
+ActiveRecord::Schema.define(version: 20181003185628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -202,9 +202,12 @@ ActiveRecord::Schema.define(version: 20180926144636) do
     t.string   "subject"
     t.string   "body"
     t.datetime "sent_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "interest_id", null: false
   end
+
+  add_index "newsletters", ["interest_id"], name: "index_newsletters_on_interest_id", using: :btree
 
   create_table "organization_interests", force: :cascade do |t|
     t.integer  "organization_id"
@@ -372,6 +375,7 @@ ActiveRecord::Schema.define(version: 20180926144636) do
   add_foreign_key "legal_representants", "organizations"
   add_foreign_key "manages", "holders"
   add_foreign_key "manages", "users"
+  add_foreign_key "newsletters", "interests"
   add_foreign_key "organization_interests", "interests"
   add_foreign_key "organization_interests", "organizations"
   add_foreign_key "organization_registered_lobbies", "organizations"
