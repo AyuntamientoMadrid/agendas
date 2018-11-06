@@ -19,7 +19,7 @@ describe Newsletter do
 
   describe '#list_of_recipient_emails' do
 
-    it 'returns list of recipients that have a certain interest', :focus do
+    it 'returns list of recipients that have a certain interest' do
       culture = create(:interest, name: 'Culture')
       health  = create(:interest, name: 'Health')
 
@@ -90,6 +90,32 @@ describe Newsletter do
       expect(emails_sent_to(valid_email).count).to eq 1
       expect(emails_sent_to(invalid_email).count).to eq 0
       expect(ActionMailer::Base.deliveries.count).to eq(1)
+    end
+
+    it "stores a log of the users that have received the newsletter" do
+      interest = create(:interest)
+
+      organization1 = create(:organization)
+      organization2 = create(:organization)
+      organization3 = create(:organization)
+
+      organization1.interests << interest
+      organization2.interests << interest
+      clear_emails
+
+      newsletter = create(:newsletter, interest: interest)
+      newsletter.deliver
+
+      expect(Log.count).to eq 2
+
+      organizations = Log.pluck(:organization_id)
+      expect(organizations).to include(organization1.id)
+      expect(organizations).to include(organization2.id)
+
+      log = Log.first
+      expect(log.organization_id).to eq(organization1.id)
+      expect(log.action).to eq("email")
+      expect(log.actionable).to eq(newsletter)
     end
 
   end

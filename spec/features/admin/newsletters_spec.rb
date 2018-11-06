@@ -106,7 +106,7 @@ feature "Admin newsletter emails" do
     expect(page).to have_content error_message
   end
 
-  scenario "Send newsletter email to organization with a certain interest", :focus do
+  scenario "Send newsletter email to organization with a certain interest" do
     culture = create(:interest, name: 'Culture')
     health  = create(:interest, name: 'Health')
 

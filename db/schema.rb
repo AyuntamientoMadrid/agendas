@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181003185628) do
+ActiveRecord::Schema.define(version: 20181106194642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,6 +187,18 @@ ActiveRecord::Schema.define(version: 20181003185628) do
   end
 
   add_index "legal_representants", ["organization_id"], name: "index_legal_representants_on_organization_id", using: :btree
+
+  create_table "logs", force: :cascade do |t|
+    t.integer  "organization_id"
+    t.string   "action"
+    t.integer  "actionable_id"
+    t.string   "actionable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "logs", ["actionable_id", "actionable_type"], name: "index_logs_on_actionable_id_and_actionable_type", using: :btree
+  add_index "logs", ["organization_id"], name: "index_logs_on_organization_id", using: :btree
 
   create_table "manages", force: :cascade do |t|
     t.integer  "user_id"
