@@ -18,8 +18,12 @@ class Newsletter < ActiveRecord::Base
   def deliver
     list_of_recipient_emails.each do |recipient_email|
       if valid_email?(recipient_email)
-        UserMailer.newsletter(self, recipient_email).deliver_now
-        log_delivery(recipient_email)
+        begin
+          UserMailer.newsletter(self, recipient_email).deliver_now
+          log_delivery(recipient_email)
+        rescue
+          log_delivery(recipient_email, :email_error)
+        end
       end
     end
   end
@@ -30,8 +34,8 @@ class Newsletter < ActiveRecord::Base
       email.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i)
     end
 
-    def log_delivery(recipient_email)
+    def log_delivery(recipient_email, action=:email)
       organization = Organization.where(email: recipient_email).first
-      Log.activity(organization, :email, self)
+      Log.activity(organization, action, self)
     end
 end

@@ -118,5 +118,29 @@ describe Newsletter do
       expect(log.actionable).to eq(newsletter)
     end
 
+    it "continues sending the newsletter if there is an exception in a delivery" do
+      allow_any_instance_of(Newsletter)
+      .to receive(:list_of_recipient_emails)
+      .and_return(["john@gmail.com", nil, "isable@gmail.com"])
+
+      allow_any_instance_of(Newsletter)
+      .to receive(:valid_email?)
+      .and_return(true)
+
+      clear_emails
+      newsletter = create(:newsletter)
+      newsletter.deliver
+
+      expect(emails_sent_to("john@gmail.com").count).to eq 1
+      expect(emails_sent_to("isable@gmail.com").count).to eq 1
+
+      expect(Log.count).to eq(3)
+
+      error_log = Log.second
+      expect(error_log.organization_id).to eq(nil)
+      expect(error_log.action).to eq("email_error")
+      expect(error_log.actionable).to eq(newsletter)
+    end
+
   end
 end
