@@ -2,17 +2,17 @@ require 'rails_helper'
 
 feature "Admin newsletter emails" do
 
-  background do
-    admin = create(:user, :admin)
-    login_as(admin)
-  end
+  let!(:default_locale) { I18n.locale }
 
   before do
+    admin = create(:user, :admin)
+    login_as(admin)
+
     I18n.locale = :en
   end
 
   after do
-    I18n.locale = :es
+    I18n.locale = default_locale
   end
 
   scenario "Show" do
