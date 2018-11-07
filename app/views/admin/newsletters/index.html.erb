@@ -25,12 +25,17 @@
           <% end %>
         </td>
         <td>
-          <%= link_to t("backend.newsletters.index.edit"), edit_admin_newsletter_path(newsletter),
-                                                         method: :get, class: "button hollow expanded" %>
-          <%= link_to t("backend.newsletters.index.delete"), admin_newsletter_path(newsletter),
-                                                           method: :delete, class: "button hollow alert expanded" %>
-          <%= link_to t("backend.newsletters.index.preview"), admin_newsletter_path(newsletter),
-                                                            class: "button expanded" %>
+          <%= link_to t("backend.newsletters.index.edit"), 
+                      edit_admin_newsletter_path(newsletter), 
+                      class: "button hollow expanded" %>
+          
+          <%= link_to t("backend.newsletters.index.delete"), 
+                      admin_newsletter_path(newsletter), 
+                      method: :delete, class: "button hollow alert expanded" %>
+          
+          <%= link_to t("backend.newsletters.index.preview"), 
+                      admin_newsletter_path(newsletter), 
+                      class: "button expanded" %>
         </td>
       </tr>
     <% end %>
