@@ -4,7 +4,6 @@
   <%= f.select :interest_id, 
                Interest.all.collect { |interest| [interest.name, interest.id] },
                prompt: t('backend.newsletters.new.select_category') %>
-  </select>
 
   <% if @newsletter.errors.any? %>
     <div class="panel alert-box alert radius">
