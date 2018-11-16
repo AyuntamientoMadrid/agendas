@@ -8,7 +8,11 @@ class Newsletter < ActiveRecord::Base
   def list_of_recipient_emails
     Organization.where(organization_interests: { interest: interest })
     .joins(:organization_interests)
-    .pluck(:email)
+    .pluck(:email) << admin_email
+  end
+
+  def admin_email
+    "registrodelobbies@madrid.es"
   end
 
   def draft?
@@ -35,7 +39,11 @@ class Newsletter < ActiveRecord::Base
     end
 
     def log_delivery(recipient_email, action=:email)
-      organization = Organization.where(email: recipient_email).first
-      Log.activity(organization, action, self)
+      if recipient_email == admin_email
+        Log.activity(nil, "admin_email", self)
+      else
+        organization = Organization.where(email: recipient_email).first
+        Log.activity(organization, action, self)
+      end
     end
 end

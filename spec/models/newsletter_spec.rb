@@ -19,6 +19,11 @@ describe Newsletter do
 
   describe '#list_of_recipient_emails' do
 
+    it 'always includes the group admin email' do
+      recipients = newsletter.list_of_recipient_emails
+      expect(recipients).to eq([newsletter.admin_email])
+    end
+
     it 'returns list of recipients that have a certain interest' do
       culture = create(:interest, name: 'Culture')
       health  = create(:interest, name: 'Health')
@@ -34,15 +39,17 @@ describe Newsletter do
 
       recipients = newsletter.list_of_recipient_emails
 
-      expect(recipients.count).to eq(2)
+      expect(recipients.count).to eq(3)
       expect(recipients).to include(organization1.email)
       expect(recipients).to include(organization2.email)
+      expect(recipients).to include(newsletter.admin_email)
 
       newsletter.update(interest: health)
 
       recipients = newsletter.list_of_recipient_emails
-      expect(recipients.count).to eq(1)
-      expect(recipients).to eq([organization1.email])
+      expect(recipients.count).to eq(2)
+      expect(recipients).to include(organization1.email)
+      expect(recipients).to include(newsletter.admin_email)
     end
 
   end
@@ -64,8 +71,9 @@ describe Newsletter do
 
       expect(emails_sent_to(organization1.email).count).to eq 1
       expect(emails_sent_to(organization2.email).count).to eq 1
-      expect(emails_sent_to(organization3.email).count).to eq 0
-      expect(ActionMailer::Base.deliveries.count).to eq(2)
+      expect(emails_sent_to(organization2.email).count).to eq 1
+      expect(emails_sent_to(newsletter.admin_email).count).to eq 1
+      expect(ActionMailer::Base.deliveries.count).to eq(3)
     end
 
     it "skips invalid emails" do
@@ -89,7 +97,8 @@ describe Newsletter do
 
       expect(emails_sent_to(valid_email).count).to eq 1
       expect(emails_sent_to(invalid_email).count).to eq 0
-      expect(ActionMailer::Base.deliveries.count).to eq(1)
+      expect(emails_sent_to(newsletter.admin_email).count).to eq 1
+      expect(ActionMailer::Base.deliveries.count).to eq(2)
     end
 
     it "stores a log of the users that have received the newsletter" do
@@ -106,7 +115,7 @@ describe Newsletter do
       newsletter = create(:newsletter, interest: interest)
       newsletter.deliver
 
-      expect(Log.count).to eq 2
+      expect(Log.count).to eq 3
 
       organizations = Log.pluck(:organization_id)
       expect(organizations).to include(organization1.id)
@@ -115,6 +124,11 @@ describe Newsletter do
       log = Log.first
       expect(log.organization_id).to eq(organization1.id)
       expect(log.action).to eq("email")
+      expect(log.actionable).to eq(newsletter)
+
+      log = Log.last
+      expect(log.organization_id).to eq(nil)
+      expect(log.action).to eq("admin_email")
       expect(log.actionable).to eq(newsletter)
     end
 
