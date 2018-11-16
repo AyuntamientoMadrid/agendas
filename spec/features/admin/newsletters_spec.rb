@@ -23,6 +23,7 @@ feature "Admin newsletter emails" do
 
     expect(page).to have_content "This is a subject"
     expect(page).to have_content "This is a body"
+    expect(page).to have_content "If you do not wish to continue receiving this type of emails"
   end
 
 

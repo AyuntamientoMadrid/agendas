@@ -70,4 +70,34 @@ describe UserMailer, type: :mailer do
 
   end
 
+  describe "footer" do
+
+    let!(:organization) { create(:organization) }
+    let!(:default_locale) { I18n.locale }
+
+    before do
+      I18n.locale = :en
+    end
+
+    after do
+      I18n.locale = default_locale
+    end
+
+    it "displays city council name for standard user emails", :focus do
+      mail = UserMailer.welcome(organization.user)
+
+      expect(mail.body).to have_content("Madrid City Council #{Date.current.year}")
+      expect(mail.body).to_not have_content("If you do not wish to continue receiving this type of emails")
+    end
+
+    it "displays city council name and instructions to deactivate newsletter for newsletters" do
+      newsletter = create(:newsletter)
+      mail = UserMailer.newsletter(newsletter, organization.email)
+
+      expect(mail.body).to have_content("Madrid City Council #{Date.current.year}")
+      expect(mail.body).to have_content("If you do not wish to continue receiving this type of emails")
+    end
+
+  end
+
 end
