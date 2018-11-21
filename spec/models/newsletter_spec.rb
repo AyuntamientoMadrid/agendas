@@ -121,13 +121,11 @@ describe Newsletter do
       expect(organizations).to include(organization1.id)
       expect(organizations).to include(organization2.id)
 
-      log = Log.first
-      expect(log.organization_id).to eq(organization1.id)
+      log = Log.where(organization_id: organization1.id).first
       expect(log.action).to eq("email")
       expect(log.actionable).to eq(newsletter)
 
-      log = Log.last
-      expect(log.organization_id).to eq(nil)
+      log = Log.where(organization_id: nil).first
       expect(log.action).to eq("admin_email")
       expect(log.actionable).to eq(newsletter)
     end
