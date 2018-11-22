@@ -1,0 +1,31 @@
+<%= form_for [:admin, @newsletter] do |f| %>
+
+  <label><%= t('backend.newsletters.new.category') %></label>
+  <%= f.select :interest_id, 
+               Interest.all.collect { |interest| [interest.name, interest.id] },
+               prompt: t('backend.newsletters.new.select_category') %>
+
+  <% if @newsletter.errors.any? %>
+    <div class="panel alert-box alert radius">
+      <strong>
+        <%= t('activerecord.errors.template.header',
+            :model => Newsletter.model_name.human,
+            :count => @newsletter.errors.count) %></strong>
+      <ul>
+        <% @newsletter.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.label :subject, t('backend.newsletters.new.subject') %>
+  <%= f.text_field :subject %>
+
+  <%= f.label :body, t('backend.newsletters.new.body') %>
+  <%= f.text_area :body, rows: 10 %>
+
+  <div class="margin-top">
+    <%= f.submit class: "button success" %>
+  </div>
+<% end %>

@@ -40,6 +40,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'rollbar', '>= 2.15.5'
 gem 'premailer-rails'
 gem 'whenever', :require => false
+gem 'rinku', '~> 2.0.2'
 
 group :development do
   gem 'better_errors', '~> 2.1.1'

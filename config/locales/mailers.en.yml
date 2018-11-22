@@ -1,6 +1,7 @@
 en:
   mailers:
     footer: "Madrid City Council %{year}"
+    footer_newsletter: "This email has been sent to the contact address of the person or entity registered in the Lobby Register of the City of Madrid, having selected an area of ​​interest to receive notices of this nature and content. If you do not wish to continue receiving this type of emails or wish to modify your areas of interest, you can modify them by accessing your private area of ​​the Lobby Register (section 'Edit interests')"
     welcome_user:
       subject: "Welcome to lobbies registry"
       welcome: "Welcome %{name},"

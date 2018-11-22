@@ -1,6 +1,7 @@
 es:
   mailers:
     footer: "Ayuntamiento de Madrid %{year}"
+    footer_newsletter: "Este correo electrónico se ha remitido a la dirección de contacto de la persona o entidad inscrita en el Registro de Lobbies del Ayuntamiento de Madrid, al haber seleccionado un área de interés para recibir avisos de esta naturaleza y contenido. Si no desea seguir recibiendo este tipo de correos electrónicos o desea modificar sus áreas de interés, puede modificarlas accediendo a su zona privada del Registro de Lobbies (apartado 'Editar intereses')"
     welcome_user:
       subject: "Bienvenido al registro de lobbies"
       welcome: "Bienvenido %{name},"

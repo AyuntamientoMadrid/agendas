@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180106204752) do
+ActiveRecord::Schema.define(version: 20181106194642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,6 +188,18 @@ ActiveRecord::Schema.define(version: 20180106204752) do
 
   add_index "legal_representants", ["organization_id"], name: "index_legal_representants_on_organization_id", using: :btree
 
+  create_table "logs", force: :cascade do |t|
+    t.integer  "organization_id"
+    t.string   "action"
+    t.integer  "actionable_id"
+    t.string   "actionable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "logs", ["actionable_id", "actionable_type"], name: "index_logs_on_actionable_id_and_actionable_type", using: :btree
+  add_index "logs", ["organization_id"], name: "index_logs_on_organization_id", using: :btree
+
   create_table "manages", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "holder_id"
@@ -197,6 +209,17 @@ ActiveRecord::Schema.define(version: 20180106204752) do
 
   add_index "manages", ["holder_id"], name: "index_manages_on_holder_id", using: :btree
   add_index "manages", ["user_id"], name: "index_manages_on_user_id", using: :btree
+
+  create_table "newsletters", force: :cascade do |t|
+    t.string   "subject"
+    t.string   "body"
+    t.datetime "sent_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "interest_id", null: false
+  end
+
+  add_index "newsletters", ["interest_id"], name: "index_newsletters_on_interest_id", using: :btree
 
   create_table "organization_interests", force: :cascade do |t|
     t.integer  "organization_id"
@@ -364,6 +387,7 @@ ActiveRecord::Schema.define(version: 20180106204752) do
   add_foreign_key "legal_representants", "organizations"
   add_foreign_key "manages", "holders"
   add_foreign_key "manages", "users"
+  add_foreign_key "newsletters", "interests"
   add_foreign_key "organization_interests", "interests"
   add_foreign_key "organization_interests", "organizations"
   add_foreign_key "organization_registered_lobbies", "organizations"

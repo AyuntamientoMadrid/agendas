@@ -43,6 +43,13 @@ Rails.application.routes.draw do
     end
     resources :questions
     post 'order_questions', to: 'questions#order', as: 'order_questions'
+
+    resources :newsletters do
+      member do
+        post :deliver
+      end
+      get :users, on: :collection
+    end
   end
 
   resources :positions do

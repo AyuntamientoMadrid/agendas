@@ -1,4 +1,4 @@
-es:
+en:
   backend:
     close: "Cerrar"
     logout: "Salir"
@@ -182,6 +182,46 @@ es:
     cancel_only_accepted: Only can be cancelled accepted events
     invalidated_reasons: invalidation reasons
     not_allowed_empty_reasons: You should give some reasons to inhabilitate the organization
+
+    newsletters:
+      title: Send newsletters
+      create_success: Newsletter created successfully
+      update_success: Newsletter updated successfully
+      send_success: Newsletter sent successfully
+      delete_success: Newsletter deleted successfully
+      index:
+        title: Newsletters
+        new_newsletter: New newsletter
+        subject: Subject
+        segment_recipient: Recipients
+        sent: Sent
+        actions: Actions
+        draft: Draft
+        edit: Edit
+        delete: Delete
+        preview: Preview
+        empty_newsletters: There are no newsletters to show
+      new:
+        title: New newsletter
+        from: E-mail address that will appear as sending the newsletter
+        body: Body
+        category: Category
+        select_category: Select a category
+        subject: Subject
+      edit:
+        title: Edit newsletter
+      show:
+        title: Newsletter preview
+        send: Send
+        affected_users: (%{n} affected users)
+        sent_at: Sent at
+        subject: Subject
+        segment_recipient: Recipients
+        from: E-mail address that will appear as sending the newsletter
+        body: Email content
+        body_help_text: This is how the users will see the email
+        send_alert: Are you sure you want to send this newsletter to %{n} users?
+        category: Category
 
   backend_header:
     open_gov: "Gobierno abierto"
